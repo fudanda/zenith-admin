@@ -23,6 +23,12 @@ type UserGroup struct {
 	Name string `json:"name,omitempty"`
 	// Code holds the value of the "code" field.
 	Code string `json:"code,omitempty"`
+	// Description holds the value of the "description" field.
+	Description *string `json:"description,omitempty"`
+	// OwnerID holds the value of the "owner_id" field.
+	OwnerID *int `json:"owner_id,omitempty"`
+	// MemberMode holds the value of the "member_mode" field.
+	MemberMode string `json:"member_mode,omitempty"`
 	// Status holds the value of the "status" field.
 	Status string `json:"status,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -37,9 +43,9 @@ func (*UserGroup) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case usergroup.FieldID, usergroup.FieldTenantID:
+		case usergroup.FieldID, usergroup.FieldTenantID, usergroup.FieldOwnerID:
 			values[i] = new(sql.NullInt64)
-		case usergroup.FieldName, usergroup.FieldCode, usergroup.FieldStatus:
+		case usergroup.FieldName, usergroup.FieldCode, usergroup.FieldDescription, usergroup.FieldMemberMode, usergroup.FieldStatus:
 			values[i] = new(sql.NullString)
 		case usergroup.FieldCreatedAt, usergroup.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -82,6 +88,26 @@ func (_m *UserGroup) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field code", values[i])
 			} else if value.Valid {
 				_m.Code = value.String
+			}
+		case usergroup.FieldDescription:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description", values[i])
+			} else if value.Valid {
+				_m.Description = new(string)
+				*_m.Description = value.String
+			}
+		case usergroup.FieldOwnerID:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field owner_id", values[i])
+			} else if value.Valid {
+				_m.OwnerID = new(int)
+				*_m.OwnerID = int(value.Int64)
+			}
+		case usergroup.FieldMemberMode:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field member_mode", values[i])
+			} else if value.Valid {
+				_m.MemberMode = value.String
 			}
 		case usergroup.FieldStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -147,6 +173,19 @@ func (_m *UserGroup) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("code=")
 	builder.WriteString(_m.Code)
+	builder.WriteString(", ")
+	if v := _m.Description; v != nil {
+		builder.WriteString("description=")
+		builder.WriteString(*v)
+	}
+	builder.WriteString(", ")
+	if v := _m.OwnerID; v != nil {
+		builder.WriteString("owner_id=")
+		builder.WriteString(fmt.Sprintf("%v", *v))
+	}
+	builder.WriteString(", ")
+	builder.WriteString("member_mode=")
+	builder.WriteString(_m.MemberMode)
 	builder.WriteString(", ")
 	builder.WriteString("status=")
 	builder.WriteString(_m.Status)

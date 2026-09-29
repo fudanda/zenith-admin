@@ -81,6 +81,16 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{Method: "GET", Path: "/api/v1/menus", OperationID: "menusTree", Permission: "system:menu:list", Handler: http.HandlerFunc(f.listMenus)},
 		{Method: "GET", Path: "/api/v1/menus/flat", OperationID: "menusFlat", Permission: "system:menu:list", Handler: http.HandlerFunc(f.listMenus)},
 		{Method: "GET", Path: "/api/v1/menus/{id}", OperationID: "menusDetail", Permission: "system:menu:list", Handler: http.HandlerFunc(f.getMenu)},
+		{Method: "GET", Path: "/api/v1/user-groups", OperationID: "userGroupsList", Permission: "system:user-groups:list", Handler: http.HandlerFunc(f.listGroups)},
+		{Method: "GET", Path: "/api/v1/user-groups/all", OperationID: "userGroupsAll", Permission: "system:user-groups:list", Handler: http.HandlerFunc(f.allGroups)},
+		{Method: "GET", Path: "/api/v1/user-groups/{id}", OperationID: "userGroupsDetail", Permission: "system:user-groups:list", Handler: http.HandlerFunc(f.getGroup)},
+		{Method: "POST", Path: "/api/v1/user-groups", OperationID: "userGroupsCreate", Permission: "system:user-groups:create", Handler: http.HandlerFunc(f.saveGroup)},
+		{Method: "PUT", Path: "/api/v1/user-groups/{id}", OperationID: "userGroupsUpdate", Permission: "system:user-groups:update", Handler: http.HandlerFunc(f.saveGroup)},
+		{Method: "DELETE", Path: "/api/v1/user-groups/{id}", OperationID: "userGroupsRemove", Permission: "system:user-groups:delete", Handler: http.HandlerFunc(f.deleteGroup)},
+		{Method: "GET", Path: "/api/v1/user-groups/{id}/members", OperationID: "userGroupsMembers", Permission: "system:user-groups:list", Handler: http.HandlerFunc(f.groupMembers)},
+		{Method: "PUT", Path: "/api/v1/user-groups/{id}/members", OperationID: "userGroupsSetMembers", Permission: "system:user-groups:assign", Handler: http.HandlerFunc(f.setGroupMembers)},
+		{Method: "GET", Path: "/api/v1/user-groups/{id}/roles", OperationID: "userGroupsRoles", Permission: "system:user-groups:list", Handler: http.HandlerFunc(f.groupRoles)},
+		{Method: "PUT", Path: "/api/v1/user-groups/{id}/roles", OperationID: "userGroupsSetRoles", Permission: "system:user-groups:assign", Handler: http.HandlerFunc(f.setGroupRoles)},
 	}
 	for _, route := range routes {
 		if err := r.Register(route); err != nil {

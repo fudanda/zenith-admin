@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -31,6 +32,20 @@ func (_c *UserGroupMemberCreate) SetUserID(v int) *UserGroupMemberCreate {
 	return _c
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (_c *UserGroupMemberCreate) SetCreatedAt(v time.Time) *UserGroupMemberCreate {
+	_c.mutation.SetCreatedAt(v)
+	return _c
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (_c *UserGroupMemberCreate) SetNillableCreatedAt(v *time.Time) *UserGroupMemberCreate {
+	if v != nil {
+		_c.SetCreatedAt(*v)
+	}
+	return _c
+}
+
 // Mutation returns the UserGroupMemberMutation object of the builder.
 func (_c *UserGroupMemberCreate) Mutation() *UserGroupMemberMutation {
 	return _c.mutation
@@ -38,6 +53,7 @@ func (_c *UserGroupMemberCreate) Mutation() *UserGroupMemberMutation {
 
 // Save creates the UserGroupMember in the database.
 func (_c *UserGroupMemberCreate) Save(ctx context.Context) (*UserGroupMember, error) {
+	_c.defaults()
 	return withHooks(ctx, _c.sqlSave, _c.mutation, _c.hooks)
 }
 
@@ -63,6 +79,14 @@ func (_c *UserGroupMemberCreate) ExecX(ctx context.Context) {
 	}
 }
 
+// defaults sets the default values of the builder before save.
+func (_c *UserGroupMemberCreate) defaults() {
+	if _, ok := _c.mutation.CreatedAt(); !ok {
+		v := usergroupmember.DefaultCreatedAt()
+		_c.mutation.SetCreatedAt(v)
+	}
+}
+
 // check runs all checks and user-defined validators on the builder.
 func (_c *UserGroupMemberCreate) check() error {
 	if _, ok := _c.mutation.GroupID(); !ok {
@@ -70,6 +94,9 @@ func (_c *UserGroupMemberCreate) check() error {
 	}
 	if _, ok := _c.mutation.UserID(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`ent: missing required field "UserGroupMember.user_id"`)}
+	}
+	if _, ok := _c.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "UserGroupMember.created_at"`)}
 	}
 	return nil
 }
@@ -105,6 +132,10 @@ func (_c *UserGroupMemberCreate) createSpec() (*UserGroupMember, *sqlgraph.Creat
 		_spec.SetField(usergroupmember.FieldUserID, field.TypeInt, value)
 		_node.UserID = value
 	}
+	if value, ok := _c.mutation.CreatedAt(); ok {
+		_spec.SetField(usergroupmember.FieldCreatedAt, field.TypeTime, value)
+		_node.CreatedAt = value
+	}
 	return _node, _spec
 }
 
@@ -126,6 +157,7 @@ func (_c *UserGroupMemberCreateBulk) Save(ctx context.Context) ([]*UserGroupMemb
 	for i := range _c.builders {
 		func(i int, root context.Context) {
 			builder := _c.builders[i]
+			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*UserGroupMemberMutation)
 				if !ok {

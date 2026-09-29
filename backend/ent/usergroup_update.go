@@ -83,6 +83,67 @@ func (_u *UserGroupUpdate) SetNillableCode(v *string) *UserGroupUpdate {
 	return _u
 }
 
+// SetDescription sets the "description" field.
+func (_u *UserGroupUpdate) SetDescription(v string) *UserGroupUpdate {
+	_u.mutation.SetDescription(v)
+	return _u
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (_u *UserGroupUpdate) SetNillableDescription(v *string) *UserGroupUpdate {
+	if v != nil {
+		_u.SetDescription(*v)
+	}
+	return _u
+}
+
+// ClearDescription clears the value of the "description" field.
+func (_u *UserGroupUpdate) ClearDescription() *UserGroupUpdate {
+	_u.mutation.ClearDescription()
+	return _u
+}
+
+// SetOwnerID sets the "owner_id" field.
+func (_u *UserGroupUpdate) SetOwnerID(v int) *UserGroupUpdate {
+	_u.mutation.ResetOwnerID()
+	_u.mutation.SetOwnerID(v)
+	return _u
+}
+
+// SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
+func (_u *UserGroupUpdate) SetNillableOwnerID(v *int) *UserGroupUpdate {
+	if v != nil {
+		_u.SetOwnerID(*v)
+	}
+	return _u
+}
+
+// AddOwnerID adds value to the "owner_id" field.
+func (_u *UserGroupUpdate) AddOwnerID(v int) *UserGroupUpdate {
+	_u.mutation.AddOwnerID(v)
+	return _u
+}
+
+// ClearOwnerID clears the value of the "owner_id" field.
+func (_u *UserGroupUpdate) ClearOwnerID() *UserGroupUpdate {
+	_u.mutation.ClearOwnerID()
+	return _u
+}
+
+// SetMemberMode sets the "member_mode" field.
+func (_u *UserGroupUpdate) SetMemberMode(v string) *UserGroupUpdate {
+	_u.mutation.SetMemberMode(v)
+	return _u
+}
+
+// SetNillableMemberMode sets the "member_mode" field if the given value is not nil.
+func (_u *UserGroupUpdate) SetNillableMemberMode(v *string) *UserGroupUpdate {
+	if v != nil {
+		_u.SetMemberMode(*v)
+	}
+	return _u
+}
+
 // SetStatus sets the "status" field.
 func (_u *UserGroupUpdate) SetStatus(v string) *UserGroupUpdate {
 	_u.mutation.SetStatus(v)
@@ -182,6 +243,24 @@ func (_u *UserGroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Code(); ok {
 		_spec.SetField(usergroup.FieldCode, field.TypeString, value)
 	}
+	if value, ok := _u.mutation.Description(); ok {
+		_spec.SetField(usergroup.FieldDescription, field.TypeString, value)
+	}
+	if _u.mutation.DescriptionCleared() {
+		_spec.ClearField(usergroup.FieldDescription, field.TypeString)
+	}
+	if value, ok := _u.mutation.OwnerID(); ok {
+		_spec.SetField(usergroup.FieldOwnerID, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedOwnerID(); ok {
+		_spec.AddField(usergroup.FieldOwnerID, field.TypeInt, value)
+	}
+	if _u.mutation.OwnerIDCleared() {
+		_spec.ClearField(usergroup.FieldOwnerID, field.TypeInt)
+	}
+	if value, ok := _u.mutation.MemberMode(); ok {
+		_spec.SetField(usergroup.FieldMemberMode, field.TypeString, value)
+	}
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(usergroup.FieldStatus, field.TypeString, value)
 	}
@@ -262,6 +341,67 @@ func (_u *UserGroupUpdateOne) SetCode(v string) *UserGroupUpdateOne {
 func (_u *UserGroupUpdateOne) SetNillableCode(v *string) *UserGroupUpdateOne {
 	if v != nil {
 		_u.SetCode(*v)
+	}
+	return _u
+}
+
+// SetDescription sets the "description" field.
+func (_u *UserGroupUpdateOne) SetDescription(v string) *UserGroupUpdateOne {
+	_u.mutation.SetDescription(v)
+	return _u
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (_u *UserGroupUpdateOne) SetNillableDescription(v *string) *UserGroupUpdateOne {
+	if v != nil {
+		_u.SetDescription(*v)
+	}
+	return _u
+}
+
+// ClearDescription clears the value of the "description" field.
+func (_u *UserGroupUpdateOne) ClearDescription() *UserGroupUpdateOne {
+	_u.mutation.ClearDescription()
+	return _u
+}
+
+// SetOwnerID sets the "owner_id" field.
+func (_u *UserGroupUpdateOne) SetOwnerID(v int) *UserGroupUpdateOne {
+	_u.mutation.ResetOwnerID()
+	_u.mutation.SetOwnerID(v)
+	return _u
+}
+
+// SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
+func (_u *UserGroupUpdateOne) SetNillableOwnerID(v *int) *UserGroupUpdateOne {
+	if v != nil {
+		_u.SetOwnerID(*v)
+	}
+	return _u
+}
+
+// AddOwnerID adds value to the "owner_id" field.
+func (_u *UserGroupUpdateOne) AddOwnerID(v int) *UserGroupUpdateOne {
+	_u.mutation.AddOwnerID(v)
+	return _u
+}
+
+// ClearOwnerID clears the value of the "owner_id" field.
+func (_u *UserGroupUpdateOne) ClearOwnerID() *UserGroupUpdateOne {
+	_u.mutation.ClearOwnerID()
+	return _u
+}
+
+// SetMemberMode sets the "member_mode" field.
+func (_u *UserGroupUpdateOne) SetMemberMode(v string) *UserGroupUpdateOne {
+	_u.mutation.SetMemberMode(v)
+	return _u
+}
+
+// SetNillableMemberMode sets the "member_mode" field if the given value is not nil.
+func (_u *UserGroupUpdateOne) SetNillableMemberMode(v *string) *UserGroupUpdateOne {
+	if v != nil {
+		_u.SetMemberMode(*v)
 	}
 	return _u
 }
@@ -394,6 +534,24 @@ func (_u *UserGroupUpdateOne) sqlSave(ctx context.Context) (_node *UserGroup, er
 	}
 	if value, ok := _u.mutation.Code(); ok {
 		_spec.SetField(usergroup.FieldCode, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Description(); ok {
+		_spec.SetField(usergroup.FieldDescription, field.TypeString, value)
+	}
+	if _u.mutation.DescriptionCleared() {
+		_spec.ClearField(usergroup.FieldDescription, field.TypeString)
+	}
+	if value, ok := _u.mutation.OwnerID(); ok {
+		_spec.SetField(usergroup.FieldOwnerID, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedOwnerID(); ok {
+		_spec.AddField(usergroup.FieldOwnerID, field.TypeInt, value)
+	}
+	if _u.mutation.OwnerIDCleared() {
+		_spec.ClearField(usergroup.FieldOwnerID, field.TypeInt)
+	}
+	if value, ok := _u.mutation.MemberMode(); ok {
+		_spec.SetField(usergroup.FieldMemberMode, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(usergroup.FieldStatus, field.TypeString, value)

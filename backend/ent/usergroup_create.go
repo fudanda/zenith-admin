@@ -46,6 +46,48 @@ func (_c *UserGroupCreate) SetCode(v string) *UserGroupCreate {
 	return _c
 }
 
+// SetDescription sets the "description" field.
+func (_c *UserGroupCreate) SetDescription(v string) *UserGroupCreate {
+	_c.mutation.SetDescription(v)
+	return _c
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (_c *UserGroupCreate) SetNillableDescription(v *string) *UserGroupCreate {
+	if v != nil {
+		_c.SetDescription(*v)
+	}
+	return _c
+}
+
+// SetOwnerID sets the "owner_id" field.
+func (_c *UserGroupCreate) SetOwnerID(v int) *UserGroupCreate {
+	_c.mutation.SetOwnerID(v)
+	return _c
+}
+
+// SetNillableOwnerID sets the "owner_id" field if the given value is not nil.
+func (_c *UserGroupCreate) SetNillableOwnerID(v *int) *UserGroupCreate {
+	if v != nil {
+		_c.SetOwnerID(*v)
+	}
+	return _c
+}
+
+// SetMemberMode sets the "member_mode" field.
+func (_c *UserGroupCreate) SetMemberMode(v string) *UserGroupCreate {
+	_c.mutation.SetMemberMode(v)
+	return _c
+}
+
+// SetNillableMemberMode sets the "member_mode" field if the given value is not nil.
+func (_c *UserGroupCreate) SetNillableMemberMode(v *string) *UserGroupCreate {
+	if v != nil {
+		_c.SetMemberMode(*v)
+	}
+	return _c
+}
+
 // SetStatus sets the "status" field.
 func (_c *UserGroupCreate) SetStatus(v string) *UserGroupCreate {
 	_c.mutation.SetStatus(v)
@@ -123,6 +165,10 @@ func (_c *UserGroupCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *UserGroupCreate) defaults() {
+	if _, ok := _c.mutation.MemberMode(); !ok {
+		v := usergroup.DefaultMemberMode
+		_c.mutation.SetMemberMode(v)
+	}
 	if _, ok := _c.mutation.Status(); !ok {
 		v := usergroup.DefaultStatus
 		_c.mutation.SetStatus(v)
@@ -144,6 +190,9 @@ func (_c *UserGroupCreate) check() error {
 	}
 	if _, ok := _c.mutation.Code(); !ok {
 		return &ValidationError{Name: "code", err: errors.New(`ent: missing required field "UserGroup.code"`)}
+	}
+	if _, ok := _c.mutation.MemberMode(); !ok {
+		return &ValidationError{Name: "member_mode", err: errors.New(`ent: missing required field "UserGroup.member_mode"`)}
 	}
 	if _, ok := _c.mutation.Status(); !ok {
 		return &ValidationError{Name: "status", err: errors.New(`ent: missing required field "UserGroup.status"`)}
@@ -191,6 +240,18 @@ func (_c *UserGroupCreate) createSpec() (*UserGroup, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.Code(); ok {
 		_spec.SetField(usergroup.FieldCode, field.TypeString, value)
 		_node.Code = value
+	}
+	if value, ok := _c.mutation.Description(); ok {
+		_spec.SetField(usergroup.FieldDescription, field.TypeString, value)
+		_node.Description = &value
+	}
+	if value, ok := _c.mutation.OwnerID(); ok {
+		_spec.SetField(usergroup.FieldOwnerID, field.TypeInt, value)
+		_node.OwnerID = &value
+	}
+	if value, ok := _c.mutation.MemberMode(); ok {
+		_spec.SetField(usergroup.FieldMemberMode, field.TypeString, value)
+		_node.MemberMode = value
 	}
 	if value, ok := _c.mutation.Status(); ok {
 		_spec.SetField(usergroup.FieldStatus, field.TypeString, value)

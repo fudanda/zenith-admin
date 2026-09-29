@@ -14,6 +14,7 @@ var foundationMenus = []foundationMenu{
 	{Name: "departments", Title: "部门管理", Type: "menu", Path: "/system/departments", Permission: "system:department:list", Sort: 110},
 	{Name: "users", Title: "账号管理", Type: "menu", Path: "/system/users", Permission: "system:user:list", Sort: 120},
 	{Name: "roles", Title: "角色管理", Type: "menu", Path: "/system/roles", Permission: "system:role:list", Sort: 130},
+	{Name: "user_groups", Title: "用户组管理", Type: "menu", Path: "/system/user-groups", Permission: "system:user-groups:list", Sort: 140},
 	{Name: "login_logs", Title: "登录日志", Type: "menu", Path: "/system/login-logs", Permission: "system:log:login", Sort: 180},
 	{Name: "operation_logs", Title: "操作审计", Type: "menu", Path: "/system/operation-logs", Permission: "system:log:operation", Sort: 190},
 	{Name: "tenants", Title: "租户管理", Type: "menu", Path: "/system/tenants", Sort: 200},
@@ -33,4 +34,8 @@ var foundationMenus = []foundationMenu{
 	{Name: "role_delete", Title: "删除角色", Type: "button", Permission: "system:role:delete", Sort: 333},
 	{Name: "role_assign", Title: "分配角色权限", Type: "button", Permission: "system:role:assign", Sort: 334},
 	{Name: "menu_list", Title: "查看权限目录", Type: "button", Permission: "system:menu:list", Sort: 341},
+	{Name: "user_groups_create", Title: "新增用户组", Type: "button", Permission: "system:user-groups:create", Sort: 351},
+	{Name: "user_groups_update", Title: "修改用户组", Type: "button", Permission: "system:user-groups:update", Sort: 352},
+	{Name: "user_groups_delete", Title: "删除用户组", Type: "button", Permission: "system:user-groups:delete", Sort: 353},
+	{Name: "user_groups_assign", Title: "分配用户组成员和角色", Type: "button", Permission: "system:user-groups:assign", Sort: 354},
 }

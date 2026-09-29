@@ -19,6 +19,12 @@ const (
 	FieldName = "name"
 	// FieldCode holds the string denoting the code field in the database.
 	FieldCode = "code"
+	// FieldDescription holds the string denoting the description field in the database.
+	FieldDescription = "description"
+	// FieldOwnerID holds the string denoting the owner_id field in the database.
+	FieldOwnerID = "owner_id"
+	// FieldMemberMode holds the string denoting the member_mode field in the database.
+	FieldMemberMode = "member_mode"
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -35,6 +41,9 @@ var Columns = []string{
 	FieldTenantID,
 	FieldName,
 	FieldCode,
+	FieldDescription,
+	FieldOwnerID,
+	FieldMemberMode,
 	FieldStatus,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -51,6 +60,8 @@ func ValidColumn(column string) bool {
 }
 
 var (
+	// DefaultMemberMode holds the default value on creation for the "member_mode" field.
+	DefaultMemberMode string
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus string
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
@@ -82,6 +93,21 @@ func ByName(opts ...sql.OrderTermOption) OrderOption {
 // ByCode orders the results by the code field.
 func ByCode(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCode, opts...).ToFunc()
+}
+
+// ByDescription orders the results by the description field.
+func ByDescription(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescription, opts...).ToFunc()
+}
+
+// ByOwnerID orders the results by the owner_id field.
+func ByOwnerID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOwnerID, opts...).ToFunc()
+}
+
+// ByMemberMode orders the results by the member_mode field.
+func ByMemberMode(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldMemberMode, opts...).ToFunc()
 }
 
 // ByStatus orders the results by the status field.

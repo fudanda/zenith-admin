@@ -8,3 +8,4 @@ export { LoginLogsPage, OperationLogsPage } from './logs';
 export { DepartmentsPage } from './departments';
 export { UsersPage } from './users';
 export { RolesPage } from './roles';
+export { UserGroupsPage } from './user-groups';

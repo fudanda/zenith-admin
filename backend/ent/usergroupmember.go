@@ -5,6 +5,7 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
@@ -19,7 +20,9 @@ type UserGroupMember struct {
 	// GroupID holds the value of the "group_id" field.
 	GroupID int `json:"group_id,omitempty"`
 	// UserID holds the value of the "user_id" field.
-	UserID       int `json:"user_id,omitempty"`
+	UserID int `json:"user_id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt    time.Time `json:"created_at,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -30,6 +33,8 @@ func (*UserGroupMember) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case usergroupmember.FieldID, usergroupmember.FieldGroupID, usergroupmember.FieldUserID:
 			values[i] = new(sql.NullInt64)
+		case usergroupmember.FieldCreatedAt:
+			values[i] = new(sql.NullTime)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -62,6 +67,12 @@ func (_m *UserGroupMember) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field user_id", values[i])
 			} else if value.Valid {
 				_m.UserID = int(value.Int64)
+			}
+		case usergroupmember.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				_m.CreatedAt = value.Time
 			}
 		default:
 			_m.selectValues.Set(columns[i], values[i])
@@ -104,6 +115,9 @@ func (_m *UserGroupMember) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("user_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.UserID))
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }

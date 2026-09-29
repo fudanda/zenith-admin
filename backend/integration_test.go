@@ -248,6 +248,37 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if allList.Code != 200 || int(read(allList)["total"].(float64)) != 2 {
 		t.Fatalf("direct data scope not immediate: %d %s", allList.Code, allList.Body.String())
 	}
+	removeDirectList := call("PUT", fmt.Sprintf("/api/v1/users/%d/menus", memberID), map[string]any{"menuIds": []int{userListMenuID}}, cookie, csrf)
+	if removeDirectList.Code != 200 {
+		t.Fatalf("remove direct list: %d %s", removeDirectList.Code, removeDirectList.Body.String())
+	}
+	if denied := call("GET", "/api/v1/positions", nil, memberCookie, ""); denied.Code != 403 {
+		t.Fatalf("direct grant revocation delayed: %d", denied.Code)
+	}
+	groupRole := call("POST", "/api/v1/roles", map[string]any{"name": "用户组岗位角色", "code": "group_position_role", "status": "enabled", "dataScope": "self"}, cookie, csrf)
+	if groupRole.Code != 200 {
+		t.Fatalf("create group role: %d %s", groupRole.Code, groupRole.Body.String())
+	}
+	groupRoleID := int(read(groupRole)["id"].(float64))
+	groupGrant := call("PUT", fmt.Sprintf("/api/v1/roles/%d/menus", groupRoleID), map[string]any{"menuIds": []int{listMenuID}}, cookie, csrf)
+	if groupGrant.Code != 200 {
+		t.Fatalf("grant group role: %d %s", groupGrant.Code, groupGrant.Body.String())
+	}
+	group := call("POST", "/api/v1/user-groups", map[string]any{"name": "岗位用户组", "code": "position_group", "status": "enabled", "memberMode": "static", "roleIds": []int{groupRoleID}, "userIds": []int{memberID}}, cookie, csrf)
+	if group.Code != 200 {
+		t.Fatalf("create user group: %d %s", group.Code, group.Body.String())
+	}
+	groupID := int(read(group)["id"].(float64))
+	if allowed := call("GET", "/api/v1/positions", nil, memberCookie, ""); allowed.Code != 200 {
+		t.Fatalf("group role not inherited: %d %s", allowed.Code, allowed.Body.String())
+	}
+	disabledGroup := call("PUT", fmt.Sprintf("/api/v1/user-groups/%d", groupID), map[string]any{"status": "disabled"}, cookie, csrf)
+	if disabledGroup.Code != 200 {
+		t.Fatalf("disable group: %d %s", disabledGroup.Code, disabledGroup.Body.String())
+	}
+	if denied := call("GET", "/api/v1/positions", nil, memberCookie, ""); denied.Code != 403 {
+		t.Fatalf("disabled group still authorizes: %d", denied.Code)
+	}
 	logout := call("POST", "/api/v1/auth/logout", map[string]any{}, cookie, csrf)
 	if logout.Code != 200 {
 		t.Fatalf("logout: %d %s", logout.Code, logout.Body.String())

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -69,6 +70,20 @@ func (_u *UserGroupMemberUpdate) AddUserID(v int) *UserGroupMemberUpdate {
 	return _u
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (_u *UserGroupMemberUpdate) SetCreatedAt(v time.Time) *UserGroupMemberUpdate {
+	_u.mutation.SetCreatedAt(v)
+	return _u
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (_u *UserGroupMemberUpdate) SetNillableCreatedAt(v *time.Time) *UserGroupMemberUpdate {
+	if v != nil {
+		_u.SetCreatedAt(*v)
+	}
+	return _u
+}
+
 // Mutation returns the UserGroupMemberMutation object of the builder.
 func (_u *UserGroupMemberUpdate) Mutation() *UserGroupMemberMutation {
 	return _u.mutation
@@ -121,6 +136,9 @@ func (_u *UserGroupMemberUpdate) sqlSave(ctx context.Context) (_node int, err er
 	}
 	if value, ok := _u.mutation.AddedUserID(); ok {
 		_spec.AddField(usergroupmember.FieldUserID, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.CreatedAt(); ok {
+		_spec.SetField(usergroupmember.FieldCreatedAt, field.TypeTime, value)
 	}
 	if _node, err = sqlgraph.UpdateNodes(ctx, _u.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -181,6 +199,20 @@ func (_u *UserGroupMemberUpdateOne) SetNillableUserID(v *int) *UserGroupMemberUp
 // AddUserID adds value to the "user_id" field.
 func (_u *UserGroupMemberUpdateOne) AddUserID(v int) *UserGroupMemberUpdateOne {
 	_u.mutation.AddUserID(v)
+	return _u
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (_u *UserGroupMemberUpdateOne) SetCreatedAt(v time.Time) *UserGroupMemberUpdateOne {
+	_u.mutation.SetCreatedAt(v)
+	return _u
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (_u *UserGroupMemberUpdateOne) SetNillableCreatedAt(v *time.Time) *UserGroupMemberUpdateOne {
+	if v != nil {
+		_u.SetCreatedAt(*v)
+	}
 	return _u
 }
 
@@ -266,6 +298,9 @@ func (_u *UserGroupMemberUpdateOne) sqlSave(ctx context.Context) (_node *UserGro
 	}
 	if value, ok := _u.mutation.AddedUserID(); ok {
 		_spec.AddField(usergroupmember.FieldUserID, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.CreatedAt(); ok {
+		_spec.SetField(usergroupmember.FieldCreatedAt, field.TypeTime, value)
 	}
 	_node = &UserGroupMember{config: _u.config}
 	_spec.Assign = _node.assignValues

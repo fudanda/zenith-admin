@@ -237,6 +237,7 @@ type UserGroup struct{ ent.Schema }
 
 func (UserGroup) Fields() []ent.Field {
 	return []ent.Field{field.Int("tenant_id").Optional().Nillable(), field.String("name"), field.String("code"),
+		field.String("description").Optional().Nillable(), field.Int("owner_id").Optional().Nillable(), field.String("member_mode").Default("static"),
 		field.String("status").Default("enabled"), field.Time("created_at").Default(time.Now),
 		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now)}
 }
@@ -247,7 +248,7 @@ func (UserGroup) Indexes() []ent.Index {
 type UserGroupMember struct{ ent.Schema }
 
 func (UserGroupMember) Fields() []ent.Field {
-	return []ent.Field{field.Int("group_id"), field.Int("user_id")}
+	return []ent.Field{field.Int("group_id"), field.Int("user_id"), field.Time("created_at").Default(time.Now)}
 }
 func (UserGroupMember) Indexes() []ent.Index {
 	return []ent.Index{index.Fields("group_id", "user_id").Unique()}

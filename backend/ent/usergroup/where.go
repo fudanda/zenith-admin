@@ -69,6 +69,21 @@ func Code(v string) predicate.UserGroup {
 	return predicate.UserGroup(sql.FieldEQ(FieldCode, v))
 }
 
+// Description applies equality check predicate on the "description" field. It's identical to DescriptionEQ.
+func Description(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEQ(FieldDescription, v))
+}
+
+// OwnerID applies equality check predicate on the "owner_id" field. It's identical to OwnerIDEQ.
+func OwnerID(v int) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEQ(FieldOwnerID, v))
+}
+
+// MemberMode applies equality check predicate on the "member_mode" field. It's identical to MemberModeEQ.
+func MemberMode(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEQ(FieldMemberMode, v))
+}
+
 // Status applies equality check predicate on the "status" field. It's identical to StatusEQ.
 func Status(v string) predicate.UserGroup {
 	return predicate.UserGroup(sql.FieldEQ(FieldStatus, v))
@@ -262,6 +277,196 @@ func CodeEqualFold(v string) predicate.UserGroup {
 // CodeContainsFold applies the ContainsFold predicate on the "code" field.
 func CodeContainsFold(v string) predicate.UserGroup {
 	return predicate.UserGroup(sql.FieldContainsFold(FieldCode, v))
+}
+
+// DescriptionEQ applies the EQ predicate on the "description" field.
+func DescriptionEQ(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEQ(FieldDescription, v))
+}
+
+// DescriptionNEQ applies the NEQ predicate on the "description" field.
+func DescriptionNEQ(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNEQ(FieldDescription, v))
+}
+
+// DescriptionIn applies the In predicate on the "description" field.
+func DescriptionIn(vs ...string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldIn(FieldDescription, vs...))
+}
+
+// DescriptionNotIn applies the NotIn predicate on the "description" field.
+func DescriptionNotIn(vs ...string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNotIn(FieldDescription, vs...))
+}
+
+// DescriptionGT applies the GT predicate on the "description" field.
+func DescriptionGT(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldGT(FieldDescription, v))
+}
+
+// DescriptionGTE applies the GTE predicate on the "description" field.
+func DescriptionGTE(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldGTE(FieldDescription, v))
+}
+
+// DescriptionLT applies the LT predicate on the "description" field.
+func DescriptionLT(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldLT(FieldDescription, v))
+}
+
+// DescriptionLTE applies the LTE predicate on the "description" field.
+func DescriptionLTE(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldLTE(FieldDescription, v))
+}
+
+// DescriptionContains applies the Contains predicate on the "description" field.
+func DescriptionContains(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldContains(FieldDescription, v))
+}
+
+// DescriptionHasPrefix applies the HasPrefix predicate on the "description" field.
+func DescriptionHasPrefix(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldHasPrefix(FieldDescription, v))
+}
+
+// DescriptionHasSuffix applies the HasSuffix predicate on the "description" field.
+func DescriptionHasSuffix(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldHasSuffix(FieldDescription, v))
+}
+
+// DescriptionIsNil applies the IsNil predicate on the "description" field.
+func DescriptionIsNil() predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldIsNull(FieldDescription))
+}
+
+// DescriptionNotNil applies the NotNil predicate on the "description" field.
+func DescriptionNotNil() predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNotNull(FieldDescription))
+}
+
+// DescriptionEqualFold applies the EqualFold predicate on the "description" field.
+func DescriptionEqualFold(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEqualFold(FieldDescription, v))
+}
+
+// DescriptionContainsFold applies the ContainsFold predicate on the "description" field.
+func DescriptionContainsFold(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldContainsFold(FieldDescription, v))
+}
+
+// OwnerIDEQ applies the EQ predicate on the "owner_id" field.
+func OwnerIDEQ(v int) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEQ(FieldOwnerID, v))
+}
+
+// OwnerIDNEQ applies the NEQ predicate on the "owner_id" field.
+func OwnerIDNEQ(v int) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNEQ(FieldOwnerID, v))
+}
+
+// OwnerIDIn applies the In predicate on the "owner_id" field.
+func OwnerIDIn(vs ...int) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldIn(FieldOwnerID, vs...))
+}
+
+// OwnerIDNotIn applies the NotIn predicate on the "owner_id" field.
+func OwnerIDNotIn(vs ...int) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNotIn(FieldOwnerID, vs...))
+}
+
+// OwnerIDGT applies the GT predicate on the "owner_id" field.
+func OwnerIDGT(v int) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldGT(FieldOwnerID, v))
+}
+
+// OwnerIDGTE applies the GTE predicate on the "owner_id" field.
+func OwnerIDGTE(v int) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldGTE(FieldOwnerID, v))
+}
+
+// OwnerIDLT applies the LT predicate on the "owner_id" field.
+func OwnerIDLT(v int) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldLT(FieldOwnerID, v))
+}
+
+// OwnerIDLTE applies the LTE predicate on the "owner_id" field.
+func OwnerIDLTE(v int) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldLTE(FieldOwnerID, v))
+}
+
+// OwnerIDIsNil applies the IsNil predicate on the "owner_id" field.
+func OwnerIDIsNil() predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldIsNull(FieldOwnerID))
+}
+
+// OwnerIDNotNil applies the NotNil predicate on the "owner_id" field.
+func OwnerIDNotNil() predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNotNull(FieldOwnerID))
+}
+
+// MemberModeEQ applies the EQ predicate on the "member_mode" field.
+func MemberModeEQ(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEQ(FieldMemberMode, v))
+}
+
+// MemberModeNEQ applies the NEQ predicate on the "member_mode" field.
+func MemberModeNEQ(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNEQ(FieldMemberMode, v))
+}
+
+// MemberModeIn applies the In predicate on the "member_mode" field.
+func MemberModeIn(vs ...string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldIn(FieldMemberMode, vs...))
+}
+
+// MemberModeNotIn applies the NotIn predicate on the "member_mode" field.
+func MemberModeNotIn(vs ...string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNotIn(FieldMemberMode, vs...))
+}
+
+// MemberModeGT applies the GT predicate on the "member_mode" field.
+func MemberModeGT(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldGT(FieldMemberMode, v))
+}
+
+// MemberModeGTE applies the GTE predicate on the "member_mode" field.
+func MemberModeGTE(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldGTE(FieldMemberMode, v))
+}
+
+// MemberModeLT applies the LT predicate on the "member_mode" field.
+func MemberModeLT(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldLT(FieldMemberMode, v))
+}
+
+// MemberModeLTE applies the LTE predicate on the "member_mode" field.
+func MemberModeLTE(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldLTE(FieldMemberMode, v))
+}
+
+// MemberModeContains applies the Contains predicate on the "member_mode" field.
+func MemberModeContains(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldContains(FieldMemberMode, v))
+}
+
+// MemberModeHasPrefix applies the HasPrefix predicate on the "member_mode" field.
+func MemberModeHasPrefix(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldHasPrefix(FieldMemberMode, v))
+}
+
+// MemberModeHasSuffix applies the HasSuffix predicate on the "member_mode" field.
+func MemberModeHasSuffix(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldHasSuffix(FieldMemberMode, v))
+}
+
+// MemberModeEqualFold applies the EqualFold predicate on the "member_mode" field.
+func MemberModeEqualFold(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEqualFold(FieldMemberMode, v))
+}
+
+// MemberModeContainsFold applies the ContainsFold predicate on the "member_mode" field.
+func MemberModeContainsFold(v string) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldContainsFold(FieldMemberMode, v))
 }
 
 // StatusEQ applies the EQ predicate on the "status" field.

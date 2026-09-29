@@ -19,6 +19,7 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackage"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroup"
+	"github.com/fudanda/zenith-admin/backend/ent/usergroupmember"
 	"github.com/fudanda/zenith-admin/backend/ent/userposition"
 )
 
@@ -264,20 +265,30 @@ func init() {
 	user.UpdateDefaultUpdatedAt = userDescUpdatedAt.UpdateDefault.(func() time.Time)
 	usergroupFields := schema.UserGroup{}.Fields()
 	_ = usergroupFields
+	// usergroupDescMemberMode is the schema descriptor for member_mode field.
+	usergroupDescMemberMode := usergroupFields[5].Descriptor()
+	// usergroup.DefaultMemberMode holds the default value on creation for the member_mode field.
+	usergroup.DefaultMemberMode = usergroupDescMemberMode.Default.(string)
 	// usergroupDescStatus is the schema descriptor for status field.
-	usergroupDescStatus := usergroupFields[3].Descriptor()
+	usergroupDescStatus := usergroupFields[6].Descriptor()
 	// usergroup.DefaultStatus holds the default value on creation for the status field.
 	usergroup.DefaultStatus = usergroupDescStatus.Default.(string)
 	// usergroupDescCreatedAt is the schema descriptor for created_at field.
-	usergroupDescCreatedAt := usergroupFields[4].Descriptor()
+	usergroupDescCreatedAt := usergroupFields[7].Descriptor()
 	// usergroup.DefaultCreatedAt holds the default value on creation for the created_at field.
 	usergroup.DefaultCreatedAt = usergroupDescCreatedAt.Default.(func() time.Time)
 	// usergroupDescUpdatedAt is the schema descriptor for updated_at field.
-	usergroupDescUpdatedAt := usergroupFields[5].Descriptor()
+	usergroupDescUpdatedAt := usergroupFields[8].Descriptor()
 	// usergroup.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	usergroup.DefaultUpdatedAt = usergroupDescUpdatedAt.Default.(func() time.Time)
 	// usergroup.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	usergroup.UpdateDefaultUpdatedAt = usergroupDescUpdatedAt.UpdateDefault.(func() time.Time)
+	usergroupmemberFields := schema.UserGroupMember{}.Fields()
+	_ = usergroupmemberFields
+	// usergroupmemberDescCreatedAt is the schema descriptor for created_at field.
+	usergroupmemberDescCreatedAt := usergroupmemberFields[2].Descriptor()
+	// usergroupmember.DefaultCreatedAt holds the default value on creation for the created_at field.
+	usergroupmember.DefaultCreatedAt = usergroupmemberDescCreatedAt.Default.(func() time.Time)
 	userpositionFields := schema.UserPosition{}.Fields()
 	_ = userpositionFields
 	// userpositionDescCreatedAt is the schema descriptor for created_at field.

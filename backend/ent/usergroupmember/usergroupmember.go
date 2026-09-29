@@ -3,6 +3,8 @@
 package usergroupmember
 
 import (
+	"time"
+
 	"entgo.io/ent/dialect/sql"
 )
 
@@ -15,6 +17,8 @@ const (
 	FieldGroupID = "group_id"
 	// FieldUserID holds the string denoting the user_id field in the database.
 	FieldUserID = "user_id"
+	// FieldCreatedAt holds the string denoting the created_at field in the database.
+	FieldCreatedAt = "created_at"
 	// Table holds the table name of the usergroupmember in the database.
 	Table = "user_group_members"
 )
@@ -24,6 +28,7 @@ var Columns = []string{
 	FieldID,
 	FieldGroupID,
 	FieldUserID,
+	FieldCreatedAt,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -35,6 +40,11 @@ func ValidColumn(column string) bool {
 	}
 	return false
 }
+
+var (
+	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
+	DefaultCreatedAt func() time.Time
+)
 
 // OrderOption defines the ordering options for the UserGroupMember queries.
 type OrderOption func(*sql.Selector)
@@ -52,4 +62,9 @@ func ByGroupID(opts ...sql.OrderTermOption) OrderOption {
 // ByUserID orders the results by the user_id field.
 func ByUserID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUserID, opts...).ToFunc()
+}
+
+// ByCreatedAt orders the results by the created_at field.
+func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
 }

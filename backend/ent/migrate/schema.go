@@ -397,6 +397,9 @@ var (
 		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "code", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "owner_id", Type: field.TypeInt, Nullable: true},
+		{Name: "member_mode", Type: field.TypeString, Default: "static"},
 		{Name: "status", Type: field.TypeString, Default: "enabled"},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
@@ -419,6 +422,7 @@ var (
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "group_id", Type: field.TypeInt},
 		{Name: "user_id", Type: field.TypeInt},
+		{Name: "created_at", Type: field.TypeTime},
 	}
 	// UserGroupMembersTable holds the schema information for the "user_group_members" table.
 	UserGroupMembersTable = &schema.Table{
