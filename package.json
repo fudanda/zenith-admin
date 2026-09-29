@@ -6,16 +6,12 @@
 		"node": ">=24 <25"
 	},
 	"workspaces": [
-		"packages/*",
-		"apps/*"
+		"packages/*"
 	],
 	"scripts": {
 		"generate:foundation-contracts": "tsx scripts/generate-foundation-contracts.ts",
 		"check:foundation-contracts": "tsx scripts/generate-foundation-contracts.ts --check",
 		"generate:foundation-go-models": "cd backend && go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.8.0 -config internal/contracts/oapi.yaml internal/contracts/openapi.json",
-		"dev:dash": "vite --config apps/dash/vite.config.ts",
-		"build:dash": "vite build --config apps/dash/vite.config.ts",
-		"check:dash-boundaries": "node scripts/check-dash-boundaries.mjs",
 		"test:go": "cd backend && go test ./...",
 		"dev": "concurrently \"npm run dev -w @zenith/server\" \"npm run dev -w @zenith/web\"",
 		"dev:split": "concurrently \"npm run dev:split -w @zenith/server\" \"npm run dev -w @zenith/web\"",

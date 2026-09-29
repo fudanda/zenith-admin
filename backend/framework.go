@@ -1,4 +1,4 @@
-// Package zenith exposes an embeddable Go backend for the migrated Zenith dashboard.
+// Package zenith exposes an embeddable Go backend for Zenith Admin.
 package zenith
 
 import (
@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
-	"github.com/fudanda/zenith-admin/backend/internal/dash"
 	gofrhttp "gofr.dev/pkg/gofr/http"
 )
 
@@ -148,8 +147,6 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 		}
 	}
 	reg.sealed = true
-	router.Add(http.MethodGet, "/dash", dash.Handler())
-	router.PathPrefix("/dash/").Handler(dash.Handler())
 	router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fail(w, http.StatusNotFound, "not_found", "资源不存在")
 	})

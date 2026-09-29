@@ -33,8 +33,6 @@ func main() {
 		w.WriteHeader(http.StatusNoContent)
 	})
 	mux.Handle("/api/v1/", app.Handler())
-	mux.Handle("/dash", app.Handler())
-	mux.Handle("/dash/", app.Handler())
 
 	server := &http.Server{Addr: ":8080", Handler: mux, ReadHeaderTimeout: 10 * time.Second}
 	go func() {

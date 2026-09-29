@@ -6,7 +6,6 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/fudanda/zenith-admin/backend/internal/dash"
 	gofrhttp "gofr.dev/pkg/gofr/http"
 )
 
@@ -44,25 +43,14 @@ func TestGoFrRoutesHealthAndUnknownAPI(t *testing.T) {
 	if err := f.registerCore(reg); err != nil {
 		t.Fatal(err)
 	}
-	router.Add(http.MethodGet, "/dash", dash.Handler())
-	router.PathPrefix("/dash/").Handler(dash.Handler())
 	for _, tc := range []struct {
 		path   string
 		status int
-	}{{"/api/v1/health", 200}, {"/api/v1/missing", 404}} {
+	}{{"/api/v1/health", 200}, {"/api/v1/missing", 404}, {"/dash", 404}, {"/dash/system/positions", 404}} {
 		response := httptest.NewRecorder()
 		router.ServeHTTP(response, httptest.NewRequest(http.MethodGet, tc.path, nil))
 		if response.Code != tc.status {
 			t.Errorf("%s: got %d, want %d", tc.path, response.Code, tc.status)
-		}
-	}
-	for _, path := range []string{"/dash", "/dash/", "/dash/system/positions"} {
-		request := httptest.NewRequest(http.MethodGet, path, nil)
-		request.Header.Set("Accept", "text/html")
-		response := httptest.NewRecorder()
-		router.ServeHTTP(response, request)
-		if response.Code != http.StatusOK {
-			t.Errorf("%s: got %d, want 200", path, response.Code)
 		}
 	}
 }
