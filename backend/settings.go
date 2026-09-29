@@ -2,9 +2,11 @@ package zenith
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"net/http"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/fudanda/zenith-admin/backend/ent"
@@ -36,6 +38,15 @@ func defaultFileSettings() fileSettings {
 	return fileSettings{UploadValidateType: true, UploadAllowedTypes: slices.Clone(defaultUploadTypes), ChunkThresholdMb: 5, ChunkSizeMb: 5}
 }
 
+func mimeAllowed(mimeType string, allowed []string) bool {
+	for _, rule := range allowed {
+		if rule == "*" || rule == "*/*" || strings.EqualFold(rule, mimeType) || strings.HasSuffix(rule, "/*") && strings.HasPrefix(strings.ToLower(mimeType), strings.ToLower(strings.TrimSuffix(rule, "*"))) {
+			return true
+		}
+	}
+	return false
+}
+
 func (f *Framework) loadFileSettings(ctx context.Context) (fileSettings, *ent.SystemSetting, error) {
 	settings := defaultFileSettings()
 	row, err := f.Store.Client.SystemSetting.Query().Where(systemsetting.ModuleEQ("files")).Only(ctx)
@@ -45,15 +56,13 @@ func (f *Framework) loadFileSettings(ctx context.Context) (fileSettings, *ent.Sy
 	if err != nil {
 		return settings, nil, err
 	}
-	max, okMax := row.Data["uploadMaxSizeMb"].(float64)
-	threshold, okThreshold := row.Data["chunkThresholdMb"].(float64)
-	chunk, okChunk := row.Data["chunkSizeMb"].(float64)
-	if !okMax || !okThreshold || !okChunk {
-		return settings, nil, errors.New("stored file settings are invalid")
+	encoded, err := json.Marshal(row.Data)
+	if err != nil {
+		return settings, nil, err
 	}
-	settings.UploadMaxSizeMb = int(max)
-	settings.ChunkThresholdMb = int(threshold)
-	settings.ChunkSizeMb = int(chunk)
+	if err = json.Unmarshal(encoded, &settings); err != nil {
+		return settings, nil, err
+	}
 	return settings, row, nil
 }
 
@@ -65,6 +74,12 @@ func fileSettingsEnvelope(settings fileSettings, row *ent.SystemSetting) map[str
 		version = row.Version
 		updatedAt = &row.UpdatedAt
 		defaults := defaultFileSettings()
+		if settings.UploadValidateType != defaults.UploadValidateType {
+			paths = append(paths, "uploadValidateType")
+		}
+		if !slices.Equal(settings.UploadAllowedTypes, defaults.UploadAllowedTypes) {
+			paths = append(paths, "uploadAllowedTypes")
+		}
 		if settings.UploadMaxSizeMb != defaults.UploadMaxSizeMb {
 			paths = append(paths, "uploadMaxSizeMb")
 		}
@@ -129,11 +144,18 @@ func (f *Framework) updateFileSettings(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_settings", "设置参数无效")
 		return
 	}
-	if !*in.Data.UploadValidateType || !slices.Equal(*in.Data.UploadAllowedTypes, defaultUploadTypes) || *in.Data.UploadMaxSizeMb < 0 || *in.Data.UploadMaxSizeMb > 102400 || *in.Data.ChunkThresholdMb < 1 || *in.Data.ChunkThresholdMb > 32 || *in.Data.ChunkSizeMb < 5 || *in.Data.ChunkSizeMb > 32 {
+	if len(*in.Data.UploadAllowedTypes) > 200 || *in.Data.UploadMaxSizeMb < 0 || *in.Data.UploadMaxSizeMb > 102400 || *in.Data.ChunkThresholdMb < 1 || *in.Data.ChunkThresholdMb > 32 || *in.Data.ChunkSizeMb < 5 || *in.Data.ChunkSizeMb > 32 {
 		fail(w, 400, "unsupported_settings", "设置值无效或尚未支持")
 		return
 	}
-	data := map[string]any{"uploadMaxSizeMb": *in.Data.UploadMaxSizeMb, "chunkThresholdMb": *in.Data.ChunkThresholdMb, "chunkSizeMb": *in.Data.ChunkSizeMb}
+	for _, rule := range *in.Data.UploadAllowedTypes {
+		if strings.TrimSpace(rule) != rule || len(rule) < 1 || len(rule) > 128 {
+			fail(w, 400, "invalid_mime_rule", "MIME 类型规则无效")
+			return
+		}
+	}
+	data := map[string]any{"uploadValidateType": *in.Data.UploadValidateType, "uploadAllowedTypes": *in.Data.UploadAllowedTypes,
+		"uploadMaxSizeMb": *in.Data.UploadMaxSizeMb, "chunkThresholdMb": *in.Data.ChunkThresholdMb, "chunkSizeMb": *in.Data.ChunkSizeMb}
 	p := fromContext(r.Context())
 	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		if in.Version == 0 {

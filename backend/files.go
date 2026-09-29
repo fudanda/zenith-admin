@@ -202,6 +202,10 @@ func (f *Framework) persistFile(ctx context.Context, p *principal, input io.Read
 }
 
 func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, input io.Reader, rawName, visibility, trace string, maxBytes, expected int64, storage *ent.FileStorageConfig, afterSave func(*ent.Tx) error) (map[string]any, error) {
+	settings, _, err := f.loadFileSettings(ctx)
+	if err != nil {
+		return nil, err
+	}
 	if storage == nil {
 		var err error
 		storage, err = f.defaultStorage(ctx)
@@ -231,7 +235,11 @@ func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, inpu
 		temp.Close()
 		return nil, readErr
 	}
-	mimeType := http.DetectContentType(head[:n])
+	mimeType := strings.SplitN(http.DetectContentType(head[:n]), ";", 2)[0]
+	if settings.UploadValidateType && !mimeAllowed(mimeType, settings.UploadAllowedTypes) {
+		temp.Close()
+		return nil, errors.New("文件类型不允许")
+	}
 	if _, err = io.Copy(io.MultiWriter(temp, hash), io.MultiReader(bytes.NewReader(head[:n]), io.LimitReader(input, maxBytes+1))); err != nil {
 		temp.Close()
 		return nil, err

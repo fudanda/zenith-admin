@@ -349,14 +349,14 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if storage.Code != 200 {
 		t.Fatalf("create local storage: %d %s", storage.Code, storage.Body.String())
 	}
-	upload := func(visibility string) *httptest.ResponseRecorder {
+	upload := func(visibility, name string, payload []byte) *httptest.ResponseRecorder {
 		var body bytes.Buffer
 		writer := multipart.NewWriter(&body)
-		part, err := writer.CreateFormFile("file", "hello.txt")
+		part, err := writer.CreateFormFile("file", name)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if _, err := part.Write([]byte("hello from postgres integration")); err != nil {
+		if _, err := part.Write(payload); err != nil {
 			t.Fatal(err)
 		}
 		if err := writer.Close(); err != nil {
@@ -371,7 +371,23 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		handler.ServeHTTP(response, req)
 		return response
 	}
-	privateUpload := upload("restricted")
+	message := []byte("hello from postgres integration")
+	mimeSetting := read(call("GET", "/api/v1/settings/files", nil, cookie, ""))
+	mimeVersion := int(mimeSetting["version"].(float64))
+	mimeValues := mimeSetting["effective"].(map[string]any)
+	previousTypes := mimeValues["uploadAllowedTypes"]
+	mimeValues["uploadAllowedTypes"] = []string{"image/*"}
+	if changed := call("PUT", "/api/v1/settings/files", map[string]any{"version": mimeVersion, "data": mimeValues}, cookie, csrf); changed.Code != 200 {
+		t.Fatalf("restrict MIME policy: %d %s", changed.Code, changed.Body.String())
+	}
+	if rejected := upload("restricted", "hello.txt", message); rejected.Code != 400 {
+		t.Fatalf("MIME policy bypassed: %d %s", rejected.Code, rejected.Body.String())
+	}
+	mimeValues["uploadAllowedTypes"] = previousTypes
+	if restored := call("PUT", "/api/v1/settings/files", map[string]any{"version": mimeVersion + 1, "data": mimeValues}, cookie, csrf); restored.Code != 200 {
+		t.Fatalf("restore MIME policy: %d %s", restored.Code, restored.Body.String())
+	}
+	privateUpload := upload("restricted", "hello.txt", message)
 	if privateUpload.Code != 200 {
 		t.Fatalf("private upload: %d %s", privateUpload.Code, privateUpload.Body.String())
 	}
@@ -385,9 +401,12 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if ownAccess := call("GET", "/api/v1/files/"+privateID+"/private-content", nil, cookie, ""); ownAccess.Code != 200 || ownAccess.Body.String() != "hello from postgres integration" {
 		t.Fatalf("owner download: %d %s", ownAccess.Code, ownAccess.Body.String())
 	}
-	publicUpload := upload("public")
+	publicUpload := upload("public", "hello.txt", message)
 	if publicUpload.Code != 200 {
 		t.Fatalf("public upload: %d %s", publicUpload.Code, publicUpload.Body.String())
+	}
+	if disguised := upload("public", "fake.png", bytes.Repeat([]byte{0xff}, 1024)); disguised.Code != 400 {
+		t.Fatalf("unrecognized file type was accepted: %d %s", disguised.Code, disguised.Body.String())
 	}
 	publicID := read(publicUpload)["id"].(string)
 	if publicAccess := call("GET", "/api/v1/files/"+publicID+"/content", nil, nil, ""); publicAccess.Code != 200 {
