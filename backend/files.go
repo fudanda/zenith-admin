@@ -236,7 +236,8 @@ func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, inpu
 		return nil, readErr
 	}
 	mimeType := strings.SplitN(http.DetectContentType(head[:n]), ";", 2)[0]
-	if settings.UploadValidateType && !mimeAllowed(mimeType, settings.UploadAllowedTypes) {
+	expectedMime := expectedSignatureMime(rawName)
+	if settings.UploadValidateType && (expectedMime != "" && expectedMime != mimeType || !mimeAllowed(mimeType, settings.UploadAllowedTypes)) {
 		temp.Close()
 		return nil, errors.New("文件类型不允许")
 	}

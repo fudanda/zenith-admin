@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"path"
 	"slices"
 	"strings"
 	"time"
@@ -45,6 +46,23 @@ func mimeAllowed(mimeType string, allowed []string) bool {
 		}
 	}
 	return false
+}
+
+func expectedSignatureMime(name string) string {
+	switch strings.ToLower(path.Ext(name)) {
+	case ".png":
+		return "image/png"
+	case ".jpg", ".jpeg":
+		return "image/jpeg"
+	case ".gif":
+		return "image/gif"
+	case ".webp":
+		return "image/webp"
+	case ".pdf":
+		return "application/pdf"
+	default:
+		return ""
+	}
 }
 
 func (f *Framework) loadFileSettings(ctx context.Context) (fileSettings, *ent.SystemSetting, error) {
