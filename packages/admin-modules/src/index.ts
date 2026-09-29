@@ -5,6 +5,7 @@ export const firstReleaseModules = [
   { key: 'departments', path: '/system/departments', title: '部门管理', permission: 'system:department:list' },
   { key: 'users', path: '/system/users', title: '账号管理', permission: 'system:user:list' },
   { key: 'roles', path: '/system/roles', title: '角色管理', permission: 'system:role:list' },
+  { key: 'menus', path: '/system/menus', title: '菜单管理', permission: 'system:menu:list' },
   { key: 'user-groups', path: '/system/user-groups', title: '用户组管理', permission: 'system:user-groups:list' },
   { key: 'dicts', path: '/system/dicts', title: '字典管理', permission: 'system:dict:list' },
   { key: 'file-configs', path: '/system/file-storage-configs', title: '文件存储配置', permission: 'system:file:config' },

@@ -32,7 +32,7 @@ type Module interface {
 
 type Route struct {
 	Method, Path, OperationID, Permission string
-	Public                                bool
+	Public, PlatformOnly                  bool
 	Handler                               http.Handler
 }
 

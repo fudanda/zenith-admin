@@ -50,6 +50,57 @@
         "module": "岗位管理",
         "description": "删除岗位"
       }
+    },
+    {
+      "id": "menusTree",
+      "method": "GET",
+      "path": "/api/v1/menus",
+      "permission": "system:menu:list",
+      "audit": null
+    },
+    {
+      "id": "menusFlat",
+      "method": "GET",
+      "path": "/api/v1/menus/flat",
+      "permission": "system:menu:list",
+      "audit": null
+    },
+    {
+      "id": "menusDetail",
+      "method": "GET",
+      "path": "/api/v1/menus/{id}",
+      "permission": "system:menu:list",
+      "audit": null
+    },
+    {
+      "id": "menusCreate",
+      "method": "POST",
+      "path": "/api/v1/menus",
+      "permission": "system:menu:create",
+      "audit": {
+        "module": "菜单管理",
+        "description": "创建菜单"
+      }
+    },
+    {
+      "id": "menusUpdate",
+      "method": "PUT",
+      "path": "/api/v1/menus/{id}",
+      "permission": "system:menu:update",
+      "audit": {
+        "module": "菜单管理",
+        "description": "更新菜单"
+      }
+    },
+    {
+      "id": "menusRemove",
+      "method": "DELETE",
+      "path": "/api/v1/menus/{id}",
+      "permission": "system:menu:delete",
+      "audit": {
+        "module": "菜单管理",
+        "description": "删除菜单"
+      }
     }
   ]
 }

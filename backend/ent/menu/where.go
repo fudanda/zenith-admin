@@ -94,6 +94,26 @@ func Permission(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldPermission, v))
 }
 
+// Query applies equality check predicate on the "query" field. It's identical to QueryEQ.
+func Query(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldQuery, v))
+}
+
+// IsExternal applies equality check predicate on the "is_external" field. It's identical to IsExternalEQ.
+func IsExternal(v bool) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldIsExternal, v))
+}
+
+// Embed applies equality check predicate on the "embed" field. It's identical to EmbedEQ.
+func Embed(v bool) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldEmbed, v))
+}
+
+// KeepAlive applies equality check predicate on the "keep_alive" field. It's identical to KeepAliveEQ.
+func KeepAlive(v bool) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldKeepAlive, v))
+}
+
 // Sort applies equality check predicate on the "sort" field. It's identical to SortEQ.
 func Sort(v int) predicate.Menu {
 	return predicate.Menu(sql.FieldEQ(FieldSort, v))
@@ -667,6 +687,111 @@ func PermissionEqualFold(v string) predicate.Menu {
 // PermissionContainsFold applies the ContainsFold predicate on the "permission" field.
 func PermissionContainsFold(v string) predicate.Menu {
 	return predicate.Menu(sql.FieldContainsFold(FieldPermission, v))
+}
+
+// QueryEQ applies the EQ predicate on the "query" field.
+func QueryEQ(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldQuery, v))
+}
+
+// QueryNEQ applies the NEQ predicate on the "query" field.
+func QueryNEQ(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldNEQ(FieldQuery, v))
+}
+
+// QueryIn applies the In predicate on the "query" field.
+func QueryIn(vs ...string) predicate.Menu {
+	return predicate.Menu(sql.FieldIn(FieldQuery, vs...))
+}
+
+// QueryNotIn applies the NotIn predicate on the "query" field.
+func QueryNotIn(vs ...string) predicate.Menu {
+	return predicate.Menu(sql.FieldNotIn(FieldQuery, vs...))
+}
+
+// QueryGT applies the GT predicate on the "query" field.
+func QueryGT(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldGT(FieldQuery, v))
+}
+
+// QueryGTE applies the GTE predicate on the "query" field.
+func QueryGTE(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldGTE(FieldQuery, v))
+}
+
+// QueryLT applies the LT predicate on the "query" field.
+func QueryLT(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldLT(FieldQuery, v))
+}
+
+// QueryLTE applies the LTE predicate on the "query" field.
+func QueryLTE(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldLTE(FieldQuery, v))
+}
+
+// QueryContains applies the Contains predicate on the "query" field.
+func QueryContains(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldContains(FieldQuery, v))
+}
+
+// QueryHasPrefix applies the HasPrefix predicate on the "query" field.
+func QueryHasPrefix(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldHasPrefix(FieldQuery, v))
+}
+
+// QueryHasSuffix applies the HasSuffix predicate on the "query" field.
+func QueryHasSuffix(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldHasSuffix(FieldQuery, v))
+}
+
+// QueryIsNil applies the IsNil predicate on the "query" field.
+func QueryIsNil() predicate.Menu {
+	return predicate.Menu(sql.FieldIsNull(FieldQuery))
+}
+
+// QueryNotNil applies the NotNil predicate on the "query" field.
+func QueryNotNil() predicate.Menu {
+	return predicate.Menu(sql.FieldNotNull(FieldQuery))
+}
+
+// QueryEqualFold applies the EqualFold predicate on the "query" field.
+func QueryEqualFold(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldEqualFold(FieldQuery, v))
+}
+
+// QueryContainsFold applies the ContainsFold predicate on the "query" field.
+func QueryContainsFold(v string) predicate.Menu {
+	return predicate.Menu(sql.FieldContainsFold(FieldQuery, v))
+}
+
+// IsExternalEQ applies the EQ predicate on the "is_external" field.
+func IsExternalEQ(v bool) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldIsExternal, v))
+}
+
+// IsExternalNEQ applies the NEQ predicate on the "is_external" field.
+func IsExternalNEQ(v bool) predicate.Menu {
+	return predicate.Menu(sql.FieldNEQ(FieldIsExternal, v))
+}
+
+// EmbedEQ applies the EQ predicate on the "embed" field.
+func EmbedEQ(v bool) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldEmbed, v))
+}
+
+// EmbedNEQ applies the NEQ predicate on the "embed" field.
+func EmbedNEQ(v bool) predicate.Menu {
+	return predicate.Menu(sql.FieldNEQ(FieldEmbed, v))
+}
+
+// KeepAliveEQ applies the EQ predicate on the "keep_alive" field.
+func KeepAliveEQ(v bool) predicate.Menu {
+	return predicate.Menu(sql.FieldEQ(FieldKeepAlive, v))
+}
+
+// KeepAliveNEQ applies the NEQ predicate on the "keep_alive" field.
+func KeepAliveNEQ(v bool) predicate.Menu {
+	return predicate.Menu(sql.FieldNEQ(FieldKeepAlive, v))
 }
 
 // SortEQ applies the EQ predicate on the "sort" field.

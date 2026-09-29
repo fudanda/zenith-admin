@@ -124,6 +124,62 @@ func (_c *MenuCreate) SetNillablePermission(v *string) *MenuCreate {
 	return _c
 }
 
+// SetQuery sets the "query" field.
+func (_c *MenuCreate) SetQuery(v string) *MenuCreate {
+	_c.mutation.SetQuery(v)
+	return _c
+}
+
+// SetNillableQuery sets the "query" field if the given value is not nil.
+func (_c *MenuCreate) SetNillableQuery(v *string) *MenuCreate {
+	if v != nil {
+		_c.SetQuery(*v)
+	}
+	return _c
+}
+
+// SetIsExternal sets the "is_external" field.
+func (_c *MenuCreate) SetIsExternal(v bool) *MenuCreate {
+	_c.mutation.SetIsExternal(v)
+	return _c
+}
+
+// SetNillableIsExternal sets the "is_external" field if the given value is not nil.
+func (_c *MenuCreate) SetNillableIsExternal(v *bool) *MenuCreate {
+	if v != nil {
+		_c.SetIsExternal(*v)
+	}
+	return _c
+}
+
+// SetEmbed sets the "embed" field.
+func (_c *MenuCreate) SetEmbed(v bool) *MenuCreate {
+	_c.mutation.SetEmbed(v)
+	return _c
+}
+
+// SetNillableEmbed sets the "embed" field if the given value is not nil.
+func (_c *MenuCreate) SetNillableEmbed(v *bool) *MenuCreate {
+	if v != nil {
+		_c.SetEmbed(*v)
+	}
+	return _c
+}
+
+// SetKeepAlive sets the "keep_alive" field.
+func (_c *MenuCreate) SetKeepAlive(v bool) *MenuCreate {
+	_c.mutation.SetKeepAlive(v)
+	return _c
+}
+
+// SetNillableKeepAlive sets the "keep_alive" field if the given value is not nil.
+func (_c *MenuCreate) SetNillableKeepAlive(v *bool) *MenuCreate {
+	if v != nil {
+		_c.SetKeepAlive(*v)
+	}
+	return _c
+}
+
 // SetSort sets the "sort" field.
 func (_c *MenuCreate) SetSort(v int) *MenuCreate {
 	_c.mutation.SetSort(v)
@@ -251,6 +307,18 @@ func (_c *MenuCreate) defaults() {
 		v := menu.DefaultType
 		_c.mutation.SetType(v)
 	}
+	if _, ok := _c.mutation.IsExternal(); !ok {
+		v := menu.DefaultIsExternal
+		_c.mutation.SetIsExternal(v)
+	}
+	if _, ok := _c.mutation.Embed(); !ok {
+		v := menu.DefaultEmbed
+		_c.mutation.SetEmbed(v)
+	}
+	if _, ok := _c.mutation.KeepAlive(); !ok {
+		v := menu.DefaultKeepAlive
+		_c.mutation.SetKeepAlive(v)
+	}
 	if _, ok := _c.mutation.Sort(); !ok {
 		v := menu.DefaultSort
 		_c.mutation.SetSort(v)
@@ -288,6 +356,15 @@ func (_c *MenuCreate) check() error {
 	}
 	if _, ok := _c.mutation.GetType(); !ok {
 		return &ValidationError{Name: "type", err: errors.New(`ent: missing required field "Menu.type"`)}
+	}
+	if _, ok := _c.mutation.IsExternal(); !ok {
+		return &ValidationError{Name: "is_external", err: errors.New(`ent: missing required field "Menu.is_external"`)}
+	}
+	if _, ok := _c.mutation.Embed(); !ok {
+		return &ValidationError{Name: "embed", err: errors.New(`ent: missing required field "Menu.embed"`)}
+	}
+	if _, ok := _c.mutation.KeepAlive(); !ok {
+		return &ValidationError{Name: "keep_alive", err: errors.New(`ent: missing required field "Menu.keep_alive"`)}
 	}
 	if _, ok := _c.mutation.Sort(); !ok {
 		return &ValidationError{Name: "sort", err: errors.New(`ent: missing required field "Menu.sort"`)}
@@ -361,6 +438,22 @@ func (_c *MenuCreate) createSpec() (*Menu, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.Permission(); ok {
 		_spec.SetField(menu.FieldPermission, field.TypeString, value)
 		_node.Permission = &value
+	}
+	if value, ok := _c.mutation.Query(); ok {
+		_spec.SetField(menu.FieldQuery, field.TypeString, value)
+		_node.Query = &value
+	}
+	if value, ok := _c.mutation.IsExternal(); ok {
+		_spec.SetField(menu.FieldIsExternal, field.TypeBool, value)
+		_node.IsExternal = value
+	}
+	if value, ok := _c.mutation.Embed(); ok {
+		_spec.SetField(menu.FieldEmbed, field.TypeBool, value)
+		_node.Embed = value
+	}
+	if value, ok := _c.mutation.KeepAlive(); ok {
+		_spec.SetField(menu.FieldKeepAlive, field.TypeBool, value)
+		_node.KeepAlive = value
 	}
 	if value, ok := _c.mutation.Sort(); ok {
 		_spec.SetField(menu.FieldSort, field.TypeInt, value)

@@ -16,4 +16,10 @@ var Operations = map[string]Operation{
 	"positionsCreate": {Method: "POST", Path: "/api/v1/positions", Permission: "system:position:create", AuditModule: "岗位管理", AuditDescription: "创建岗位"},
 	"positionsUpdate": {Method: "PUT", Path: "/api/v1/positions/{id}", Permission: "system:position:update", AuditModule: "岗位管理", AuditDescription: "更新岗位"},
 	"positionsRemove": {Method: "DELETE", Path: "/api/v1/positions/{id}", Permission: "system:position:delete", AuditModule: "岗位管理", AuditDescription: "删除岗位"},
+	"menusTree":       {Method: "GET", Path: "/api/v1/menus", Permission: "system:menu:list", AuditModule: "", AuditDescription: ""},
+	"menusFlat":       {Method: "GET", Path: "/api/v1/menus/flat", Permission: "system:menu:list", AuditModule: "", AuditDescription: ""},
+	"menusDetail":     {Method: "GET", Path: "/api/v1/menus/{id}", Permission: "system:menu:list", AuditModule: "", AuditDescription: ""},
+	"menusCreate":     {Method: "POST", Path: "/api/v1/menus", Permission: "system:menu:create", AuditModule: "菜单管理", AuditDescription: "创建菜单"},
+	"menusUpdate":     {Method: "PUT", Path: "/api/v1/menus/{id}", Permission: "system:menu:update", AuditModule: "菜单管理", AuditDescription: "更新菜单"},
+	"menusRemove":     {Method: "DELETE", Path: "/api/v1/menus/{id}", Permission: "system:menu:delete", AuditModule: "菜单管理", AuditDescription: "删除菜单"},
 }

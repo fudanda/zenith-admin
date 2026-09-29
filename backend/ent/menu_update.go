@@ -177,6 +177,68 @@ func (_u *MenuUpdate) ClearPermission() *MenuUpdate {
 	return _u
 }
 
+// SetQuery sets the "query" field.
+func (_u *MenuUpdate) SetQuery(v string) *MenuUpdate {
+	_u.mutation.SetQuery(v)
+	return _u
+}
+
+// SetNillableQuery sets the "query" field if the given value is not nil.
+func (_u *MenuUpdate) SetNillableQuery(v *string) *MenuUpdate {
+	if v != nil {
+		_u.SetQuery(*v)
+	}
+	return _u
+}
+
+// ClearQuery clears the value of the "query" field.
+func (_u *MenuUpdate) ClearQuery() *MenuUpdate {
+	_u.mutation.ClearQuery()
+	return _u
+}
+
+// SetIsExternal sets the "is_external" field.
+func (_u *MenuUpdate) SetIsExternal(v bool) *MenuUpdate {
+	_u.mutation.SetIsExternal(v)
+	return _u
+}
+
+// SetNillableIsExternal sets the "is_external" field if the given value is not nil.
+func (_u *MenuUpdate) SetNillableIsExternal(v *bool) *MenuUpdate {
+	if v != nil {
+		_u.SetIsExternal(*v)
+	}
+	return _u
+}
+
+// SetEmbed sets the "embed" field.
+func (_u *MenuUpdate) SetEmbed(v bool) *MenuUpdate {
+	_u.mutation.SetEmbed(v)
+	return _u
+}
+
+// SetNillableEmbed sets the "embed" field if the given value is not nil.
+func (_u *MenuUpdate) SetNillableEmbed(v *bool) *MenuUpdate {
+	if v != nil {
+		_u.SetEmbed(*v)
+	}
+	return _u
+}
+
+// SetKeepAlive sets the "keep_alive" field.
+func (_u *MenuUpdate) SetKeepAlive(v bool) *MenuUpdate {
+	_u.mutation.SetKeepAlive(v)
+	return _u
+}
+
+// SetNillableKeepAlive sets the "keep_alive" field if the given value is not nil.
+func (_u *MenuUpdate) SetNillableKeepAlive(v *bool) *MenuUpdate {
+	if v != nil {
+		_u.SetKeepAlive(*v)
+	}
+	return _u
+}
+
 // SetSort sets the "sort" field.
 func (_u *MenuUpdate) SetSort(v int) *MenuUpdate {
 	_u.mutation.ResetSort()
@@ -371,6 +433,21 @@ func (_u *MenuUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if _u.mutation.PermissionCleared() {
 		_spec.ClearField(menu.FieldPermission, field.TypeString)
 	}
+	if value, ok := _u.mutation.Query(); ok {
+		_spec.SetField(menu.FieldQuery, field.TypeString, value)
+	}
+	if _u.mutation.QueryCleared() {
+		_spec.ClearField(menu.FieldQuery, field.TypeString)
+	}
+	if value, ok := _u.mutation.IsExternal(); ok {
+		_spec.SetField(menu.FieldIsExternal, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.Embed(); ok {
+		_spec.SetField(menu.FieldEmbed, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.KeepAlive(); ok {
+		_spec.SetField(menu.FieldKeepAlive, field.TypeBool, value)
+	}
 	if value, ok := _u.mutation.Sort(); ok {
 		_spec.SetField(menu.FieldSort, field.TypeInt, value)
 	}
@@ -561,6 +638,68 @@ func (_u *MenuUpdateOne) SetNillablePermission(v *string) *MenuUpdateOne {
 // ClearPermission clears the value of the "permission" field.
 func (_u *MenuUpdateOne) ClearPermission() *MenuUpdateOne {
 	_u.mutation.ClearPermission()
+	return _u
+}
+
+// SetQuery sets the "query" field.
+func (_u *MenuUpdateOne) SetQuery(v string) *MenuUpdateOne {
+	_u.mutation.SetQuery(v)
+	return _u
+}
+
+// SetNillableQuery sets the "query" field if the given value is not nil.
+func (_u *MenuUpdateOne) SetNillableQuery(v *string) *MenuUpdateOne {
+	if v != nil {
+		_u.SetQuery(*v)
+	}
+	return _u
+}
+
+// ClearQuery clears the value of the "query" field.
+func (_u *MenuUpdateOne) ClearQuery() *MenuUpdateOne {
+	_u.mutation.ClearQuery()
+	return _u
+}
+
+// SetIsExternal sets the "is_external" field.
+func (_u *MenuUpdateOne) SetIsExternal(v bool) *MenuUpdateOne {
+	_u.mutation.SetIsExternal(v)
+	return _u
+}
+
+// SetNillableIsExternal sets the "is_external" field if the given value is not nil.
+func (_u *MenuUpdateOne) SetNillableIsExternal(v *bool) *MenuUpdateOne {
+	if v != nil {
+		_u.SetIsExternal(*v)
+	}
+	return _u
+}
+
+// SetEmbed sets the "embed" field.
+func (_u *MenuUpdateOne) SetEmbed(v bool) *MenuUpdateOne {
+	_u.mutation.SetEmbed(v)
+	return _u
+}
+
+// SetNillableEmbed sets the "embed" field if the given value is not nil.
+func (_u *MenuUpdateOne) SetNillableEmbed(v *bool) *MenuUpdateOne {
+	if v != nil {
+		_u.SetEmbed(*v)
+	}
+	return _u
+}
+
+// SetKeepAlive sets the "keep_alive" field.
+func (_u *MenuUpdateOne) SetKeepAlive(v bool) *MenuUpdateOne {
+	_u.mutation.SetKeepAlive(v)
+	return _u
+}
+
+// SetNillableKeepAlive sets the "keep_alive" field if the given value is not nil.
+func (_u *MenuUpdateOne) SetNillableKeepAlive(v *bool) *MenuUpdateOne {
+	if v != nil {
+		_u.SetKeepAlive(*v)
+	}
 	return _u
 }
 
@@ -787,6 +926,21 @@ func (_u *MenuUpdateOne) sqlSave(ctx context.Context) (_node *Menu, err error) {
 	}
 	if _u.mutation.PermissionCleared() {
 		_spec.ClearField(menu.FieldPermission, field.TypeString)
+	}
+	if value, ok := _u.mutation.Query(); ok {
+		_spec.SetField(menu.FieldQuery, field.TypeString, value)
+	}
+	if _u.mutation.QueryCleared() {
+		_spec.ClearField(menu.FieldQuery, field.TypeString)
+	}
+	if value, ok := _u.mutation.IsExternal(); ok {
+		_spec.SetField(menu.FieldIsExternal, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.Embed(); ok {
+		_spec.SetField(menu.FieldEmbed, field.TypeBool, value)
+	}
+	if value, ok := _u.mutation.KeepAlive(); ok {
+		_spec.SetField(menu.FieldKeepAlive, field.TypeBool, value)
 	}
 	if value, ok := _u.mutation.Sort(); ok {
 		_spec.SetField(menu.FieldSort, field.TypeInt, value)

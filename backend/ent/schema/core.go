@@ -170,7 +170,9 @@ func (Menu) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int("parent_id").Default(0), field.String("title").MaxLen(64), field.String("name").Optional().Nillable(),
 		field.String("path").Optional().Nillable(), field.String("component").Optional().Nillable(), field.String("icon").Optional().Nillable(),
-		field.String("type").Default("menu"), field.String("permission").Optional().Nillable(), field.Int("sort").Default(0),
+		field.String("type").Default("menu"), field.String("permission").Optional().Nillable(),
+		field.String("query").Optional().Nillable(), field.Bool("is_external").Default(false),
+		field.Bool("embed").Default(false), field.Bool("keep_alive").Default(false), field.Int("sort").Default(0),
 		field.String("status").Default("enabled"), field.Bool("visible").Default(true), field.String("feature_key").Optional().Nillable(),
 		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}

@@ -9,6 +9,7 @@ export { DepartmentsPage } from './departments';
 export { UsersPage } from './users';
 export { RolesPage } from './roles';
 export { UserGroupsPage } from './user-groups';
+export { MenusPage } from './menus';
 export { DictsPage } from './dicts';
 export { FileConfigsPage } from './file-configs';
 export { FilesPage } from './files';

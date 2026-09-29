@@ -300,7 +300,7 @@ func (f *Framework) guard(route Route) http.Handler {
 				return
 			}
 		}
-		if route.Permission == "platform" && !p.SuperAdmin {
+		if (route.Permission == "platform" || route.PlatformOnly) && !p.SuperAdmin {
 			fail(w, 403, "forbidden", "需要平台管理员权限")
 			return
 		}

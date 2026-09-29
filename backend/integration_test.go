@@ -62,16 +62,25 @@ func TestPostgresVersionedMigrations(t *testing.T) {
 	if err := store.Migrate(ctx); err != nil {
 		t.Fatalf("repeat migration: %v", err)
 	}
-	// The committed v3 Ent schema differs only by system_settings. Recreate
-	// that state in this isolated schema to exercise the real upgrade path.
-	if _, err := store.DB.ExecContext(ctx, `DROP TABLE system_settings; DELETE FROM zenith_schema_versions; INSERT INTO zenith_schema_versions(version) VALUES (3)`); err != nil {
+	// Recreate the committed v4 state to verify the additive menu migration.
+	if _, err := store.DB.ExecContext(ctx, `ALTER TABLE menus DROP COLUMN query, DROP COLUMN is_external, DROP COLUMN embed, DROP COLUMN keep_alive; DELETE FROM zenith_schema_versions; INSERT INTO zenith_schema_versions(version) VALUES (4)`); err != nil {
 		t.Fatal(err)
 	}
 	if err := store.Migrate(ctx); err != nil {
-		t.Fatalf("v3 to v4 migration: %v", err)
+		t.Fatalf("v4 to v5 migration: %v", err)
 	}
 	if err := store.DB.QueryRowContext(ctx, `SELECT MAX(version) FROM zenith_schema_versions`).Scan(&version); err != nil || version != foundationSchemaVersion {
 		t.Fatalf("upgraded schema version = %d: %v", version, err)
+	}
+	if _, err := store.DB.ExecContext(ctx, `INSERT INTO menus(title, type, query, is_external, embed, keep_alive, created_at, updated_at) VALUES ('v5-menu', 'menu', 'q=1', true, false, true, now(), now())`); err != nil {
+		t.Fatalf("upgraded menu columns unusable: %v", err)
+	}
+	// Version 3 predates the settings table and the four menu columns.
+	if _, err := store.DB.ExecContext(ctx, `DROP TABLE system_settings; ALTER TABLE menus DROP COLUMN query, DROP COLUMN is_external, DROP COLUMN embed, DROP COLUMN keep_alive; DELETE FROM zenith_schema_versions; INSERT INTO zenith_schema_versions(version) VALUES (3)`); err != nil {
+		t.Fatal(err)
+	}
+	if err := store.Migrate(ctx); err != nil {
+		t.Fatalf("v3 to v5 migration: %v", err)
 	}
 	if _, err := store.DB.ExecContext(ctx, `INSERT INTO system_settings(module, version, data, updated_at) VALUES ('files', 1, '{}', now())`); err != nil {
 		t.Fatalf("upgraded settings table unusable: %v", err)
@@ -217,6 +226,35 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	}
 	if denied := call("POST", "/api/v1/positions", map[string]any{"name": "Denied", "code": "denied"}, cookie, ""); denied.Code != 403 {
 		t.Fatalf("missing CSRF accepted: %d", denied.Code)
+	}
+	menuName := fmt.Sprintf("test_menu_%d", time.Now().UnixNano())
+	createdMenu := call("POST", "/api/v1/menus", map[string]any{"title": "测试目录", "name": menuName, "type": "directory"}, cookie, csrf)
+	if createdMenu.Code != 201 {
+		t.Fatalf("create menu: %d %s", createdMenu.Code, createdMenu.Body.String())
+	}
+	menuID := int(read(createdMenu)["id"].(float64))
+	createdButton := call("POST", "/api/v1/menus", map[string]any{"title": "测试按钮", "name": menuName + "_button", "type": "button", "parentId": menuID, "permission": "system:menu:list"}, cookie, csrf)
+	if createdButton.Code != 201 {
+		t.Fatalf("create child menu: %d %s", createdButton.Code, createdButton.Body.String())
+	}
+	buttonID := int(read(createdButton)["id"].(float64))
+	if cycle := call("PUT", fmt.Sprintf("/api/v1/menus/%d", menuID), map[string]any{"parentId": buttonID}, cookie, csrf); cycle.Code != 400 {
+		t.Fatalf("menu cycle accepted: %d %s", cycle.Code, cycle.Body.String())
+	}
+	if unsupported := call("POST", "/api/v1/menus", map[string]any{"title": "未迁移页面", "path": "/workflow", "type": "menu"}, cookie, csrf); unsupported.Code != 400 {
+		t.Fatalf("unshipped menu path accepted: %d %s", unsupported.Code, unsupported.Body.String())
+	}
+	if flat := call("GET", "/api/v1/menus/flat", nil, cookie, ""); flat.Code != 200 {
+		t.Fatalf("flat menus: %d %s", flat.Code, flat.Body.String())
+	}
+	if tree := call("GET", "/api/v1/menus", nil, cookie, ""); tree.Code != 200 || !strings.Contains(tree.Body.String(), "\"children\"") {
+		t.Fatalf("menu tree missing child: %d %s", tree.Code, tree.Body.String())
+	}
+	if removed := call("DELETE", fmt.Sprintf("/api/v1/menus/%d", menuID), nil, cookie, csrf); removed.Code != 200 {
+		t.Fatalf("remove menu subtree: %d %s", removed.Code, removed.Body.String())
+	}
+	if missing := call("GET", fmt.Sprintf("/api/v1/menus/%d", buttonID), nil, cookie, ""); missing.Code != 404 {
+		t.Fatalf("child menu survived deletion: %d %s", missing.Code, missing.Body.String())
 	}
 	code := fmt.Sprintf("p%d", time.Now().UnixNano())
 	created := call("POST", "/api/v1/positions", map[string]any{"name": "测试岗位", "code": code, "status": "enabled"}, cookie, csrf)

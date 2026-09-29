@@ -33,6 +33,14 @@ type Menu struct {
 	Type string `json:"type,omitempty"`
 	// Permission holds the value of the "permission" field.
 	Permission *string `json:"permission,omitempty"`
+	// Query holds the value of the "query" field.
+	Query *string `json:"query,omitempty"`
+	// IsExternal holds the value of the "is_external" field.
+	IsExternal bool `json:"is_external,omitempty"`
+	// Embed holds the value of the "embed" field.
+	Embed bool `json:"embed,omitempty"`
+	// KeepAlive holds the value of the "keep_alive" field.
+	KeepAlive bool `json:"keep_alive,omitempty"`
 	// Sort holds the value of the "sort" field.
 	Sort int `json:"sort,omitempty"`
 	// Status holds the value of the "status" field.
@@ -53,11 +61,11 @@ func (*Menu) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case menu.FieldVisible:
+		case menu.FieldIsExternal, menu.FieldEmbed, menu.FieldKeepAlive, menu.FieldVisible:
 			values[i] = new(sql.NullBool)
 		case menu.FieldID, menu.FieldParentID, menu.FieldSort:
 			values[i] = new(sql.NullInt64)
-		case menu.FieldTitle, menu.FieldName, menu.FieldPath, menu.FieldComponent, menu.FieldIcon, menu.FieldType, menu.FieldPermission, menu.FieldStatus, menu.FieldFeatureKey:
+		case menu.FieldTitle, menu.FieldName, menu.FieldPath, menu.FieldComponent, menu.FieldIcon, menu.FieldType, menu.FieldPermission, menu.FieldQuery, menu.FieldStatus, menu.FieldFeatureKey:
 			values[i] = new(sql.NullString)
 		case menu.FieldCreatedAt, menu.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -134,6 +142,31 @@ func (_m *Menu) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.Permission = new(string)
 				*_m.Permission = value.String
+			}
+		case menu.FieldQuery:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field query", values[i])
+			} else if value.Valid {
+				_m.Query = new(string)
+				*_m.Query = value.String
+			}
+		case menu.FieldIsExternal:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field is_external", values[i])
+			} else if value.Valid {
+				_m.IsExternal = value.Bool
+			}
+		case menu.FieldEmbed:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field embed", values[i])
+			} else if value.Valid {
+				_m.Embed = value.Bool
+			}
+		case menu.FieldKeepAlive:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field keep_alive", values[i])
+			} else if value.Valid {
+				_m.KeepAlive = value.Bool
 			}
 		case menu.FieldSort:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -241,6 +274,20 @@ func (_m *Menu) String() string {
 		builder.WriteString("permission=")
 		builder.WriteString(*v)
 	}
+	builder.WriteString(", ")
+	if v := _m.Query; v != nil {
+		builder.WriteString("query=")
+		builder.WriteString(*v)
+	}
+	builder.WriteString(", ")
+	builder.WriteString("is_external=")
+	builder.WriteString(fmt.Sprintf("%v", _m.IsExternal))
+	builder.WriteString(", ")
+	builder.WriteString("embed=")
+	builder.WriteString(fmt.Sprintf("%v", _m.Embed))
+	builder.WriteString(", ")
+	builder.WriteString("keep_alive=")
+	builder.WriteString(fmt.Sprintf("%v", _m.KeepAlive))
 	builder.WriteString(", ")
 	builder.WriteString("sort=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Sort))

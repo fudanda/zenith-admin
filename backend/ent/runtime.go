@@ -239,24 +239,36 @@ func init() {
 	menuDescType := menuFields[6].Descriptor()
 	// menu.DefaultType holds the default value on creation for the type field.
 	menu.DefaultType = menuDescType.Default.(string)
+	// menuDescIsExternal is the schema descriptor for is_external field.
+	menuDescIsExternal := menuFields[9].Descriptor()
+	// menu.DefaultIsExternal holds the default value on creation for the is_external field.
+	menu.DefaultIsExternal = menuDescIsExternal.Default.(bool)
+	// menuDescEmbed is the schema descriptor for embed field.
+	menuDescEmbed := menuFields[10].Descriptor()
+	// menu.DefaultEmbed holds the default value on creation for the embed field.
+	menu.DefaultEmbed = menuDescEmbed.Default.(bool)
+	// menuDescKeepAlive is the schema descriptor for keep_alive field.
+	menuDescKeepAlive := menuFields[11].Descriptor()
+	// menu.DefaultKeepAlive holds the default value on creation for the keep_alive field.
+	menu.DefaultKeepAlive = menuDescKeepAlive.Default.(bool)
 	// menuDescSort is the schema descriptor for sort field.
-	menuDescSort := menuFields[8].Descriptor()
+	menuDescSort := menuFields[12].Descriptor()
 	// menu.DefaultSort holds the default value on creation for the sort field.
 	menu.DefaultSort = menuDescSort.Default.(int)
 	// menuDescStatus is the schema descriptor for status field.
-	menuDescStatus := menuFields[9].Descriptor()
+	menuDescStatus := menuFields[13].Descriptor()
 	// menu.DefaultStatus holds the default value on creation for the status field.
 	menu.DefaultStatus = menuDescStatus.Default.(string)
 	// menuDescVisible is the schema descriptor for visible field.
-	menuDescVisible := menuFields[10].Descriptor()
+	menuDescVisible := menuFields[14].Descriptor()
 	// menu.DefaultVisible holds the default value on creation for the visible field.
 	menu.DefaultVisible = menuDescVisible.Default.(bool)
 	// menuDescCreatedAt is the schema descriptor for created_at field.
-	menuDescCreatedAt := menuFields[12].Descriptor()
+	menuDescCreatedAt := menuFields[16].Descriptor()
 	// menu.DefaultCreatedAt holds the default value on creation for the created_at field.
 	menu.DefaultCreatedAt = menuDescCreatedAt.Default.(func() time.Time)
 	// menuDescUpdatedAt is the schema descriptor for updated_at field.
-	menuDescUpdatedAt := menuFields[13].Descriptor()
+	menuDescUpdatedAt := menuFields[17].Descriptor()
 	// menu.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	menu.DefaultUpdatedAt = menuDescUpdatedAt.Default.(func() time.Time)
 	// menu.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.

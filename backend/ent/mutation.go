@@ -7874,6 +7874,10 @@ type MenuMutation struct {
 	icon          *string
 	_type         *string
 	permission    *string
+	query         *string
+	is_external   *bool
+	embed         *bool
+	keep_alive    *bool
 	sort          *int
 	addsort       *int
 	status        *string
@@ -8358,6 +8362,163 @@ func (m *MenuMutation) ResetPermission() {
 	delete(m.clearedFields, menu.FieldPermission)
 }
 
+// SetQuery sets the "query" field.
+func (m *MenuMutation) SetQuery(s string) {
+	m.query = &s
+}
+
+// Query returns the value of the "query" field in the mutation.
+func (m *MenuMutation) Query() (r string, exists bool) {
+	v := m.query
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldQuery returns the old "query" field's value of the Menu entity.
+// If the Menu object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MenuMutation) OldQuery(ctx context.Context) (v *string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldQuery is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldQuery requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldQuery: %w", err)
+	}
+	return oldValue.Query, nil
+}
+
+// ClearQuery clears the value of the "query" field.
+func (m *MenuMutation) ClearQuery() {
+	m.query = nil
+	m.clearedFields[menu.FieldQuery] = struct{}{}
+}
+
+// QueryCleared returns if the "query" field was cleared in this mutation.
+func (m *MenuMutation) QueryCleared() bool {
+	_, ok := m.clearedFields[menu.FieldQuery]
+	return ok
+}
+
+// ResetQuery resets all changes to the "query" field.
+func (m *MenuMutation) ResetQuery() {
+	m.query = nil
+	delete(m.clearedFields, menu.FieldQuery)
+}
+
+// SetIsExternal sets the "is_external" field.
+func (m *MenuMutation) SetIsExternal(b bool) {
+	m.is_external = &b
+}
+
+// IsExternal returns the value of the "is_external" field in the mutation.
+func (m *MenuMutation) IsExternal() (r bool, exists bool) {
+	v := m.is_external
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIsExternal returns the old "is_external" field's value of the Menu entity.
+// If the Menu object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MenuMutation) OldIsExternal(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldIsExternal is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldIsExternal requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIsExternal: %w", err)
+	}
+	return oldValue.IsExternal, nil
+}
+
+// ResetIsExternal resets all changes to the "is_external" field.
+func (m *MenuMutation) ResetIsExternal() {
+	m.is_external = nil
+}
+
+// SetEmbed sets the "embed" field.
+func (m *MenuMutation) SetEmbed(b bool) {
+	m.embed = &b
+}
+
+// Embed returns the value of the "embed" field in the mutation.
+func (m *MenuMutation) Embed() (r bool, exists bool) {
+	v := m.embed
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEmbed returns the old "embed" field's value of the Menu entity.
+// If the Menu object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MenuMutation) OldEmbed(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldEmbed is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldEmbed requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEmbed: %w", err)
+	}
+	return oldValue.Embed, nil
+}
+
+// ResetEmbed resets all changes to the "embed" field.
+func (m *MenuMutation) ResetEmbed() {
+	m.embed = nil
+}
+
+// SetKeepAlive sets the "keep_alive" field.
+func (m *MenuMutation) SetKeepAlive(b bool) {
+	m.keep_alive = &b
+}
+
+// KeepAlive returns the value of the "keep_alive" field in the mutation.
+func (m *MenuMutation) KeepAlive() (r bool, exists bool) {
+	v := m.keep_alive
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldKeepAlive returns the old "keep_alive" field's value of the Menu entity.
+// If the Menu object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *MenuMutation) OldKeepAlive(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldKeepAlive is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldKeepAlive requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldKeepAlive: %w", err)
+	}
+	return oldValue.KeepAlive, nil
+}
+
+// ResetKeepAlive resets all changes to the "keep_alive" field.
+func (m *MenuMutation) ResetKeepAlive() {
+	m.keep_alive = nil
+}
+
 // SetSort sets the "sort" field.
 func (m *MenuMutation) SetSort(i int) {
 	m.sort = &i
@@ -8641,7 +8802,7 @@ func (m *MenuMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *MenuMutation) Fields() []string {
-	fields := make([]string, 0, 14)
+	fields := make([]string, 0, 18)
 	if m.parent_id != nil {
 		fields = append(fields, menu.FieldParentID)
 	}
@@ -8665,6 +8826,18 @@ func (m *MenuMutation) Fields() []string {
 	}
 	if m.permission != nil {
 		fields = append(fields, menu.FieldPermission)
+	}
+	if m.query != nil {
+		fields = append(fields, menu.FieldQuery)
+	}
+	if m.is_external != nil {
+		fields = append(fields, menu.FieldIsExternal)
+	}
+	if m.embed != nil {
+		fields = append(fields, menu.FieldEmbed)
+	}
+	if m.keep_alive != nil {
+		fields = append(fields, menu.FieldKeepAlive)
 	}
 	if m.sort != nil {
 		fields = append(fields, menu.FieldSort)
@@ -8708,6 +8881,14 @@ func (m *MenuMutation) Field(name string) (ent.Value, bool) {
 		return m.GetType()
 	case menu.FieldPermission:
 		return m.Permission()
+	case menu.FieldQuery:
+		return m.Query()
+	case menu.FieldIsExternal:
+		return m.IsExternal()
+	case menu.FieldEmbed:
+		return m.Embed()
+	case menu.FieldKeepAlive:
+		return m.KeepAlive()
 	case menu.FieldSort:
 		return m.Sort()
 	case menu.FieldStatus:
@@ -8745,6 +8926,14 @@ func (m *MenuMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldType(ctx)
 	case menu.FieldPermission:
 		return m.OldPermission(ctx)
+	case menu.FieldQuery:
+		return m.OldQuery(ctx)
+	case menu.FieldIsExternal:
+		return m.OldIsExternal(ctx)
+	case menu.FieldEmbed:
+		return m.OldEmbed(ctx)
+	case menu.FieldKeepAlive:
+		return m.OldKeepAlive(ctx)
 	case menu.FieldSort:
 		return m.OldSort(ctx)
 	case menu.FieldStatus:
@@ -8821,6 +9010,34 @@ func (m *MenuMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPermission(v)
+		return nil
+	case menu.FieldQuery:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetQuery(v)
+		return nil
+	case menu.FieldIsExternal:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIsExternal(v)
+		return nil
+	case menu.FieldEmbed:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEmbed(v)
+		return nil
+	case menu.FieldKeepAlive:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetKeepAlive(v)
 		return nil
 	case menu.FieldSort:
 		v, ok := value.(int)
@@ -8936,6 +9153,9 @@ func (m *MenuMutation) ClearedFields() []string {
 	if m.FieldCleared(menu.FieldPermission) {
 		fields = append(fields, menu.FieldPermission)
 	}
+	if m.FieldCleared(menu.FieldQuery) {
+		fields = append(fields, menu.FieldQuery)
+	}
 	if m.FieldCleared(menu.FieldFeatureKey) {
 		fields = append(fields, menu.FieldFeatureKey)
 	}
@@ -8967,6 +9187,9 @@ func (m *MenuMutation) ClearField(name string) error {
 		return nil
 	case menu.FieldPermission:
 		m.ClearPermission()
+		return nil
+	case menu.FieldQuery:
+		m.ClearQuery()
 		return nil
 	case menu.FieldFeatureKey:
 		m.ClearFeatureKey()
@@ -9002,6 +9225,18 @@ func (m *MenuMutation) ResetField(name string) error {
 		return nil
 	case menu.FieldPermission:
 		m.ResetPermission()
+		return nil
+	case menu.FieldQuery:
+		m.ResetQuery()
+		return nil
+	case menu.FieldIsExternal:
+		m.ResetIsExternal()
+		return nil
+	case menu.FieldEmbed:
+		m.ResetEmbed()
+		return nil
+	case menu.FieldKeepAlive:
+		m.ResetKeepAlive()
 		return nil
 	case menu.FieldSort:
 		m.ResetSort()

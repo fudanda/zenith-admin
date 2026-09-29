@@ -7,7 +7,7 @@ const packages = {
   'admin-modules': [],
   'admin-ui': [],
   'admin-core': ['client'],
-  'admin-pages': ['client', 'admin-core', 'admin-ui'],
+  'admin-pages': ['client', 'admin-core', 'admin-modules', 'admin-ui'],
   'admin-app': ['client', 'admin-core', 'admin-modules', 'admin-pages', 'admin-ui'],
   'dash': ['admin-app'],
 };

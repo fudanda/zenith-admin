@@ -29,6 +29,14 @@ const (
 	FieldType = "type"
 	// FieldPermission holds the string denoting the permission field in the database.
 	FieldPermission = "permission"
+	// FieldQuery holds the string denoting the query field in the database.
+	FieldQuery = "query"
+	// FieldIsExternal holds the string denoting the is_external field in the database.
+	FieldIsExternal = "is_external"
+	// FieldEmbed holds the string denoting the embed field in the database.
+	FieldEmbed = "embed"
+	// FieldKeepAlive holds the string denoting the keep_alive field in the database.
+	FieldKeepAlive = "keep_alive"
 	// FieldSort holds the string denoting the sort field in the database.
 	FieldSort = "sort"
 	// FieldStatus holds the string denoting the status field in the database.
@@ -56,6 +64,10 @@ var Columns = []string{
 	FieldIcon,
 	FieldType,
 	FieldPermission,
+	FieldQuery,
+	FieldIsExternal,
+	FieldEmbed,
+	FieldKeepAlive,
 	FieldSort,
 	FieldStatus,
 	FieldVisible,
@@ -81,6 +93,12 @@ var (
 	TitleValidator func(string) error
 	// DefaultType holds the default value on creation for the "type" field.
 	DefaultType string
+	// DefaultIsExternal holds the default value on creation for the "is_external" field.
+	DefaultIsExternal bool
+	// DefaultEmbed holds the default value on creation for the "embed" field.
+	DefaultEmbed bool
+	// DefaultKeepAlive holds the default value on creation for the "keep_alive" field.
+	DefaultKeepAlive bool
 	// DefaultSort holds the default value on creation for the "sort" field.
 	DefaultSort int
 	// DefaultStatus holds the default value on creation for the "status" field.
@@ -141,6 +159,26 @@ func ByType(opts ...sql.OrderTermOption) OrderOption {
 // ByPermission orders the results by the permission field.
 func ByPermission(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPermission, opts...).ToFunc()
+}
+
+// ByQuery orders the results by the query field.
+func ByQuery(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldQuery, opts...).ToFunc()
+}
+
+// ByIsExternal orders the results by the is_external field.
+func ByIsExternal(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldIsExternal, opts...).ToFunc()
+}
+
+// ByEmbed orders the results by the embed field.
+func ByEmbed(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldEmbed, opts...).ToFunc()
+}
+
+// ByKeepAlive orders the results by the keep_alive field.
+func ByKeepAlive(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldKeepAlive, opts...).ToFunc()
 }
 
 // BySort orders the results by the sort field.
