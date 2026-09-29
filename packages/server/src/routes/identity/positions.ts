@@ -2,7 +2,8 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { positionContract } from '@zenith/shared/identity';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
-import { validationHook, okBody } from '../../lib/openapi-schemas';
+import { validationHook, okBody, csvStreamBody } from '../../lib/openapi-schemas';
+import { streamToCsv } from '../../lib/excel-export';
 import { defineScopeMembersRoute } from './_scope-members';
 import {
   listAllPositions,
@@ -24,6 +25,32 @@ const positionsRouter = new OpenAPIHono({ defaultHook: validationHook });
 
 const allRoute = defineContractRoute(positionContract.all, {
   handler: async (c) => c.json(okBody(await listAllPositions()), 200),
+});
+const exportCsvRoute = defineContractRoute(positionContract.exportCsv, {
+  handler: async (c) => {
+    const filters = c.req.valid('query');
+    async function* rows() {
+      for (let page = 1; ; page++) {
+        const result = await listPositions({ ...filters, page, pageSize: 200 });
+        for (const row of result.list) yield row;
+        if (result.list.length < 200) break;
+      }
+    }
+    const safe = (value: unknown) => {
+      const text = String(value ?? '');
+      return /^[\s]*[=+\-@]/.test(text) ? `'${text}` : text;
+    };
+    const stream = streamToCsv([
+      { key: 'id', header: 'ID' },
+      { key: 'name', header: '岗位名称', transform: safe },
+      { key: 'code', header: '岗位编码', transform: safe },
+      { key: 'sort', header: '排序' },
+      { key: 'status', header: '状态' },
+      { key: 'remark', header: '备注', transform: safe },
+      { key: 'createdAt', header: '创建时间' },
+    ], rows());
+    return csvStreamBody(c, stream, 'positions.csv');
+  },
 });
 const updatePositionRoute = defineContractRoute(positionContract.update, {
   handler: async (c) => {
@@ -72,6 +99,7 @@ mountCrud(positionsRouter, positionContract,
   { exclude: ['update', 'removeBatch'] },
   [
     allRoute,
+    exportCsvRoute,
     updatePositionRoute,
     batchDeleteRoute,
     listMembersRoute,

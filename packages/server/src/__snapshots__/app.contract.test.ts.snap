@@ -1057,6 +1057,7 @@ exports[`路由表快照 > 完整路由表保持不变 1`] = `
   "GET /api/positions/:id/member-preview",
   "GET /api/positions/:id/members",
   "GET /api/positions/all",
+  "GET /api/positions/export",
   "GET /api/processes",
   "GET /api/processes/:pid",
   "GET /api/processes/stream",
