@@ -1,5 +1,6 @@
 export * from './api-tokens';
 export * from './auth';
+export * from './go-auth';
 export * from './departments';
 export * from './directory-sync';
 export * from './enterprise-auth';
