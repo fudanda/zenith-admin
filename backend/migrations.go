@@ -13,7 +13,7 @@ import (
 //go:embed migrations/*.sql
 var migrationFiles embed.FS
 
-const foundationSchemaVersion = 5
+const foundationSchemaVersion = 6
 
 // Migrate is an explicit CLI operation. Serving requests never changes schema.
 // Version 0 is a fresh database. Older foundation versions are upgraded in
@@ -59,10 +59,17 @@ func (s *Store) Migrate(ctx context.Context) error {
 		}
 	case 4:
 		// The v4 baseline is already present.
+	case 5:
+		// Menu columns are already present.
 	default:
 		return fmt.Errorf("database schema version %d has no supported upgrade path; restore its matching binary and migrate first", current)
 	}
-	if err := applyMigration(ctx, tx, "migrations/0005_menu_fields.sql"); err != nil {
+	if current < 5 {
+		if err := applyMigration(ctx, tx, "migrations/0005_menu_fields.sql"); err != nil {
+			return err
+		}
+	}
+	if err := applyMigration(ctx, tx, "migrations/0006_group_rules.sql"); err != nil {
 		return err
 	}
 	if _, err := tx.ExecContext(ctx, `INSERT INTO zenith_schema_versions(version) VALUES ($1)`, foundationSchemaVersion); err != nil {

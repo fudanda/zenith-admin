@@ -302,6 +302,9 @@ func (f *Framework) saveDepartment(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return err
 		}
+		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+			return err
+		}
 		operation := "update"
 		if id == 0 {
 			operation = "create"
@@ -351,6 +354,9 @@ func (f *Framework) deleteDepartment(w http.ResponseWriter, r *http.Request) {
 			return errors.New("部门仍有成员")
 		}
 		if err := tx.Department.DeleteOne(row).Exec(r.Context()); err != nil {
+			return err
+		}
+		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete").SetResource("departments").SetResourceID(id)

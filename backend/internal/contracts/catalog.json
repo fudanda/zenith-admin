@@ -5,6 +5,7 @@
       "method": "GET",
       "path": "/api/v1/positions/all",
       "permission": "system:position:list",
+      "platformOnly": false,
       "audit": null
     },
     {
@@ -12,6 +13,7 @@
       "method": "GET",
       "path": "/api/v1/positions",
       "permission": "system:position:list",
+      "platformOnly": false,
       "audit": null
     },
     {
@@ -19,6 +21,7 @@
       "method": "GET",
       "path": "/api/v1/positions/{id}",
       "permission": "system:position:list",
+      "platformOnly": false,
       "audit": null
     },
     {
@@ -26,6 +29,7 @@
       "method": "POST",
       "path": "/api/v1/positions",
       "permission": "system:position:create",
+      "platformOnly": false,
       "audit": {
         "module": "岗位管理",
         "description": "创建岗位"
@@ -36,6 +40,7 @@
       "method": "PUT",
       "path": "/api/v1/positions/{id}",
       "permission": "system:position:update",
+      "platformOnly": false,
       "audit": {
         "module": "岗位管理",
         "description": "更新岗位"
@@ -46,6 +51,7 @@
       "method": "DELETE",
       "path": "/api/v1/positions/{id}",
       "permission": "system:position:delete",
+      "platformOnly": false,
       "audit": {
         "module": "岗位管理",
         "description": "删除岗位"
@@ -56,6 +62,7 @@
       "method": "GET",
       "path": "/api/v1/menus",
       "permission": "system:menu:list",
+      "platformOnly": false,
       "audit": null
     },
     {
@@ -63,6 +70,7 @@
       "method": "GET",
       "path": "/api/v1/menus/flat",
       "permission": "system:menu:list",
+      "platformOnly": false,
       "audit": null
     },
     {
@@ -70,6 +78,7 @@
       "method": "GET",
       "path": "/api/v1/menus/{id}",
       "permission": "system:menu:list",
+      "platformOnly": false,
       "audit": null
     },
     {
@@ -77,6 +86,7 @@
       "method": "POST",
       "path": "/api/v1/menus",
       "permission": "system:menu:create",
+      "platformOnly": true,
       "audit": {
         "module": "菜单管理",
         "description": "创建菜单"
@@ -87,6 +97,7 @@
       "method": "PUT",
       "path": "/api/v1/menus/{id}",
       "permission": "system:menu:update",
+      "platformOnly": true,
       "audit": {
         "module": "菜单管理",
         "description": "更新菜单"
@@ -97,6 +108,7 @@
       "method": "DELETE",
       "path": "/api/v1/menus/{id}",
       "permission": "system:menu:delete",
+      "platformOnly": true,
       "audit": {
         "module": "菜单管理",
         "description": "删除菜单"

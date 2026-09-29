@@ -456,15 +456,15 @@ func init() {
 	// usergroup.DefaultMemberMode holds the default value on creation for the member_mode field.
 	usergroup.DefaultMemberMode = usergroupDescMemberMode.Default.(string)
 	// usergroupDescStatus is the schema descriptor for status field.
-	usergroupDescStatus := usergroupFields[6].Descriptor()
+	usergroupDescStatus := usergroupFields[8].Descriptor()
 	// usergroup.DefaultStatus holds the default value on creation for the status field.
 	usergroup.DefaultStatus = usergroupDescStatus.Default.(string)
 	// usergroupDescCreatedAt is the schema descriptor for created_at field.
-	usergroupDescCreatedAt := usergroupFields[7].Descriptor()
+	usergroupDescCreatedAt := usergroupFields[9].Descriptor()
 	// usergroup.DefaultCreatedAt holds the default value on creation for the created_at field.
 	usergroup.DefaultCreatedAt = usergroupDescCreatedAt.Default.(func() time.Time)
 	// usergroupDescUpdatedAt is the schema descriptor for updated_at field.
-	usergroupDescUpdatedAt := usergroupFields[8].Descriptor()
+	usergroupDescUpdatedAt := usergroupFields[10].Descriptor()
 	// usergroup.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	usergroup.DefaultUpdatedAt = usergroupDescUpdatedAt.Default.(func() time.Time)
 	// usergroup.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.

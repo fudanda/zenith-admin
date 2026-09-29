@@ -32,6 +32,7 @@ type Module interface {
 
 type Route struct {
 	Method, Path, OperationID, Permission string
+	AnyPermissions                        []string
 	Public, PlatformOnly                  bool
 	Handler                               http.Handler
 }
@@ -300,6 +301,9 @@ func (f *Framework) startMaintenance() {
 				}
 				if err := f.cleanupExpiredUploads(work); err != nil {
 					log.Printf("upload maintenance: %v", err)
+				}
+				if err := f.Store.reconcileDynamicGroups(work); err != nil {
+					log.Printf("group maintenance: %v", err)
 				}
 				stop()
 			}

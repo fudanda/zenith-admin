@@ -1,8 +1,10 @@
 package zenith
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 	"regexp"
 	"strings"
@@ -47,7 +49,7 @@ func (f *Framework) groupView(r *http.Request, row *ent.UserGroup) (map[string]a
 		}
 	}
 	return map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "description": row.Description, "ownerId": row.OwnerID, "ownerName": ownerName,
-		"memberMode": row.MemberMode, "memberRule": nil, "ruleSyncedAt": nil, "memberCount": len(members), "roleCount": len(roles), "status": row.Status,
+		"memberMode": row.MemberMode, "memberRule": row.MemberRule, "ruleSyncedAt": row.RuleSyncedAt, "memberCount": len(members), "roleCount": len(roles), "status": row.Status,
 		"tenantId": row.TenantID, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt}, nil
 }
 
@@ -142,6 +144,7 @@ type groupInput struct {
 	Name, Code, Status, MemberMode string
 	Description                    *string
 	OwnerID                        *int
+	MemberRule                     *memberRule
 	RoleIDs, UserIDs               []int
 }
 
@@ -155,8 +158,13 @@ func validateGroup(in groupInput) error {
 	if in.Status != "enabled" && in.Status != "disabled" {
 		return errors.New("状态无效")
 	}
-	if in.MemberMode != "static" {
-		return errors.New("首版仅支持手工维护用户组")
+	if in.MemberMode != "static" && in.MemberMode != "dynamic" {
+		return errors.New("成员模式无效")
+	}
+	if in.MemberMode == "dynamic" {
+		if err := validateRuleShape(in.MemberRule); err != nil {
+			return err
+		}
 	}
 	if in.Description != nil && len([]rune(*in.Description)) > 256 {
 		return errors.New("说明过长")
@@ -220,7 +228,12 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 			fail(w, 503, "database_unavailable", "查询失败")
 			return
 		}
-		in = groupInput{Name: current.Name, Code: current.Code, Description: current.Description, OwnerID: current.OwnerID, Status: current.Status, MemberMode: current.MemberMode}
+		rule, err := ruleFromMap(current.MemberRule)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "规则读取失败")
+			return
+		}
+		in = groupInput{Name: current.Name, Code: current.Code, Description: current.Description, OwnerID: current.OwnerID, Status: current.Status, MemberMode: current.MemberMode, MemberRule: rule}
 	}
 	var patch map[string]json.RawMessage
 	if err := decode(r, &patch); err != nil || len(patch) == 0 {
@@ -229,6 +242,7 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 	}
 	rolesChanged := false
 	usersChanged := false
+	ruleChanged := false
 	for key, raw := range patch {
 		var err error
 		switch key {
@@ -243,11 +257,26 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 		case "status":
 			err = json.Unmarshal(raw, &in.Status)
 		case "memberMode":
+			ruleChanged = true
 			err = json.Unmarshal(raw, &in.MemberMode)
 		case "memberRule":
-			if string(raw) != "null" {
-				fail(w, 400, "unsupported_member_rule", "首版不支持动态成员规则")
-				return
+			ruleChanged = true
+			if string(raw) == "null" {
+				in.MemberRule = nil
+			} else {
+				decoder := json.NewDecoder(bytes.NewReader(raw))
+				decoder.DisallowUnknownFields()
+				var parsed memberRule
+				err = decoder.Decode(&parsed)
+				if err == nil {
+					var extra any
+					if nextErr := decoder.Decode(&extra); !errors.Is(nextErr, io.EOF) {
+						err = errors.New("规则 JSON 包含多余内容")
+					}
+				}
+				if err == nil {
+					in.MemberRule = &parsed
+				}
 			}
 		case "roleIds":
 			rolesChanged = true
@@ -268,6 +297,22 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_request", err.Error())
 		return
 	}
+	if in.MemberMode == "dynamic" {
+		if usersChanged && len(in.UserIDs) > 0 {
+			fail(w, 400, "invalid_request", "动态组不能手工分配成员")
+			return
+		}
+		if err := f.validateRuleRefs(r.Context(), p, in.MemberRule); err != nil {
+			if errors.Is(err, errInvalidGroupRule) {
+				fail(w, 400, "invalid_rule", err.Error())
+			} else {
+				fail(w, 503, "database_unavailable", "规则校验失败")
+			}
+			return
+		}
+	} else {
+		in.MemberRule = nil
+	}
 	if in.OwnerID != nil {
 		if _, err := f.visibleUser(r.Context(), p, *in.OwnerID); err != nil {
 			fail(w, 400, "invalid_owner", "负责人不在可管理范围")
@@ -287,10 +332,18 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	var saved *ent.UserGroup
-	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+	ruleData, err := ruleToMap(in.MemberRule)
+	if err != nil {
+		fail(w, 400, "invalid_rule", "规则格式无效")
+		return
+	}
+	err = f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		var err error
 		if id == 0 {
-			create := tx.UserGroup.Create().SetName(in.Name).SetCode(in.Code).SetStatus(in.Status).SetMemberMode("static")
+			create := tx.UserGroup.Create().SetName(in.Name).SetCode(in.Code).SetStatus(in.Status).SetMemberMode(in.MemberMode)
+			if ruleData != nil {
+				create.SetMemberRule(ruleData)
+			}
 			if p.TenantID != nil {
 				create.SetTenantID(*p.TenantID)
 			}
@@ -302,7 +355,13 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 			}
 			saved, err = create.Save(r.Context())
 		} else {
-			update := tx.UserGroup.UpdateOneID(id).SetName(in.Name).SetCode(in.Code).SetStatus(in.Status).SetMemberMode("static")
+			update := tx.UserGroup.UpdateOneID(id).SetName(in.Name).SetCode(in.Code).SetStatus(in.Status).SetMemberMode(in.MemberMode)
+			if ruleData != nil {
+				update.SetMemberRule(ruleData)
+			} else {
+				update.ClearMemberRule()
+				update.ClearRuleSyncedAt()
+			}
 			if in.Description == nil {
 				update.ClearDescription()
 			} else {
@@ -328,7 +387,7 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		}
-		if usersChanged || id == 0 {
+		if in.MemberMode == "static" && (usersChanged || id == 0) {
 			if _, err = tx.UserGroupMember.Delete().Where(usergroupmember.GroupIDEQ(saved.ID)).Exec(r.Context()); err != nil {
 				return err
 			}
@@ -336,6 +395,11 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 				if err = tx.UserGroupMember.Create().SetGroupID(saved.ID).SetUserID(userID).Exec(r.Context()); err != nil {
 					return err
 				}
+			}
+		}
+		if in.MemberMode == "dynamic" && (ruleChanged || id == 0) {
+			if _, _, err = syncRuleMembers(r.Context(), tx, saved, in.MemberRule); err != nil {
+				return err
 			}
 		}
 		operation := "update"
@@ -350,6 +414,11 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		fail(w, 409, "group_conflict", err.Error())
+		return
+	}
+	saved, err = f.Store.Client.UserGroup.Get(r.Context(), saved.ID)
+	if err != nil {
+		fail(w, 503, "database_unavailable", "查询失败")
 		return
 	}
 	view, err := f.groupView(r, saved)

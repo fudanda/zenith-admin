@@ -88,6 +88,26 @@ func (_c *UserGroupCreate) SetNillableMemberMode(v *string) *UserGroupCreate {
 	return _c
 }
 
+// SetMemberRule sets the "member_rule" field.
+func (_c *UserGroupCreate) SetMemberRule(v map[string]interface{}) *UserGroupCreate {
+	_c.mutation.SetMemberRule(v)
+	return _c
+}
+
+// SetRuleSyncedAt sets the "rule_synced_at" field.
+func (_c *UserGroupCreate) SetRuleSyncedAt(v time.Time) *UserGroupCreate {
+	_c.mutation.SetRuleSyncedAt(v)
+	return _c
+}
+
+// SetNillableRuleSyncedAt sets the "rule_synced_at" field if the given value is not nil.
+func (_c *UserGroupCreate) SetNillableRuleSyncedAt(v *time.Time) *UserGroupCreate {
+	if v != nil {
+		_c.SetRuleSyncedAt(*v)
+	}
+	return _c
+}
+
 // SetStatus sets the "status" field.
 func (_c *UserGroupCreate) SetStatus(v string) *UserGroupCreate {
 	_c.mutation.SetStatus(v)
@@ -252,6 +272,14 @@ func (_c *UserGroupCreate) createSpec() (*UserGroup, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.MemberMode(); ok {
 		_spec.SetField(usergroup.FieldMemberMode, field.TypeString, value)
 		_node.MemberMode = value
+	}
+	if value, ok := _c.mutation.MemberRule(); ok {
+		_spec.SetField(usergroup.FieldMemberRule, field.TypeJSON, value)
+		_node.MemberRule = value
+	}
+	if value, ok := _c.mutation.RuleSyncedAt(); ok {
+		_spec.SetField(usergroup.FieldRuleSyncedAt, field.TypeTime, value)
+		_node.RuleSyncedAt = &value
 	}
 	if value, ok := _c.mutation.Status(); ok {
 		_spec.SetField(usergroup.FieldStatus, field.TypeString, value)

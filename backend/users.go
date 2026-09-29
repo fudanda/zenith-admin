@@ -410,6 +410,9 @@ func (f *Framework) saveUser(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		}
+		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+			return err
+		}
 		operation := "update"
 		if id == 0 {
 			operation = "create"
@@ -509,6 +512,9 @@ func (f *Framework) deleteUser(w http.ResponseWriter, r *http.Request) {
 	}
 	err = f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		if err := tx.User.DeleteOneID(id).Exec(r.Context()); err != nil {
+			return err
+		}
+		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete").SetResource("users").SetResourceID(id)

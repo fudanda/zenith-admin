@@ -581,6 +581,8 @@ var (
 		{Name: "description", Type: field.TypeString, Nullable: true},
 		{Name: "owner_id", Type: field.TypeInt, Nullable: true},
 		{Name: "member_mode", Type: field.TypeString, Default: "static"},
+		{Name: "member_rule", Type: field.TypeJSON, Nullable: true},
+		{Name: "rule_synced_at", Type: field.TypeTime, Nullable: true},
 		{Name: "status", Type: field.TypeString, Default: "enabled"},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},

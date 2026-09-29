@@ -84,6 +84,11 @@ func MemberMode(v string) predicate.UserGroup {
 	return predicate.UserGroup(sql.FieldEQ(FieldMemberMode, v))
 }
 
+// RuleSyncedAt applies equality check predicate on the "rule_synced_at" field. It's identical to RuleSyncedAtEQ.
+func RuleSyncedAt(v time.Time) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEQ(FieldRuleSyncedAt, v))
+}
+
 // Status applies equality check predicate on the "status" field. It's identical to StatusEQ.
 func Status(v string) predicate.UserGroup {
 	return predicate.UserGroup(sql.FieldEQ(FieldStatus, v))
@@ -467,6 +472,66 @@ func MemberModeEqualFold(v string) predicate.UserGroup {
 // MemberModeContainsFold applies the ContainsFold predicate on the "member_mode" field.
 func MemberModeContainsFold(v string) predicate.UserGroup {
 	return predicate.UserGroup(sql.FieldContainsFold(FieldMemberMode, v))
+}
+
+// MemberRuleIsNil applies the IsNil predicate on the "member_rule" field.
+func MemberRuleIsNil() predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldIsNull(FieldMemberRule))
+}
+
+// MemberRuleNotNil applies the NotNil predicate on the "member_rule" field.
+func MemberRuleNotNil() predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNotNull(FieldMemberRule))
+}
+
+// RuleSyncedAtEQ applies the EQ predicate on the "rule_synced_at" field.
+func RuleSyncedAtEQ(v time.Time) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldEQ(FieldRuleSyncedAt, v))
+}
+
+// RuleSyncedAtNEQ applies the NEQ predicate on the "rule_synced_at" field.
+func RuleSyncedAtNEQ(v time.Time) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNEQ(FieldRuleSyncedAt, v))
+}
+
+// RuleSyncedAtIn applies the In predicate on the "rule_synced_at" field.
+func RuleSyncedAtIn(vs ...time.Time) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldIn(FieldRuleSyncedAt, vs...))
+}
+
+// RuleSyncedAtNotIn applies the NotIn predicate on the "rule_synced_at" field.
+func RuleSyncedAtNotIn(vs ...time.Time) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNotIn(FieldRuleSyncedAt, vs...))
+}
+
+// RuleSyncedAtGT applies the GT predicate on the "rule_synced_at" field.
+func RuleSyncedAtGT(v time.Time) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldGT(FieldRuleSyncedAt, v))
+}
+
+// RuleSyncedAtGTE applies the GTE predicate on the "rule_synced_at" field.
+func RuleSyncedAtGTE(v time.Time) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldGTE(FieldRuleSyncedAt, v))
+}
+
+// RuleSyncedAtLT applies the LT predicate on the "rule_synced_at" field.
+func RuleSyncedAtLT(v time.Time) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldLT(FieldRuleSyncedAt, v))
+}
+
+// RuleSyncedAtLTE applies the LTE predicate on the "rule_synced_at" field.
+func RuleSyncedAtLTE(v time.Time) predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldLTE(FieldRuleSyncedAt, v))
+}
+
+// RuleSyncedAtIsNil applies the IsNil predicate on the "rule_synced_at" field.
+func RuleSyncedAtIsNil() predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldIsNull(FieldRuleSyncedAt))
+}
+
+// RuleSyncedAtNotNil applies the NotNil predicate on the "rule_synced_at" field.
+func RuleSyncedAtNotNil() predicate.UserGroup {
+	return predicate.UserGroup(sql.FieldNotNull(FieldRuleSyncedAt))
 }
 
 // StatusEQ applies the EQ predicate on the "status" field.

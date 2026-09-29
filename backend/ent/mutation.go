@@ -19387,24 +19387,26 @@ func (m *UserDepartmentScopeMutation) ResetEdge(name string) error {
 // UserGroupMutation represents an operation that mutates the UserGroup nodes in the graph.
 type UserGroupMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *int
-	tenant_id     *int
-	addtenant_id  *int
-	name          *string
-	code          *string
-	description   *string
-	owner_id      *int
-	addowner_id   *int
-	member_mode   *string
-	status        *string
-	created_at    *time.Time
-	updated_at    *time.Time
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*UserGroup, error)
-	predicates    []predicate.UserGroup
+	op             Op
+	typ            string
+	id             *int
+	tenant_id      *int
+	addtenant_id   *int
+	name           *string
+	code           *string
+	description    *string
+	owner_id       *int
+	addowner_id    *int
+	member_mode    *string
+	member_rule    *map[string]interface{}
+	rule_synced_at *time.Time
+	status         *string
+	created_at     *time.Time
+	updated_at     *time.Time
+	clearedFields  map[string]struct{}
+	done           bool
+	oldValue       func(context.Context) (*UserGroup, error)
+	predicates     []predicate.UserGroup
 }
 
 var _ ent.Mutation = (*UserGroupMutation)(nil)
@@ -19802,6 +19804,104 @@ func (m *UserGroupMutation) ResetMemberMode() {
 	m.member_mode = nil
 }
 
+// SetMemberRule sets the "member_rule" field.
+func (m *UserGroupMutation) SetMemberRule(value map[string]interface{}) {
+	m.member_rule = &value
+}
+
+// MemberRule returns the value of the "member_rule" field in the mutation.
+func (m *UserGroupMutation) MemberRule() (r map[string]interface{}, exists bool) {
+	v := m.member_rule
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMemberRule returns the old "member_rule" field's value of the UserGroup entity.
+// If the UserGroup object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserGroupMutation) OldMemberRule(ctx context.Context) (v map[string]interface{}, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldMemberRule is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldMemberRule requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMemberRule: %w", err)
+	}
+	return oldValue.MemberRule, nil
+}
+
+// ClearMemberRule clears the value of the "member_rule" field.
+func (m *UserGroupMutation) ClearMemberRule() {
+	m.member_rule = nil
+	m.clearedFields[usergroup.FieldMemberRule] = struct{}{}
+}
+
+// MemberRuleCleared returns if the "member_rule" field was cleared in this mutation.
+func (m *UserGroupMutation) MemberRuleCleared() bool {
+	_, ok := m.clearedFields[usergroup.FieldMemberRule]
+	return ok
+}
+
+// ResetMemberRule resets all changes to the "member_rule" field.
+func (m *UserGroupMutation) ResetMemberRule() {
+	m.member_rule = nil
+	delete(m.clearedFields, usergroup.FieldMemberRule)
+}
+
+// SetRuleSyncedAt sets the "rule_synced_at" field.
+func (m *UserGroupMutation) SetRuleSyncedAt(t time.Time) {
+	m.rule_synced_at = &t
+}
+
+// RuleSyncedAt returns the value of the "rule_synced_at" field in the mutation.
+func (m *UserGroupMutation) RuleSyncedAt() (r time.Time, exists bool) {
+	v := m.rule_synced_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRuleSyncedAt returns the old "rule_synced_at" field's value of the UserGroup entity.
+// If the UserGroup object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserGroupMutation) OldRuleSyncedAt(ctx context.Context) (v *time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRuleSyncedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRuleSyncedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRuleSyncedAt: %w", err)
+	}
+	return oldValue.RuleSyncedAt, nil
+}
+
+// ClearRuleSyncedAt clears the value of the "rule_synced_at" field.
+func (m *UserGroupMutation) ClearRuleSyncedAt() {
+	m.rule_synced_at = nil
+	m.clearedFields[usergroup.FieldRuleSyncedAt] = struct{}{}
+}
+
+// RuleSyncedAtCleared returns if the "rule_synced_at" field was cleared in this mutation.
+func (m *UserGroupMutation) RuleSyncedAtCleared() bool {
+	_, ok := m.clearedFields[usergroup.FieldRuleSyncedAt]
+	return ok
+}
+
+// ResetRuleSyncedAt resets all changes to the "rule_synced_at" field.
+func (m *UserGroupMutation) ResetRuleSyncedAt() {
+	m.rule_synced_at = nil
+	delete(m.clearedFields, usergroup.FieldRuleSyncedAt)
+}
+
 // SetStatus sets the "status" field.
 func (m *UserGroupMutation) SetStatus(s string) {
 	m.status = &s
@@ -19944,7 +20044,7 @@ func (m *UserGroupMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UserGroupMutation) Fields() []string {
-	fields := make([]string, 0, 9)
+	fields := make([]string, 0, 11)
 	if m.tenant_id != nil {
 		fields = append(fields, usergroup.FieldTenantID)
 	}
@@ -19962,6 +20062,12 @@ func (m *UserGroupMutation) Fields() []string {
 	}
 	if m.member_mode != nil {
 		fields = append(fields, usergroup.FieldMemberMode)
+	}
+	if m.member_rule != nil {
+		fields = append(fields, usergroup.FieldMemberRule)
+	}
+	if m.rule_synced_at != nil {
+		fields = append(fields, usergroup.FieldRuleSyncedAt)
 	}
 	if m.status != nil {
 		fields = append(fields, usergroup.FieldStatus)
@@ -19992,6 +20098,10 @@ func (m *UserGroupMutation) Field(name string) (ent.Value, bool) {
 		return m.OwnerID()
 	case usergroup.FieldMemberMode:
 		return m.MemberMode()
+	case usergroup.FieldMemberRule:
+		return m.MemberRule()
+	case usergroup.FieldRuleSyncedAt:
+		return m.RuleSyncedAt()
 	case usergroup.FieldStatus:
 		return m.Status()
 	case usergroup.FieldCreatedAt:
@@ -20019,6 +20129,10 @@ func (m *UserGroupMutation) OldField(ctx context.Context, name string) (ent.Valu
 		return m.OldOwnerID(ctx)
 	case usergroup.FieldMemberMode:
 		return m.OldMemberMode(ctx)
+	case usergroup.FieldMemberRule:
+		return m.OldMemberRule(ctx)
+	case usergroup.FieldRuleSyncedAt:
+		return m.OldRuleSyncedAt(ctx)
 	case usergroup.FieldStatus:
 		return m.OldStatus(ctx)
 	case usergroup.FieldCreatedAt:
@@ -20075,6 +20189,20 @@ func (m *UserGroupMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetMemberMode(v)
+		return nil
+	case usergroup.FieldMemberRule:
+		v, ok := value.(map[string]interface{})
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMemberRule(v)
+		return nil
+	case usergroup.FieldRuleSyncedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRuleSyncedAt(v)
 		return nil
 	case usergroup.FieldStatus:
 		v, ok := value.(string)
@@ -20163,6 +20291,12 @@ func (m *UserGroupMutation) ClearedFields() []string {
 	if m.FieldCleared(usergroup.FieldOwnerID) {
 		fields = append(fields, usergroup.FieldOwnerID)
 	}
+	if m.FieldCleared(usergroup.FieldMemberRule) {
+		fields = append(fields, usergroup.FieldMemberRule)
+	}
+	if m.FieldCleared(usergroup.FieldRuleSyncedAt) {
+		fields = append(fields, usergroup.FieldRuleSyncedAt)
+	}
 	return fields
 }
 
@@ -20185,6 +20319,12 @@ func (m *UserGroupMutation) ClearField(name string) error {
 		return nil
 	case usergroup.FieldOwnerID:
 		m.ClearOwnerID()
+		return nil
+	case usergroup.FieldMemberRule:
+		m.ClearMemberRule()
+		return nil
+	case usergroup.FieldRuleSyncedAt:
+		m.ClearRuleSyncedAt()
 		return nil
 	}
 	return fmt.Errorf("unknown UserGroup nullable field %s", name)
@@ -20211,6 +20351,12 @@ func (m *UserGroupMutation) ResetField(name string) error {
 		return nil
 	case usergroup.FieldMemberMode:
 		m.ResetMemberMode()
+		return nil
+	case usergroup.FieldMemberRule:
+		m.ResetMemberRule()
+		return nil
+	case usergroup.FieldRuleSyncedAt:
+		m.ResetRuleSyncedAt()
 		return nil
 	case usergroup.FieldStatus:
 		m.ResetStatus()

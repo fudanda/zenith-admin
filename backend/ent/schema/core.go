@@ -241,6 +241,7 @@ type UserGroup struct{ ent.Schema }
 func (UserGroup) Fields() []ent.Field {
 	return []ent.Field{field.Int("tenant_id").Optional().Nillable(), field.String("name"), field.String("code"),
 		field.String("description").Optional().Nillable(), field.Int("owner_id").Optional().Nillable(), field.String("member_mode").Default("static"),
+		field.JSON("member_rule", map[string]any{}).Optional(), field.Time("rule_synced_at").Optional().Nillable(),
 		field.String("status").Default("enabled"), field.Time("created_at").Default(time.Now),
 		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now)}
 }

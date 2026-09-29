@@ -14,7 +14,7 @@ func contractRoute(id string, handler http.Handler) (Route, error) {
 	if !ok {
 		return Route{}, fmt.Errorf("generated contract operation %q not found", id)
 	}
-	return Route{Method: op.Method, Path: op.Path, OperationID: id, Permission: op.Permission, Handler: handler}, nil
+	return Route{Method: op.Method, Path: op.Path, OperationID: id, Permission: op.Permission, PlatformOnly: op.PlatformOnly, Handler: handler}, nil
 }
 
 func (r *Registrar) registerContract(id string, handler http.Handler) error {

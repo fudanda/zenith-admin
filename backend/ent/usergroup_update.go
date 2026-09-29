@@ -144,6 +144,38 @@ func (_u *UserGroupUpdate) SetNillableMemberMode(v *string) *UserGroupUpdate {
 	return _u
 }
 
+// SetMemberRule sets the "member_rule" field.
+func (_u *UserGroupUpdate) SetMemberRule(v map[string]interface{}) *UserGroupUpdate {
+	_u.mutation.SetMemberRule(v)
+	return _u
+}
+
+// ClearMemberRule clears the value of the "member_rule" field.
+func (_u *UserGroupUpdate) ClearMemberRule() *UserGroupUpdate {
+	_u.mutation.ClearMemberRule()
+	return _u
+}
+
+// SetRuleSyncedAt sets the "rule_synced_at" field.
+func (_u *UserGroupUpdate) SetRuleSyncedAt(v time.Time) *UserGroupUpdate {
+	_u.mutation.SetRuleSyncedAt(v)
+	return _u
+}
+
+// SetNillableRuleSyncedAt sets the "rule_synced_at" field if the given value is not nil.
+func (_u *UserGroupUpdate) SetNillableRuleSyncedAt(v *time.Time) *UserGroupUpdate {
+	if v != nil {
+		_u.SetRuleSyncedAt(*v)
+	}
+	return _u
+}
+
+// ClearRuleSyncedAt clears the value of the "rule_synced_at" field.
+func (_u *UserGroupUpdate) ClearRuleSyncedAt() *UserGroupUpdate {
+	_u.mutation.ClearRuleSyncedAt()
+	return _u
+}
+
 // SetStatus sets the "status" field.
 func (_u *UserGroupUpdate) SetStatus(v string) *UserGroupUpdate {
 	_u.mutation.SetStatus(v)
@@ -260,6 +292,18 @@ func (_u *UserGroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.MemberMode(); ok {
 		_spec.SetField(usergroup.FieldMemberMode, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.MemberRule(); ok {
+		_spec.SetField(usergroup.FieldMemberRule, field.TypeJSON, value)
+	}
+	if _u.mutation.MemberRuleCleared() {
+		_spec.ClearField(usergroup.FieldMemberRule, field.TypeJSON)
+	}
+	if value, ok := _u.mutation.RuleSyncedAt(); ok {
+		_spec.SetField(usergroup.FieldRuleSyncedAt, field.TypeTime, value)
+	}
+	if _u.mutation.RuleSyncedAtCleared() {
+		_spec.ClearField(usergroup.FieldRuleSyncedAt, field.TypeTime)
 	}
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(usergroup.FieldStatus, field.TypeString, value)
@@ -403,6 +447,38 @@ func (_u *UserGroupUpdateOne) SetNillableMemberMode(v *string) *UserGroupUpdateO
 	if v != nil {
 		_u.SetMemberMode(*v)
 	}
+	return _u
+}
+
+// SetMemberRule sets the "member_rule" field.
+func (_u *UserGroupUpdateOne) SetMemberRule(v map[string]interface{}) *UserGroupUpdateOne {
+	_u.mutation.SetMemberRule(v)
+	return _u
+}
+
+// ClearMemberRule clears the value of the "member_rule" field.
+func (_u *UserGroupUpdateOne) ClearMemberRule() *UserGroupUpdateOne {
+	_u.mutation.ClearMemberRule()
+	return _u
+}
+
+// SetRuleSyncedAt sets the "rule_synced_at" field.
+func (_u *UserGroupUpdateOne) SetRuleSyncedAt(v time.Time) *UserGroupUpdateOne {
+	_u.mutation.SetRuleSyncedAt(v)
+	return _u
+}
+
+// SetNillableRuleSyncedAt sets the "rule_synced_at" field if the given value is not nil.
+func (_u *UserGroupUpdateOne) SetNillableRuleSyncedAt(v *time.Time) *UserGroupUpdateOne {
+	if v != nil {
+		_u.SetRuleSyncedAt(*v)
+	}
+	return _u
+}
+
+// ClearRuleSyncedAt clears the value of the "rule_synced_at" field.
+func (_u *UserGroupUpdateOne) ClearRuleSyncedAt() *UserGroupUpdateOne {
+	_u.mutation.ClearRuleSyncedAt()
 	return _u
 }
 
@@ -552,6 +628,18 @@ func (_u *UserGroupUpdateOne) sqlSave(ctx context.Context) (_node *UserGroup, er
 	}
 	if value, ok := _u.mutation.MemberMode(); ok {
 		_spec.SetField(usergroup.FieldMemberMode, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.MemberRule(); ok {
+		_spec.SetField(usergroup.FieldMemberRule, field.TypeJSON, value)
+	}
+	if _u.mutation.MemberRuleCleared() {
+		_spec.ClearField(usergroup.FieldMemberRule, field.TypeJSON)
+	}
+	if value, ok := _u.mutation.RuleSyncedAt(); ok {
+		_spec.SetField(usergroup.FieldRuleSyncedAt, field.TypeTime, value)
+	}
+	if _u.mutation.RuleSyncedAtCleared() {
+		_spec.ClearField(usergroup.FieldRuleSyncedAt, field.TypeTime)
 	}
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(usergroup.FieldStatus, field.TypeString, value)

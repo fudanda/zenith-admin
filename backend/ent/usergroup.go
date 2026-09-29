@@ -3,6 +3,7 @@
 package ent
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 	"time"
@@ -29,6 +30,10 @@ type UserGroup struct {
 	OwnerID *int `json:"owner_id,omitempty"`
 	// MemberMode holds the value of the "member_mode" field.
 	MemberMode string `json:"member_mode,omitempty"`
+	// MemberRule holds the value of the "member_rule" field.
+	MemberRule map[string]interface{} `json:"member_rule,omitempty"`
+	// RuleSyncedAt holds the value of the "rule_synced_at" field.
+	RuleSyncedAt *time.Time `json:"rule_synced_at,omitempty"`
 	// Status holds the value of the "status" field.
 	Status string `json:"status,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
@@ -43,11 +48,13 @@ func (*UserGroup) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
+		case usergroup.FieldMemberRule:
+			values[i] = new([]byte)
 		case usergroup.FieldID, usergroup.FieldTenantID, usergroup.FieldOwnerID:
 			values[i] = new(sql.NullInt64)
 		case usergroup.FieldName, usergroup.FieldCode, usergroup.FieldDescription, usergroup.FieldMemberMode, usergroup.FieldStatus:
 			values[i] = new(sql.NullString)
-		case usergroup.FieldCreatedAt, usergroup.FieldUpdatedAt:
+		case usergroup.FieldRuleSyncedAt, usergroup.FieldCreatedAt, usergroup.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -108,6 +115,21 @@ func (_m *UserGroup) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field member_mode", values[i])
 			} else if value.Valid {
 				_m.MemberMode = value.String
+			}
+		case usergroup.FieldMemberRule:
+			if value, ok := values[i].(*[]byte); !ok {
+				return fmt.Errorf("unexpected type %T for field member_rule", values[i])
+			} else if value != nil && len(*value) > 0 {
+				if err := json.Unmarshal(*value, &_m.MemberRule); err != nil {
+					return fmt.Errorf("unmarshal field member_rule: %w", err)
+				}
+			}
+		case usergroup.FieldRuleSyncedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field rule_synced_at", values[i])
+			} else if value.Valid {
+				_m.RuleSyncedAt = new(time.Time)
+				*_m.RuleSyncedAt = value.Time
 			}
 		case usergroup.FieldStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -186,6 +208,14 @@ func (_m *UserGroup) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("member_mode=")
 	builder.WriteString(_m.MemberMode)
+	builder.WriteString(", ")
+	builder.WriteString("member_rule=")
+	builder.WriteString(fmt.Sprintf("%v", _m.MemberRule))
+	builder.WriteString(", ")
+	if v := _m.RuleSyncedAt; v != nil {
+		builder.WriteString("rule_synced_at=")
+		builder.WriteString(v.Format(time.ANSIC))
+	}
 	builder.WriteString(", ")
 	builder.WriteString("status=")
 	builder.WriteString(_m.Status)

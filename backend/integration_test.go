@@ -62,12 +62,22 @@ func TestPostgresVersionedMigrations(t *testing.T) {
 	if err := store.Migrate(ctx); err != nil {
 		t.Fatalf("repeat migration: %v", err)
 	}
-	// Recreate the committed v4 state to verify the additive menu migration.
-	if _, err := store.DB.ExecContext(ctx, `ALTER TABLE menus DROP COLUMN query, DROP COLUMN is_external, DROP COLUMN embed, DROP COLUMN keep_alive; DELETE FROM zenith_schema_versions; INSERT INTO zenith_schema_versions(version) VALUES (4)`); err != nil {
+	// Recreate the committed v5 state, then test its additive group migration.
+	if _, err := store.DB.ExecContext(ctx, `ALTER TABLE user_groups DROP COLUMN member_rule, DROP COLUMN rule_synced_at; DELETE FROM zenith_schema_versions; INSERT INTO zenith_schema_versions(version) VALUES (5)`); err != nil {
 		t.Fatal(err)
 	}
 	if err := store.Migrate(ctx); err != nil {
-		t.Fatalf("v4 to v5 migration: %v", err)
+		t.Fatalf("v5 to v6 migration: %v", err)
+	}
+	if _, err := store.DB.ExecContext(ctx, `INSERT INTO user_groups(name, code, member_rule, rule_synced_at, created_at, updated_at) VALUES ('v6-group', 'v6-group', '{"includeUserIds":[1]}', now(), now(), now())`); err != nil {
+		t.Fatalf("upgraded group columns unusable: %v", err)
+	}
+	// Recreate the committed v4 state to verify the additive menu migration.
+	if _, err := store.DB.ExecContext(ctx, `ALTER TABLE menus DROP COLUMN query, DROP COLUMN is_external, DROP COLUMN embed, DROP COLUMN keep_alive; ALTER TABLE user_groups DROP COLUMN member_rule, DROP COLUMN rule_synced_at; DELETE FROM zenith_schema_versions; INSERT INTO zenith_schema_versions(version) VALUES (4)`); err != nil {
+		t.Fatal(err)
+	}
+	if err := store.Migrate(ctx); err != nil {
+		t.Fatalf("v4 to v6 migration: %v", err)
 	}
 	if err := store.DB.QueryRowContext(ctx, `SELECT MAX(version) FROM zenith_schema_versions`).Scan(&version); err != nil || version != foundationSchemaVersion {
 		t.Fatalf("upgraded schema version = %d: %v", version, err)
@@ -75,12 +85,12 @@ func TestPostgresVersionedMigrations(t *testing.T) {
 	if _, err := store.DB.ExecContext(ctx, `INSERT INTO menus(title, type, query, is_external, embed, keep_alive, created_at, updated_at) VALUES ('v5-menu', 'menu', 'q=1', true, false, true, now(), now())`); err != nil {
 		t.Fatalf("upgraded menu columns unusable: %v", err)
 	}
-	// Version 3 predates the settings table and the four menu columns.
-	if _, err := store.DB.ExecContext(ctx, `DROP TABLE system_settings; ALTER TABLE menus DROP COLUMN query, DROP COLUMN is_external, DROP COLUMN embed, DROP COLUMN keep_alive; DELETE FROM zenith_schema_versions; INSERT INTO zenith_schema_versions(version) VALUES (3)`); err != nil {
+	// Version 3 predates the settings table and both additive migrations.
+	if _, err := store.DB.ExecContext(ctx, `DROP TABLE system_settings; ALTER TABLE menus DROP COLUMN query, DROP COLUMN is_external, DROP COLUMN embed, DROP COLUMN keep_alive; ALTER TABLE user_groups DROP COLUMN member_rule, DROP COLUMN rule_synced_at; DELETE FROM zenith_schema_versions; INSERT INTO zenith_schema_versions(version) VALUES (3)`); err != nil {
 		t.Fatal(err)
 	}
 	if err := store.Migrate(ctx); err != nil {
-		t.Fatalf("v3 to v5 migration: %v", err)
+		t.Fatalf("v3 to v6 migration: %v", err)
 	}
 	if _, err := store.DB.ExecContext(ctx, `INSERT INTO system_settings(module, version, data, updated_at) VALUES ('files', 1, '{}', now())`); err != nil {
 		t.Fatalf("upgraded settings table unusable: %v", err)
@@ -433,6 +443,39 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	}
 	if denied := call("GET", "/api/v1/positions", nil, memberCookie, ""); denied.Code != 403 {
 		t.Fatalf("disabled group still authorizes: %d", denied.Code)
+	}
+	rule := map[string]any{"includeUserIds": []int{memberID}}
+	preview := call("POST", "/api/v1/user-groups/rule-preview", map[string]any{"memberRule": rule}, cookie, csrf)
+	if preview.Code != 200 || int(read(preview)["joiningCount"].(float64)) != 1 {
+		t.Fatalf("dynamic rule preview: %d %s", preview.Code, preview.Body.String())
+	}
+	if denied := call("POST", "/api/v1/user-groups/rule-preview", map[string]any{"memberRule": rule}, memberCookie, memberCSRF); denied.Code != 403 {
+		t.Fatalf("rule preview permission bypassed: %d %s", denied.Code, denied.Body.String())
+	}
+	platformAdminID := int(read(login)["user"].(map[string]any)["id"].(float64))
+	if crossTenant := call("POST", "/api/v1/user-groups/rule-preview", map[string]any{"memberRule": map[string]any{"includeUserIds": []int{platformAdminID}}}, cookie, csrf); crossTenant.Code != 400 {
+		t.Fatalf("cross-tenant dynamic rule accepted: %d %s", crossTenant.Code, crossTenant.Body.String())
+	}
+	dynamic := call("POST", "/api/v1/user-groups", map[string]any{"name": "动态岗位用户组", "code": "dynamic_position_group", "status": "enabled", "memberMode": "dynamic", "memberRule": rule, "roleIds": []int{groupRoleID}}, cookie, csrf)
+	if dynamic.Code != 200 || int(read(dynamic)["memberCount"].(float64)) != 1 {
+		t.Fatalf("create dynamic group: %d %s", dynamic.Code, dynamic.Body.String())
+	}
+	dynamicID := int(read(dynamic)["id"].(float64))
+	if allowed := call("GET", "/api/v1/positions", nil, memberCookie, ""); allowed.Code != 200 {
+		t.Fatalf("dynamic group role not inherited: %d %s", allowed.Code, allowed.Body.String())
+	}
+	if invalid := call("PUT", fmt.Sprintf("/api/v1/user-groups/%d", dynamicID), map[string]any{"memberRule": map[string]any{}}, cookie, csrf); invalid.Code != 400 {
+		t.Fatalf("empty dynamic rule accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
+	updatedDynamic := call("PUT", fmt.Sprintf("/api/v1/user-groups/%d", dynamicID), map[string]any{"memberRule": map[string]any{"includeUserIds": []int{memberID}, "excludeUserIds": []int{memberID}}}, cookie, csrf)
+	if updatedDynamic.Code != 200 || int(read(updatedDynamic)["memberCount"].(float64)) != 0 {
+		t.Fatalf("dynamic exclusion did not materialize: %d %s", updatedDynamic.Code, updatedDynamic.Body.String())
+	}
+	if denied := call("GET", "/api/v1/positions", nil, memberCookie, ""); denied.Code != 403 {
+		t.Fatalf("dynamic role revocation delayed: %d %s", denied.Code, denied.Body.String())
+	}
+	if synced := call("POST", fmt.Sprintf("/api/v1/user-groups/%d/sync", dynamicID), nil, cookie, csrf); synced.Code != 200 {
+		t.Fatalf("manual dynamic sync: %d %s", synced.Code, synced.Body.String())
 	}
 	dictionary := call("POST", "/api/v1/dicts", map[string]any{"name": "测试状态", "code": "test_status", "status": "enabled"}, cookie, csrf)
 	if dictionary.Code != 200 {

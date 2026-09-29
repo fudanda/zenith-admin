@@ -25,6 +25,10 @@ const (
 	FieldOwnerID = "owner_id"
 	// FieldMemberMode holds the string denoting the member_mode field in the database.
 	FieldMemberMode = "member_mode"
+	// FieldMemberRule holds the string denoting the member_rule field in the database.
+	FieldMemberRule = "member_rule"
+	// FieldRuleSyncedAt holds the string denoting the rule_synced_at field in the database.
+	FieldRuleSyncedAt = "rule_synced_at"
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
@@ -44,6 +48,8 @@ var Columns = []string{
 	FieldDescription,
 	FieldOwnerID,
 	FieldMemberMode,
+	FieldMemberRule,
+	FieldRuleSyncedAt,
 	FieldStatus,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -108,6 +114,11 @@ func ByOwnerID(opts ...sql.OrderTermOption) OrderOption {
 // ByMemberMode orders the results by the member_mode field.
 func ByMemberMode(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldMemberMode, opts...).ToFunc()
+}
+
+// ByRuleSyncedAt orders the results by the rule_synced_at field.
+func ByRuleSyncedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRuleSyncedAt, opts...).ToFunc()
 }
 
 // ByStatus orders the results by the status field.

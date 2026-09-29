@@ -332,6 +332,9 @@ func (f *Framework) deletePosition(w http.ResponseWriter, r *http.Request) {
 		if err = tx.Position.DeleteOne(row).Exec(r.Context()); err != nil {
 			return err
 		}
+		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+			return err
+		}
 		return f.auditPosition(r.Context(), tx, p, requestID(r), "delete", id)
 	})
 	if ent.IsNotFound(err) {

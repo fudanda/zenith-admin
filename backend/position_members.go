@@ -171,6 +171,9 @@ func (f *Framework) setPositionMembers(w http.ResponseWriter, r *http.Request) {
 				return err
 			}
 		}
+		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+			return err
+		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("set_members").SetResource("positions").SetResourceID(id)
 		if p.TenantID != nil {
 			log.SetTenantID(*p.TenantID)

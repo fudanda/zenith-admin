@@ -315,6 +315,24 @@ func (f *Framework) guard(route Route) http.Handler {
 				return
 			}
 		}
+		if len(route.AnyPermissions) > 0 && !p.SuperAdmin {
+			allowed := false
+			for _, candidate := range route.AnyPermissions {
+				ok, err := f.permitted(r.Context(), p, candidate)
+				if err != nil {
+					fail(w, 503, "database_unavailable", "授权服务不可用")
+					return
+				}
+				if ok {
+					allowed = true
+					break
+				}
+			}
+			if !allowed {
+				fail(w, 403, "forbidden", "没有操作权限")
+				return
+			}
+		}
 		route.Handler.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), principalKey{}, p)))
 	})
 }
