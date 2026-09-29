@@ -11,6 +11,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -18,6 +19,64 @@ import (
 	"testing"
 	"time"
 )
+
+func TestPostgresVersionedMigrations(t *testing.T) {
+	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	if dsn == "" {
+		t.Fatal("ZENITH_TEST_DATABASE_URL is required for integration tests")
+	}
+	ctx := context.Background()
+	admin, err := OpenStore(ctx, dsn)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer admin.Close()
+	name := fmt.Sprintf("zenith_migration_%d", time.Now().UnixNano())
+	if _, err := admin.DB.ExecContext(ctx, `CREATE SCHEMA `+name); err != nil {
+		t.Fatal(err)
+	}
+	defer func() { _, _ = admin.DB.ExecContext(context.Background(), `DROP SCHEMA `+name+` CASCADE`) }()
+	parsed, err := url.Parse(dsn)
+	if err != nil {
+		t.Fatal(err)
+	}
+	query := parsed.Query()
+	query.Set("search_path", name)
+	parsed.RawQuery = query.Encode()
+	store, err := OpenStore(ctx, parsed.String())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer store.Close()
+	if err := store.Migrate(ctx); err != nil {
+		t.Fatalf("empty database migration: %v", err)
+	}
+	var version int
+	if err := store.DB.QueryRowContext(ctx, `SELECT MAX(version) FROM zenith_schema_versions`).Scan(&version); err != nil || version != foundationSchemaVersion {
+		t.Fatalf("fresh schema version = %d: %v", version, err)
+	}
+	var hasForeignKey bool
+	if err := store.DB.QueryRowContext(ctx, `SELECT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'users_tenant_fk' AND connamespace = current_schema()::regnamespace)`).Scan(&hasForeignKey); err != nil || !hasForeignKey {
+		t.Fatalf("baseline foreign keys missing: %v", err)
+	}
+	if err := store.Migrate(ctx); err != nil {
+		t.Fatalf("repeat migration: %v", err)
+	}
+	// The committed v3 Ent schema differs only by system_settings. Recreate
+	// that state in this isolated schema to exercise the real upgrade path.
+	if _, err := store.DB.ExecContext(ctx, `DROP TABLE system_settings; DELETE FROM zenith_schema_versions; INSERT INTO zenith_schema_versions(version) VALUES (3)`); err != nil {
+		t.Fatal(err)
+	}
+	if err := store.Migrate(ctx); err != nil {
+		t.Fatalf("v3 to v4 migration: %v", err)
+	}
+	if err := store.DB.QueryRowContext(ctx, `SELECT MAX(version) FROM zenith_schema_versions`).Scan(&version); err != nil || version != foundationSchemaVersion {
+		t.Fatalf("upgraded schema version = %d: %v", version, err)
+	}
+	if _, err := store.DB.ExecContext(ctx, `INSERT INTO system_settings(module, version, data, updated_at) VALUES ('files', 1, '{}', now())`); err != nil {
+		t.Fatalf("upgraded settings table unusable: %v", err)
+	}
+}
 
 func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
