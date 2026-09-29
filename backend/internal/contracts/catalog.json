@@ -49,6 +49,14 @@
       "audit": null
     },
     {
+      "id": "dictsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/dicts/export",
+      "permission": "system:dict:list",
+      "platformOnly": false,
+      "audit": null
+    },
+    {
       "id": "operationLogsExportCsv",
       "method": "GET",
       "path": "/api/v1/operation-logs/export",

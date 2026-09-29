@@ -644,6 +644,7 @@ exports[`路由表快照 > 完整路由表保持不变 1`] = `
   "GET /api/dicts/:id/items",
   "GET /api/dicts/:id/items/:itemId",
   "GET /api/dicts/code/:code/items",
+  "GET /api/dicts/export",
   "GET /api/directory-sync/callbacks/:key",
   "GET /api/directory-sync/conflicts",
   "GET /api/directory-sync/runs",

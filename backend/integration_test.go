@@ -332,6 +332,10 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if platformDepartmentCSV.Code != 200 || !strings.Contains(platformDepartmentCSV.Body.String(), platformDepartmentCode) {
 		t.Fatalf("platform department CSV: %d %s", platformDepartmentCSV.Code, platformDepartmentCSV.Body.String())
 	}
+	platformDict := call("POST", "/api/v1/dicts", map[string]any{"name": "平台字典", "code": "platform_dict_test", "status": "enabled"}, cookie, csrf)
+	if platformDict.Code != 200 {
+		t.Fatalf("create platform dict: %d %s", platformDict.Code, platformDict.Body.String())
+	}
 	tenantCode := fmt.Sprintf("t%d", time.Now().UnixNano())
 	createdTenant := call("POST", "/api/v1/tenants", map[string]any{"name": "测试租户", "code": tenantCode, "status": "enabled"}, cookie, csrf)
 	if createdTenant.Code != 201 {
@@ -350,6 +354,9 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	}
 	if hidden := call("GET", "/api/v1/departments/export?keyword="+platformDepartmentCode, nil, cookie, ""); hidden.Code != 200 || strings.Contains(hidden.Body.String(), platformDepartmentCode) {
 		t.Fatalf("cross tenant department CSV leaked: %d %s", hidden.Code, hidden.Body.String())
+	}
+	if hidden := call("GET", "/api/v1/dicts/export?keyword=platform_dict_test", nil, cookie, ""); hidden.Code != 200 || strings.Contains(hidden.Body.String(), "platform_dict_test") {
+		t.Fatalf("cross tenant dict CSV leaked: %d %s", hidden.Code, hidden.Body.String())
 	}
 	tenantDepartmentCode := fmt.Sprintf("td%d", time.Now().UnixNano())
 	tenantDepartment := call("POST", "/api/v1/departments", map[string]any{"name": "租户部门", "code": tenantDepartmentCode}, cookie, csrf)
@@ -594,6 +601,22 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		t.Fatalf("create dictionary: %d %s", dictionary.Code, dictionary.Body.String())
 	}
 	dictID := int(read(dictionary)["id"].(float64))
+	dictCreatedAt, err := time.Parse(time.RFC3339Nano, read(dictionary)["createdAt"].(string))
+	if err != nil {
+		t.Fatal(err)
+	}
+	dictDay := dictCreatedAt.In(time.Local).Format("2006-01-02")
+	dictFilter := "/api/v1/dicts?keyword=test_status&status=enabled&startDate=" + dictDay + "&endDate=" + dictDay
+	if filtered := call("GET", dictFilter, nil, cookie, ""); filtered.Code != 200 || read(filtered)["total"].(float64) != 1 {
+		t.Fatalf("dict list filters: %d %s", filtered.Code, filtered.Body.String())
+	}
+	dictCSV := call("GET", strings.Replace(dictFilter, "/api/v1/dicts?", "/api/v1/dicts/export?", 1), nil, cookie, "")
+	if dictCSV.Code != 200 || !strings.Contains(dictCSV.Body.String(), "test_status") {
+		t.Fatalf("dict CSV: %d %s", dictCSV.Code, dictCSV.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/dicts/export?startDate=invalid", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid dict date accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
 	item := call("POST", fmt.Sprintf("/api/v1/dicts/%d/items", dictID), map[string]any{"label": "启用", "value": "enabled", "status": "enabled", "sort": 1}, cookie, csrf)
 	if item.Code != 200 {
 		t.Fatalf("create dictionary item: %d %s", item.Code, item.Body.String())

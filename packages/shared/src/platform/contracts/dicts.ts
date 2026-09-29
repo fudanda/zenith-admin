@@ -78,6 +78,7 @@ export const dictItemParam = idParam.extend({
 
 export const dictContract = defineContract('/api/dicts', {
   list: op.get('/', { access: { permission: 'system:dict:list' }, query: dictListQuery, response: paginated(dictSchema), summary: '字典列表' }),
+  exportCsv: op.get('/export', { access: { permission: 'system:dict:list' }, query: dictListQuery, kind: 'csv', summary: '按字典列表筛选导出 CSV' }),
   detail: op.get('/{id}', { access: { permission: 'system:dict:list' }, params: idParam, response: dictSchema, summary: '字典详情' }),
   create: op.post('/', { access: { permission: 'system:dict:create' }, audit: '创建字典', body: createDictSchema, response: dictSchema, summary: '创建字典' }),
   update: op.put('/{id}', { access: { permission: 'system:dict:update' }, audit: '更新字典', params: idParam, body: updateDictSchema, response: dictSchema, summary: '更新字典' }),

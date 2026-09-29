@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/url"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/dict"
@@ -38,23 +41,17 @@ func (f *Framework) listDicts(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_page_size", err.Error())
 		return
 	}
-	query := f.Store.Client.Dict.Query().Where(dictScope(p))
-	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
-		query = query.Where(dict.Or(dict.NameContainsFold(keyword), dict.CodeContainsFold(keyword)))
-	}
-	if status := q.Get("status"); status != "" {
-		if status != "enabled" && status != "disabled" {
-			fail(w, 400, "invalid_status", "状态无效")
-			return
-		}
-		query = query.Where(dict.StatusEQ(status))
+	query, err := f.filteredDicts(p, q)
+	if err != nil {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
 	}
 	total, err := query.Clone().Count(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
 	}
-	rows, err := query.Order(ent.Desc(dict.FieldID)).Offset((page - 1) * size).Limit(size).All(r.Context())
+	rows, err := query.Offset((page - 1) * size).Limit(size).All(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
@@ -64,6 +61,59 @@ func (f *Framework) listDicts(w http.ResponseWriter, r *http.Request) {
 		list = append(list, dictView(row))
 	}
 	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
+}
+
+func (f *Framework) filteredDicts(p *principal, q url.Values) (*ent.DictQuery, error) {
+	query := f.Store.Client.Dict.Query().Where(dictScope(p))
+	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
+		query = query.Where(dict.Or(dict.NameContainsFold(keyword), dict.CodeContainsFold(keyword)))
+	}
+	if status := q.Get("status"); status != "" {
+		if status != "enabled" && status != "disabled" {
+			return nil, errors.New("状态无效")
+		}
+		query = query.Where(dict.StatusEQ(status))
+	}
+	for _, bound := range []struct {
+		key string
+		end bool
+	}{{"startDate", false}, {"endDate", true}} {
+		if raw := q.Get(bound.key); raw != "" {
+			value, err := parseFilterDateBound(raw, bound.end)
+			if err != nil {
+				return nil, err
+			}
+			if bound.end {
+				query = query.Where(dict.CreatedAtLTE(value))
+			} else {
+				query = query.Where(dict.CreatedAtGTE(value))
+			}
+		}
+	}
+	return query.Order(ent.Desc(dict.FieldID)), nil
+}
+
+func (f *Framework) exportDictsCSV(w http.ResponseWriter, r *http.Request) {
+	query, err := f.filteredDicts(fromContext(r.Context()), r.URL.Query())
+	if err != nil {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
+	}
+	streamCSV(w, "dicts.csv", []string{"ID", "字典名称", "字典编码", "描述", "状态", "创建时间"}, func(offset int) ([][]string, error) {
+		rows, err := query.Clone().Offset(offset).Limit(200).All(r.Context())
+		if err != nil {
+			return nil, err
+		}
+		result := make([][]string, 0, len(rows))
+		for _, row := range rows {
+			description := ""
+			if row.Description != nil {
+				description = *row.Description
+			}
+			result = append(result, []string{strconv.Itoa(row.ID), row.Name, row.Code, description, row.Status, row.CreatedAt.Format(time.RFC3339)})
+		}
+		return result, nil
+	})
 }
 
 func (f *Framework) getDict(w http.ResponseWriter, r *http.Request) {

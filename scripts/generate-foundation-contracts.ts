@@ -9,6 +9,7 @@ import { fileContract } from '../packages/shared/src/platform/contracts/files';
 import { loginLogContract } from '../packages/shared/src/identity/contracts/login-logs';
 import { departmentContract } from '../packages/shared/src/identity/contracts/departments';
 import { roleContract } from '../packages/shared/src/identity/contracts/roles';
+import { dictContract } from '../packages/shared/src/platform/contracts/dicts';
 import { operationLogContract } from '../packages/shared/src/platform/contracts/operation-logs';
 import type { AnyOperation } from '../packages/shared/src/core/contract';
 
@@ -21,6 +22,7 @@ const selected: readonly [string, AnyOperation][] = [
   ['loginLogsExportCsv', loginLogContract.exportCsv],
   ['departmentsExportCsv', departmentContract.exportCsv],
   ['rolesExportCsv', roleContract.exportCsv],
+  ['dictsExportCsv', dictContract.exportCsv],
   ['operationLogsExportCsv', operationLogContract.exportCsv],
   ['positionsDetail', positionContract.detail],
   ['positionsCreate', positionContract.create],

@@ -64,6 +64,24 @@ func (e PositionStatus) Valid() bool {
 	}
 }
 
+// Defines values for DictsExportCsvParamsStatus.
+const (
+	DictsExportCsvParamsStatusDisabled DictsExportCsvParamsStatus = "disabled"
+	DictsExportCsvParamsStatusEnabled  DictsExportCsvParamsStatus = "enabled"
+)
+
+// Valid indicates whether the value is a known member of the DictsExportCsvParamsStatus enum.
+func (e DictsExportCsvParamsStatus) Valid() bool {
+	switch e {
+	case DictsExportCsvParamsStatusDisabled:
+		return true
+	case DictsExportCsvParamsStatusEnabled:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for FilesRemoveBatch200JSONResponseBodyCode.
 const (
 	FilesRemoveBatch200JSONResponseBodyCodeN0 FilesRemoveBatch200JSONResponseBodyCode = 0
@@ -571,6 +589,30 @@ type DepartmentsExportCsvParams struct {
 	Keyword *string `form:"keyword,omitempty" json:"keyword,omitempty"`
 	Status  *string `form:"status,omitempty" json:"status,omitempty"`
 }
+
+// DictsExportCsvParams defines parameters for DictsExportCsv.
+type DictsExportCsvParams struct {
+	// Page 页码（从 1 开始）
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PageSize 每页数量，最大 200
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Keyword 按字典名称 / 编码模糊匹配
+	Keyword *string `form:"keyword,omitempty" json:"keyword,omitempty"`
+
+	// Status 状态；空 = 全部
+	Status *DictsExportCsvParamsStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// StartDate 创建时间起
+	StartDate *string `form:"startDate,omitempty" json:"startDate,omitempty"`
+
+	// EndDate 创建时间止
+	EndDate *string `form:"endDate,omitempty" json:"endDate,omitempty"`
+}
+
+// DictsExportCsvParamsStatus defines parameters for DictsExportCsv.
+type DictsExportCsvParamsStatus string
 
 // FilesRemoveBatchJSONBody defines parameters for FilesRemoveBatch.
 type FilesRemoveBatchJSONBody struct {

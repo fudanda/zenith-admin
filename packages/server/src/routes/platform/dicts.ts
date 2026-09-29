@@ -2,7 +2,8 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { dictContract } from '@zenith/shared/platform';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
-import { okBody, validationHook } from '../../lib/openapi-schemas';
+import { okBody, validationHook, csvStreamBody } from '../../lib/openapi-schemas';
+import { streamToCsv } from '../../lib/excel-export';
 import {
   listDictItems,
   listDictItemsByCode,
@@ -16,6 +17,28 @@ import {
 import { mountCrud } from '../_crud';
 
 const dictsRouter = new OpenAPIHono({ defaultHook: validationHook });
+
+const exportCsvRoute = defineContractRoute(dictContract.exportCsv, {
+  handler: async (c) => {
+    const filters = c.req.valid('query');
+    async function* rows() {
+      for (let page = 1; ; page++) {
+        const result = await dictService.list({ ...filters, page, pageSize: 200 });
+        for (const row of result.list) yield row;
+        if (result.list.length < 200) break;
+      }
+    }
+    const safe = (value: unknown) => {
+      const text = String(value ?? '');
+      return /^[\s]*[=+\-@]/.test(text) ? `'${text}` : text;
+    };
+    return csvStreamBody(c, streamToCsv([
+      { key: 'id', header: 'ID' }, { key: 'name', header: '字典名称', transform: safe },
+      { key: 'code', header: '字典编码', transform: safe }, { key: 'description', header: '描述', transform: safe },
+      { key: 'status', header: '状态' }, { key: 'createdAt', header: '创建时间' },
+    ], rows()), 'dicts.csv');
+  },
+});
 
 const listItemsRoute = defineContractRoute(dictContract.items, {
   handler: async (c) => {
@@ -67,7 +90,7 @@ const deleteItemRoute = defineContractRoute(dictContract.removeItem, {
 mountCrud(dictsRouter, dictContract,
   dictService,
   {},
-  [listItemsRoute, getItemsByCodeRoute, getItemRoute, createItemRoute, updateItemRoute, deleteItemRoute],
+  [exportCsvRoute, listItemsRoute, getItemsByCodeRoute, getItemRoute, createItemRoute, updateItemRoute, deleteItemRoute],
 );
 
 export default dictsRouter;
