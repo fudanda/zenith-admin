@@ -360,6 +360,44 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if invalid := call("GET", "/api/v1/tenants/export?status=invalid", nil, cookie, ""); invalid.Code != 400 {
 		t.Fatalf("invalid tenant CSV status accepted: %d %s", invalid.Code, invalid.Body.String())
 	}
+	packageOne := call("POST", "/api/v1/tenant-packages", map[string]any{"name": "测试套餐一", "status": "enabled", "quotas": map[string]any{"maxUsers": 10}, "features": []string{}}, cookie, csrf)
+	if packageOne.Code != 200 {
+		t.Fatalf("create package: %d %s", packageOne.Code, packageOne.Body.String())
+	}
+	packageOneID := int(read(packageOne)["id"].(float64))
+	packageTwo := call("POST", "/api/v1/tenant-packages", map[string]any{"name": "测试套餐二", "status": "disabled", "features": []string{}}, cookie, csrf)
+	if packageTwo.Code != 200 {
+		t.Fatalf("create second package: %d %s", packageTwo.Code, packageTwo.Body.String())
+	}
+	packageTwoID := int(read(packageTwo)["id"].(float64))
+	if filtered := call("GET", "/api/v1/tenant-packages?keyword=测试套餐&status=disabled", nil, cookie, ""); filtered.Code != 200 || read(filtered)["total"].(float64) != 1 {
+		t.Fatalf("package status filter: %d %s", filtered.Code, filtered.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/tenant-packages?status=invalid", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid package status accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
+	if invalid := call("POST", "/api/v1/tenant-packages", map[string]any{"name": "错误配额", "status": "enabled", "quotas": map[string]any{"maxUsers": -1}}, cookie, csrf); invalid.Code != 400 {
+		t.Fatalf("invalid package quota accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
+	boundTenant := call("POST", "/api/v1/tenants", map[string]any{"name": "绑定套餐的租户", "code": tenantCode + "b", "status": "enabled", "packageId": packageOneID}, cookie, csrf)
+	if boundTenant.Code != 201 {
+		t.Fatalf("create package-bound tenant: %d %s", boundTenant.Code, boundTenant.Body.String())
+	}
+	if bound := call("DELETE", fmt.Sprintf("/api/v1/tenant-packages/%d", packageOneID), nil, cookie, csrf); bound.Code != 409 {
+		t.Fatalf("bound package deleted: %d %s", bound.Code, bound.Body.String())
+	}
+	if bound := call("DELETE", "/api/v1/tenant-packages/batch", map[string]any{"ids": []int{packageOneID, packageTwoID}}, cookie, csrf); bound.Code != 409 {
+		t.Fatalf("bound package batch deleted: %d %s", bound.Code, bound.Body.String())
+	}
+	if preserved := call("GET", fmt.Sprintf("/api/v1/tenant-packages/%d", packageTwoID), nil, cookie, ""); preserved.Code != 200 {
+		t.Fatalf("package batch did not roll back: %d %s", preserved.Code, preserved.Body.String())
+	}
+	if removed := call("DELETE", "/api/v1/tenant-packages/batch", map[string]any{"ids": []int{packageTwoID}}, cookie, csrf); removed.Code != 200 {
+		t.Fatalf("delete unbound package: %d %s", removed.Code, removed.Body.String())
+	}
+	if missing := call("GET", fmt.Sprintf("/api/v1/tenant-packages/%d", packageTwoID), nil, cookie, ""); missing.Code != 404 {
+		t.Fatalf("deleted package still readable: %d %s", missing.Code, missing.Body.String())
+	}
 	view := call("PUT", "/api/v1/auth/tenant-view", map[string]any{"tenantId": tenantID}, cookie, csrf)
 	if view.Code != 200 {
 		t.Fatalf("switch tenant: %d %s", view.Code, view.Body.String())
@@ -507,6 +545,9 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	memberCSRF := read(memberLogin)["csrfToken"].(string)
 	if denied := call("GET", "/api/v1/tenants/export", nil, memberCookie, ""); denied.Code != 403 {
 		t.Fatalf("non-platform tenant export accepted: %d %s", denied.Code, denied.Body.String())
+	}
+	if denied := call("DELETE", "/api/v1/tenant-packages/batch", map[string]any{"ids": []int{packageOneID}}, memberCookie, memberCSRF); denied.Code != 403 {
+		t.Fatalf("non-platform package delete accepted: %d %s", denied.Code, denied.Body.String())
 	}
 	if allowed := call("GET", "/api/v1/positions", nil, memberCookie, ""); allowed.Code != 200 {
 		t.Fatalf("role list permission: %d %s", allowed.Code, allowed.Body.String())

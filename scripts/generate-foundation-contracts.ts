@@ -12,6 +12,7 @@ import { roleContract } from '../packages/shared/src/identity/contracts/roles';
 import { dictContract } from '../packages/shared/src/platform/contracts/dicts';
 import { operationLogContract } from '../packages/shared/src/platform/contracts/operation-logs';
 import { tenantContract } from '../packages/shared/src/identity/contracts/tenants';
+import { tenantPackageContract } from '../packages/shared/src/identity/contracts/tenant-packages';
 import type { AnyOperation } from '../packages/shared/src/core/contract';
 
 // The foundation catalog grows one verified domain at a time. An operation
@@ -25,6 +26,8 @@ const selected: readonly [string, AnyOperation][] = [
   ['rolesExportCsv', roleContract.exportCsv],
   ['dictsExportCsv', dictContract.exportCsv],
   ['tenantsExportCsv', tenantContract.exportCsv],
+  ['tenantPackagesRemoveBatch', tenantPackageContract.removeBatch],
+  ['tenantPackagesRemove', tenantPackageContract.remove],
   ['operationLogsExportCsv', operationLogContract.exportCsv],
   ['positionsDetail', positionContract.detail],
   ['positionsCreate', positionContract.create],

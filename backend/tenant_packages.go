@@ -2,10 +2,13 @@ package zenith
 
 import (
 	"errors"
+	"math"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/fudanda/zenith-admin/backend/ent"
+	"github.com/fudanda/zenith-admin/backend/ent/tenant"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackage"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackagefeature"
 	"github.com/gorilla/mux"
@@ -25,6 +28,21 @@ func validatePackage(in packageInput) error {
 	}
 	if in.Status != "enabled" && in.Status != "disabled" {
 		return errors.New("套餐状态无效")
+	}
+	if len(in.Quotas) > 1 {
+		return errors.New("套餐配额字段无效")
+	}
+	for key, value := range in.Quotas {
+		if key != "maxUsers" {
+			return errors.New("套餐配额字段无效")
+		}
+		if value == nil {
+			continue
+		}
+		maxUsers, ok := value.(float64)
+		if !ok || maxUsers < 1 || math.Trunc(maxUsers) != maxUsers {
+			return errors.New("最大用户数无效")
+		}
 	}
 	if len(in.Features) > 200 {
 		return errors.New("功能数量过多")
@@ -63,16 +81,17 @@ func (f *Framework) listPackages(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_page_size", err.Error())
 		return
 	}
-	query := f.Store.Client.TenantPackage.Query()
-	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
-		query = query.Where(tenantpackage.NameContainsFold(keyword))
+	query, err := f.filteredPackages(q)
+	if err != nil {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
 	}
 	total, err := query.Clone().Count(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
 	}
-	rows, err := query.Order(ent.Desc(tenantpackage.FieldID)).Offset((page - 1) * size).Limit(size).All(r.Context())
+	rows, err := query.Offset((page - 1) * size).Limit(size).All(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
@@ -87,6 +106,100 @@ func (f *Framework) listPackages(w http.ResponseWriter, r *http.Request) {
 		list = append(list, view)
 	}
 	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
+}
+
+func (f *Framework) filteredPackages(q url.Values) (*ent.TenantPackageQuery, error) {
+	query := f.Store.Client.TenantPackage.Query()
+	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
+		query = query.Where(tenantpackage.NameContainsFold(keyword))
+	}
+	if status := q.Get("status"); status != "" {
+		if status != "enabled" && status != "disabled" {
+			return nil, errors.New("状态无效")
+		}
+		query = query.Where(tenantpackage.StatusEQ(status))
+	}
+	return query.Order(ent.Desc(tenantpackage.FieldID)), nil
+}
+
+var errPackageBound = errors.New("套餐已绑定租户，请先解绑或迁移")
+var errPackageMissing = errors.New("套餐不存在")
+
+func (f *Framework) deletePackages(w http.ResponseWriter, r *http.Request, ids []int, single bool) {
+	if len(ids) == 0 || len(ids) > 200 {
+		fail(w, 400, "invalid_request", "请选择 1 至 200 个套餐")
+		return
+	}
+	seen := make(map[int]bool, len(ids))
+	for _, id := range ids {
+		if id < 1 || seen[id] {
+			fail(w, 400, "invalid_request", "套餐 ID 无效或重复")
+			return
+		}
+		seen[id] = true
+	}
+	p := fromContext(r.Context())
+	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+		bound, err := tx.Tenant.Query().Where(tenant.PackageIDIn(ids...)).Exist(r.Context())
+		if err != nil {
+			return err
+		}
+		if bound {
+			return errPackageBound
+		}
+		count, err := tx.TenantPackage.Delete().Where(tenantpackage.IDIn(ids...)).Exec(r.Context())
+		if err != nil {
+			return err
+		}
+		if single && count == 0 {
+			return errPackageMissing
+		}
+		if count == 0 {
+			return nil
+		}
+		operation := "delete_batch"
+		if single {
+			operation = "delete"
+		}
+		audit := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation(operation).SetResource("tenant_packages")
+		if single {
+			audit.SetResourceID(ids[0])
+		}
+		return audit.Exec(r.Context())
+	})
+	if errors.Is(err, errPackageBound) {
+		fail(w, 409, "package_bound", err.Error())
+		return
+	}
+	if errors.Is(err, errPackageMissing) {
+		fail(w, 404, "not_found", err.Error())
+		return
+	}
+	if err != nil {
+		fail(w, 409, "package_conflict", "套餐删除失败")
+		return
+	}
+	respond(w, 200, nil)
+}
+
+func (f *Framework) deletePackage(w http.ResponseWriter, r *http.Request) {
+	id, err := intParam(mux.Vars(r)["id"])
+	if err != nil {
+		fail(w, 400, "invalid_id", err.Error())
+		return
+	}
+	f.deletePackages(w, r, []int{id}, true)
+}
+
+func (f *Framework) deletePackagesBatch(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		IDs []int `json:"ids"`
+	}
+	if err := decode(r, &body); err != nil {
+		fail(w, 400, "invalid_request", err.Error())
+		return
+	}
+	f.deletePackages(w, r, body.IDs, false)
 }
 
 func (f *Framework) allPackages(w http.ResponseWriter, r *http.Request) {

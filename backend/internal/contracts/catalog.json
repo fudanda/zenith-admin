@@ -65,6 +65,28 @@
       "audit": null
     },
     {
+      "id": "tenantPackagesRemoveBatch",
+      "method": "DELETE",
+      "path": "/api/v1/tenant-packages/batch",
+      "permission": "platform",
+      "platformOnly": false,
+      "audit": {
+        "module": "租户套餐",
+        "description": "批量删除套餐"
+      }
+    },
+    {
+      "id": "tenantPackagesRemove",
+      "method": "DELETE",
+      "path": "/api/v1/tenant-packages/{id}",
+      "permission": "platform",
+      "platformOnly": false,
+      "audit": {
+        "module": "租户套餐",
+        "description": "删除套餐"
+      }
+    },
+    {
       "id": "operationLogsExportCsv",
       "method": "GET",
       "path": "/api/v1/operation-logs/export",

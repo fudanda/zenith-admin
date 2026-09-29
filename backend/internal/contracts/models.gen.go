@@ -490,6 +490,36 @@ func (e RolesExportCsvParamsStatus) Valid() bool {
 	}
 }
 
+// Defines values for TenantPackagesRemoveBatch200JSONResponseBodyCode.
+const (
+	TenantPackagesRemoveBatch200JSONResponseBodyCodeN0 TenantPackagesRemoveBatch200JSONResponseBodyCode = 0
+)
+
+// Valid indicates whether the value is a known member of the TenantPackagesRemoveBatch200JSONResponseBodyCode enum.
+func (e TenantPackagesRemoveBatch200JSONResponseBodyCode) Valid() bool {
+	switch e {
+	case TenantPackagesRemoveBatch200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TenantPackagesRemove200JSONResponseBodyCode.
+const (
+	TenantPackagesRemove200JSONResponseBodyCodeN0 TenantPackagesRemove200JSONResponseBodyCode = 0
+)
+
+// Valid indicates whether the value is a known member of the TenantPackagesRemove200JSONResponseBodyCode enum.
+func (e TenantPackagesRemove200JSONResponseBodyCode) Valid() bool {
+	switch e {
+	case TenantPackagesRemove200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for TenantsExportCsvParamsStatus.
 const (
 	TenantsExportCsvParamsStatusDisabled TenantsExportCsvParamsStatus = "disabled"
@@ -506,6 +536,11 @@ func (e TenantsExportCsvParamsStatus) Valid() bool {
 	default:
 		return false
 	}
+}
+
+// BatchIdsBody defines model for BatchIdsBody.
+type BatchIdsBody struct {
+	Ids []int `json:"ids"`
 }
 
 // FoundationError defines model for FoundationError.
@@ -871,6 +906,12 @@ type RolesExportCsvParams struct {
 // RolesExportCsvParamsStatus defines parameters for RolesExportCsv.
 type RolesExportCsvParamsStatus string
 
+// TenantPackagesRemoveBatch200JSONResponseBodyCode defines parameters for TenantPackagesRemoveBatch.
+type TenantPackagesRemoveBatch200JSONResponseBodyCode float32
+
+// TenantPackagesRemove200JSONResponseBodyCode defines parameters for TenantPackagesRemove.
+type TenantPackagesRemove200JSONResponseBodyCode float32
+
 // TenantsExportCsvParams defines parameters for TenantsExportCsv.
 type TenantsExportCsvParams struct {
 	// Page 页码（从 1 开始）
@@ -906,3 +947,6 @@ type PositionsCreateJSONRequestBody PositionsCreateJSONBody
 
 // PositionsUpdateJSONRequestBody defines body for PositionsUpdate for application/json ContentType.
 type PositionsUpdateJSONRequestBody PositionsUpdateJSONBody
+
+// TenantPackagesRemoveBatchJSONRequestBody defines body for TenantPackagesRemoveBatch for application/json ContentType.
+type TenantPackagesRemoveBatchJSONRequestBody = BatchIdsBody
