@@ -314,7 +314,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if hidden := call("GET", fmt.Sprintf("/api/v1/positions/%d", positionID), nil, cookie, ""); hidden.Code != 404 {
 		t.Fatalf("cross tenant position exposed: %d %s", hidden.Code, hidden.Body.String())
 	}
-	if hidden := call("GET", "/api/v1/positions/export?keyword="+code, nil, cookie, ""); hidden.Code != 200 || strings.Contains(hidden.Body.String(), code) {
+	if hidden := call("GET", "/api/v1/positions/export?keyword="+code, nil, cookie, ""); hidden.Code != 200 || !strings.Contains(hidden.Body.String(), "岗位名称") || strings.Contains(hidden.Body.String(), code) {
 		t.Fatalf("cross tenant CSV leaked position: %d %s", hidden.Code, hidden.Body.String())
 	}
 	roleResponse := call("POST", "/api/v1/roles", map[string]any{"name": "测试租户管理员", "code": "tenant_admin_test", "status": "enabled", "dataScope": "all"}, cookie, csrf)

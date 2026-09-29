@@ -149,6 +149,11 @@ func (f *Framework) exportPositionsCsv(w http.ResponseWriter, r *http.Request) {
 		log.Printf("position CSV header: %v", err)
 		return
 	}
+	writer.Flush()
+	if err := writer.Error(); err != nil {
+		log.Printf("position CSV header flush: %v", err)
+		return
+	}
 	for offset := 0; len(rows) != 0; offset += len(rows) {
 		for _, row := range rows {
 			remark := ""
