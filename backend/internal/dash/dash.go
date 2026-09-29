@@ -22,7 +22,9 @@ func Handler() http.Handler {
 	}
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == "/dash" {
-			http.Redirect(w, r, "/dash/", http.StatusPermanentRedirect)
+			// GoFr normalizes /dash/ to /dash before dispatching the request.
+			// Serve the SPA entry at both spellings to avoid a redirect loop.
+			serveIndex(w)
 			return
 		}
 		name := strings.TrimPrefix(r.URL.Path, "/dash/")
