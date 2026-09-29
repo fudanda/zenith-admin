@@ -1,0 +1,55 @@
+{
+  "operations": [
+    {
+      "id": "positionsAll",
+      "method": "GET",
+      "path": "/api/v1/positions/all",
+      "permission": "system:position:list",
+      "audit": null
+    },
+    {
+      "id": "positionsList",
+      "method": "GET",
+      "path": "/api/v1/positions",
+      "permission": "system:position:list",
+      "audit": null
+    },
+    {
+      "id": "positionsDetail",
+      "method": "GET",
+      "path": "/api/v1/positions/{id}",
+      "permission": "system:position:list",
+      "audit": null
+    },
+    {
+      "id": "positionsCreate",
+      "method": "POST",
+      "path": "/api/v1/positions",
+      "permission": "system:position:create",
+      "audit": {
+        "module": "岗位管理",
+        "description": "创建岗位"
+      }
+    },
+    {
+      "id": "positionsUpdate",
+      "method": "PUT",
+      "path": "/api/v1/positions/{id}",
+      "permission": "system:position:update",
+      "audit": {
+        "module": "岗位管理",
+        "description": "更新岗位"
+      }
+    },
+    {
+      "id": "positionsRemove",
+      "method": "DELETE",
+      "path": "/api/v1/positions/{id}",
+      "permission": "system:position:delete",
+      "audit": {
+        "module": "岗位管理",
+        "description": "删除岗位"
+      }
+    }
+  ]
+}

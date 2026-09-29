@@ -1,6 +1,6 @@
 {
 	"name": "zenith-admin",
-  "version": "2.58.0",
+	"version": "2.58.0",
 	"private": true,
 	"engines": {
 		"node": ">=24 <25"
@@ -10,6 +10,9 @@
 		"apps/*"
 	],
 	"scripts": {
+		"generate:foundation-contracts": "tsx scripts/generate-foundation-contracts.ts",
+		"check:foundation-contracts": "tsx scripts/generate-foundation-contracts.ts --check",
+		"generate:foundation-go-models": "cd backend && go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.8.0 -config internal/contracts/oapi.yaml internal/contracts/openapi.json",
 		"dev:dash": "vite --config apps/dash/vite.config.ts",
 		"build:dash": "vite build --config apps/dash/vite.config.ts",
 		"check:dash-boundaries": "node scripts/check-dash-boundaries.mjs",
@@ -45,6 +48,7 @@
 		"lint:fix": "npm run lint:fix -w @zenith/shared && npm run lint:fix -w @zenith/server && npm run lint:fix -w @zenith/analytics-sdk && npm run lint:fix -w @zenith/web"
 	},
 	"devDependencies": {
+		"@asteasolutions/zod-to-openapi": "^9.1.0",
 		"@typescript/native": "npm:typescript@^7.0.2",
 		"concurrently": "^10.0.5",
 		"jsdom": "^30.0.1",
@@ -52,6 +56,7 @@
 		"mermaid": "^11.17.2",
 		"react": "^19.3.0",
 		"react-dom": "^19.3.0",
+		"tsx": "^4.23.15",
 		"typescript": "npm:@typescript/typescript6@^6.0.2",
 		"vite": "^8.2.2",
 		"vitepress": "^1.6.4",

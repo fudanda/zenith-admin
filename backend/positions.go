@@ -13,6 +13,7 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/position"
 	"github.com/fudanda/zenith-admin/backend/ent/predicate"
 	"github.com/fudanda/zenith-admin/backend/ent/userposition"
+	"github.com/fudanda/zenith-admin/backend/internal/contracts"
 	"github.com/gorilla/mux"
 )
 
@@ -25,10 +26,12 @@ func positionScope(p *principal) predicate.Position {
 	return position.TenantIDEQ(*p.TenantID)
 }
 
-func positionView(row *ent.Position, count int) map[string]any {
-	return map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "sort": row.Sort,
-		"status": row.Status, "remark": row.Remark, "userCount": count,
-		"createdAt": row.CreatedAt.Format(time.RFC3339Nano), "updatedAt": row.UpdatedAt.Format(time.RFC3339Nano)}
+func positionView(row *ent.Position, count int) contracts.Position {
+	return contracts.Position{
+		Id: row.ID, Name: row.Name, Code: row.Code, Sort: row.Sort,
+		Status: contracts.PositionStatus(row.Status), Remark: row.Remark, UserCount: &count,
+		CreatedAt: row.CreatedAt.Format(time.RFC3339Nano), UpdatedAt: row.UpdatedAt.Format(time.RFC3339Nano),
+	}
 }
 
 func (f *Framework) positionCount(ctx context.Context, id int) (int, error) {
@@ -63,6 +66,25 @@ func (f *Framework) listPositions(w http.ResponseWriter, r *http.Request) {
 		}
 		query = query.Where(position.StatusEQ(status))
 	}
+	for _, bound := range []struct {
+		name string
+		end  bool
+	}{
+		{"startTime", false}, {"endTime", true},
+	} {
+		if raw := q.Get(bound.name); raw != "" {
+			value, err := parsePositionDateBound(raw, bound.end)
+			if err != nil {
+				fail(w, 400, "invalid_date_range", err.Error())
+				return
+			}
+			if bound.end {
+				query = query.Where(position.CreatedAtLTE(value))
+			} else {
+				query = query.Where(position.CreatedAtGTE(value))
+			}
+		}
+	}
 	total, err := query.Clone().Count(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
@@ -83,6 +105,21 @@ func (f *Framework) listPositions(w http.ResponseWriter, r *http.Request) {
 		list = append(list, positionView(row, count))
 	}
 	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
+}
+
+func parsePositionDateBound(raw string, end bool) (time.Time, error) {
+	layout := "2006-01-02"
+	if len(raw) == len("2006-01-02 15:04:05") {
+		layout = "2006-01-02 15:04:05"
+	}
+	value, err := time.ParseInLocation(layout, raw, time.Local)
+	if err != nil {
+		return time.Time{}, errors.New("时间格式必须为 YYYY-MM-DD 或 YYYY-MM-DD HH:mm:ss")
+	}
+	if end && layout == "2006-01-02" {
+		value = value.Add(24*time.Hour - time.Millisecond)
+	}
+	return value, nil
 }
 
 func (f *Framework) allPositions(w http.ResponseWriter, r *http.Request) {
@@ -159,13 +196,17 @@ func (f *Framework) auditPosition(ctx context.Context, tx *ent.Tx, p *principal,
 }
 
 func (f *Framework) createPosition(w http.ResponseWriter, r *http.Request) {
-	var in positionInput
-	if err := decode(r, &in); err != nil {
+	var body contracts.PositionsCreateJSONBody
+	if err := decode(r, &body); err != nil {
 		fail(w, 400, "invalid_request", err.Error())
 		return
 	}
-	if in.Status == "" {
-		in.Status = "enabled"
+	in := positionInput{Name: body.Name, Code: body.Code, Remark: body.Remark, Status: "enabled"}
+	if body.Sort != nil {
+		in.Sort = *body.Sort
+	}
+	if body.Status != nil {
+		in.Status = string(*body.Status)
 	}
 	if err := validatePosition(in); err != nil {
 		fail(w, 400, "invalid_request", err.Error())

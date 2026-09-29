@@ -224,6 +224,18 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		t.Fatalf("create position: %d %s", created.Code, created.Body.String())
 	}
 	positionID := int(read(created)["id"].(float64))
+	createdAt, err := time.Parse(time.RFC3339Nano, read(created)["createdAt"].(string))
+	if err != nil {
+		t.Fatal(err)
+	}
+	day := createdAt.In(time.Local).Format("2006-01-02")
+	filtered := call("GET", "/api/v1/positions?startTime="+day+"&endTime="+day, nil, cookie, "")
+	if filtered.Code != 200 || read(filtered)["total"].(float64) < 1 {
+		t.Fatalf("position date filter: %d %s", filtered.Code, filtered.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/positions?startTime=bad-date", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid position date accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
 	if detail := call("GET", fmt.Sprintf("/api/v1/positions/%d", positionID), nil, cookie, ""); detail.Code != 200 {
 		t.Fatalf("position detail: %d %s", detail.Code, detail.Body.String())
 	}

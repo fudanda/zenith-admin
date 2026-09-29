@@ -30,6 +30,9 @@ jobs:
           go-version-file: backend/go.mod
           cache-dependency-path: backend/go.sum
       - run: npm ci
+      - run: npm run check:foundation-contracts
+      - run: npm run generate:foundation-go-models
+      - run: git diff --exit-code -- backend/internal/contracts
       - run: npm run build:dash
       - run: npm run check-types -w @zenith/dash
       - run: npm run check:dash-boundaries

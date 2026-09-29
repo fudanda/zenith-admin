@@ -44,15 +44,9 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{Method: "GET", Path: "/api/v1/tenant-packages/{id}", OperationID: "tenantPackagesDetail", Permission: "platform", Handler: http.HandlerFunc(f.getPackage)},
 		{Method: "POST", Path: "/api/v1/tenant-packages", OperationID: "tenantPackagesCreate", Permission: "platform", Handler: http.HandlerFunc(f.savePackage)},
 		{Method: "PUT", Path: "/api/v1/tenant-packages/{id}", OperationID: "tenantPackagesUpdate", Permission: "platform", Handler: http.HandlerFunc(f.savePackage)},
-		{Method: "GET", Path: "/api/v1/positions", OperationID: "positionsList", Permission: "system:position:list", Handler: http.HandlerFunc(f.listPositions)},
-		{Method: "GET", Path: "/api/v1/positions/all", OperationID: "positionsAll", Permission: "system:position:list", Handler: http.HandlerFunc(f.allPositions)},
-		{Method: "GET", Path: "/api/v1/positions/{id}", OperationID: "positionsDetail", Permission: "system:position:list", Handler: http.HandlerFunc(f.getPosition)},
 		{Method: "GET", Path: "/api/v1/positions/{id}/members", OperationID: "positionsMembers", Permission: "system:position:list", Handler: http.HandlerFunc(f.positionMembers)},
 		{Method: "GET", Path: "/api/v1/positions/{id}/member-preview", OperationID: "positionsMemberPreview", Permission: "system:position:list", Handler: http.HandlerFunc(f.positionMemberPreview)},
-		{Method: "POST", Path: "/api/v1/positions", OperationID: "positionsCreate", Permission: "system:position:create", Handler: http.HandlerFunc(f.createPosition)},
-		{Method: "PUT", Path: "/api/v1/positions/{id}", OperationID: "positionsUpdate", Permission: "system:position:update", Handler: http.HandlerFunc(f.updatePosition)},
 		{Method: "PUT", Path: "/api/v1/positions/{id}/members", OperationID: "positionsSetMembers", Permission: "system:position:update", Handler: http.HandlerFunc(f.setPositionMembers)},
-		{Method: "DELETE", Path: "/api/v1/positions/{id}", OperationID: "positionsRemove", Permission: "system:position:delete", Handler: http.HandlerFunc(f.deletePosition)},
 		{Method: "GET", Path: "/api/v1/users/all", OperationID: "usersAll", Permission: "system:user:list", Handler: http.HandlerFunc(f.allUsers)},
 		{Method: "GET", Path: "/api/v1/users", OperationID: "usersList", Permission: "system:user:list", Handler: http.HandlerFunc(f.listUsers)},
 		{Method: "GET", Path: "/api/v1/users/{id}", OperationID: "usersDetail", Permission: "system:user:list", Handler: http.HandlerFunc(f.getUser)},
@@ -132,6 +126,24 @@ func (f *Framework) registerCore(r *Registrar) error {
 		if err := r.Register(route); err != nil {
 			return err
 		}
+	}
+	for _, bound := range []struct {
+		id      string
+		handler http.Handler
+	}{
+		{"positionsList", http.HandlerFunc(f.listPositions)},
+		{"positionsAll", http.HandlerFunc(f.allPositions)},
+		{"positionsDetail", http.HandlerFunc(f.getPosition)},
+		{"positionsCreate", http.HandlerFunc(f.createPosition)},
+		{"positionsUpdate", http.HandlerFunc(f.updatePosition)},
+		{"positionsRemove", http.HandlerFunc(f.deletePosition)},
+	} {
+		if err := r.registerContract(bound.id, bound.handler); err != nil {
+			return err
+		}
+	}
+	if err := r.verifyContracts(); err != nil {
+		return err
 	}
 	return nil
 }
