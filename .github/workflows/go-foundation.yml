@@ -30,6 +30,12 @@ jobs:
           go-version-file: backend/go.mod
           cache-dependency-path: backend/go.sum
       - run: npm ci
+      - run: go run ./cmd/migration-snapshot
+        working-directory: backend
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ent-baseline-sql
+          path: backend/migrations/0001_ent_baseline.sql
       - run: npm run build:dash
       - run: npm run check-types -w @zenith/dash
       - run: npm run check:dash-boundaries
