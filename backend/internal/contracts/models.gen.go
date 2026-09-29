@@ -79,6 +79,51 @@ func (e FilesRemoveBatch200JSONResponseBodyCode) Valid() bool {
 	}
 }
 
+// Defines values for LoginLogsExportCsvParamsEventType.
+const (
+	Impersonate    LoginLogsExportCsvParamsEventType = "impersonate"
+	ImpersonateEnd LoginLogsExportCsvParamsEventType = "impersonate_end"
+	Kicked         LoginLogsExportCsvParamsEventType = "kicked"
+	Login          LoginLogsExportCsvParamsEventType = "login"
+	Logout         LoginLogsExportCsvParamsEventType = "logout"
+)
+
+// Valid indicates whether the value is a known member of the LoginLogsExportCsvParamsEventType enum.
+func (e LoginLogsExportCsvParamsEventType) Valid() bool {
+	switch e {
+	case Impersonate:
+		return true
+	case ImpersonateEnd:
+		return true
+	case Kicked:
+		return true
+	case Login:
+		return true
+	case Logout:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for LoginLogsExportCsvParamsStatus.
+const (
+	Fail    LoginLogsExportCsvParamsStatus = "fail"
+	Success LoginLogsExportCsvParamsStatus = "success"
+)
+
+// Valid indicates whether the value is a known member of the LoginLogsExportCsvParamsStatus enum.
+func (e LoginLogsExportCsvParamsStatus) Valid() bool {
+	switch e {
+	case Fail:
+		return true
+	case Success:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for MenusTree200JSONResponseBodyCode.
 const (
 	MenusTree200JSONResponseBodyCodeN0 MenusTree200JSONResponseBodyCode = 0
@@ -515,6 +560,33 @@ type FilesBatchDownloadJSONBody struct {
 	Ids []openapi_types.UUID `json:"ids"`
 }
 
+// LoginLogsExportCsvParams defines parameters for LoginLogsExportCsv.
+type LoginLogsExportCsvParams struct {
+	// Page 页码（从 1 开始）
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PageSize 每页数量，最大 200
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	UserId   *int `form:"userId,omitempty" json:"userId,omitempty"`
+
+	// Username 按用户名 / 昵称模糊匹配
+	Username  *string                            `form:"username,omitempty" json:"username,omitempty"`
+	EventType *LoginLogsExportCsvParamsEventType `form:"eventType,omitempty" json:"eventType,omitempty"`
+	Status    *LoginLogsExportCsvParamsStatus    `form:"status,omitempty" json:"status,omitempty"`
+
+	// StartTime 起始时间
+	StartTime *string `form:"startTime,omitempty" json:"startTime,omitempty"`
+
+	// EndTime 结束时间
+	EndTime *string `form:"endTime,omitempty" json:"endTime,omitempty"`
+}
+
+// LoginLogsExportCsvParamsEventType defines parameters for LoginLogsExportCsv.
+type LoginLogsExportCsvParamsEventType string
+
+// LoginLogsExportCsvParamsStatus defines parameters for LoginLogsExportCsv.
+type LoginLogsExportCsvParamsStatus string
+
 // MenusTree200JSONResponseBodyCode defines parameters for MenusTree.
 type MenusTree200JSONResponseBodyCode float32
 
@@ -582,6 +654,23 @@ type MenusUpdateJSONBodyType string
 
 // MenusUpdate200JSONResponseBodyCode defines parameters for MenusUpdate.
 type MenusUpdate200JSONResponseBodyCode float32
+
+// OperationLogsExportCsvParams defines parameters for OperationLogsExportCsv.
+type OperationLogsExportCsvParams struct {
+	UserId *int `form:"userId,omitempty" json:"userId,omitempty"`
+
+	// Module 按模块模糊匹配
+	Module *string `form:"module,omitempty" json:"module,omitempty"`
+
+	// Description 按操作描述模糊匹配
+	Description *string `form:"description,omitempty" json:"description,omitempty"`
+
+	// StartTime 操作时间起
+	StartTime *string `form:"startTime,omitempty" json:"startTime,omitempty"`
+
+	// EndTime 操作时间止
+	EndTime *string `form:"endTime,omitempty" json:"endTime,omitempty"`
+}
 
 // PositionsListParams defines parameters for PositionsList.
 type PositionsListParams struct {

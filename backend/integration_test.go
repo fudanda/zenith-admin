@@ -9,6 +9,7 @@ import (
 	"encoding/base64"
 	"encoding/csv"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"mime/multipart"
@@ -18,7 +19,9 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strings"
+	"syscall"
 	"testing"
 	"time"
 )
@@ -190,6 +193,25 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		t.Fatal("session cookie is not secure")
 	}
 	csrf := read(login)["csrfToken"].(string)
+	adminID := int(read(login)["user"].(map[string]any)["id"].(float64))
+	loginQuery := fmt.Sprintf("/api/v1/login-logs?userId=%d&status=success&eventType=login", adminID)
+	if logs := call("GET", loginQuery, nil, cookie, ""); logs.Code != 200 || read(logs)["total"].(float64) < 1 {
+		t.Fatalf("login log filters: %d %s", logs.Code, logs.Body.String())
+	}
+	loginCSV := call("GET", "/api/v1/login-logs/export?userId="+fmt.Sprint(adminID)+"&status=success", nil, cookie, "")
+	if loginCSV.Code != 200 || !strings.Contains(loginCSV.Body.String(), username) {
+		t.Fatalf("login log CSV: %d %s", loginCSV.Code, loginCSV.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/login-logs/export?startTime=invalid", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid login log filter accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/login-logs?status=unknown", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid login log status accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
+	emptyLoginCSV := call("GET", "/api/v1/login-logs/export?userId=2147483647", nil, cookie, "")
+	if emptyLoginCSV.Code != 200 || !strings.Contains(emptyLoginCSV.Body.String(), "用户名") {
+		t.Fatalf("empty login CSV lacks header: %d %s", emptyLoginCSV.Code, emptyLoginCSV.Body.String())
+	}
 	filesSetting := call("GET", "/api/v1/settings/files", nil, cookie, "")
 	if filesSetting.Code != 200 {
 		t.Fatalf("read file settings: %d %s", filesSetting.Code, filesSetting.Body.String())
@@ -317,11 +339,37 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if hidden := call("GET", "/api/v1/positions/export?keyword="+code, nil, cookie, ""); hidden.Code != 200 || !strings.Contains(hidden.Body.String(), "岗位名称") || strings.Contains(hidden.Body.String(), code) {
 		t.Fatalf("cross tenant CSV leaked position: %d %s", hidden.Code, hidden.Body.String())
 	}
+	if hidden := call("GET", "/api/v1/operation-logs?module=positions", nil, cookie, ""); hidden.Code != 200 || read(hidden)["total"].(float64) != 0 {
+		t.Fatalf("cross tenant audit leaked: %d %s", hidden.Code, hidden.Body.String())
+	}
+	if hidden := call("GET", "/api/v1/login-logs?userId="+fmt.Sprint(adminID), nil, cookie, ""); hidden.Code != 200 || read(hidden)["total"].(float64) != 0 {
+		t.Fatalf("cross tenant login log leaked: %d %s", hidden.Code, hidden.Body.String())
+	}
 	roleResponse := call("POST", "/api/v1/roles", map[string]any{"name": "测试租户管理员", "code": "tenant_admin_test", "status": "enabled", "dataScope": "all"}, cookie, csrf)
 	if roleResponse.Code != 200 {
 		t.Fatalf("create role: %d %s", roleResponse.Code, roleResponse.Body.String())
 	}
 	roleID := int(read(roleResponse)["id"].(float64))
+	auditQuery := fmt.Sprintf("/api/v1/operation-logs?userId=%d&module=roles&description=create", adminID)
+	auditLogs := call("GET", auditQuery, nil, cookie, "")
+	if auditLogs.Code != 200 || read(auditLogs)["total"].(float64) < 1 {
+		t.Fatalf("tenant audit filter: %d %s", auditLogs.Code, auditLogs.Body.String())
+	}
+	for _, item := range read(auditLogs)["list"].([]any) {
+		if int(item.(map[string]any)["tenantId"].(float64)) != tenantID {
+			t.Fatalf("tenant audit scope mismatch: %v", item)
+		}
+	}
+	auditCSV := call("GET", fmt.Sprintf("/api/v1/operation-logs/export?userId=%d&module=roles&description=create", adminID), nil, cookie, "")
+	if auditCSV.Code != 200 || !strings.Contains(auditCSV.Body.String(), "roles") {
+		t.Fatalf("tenant audit CSV: %d %s", auditCSV.Code, auditCSV.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/operation-logs/export?startTime=2026-09-30&endTime=2026-09-29", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("inverted audit range accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
+	if unsupported := call("GET", "/api/v1/operation-logs?status=success", nil, cookie, ""); unsupported.Code != 400 {
+		t.Fatalf("unsupported audit filter ignored: %d %s", unsupported.Code, unsupported.Body.String())
+	}
 	menuResponse := call("GET", "/api/v1/menus/flat", nil, cookie, "")
 	if menuResponse.Code != 200 {
 		t.Fatalf("menu catalog: %d %s", menuResponse.Code, menuResponse.Body.String())
@@ -590,10 +638,17 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		t.Fatal(err)
 	}
 	if err := os.Symlink(secretFile, publicObject); err != nil {
-		t.Fatal(err)
-	}
-	if escaped := call("GET", "/api/v1/files/"+publicID+"/content", nil, nil, ""); escaped.Code == 200 || strings.Contains(escaped.Body.String(), "outside storage root") {
-		t.Fatalf("storage symlink escaped root: %d %s", escaped.Code, escaped.Body.String())
+		if runtime.GOOS != "windows" || !errors.Is(err, syscall.Errno(1314)) {
+			t.Fatal(err)
+		}
+		t.Log("Windows symlink privilege unavailable; Linux CI verifies storage escape protection")
+		if err := os.WriteFile(publicObject, message, 0600); err != nil {
+			t.Fatal(err)
+		}
+	} else {
+		if escaped := call("GET", "/api/v1/files/"+publicID+"/content", nil, nil, ""); escaped.Code == 200 || strings.Contains(escaped.Body.String(), "outside storage root") {
+			t.Fatalf("storage symlink escaped root: %d %s", escaped.Code, escaped.Body.String())
+		}
 	}
 	if stats := call("GET", "/api/v1/files/stats", nil, cookie, ""); stats.Code != 200 || int(read(stats)["summary"].(map[string]any)["totalFiles"].(float64)) != 2 {
 		t.Fatalf("file stats: %d %s", stats.Code, stats.Body.String())

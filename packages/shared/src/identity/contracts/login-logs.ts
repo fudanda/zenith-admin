@@ -76,6 +76,7 @@ export const loginLogCleanQuery = z.object({
 
 export const loginLogContract = defineContract('/api/login-logs', {
   list: op.get('/', { access: { permission: 'system:log:login' }, query: loginLogListQuery, response: paginated(loginLogSchema), summary: '登录日志分页查询' }),
+  exportCsv: op.get('/export', { access: { permission: 'system:log:login' }, query: loginLogListQuery, kind: 'csv', summary: '按登录日志筛选导出 CSV' }),
   stats: op.get('/stats', { access: { permission: 'system:log:login' }, query: loginLogStatsQuery, response: loginLogStatsSchema, summary: '登录日志统计' }),
   clean: op.delete('/clean', { access: { permission: 'system:log:login' }, audit: '清除登录日志', query: loginLogCleanQuery, summary: '清除登录日志' }),
 }, { auditModule: '登录日志', tags: ['LoginLogs'] });

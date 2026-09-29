@@ -104,7 +104,7 @@ func (f *Framework) filteredPositions(p *principal, q url.Values) (*ent.Position
 		{"startTime", false}, {"endTime", true},
 	} {
 		if raw := q.Get(bound.name); raw != "" {
-			value, err := parsePositionDateBound(raw, bound.end)
+			value, err := parseFilterDateBound(raw, bound.end)
 			if err != nil {
 				return nil, "invalid_date_range", err
 			}
@@ -182,21 +182,6 @@ func (f *Framework) exportPositionsCsv(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-}
-
-func parsePositionDateBound(raw string, end bool) (time.Time, error) {
-	layout := "2006-01-02"
-	if len(raw) == len("2006-01-02 15:04:05") {
-		layout = "2006-01-02 15:04:05"
-	}
-	value, err := time.ParseInLocation(layout, raw, time.Local)
-	if err != nil {
-		return time.Time{}, errors.New("时间格式必须为 YYYY-MM-DD 或 YYYY-MM-DD HH:mm:ss")
-	}
-	if end && layout == "2006-01-02" {
-		value = value.Add(24*time.Hour - time.Millisecond)
-	}
-	return value, nil
 }
 
 func (f *Framework) allPositions(w http.ResponseWriter, r *http.Request) {

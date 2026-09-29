@@ -903,6 +903,387 @@
         }
       }
     },
+    "/api/v1/login-logs/export": {
+      "get": {
+        "operationId": "loginLogsExportCsv",
+        "summary": "按登录日志筛选导出 CSV",
+        "tags": [
+          "LoginLogs"
+        ],
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "description": "页码（从 1 开始）",
+              "example": 1
+            },
+            "required": false,
+            "description": "页码（从 1 开始）",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 10,
+              "description": "每页数量，最大 200",
+              "example": 10
+            },
+            "required": false,
+            "description": "每页数量，最大 200",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "exclusiveMinimum": true,
+              "x-filter": {
+                "kind": "id"
+              }
+            },
+            "required": false,
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "按用户名 / 昵称模糊匹配",
+              "x-filter": {
+                "kind": "keyword",
+                "fields": "用户名 / 昵称"
+              }
+            },
+            "required": false,
+            "description": "按用户名 / 昵称模糊匹配",
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "login",
+                "logout",
+                "impersonate",
+                "impersonate_end",
+                "kicked"
+              ],
+              "x-filter": {
+                "kind": "enum",
+                "values": [
+                  "login",
+                  "logout",
+                  "impersonate",
+                  "impersonate_end",
+                  "kicked"
+                ]
+              }
+            },
+            "required": false,
+            "name": "eventType",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "success",
+                "fail"
+              ],
+              "x-filter": {
+                "kind": "enum",
+                "values": [
+                  "success",
+                  "fail"
+                ]
+              }
+            },
+            "required": false,
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2}:\\d{2})?$",
+              "description": "起始时间",
+              "example": "2026-08-01 00:00:00",
+              "x-filter": {
+                "kind": "date-bound",
+                "bound": "start"
+              }
+            },
+            "required": false,
+            "description": "起始时间",
+            "name": "startTime",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2}:\\d{2})?$",
+              "description": "结束时间",
+              "example": "2026-08-01 00:00:00",
+              "x-filter": {
+                "kind": "date-bound",
+                "bound": "end"
+              }
+            },
+            "required": false,
+            "description": "结束时间",
+            "name": "endTime",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "文件下载",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/operation-logs/export": {
+      "get": {
+        "operationId": "operationLogsExportCsv",
+        "summary": "按基础操作审计筛选导出 CSV",
+        "tags": [
+          "OperationLogs"
+        ],
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "exclusiveMinimum": true,
+              "x-filter": {
+                "kind": "id"
+              }
+            },
+            "required": false,
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "按模块模糊匹配",
+              "x-filter": {
+                "kind": "keyword",
+                "fields": "模块"
+              }
+            },
+            "required": false,
+            "description": "按模块模糊匹配",
+            "name": "module",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "按操作描述模糊匹配",
+              "x-filter": {
+                "kind": "keyword",
+                "fields": "操作描述"
+              }
+            },
+            "required": false,
+            "description": "按操作描述模糊匹配",
+            "name": "description",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2}:\\d{2})?$",
+              "description": "操作时间起",
+              "example": "2026-08-01 00:00:00",
+              "x-filter": {
+                "kind": "date-bound",
+                "bound": "start"
+              }
+            },
+            "required": false,
+            "description": "操作时间起",
+            "name": "startTime",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2}:\\d{2})?$",
+              "description": "操作时间止",
+              "example": "2026-08-01 00:00:00",
+              "x-filter": {
+                "kind": "date-bound",
+                "bound": "end"
+              }
+            },
+            "required": false,
+            "description": "操作时间止",
+            "name": "endTime",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "文件下载",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/positions/{id}": {
       "get": {
         "operationId": "positionsDetail",

@@ -6,6 +6,8 @@ import * as z from 'zod';
 import { positionContract } from '../packages/shared/src/identity/contracts/positions';
 import { menuContract } from '../packages/shared/src/identity/contracts/menus';
 import { fileContract } from '../packages/shared/src/platform/contracts/files';
+import { loginLogContract } from '../packages/shared/src/identity/contracts/login-logs';
+import { operationLogContract } from '../packages/shared/src/platform/contracts/operation-logs';
 import type { AnyOperation } from '../packages/shared/src/core/contract';
 
 // The foundation catalog grows one verified domain at a time. An operation
@@ -14,6 +16,8 @@ const selected: readonly [string, AnyOperation][] = [
   ['positionsAll', positionContract.all],
   ['positionsList', positionContract.list],
   ['positionsExportCsv', positionContract.exportCsv],
+  ['loginLogsExportCsv', loginLogContract.exportCsv],
+  ['operationLogsExportCsv', operationLogContract.exportCsv],
   ['positionsDetail', positionContract.detail],
   ['positionsCreate', positionContract.create],
   ['positionsUpdate', positionContract.update],

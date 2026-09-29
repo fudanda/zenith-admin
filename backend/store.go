@@ -37,7 +37,24 @@ func OpenStore(ctx context.Context, dsn string) (*Store, error) {
 		return nil, fmt.Errorf("PostgreSQL: %w", err)
 	}
 	driver := entsql.OpenDB(dialect.Postgres, db)
-	return &Store{DB: db, Client: ent.NewClient(ent.Driver(driver)), driver: driver}, nil
+	client := ent.NewClient(ent.Driver(driver))
+	// Most domain writes create their audit row inside the same transaction. Fill
+	// the active tenant view centrally so tenant-scoped log reads can see them.
+	client.AuditLog.Use(func(next ent.Mutator) ent.Mutator {
+		return ent.MutateFunc(func(ctx context.Context, mutation ent.Mutation) (ent.Value, error) {
+			if mutation.Op().Is(ent.OpCreate) {
+				if audit, ok := mutation.(*ent.AuditLogMutation); ok {
+					if _, set := audit.TenantID(); !set {
+						if p := fromContext(ctx); p != nil && p.TenantID != nil {
+							audit.SetTenantID(*p.TenantID)
+						}
+					}
+				}
+			}
+			return next.Mutate(ctx, mutation)
+		})
+	})
+	return &Store{DB: db, Client: client, driver: driver}, nil
 }
 
 func (s *Store) Close() error { return s.DB.Close() }

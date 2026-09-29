@@ -25,6 +25,22 @@
       "audit": null
     },
     {
+      "id": "loginLogsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/login-logs/export",
+      "permission": "system:log:login",
+      "platformOnly": false,
+      "audit": null
+    },
+    {
+      "id": "operationLogsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/operation-logs/export",
+      "permission": "system:log:operation",
+      "platformOnly": false,
+      "audit": null
+    },
+    {
       "id": "positionsDetail",
       "method": "GET",
       "path": "/api/v1/positions/{id}",
