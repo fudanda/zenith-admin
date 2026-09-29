@@ -328,6 +328,24 @@ func (e PositionsAll200JSONResponseBodyCode) Valid() bool {
 	}
 }
 
+// Defines values for PositionsExportCsvParamsStatus.
+const (
+	PositionsExportCsvParamsStatusDisabled PositionsExportCsvParamsStatus = "disabled"
+	PositionsExportCsvParamsStatusEnabled  PositionsExportCsvParamsStatus = "enabled"
+)
+
+// Valid indicates whether the value is a known member of the PositionsExportCsvParamsStatus enum.
+func (e PositionsExportCsvParamsStatus) Valid() bool {
+	switch e {
+	case PositionsExportCsvParamsStatusDisabled:
+		return true
+	case PositionsExportCsvParamsStatusEnabled:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for PositionsRemove200JSONResponseBodyCode.
 const (
 	PositionsRemove200JSONResponseBodyCodeN0 PositionsRemove200JSONResponseBodyCode = 0
@@ -609,6 +627,30 @@ type PositionsCreate201JSONResponseBodyCode float32
 
 // PositionsAll200JSONResponseBodyCode defines parameters for PositionsAll.
 type PositionsAll200JSONResponseBodyCode float32
+
+// PositionsExportCsvParams defines parameters for PositionsExportCsv.
+type PositionsExportCsvParams struct {
+	// Page 页码（从 1 开始）
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PageSize 每页数量，最大 200
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Keyword 按名称 / 编码模糊匹配
+	Keyword *string `form:"keyword,omitempty" json:"keyword,omitempty"`
+
+	// Status 状态；空 = 全部
+	Status *PositionsExportCsvParamsStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// StartTime 创建时间起
+	StartTime *string `form:"startTime,omitempty" json:"startTime,omitempty"`
+
+	// EndTime 创建时间止
+	EndTime *string `form:"endTime,omitempty" json:"endTime,omitempty"`
+}
+
+// PositionsExportCsvParamsStatus defines parameters for PositionsExportCsv.
+type PositionsExportCsvParamsStatus string
 
 // PositionsRemove200JSONResponseBodyCode defines parameters for PositionsRemove.
 type PositionsRemove200JSONResponseBodyCode float32

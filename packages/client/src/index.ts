@@ -29,12 +29,15 @@ export function operation<T>(op: { method: string; fullPath: string }, args: { i
   return request<T>(`${suffix}${search.size ? `?${search}` : ''}`, { method: op.method.toUpperCase(), body: args.body === undefined ? undefined : JSON.stringify(args.body) });
 }
 
-export async function downloadOperation(op: { method: string; fullPath: string }, body: unknown): Promise<Blob> {
-  const response = await fetch(op.fullPath.replace(/^\/api/, '/api/v1'), {
+export async function downloadOperation(op: { method: string; fullPath: string }, args: { body?: unknown; query?: Record<string, unknown> } = {}): Promise<Blob> {
+  const search = new URLSearchParams();
+  for (const [key, value] of Object.entries(args.query ?? {})) if (value !== undefined && value !== null && value !== '') search.set(key, String(value));
+  const path = op.fullPath.replace(/^\/api/, '/api/v1');
+  const response = await fetch(`${path}${search.size ? `?${search}` : ''}`, {
     method: op.method.toUpperCase(),
     credentials: 'same-origin',
-    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf },
-    body: JSON.stringify(body),
+    headers: args.body === undefined ? undefined : { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf },
+    body: args.body === undefined ? undefined : JSON.stringify(args.body),
   });
   if (!response.ok) {
     try {

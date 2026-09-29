@@ -122,11 +122,13 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{Method: "DELETE", Path: "/api/v1/files/{id}", OperationID: "filesRemove", Permission: "system:file:delete", Handler: http.HandlerFunc(f.deleteFile)},
 	}
 	// GoFr matches the earlier parameter route before a later literal route.
-	// Register file collection actions first so /files/batch is not parsed as {id}.
+	// Register collection actions first so /files/batch and /positions/export
+	// are not parsed as {id}.
 	for _, bound := range []struct {
 		id      string
 		handler http.Handler
 	}{
+		{"positionsExportCsv", http.HandlerFunc(f.exportPositionsCsv)},
 		{"filesRemoveBatch", http.HandlerFunc(f.deleteFilesBatch)},
 		{"filesBatchDownload", http.HandlerFunc(f.downloadFilesBatch)},
 	} {

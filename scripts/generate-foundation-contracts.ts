@@ -13,6 +13,7 @@ import type { AnyOperation } from '../packages/shared/src/core/contract';
 const selected: readonly [string, AnyOperation][] = [
   ['positionsAll', positionContract.all],
   ['positionsList', positionContract.list],
+  ['positionsExportCsv', positionContract.exportCsv],
   ['positionsDetail', positionContract.detail],
   ['positionsCreate', positionContract.create],
   ['positionsUpdate', positionContract.update],
@@ -53,9 +54,10 @@ const catalog = selected.map(([id, operation]) => {
   if (operation.params) request.params = operation.params;
   if (operation.query) request.query = operation.query;
   if (operation.body) request.body = { required: true, content: { 'application/json': { schema: operation.body } } };
-  const success = operation.kind === 'file' ? 200 : operation.method === 'post' ? 201 : 200;
-  const successResponse = operation.kind === 'file'
-    ? { description: 'ZIP 文件', content: { 'application/zip': { schema: z.string().meta({ format: 'binary' }) } } }
+  const binaryContentType = operation.kind === 'csv' ? 'text/csv' : 'application/zip';
+  const success = operation.kind === 'file' || operation.kind === 'csv' ? 200 : operation.method === 'post' ? 201 : 200;
+  const successResponse = operation.kind === 'file' || operation.kind === 'csv'
+    ? { description: '文件下载', content: { [binaryContentType]: { schema: z.string().meta({ format: 'binary' }) } } }
     : { description: '成功', content: { 'application/json': { schema: z.object({ code: z.literal(0), message: z.string(), data: operation.response }) } } };
   registry.registerPath({
     method: operation.method,

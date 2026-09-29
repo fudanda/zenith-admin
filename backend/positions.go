@@ -2,9 +2,13 @@ package zenith
 
 import (
 	"context"
+	"encoding/csv"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"log"
 	"net/http"
+	"net/url"
 	"regexp"
 	"strings"
 	"time"
@@ -55,35 +59,10 @@ func (f *Framework) listPositions(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_page_size", err.Error())
 		return
 	}
-	query := f.Store.Client.Position.Query().Where(positionScope(p))
-	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
-		query = query.Where(position.Or(position.NameContainsFold(keyword), position.CodeContainsFold(keyword)))
-	}
-	if status := q.Get("status"); status != "" {
-		if status != "enabled" && status != "disabled" {
-			fail(w, 400, "invalid_status", "状态无效")
-			return
-		}
-		query = query.Where(position.StatusEQ(status))
-	}
-	for _, bound := range []struct {
-		name string
-		end  bool
-	}{
-		{"startTime", false}, {"endTime", true},
-	} {
-		if raw := q.Get(bound.name); raw != "" {
-			value, err := parsePositionDateBound(raw, bound.end)
-			if err != nil {
-				fail(w, 400, "invalid_date_range", err.Error())
-				return
-			}
-			if bound.end {
-				query = query.Where(position.CreatedAtLTE(value))
-			} else {
-				query = query.Where(position.CreatedAtGTE(value))
-			}
-		}
+	query, code, err := f.filteredPositions(p, q)
+	if err != nil {
+		fail(w, 400, code, err.Error())
+		return
 	}
 	total, err := query.Clone().Count(r.Context())
 	if err != nil {
@@ -105,6 +84,99 @@ func (f *Framework) listPositions(w http.ResponseWriter, r *http.Request) {
 		list = append(list, positionView(row, count))
 	}
 	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
+}
+
+func (f *Framework) filteredPositions(p *principal, q url.Values) (*ent.PositionQuery, string, error) {
+	query := f.Store.Client.Position.Query().Where(positionScope(p))
+	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
+		query = query.Where(position.Or(position.NameContainsFold(keyword), position.CodeContainsFold(keyword)))
+	}
+	if status := q.Get("status"); status != "" {
+		if status != "enabled" && status != "disabled" {
+			return nil, "invalid_status", errors.New("状态无效")
+		}
+		query = query.Where(position.StatusEQ(status))
+	}
+	for _, bound := range []struct {
+		name string
+		end  bool
+	}{
+		{"startTime", false}, {"endTime", true},
+	} {
+		if raw := q.Get(bound.name); raw != "" {
+			value, err := parsePositionDateBound(raw, bound.end)
+			if err != nil {
+				return nil, "invalid_date_range", err
+			}
+			if bound.end {
+				query = query.Where(position.CreatedAtLTE(value))
+			} else {
+				query = query.Where(position.CreatedAtGTE(value))
+			}
+		}
+	}
+	return query, "", nil
+}
+
+// csvCell keeps spreadsheet programs from interpreting user-authored text as a formula.
+func csvCell(value string) string {
+	if trimmed := strings.TrimLeft(value, " \t\r\n"); trimmed != "" && strings.ContainsRune("=+-@", rune(trimmed[0])) {
+		return "'" + value
+	}
+	return value
+}
+
+func (f *Framework) exportPositionsCsv(w http.ResponseWriter, r *http.Request) {
+	query, code, err := f.filteredPositions(fromContext(r.Context()), r.URL.Query())
+	if err != nil {
+		fail(w, 400, code, err.Error())
+		return
+	}
+	query.Order(ent.Asc(position.FieldSort), ent.Desc(position.FieldID))
+	const batchSize = 200
+	rows, err := query.Clone().Limit(batchSize).All(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "导出查询失败")
+		return
+	}
+	w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+	w.Header().Set("Content-Disposition", "attachment; filename=positions.csv")
+	w.Header().Set("Cache-Control", "private, no-store")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	_, _ = w.Write([]byte{0xef, 0xbb, 0xbf})
+	writer := csv.NewWriter(w)
+	if err := writer.Write([]string{"ID", "岗位名称", "岗位编码", "排序", "状态", "备注", "创建时间"}); err != nil {
+		log.Printf("position CSV header: %v", err)
+		return
+	}
+	for offset := 0; len(rows) != 0; offset += len(rows) {
+		for _, row := range rows {
+			remark := ""
+			if row.Remark != nil {
+				remark = *row.Remark
+			}
+			if err := writer.Write([]string{fmt.Sprint(row.ID), csvCell(row.Name), csvCell(row.Code), fmt.Sprint(row.Sort), row.Status, csvCell(remark), row.CreatedAt.Format(time.RFC3339)}); err != nil {
+				log.Printf("position CSV row: %v", err)
+				return
+			}
+		}
+		writer.Flush()
+		if err := writer.Error(); err != nil {
+			log.Printf("position CSV flush: %v", err)
+			return
+		}
+		if flusher, ok := w.(http.Flusher); ok {
+			flusher.Flush()
+		}
+		if len(rows) < batchSize {
+			break
+		}
+		rows, err = query.Clone().Offset(offset + len(rows)).Limit(batchSize).All(r.Context())
+		if err != nil {
+			log.Printf("position CSV query: %v", err)
+			return
+		}
+	}
 }
 
 func parsePositionDateBound(raw string, end bool) (time.Time, error) {

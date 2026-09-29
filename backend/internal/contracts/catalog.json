@@ -17,6 +17,14 @@
       "audit": null
     },
     {
+      "id": "positionsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/positions/export",
+      "permission": "system:position:list",
+      "platformOnly": false,
+      "audit": null
+    },
+    {
       "id": "positionsDetail",
       "method": "GET",
       "path": "/api/v1/positions/{id}",

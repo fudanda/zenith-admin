@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/base64"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -286,6 +287,17 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if invalid := call("GET", "/api/v1/positions?startTime=bad-date", nil, cookie, ""); invalid.Code != 400 {
 		t.Fatalf("invalid position date accepted: %d %s", invalid.Code, invalid.Body.String())
 	}
+	exported := call("GET", "/api/v1/positions/export?keyword="+code+"&status=enabled", nil, cookie, "")
+	if exported.Code != 200 || !strings.HasPrefix(exported.Header().Get("Content-Type"), "text/csv") {
+		t.Fatalf("position CSV export: %d %s", exported.Code, exported.Body.String())
+	}
+	csvRows, err := csv.NewReader(strings.NewReader(strings.TrimPrefix(exported.Body.String(), "\ufeff"))).ReadAll()
+	if err != nil || len(csvRows) != 2 || csvRows[1][2] != code {
+		t.Fatalf("position CSV content: %v %#v", err, csvRows)
+	}
+	if invalid := call("GET", "/api/v1/positions/export?startTime=bad-date", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid CSV filter accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
 	if detail := call("GET", fmt.Sprintf("/api/v1/positions/%d", positionID), nil, cookie, ""); detail.Code != 200 {
 		t.Fatalf("position detail: %d %s", detail.Code, detail.Body.String())
 	}
@@ -301,6 +313,9 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	}
 	if hidden := call("GET", fmt.Sprintf("/api/v1/positions/%d", positionID), nil, cookie, ""); hidden.Code != 404 {
 		t.Fatalf("cross tenant position exposed: %d %s", hidden.Code, hidden.Body.String())
+	}
+	if hidden := call("GET", "/api/v1/positions/export?keyword="+code, nil, cookie, ""); hidden.Code != 200 || strings.Contains(hidden.Body.String(), code) {
+		t.Fatalf("cross tenant CSV leaked position: %d %s", hidden.Code, hidden.Body.String())
 	}
 	roleResponse := call("POST", "/api/v1/roles", map[string]any{"name": "测试租户管理员", "code": "tenant_admin_test", "status": "enabled", "dataScope": "all"}, cookie, csrf)
 	if roleResponse.Code != 200 {

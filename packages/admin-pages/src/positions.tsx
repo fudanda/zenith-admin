@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button, Input, Modal, Select, Table, Toast } from '@douyinfe/semi-ui';
 import { positionContract, userContract, type Position } from '@zenith/shared/identity';
-import { operation } from '@zenith/admin-client';
+import { downloadOperation, operation } from '@zenith/admin-client';
 import { useAuth } from '@zenith/admin-core';
 import { PageHeader } from '@zenith/admin-ui';
 
@@ -18,6 +18,11 @@ export function PositionsPage() {
   const [open, setOpen] = useState(false); const [form, setForm] = useState<PositionForm>(emptyForm);
   const [memberPosition, setMemberPosition] = useState<Position | null>(null); const [memberIds,setMemberIds] = useState<number[]>([]);
   const list = useQuery({ queryKey: ['positions', page, pageSize, search, status], queryFn: () => operation<Paged>(positionContract.list, { query: { page, pageSize, keyword: search, status } }) });
+  const exportCsv = useMutation({ mutationFn: () => downloadOperation(positionContract.exportCsv, { query: { keyword: search, status } }), onSuccess: blob => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a'); link.href = url; link.download = 'positions.csv'; link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  }, onError: error => Toast.error(String(error)) });
   const members = useQuery({ queryKey: ['position-members', memberPosition?.id], queryFn: () => operation<{id:number}[]>(positionContract.members,{id:memberPosition!.id}), enabled: memberPosition !== null });
   const users = useQuery({ queryKey: ['users-all'], queryFn: () => operation<{id:number;nickname:string;username:string}[]>(userContract.all), enabled: memberPosition !== null });
   useEffect(() => { if (members.data) setMemberIds(members.data.map(item=>item.id)); }, [members.data]);
@@ -39,6 +44,7 @@ export function PositionsPage() {
         <Select value={status} onChange={value => { setStatus(String(value)); setPage(1); }} style={{ width: 130 }} optionList={[{ label: '全部状态', value: '' }, { label: '启用', value: 'enabled' }, { label: '停用', value: 'disabled' }]}/>
         <Button onClick={() => { setSearch(keyword); setPage(1); }}>查询</Button>
         <Button onClick={() => { setKeyword(''); setSearch(''); setStatus(''); setPage(1); }}>重置</Button>
+        {can('system:position:list') && <Button loading={exportCsv.isPending} onClick={() => exportCsv.mutate()}>导出 CSV</Button>}
       </div>
       <Table<Position> rowKey="id" dataSource={list.data?.list ?? []} loading={list.isLoading} pagination={{ currentPage: page, pageSize, total: list.data?.total ?? 0, onPageChange: setPage, onPageSizeChange: setPageSize }} columns={[
         { title: '岗位名称', dataIndex: 'name' }, { title: '编码', dataIndex: 'code' }, { title: '排序', dataIndex: 'sort' },

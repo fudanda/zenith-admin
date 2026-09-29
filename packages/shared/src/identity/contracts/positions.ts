@@ -48,6 +48,7 @@ export const positionListQuery = paginationQuery.extend({
 export const positionContract = defineContract('/api/positions', {
   all: op.get('/all', { access: { permission: 'system:position:list' }, response: z.array(positionSchema), summary: '全量岗位（供下拉框）' }),
   list: op.get('/', { access: { permission: 'system:position:list' }, query: positionListQuery, response: paginated(positionSchema), summary: '岗位列表' }),
+  exportCsv: op.get('/export', { access: { permission: 'system:position:list' }, query: positionListQuery, kind: 'csv', summary: '按岗位列表筛选导出 CSV' }),
   detail: op.get('/{id}', { access: { permission: 'system:position:list' }, params: idParam, response: positionSchema, summary: '岗位详情' }),
   create: op.post('/', { access: { permission: 'system:position:create' }, audit: '创建岗位', body: createPositionSchema, response: positionSchema, summary: '创建岗位' }),
   update: op.put('/{id}', { access: { permission: 'system:position:update' }, audit: '更新岗位', params: idParam, body: updatePositionSchema, response: positionSchema, summary: '更新岗位' }),

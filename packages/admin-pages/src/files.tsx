@@ -18,7 +18,7 @@ export function FilesPage() {
   const list = useQuery({ queryKey: ['files', page, search], queryFn: () => operation<Paged>(fileContract.list, { query: { page, pageSize: 10, keyword: search } }) });
   const remove = useMutation({ mutationFn: (id: string) => operation<null>(fileContract.remove, { params: { id } }), onSuccess: () => { void cache.invalidateQueries({ queryKey: ['files'] }); Toast.success('已删除'); }, onError: error => Toast.error(String(error)) });
   const removeBatch = useMutation({ mutationFn: () => operation<null>(fileContract.removeBatch, { body: { ids: selectedIds } }), onSuccess: () => { setSelectedIds([]); void cache.invalidateQueries({ queryKey: ['files'] }); Toast.success('已批量删除'); }, onError: error => Toast.error(String(error)) });
-  const downloadBatch = useMutation({ mutationFn: () => downloadOperation(fileContract.batchDownload, { ids: selectedIds }), onSuccess: blob => {
+  const downloadBatch = useMutation({ mutationFn: () => downloadOperation(fileContract.batchDownload, { body: { ids: selectedIds } }), onSuccess: blob => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a'); link.href = url; link.download = 'zenith-files.zip'; link.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
