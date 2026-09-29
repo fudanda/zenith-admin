@@ -11,6 +11,7 @@ import { departmentContract } from '../packages/shared/src/identity/contracts/de
 import { roleContract } from '../packages/shared/src/identity/contracts/roles';
 import { dictContract } from '../packages/shared/src/platform/contracts/dicts';
 import { operationLogContract } from '../packages/shared/src/platform/contracts/operation-logs';
+import { tenantContract } from '../packages/shared/src/identity/contracts/tenants';
 import type { AnyOperation } from '../packages/shared/src/core/contract';
 
 // The foundation catalog grows one verified domain at a time. An operation
@@ -23,6 +24,7 @@ const selected: readonly [string, AnyOperation][] = [
   ['departmentsExportCsv', departmentContract.exportCsv],
   ['rolesExportCsv', roleContract.exportCsv],
   ['dictsExportCsv', dictContract.exportCsv],
+  ['tenantsExportCsv', tenantContract.exportCsv],
   ['operationLogsExportCsv', operationLogContract.exportCsv],
   ['positionsDetail', positionContract.detail],
   ['positionsCreate', positionContract.create],
@@ -54,9 +56,11 @@ const errorSchema = z.object({
 
 const catalog = selected.map(([id, operation]) => {
   const access = operation.access;
-  if (!access || access === 'authenticated' || !('permission' in access) || typeof access.permission !== 'string') {
-    throw new Error(`${id}: expected one permission in the shared contract`);
-  }
+  if (!access || access === 'authenticated') throw new Error(`${id}: expected a permission or platform-only access in the shared contract`);
+  const permission = 'permission' in access && typeof access.permission === 'string'
+    ? access.permission
+    : access.platformOnly === true ? 'platform' : null;
+  if (!permission) throw new Error(`${id}: expected a permission or platform-only access in the shared contract`);
   const path = operation.fullPath.replace(/^\/api\//, '/api/v1/');
   if (!path.startsWith('/api/v1/')) throw new Error(`${id}: invalid foundation path`);
   const write = !['get', 'head', 'options'].includes(operation.method);
@@ -88,7 +92,7 @@ const catalog = selected.map(([id, operation]) => {
     },
   });
   return {
-    id, method: operation.method.toUpperCase(), path, permission: access.permission,
+    id, method: operation.method.toUpperCase(), path, permission,
     platformOnly: access.platformOnly === 'multi-tenant',
     audit: operation.audit ? { module: operation.audit.module ?? '岗位管理', ...operation.audit } : null,
   };

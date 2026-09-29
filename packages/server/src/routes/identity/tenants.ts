@@ -2,7 +2,8 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { tenantContract } from '@zenith/shared/identity';
 import { setAuditAfterData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
-import { validationHook, okBody } from '../../lib/openapi-schemas';
+import { validationHook, okBody, csvStreamBody } from '../../lib/openapi-schemas';
+import { streamToCsv } from '../../lib/excel-export';
 import {
   listTenants,
   listAllTenants,
@@ -18,6 +19,34 @@ const tenantsRoute = new OpenAPIHono({ defaultHook: validationHook });
 
 const allRoute = defineContractRoute(tenantContract.all, {
   handler: async (c) => c.json(okBody(await listAllTenants()), 200),
+});
+
+const exportCsvRoute = defineContractRoute(tenantContract.exportCsv, {
+  handler: async (c) => {
+    const filters = c.req.valid('query');
+    async function* rows() {
+      for (let page = 1; ; page++) {
+        const result = await listTenants({ ...filters, page, pageSize: 200 });
+        for (const row of result.list) yield row;
+        if (result.list.length < 200) break;
+      }
+    }
+    const safe = (value: unknown) => {
+      const text = String(value ?? '');
+      return /^[\s]*[=+\-@]/.test(text) ? `'${text}` : text;
+    };
+    return csvStreamBody(c, streamToCsv([
+      { key: 'id', header: 'ID' },
+      { key: 'name', header: '租户名称', transform: safe },
+      { key: 'code', header: '租户编码', transform: safe },
+      { key: 'contactName', header: '联系人', transform: safe },
+      { key: 'contactPhone', header: '联系电话', transform: value => value ? '***' : '' },
+      { key: 'status', header: '状态' },
+      { key: 'expireAt', header: '到期时间' },
+      { key: 'maxUsers', header: '最大用户数' },
+      { key: 'createdAt', header: '创建时间' },
+    ], rows()), 'tenants.csv');
+  },
 });
 
 const statsRoute = defineContractRoute(tenantContract.stats, {
@@ -40,7 +69,7 @@ mountCrud(tenantsRoute, tenantContract,
   {
     exclude: ['create'],
   },
-  [allRoute, statsRoute, createRouteDef],
+  [allRoute, exportCsvRoute, statsRoute, createRouteDef],
 );
 
 export default tenantsRoute;

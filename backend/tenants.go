@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/url"
+	"strconv"
 	"strings"
 	"time"
 
@@ -61,23 +63,17 @@ func (f *Framework) listTenants(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_page_size", err.Error())
 		return
 	}
-	query := f.Store.Client.Tenant.Query()
-	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
-		query = query.Where(tenant.Or(tenant.NameContainsFold(keyword), tenant.CodeContainsFold(keyword)))
-	}
-	if status := q.Get("status"); status != "" {
-		if status != "enabled" && status != "disabled" {
-			fail(w, 400, "invalid_status", "状态无效")
-			return
-		}
-		query = query.Where(tenant.StatusEQ(status))
+	query, err := f.filteredTenants(q)
+	if err != nil {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
 	}
 	total, err := query.Clone().Count(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
 	}
-	rows, err := query.Order(ent.Desc(tenant.FieldID)).Offset((page - 1) * size).Limit(size).All(r.Context())
+	rows, err := query.Offset((page - 1) * size).Limit(size).All(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
@@ -87,6 +83,52 @@ func (f *Framework) listTenants(w http.ResponseWriter, r *http.Request) {
 		list = append(list, tenantView(row))
 	}
 	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
+}
+
+func (f *Framework) filteredTenants(q url.Values) (*ent.TenantQuery, error) {
+	query := f.Store.Client.Tenant.Query()
+	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
+		query = query.Where(tenant.Or(tenant.NameContainsFold(keyword), tenant.CodeContainsFold(keyword)))
+	}
+	if status := q.Get("status"); status != "" {
+		if status != "enabled" && status != "disabled" {
+			return nil, errors.New("状态无效")
+		}
+		query = query.Where(tenant.StatusEQ(status))
+	}
+	return query.Order(ent.Desc(tenant.FieldID)), nil
+}
+
+func (f *Framework) exportTenantsCSV(w http.ResponseWriter, r *http.Request) {
+	query, err := f.filteredTenants(r.URL.Query())
+	if err != nil {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
+	}
+	streamCSV(w, "tenants.csv", []string{"ID", "租户名称", "租户编码", "联系人", "联系电话", "状态", "到期时间", "最大用户数", "创建时间"}, func(offset int) ([][]string, error) {
+		rows, err := query.Clone().Offset(offset).Limit(200).All(r.Context())
+		if err != nil {
+			return nil, err
+		}
+		result := make([][]string, 0, len(rows))
+		for _, row := range rows {
+			contact, phone, expiry, maxUsers := "", "", "", ""
+			if row.ContactName != nil {
+				contact = *row.ContactName
+			}
+			if row.ContactPhone != nil && *row.ContactPhone != "" {
+				phone = "***"
+			}
+			if row.ExpireAt != nil {
+				expiry = row.ExpireAt.Format(time.RFC3339)
+			}
+			if row.MaxUsers != nil {
+				maxUsers = strconv.Itoa(*row.MaxUsers)
+			}
+			result = append(result, []string{strconv.Itoa(row.ID), row.Name, row.Code, contact, phone, row.Status, expiry, maxUsers, row.CreatedAt.Format(time.RFC3339)})
+		}
+		return result, nil
+	})
 }
 
 func (f *Framework) allTenants(w http.ResponseWriter, r *http.Request) {

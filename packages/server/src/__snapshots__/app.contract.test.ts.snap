@@ -1258,6 +1258,7 @@ exports[`路由表快照 > 完整路由表保持不变 1`] = `
   "GET /api/tenants/:id",
   "GET /api/tenants/:id/stats",
   "GET /api/tenants/all",
+  "GET /api/tenants/export",
   "GET /api/terminal-files/checksum",
   "GET /api/terminal-files/content",
   "GET /api/terminal-files/dir-size",

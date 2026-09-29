@@ -57,6 +57,14 @@
       "audit": null
     },
     {
+      "id": "tenantsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/tenants/export",
+      "permission": "platform",
+      "platformOnly": false,
+      "audit": null
+    },
+    {
       "id": "operationLogsExportCsv",
       "method": "GET",
       "path": "/api/v1/operation-logs/export",

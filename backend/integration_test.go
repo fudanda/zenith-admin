@@ -337,11 +337,29 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		t.Fatalf("create platform dict: %d %s", platformDict.Code, platformDict.Body.String())
 	}
 	tenantCode := fmt.Sprintf("t%d", time.Now().UnixNano())
-	createdTenant := call("POST", "/api/v1/tenants", map[string]any{"name": "测试租户", "code": tenantCode, "status": "enabled"}, cookie, csrf)
+	createdTenant := call("POST", "/api/v1/tenants", map[string]any{"name": "测试租户", "code": tenantCode, "status": "enabled", "contactName": "Alice", "contactPhone": "13812345678"}, cookie, csrf)
 	if createdTenant.Code != 201 {
 		t.Fatalf("create tenant: %d %s", createdTenant.Code, createdTenant.Body.String())
 	}
 	tenantID := int(read(createdTenant)["id"].(float64))
+	tenantFilter := "/api/v1/tenants?keyword=" + tenantCode + "&status=enabled"
+	if listed := call("GET", tenantFilter, nil, cookie, ""); listed.Code != 200 || read(listed)["total"].(float64) != 1 {
+		t.Fatalf("tenant list filter: %d %s", listed.Code, listed.Body.String())
+	}
+	tenantCSV := call("GET", "/api/v1/tenants/export?keyword="+tenantCode+"&status=enabled", nil, cookie, "")
+	if tenantCSV.Code != 200 || !strings.HasPrefix(tenantCSV.Header().Get("Content-Type"), "text/csv") {
+		t.Fatalf("tenant CSV response: %d %s", tenantCSV.Code, tenantCSV.Body.String())
+	}
+	tenantRows, err := csv.NewReader(strings.NewReader(strings.TrimPrefix(tenantCSV.Body.String(), "\ufeff"))).ReadAll()
+	if err != nil || len(tenantRows) != 2 || tenantRows[1][2] != tenantCode || tenantRows[1][4] != "***" || strings.Contains(tenantCSV.Body.String(), "13812345678") {
+		t.Fatalf("tenant CSV filtered/masked: %v %#v", err, tenantRows)
+	}
+	if empty := call("GET", "/api/v1/tenants/export?keyword="+tenantCode+"&status=disabled", nil, cookie, ""); empty.Code != 200 || strings.Contains(empty.Body.String(), tenantCode) {
+		t.Fatalf("tenant CSV status filter: %d %s", empty.Code, empty.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/tenants/export?status=invalid", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid tenant CSV status accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
 	view := call("PUT", "/api/v1/auth/tenant-view", map[string]any{"tenantId": tenantID}, cookie, csrf)
 	if view.Code != 200 {
 		t.Fatalf("switch tenant: %d %s", view.Code, view.Body.String())
@@ -487,6 +505,9 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		t.Fatal("missing member cookie")
 	}
 	memberCSRF := read(memberLogin)["csrfToken"].(string)
+	if denied := call("GET", "/api/v1/tenants/export", nil, memberCookie, ""); denied.Code != 403 {
+		t.Fatalf("non-platform tenant export accepted: %d %s", denied.Code, denied.Body.String())
+	}
 	if allowed := call("GET", "/api/v1/positions", nil, memberCookie, ""); allowed.Code != 200 {
 		t.Fatalf("role list permission: %d %s", allowed.Code, allowed.Body.String())
 	}

@@ -133,6 +133,7 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{"departmentsExportCsv", http.HandlerFunc(f.exportDepartmentsCSV)},
 		{"rolesExportCsv", http.HandlerFunc(f.exportRolesCSV)},
 		{"dictsExportCsv", http.HandlerFunc(f.exportDictsCSV)},
+		{"tenantsExportCsv", http.HandlerFunc(f.exportTenantsCSV)},
 		{"operationLogsExportCsv", http.HandlerFunc(f.exportAuditLogsCSV)},
 		{"filesRemoveBatch", http.HandlerFunc(f.deleteFilesBatch)},
 		{"filesBatchDownload", http.HandlerFunc(f.downloadFilesBatch)},

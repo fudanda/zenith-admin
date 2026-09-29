@@ -490,6 +490,24 @@ func (e RolesExportCsvParamsStatus) Valid() bool {
 	}
 }
 
+// Defines values for TenantsExportCsvParamsStatus.
+const (
+	TenantsExportCsvParamsStatusDisabled TenantsExportCsvParamsStatus = "disabled"
+	TenantsExportCsvParamsStatusEnabled  TenantsExportCsvParamsStatus = "enabled"
+)
+
+// Valid indicates whether the value is a known member of the TenantsExportCsvParamsStatus enum.
+func (e TenantsExportCsvParamsStatus) Valid() bool {
+	switch e {
+	case TenantsExportCsvParamsStatusDisabled:
+		return true
+	case TenantsExportCsvParamsStatusEnabled:
+		return true
+	default:
+		return false
+	}
+}
+
 // FoundationError defines model for FoundationError.
 type FoundationError struct {
 	Code    int         `json:"code"`
@@ -852,6 +870,24 @@ type RolesExportCsvParams struct {
 
 // RolesExportCsvParamsStatus defines parameters for RolesExportCsv.
 type RolesExportCsvParamsStatus string
+
+// TenantsExportCsvParams defines parameters for TenantsExportCsv.
+type TenantsExportCsvParams struct {
+	// Page 页码（从 1 开始）
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PageSize 每页数量，最大 200
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Keyword 按名称模糊匹配
+	Keyword *string `form:"keyword,omitempty" json:"keyword,omitempty"`
+
+	// Status 状态；空 = 全部
+	Status *TenantsExportCsvParamsStatus `form:"status,omitempty" json:"status,omitempty"`
+}
+
+// TenantsExportCsvParamsStatus defines parameters for TenantsExportCsv.
+type TenantsExportCsvParamsStatus string
 
 // FilesRemoveBatchJSONRequestBody defines body for FilesRemoveBatch for application/json ContentType.
 type FilesRemoveBatchJSONRequestBody FilesRemoveBatchJSONBody

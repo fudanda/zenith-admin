@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button, Input, Modal, Select, Table, Toast } from '@douyinfe/semi-ui';
 import { tenantContract, tenantPackageContract, type Tenant, type TenantPackageOption } from '@zenith/shared/identity';
-import { operation } from '@zenith/admin-client';
+import { downloadOperation, operation } from '@zenith/admin-client';
 import { PageHeader } from '@zenith/admin-ui';
 
 type Paged = { list: Tenant[]; total: number; page: number; pageSize: number };
@@ -10,16 +10,20 @@ type Form = { name: string; code: string; status: 'enabled' | 'disabled'; contac
 const empty: Form = { name: '', code: '', status: 'enabled', contactName: '', contactPhone: '', maxUsers: null, packageId: null, remark: '' };
 
 export function TenantsPage() {
-  const client = useQueryClient(); const [page,setPage] = useState(1); const [keyword,setKeyword] = useState(''); const [search,setSearch] = useState('');
+  const client = useQueryClient(); const [page,setPage] = useState(1); const [keyword,setKeyword] = useState(''); const [search,setSearch] = useState(''); const [status,setStatus] = useState('');
   const [editing,setEditing] = useState<Tenant | null>(null); const [open,setOpen] = useState(false); const [form,setForm] = useState<Form>(empty);
-  const list = useQuery({ queryKey: ['tenants', page, search], queryFn: () => operation<Paged>(tenantContract.list, { query: { page, pageSize: 10, keyword: search } }) });
+  const list = useQuery({ queryKey: ['tenants', page, search, status], queryFn: () => operation<Paged>(tenantContract.list, { query: { page, pageSize: 10, keyword: search, status } }) });
+  const exportCsv = useMutation({ mutationFn: () => downloadOperation(tenantContract.exportCsv, { query: { keyword: search, status } }), onSuccess: blob => {
+    const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = 'tenants.csv'; link.click(); window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  }, onError: error => Toast.error(String(error)) });
   const packages = useQuery({ queryKey: ['package-options'], queryFn: () => operation<TenantPackageOption[]>(tenantPackageContract.all) });
   const save = useMutation({ mutationFn: () => editing ? operation<Tenant>(tenantContract.update,{ id: editing.id, body: form }) : operation<Tenant>(tenantContract.create,{ body: form }),
     onSuccess: () => { setOpen(false); void client.invalidateQueries({ queryKey: ['tenants'] }); void client.invalidateQueries({ queryKey: ['tenant-options'] }); Toast.success('保存成功'); }, onError: error => Toast.error(String(error)) });
   const create = () => { setEditing(null); setForm(empty); setOpen(true); };
   const edit = (row: Tenant) => { setEditing(row); setForm({ name: row.name, code: row.code, status: row.status, contactName: row.contactName ?? '', contactPhone: row.contactPhone ?? '', maxUsers: row.maxUsers ?? null, packageId: row.packageId ?? null, remark: row.remark ?? '' }); setOpen(true); };
   return <><PageHeader title="租户管理" description="维护租户状态、套餐和用户配额" actions={<Button theme="solid" onClick={create}>新增租户</Button>}/>
-    <div className="zenith-card"><div style={{ display:'flex', gap:8, marginBottom:16 }}><Input placeholder="搜索租户名称或编码" value={keyword} onChange={setKeyword} onEnterPress={() => {setSearch(keyword);setPage(1);}} style={{width:240}}/><Button onClick={() => {setSearch(keyword);setPage(1);}}>查询</Button></div>
+    <div className="zenith-card"><div style={{ display:'flex', gap:8, marginBottom:16, flexWrap:'wrap' }}><Input placeholder="搜索租户名称或编码" value={keyword} onChange={setKeyword} onEnterPress={() => {setSearch(keyword);setPage(1);}} style={{width:240}}/><Select value={status} onChange={value=>{setStatus(String(value));setPage(1);}} style={{width:120}} optionList={[{label:'全部状态',value:''},{label:'启用',value:'enabled'},{label:'停用',value:'disabled'}]}/><Button onClick={() => {setSearch(keyword);setPage(1);}}>查询</Button><Button onClick={()=>{setKeyword('');setSearch('');setStatus('');setPage(1);}}>重置</Button><Button loading={exportCsv.isPending} onClick={()=>exportCsv.mutate()}>导出 CSV</Button></div>
+      {list.isError && <p role="alert">{String(list.error)}</p>}
       <Table<Tenant> rowKey="id" dataSource={list.data?.list ?? []} loading={list.isLoading} pagination={{ currentPage:page,pageSize:10,total:list.data?.total ?? 0,onPageChange:setPage }} columns={[
         { title:'名称',dataIndex:'name' },{ title:'编码',dataIndex:'code' },{ title:'状态',dataIndex:'status',render:value=>value==='enabled'?'启用':'停用' },
         { title:'套餐',dataIndex:'packageId',render:value=>packages.data?.find(item=>item.id===value)?.name ?? '无限制' },

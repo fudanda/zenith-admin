@@ -1601,6 +1601,158 @@
         }
       }
     },
+    "/api/v1/tenants/export": {
+      "get": {
+        "operationId": "tenantsExportCsv",
+        "summary": "按租户列表筛选导出 CSV",
+        "tags": [
+          "Tenants"
+        ],
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "description": "页码（从 1 开始）",
+              "example": 1
+            },
+            "required": false,
+            "description": "页码（从 1 开始）",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 10,
+              "description": "每页数量，最大 200",
+              "example": 10
+            },
+            "required": false,
+            "description": "每页数量，最大 200",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "按名称模糊匹配",
+              "x-filter": {
+                "kind": "keyword",
+                "fields": "名称"
+              }
+            },
+            "required": false,
+            "description": "按名称模糊匹配",
+            "name": "keyword",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "enabled",
+                "disabled"
+              ],
+              "description": "状态；空 = 全部",
+              "x-filter": {
+                "kind": "enum",
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "dict": "common_status"
+              }
+            },
+            "required": false,
+            "description": "状态；空 = 全部",
+            "name": "status",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "文件下载",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/operation-logs/export": {
       "get": {
         "operationId": "operationLogsExportCsv",
