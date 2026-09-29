@@ -64,10 +64,10 @@ func (s *Store) Migrate(ctx context.Context) error {
 	if err := s.DB.QueryRowContext(ctx, `SELECT COALESCE(MAX(version), 0) FROM zenith_schema_versions`).Scan(&current); err != nil {
 		return err
 	}
-	if current > 3 {
+	if current > 4 {
 		return fmt.Errorf("database schema version %d is newer than this binary", current)
 	}
-	if current == 3 {
+	if current == 4 {
 		return nil
 	}
 	if err := s.Client.Schema.Create(ctx, schema.WithDropColumn(false), schema.WithDropIndex(false)); err != nil {
@@ -139,7 +139,7 @@ func (s *Store) Migrate(ctx context.Context) error {
 			}
 		}
 	}
-	_, err = s.DB.ExecContext(ctx, `INSERT INTO zenith_schema_versions(version) VALUES (3) ON CONFLICT DO NOTHING`)
+	_, err = s.DB.ExecContext(ctx, `INSERT INTO zenith_schema_versions(version) VALUES (4) ON CONFLICT DO NOTHING`)
 	return err
 }
 

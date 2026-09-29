@@ -173,6 +173,9 @@ export const fileContract = defineContract('/api/files', {
     summary: '解析文件访问直链（按存储配置策略，presigned 每次签发新鲜 URL）',
   }),
   stats: op.get('/stats', { access: { permission: 'system:file:list' }, response: fileStatsSchema, summary: '文件统计分析' }),
+  uploadPolicy: op.get('/upload-policy', { access: { permission: 'system:file:upload' }, response: z.object({
+    uploadMaxSizeMb: z.int().min(0), chunkThresholdMb: z.int().min(1), chunkSizeMb: z.int().min(5),
+  }), summary: '读取当前文件上传策略' }),
   list: op.get('/', { access: { permission: 'system:file:list' }, query: fileListQuery, response: paginated(managedFileSchema), summary: '文件分页列表' }),
   browse: op.get('/browse', { access: { permission: 'system:file:list' }, query: storageBrowseQuery, response: storageBrowseResultSchema, summary: '按存储配置浏览文件目录' }),
   uploadInit: op.post('/upload/init', { access: { permission: 'system:file:upload' }, audit: '初始化分片上传', body: initChunkUploadSchema, response: uploadSessionInitSchema, summary: '初始化分片上传' }),

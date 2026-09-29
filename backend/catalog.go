@@ -18,6 +18,7 @@ var foundationMenus = []foundationMenu{
 	{Name: "dicts", Title: "字典管理", Type: "menu", Path: "/system/dicts", Permission: "system:dict:list", Sort: 150},
 	{Name: "file_configs", Title: "文件存储配置", Type: "menu", Path: "/system/file-storage-configs", Permission: "system:file:config", Sort: 160},
 	{Name: "files", Title: "文件管理", Type: "menu", Path: "/system/files", Permission: "system:file:list", Sort: 170},
+	{Name: "file_settings", Title: "文件上传设置", Type: "menu", Path: "/system/settings/files", Permission: "system:setting:view", Sort: 175},
 	{Name: "login_logs", Title: "登录日志", Type: "menu", Path: "/system/login-logs", Permission: "system:log:login", Sort: 180},
 	{Name: "operation_logs", Title: "操作审计", Type: "menu", Path: "/system/operation-logs", Permission: "system:log:operation", Sort: 190},
 	{Name: "tenants", Title: "租户管理", Type: "menu", Path: "/system/tenants", Sort: 200},
@@ -51,4 +52,5 @@ var foundationMenus = []foundationMenu{
 	{Name: "file_configs_delete", Title: "删除文件存储配置", Type: "button", Permission: "system:file:config:delete", Sort: 374},
 	{Name: "files_upload", Title: "上传文件", Type: "button", Permission: "system:file:upload", Sort: 381},
 	{Name: "files_delete", Title: "删除文件", Type: "button", Permission: "system:file:delete", Sort: 382},
+	{Name: "file_settings_update", Title: "更新文件上传设置", Type: "button", Permission: "system:setting:update", Sort: 383},
 }

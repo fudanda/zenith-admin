@@ -7,6 +7,7 @@ import { useAuth } from '@zenith/admin-core';
 import { PageHeader } from '@zenith/admin-ui';
 
 type Paged = { list: ManagedFile[]; total: number; page: number; pageSize: number };
+type UploadPolicy = { uploadMaxSizeMb: number; chunkThresholdMb: number; chunkSizeMb: number };
 
 export function FilesPage() {
   const { can } = useAuth(); const cache = useQueryClient(); const input = useRef<HTMLInputElement>(null); const uploadCancel = useRef<AbortController | null>(null);
@@ -19,7 +20,9 @@ export function FilesPage() {
     if (!file) return;
     const controller = new AbortController(); uploadCancel.current = controller; setUploading(true); setProgress(0);
     try {
-      if (file.size > 100 * 1024 * 1024) await uploadChunked(file, visibility, setProgress, controller.signal);
+      const policy = await operation<UploadPolicy>(fileContract.uploadPolicy);
+      if (policy.uploadMaxSizeMb > 0 && file.size > policy.uploadMaxSizeMb * 1024 * 1024) throw new Error('文件超过上传大小限制');
+      if (file.size > Math.min(policy.chunkThresholdMb * 1024 * 1024, 100 * 1024 * 1024)) await uploadChunked(file, visibility, policy.chunkSizeMb, setProgress, controller.signal);
       else await uploadOne<ManagedFile>(file, visibility, setProgress, controller.signal);
       await cache.invalidateQueries({ queryKey: ['files'] }); Toast.success('上传完成');
     } catch (error) { Toast.error(String(error)); }
@@ -36,7 +39,7 @@ export function FilesPage() {
   </>;
 }
 
-async function uploadChunked(file: File, visibility: 'public' | 'restricted', onProgress: (percent: number) => void, signal: AbortSignal): Promise<ManagedFile> {
+async function uploadChunked(file: File, visibility: 'public' | 'restricted', chunkSizeMb: number, onProgress: (percent: number) => void, signal: AbortSignal): Promise<ManagedFile> {
   type UploadInit = { uploadId: string; chunkSize: number; totalChunks: number; received: number[] };
   type UploadStatus = UploadInit & { status: string };
   const storageKey = `zenith-upload:${file.name}:${file.size}:${file.lastModified}:${visibility}`;
@@ -50,7 +53,7 @@ async function uploadChunked(file: File, visibility: 'public' | 'restricted', on
   }
   if (!session) {
     sessionStorage.removeItem(storageKey);
-    session = await operation<UploadInit>(fileContract.uploadInit, { body: { fileName: file.name, fileSize: file.size, mimeType: file.type, chunkSize: 5 * 1024 * 1024, visibility } });
+    session = await operation<UploadInit>(fileContract.uploadInit, { body: { fileName: file.name, fileSize: file.size, mimeType: file.type, chunkSize: chunkSizeMb * 1024 * 1024, visibility } });
     sessionStorage.setItem(storageKey, session.uploadId);
   }
   const current = session;

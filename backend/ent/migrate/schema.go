@@ -388,6 +388,20 @@ var (
 			},
 		},
 	}
+	// SystemSettingsColumns holds the columns for the "system_settings" table.
+	SystemSettingsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "module", Type: field.TypeString, Unique: true, Size: 64},
+		{Name: "version", Type: field.TypeInt},
+		{Name: "data", Type: field.TypeJSON},
+		{Name: "updated_at", Type: field.TypeTime},
+	}
+	// SystemSettingsTable holds the schema information for the "system_settings" table.
+	SystemSettingsTable = &schema.Table{
+		Name:       "system_settings",
+		Columns:    SystemSettingsColumns,
+		PrimaryKey: []*schema.Column{SystemSettingsColumns[0]},
+	}
 	// TenantsColumns holds the columns for the "tenants" table.
 	TenantsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -714,6 +728,7 @@ var (
 		RoleMenusTable,
 		RolePermissionsTable,
 		SessionsTable,
+		SystemSettingsTable,
 		TenantsTable,
 		TenantPackagesTable,
 		TenantPackageFeaturesTable,

@@ -19,6 +19,9 @@ func (f *Framework) registerCore(r *Registrar) error {
 			respond(w, 200, map[string]string{"status": "ready"})
 		})},
 		{Method: "GET", Path: "/api/v1/stats", OperationID: "dashboardStats", Permission: "authenticated", Handler: http.HandlerFunc(f.dashboardStats)},
+		{Method: "GET", Path: "/api/v1/settings", OperationID: "settingsList", Permission: "platform", Handler: http.HandlerFunc(f.listSettings)},
+		{Method: "GET", Path: "/api/v1/settings/files", OperationID: "settingsGetFiles", Permission: "platform", Handler: http.HandlerFunc(f.getFileSettings)},
+		{Method: "PUT", Path: "/api/v1/settings/files", OperationID: "settingsUpdateFiles", Permission: "platform", Handler: http.HandlerFunc(f.updateFileSettings)},
 		{Method: "GET", Path: "/api/v1/login-logs", OperationID: "loginLogsList", Permission: "system:log:login", Handler: http.HandlerFunc(f.listLoginLogs)},
 		{Method: "GET", Path: "/api/v1/operation-logs", OperationID: "operationLogsList", Permission: "system:log:operation", Handler: http.HandlerFunc(f.listAuditLogs)},
 		{Method: "GET", Path: "/api/v1/auth/captcha", OperationID: "authCaptcha", Public: true, Handler: http.HandlerFunc(f.captcha)},
@@ -111,6 +114,7 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{Method: "PUT", Path: "/api/v1/file-storage-configs/{id}/default", OperationID: "fileConfigsSetDefault", Permission: "system:file:config:default", Handler: http.HandlerFunc(f.setDefaultFileConfig)},
 		{Method: "DELETE", Path: "/api/v1/file-storage-configs/{id}", OperationID: "fileConfigsRemove", Permission: "system:file:config:delete", Handler: http.HandlerFunc(f.deleteFileConfig)},
 		{Method: "GET", Path: "/api/v1/files/stats", OperationID: "filesStats", Permission: "system:file:list", Handler: http.HandlerFunc(f.fileStats)},
+		{Method: "GET", Path: "/api/v1/files/upload-policy", OperationID: "filesUploadPolicy", Permission: "system:file:upload", Handler: http.HandlerFunc(f.fileUploadPolicy)},
 		{Method: "GET", Path: "/api/v1/files", OperationID: "filesList", Permission: "system:file:list", Handler: http.HandlerFunc(f.listFiles)},
 		{Method: "POST", Path: "/api/v1/files/upload-one", OperationID: "filesUploadOne", Permission: "system:file:upload", Handler: http.HandlerFunc(f.uploadOne)},
 		{Method: "POST", Path: "/api/v1/files/upload/init", OperationID: "filesUploadInit", Permission: "system:file:upload", Handler: http.HandlerFunc(f.uploadInit)},

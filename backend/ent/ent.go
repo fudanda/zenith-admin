@@ -28,6 +28,7 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/rolemenu"
 	"github.com/fudanda/zenith-admin/backend/ent/rolepermission"
 	"github.com/fudanda/zenith-admin/backend/ent/session"
+	"github.com/fudanda/zenith-admin/backend/ent/systemsetting"
 	"github.com/fudanda/zenith-admin/backend/ent/tenant"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackage"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackagefeature"
@@ -118,6 +119,7 @@ func checkColumn(t, c string) error {
 			rolemenu.Table:             rolemenu.ValidColumn,
 			rolepermission.Table:       rolepermission.ValidColumn,
 			session.Table:              session.ValidColumn,
+			systemsetting.Table:        systemsetting.ValidColumn,
 			tenant.Table:               tenant.ValidColumn,
 			tenantpackage.Table:        tenantpackage.ValidColumn,
 			tenantpackagefeature.Table: tenantpackagefeature.ValidColumn,

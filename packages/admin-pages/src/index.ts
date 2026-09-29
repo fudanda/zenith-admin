@@ -12,3 +12,4 @@ export { UserGroupsPage } from './user-groups';
 export { DictsPage } from './dicts';
 export { FileConfigsPage } from './file-configs';
 export { FilesPage } from './files';
+export { FileSettingsPage } from './file-settings';

@@ -109,6 +109,50 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		t.Fatal("session cookie is not secure")
 	}
 	csrf := read(login)["csrfToken"].(string)
+	filesSetting := call("GET", "/api/v1/settings/files", nil, cookie, "")
+	if filesSetting.Code != 200 {
+		t.Fatalf("read file settings: %d %s", filesSetting.Code, filesSetting.Body.String())
+	}
+	currentSetting := read(filesSetting)
+	version := int(currentSetting["version"].(float64))
+	values := currentSetting["effective"].(map[string]any)
+	beforeThreshold := values["chunkThresholdMb"].(float64)
+	if beforeThreshold == 5 {
+		values["chunkThresholdMb"] = 6.0
+	} else {
+		values["chunkThresholdMb"] = 5.0
+	}
+	settingsSaved := call("PUT", "/api/v1/settings/files", map[string]any{"version": version, "data": values}, cookie, csrf)
+	if settingsSaved.Code != 200 {
+		t.Fatalf("save file settings: %d %s", settingsSaved.Code, settingsSaved.Body.String())
+	}
+	if stale := call("PUT", "/api/v1/settings/files", map[string]any{"version": version, "data": values}, cookie, csrf); stale.Code != 409 {
+		t.Fatalf("stale settings update: %d %s", stale.Code, stale.Body.String())
+	}
+	policy := call("GET", "/api/v1/files/upload-policy", nil, cookie, "")
+	if policy.Code != 200 || read(policy)["chunkThresholdMb"] != values["chunkThresholdMb"] {
+		t.Fatalf("upload policy did not update: %d %s", policy.Code, policy.Body.String())
+	}
+	values["chunkThresholdMb"] = beforeThreshold
+	settingsRestored := call("PUT", "/api/v1/settings/files", map[string]any{"version": version + 1, "data": values}, cookie, csrf)
+	if settingsRestored.Code != 200 {
+		t.Fatalf("restore file settings: %d %s", settingsRestored.Code, settingsRestored.Body.String())
+	}
+	beforeMax := values["uploadMaxSizeMb"]
+	values["uploadMaxSizeMb"] = 1
+	limited := call("PUT", "/api/v1/settings/files", map[string]any{"version": version + 2, "data": values}, cookie, csrf)
+	if limited.Code != 200 {
+		t.Fatalf("limit file size: %d %s", limited.Code, limited.Body.String())
+	}
+	tooLarge := call("POST", "/api/v1/files/upload/init", map[string]any{"fileName": "large.bin", "fileSize": 2 * 1024 * 1024, "chunkSize": 5 * 1024 * 1024, "visibility": "restricted"}, cookie, csrf)
+	if tooLarge.Code != 400 {
+		t.Fatalf("file size policy bypassed: %d %s", tooLarge.Code, tooLarge.Body.String())
+	}
+	values["uploadMaxSizeMb"] = beforeMax
+	unlimited := call("PUT", "/api/v1/settings/files", map[string]any{"version": version + 3, "data": values}, cookie, csrf)
+	if unlimited.Code != 200 {
+		t.Fatalf("restore size policy: %d %s", unlimited.Code, unlimited.Body.String())
+	}
 	if me := call("GET", "/api/v1/auth/me", nil, cookie, ""); me.Code != 200 {
 		t.Fatalf("session recovery: %d %s", me.Code, me.Body.String())
 	}

@@ -204,7 +204,8 @@ export const completeChunkUploadSchema = z.object({
   uploadId: z.string().min(1).max(64),
 });
 
-export type InitChunkUploadInput = z.infer<typeof initChunkUploadSchema>;
+// Callers may omit visibility; the schema supplies the public default at the HTTP boundary.
+export type InitChunkUploadInput = z.input<typeof initChunkUploadSchema>;
 
 export type CompleteChunkUploadInput = z.infer<typeof completeChunkUploadSchema>;
 

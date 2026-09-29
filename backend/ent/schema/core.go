@@ -338,3 +338,15 @@ func (UploadChunk) Fields() []ent.Field {
 func (UploadChunk) Indexes() []ent.Index {
 	return []ent.Index{index.Fields("upload_id", "chunk_index").Unique()}
 }
+
+// SystemSetting stores versioned platform overrides for enabled foundation modules.
+type SystemSetting struct{ ent.Schema }
+
+func (SystemSetting) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("module").MaxLen(64).Unique(),
+		field.Int("version").Positive(),
+		field.JSON("data", map[string]any{}),
+		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}

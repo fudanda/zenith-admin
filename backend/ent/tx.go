@@ -44,6 +44,8 @@ type Tx struct {
 	RolePermission *RolePermissionClient
 	// Session is the client for interacting with the Session builders.
 	Session *SessionClient
+	// SystemSetting is the client for interacting with the SystemSetting builders.
+	SystemSetting *SystemSettingClient
 	// Tenant is the client for interacting with the Tenant builders.
 	Tenant *TenantClient
 	// TenantPackage is the client for interacting with the TenantPackage builders.
@@ -219,6 +221,7 @@ func (tx *Tx) init() {
 	tx.RoleMenu = NewRoleMenuClient(tx.config)
 	tx.RolePermission = NewRolePermissionClient(tx.config)
 	tx.Session = NewSessionClient(tx.config)
+	tx.SystemSetting = NewSystemSettingClient(tx.config)
 	tx.Tenant = NewTenantClient(tx.config)
 	tx.TenantPackage = NewTenantPackageClient(tx.config)
 	tx.TenantPackageFeature = NewTenantPackageFeatureClient(tx.config)

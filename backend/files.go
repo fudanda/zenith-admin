@@ -149,7 +149,16 @@ func (f *Framework) getFile(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f *Framework) uploadOne(w http.ResponseWriter, r *http.Request) {
-	r.Body = http.MaxBytesReader(w, r.Body, maxSingleUploadBytes+1024*1024)
+	settings, _, err := f.loadFileSettings(r.Context())
+	if err != nil {
+		fail(w, 503, "settings_unavailable", "读取上传策略失败")
+		return
+	}
+	maxBytes := maxSingleUploadBytes
+	if settings.UploadMaxSizeMb > 0 && int64(settings.UploadMaxSizeMb)*mib < maxBytes {
+		maxBytes = int64(settings.UploadMaxSizeMb) * mib
+	}
+	r.Body = http.MaxBytesReader(w, r.Body, maxBytes+1024*1024)
 	visibility := r.URL.Query().Get("visibility")
 	if visibility == "" {
 		visibility = "public"
@@ -176,7 +185,7 @@ func (f *Framework) uploadOne(w http.ResponseWriter, r *http.Request) {
 			part.Close()
 			continue
 		}
-		view, err := f.persistFile(r.Context(), fromContext(r.Context()), part, part.FileName(), visibility, requestID(r))
+		view, err := f.persistFile(r.Context(), fromContext(r.Context()), part, part.FileName(), visibility, requestID(r), maxBytes)
 		part.Close()
 		if err != nil {
 			fail(w, 400, "upload_failed", err.Error())
@@ -188,8 +197,8 @@ func (f *Framework) uploadOne(w http.ResponseWriter, r *http.Request) {
 	fail(w, 400, "missing_file", "请选择文件")
 }
 
-func (f *Framework) persistFile(ctx context.Context, p *principal, input io.Reader, rawName, visibility, trace string) (map[string]any, error) {
-	return f.persistFileWithLimit(ctx, p, input, rawName, visibility, trace, maxSingleUploadBytes, -1, nil, nil)
+func (f *Framework) persistFile(ctx context.Context, p *principal, input io.Reader, rawName, visibility, trace string, maxBytes int64) (map[string]any, error) {
+	return f.persistFileWithLimit(ctx, p, input, rawName, visibility, trace, maxBytes, -1, nil, nil)
 }
 
 func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, input io.Reader, rawName, visibility, trace string, maxBytes, expected int64, storage *ent.FileStorageConfig, afterSave func(*ent.Tx) error) (map[string]any, error) {

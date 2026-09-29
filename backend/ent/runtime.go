@@ -19,6 +19,7 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/role"
 	"github.com/fudanda/zenith-admin/backend/ent/schema"
 	"github.com/fudanda/zenith-admin/backend/ent/session"
+	"github.com/fudanda/zenith-admin/backend/ent/systemsetting"
 	"github.com/fudanda/zenith-admin/backend/ent/tenant"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackage"
 	"github.com/fudanda/zenith-admin/backend/ent/uploadchunk"
@@ -314,6 +315,22 @@ func init() {
 	sessionDescCreatedAt := sessionFields[6].Descriptor()
 	// session.DefaultCreatedAt holds the default value on creation for the created_at field.
 	session.DefaultCreatedAt = sessionDescCreatedAt.Default.(func() time.Time)
+	systemsettingFields := schema.SystemSetting{}.Fields()
+	_ = systemsettingFields
+	// systemsettingDescModule is the schema descriptor for module field.
+	systemsettingDescModule := systemsettingFields[0].Descriptor()
+	// systemsetting.ModuleValidator is a validator for the "module" field. It is called by the builders before save.
+	systemsetting.ModuleValidator = systemsettingDescModule.Validators[0].(func(string) error)
+	// systemsettingDescVersion is the schema descriptor for version field.
+	systemsettingDescVersion := systemsettingFields[1].Descriptor()
+	// systemsetting.VersionValidator is a validator for the "version" field. It is called by the builders before save.
+	systemsetting.VersionValidator = systemsettingDescVersion.Validators[0].(func(int) error)
+	// systemsettingDescUpdatedAt is the schema descriptor for updated_at field.
+	systemsettingDescUpdatedAt := systemsettingFields[3].Descriptor()
+	// systemsetting.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	systemsetting.DefaultUpdatedAt = systemsettingDescUpdatedAt.Default.(func() time.Time)
+	// systemsetting.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	systemsetting.UpdateDefaultUpdatedAt = systemsettingDescUpdatedAt.UpdateDefault.(func() time.Time)
 	tenantFields := schema.Tenant{}.Fields()
 	_ = tenantFields
 	// tenantDescName is the schema descriptor for name field.

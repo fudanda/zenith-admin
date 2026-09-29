@@ -61,6 +61,18 @@ func (f *Framework) uploadInit(w http.ResponseWriter, r *http.Request) {
 	if in.Visibility == "" {
 		in.Visibility = "public"
 	}
+	settings, _, err := f.loadFileSettings(r.Context())
+	if err != nil {
+		fail(w, 503, "settings_unavailable", "读取上传策略失败")
+		return
+	}
+	if settings.UploadMaxSizeMb > 0 && in.FileSize > int64(settings.UploadMaxSizeMb)*mib {
+		fail(w, 400, "file_too_large", "文件超过上传大小限制")
+		return
+	}
+	if baseline := int64(settings.ChunkSizeMb) * mib; in.ChunkSize < baseline {
+		in.ChunkSize = baseline
+	}
 	total := (in.FileSize + in.ChunkSize - 1) / in.ChunkSize
 	if total == 0 {
 		total = 1
@@ -278,6 +290,15 @@ func (f *Framework) uploadComplete(w http.ResponseWriter, r *http.Request) {
 	}
 	if session.Status != "uploading" || session.ExpiresAt.Before(time.Now()) {
 		fail(w, 409, "invalid_session", "上传会话不可合并")
+		return
+	}
+	settings, _, err := f.loadFileSettings(r.Context())
+	if err != nil {
+		fail(w, 503, "settings_unavailable", "读取上传策略失败")
+		return
+	}
+	if settings.UploadMaxSizeMb > 0 && session.FileSize > int64(settings.UploadMaxSizeMb)*mib {
+		fail(w, 400, "file_too_large", "文件超过上传大小限制")
 		return
 	}
 	chunks, err := f.Store.Client.UploadChunk.Query().Where(uploadchunk.UploadIDEQ(in.UploadID)).All(r.Context())
