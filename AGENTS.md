@@ -1,5 +1,10 @@
 # Zenith Admin — 项目架构导航
 
+> Go 基础版迁移正在 `backend/` 与 `apps/dash/` 实施。当前仓库同时保留原 Hono/Drizzle/Web 路径；
+> 本文以下描述原系统的稳定架构，迁移范围、运行命令和未完成项见
+> [Go 基础版迁移状态](docs/guide/go-foundation.md)。在基础模块及真实 PostgreSQL 验收完成前，
+> 不把原生产构建切换为 Go 基础版。
+
 Zenith Admin 是一个基于 **Hono + React + Drizzle ORM** 的模块化全栈后台系统，采用 npm monorepo 管理。
 后端是模块化单体，提供 API、后台运行时和 CMS 前台渲染；前端提供多个应用入口，共享层统一前后端契约。
 

@@ -6,9 +6,14 @@
 		"node": ">=24 <25"
 	},
 	"workspaces": [
-		"packages/*"
+		"packages/*",
+		"apps/*"
 	],
 	"scripts": {
+		"dev:dash": "vite --config apps/dash/vite.config.ts",
+		"build:dash": "vite build --config apps/dash/vite.config.ts",
+		"check:dash-boundaries": "node scripts/check-dash-boundaries.mjs",
+		"test:go": "cd backend && go test ./...",
 		"dev": "concurrently \"npm run dev -w @zenith/server\" \"npm run dev -w @zenith/web\"",
 		"dev:split": "concurrently \"npm run dev:split -w @zenith/server\" \"npm run dev -w @zenith/web\"",
 		"verify:split": "npm run verify:split -w @zenith/server",

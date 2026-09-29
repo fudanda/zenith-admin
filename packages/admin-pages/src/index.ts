@@ -1,0 +1,10 @@
+export { LoginPage } from './login';
+export { HomePage } from './home';
+export { ProfilePage } from './profile';
+export { PositionsPage } from './positions';
+export { TenantsPage } from './tenants';
+export { TenantPackagesPage } from './tenant-packages';
+export { LoginLogsPage, OperationLogsPage } from './logs';
+export { DepartmentsPage } from './departments';
+export { UsersPage } from './users';
+export { RolesPage } from './roles';

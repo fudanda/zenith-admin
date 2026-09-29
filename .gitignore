@@ -1,5 +1,7 @@
 node_modules/
 dist/
+!backend/internal/dash/dist/
+!backend/internal/dash/dist/**
 .env
 *.local
 .DS_Store

@@ -1,0 +1,28 @@
+:root { font-family: Inter, system-ui, "Microsoft YaHei", sans-serif; color-scheme: light; }
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; min-height: 100%; }
+body { color: var(--semi-color-text-0); background: var(--semi-color-bg-0); }
+.zenith-shell { min-height: 100vh; display: grid; grid-template-columns: 216px minmax(0,1fr); }
+.zenith-sidebar { background: var(--semi-color-nav-bg); border-right: 1px solid var(--semi-color-border); padding: 12px 8px; }
+.zenith-brand { display: flex; align-items: center; gap: 10px; height: 42px; margin: 0 8px 18px; font-weight: 700; font-size: 16px; }
+.zenith-mark { width: 28px; height: 28px; flex-shrink: 0; }
+.zenith-nav { display: grid; gap: 3px; }
+.zenith-nav a { color: var(--semi-color-text-1); text-decoration: none; padding: 9px 12px; border-radius: 6px; font-size: 13px; }
+.zenith-nav a.active { color: #3370ff; background: rgba(51,112,255,.1); font-weight: 600; }
+.zenith-main { min-width: 0; }
+.zenith-topbar { min-height: 48px; padding: 8px 24px; border-bottom: 1px solid var(--semi-color-border); display: flex; align-items: center; justify-content: flex-end; gap: 12px; background: var(--semi-color-bg-1); }
+.zenith-content { padding: 24px; max-width: 1440px; margin: auto; }
+.zenith-page-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; }
+.zenith-page-header h1 { margin: 0; font-size: 21px; font-weight: 600; }
+.zenith-page-header p { margin: 6px 0 0; color: var(--semi-color-text-2); font-size: 13px; }
+.zenith-card { padding: 20px; border: 1px solid var(--semi-color-border); background: var(--semi-color-bg-1); border-radius: 8px; }
+.zenith-login { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: linear-gradient(145deg,#eff4ff,#fafbff); }
+.zenith-login .zenith-card { width: min(100%,420px); box-shadow: 0 18px 55px rgba(20,40,80,.08); }
+.zenith-login h1 { margin: 16px 0 4px; font-size: 24px; }
+.zenith-login p { color: var(--semi-color-text-2); }
+.zenith-login form { display: grid; gap: 14px; margin-top: 24px; }
+.zenith-form-row { display: grid; gap: 6px; }
+.zenith-form-row label { font-size: 13px; }
+.zenith-captcha { display: flex; gap: 10px; align-items: center; }
+.zenith-captcha img { height: 42px; cursor: pointer; }
+@media (max-width: 720px) { .zenith-shell { grid-template-columns: 1fr; }.zenith-sidebar { border-right: 0; border-bottom: 1px solid var(--semi-color-border); }.zenith-nav { display: flex; overflow: auto; }.zenith-content { padding: 16px; } }

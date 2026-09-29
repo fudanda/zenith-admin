@@ -1,0 +1,263 @@
+package schema
+
+import (
+	"time"
+
+	"entgo.io/ent"
+	"entgo.io/ent/schema/field"
+	"entgo.io/ent/schema/index"
+)
+
+// These tables deliberately retain Zenith's numeric identifiers and tenant semantics.
+type Tenant struct{ ent.Schema }
+
+func (Tenant) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("name").MaxLen(100), field.String("code").MaxLen(50).Unique(),
+		field.String("logo").Optional().Nillable(), field.String("contact_name").Optional().Nillable(), field.String("contact_phone").Optional().Nillable(),
+		field.String("status").Default("enabled"), field.Time("expire_at").Optional().Nillable(),
+		field.Int("max_users").Optional().Nillable(), field.Int("package_id").Optional().Nillable(),
+		field.String("remark").Optional().Nillable(), field.Time("created_at").Default(time.Now),
+		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+
+type TenantPackage struct{ ent.Schema }
+
+func (TenantPackage) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("name").MaxLen(100).Unique(), field.String("status").Default("enabled"),
+		field.JSON("quotas", map[string]any{}).Optional(), field.String("remark").Optional().Nillable(),
+		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+
+type TenantPackageFeature struct{ ent.Schema }
+
+func (TenantPackageFeature) Fields() []ent.Field {
+	return []ent.Field{field.Int("package_id"), field.String("feature_key")}
+}
+func (TenantPackageFeature) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("package_id", "feature_key").Unique()}
+}
+
+type Department struct{ ent.Schema }
+
+func (Department) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("tenant_id").Optional().Nillable(), field.Int("parent_id").Default(0),
+		field.String("name").MaxLen(64), field.String("code").MaxLen(64), field.String("category").Default("department"),
+		field.Int("leader_id").Optional().Nillable(), field.String("phone").Optional().Nillable(), field.String("email").Optional().Nillable(),
+		field.Int("sort").Default(0), field.String("status").Default("enabled"),
+		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+func (Department) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("tenant_id", "code").Unique()}
+}
+
+type UserPosition struct{ ent.Schema }
+
+func (UserPosition) Fields() []ent.Field {
+	return []ent.Field{field.Int("user_id"), field.Int("position_id"), field.Time("created_at").Default(time.Now)}
+}
+func (UserPosition) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("user_id", "position_id").Unique()}
+}
+
+type User struct{ ent.Schema }
+
+func (User) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("tenant_id").Optional().Nillable(),
+		field.String("username").MaxLen(32), field.String("nickname").MaxLen(32),
+		field.String("password_hash").Sensitive(), field.String("status").Default("enabled"),
+		field.String("avatar").Optional().Nillable(),
+		field.String("email").Optional().Nillable(), field.String("phone").Optional().Nillable(),
+		field.String("gender").Optional().Nillable(), field.String("birth_date").Optional().Nillable(),
+		field.Int("department_id").Optional().Nillable(),
+		field.JSON("preferences", map[string]any{}).Optional(),
+		field.JSON("favorite_menus", []int{}).Optional(), field.String("user_data_scope").Optional().Nillable(),
+		field.Time("password_updated_at").Default(time.Now),
+		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+func (User) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "username").Unique()} }
+
+type Session struct{ ent.Schema }
+
+func (Session) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("user_id"), field.String("token_hash").Unique().Sensitive(),
+		field.String("csrf_hash").Sensitive(), field.Int("tenant_view_id").Optional().Nillable(),
+		field.Time("expires_at"), field.Time("revoked_at").Optional().Nillable(),
+		field.Time("created_at").Default(time.Now),
+	}
+}
+func (Session) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("user_id"), index.Fields("expires_at")}
+}
+
+type Position struct{ ent.Schema }
+
+func (Position) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("tenant_id").Optional().Nillable(),
+		field.String("name").MaxLen(64), field.String("code").MaxLen(64),
+		field.Int("sort").Default(0), field.String("status").Default("enabled"),
+		field.String("remark").Optional().Nillable(), field.Time("created_at").Default(time.Now),
+		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+func (Position) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "code").Unique()} }
+
+type AuditLog struct{ ent.Schema }
+
+func (AuditLog) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("actor_id"), field.Int("tenant_id").Optional().Nillable(),
+		field.String("operation").MaxLen(100), field.String("resource").MaxLen(100),
+		field.Int("resource_id").Optional().Nillable(), field.String("request_id").Optional(),
+		field.Time("created_at").Default(time.Now),
+	}
+}
+func (AuditLog) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "created_at")} }
+
+type LoginLog struct{ ent.Schema }
+
+func (LoginLog) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("user_id").Optional().Nillable(), field.String("username"),
+		field.Int("tenant_id").Optional().Nillable(), field.String("ip").Optional(),
+		field.Bool("success"), field.String("reason").Optional(), field.Time("created_at").Default(time.Now),
+	}
+}
+func (LoginLog) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "created_at")} }
+
+type LoginAttempt struct{ ent.Schema }
+
+func (LoginAttempt) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("key").Unique().Sensitive(), field.Int("failures").Default(0),
+		field.Time("locked_until").Optional().Nillable(), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+
+type Captcha struct{ ent.Schema }
+
+func (Captcha) Fields() []ent.Field {
+	return []ent.Field{field.String("public_id").Unique(), field.String("answer_hash").Sensitive(),
+		field.Time("expires_at"), field.Time("used_at").Optional().Nillable(),
+		field.Time("created_at").Default(time.Now)}
+}
+
+type Role struct{ ent.Schema }
+
+func (Role) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("tenant_id").Optional().Nillable(), field.String("name"),
+		field.String("code"), field.String("description").Optional().Nillable(), field.String("status").Default("enabled"),
+		field.String("data_scope").Default("all"),
+		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+func (Role) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "code").Unique()} }
+
+type Menu struct{ ent.Schema }
+
+func (Menu) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("parent_id").Default(0), field.String("title").MaxLen(64), field.String("name").Optional().Nillable(),
+		field.String("path").Optional().Nillable(), field.String("component").Optional().Nillable(), field.String("icon").Optional().Nillable(),
+		field.String("type").Default("menu"), field.String("permission").Optional().Nillable(), field.Int("sort").Default(0),
+		field.String("status").Default("enabled"), field.Bool("visible").Default(true), field.String("feature_key").Optional().Nillable(),
+		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+func (Menu) Indexes() []ent.Index { return []ent.Index{index.Fields("name").Unique()} }
+
+type RoleMenu struct{ ent.Schema }
+
+func (RoleMenu) Fields() []ent.Field { return []ent.Field{field.Int("role_id"), field.Int("menu_id")} }
+func (RoleMenu) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("role_id", "menu_id").Unique()}
+}
+
+type UserMenu struct{ ent.Schema }
+
+func (UserMenu) Fields() []ent.Field { return []ent.Field{field.Int("user_id"), field.Int("menu_id")} }
+func (UserMenu) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("user_id", "menu_id").Unique()}
+}
+
+type UserRole struct{ ent.Schema }
+
+func (UserRole) Fields() []ent.Field { return []ent.Field{field.Int("user_id"), field.Int("role_id")} }
+func (UserRole) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("user_id", "role_id").Unique()}
+}
+
+type RolePermission struct{ ent.Schema }
+
+func (RolePermission) Fields() []ent.Field {
+	return []ent.Field{field.Int("role_id"), field.String("permission")}
+}
+func (RolePermission) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("role_id", "permission").Unique()}
+}
+
+type RoleDepartment struct{ ent.Schema }
+
+func (RoleDepartment) Fields() []ent.Field {
+	return []ent.Field{field.Int("role_id"), field.Int("department_id")}
+}
+func (RoleDepartment) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("role_id", "department_id").Unique()}
+}
+
+type UserDepartmentScope struct{ ent.Schema }
+
+func (UserDepartmentScope) Fields() []ent.Field {
+	return []ent.Field{field.Int("user_id"), field.Int("department_id")}
+}
+func (UserDepartmentScope) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("user_id", "department_id").Unique()}
+}
+
+type UserPermission struct{ ent.Schema }
+
+func (UserPermission) Fields() []ent.Field {
+	return []ent.Field{field.Int("user_id"), field.String("permission")}
+}
+func (UserPermission) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("user_id", "permission").Unique()}
+}
+
+type UserGroup struct{ ent.Schema }
+
+func (UserGroup) Fields() []ent.Field {
+	return []ent.Field{field.Int("tenant_id").Optional().Nillable(), field.String("name"), field.String("code"),
+		field.String("status").Default("enabled"), field.Time("created_at").Default(time.Now),
+		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now)}
+}
+func (UserGroup) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("tenant_id", "code").Unique()}
+}
+
+type UserGroupMember struct{ ent.Schema }
+
+func (UserGroupMember) Fields() []ent.Field {
+	return []ent.Field{field.Int("group_id"), field.Int("user_id")}
+}
+func (UserGroupMember) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("group_id", "user_id").Unique()}
+}
+
+type UserGroupRole struct{ ent.Schema }
+
+func (UserGroupRole) Fields() []ent.Field {
+	return []ent.Field{field.Int("group_id"), field.Int("role_id")}
+}
+func (UserGroupRole) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("group_id", "role_id").Unique()}
+}

@@ -1,0 +1,40 @@
+export interface Envelope<T> { code: number; message: string; data: T }
+export interface User { id: number; username: string; nickname: string; tenantId: number | null; status: string; email?: string | null; preferences?: Record<string, unknown> }
+export interface Session { user: User; csrfToken: string; tenantViewId: number | null; superAdmin: boolean; permissions?: string[] }
+export class ApiError extends Error { constructor(message: string, readonly status: number) { super(message); } }
+
+let csrf = '';
+export function setCsrf(value: string) { csrf = value; }
+
+export async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const headers = new Headers(init.headers);
+  if (init.body && !(init.body instanceof FormData)) headers.set('Content-Type', 'application/json');
+  if (init.method && !['GET', 'HEAD'].includes(init.method.toUpperCase())) headers.set('X-CSRF-Token', csrf);
+  const response = await fetch(`/api/v1${path}`, { ...init, headers, credentials: 'same-origin' });
+  let envelope: Envelope<T>;
+  try { envelope = await response.json() as Envelope<T>; } catch { throw new ApiError(`请求失败 (${response.status})`, response.status); }
+  if (!response.ok || envelope.code !== 0) throw new ApiError(envelope.message || `请求失败 (${response.status})`, response.status);
+  return envelope.data;
+}
+
+export function operation<T>(op: { method: string; fullPath: string }, args: { id?: number; query?: Record<string, string | number | undefined>; body?: unknown } = {}) {
+  const suffix = op.fullPath.replace(/^\/api/, '').replace('{id}', args.id === undefined ? '' : String(args.id));
+  const search = new URLSearchParams();
+  for (const [key, value] of Object.entries(args.query ?? {})) if (value !== undefined && value !== '') search.set(key, String(value));
+  return request<T>(`${suffix}${search.size ? `?${search}` : ''}`, { method: op.method.toUpperCase(), body: args.body === undefined ? undefined : JSON.stringify(args.body) });
+}
+
+export const authApi = {
+  captcha: () => request<{ captchaId: string; image: string }>('/auth/captcha'),
+  me: async () => { const data = await request<Session>('/auth/me'); setCsrf(data.csrfToken); return data; },
+  login: async (values: { username: string; password: string; tenantCode: string; captchaId: string; captchaAnswer: string }) => {
+    const data = await request<Session>('/auth/login', { method: 'POST', body: JSON.stringify(values) }); setCsrf(data.csrfToken); return data;
+  },
+  logout: async () => { await request<null>('/auth/logout', { method: 'POST' }); setCsrf(''); },
+  profile: (nickname: string, email: string) => request<User>('/auth/profile', { method: 'PUT', body: JSON.stringify({ nickname, email }) }),
+  preferences: (preferences: Record<string, unknown>) => request<Record<string, unknown>>('/auth/preferences', { method: 'PUT', body: JSON.stringify(preferences) }),
+  changePassword: (currentPassword: string, newPassword: string) => request<null>('/auth/password', { method: 'POST', body: JSON.stringify({ currentPassword, newPassword }) }),
+  sessions: () => request<{ id: number; createdAt: string; expiresAt: string; current: boolean }[]>('/auth/sessions'),
+  revokeSession: (id: number) => request<null>(`/auth/sessions/${id}`, { method: 'DELETE' }),
+  switchTenantView: (tenantId: number | null) => request<{ tenantViewId: number | null }>('/auth/tenant-view', { method: 'PUT', body: JSON.stringify({ tenantId }) }),
+};
