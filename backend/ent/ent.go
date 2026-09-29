@@ -15,6 +15,8 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
 	"github.com/fudanda/zenith-admin/backend/ent/captcha"
 	"github.com/fudanda/zenith-admin/backend/ent/department"
+	"github.com/fudanda/zenith-admin/backend/ent/dict"
+	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
 	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
 	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
 	"github.com/fudanda/zenith-admin/backend/ent/menu"
@@ -99,6 +101,8 @@ func checkColumn(t, c string) error {
 			auditlog.Table:             auditlog.ValidColumn,
 			captcha.Table:              captcha.ValidColumn,
 			department.Table:           department.ValidColumn,
+			dict.Table:                 dict.ValidColumn,
+			dictitem.Table:             dictitem.ValidColumn,
 			loginattempt.Table:         loginattempt.ValidColumn,
 			loginlog.Table:             loginlog.ValidColumn,
 			menu.Table:                 menu.ValidColumn,

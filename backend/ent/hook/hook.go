@@ -45,6 +45,30 @@ func (f DepartmentFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DepartmentMutation", m)
 }
 
+// The DictFunc type is an adapter to allow the use of ordinary
+// function as Dict mutator.
+type DictFunc func(context.Context, *ent.DictMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f DictFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.DictMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DictMutation", m)
+}
+
+// The DictItemFunc type is an adapter to allow the use of ordinary
+// function as DictItem mutator.
+type DictItemFunc func(context.Context, *ent.DictItemMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f DictItemFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	if mv, ok := m.(*ent.DictItemMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DictItemMutation", m)
+}
+
 // The LoginAttemptFunc type is an adapter to allow the use of ordinary
 // function as LoginAttempt mutator.
 type LoginAttemptFunc func(context.Context, *ent.LoginAttemptMutation) (ent.Value, error)

@@ -76,6 +76,60 @@ var (
 			},
 		},
 	}
+	// DictsColumns holds the columns for the "dicts" table.
+	DictsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
+		{Name: "name", Type: field.TypeString, Size: 64},
+		{Name: "code", Type: field.TypeString, Size: 64},
+		{Name: "description", Type: field.TypeString, Nullable: true},
+		{Name: "status", Type: field.TypeString, Default: "enabled"},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+	}
+	// DictsTable holds the schema information for the "dicts" table.
+	DictsTable = &schema.Table{
+		Name:       "dicts",
+		Columns:    DictsColumns,
+		PrimaryKey: []*schema.Column{DictsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "dict_tenant_id_code",
+				Unique:  true,
+				Columns: []*schema.Column{DictsColumns[1], DictsColumns[3]},
+			},
+		},
+	}
+	// DictItemsColumns holds the columns for the "dict_items" table.
+	DictItemsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "dict_id", Type: field.TypeInt},
+		{Name: "parent_id", Type: field.TypeInt, Nullable: true},
+		{Name: "label", Type: field.TypeString, Size: 64},
+		{Name: "value", Type: field.TypeString, Size: 64},
+		{Name: "color", Type: field.TypeString, Nullable: true},
+		{Name: "sort", Type: field.TypeInt, Default: 0},
+		{Name: "status", Type: field.TypeString, Default: "enabled"},
+		{Name: "remark", Type: field.TypeString, Nullable: true},
+		{Name: "metadata", Type: field.TypeJSON, Nullable: true},
+		{Name: "created_by", Type: field.TypeInt, Nullable: true},
+		{Name: "updated_by", Type: field.TypeInt, Nullable: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+	}
+	// DictItemsTable holds the schema information for the "dict_items" table.
+	DictItemsTable = &schema.Table{
+		Name:       "dict_items",
+		Columns:    DictItemsColumns,
+		PrimaryKey: []*schema.Column{DictItemsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "dictitem_dict_id_value",
+				Unique:  true,
+				Columns: []*schema.Column{DictItemsColumns[1], DictItemsColumns[4]},
+			},
+		},
+	}
 	// LoginAttemptsColumns holds the columns for the "login_attempts" table.
 	LoginAttemptsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -538,6 +592,8 @@ var (
 		AuditLogsTable,
 		CaptchasTable,
 		DepartmentsTable,
+		DictsTable,
+		DictItemsTable,
 		LoginAttemptsTable,
 		LoginLogsTable,
 		MenusTable,

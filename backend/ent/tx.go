@@ -18,6 +18,10 @@ type Tx struct {
 	Captcha *CaptchaClient
 	// Department is the client for interacting with the Department builders.
 	Department *DepartmentClient
+	// Dict is the client for interacting with the Dict builders.
+	Dict *DictClient
+	// DictItem is the client for interacting with the DictItem builders.
+	DictItem *DictItemClient
 	// LoginAttempt is the client for interacting with the LoginAttempt builders.
 	LoginAttempt *LoginAttemptClient
 	// LoginLog is the client for interacting with the LoginLog builders.
@@ -194,6 +198,8 @@ func (tx *Tx) init() {
 	tx.AuditLog = NewAuditLogClient(tx.config)
 	tx.Captcha = NewCaptchaClient(tx.config)
 	tx.Department = NewDepartmentClient(tx.config)
+	tx.Dict = NewDictClient(tx.config)
+	tx.DictItem = NewDictItemClient(tx.config)
 	tx.LoginAttempt = NewLoginAttemptClient(tx.config)
 	tx.LoginLog = NewLoginLogClient(tx.config)
 	tx.Menu = NewMenuClient(tx.config)

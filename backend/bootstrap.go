@@ -7,6 +7,8 @@ import (
 	"strings"
 
 	"github.com/fudanda/zenith-admin/backend/ent"
+	"github.com/fudanda/zenith-admin/backend/ent/dict"
+	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
 	"github.com/fudanda/zenith-admin/backend/ent/menu"
 	"github.com/fudanda/zenith-admin/backend/ent/role"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
@@ -42,6 +44,27 @@ func (s *Store) Seed(ctx context.Context) error {
 			}
 			if err := create.Exec(ctx); err != nil {
 				return err
+			}
+		}
+		statusDict, err := tx.Dict.Query().Where(dict.CodeEQ("sys_status"), dict.TenantIDIsNil()).Only(ctx)
+		if ent.IsNotFound(err) {
+			statusDict, err = tx.Dict.Create().SetName("系统状态").SetCode("sys_status").SetStatus("enabled").Save(ctx)
+		}
+		if err != nil {
+			return err
+		}
+		for _, item := range []struct {
+			label, value string
+			sort         int
+		}{{"启用", "enabled", 1}, {"停用", "disabled", 2}} {
+			exists, err := tx.DictItem.Query().Where(dictitem.DictIDEQ(statusDict.ID), dictitem.ValueEQ(item.value)).Exist(ctx)
+			if err != nil {
+				return err
+			}
+			if !exists {
+				if err := tx.DictItem.Create().SetDictID(statusDict.ID).SetLabel(item.label).SetValue(item.value).SetSort(item.sort).SetStatus("enabled").Exec(ctx); err != nil {
+					return err
+				}
 			}
 		}
 		return nil

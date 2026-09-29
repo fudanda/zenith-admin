@@ -15,6 +15,7 @@ var foundationMenus = []foundationMenu{
 	{Name: "users", Title: "账号管理", Type: "menu", Path: "/system/users", Permission: "system:user:list", Sort: 120},
 	{Name: "roles", Title: "角色管理", Type: "menu", Path: "/system/roles", Permission: "system:role:list", Sort: 130},
 	{Name: "user_groups", Title: "用户组管理", Type: "menu", Path: "/system/user-groups", Permission: "system:user-groups:list", Sort: 140},
+	{Name: "dicts", Title: "字典管理", Type: "menu", Path: "/system/dicts", Permission: "system:dict:list", Sort: 150},
 	{Name: "login_logs", Title: "登录日志", Type: "menu", Path: "/system/login-logs", Permission: "system:log:login", Sort: 180},
 	{Name: "operation_logs", Title: "操作审计", Type: "menu", Path: "/system/operation-logs", Permission: "system:log:operation", Sort: 190},
 	{Name: "tenants", Title: "租户管理", Type: "menu", Path: "/system/tenants", Sort: 200},
@@ -38,4 +39,8 @@ var foundationMenus = []foundationMenu{
 	{Name: "user_groups_update", Title: "修改用户组", Type: "button", Permission: "system:user-groups:update", Sort: 352},
 	{Name: "user_groups_delete", Title: "删除用户组", Type: "button", Permission: "system:user-groups:delete", Sort: 353},
 	{Name: "user_groups_assign", Title: "分配用户组成员和角色", Type: "button", Permission: "system:user-groups:assign", Sort: 354},
+	{Name: "dicts_create", Title: "新增字典", Type: "button", Permission: "system:dict:create", Sort: 361},
+	{Name: "dicts_update", Title: "修改字典", Type: "button", Permission: "system:dict:update", Sort: 362},
+	{Name: "dicts_delete", Title: "删除字典", Type: "button", Permission: "system:dict:delete", Sort: 363},
+	{Name: "dicts_item", Title: "维护字典项", Type: "button", Permission: "system:dict:item", Sort: 364},
 }

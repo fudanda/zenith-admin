@@ -15,6 +15,12 @@ type Captcha func(*sql.Selector)
 // Department is the predicate function for department builders.
 type Department func(*sql.Selector)
 
+// Dict is the predicate function for dict builders.
+type Dict func(*sql.Selector)
+
+// DictItem is the predicate function for dictitem builders.
+type DictItem func(*sql.Selector)
+
 // LoginAttempt is the predicate function for loginattempt builders.
 type LoginAttempt func(*sql.Selector)
 

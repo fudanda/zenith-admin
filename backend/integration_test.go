@@ -279,6 +279,25 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if denied := call("GET", "/api/v1/positions", nil, memberCookie, ""); denied.Code != 403 {
 		t.Fatalf("disabled group still authorizes: %d", denied.Code)
 	}
+	dictionary := call("POST", "/api/v1/dicts", map[string]any{"name": "测试状态", "code": "test_status", "status": "enabled"}, cookie, csrf)
+	if dictionary.Code != 200 {
+		t.Fatalf("create dictionary: %d %s", dictionary.Code, dictionary.Body.String())
+	}
+	dictID := int(read(dictionary)["id"].(float64))
+	item := call("POST", fmt.Sprintf("/api/v1/dicts/%d/items", dictID), map[string]any{"label": "启用", "value": "enabled", "status": "enabled", "sort": 1}, cookie, csrf)
+	if item.Code != 200 {
+		t.Fatalf("create dictionary item: %d %s", item.Code, item.Body.String())
+	}
+	itemsByCode := call("GET", "/api/v1/dicts/code/test_status/items", nil, memberCookie, "")
+	if itemsByCode.Code != 200 {
+		t.Fatalf("read tenant dictionary: %d %s", itemsByCode.Code, itemsByCode.Body.String())
+	}
+	var itemResult struct {
+		Data []map[string]any `json:"data"`
+	}
+	if err := json.Unmarshal(itemsByCode.Body.Bytes(), &itemResult); err != nil || len(itemResult.Data) != 1 {
+		t.Fatalf("dictionary item count: %v %s", err, itemsByCode.Body.String())
+	}
 	logout := call("POST", "/api/v1/auth/logout", map[string]any{}, cookie, csrf)
 	if logout.Code != 200 {
 		t.Fatalf("logout: %d %s", logout.Code, logout.Body.String())

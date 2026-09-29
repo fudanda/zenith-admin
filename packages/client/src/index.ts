@@ -17,8 +17,13 @@ export async function request<T>(path: string, init: RequestInit = {}): Promise<
   return envelope.data;
 }
 
-export function operation<T>(op: { method: string; fullPath: string }, args: { id?: number; query?: Record<string, string | number | undefined>; body?: unknown } = {}) {
-  const suffix = op.fullPath.replace(/^\/api/, '').replace('{id}', args.id === undefined ? '' : String(args.id));
+export function operation<T>(op: { method: string; fullPath: string }, args: { id?: number; params?: Record<string, string | number>; query?: Record<string, string | number | undefined>; body?: unknown } = {}) {
+  const params: Record<string, string | number | undefined> = { ...args.params, ...(args.id === undefined ? {} : { id: args.id }) };
+  const suffix = op.fullPath.replace(/^\/api/, '').replace(/\{([^}]+)\}/g, (_, name: string) => {
+    const value = params[name];
+    if (value === undefined) throw new Error(`缺少路径参数 ${name}`);
+    return encodeURIComponent(String(value));
+  });
   const search = new URLSearchParams();
   for (const [key, value] of Object.entries(args.query ?? {})) if (value !== undefined && value !== '') search.set(key, String(value));
   return request<T>(`${suffix}${search.size ? `?${search}` : ''}`, { method: op.method.toUpperCase(), body: args.body === undefined ? undefined : JSON.stringify(args.body) });

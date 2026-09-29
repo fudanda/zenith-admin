@@ -8,6 +8,8 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
 	"github.com/fudanda/zenith-admin/backend/ent/captcha"
 	"github.com/fudanda/zenith-admin/backend/ent/department"
+	"github.com/fudanda/zenith-admin/backend/ent/dict"
+	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
 	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
 	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
 	"github.com/fudanda/zenith-admin/backend/ent/menu"
@@ -83,6 +85,58 @@ func init() {
 	department.DefaultUpdatedAt = departmentDescUpdatedAt.Default.(func() time.Time)
 	// department.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	department.UpdateDefaultUpdatedAt = departmentDescUpdatedAt.UpdateDefault.(func() time.Time)
+	dictFields := schema.Dict{}.Fields()
+	_ = dictFields
+	// dictDescName is the schema descriptor for name field.
+	dictDescName := dictFields[1].Descriptor()
+	// dict.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	dict.NameValidator = dictDescName.Validators[0].(func(string) error)
+	// dictDescCode is the schema descriptor for code field.
+	dictDescCode := dictFields[2].Descriptor()
+	// dict.CodeValidator is a validator for the "code" field. It is called by the builders before save.
+	dict.CodeValidator = dictDescCode.Validators[0].(func(string) error)
+	// dictDescStatus is the schema descriptor for status field.
+	dictDescStatus := dictFields[4].Descriptor()
+	// dict.DefaultStatus holds the default value on creation for the status field.
+	dict.DefaultStatus = dictDescStatus.Default.(string)
+	// dictDescCreatedAt is the schema descriptor for created_at field.
+	dictDescCreatedAt := dictFields[5].Descriptor()
+	// dict.DefaultCreatedAt holds the default value on creation for the created_at field.
+	dict.DefaultCreatedAt = dictDescCreatedAt.Default.(func() time.Time)
+	// dictDescUpdatedAt is the schema descriptor for updated_at field.
+	dictDescUpdatedAt := dictFields[6].Descriptor()
+	// dict.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	dict.DefaultUpdatedAt = dictDescUpdatedAt.Default.(func() time.Time)
+	// dict.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	dict.UpdateDefaultUpdatedAt = dictDescUpdatedAt.UpdateDefault.(func() time.Time)
+	dictitemFields := schema.DictItem{}.Fields()
+	_ = dictitemFields
+	// dictitemDescLabel is the schema descriptor for label field.
+	dictitemDescLabel := dictitemFields[2].Descriptor()
+	// dictitem.LabelValidator is a validator for the "label" field. It is called by the builders before save.
+	dictitem.LabelValidator = dictitemDescLabel.Validators[0].(func(string) error)
+	// dictitemDescValue is the schema descriptor for value field.
+	dictitemDescValue := dictitemFields[3].Descriptor()
+	// dictitem.ValueValidator is a validator for the "value" field. It is called by the builders before save.
+	dictitem.ValueValidator = dictitemDescValue.Validators[0].(func(string) error)
+	// dictitemDescSort is the schema descriptor for sort field.
+	dictitemDescSort := dictitemFields[5].Descriptor()
+	// dictitem.DefaultSort holds the default value on creation for the sort field.
+	dictitem.DefaultSort = dictitemDescSort.Default.(int)
+	// dictitemDescStatus is the schema descriptor for status field.
+	dictitemDescStatus := dictitemFields[6].Descriptor()
+	// dictitem.DefaultStatus holds the default value on creation for the status field.
+	dictitem.DefaultStatus = dictitemDescStatus.Default.(string)
+	// dictitemDescCreatedAt is the schema descriptor for created_at field.
+	dictitemDescCreatedAt := dictitemFields[11].Descriptor()
+	// dictitem.DefaultCreatedAt holds the default value on creation for the created_at field.
+	dictitem.DefaultCreatedAt = dictitemDescCreatedAt.Default.(func() time.Time)
+	// dictitemDescUpdatedAt is the schema descriptor for updated_at field.
+	dictitemDescUpdatedAt := dictitemFields[12].Descriptor()
+	// dictitem.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	dictitem.DefaultUpdatedAt = dictitemDescUpdatedAt.Default.(func() time.Time)
+	// dictitem.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	dictitem.UpdateDefaultUpdatedAt = dictitemDescUpdatedAt.UpdateDefault.(func() time.Time)
 	loginattemptFields := schema.LoginAttempt{}.Fields()
 	_ = loginattemptFields
 	// loginattemptDescFailures is the schema descriptor for failures field.

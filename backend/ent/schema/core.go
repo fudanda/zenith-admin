@@ -262,3 +262,27 @@ func (UserGroupRole) Fields() []ent.Field {
 func (UserGroupRole) Indexes() []ent.Index {
 	return []ent.Index{index.Fields("group_id", "role_id").Unique()}
 }
+
+type Dict struct{ ent.Schema }
+
+func (Dict) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("tenant_id").Optional().Nillable(), field.String("name").MaxLen(64), field.String("code").MaxLen(64),
+		field.String("description").Optional().Nillable(), field.String("status").Default("enabled"),
+		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+func (Dict) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "code").Unique()} }
+
+type DictItem struct{ ent.Schema }
+
+func (DictItem) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("dict_id"), field.Int("parent_id").Optional().Nillable(), field.String("label").MaxLen(64), field.String("value").MaxLen(64),
+		field.String("color").Optional().Nillable(), field.Int("sort").Default(0), field.String("status").Default("enabled"),
+		field.String("remark").Optional().Nillable(), field.JSON("metadata", map[string]any{}).Optional(),
+		field.Int("created_by").Optional().Nillable(), field.Int("updated_by").Optional().Nillable(),
+		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+func (DictItem) Indexes() []ent.Index { return []ent.Index{index.Fields("dict_id", "value").Unique()} }

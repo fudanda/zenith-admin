@@ -79,6 +79,7 @@ func (s *Store) Migrate(ctx context.Context) error {
 		`CREATE UNIQUE INDEX IF NOT EXISTS departments_platform_code_unique ON departments(code) WHERE tenant_id IS NULL`,
 		`CREATE UNIQUE INDEX IF NOT EXISTS roles_platform_code_unique ON roles(code) WHERE tenant_id IS NULL`,
 		`CREATE UNIQUE INDEX IF NOT EXISTS user_groups_platform_code_unique ON user_groups(code) WHERE tenant_id IS NULL`,
+		`CREATE UNIQUE INDEX IF NOT EXISTS dicts_platform_code_unique ON dicts(code) WHERE tenant_id IS NULL`,
 	}
 	for _, statement := range indexes {
 		if _, err := s.DB.ExecContext(ctx, statement); err != nil {
@@ -115,6 +116,9 @@ func (s *Store) Migrate(ctx context.Context) error {
 		{"user_group_members_user_fk", `ALTER TABLE user_group_members ADD CONSTRAINT user_group_members_user_fk FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE`},
 		{"user_group_roles_group_fk", `ALTER TABLE user_group_roles ADD CONSTRAINT user_group_roles_group_fk FOREIGN KEY (group_id) REFERENCES user_groups(id) ON DELETE CASCADE`},
 		{"user_group_roles_role_fk", `ALTER TABLE user_group_roles ADD CONSTRAINT user_group_roles_role_fk FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE`},
+		{"dicts_tenant_fk", `ALTER TABLE dicts ADD CONSTRAINT dicts_tenant_fk FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE`},
+		{"dict_items_dict_fk", `ALTER TABLE dict_items ADD CONSTRAINT dict_items_dict_fk FOREIGN KEY (dict_id) REFERENCES dicts(id) ON DELETE CASCADE`},
+		{"dict_items_parent_fk", `ALTER TABLE dict_items ADD CONSTRAINT dict_items_parent_fk FOREIGN KEY (parent_id) REFERENCES dict_items(id) ON DELETE SET NULL`},
 	}
 	for _, constraint := range constraints {
 		var exists bool

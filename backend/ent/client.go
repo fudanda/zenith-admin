@@ -17,6 +17,8 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
 	"github.com/fudanda/zenith-admin/backend/ent/captcha"
 	"github.com/fudanda/zenith-admin/backend/ent/department"
+	"github.com/fudanda/zenith-admin/backend/ent/dict"
+	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
 	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
 	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
 	"github.com/fudanda/zenith-admin/backend/ent/menu"
@@ -51,6 +53,10 @@ type Client struct {
 	Captcha *CaptchaClient
 	// Department is the client for interacting with the Department builders.
 	Department *DepartmentClient
+	// Dict is the client for interacting with the Dict builders.
+	Dict *DictClient
+	// DictItem is the client for interacting with the DictItem builders.
+	DictItem *DictItemClient
 	// LoginAttempt is the client for interacting with the LoginAttempt builders.
 	LoginAttempt *LoginAttemptClient
 	// LoginLog is the client for interacting with the LoginLog builders.
@@ -107,6 +113,8 @@ func (c *Client) init() {
 	c.AuditLog = NewAuditLogClient(c.config)
 	c.Captcha = NewCaptchaClient(c.config)
 	c.Department = NewDepartmentClient(c.config)
+	c.Dict = NewDictClient(c.config)
+	c.DictItem = NewDictItemClient(c.config)
 	c.LoginAttempt = NewLoginAttemptClient(c.config)
 	c.LoginLog = NewLoginLogClient(c.config)
 	c.Menu = NewMenuClient(c.config)
@@ -223,6 +231,8 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		AuditLog:             NewAuditLogClient(cfg),
 		Captcha:              NewCaptchaClient(cfg),
 		Department:           NewDepartmentClient(cfg),
+		Dict:                 NewDictClient(cfg),
+		DictItem:             NewDictItemClient(cfg),
 		LoginAttempt:         NewLoginAttemptClient(cfg),
 		LoginLog:             NewLoginLogClient(cfg),
 		Menu:                 NewMenuClient(cfg),
@@ -266,6 +276,8 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		AuditLog:             NewAuditLogClient(cfg),
 		Captcha:              NewCaptchaClient(cfg),
 		Department:           NewDepartmentClient(cfg),
+		Dict:                 NewDictClient(cfg),
+		DictItem:             NewDictItemClient(cfg),
 		LoginAttempt:         NewLoginAttemptClient(cfg),
 		LoginLog:             NewLoginLogClient(cfg),
 		Menu:                 NewMenuClient(cfg),
@@ -316,10 +328,10 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.AuditLog, c.Captcha, c.Department, c.LoginAttempt, c.LoginLog, c.Menu,
-		c.Position, c.Role, c.RoleDepartment, c.RoleMenu, c.RolePermission, c.Session,
-		c.Tenant, c.TenantPackage, c.TenantPackageFeature, c.User,
-		c.UserDepartmentScope, c.UserGroup, c.UserGroupMember, c.UserGroupRole,
+		c.AuditLog, c.Captcha, c.Department, c.Dict, c.DictItem, c.LoginAttempt,
+		c.LoginLog, c.Menu, c.Position, c.Role, c.RoleDepartment, c.RoleMenu,
+		c.RolePermission, c.Session, c.Tenant, c.TenantPackage, c.TenantPackageFeature,
+		c.User, c.UserDepartmentScope, c.UserGroup, c.UserGroupMember, c.UserGroupRole,
 		c.UserMenu, c.UserPermission, c.UserPosition, c.UserRole,
 	} {
 		n.Use(hooks...)
@@ -330,10 +342,10 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.AuditLog, c.Captcha, c.Department, c.LoginAttempt, c.LoginLog, c.Menu,
-		c.Position, c.Role, c.RoleDepartment, c.RoleMenu, c.RolePermission, c.Session,
-		c.Tenant, c.TenantPackage, c.TenantPackageFeature, c.User,
-		c.UserDepartmentScope, c.UserGroup, c.UserGroupMember, c.UserGroupRole,
+		c.AuditLog, c.Captcha, c.Department, c.Dict, c.DictItem, c.LoginAttempt,
+		c.LoginLog, c.Menu, c.Position, c.Role, c.RoleDepartment, c.RoleMenu,
+		c.RolePermission, c.Session, c.Tenant, c.TenantPackage, c.TenantPackageFeature,
+		c.User, c.UserDepartmentScope, c.UserGroup, c.UserGroupMember, c.UserGroupRole,
 		c.UserMenu, c.UserPermission, c.UserPosition, c.UserRole,
 	} {
 		n.Intercept(interceptors...)
@@ -349,6 +361,10 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Captcha.mutate(ctx, m)
 	case *DepartmentMutation:
 		return c.Department.mutate(ctx, m)
+	case *DictMutation:
+		return c.Dict.mutate(ctx, m)
+	case *DictItemMutation:
+		return c.DictItem.mutate(ctx, m)
 	case *LoginAttemptMutation:
 		return c.LoginAttempt.mutate(ctx, m)
 	case *LoginLogMutation:
@@ -792,6 +808,272 @@ func (c *DepartmentClient) mutate(ctx context.Context, m *DepartmentMutation) (V
 		return (&DepartmentDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("ent: unknown Department mutation op: %q", m.Op())
+	}
+}
+
+// DictClient is a client for the Dict schema.
+type DictClient struct {
+	config
+}
+
+// NewDictClient returns a client for the Dict from the given config.
+func NewDictClient(c config) *DictClient {
+	return &DictClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `dict.Hooks(f(g(h())))`.
+func (c *DictClient) Use(hooks ...Hook) {
+	c.hooks.Dict = append(c.hooks.Dict, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `dict.Intercept(f(g(h())))`.
+func (c *DictClient) Intercept(interceptors ...Interceptor) {
+	c.inters.Dict = append(c.inters.Dict, interceptors...)
+}
+
+// Create returns a builder for creating a Dict entity.
+func (c *DictClient) Create() *DictCreate {
+	mutation := newDictMutation(c.config, OpCreate)
+	return &DictCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of Dict entities.
+func (c *DictClient) CreateBulk(builders ...*DictCreate) *DictCreateBulk {
+	return &DictCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *DictClient) MapCreateBulk(slice any, setFunc func(*DictCreate, int)) *DictCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &DictCreateBulk{err: fmt.Errorf("calling to DictClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*DictCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &DictCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Dict.
+func (c *DictClient) Update() *DictUpdate {
+	mutation := newDictMutation(c.config, OpUpdate)
+	return &DictUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *DictClient) UpdateOne(_m *Dict) *DictUpdateOne {
+	mutation := newDictMutation(c.config, OpUpdateOne, withDict(_m))
+	return &DictUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *DictClient) UpdateOneID(id int) *DictUpdateOne {
+	mutation := newDictMutation(c.config, OpUpdateOne, withDictID(id))
+	return &DictUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Dict.
+func (c *DictClient) Delete() *DictDelete {
+	mutation := newDictMutation(c.config, OpDelete)
+	return &DictDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *DictClient) DeleteOne(_m *Dict) *DictDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *DictClient) DeleteOneID(id int) *DictDeleteOne {
+	builder := c.Delete().Where(dict.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &DictDeleteOne{builder}
+}
+
+// Query returns a query builder for Dict.
+func (c *DictClient) Query() *DictQuery {
+	return &DictQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeDict},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a Dict entity by its id.
+func (c *DictClient) Get(ctx context.Context, id int) (*Dict, error) {
+	return c.Query().Where(dict.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *DictClient) GetX(ctx context.Context, id int) *Dict {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *DictClient) Hooks() []Hook {
+	return c.hooks.Dict
+}
+
+// Interceptors returns the client interceptors.
+func (c *DictClient) Interceptors() []Interceptor {
+	return c.inters.Dict
+}
+
+func (c *DictClient) mutate(ctx context.Context, m *DictMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&DictCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&DictUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&DictUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&DictDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown Dict mutation op: %q", m.Op())
+	}
+}
+
+// DictItemClient is a client for the DictItem schema.
+type DictItemClient struct {
+	config
+}
+
+// NewDictItemClient returns a client for the DictItem from the given config.
+func NewDictItemClient(c config) *DictItemClient {
+	return &DictItemClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `dictitem.Hooks(f(g(h())))`.
+func (c *DictItemClient) Use(hooks ...Hook) {
+	c.hooks.DictItem = append(c.hooks.DictItem, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `dictitem.Intercept(f(g(h())))`.
+func (c *DictItemClient) Intercept(interceptors ...Interceptor) {
+	c.inters.DictItem = append(c.inters.DictItem, interceptors...)
+}
+
+// Create returns a builder for creating a DictItem entity.
+func (c *DictItemClient) Create() *DictItemCreate {
+	mutation := newDictItemMutation(c.config, OpCreate)
+	return &DictItemCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of DictItem entities.
+func (c *DictItemClient) CreateBulk(builders ...*DictItemCreate) *DictItemCreateBulk {
+	return &DictItemCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *DictItemClient) MapCreateBulk(slice any, setFunc func(*DictItemCreate, int)) *DictItemCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &DictItemCreateBulk{err: fmt.Errorf("calling to DictItemClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*DictItemCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &DictItemCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for DictItem.
+func (c *DictItemClient) Update() *DictItemUpdate {
+	mutation := newDictItemMutation(c.config, OpUpdate)
+	return &DictItemUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *DictItemClient) UpdateOne(_m *DictItem) *DictItemUpdateOne {
+	mutation := newDictItemMutation(c.config, OpUpdateOne, withDictItem(_m))
+	return &DictItemUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *DictItemClient) UpdateOneID(id int) *DictItemUpdateOne {
+	mutation := newDictItemMutation(c.config, OpUpdateOne, withDictItemID(id))
+	return &DictItemUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for DictItem.
+func (c *DictItemClient) Delete() *DictItemDelete {
+	mutation := newDictItemMutation(c.config, OpDelete)
+	return &DictItemDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *DictItemClient) DeleteOne(_m *DictItem) *DictItemDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *DictItemClient) DeleteOneID(id int) *DictItemDeleteOne {
+	builder := c.Delete().Where(dictitem.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &DictItemDeleteOne{builder}
+}
+
+// Query returns a query builder for DictItem.
+func (c *DictItemClient) Query() *DictItemQuery {
+	return &DictItemQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeDictItem},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a DictItem entity by its id.
+func (c *DictItemClient) Get(ctx context.Context, id int) (*DictItem, error) {
+	return c.Query().Where(dictitem.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *DictItemClient) GetX(ctx context.Context, id int) *DictItem {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *DictItemClient) Hooks() []Hook {
+	return c.hooks.DictItem
+}
+
+// Interceptors returns the client interceptors.
+func (c *DictItemClient) Interceptors() []Interceptor {
+	return c.inters.DictItem
+}
+
+func (c *DictItemClient) mutate(ctx context.Context, m *DictItemMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&DictItemCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&DictItemUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&DictItemUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&DictItemDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown DictItem mutation op: %q", m.Op())
 	}
 }
 
@@ -3591,16 +3873,17 @@ func (c *UserRoleClient) mutate(ctx context.Context, m *UserRoleMutation) (Value
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		AuditLog, Captcha, Department, LoginAttempt, LoginLog, Menu, Position, Role,
-		RoleDepartment, RoleMenu, RolePermission, Session, Tenant, TenantPackage,
-		TenantPackageFeature, User, UserDepartmentScope, UserGroup, UserGroupMember,
-		UserGroupRole, UserMenu, UserPermission, UserPosition, UserRole []ent.Hook
+		AuditLog, Captcha, Department, Dict, DictItem, LoginAttempt, LoginLog, Menu,
+		Position, Role, RoleDepartment, RoleMenu, RolePermission, Session, Tenant,
+		TenantPackage, TenantPackageFeature, User, UserDepartmentScope, UserGroup,
+		UserGroupMember, UserGroupRole, UserMenu, UserPermission, UserPosition,
+		UserRole []ent.Hook
 	}
 	inters struct {
-		AuditLog, Captcha, Department, LoginAttempt, LoginLog, Menu, Position, Role,
-		RoleDepartment, RoleMenu, RolePermission, Session, Tenant, TenantPackage,
-		TenantPackageFeature, User, UserDepartmentScope, UserGroup, UserGroupMember,
-		UserGroupRole, UserMenu, UserPermission, UserPosition,
+		AuditLog, Captcha, Department, Dict, DictItem, LoginAttempt, LoginLog, Menu,
+		Position, Role, RoleDepartment, RoleMenu, RolePermission, Session, Tenant,
+		TenantPackage, TenantPackageFeature, User, UserDepartmentScope, UserGroup,
+		UserGroupMember, UserGroupRole, UserMenu, UserPermission, UserPosition,
 		UserRole []ent.Interceptor
 	}
 )

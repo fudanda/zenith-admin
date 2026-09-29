@@ -91,6 +91,17 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{Method: "PUT", Path: "/api/v1/user-groups/{id}/members", OperationID: "userGroupsSetMembers", Permission: "system:user-groups:assign", Handler: http.HandlerFunc(f.setGroupMembers)},
 		{Method: "GET", Path: "/api/v1/user-groups/{id}/roles", OperationID: "userGroupsRoles", Permission: "system:user-groups:list", Handler: http.HandlerFunc(f.groupRoles)},
 		{Method: "PUT", Path: "/api/v1/user-groups/{id}/roles", OperationID: "userGroupsSetRoles", Permission: "system:user-groups:assign", Handler: http.HandlerFunc(f.setGroupRoles)},
+		{Method: "GET", Path: "/api/v1/dicts", OperationID: "dictsList", Permission: "system:dict:list", Handler: http.HandlerFunc(f.listDicts)},
+		{Method: "GET", Path: "/api/v1/dicts/code/{code}/items", OperationID: "dictsItemsByCode", Permission: "authenticated", Handler: http.HandlerFunc(f.listDictItemsByCode)},
+		{Method: "GET", Path: "/api/v1/dicts/{id}", OperationID: "dictsDetail", Permission: "system:dict:list", Handler: http.HandlerFunc(f.getDict)},
+		{Method: "POST", Path: "/api/v1/dicts", OperationID: "dictsCreate", Permission: "system:dict:create", Handler: http.HandlerFunc(f.saveDict)},
+		{Method: "PUT", Path: "/api/v1/dicts/{id}", OperationID: "dictsUpdate", Permission: "system:dict:update", Handler: http.HandlerFunc(f.saveDict)},
+		{Method: "DELETE", Path: "/api/v1/dicts/{id}", OperationID: "dictsRemove", Permission: "system:dict:delete", Handler: http.HandlerFunc(f.deleteDict)},
+		{Method: "GET", Path: "/api/v1/dicts/{id}/items", OperationID: "dictsItems", Permission: "system:dict:list", Handler: http.HandlerFunc(f.listDictItems)},
+		{Method: "GET", Path: "/api/v1/dicts/{id}/items/{itemId}", OperationID: "dictsItemDetail", Permission: "system:dict:item", Handler: http.HandlerFunc(f.getDictItem)},
+		{Method: "POST", Path: "/api/v1/dicts/{id}/items", OperationID: "dictsCreateItem", Permission: "system:dict:item", Handler: http.HandlerFunc(f.saveDictItem)},
+		{Method: "PUT", Path: "/api/v1/dicts/{id}/items/{itemId}", OperationID: "dictsUpdateItem", Permission: "system:dict:item", Handler: http.HandlerFunc(f.saveDictItem)},
+		{Method: "DELETE", Path: "/api/v1/dicts/{id}/items/{itemId}", OperationID: "dictsRemoveItem", Permission: "system:dict:item", Handler: http.HandlerFunc(f.deleteDictItem)},
 	}
 	for _, route := range routes {
 		if err := r.Register(route); err != nil {
