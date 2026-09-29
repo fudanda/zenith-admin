@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"testing"
@@ -347,6 +348,20 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	publicID := read(publicUpload)["id"].(string)
 	if publicAccess := call("GET", "/api/v1/files/"+publicID+"/content", nil, nil, ""); publicAccess.Code != 200 {
 		t.Fatalf("public download: %d %s", publicAccess.Code, publicAccess.Body.String())
+	}
+	secretFile := filepath.Join(t.TempDir(), "outside-secret.txt")
+	if err := os.WriteFile(secretFile, []byte("outside storage root"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	publicObject := filepath.Join(storageRoot, filepath.FromSlash(read(publicUpload)["objectKey"].(string)))
+	if err := os.Remove(publicObject); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Symlink(secretFile, publicObject); err != nil {
+		t.Fatal(err)
+	}
+	if escaped := call("GET", "/api/v1/files/"+publicID+"/content", nil, nil, ""); escaped.Code == 200 || strings.Contains(escaped.Body.String(), "outside storage root") {
+		t.Fatalf("storage symlink escaped root: %d %s", escaped.Code, escaped.Body.String())
 	}
 	if stats := call("GET", "/api/v1/files/stats", nil, cookie, ""); stats.Code != 200 || int(read(stats)["summary"].(map[string]any)["totalFiles"].(float64)) != 2 {
 		t.Fatalf("file stats: %d %s", stats.Code, stats.Body.String())

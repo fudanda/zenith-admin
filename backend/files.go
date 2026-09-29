@@ -12,7 +12,6 @@ import (
 	"net/url"
 	"os"
 	"path"
-	"path/filepath"
 	"sort"
 	"strings"
 	"time"
@@ -36,18 +35,6 @@ func fileScope(p *principal) predicate.ManagedFile {
 
 func (f *Framework) defaultStorage(ctx context.Context) (*ent.FileStorageConfig, error) {
 	return f.Store.Client.FileStorageConfig.Query().Where(filestorageconfig.IsDefault(true), filestorageconfig.StatusEQ("enabled")).Only(ctx)
-}
-
-func safeObjectPath(root, key string) (string, error) {
-	if key == "" || strings.Contains(key, "\\") || !filepath.IsLocal(filepath.FromSlash(key)) {
-		return "", errors.New("invalid object key")
-	}
-	full := filepath.Join(root, filepath.FromSlash(key))
-	relative, err := filepath.Rel(root, full)
-	if err != nil || relative == ".." || strings.HasPrefix(relative, ".."+string(os.PathSeparator)) {
-		return "", errors.New("object path escaped storage root")
-	}
-	return full, nil
 }
 
 func cleanFileName(name string) string {
@@ -214,15 +201,20 @@ func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, inpu
 		}
 	}
 	root := storage.LocalRootPath
-	if err := os.MkdirAll(filepath.Join(root, ".tmp"), 0700); err != nil {
-		return nil, err
-	}
-	temp, err := os.CreateTemp(filepath.Join(root, ".tmp"), "upload-")
+	rootHandle, err := os.OpenRoot(root)
 	if err != nil {
 		return nil, err
 	}
-	tempPath := temp.Name()
-	defer os.Remove(tempPath)
+	defer rootHandle.Close()
+	if err := rootHandle.MkdirAll(".tmp", 0700); err != nil {
+		return nil, err
+	}
+	tempKey := ".tmp/upload-" + uuid.NewString()
+	temp, err := rootHandle.OpenFile(tempKey, os.O_CREATE|os.O_EXCL|os.O_RDWR, 0600)
+	if err != nil {
+		return nil, err
+	}
+	defer rootHandle.Remove(tempKey)
 	hash := sha256.New()
 	head := make([]byte, 512)
 	n, readErr := io.ReadFull(input, head)
@@ -257,14 +249,10 @@ func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, inpu
 	}
 	id := uuid.New()
 	key := path.Join("objects", id.String()[:2], id.String())
-	finalPath, err := safeObjectPath(root, key)
-	if err != nil {
+	if err := rootHandle.MkdirAll(path.Dir(key), 0700); err != nil {
 		return nil, err
 	}
-	if err := os.MkdirAll(filepath.Dir(finalPath), 0700); err != nil {
-		return nil, err
-	}
-	if err := os.Rename(tempPath, finalPath); err != nil {
+	if err := rootHandle.Rename(tempKey, key); err != nil {
 		return nil, err
 	}
 	name := cleanFileName(rawName)
@@ -296,7 +284,7 @@ func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, inpu
 		return nil
 	})
 	if err != nil {
-		_ = os.Remove(finalPath)
+		_ = rootHandle.Remove(key)
 		return nil, err
 	}
 	return f.fileView(ctx, row)
@@ -364,12 +352,13 @@ func (f *Framework) serveFileBytes(w http.ResponseWriter, r *http.Request, row *
 		fail(w, 503, "database_unavailable", "存储不可用")
 		return
 	}
-	localPath, err := safeObjectPath(storage.LocalRootPath, row.ObjectKey)
+	root, err := os.OpenRoot(storage.LocalRootPath)
 	if err != nil {
-		fail(w, 500, "invalid_storage_key", "存储路径无效")
+		fail(w, 503, "storage_unavailable", "存储不可用")
 		return
 	}
-	file, err := os.Open(localPath)
+	defer root.Close()
+	file, err := root.Open(row.ObjectKey)
 	if errors.Is(err, os.ErrNotExist) {
 		fail(w, 404, "not_found", "文件内容不存在")
 		return
@@ -458,11 +447,12 @@ func (f *Framework) removePendingFile(ctx context.Context, row *ent.ManagedFile)
 	if err != nil {
 		return err
 	}
-	localPath, err := safeObjectPath(storage.LocalRootPath, row.ObjectKey)
+	root, err := os.OpenRoot(storage.LocalRootPath)
 	if err != nil {
 		return err
 	}
-	if err := os.Remove(localPath); err != nil && !errors.Is(err, os.ErrNotExist) {
+	defer root.Close()
+	if err := root.Remove(row.ObjectKey); err != nil && !errors.Is(err, os.ErrNotExist) {
 		return err
 	}
 	return f.Store.Client.ManagedFile.DeleteOneID(row.ID).Exec(ctx)

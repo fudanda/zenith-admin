@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
+	"path"
 	"sort"
 	"strconv"
 	"time"
@@ -39,11 +39,11 @@ func (f *Framework) ownedUpload(ctx context.Context, p *principal, id string) (*
 	return f.Store.Client.UploadSession.Query().Where(uploadsession.IDEQ(id), uploadsession.UploaderIDEQ(p.User.ID), uploadScope(p)).Only(ctx)
 }
 
-func uploadPartsDir(root, id string) (string, error) {
+func uploadPartsKey(id string) (string, error) {
 	if _, err := uuid.Parse(id); err != nil {
 		return "", err
 	}
-	return safeObjectPath(root, filepath.ToSlash(filepath.Join(".chunks", id)))
+	return path.Join(".chunks", id), nil
 }
 
 func (f *Framework) uploadInit(w http.ResponseWriter, r *http.Request) {
@@ -132,23 +132,40 @@ func (f *Framework) uploadChunk(w http.ResponseWriter, r *http.Request) {
 		fail(w, 503, "storage_unavailable", "存储不可用")
 		return
 	}
-	dir, err := uploadPartsDir(storage.LocalRootPath, id)
-	if err != nil || os.MkdirAll(dir, 0700) != nil {
+	key, err := uploadPartsKey(id)
+	if err != nil {
+		fail(w, 400, "invalid_upload", "上传会话无效")
+		return
+	}
+	root, err := os.OpenRoot(storage.LocalRootPath)
+	if err != nil {
+		fail(w, 503, "storage_unavailable", "存储不可用")
+		return
+	}
+	defer root.Close()
+	if err := root.MkdirAll(key, 0700); err != nil {
 		fail(w, 503, "storage_unavailable", "分片目录不可用")
 		return
 	}
+	dir, err := root.OpenRoot(key)
+	if err != nil {
+		fail(w, 503, "storage_unavailable", "分片目录不可用")
+		return
+	}
+	defer dir.Close()
 	file, _, err := r.FormFile("chunk")
 	if err != nil {
 		fail(w, 400, "missing_chunk", "缺少分片内容")
 		return
 	}
 	defer file.Close()
-	temp, err := os.CreateTemp(dir, ".part-")
+	tempKey := ".part-" + uuid.NewString()
+	temp, err := dir.OpenFile(tempKey, os.O_CREATE|os.O_EXCL|os.O_RDWR, 0600)
 	if err != nil {
 		fail(w, 503, "storage_unavailable", "无法写入分片")
 		return
 	}
-	defer os.Remove(temp.Name())
+	defer dir.Remove(tempKey)
 	hash := sha256.New()
 	size, copyErr := io.Copy(io.MultiWriter(temp, hash), io.LimitReader(file, maxChunkBytes+1))
 	closeErr := temp.Close()
@@ -161,15 +178,15 @@ func (f *Framework) uploadChunk(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	checksum := hex.EncodeToString(hash.Sum(nil))
-	final := filepath.Join(dir, strconv.Itoa(index))
-	linkErr := os.Link(temp.Name(), final)
+	final := strconv.Itoa(index)
+	linkErr := dir.Link(tempKey, final)
 	if linkErr != nil && !errors.Is(linkErr, os.ErrExist) {
 		fail(w, 503, "storage_unavailable", "分片保存失败")
 		return
 	}
 	linked := linkErr == nil
-	if _, err := os.Stat(final); err == nil {
-		checksumOnDisk, hashErr := hashFile(final)
+	if _, err := dir.Stat(final); err == nil {
+		checksumOnDisk, hashErr := hashFile(dir, final)
 		if hashErr != nil || checksumOnDisk != checksum {
 			fail(w, 409, "chunk_conflict", "该序号分片内容不一致")
 			return
@@ -191,7 +208,7 @@ func (f *Framework) uploadChunk(w http.ResponseWriter, r *http.Request) {
 	}
 	if err != nil {
 		if linked {
-			_ = os.Remove(final)
+			_ = dir.Remove(final)
 		}
 		fail(w, 503, "database_unavailable", "分片记录失败")
 		return
@@ -204,8 +221,8 @@ func (f *Framework) uploadChunk(w http.ResponseWriter, r *http.Request) {
 	respond(w, 200, map[string]any{"index": index, "receivedCount": count})
 }
 
-func hashFile(name string) (string, error) {
-	file, err := os.Open(name)
+func hashFile(root *os.Root, name string) (string, error) {
+	file, err := root.Open(name)
 	if err != nil {
 		return "", err
 	}
@@ -302,23 +319,36 @@ func (f *Framework) uploadComplete(w http.ResponseWriter, r *http.Request) {
 		fail(w, 503, "storage_unavailable", "存储不可用")
 		return
 	}
-	dir, err := uploadPartsDir(storage.LocalRootPath, in.UploadID)
+	key, err := uploadPartsKey(in.UploadID)
 	if err != nil {
 		fail(w, 500, "invalid_storage_key", "分片路径无效")
 		return
 	}
-	if err := os.MkdirAll(filepath.Join(storage.LocalRootPath, ".tmp"), 0700); err != nil {
+	root, err := os.OpenRoot(storage.LocalRootPath)
+	if err != nil {
+		fail(w, 503, "storage_unavailable", "存储不可用")
+		return
+	}
+	defer root.Close()
+	dir, err := root.OpenRoot(key)
+	if err != nil {
+		fail(w, 503, "storage_unavailable", "分片目录不可用")
+		return
+	}
+	defer dir.Close()
+	if err := root.MkdirAll(".tmp", 0700); err != nil {
 		fail(w, 503, "storage_unavailable", "临时目录不可用")
 		return
 	}
-	merged, err := os.CreateTemp(filepath.Join(storage.LocalRootPath, ".tmp"), "merge-")
+	mergedKey := ".tmp/merge-" + uuid.NewString()
+	merged, err := root.OpenFile(mergedKey, os.O_CREATE|os.O_EXCL|os.O_RDWR, 0600)
 	if err != nil {
 		fail(w, 503, "storage_unavailable", "无法合并分片")
 		return
 	}
-	defer os.Remove(merged.Name())
+	defer root.Remove(mergedKey)
 	for index := 0; index < session.TotalChunks; index++ {
-		part, openErr := os.Open(filepath.Join(dir, strconv.Itoa(index)))
+		part, openErr := dir.Open(strconv.Itoa(index))
 		if openErr != nil {
 			merged.Close()
 			fail(w, 503, "storage_unavailable", "分片内容缺失")
@@ -347,7 +377,7 @@ func (f *Framework) uploadComplete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	completed = true
-	if err := os.RemoveAll(dir); err != nil { /* Maintenance removes expired chunk directories. */
+	if err := root.RemoveAll(key); err != nil { /* Maintenance removes expired chunk directories. */
 	}
 	respond(w, 200, view)
 }
@@ -395,8 +425,11 @@ func (f *Framework) uploadAbort(w http.ResponseWriter, r *http.Request) {
 	}
 	storage, err := f.Store.Client.FileStorageConfig.Get(r.Context(), session.StorageConfigID)
 	if err == nil {
-		if dir, pathErr := uploadPartsDir(storage.LocalRootPath, id); pathErr == nil {
-			_ = os.RemoveAll(dir)
+		if key, pathErr := uploadPartsKey(id); pathErr == nil {
+			if root, openErr := os.OpenRoot(storage.LocalRootPath); openErr == nil {
+				_ = root.RemoveAll(key)
+				root.Close()
+			}
 		}
 	}
 	respond(w, 200, nil)
@@ -412,13 +445,19 @@ func (f *Framework) cleanupExpiredUploads(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
-		dir, err := uploadPartsDir(storage.LocalRootPath, session.ID)
+		key, err := uploadPartsKey(session.ID)
 		if err != nil {
 			return err
 		}
-		if err := os.RemoveAll(dir); err != nil {
+		root, err := os.OpenRoot(storage.LocalRootPath)
+		if err != nil {
 			return err
 		}
+		if err := root.RemoveAll(key); err != nil {
+			root.Close()
+			return err
+		}
+		root.Close()
 		if err := f.Store.Client.UploadSession.DeleteOneID(session.ID).Exec(ctx); err != nil {
 			return err
 		}
@@ -428,12 +467,23 @@ func (f *Framework) cleanupExpiredUploads(ctx context.Context) error {
 		return err
 	}
 	for _, config := range configs {
-		dir := filepath.Join(config.LocalRootPath, ".tmp")
-		entries, err := os.ReadDir(dir)
+		root, err := os.OpenRoot(config.LocalRootPath)
+		if err != nil {
+			return err
+		}
+		dir, err := root.Open(".tmp")
 		if errors.Is(err, os.ErrNotExist) {
+			root.Close()
 			continue
 		}
 		if err != nil {
+			root.Close()
+			return err
+		}
+		entries, err := dir.ReadDir(-1)
+		if err != nil {
+			dir.Close()
+			root.Close()
 			return err
 		}
 		for _, entry := range entries {
@@ -449,9 +499,11 @@ func (f *Framework) cleanupExpiredUploads(ctx context.Context) error {
 				continue
 			}
 			if info.ModTime().Before(time.Now().Add(-24 * time.Hour)) {
-				_ = os.Remove(filepath.Join(dir, name))
+				_ = root.Remove(path.Join(".tmp", name))
 			}
 		}
+		dir.Close()
+		root.Close()
 	}
 	return nil
 }
