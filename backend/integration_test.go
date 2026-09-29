@@ -639,6 +639,21 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if downloaded := call("GET", "/api/v1/files/"+chunkedID+"/private-content", nil, cookie, ""); downloaded.Code != 200 || !bytes.Equal(downloaded.Body.Bytes(), chunkBytes) {
 		t.Fatalf("chunked download: %d size %d", downloaded.Code, downloaded.Body.Len())
 	}
+	if denied := call("DELETE", "/api/v1/files/batch", map[string]any{"ids": []string{publicID}}, memberCookie, memberCSRF); denied.Code != 403 {
+		t.Fatalf("batch file deletion bypassed permission: %d %s", denied.Code, denied.Body.String())
+	}
+	if duplicate := call("DELETE", "/api/v1/files/batch", map[string]any{"ids": []string{publicID, publicID}}, cookie, csrf); duplicate.Code != 400 {
+		t.Fatalf("duplicate batch file IDs accepted: %d %s", duplicate.Code, duplicate.Body.String())
+	}
+	if removed := call("DELETE", "/api/v1/files/batch", map[string]any{"ids": []string{publicID, chunkedID}}, cookie, csrf); removed.Code != 200 {
+		t.Fatalf("batch delete files: %d %s", removed.Code, removed.Body.String())
+	}
+	if gone := call("GET", "/api/v1/files/"+chunkedID+"/private-content", nil, cookie, ""); gone.Code != 404 {
+		t.Fatalf("batch-deleted file accessible: %d %s", gone.Code, gone.Body.String())
+	}
+	if bytes, err := os.ReadFile(secretFile); err != nil || string(bytes) != "outside storage root" {
+		t.Fatalf("batch deletion escaped local storage root: %v", err)
+	}
 	abortStart := call("POST", "/api/v1/files/upload/init", map[string]any{"fileName": "aborted.bin", "fileSize": 0, "chunkSize": 5 * 1024 * 1024}, cookie, csrf)
 	if abortStart.Code != 200 {
 		t.Fatalf("abort init: %d %s", abortStart.Code, abortStart.Body.String())

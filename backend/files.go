@@ -460,6 +460,66 @@ func (f *Framework) deleteFile(w http.ResponseWriter, r *http.Request) {
 	respond(w, 200, nil)
 }
 
+func (f *Framework) deleteFilesBatch(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		IDs []string `json:"ids"`
+	}
+	if err := decode(r, &body); err != nil || len(body.IDs) == 0 || len(body.IDs) > 500 {
+		fail(w, 400, "invalid_request", "文件 ID 列表无效")
+		return
+	}
+	ids := make([]uuid.UUID, 0, len(body.IDs))
+	seen := map[uuid.UUID]bool{}
+	for _, raw := range body.IDs {
+		id, err := uuid.Parse(raw)
+		if err != nil || seen[id] {
+			fail(w, 400, "invalid_id", "文件 ID 无效或重复")
+			return
+		}
+		seen[id] = true
+		ids = append(ids, id)
+	}
+	p := fromContext(r.Context())
+	var rows []*ent.ManagedFile
+	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+		var err error
+		rows, err = tx.ManagedFile.Query().Where(managedfile.IDIn(ids...), fileScope(p), managedfile.DeletePending(false)).All(r.Context())
+		if err != nil {
+			return err
+		}
+		if len(rows) != len(ids) {
+			return &ent.NotFoundError{}
+		}
+		if _, err := tx.ManagedFile.Update().Where(managedfile.IDIn(ids...)).SetDeletePending(true).Save(r.Context()); err != nil {
+			return err
+		}
+		audit := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete_batch").SetResource("files")
+		if p.TenantID != nil {
+			audit.SetTenantID(*p.TenantID)
+		}
+		return audit.Exec(r.Context())
+	})
+	if ent.IsNotFound(err) {
+		fail(w, 404, "not_found", "部分文件不存在或不在当前租户")
+		return
+	}
+	if err != nil {
+		fail(w, 503, "database_unavailable", "批量删除失败")
+		return
+	}
+	var storageErr error
+	for _, row := range rows {
+		if err := f.removePendingFile(r.Context(), row); err != nil {
+			storageErr = errors.Join(storageErr, err)
+		}
+	}
+	if storageErr != nil {
+		fail(w, 503, "storage_unavailable", "部分文件删除等待重试")
+		return
+	}
+	respond(w, 200, nil)
+}
+
 func (f *Framework) removePendingFile(ctx context.Context, row *ent.ManagedFile) error {
 	storage, err := f.Store.Client.FileStorageConfig.Get(ctx, row.StorageConfigID)
 	if err != nil {

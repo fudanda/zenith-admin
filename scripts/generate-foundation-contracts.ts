@@ -5,6 +5,7 @@ import { OpenAPIRegistry, OpenApiGeneratorV3 } from '@asteasolutions/zod-to-open
 import * as z from 'zod';
 import { positionContract } from '../packages/shared/src/identity/contracts/positions';
 import { menuContract } from '../packages/shared/src/identity/contracts/menus';
+import { fileContract } from '../packages/shared/src/platform/contracts/files';
 import type { AnyOperation } from '../packages/shared/src/core/contract';
 
 // The foundation catalog grows one verified domain at a time. An operation
@@ -22,6 +23,7 @@ const selected: readonly [string, AnyOperation][] = [
   ['menusCreate', menuContract.create],
   ['menusUpdate', menuContract.update],
   ['menusRemove', menuContract.remove],
+  ['filesRemoveBatch', fileContract.removeBatch],
 ];
 
 const registry = new OpenAPIRegistry();

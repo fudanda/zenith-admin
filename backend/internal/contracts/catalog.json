@@ -113,6 +113,18 @@
         "module": "菜单管理",
         "description": "删除菜单"
       }
+    },
+    {
+      "id": "filesRemoveBatch",
+      "method": "DELETE",
+      "path": "/api/v1/files/batch",
+      "permission": "system:file:delete",
+      "platformOnly": false,
+      "audit": {
+        "module": "文件管理",
+        "description": "批量删除文件",
+        "recordBody": false
+      }
     }
   ]
 }

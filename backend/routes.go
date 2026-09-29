@@ -142,6 +142,7 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{"menusCreate", http.HandlerFunc(f.saveMenu)},
 		{"menusUpdate", http.HandlerFunc(f.saveMenu)},
 		{"menusRemove", http.HandlerFunc(f.deleteMenu)},
+		{"filesRemoveBatch", http.HandlerFunc(f.deleteFilesBatch)},
 	} {
 		if err := r.registerContract(bound.id, bound.handler); err != nil {
 			return err
