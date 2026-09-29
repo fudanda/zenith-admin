@@ -379,6 +379,9 @@ func (f *Framework) saveUser(w http.ResponseWriter, r *http.Request) {
 	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		var err error
 		if id == 0 {
+			if err := reserveTenantSeat(r.Context(), tx, p.TenantID); err != nil {
+				return err
+			}
 			create := tx.User.Create()
 			applyUserCreate(create, in, p, hash)
 			saved, err = create.Save(r.Context())
@@ -423,6 +426,10 @@ func (f *Framework) saveUser(w http.ResponseWriter, r *http.Request) {
 		}
 		return log.Exec(r.Context())
 	})
+	if errors.Is(err, errTenantSeatLimit) {
+		fail(w, 409, "tenant_user_limit", err.Error())
+		return
+	}
 	if err != nil {
 		fail(w, 409, "user_conflict", err.Error())
 		return

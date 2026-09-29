@@ -360,7 +360,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if invalid := call("GET", "/api/v1/tenants/export?status=invalid", nil, cookie, ""); invalid.Code != 400 {
 		t.Fatalf("invalid tenant CSV status accepted: %d %s", invalid.Code, invalid.Body.String())
 	}
-	packageOne := call("POST", "/api/v1/tenant-packages", map[string]any{"name": "测试套餐一", "status": "enabled", "quotas": map[string]any{"maxUsers": 10}, "features": []string{}}, cookie, csrf)
+	packageOne := call("POST", "/api/v1/tenant-packages", map[string]any{"name": "测试套餐一", "status": "enabled", "quotas": map[string]any{"maxUsers": 1}, "features": []string{}}, cookie, csrf)
 	if packageOne.Code != 200 {
 		t.Fatalf("create package: %d %s", packageOne.Code, packageOne.Body.String())
 	}
@@ -379,10 +379,11 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if invalid := call("POST", "/api/v1/tenant-packages", map[string]any{"name": "错误配额", "status": "enabled", "quotas": map[string]any{"maxUsers": -1}}, cookie, csrf); invalid.Code != 400 {
 		t.Fatalf("invalid package quota accepted: %d %s", invalid.Code, invalid.Body.String())
 	}
-	boundTenant := call("POST", "/api/v1/tenants", map[string]any{"name": "绑定套餐的租户", "code": tenantCode + "b", "status": "enabled", "packageId": packageOneID}, cookie, csrf)
+	boundTenant := call("POST", "/api/v1/tenants", map[string]any{"name": "绑定套餐的租户", "code": tenantCode + "b", "status": "enabled", "packageId": packageOneID, "maxUsers": 2}, cookie, csrf)
 	if boundTenant.Code != 201 {
 		t.Fatalf("create package-bound tenant: %d %s", boundTenant.Code, boundTenant.Body.String())
 	}
+	boundTenantID := int(read(boundTenant)["id"].(float64))
 	if bound := call("DELETE", fmt.Sprintf("/api/v1/tenant-packages/%d", packageOneID), nil, cookie, csrf); bound.Code != 409 {
 		t.Fatalf("bound package deleted: %d %s", bound.Code, bound.Body.String())
 	}
@@ -397,6 +398,24 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	}
 	if missing := call("GET", fmt.Sprintf("/api/v1/tenant-packages/%d", packageTwoID), nil, cookie, ""); missing.Code != 404 {
 		t.Fatalf("deleted package still readable: %d %s", missing.Code, missing.Body.String())
+	}
+	if quotaView := call("PUT", "/api/v1/auth/tenant-view", map[string]any{"tenantId": boundTenantID}, cookie, csrf); quotaView.Code != 200 {
+		t.Fatalf("switch quota tenant: %d %s", quotaView.Code, quotaView.Body.String())
+	}
+	quotaPrefix := fmt.Sprintf("quota_%d", time.Now().UnixNano())
+	quotaResults := make(chan int, 2)
+	for index := 0; index < 2; index++ {
+		go func(index int) {
+			created := call("POST", "/api/v1/users", map[string]any{"username": fmt.Sprintf("%s_%d", quotaPrefix, index), "nickname": "配额测试", "password": "quota-test-password-123", "status": "enabled"}, cookie, csrf)
+			quotaResults <- created.Code
+		}(index)
+	}
+	firstQuota, secondQuota := <-quotaResults, <-quotaResults
+	if !((firstQuota == 200 && secondQuota == 409) || (firstQuota == 409 && secondQuota == 200)) {
+		t.Fatalf("concurrent tenant seat limit: %d %d", firstQuota, secondQuota)
+	}
+	if listed := call("GET", "/api/v1/users?keyword="+quotaPrefix, nil, cookie, ""); listed.Code != 200 || read(listed)["total"].(float64) != 1 {
+		t.Fatalf("tenant seat count: %d %s", listed.Code, listed.Body.String())
 	}
 	view := call("PUT", "/api/v1/auth/tenant-view", map[string]any{"tenantId": tenantID}, cookie, csrf)
 	if view.Code != 200 {

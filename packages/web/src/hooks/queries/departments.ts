@@ -46,7 +46,7 @@ export const departmentKeys = {
   /** 全部部门树查询（不带条件的共享树 + 部门管理页带筛选的搜索树）的公共前缀 */
   tree: contractKey(departmentContract.tree),
   treeSearch: (params: DepartmentTreeParams) => contractKey(departmentContract.tree, { query: params }),
-  flat: contractKey(departmentContract.flat),
+  flat: contractKey(departmentContract.flat, { query: {} }),
   detail: (id: number | undefined) => contractKey(departmentContract.detail, { params: { id: id ?? 0 } }),
 };
 
