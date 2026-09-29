@@ -7,6 +7,8 @@ export const firstReleaseModules = [
   { key: 'roles', path: '/system/roles', title: '角色管理', permission: 'system:role:list' },
   { key: 'user-groups', path: '/system/user-groups', title: '用户组管理', permission: 'system:user-groups:list' },
   { key: 'dicts', path: '/system/dicts', title: '字典管理', permission: 'system:dict:list' },
+  { key: 'file-configs', path: '/system/file-storage-configs', title: '文件存储配置', permission: 'system:file:config' },
+  { key: 'files', path: '/system/files', title: '文件管理', permission: 'system:file:list' },
   { key: 'tenants', path: '/system/tenants', title: '租户管理', permission: 'platform' },
   { key: 'tenant-packages', path: '/system/tenant-packages', title: '租户套餐', permission: 'platform' },
   { key: 'login-logs', path: '/system/login-logs', title: '登录日志', permission: 'system:log:login' },

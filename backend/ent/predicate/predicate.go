@@ -21,11 +21,17 @@ type Dict func(*sql.Selector)
 // DictItem is the predicate function for dictitem builders.
 type DictItem func(*sql.Selector)
 
+// FileStorageConfig is the predicate function for filestorageconfig builders.
+type FileStorageConfig func(*sql.Selector)
+
 // LoginAttempt is the predicate function for loginattempt builders.
 type LoginAttempt func(*sql.Selector)
 
 // LoginLog is the predicate function for loginlog builders.
 type LoginLog func(*sql.Selector)
+
+// ManagedFile is the predicate function for managedfile builders.
+type ManagedFile func(*sql.Selector)
 
 // Menu is the predicate function for menu builders.
 type Menu func(*sql.Selector)
@@ -56,6 +62,12 @@ type TenantPackage func(*sql.Selector)
 
 // TenantPackageFeature is the predicate function for tenantpackagefeature builders.
 type TenantPackageFeature func(*sql.Selector)
+
+// UploadChunk is the predicate function for uploadchunk builders.
+type UploadChunk func(*sql.Selector)
+
+// UploadSession is the predicate function for uploadsession builders.
+type UploadSession func(*sql.Selector)
 
 // User is the predicate function for user builders.
 type User func(*sql.Selector)

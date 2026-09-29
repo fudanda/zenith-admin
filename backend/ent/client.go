@@ -10,6 +10,7 @@ import (
 	"reflect"
 
 	"github.com/fudanda/zenith-admin/backend/ent/migrate"
+	"github.com/google/uuid"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
@@ -19,8 +20,10 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/department"
 	"github.com/fudanda/zenith-admin/backend/ent/dict"
 	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
+	"github.com/fudanda/zenith-admin/backend/ent/filestorageconfig"
 	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
 	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
+	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
 	"github.com/fudanda/zenith-admin/backend/ent/menu"
 	"github.com/fudanda/zenith-admin/backend/ent/position"
 	"github.com/fudanda/zenith-admin/backend/ent/role"
@@ -31,6 +34,8 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/tenant"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackage"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackagefeature"
+	"github.com/fudanda/zenith-admin/backend/ent/uploadchunk"
+	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
 	"github.com/fudanda/zenith-admin/backend/ent/userdepartmentscope"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroup"
@@ -57,10 +62,14 @@ type Client struct {
 	Dict *DictClient
 	// DictItem is the client for interacting with the DictItem builders.
 	DictItem *DictItemClient
+	// FileStorageConfig is the client for interacting with the FileStorageConfig builders.
+	FileStorageConfig *FileStorageConfigClient
 	// LoginAttempt is the client for interacting with the LoginAttempt builders.
 	LoginAttempt *LoginAttemptClient
 	// LoginLog is the client for interacting with the LoginLog builders.
 	LoginLog *LoginLogClient
+	// ManagedFile is the client for interacting with the ManagedFile builders.
+	ManagedFile *ManagedFileClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
 	// Position is the client for interacting with the Position builders.
@@ -81,6 +90,10 @@ type Client struct {
 	TenantPackage *TenantPackageClient
 	// TenantPackageFeature is the client for interacting with the TenantPackageFeature builders.
 	TenantPackageFeature *TenantPackageFeatureClient
+	// UploadChunk is the client for interacting with the UploadChunk builders.
+	UploadChunk *UploadChunkClient
+	// UploadSession is the client for interacting with the UploadSession builders.
+	UploadSession *UploadSessionClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
 	// UserDepartmentScope is the client for interacting with the UserDepartmentScope builders.
@@ -115,8 +128,10 @@ func (c *Client) init() {
 	c.Department = NewDepartmentClient(c.config)
 	c.Dict = NewDictClient(c.config)
 	c.DictItem = NewDictItemClient(c.config)
+	c.FileStorageConfig = NewFileStorageConfigClient(c.config)
 	c.LoginAttempt = NewLoginAttemptClient(c.config)
 	c.LoginLog = NewLoginLogClient(c.config)
+	c.ManagedFile = NewManagedFileClient(c.config)
 	c.Menu = NewMenuClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.Role = NewRoleClient(c.config)
@@ -127,6 +142,8 @@ func (c *Client) init() {
 	c.Tenant = NewTenantClient(c.config)
 	c.TenantPackage = NewTenantPackageClient(c.config)
 	c.TenantPackageFeature = NewTenantPackageFeatureClient(c.config)
+	c.UploadChunk = NewUploadChunkClient(c.config)
+	c.UploadSession = NewUploadSessionClient(c.config)
 	c.User = NewUserClient(c.config)
 	c.UserDepartmentScope = NewUserDepartmentScopeClient(c.config)
 	c.UserGroup = NewUserGroupClient(c.config)
@@ -233,8 +250,10 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Department:           NewDepartmentClient(cfg),
 		Dict:                 NewDictClient(cfg),
 		DictItem:             NewDictItemClient(cfg),
+		FileStorageConfig:    NewFileStorageConfigClient(cfg),
 		LoginAttempt:         NewLoginAttemptClient(cfg),
 		LoginLog:             NewLoginLogClient(cfg),
+		ManagedFile:          NewManagedFileClient(cfg),
 		Menu:                 NewMenuClient(cfg),
 		Position:             NewPositionClient(cfg),
 		Role:                 NewRoleClient(cfg),
@@ -245,6 +264,8 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Tenant:               NewTenantClient(cfg),
 		TenantPackage:        NewTenantPackageClient(cfg),
 		TenantPackageFeature: NewTenantPackageFeatureClient(cfg),
+		UploadChunk:          NewUploadChunkClient(cfg),
+		UploadSession:        NewUploadSessionClient(cfg),
 		User:                 NewUserClient(cfg),
 		UserDepartmentScope:  NewUserDepartmentScopeClient(cfg),
 		UserGroup:            NewUserGroupClient(cfg),
@@ -278,8 +299,10 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Department:           NewDepartmentClient(cfg),
 		Dict:                 NewDictClient(cfg),
 		DictItem:             NewDictItemClient(cfg),
+		FileStorageConfig:    NewFileStorageConfigClient(cfg),
 		LoginAttempt:         NewLoginAttemptClient(cfg),
 		LoginLog:             NewLoginLogClient(cfg),
+		ManagedFile:          NewManagedFileClient(cfg),
 		Menu:                 NewMenuClient(cfg),
 		Position:             NewPositionClient(cfg),
 		Role:                 NewRoleClient(cfg),
@@ -290,6 +313,8 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Tenant:               NewTenantClient(cfg),
 		TenantPackage:        NewTenantPackageClient(cfg),
 		TenantPackageFeature: NewTenantPackageFeatureClient(cfg),
+		UploadChunk:          NewUploadChunkClient(cfg),
+		UploadSession:        NewUploadSessionClient(cfg),
 		User:                 NewUserClient(cfg),
 		UserDepartmentScope:  NewUserDepartmentScopeClient(cfg),
 		UserGroup:            NewUserGroupClient(cfg),
@@ -328,9 +353,10 @@ func (c *Client) Close() error {
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
 	for _, n := range []interface{ Use(...Hook) }{
-		c.AuditLog, c.Captcha, c.Department, c.Dict, c.DictItem, c.LoginAttempt,
-		c.LoginLog, c.Menu, c.Position, c.Role, c.RoleDepartment, c.RoleMenu,
-		c.RolePermission, c.Session, c.Tenant, c.TenantPackage, c.TenantPackageFeature,
+		c.AuditLog, c.Captcha, c.Department, c.Dict, c.DictItem, c.FileStorageConfig,
+		c.LoginAttempt, c.LoginLog, c.ManagedFile, c.Menu, c.Position, c.Role,
+		c.RoleDepartment, c.RoleMenu, c.RolePermission, c.Session, c.Tenant,
+		c.TenantPackage, c.TenantPackageFeature, c.UploadChunk, c.UploadSession,
 		c.User, c.UserDepartmentScope, c.UserGroup, c.UserGroupMember, c.UserGroupRole,
 		c.UserMenu, c.UserPermission, c.UserPosition, c.UserRole,
 	} {
@@ -342,9 +368,10 @@ func (c *Client) Use(hooks ...Hook) {
 // In order to add interceptors to a specific client, call: `client.Node.Intercept(...)`.
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	for _, n := range []interface{ Intercept(...Interceptor) }{
-		c.AuditLog, c.Captcha, c.Department, c.Dict, c.DictItem, c.LoginAttempt,
-		c.LoginLog, c.Menu, c.Position, c.Role, c.RoleDepartment, c.RoleMenu,
-		c.RolePermission, c.Session, c.Tenant, c.TenantPackage, c.TenantPackageFeature,
+		c.AuditLog, c.Captcha, c.Department, c.Dict, c.DictItem, c.FileStorageConfig,
+		c.LoginAttempt, c.LoginLog, c.ManagedFile, c.Menu, c.Position, c.Role,
+		c.RoleDepartment, c.RoleMenu, c.RolePermission, c.Session, c.Tenant,
+		c.TenantPackage, c.TenantPackageFeature, c.UploadChunk, c.UploadSession,
 		c.User, c.UserDepartmentScope, c.UserGroup, c.UserGroupMember, c.UserGroupRole,
 		c.UserMenu, c.UserPermission, c.UserPosition, c.UserRole,
 	} {
@@ -365,10 +392,14 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Dict.mutate(ctx, m)
 	case *DictItemMutation:
 		return c.DictItem.mutate(ctx, m)
+	case *FileStorageConfigMutation:
+		return c.FileStorageConfig.mutate(ctx, m)
 	case *LoginAttemptMutation:
 		return c.LoginAttempt.mutate(ctx, m)
 	case *LoginLogMutation:
 		return c.LoginLog.mutate(ctx, m)
+	case *ManagedFileMutation:
+		return c.ManagedFile.mutate(ctx, m)
 	case *MenuMutation:
 		return c.Menu.mutate(ctx, m)
 	case *PositionMutation:
@@ -389,6 +420,10 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.TenantPackage.mutate(ctx, m)
 	case *TenantPackageFeatureMutation:
 		return c.TenantPackageFeature.mutate(ctx, m)
+	case *UploadChunkMutation:
+		return c.UploadChunk.mutate(ctx, m)
+	case *UploadSessionMutation:
+		return c.UploadSession.mutate(ctx, m)
 	case *UserMutation:
 		return c.User.mutate(ctx, m)
 	case *UserDepartmentScopeMutation:
@@ -1077,6 +1112,139 @@ func (c *DictItemClient) mutate(ctx context.Context, m *DictItemMutation) (Value
 	}
 }
 
+// FileStorageConfigClient is a client for the FileStorageConfig schema.
+type FileStorageConfigClient struct {
+	config
+}
+
+// NewFileStorageConfigClient returns a client for the FileStorageConfig from the given config.
+func NewFileStorageConfigClient(c config) *FileStorageConfigClient {
+	return &FileStorageConfigClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `filestorageconfig.Hooks(f(g(h())))`.
+func (c *FileStorageConfigClient) Use(hooks ...Hook) {
+	c.hooks.FileStorageConfig = append(c.hooks.FileStorageConfig, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `filestorageconfig.Intercept(f(g(h())))`.
+func (c *FileStorageConfigClient) Intercept(interceptors ...Interceptor) {
+	c.inters.FileStorageConfig = append(c.inters.FileStorageConfig, interceptors...)
+}
+
+// Create returns a builder for creating a FileStorageConfig entity.
+func (c *FileStorageConfigClient) Create() *FileStorageConfigCreate {
+	mutation := newFileStorageConfigMutation(c.config, OpCreate)
+	return &FileStorageConfigCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of FileStorageConfig entities.
+func (c *FileStorageConfigClient) CreateBulk(builders ...*FileStorageConfigCreate) *FileStorageConfigCreateBulk {
+	return &FileStorageConfigCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *FileStorageConfigClient) MapCreateBulk(slice any, setFunc func(*FileStorageConfigCreate, int)) *FileStorageConfigCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &FileStorageConfigCreateBulk{err: fmt.Errorf("calling to FileStorageConfigClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*FileStorageConfigCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &FileStorageConfigCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for FileStorageConfig.
+func (c *FileStorageConfigClient) Update() *FileStorageConfigUpdate {
+	mutation := newFileStorageConfigMutation(c.config, OpUpdate)
+	return &FileStorageConfigUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *FileStorageConfigClient) UpdateOne(_m *FileStorageConfig) *FileStorageConfigUpdateOne {
+	mutation := newFileStorageConfigMutation(c.config, OpUpdateOne, withFileStorageConfig(_m))
+	return &FileStorageConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *FileStorageConfigClient) UpdateOneID(id int) *FileStorageConfigUpdateOne {
+	mutation := newFileStorageConfigMutation(c.config, OpUpdateOne, withFileStorageConfigID(id))
+	return &FileStorageConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for FileStorageConfig.
+func (c *FileStorageConfigClient) Delete() *FileStorageConfigDelete {
+	mutation := newFileStorageConfigMutation(c.config, OpDelete)
+	return &FileStorageConfigDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *FileStorageConfigClient) DeleteOne(_m *FileStorageConfig) *FileStorageConfigDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *FileStorageConfigClient) DeleteOneID(id int) *FileStorageConfigDeleteOne {
+	builder := c.Delete().Where(filestorageconfig.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &FileStorageConfigDeleteOne{builder}
+}
+
+// Query returns a query builder for FileStorageConfig.
+func (c *FileStorageConfigClient) Query() *FileStorageConfigQuery {
+	return &FileStorageConfigQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeFileStorageConfig},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a FileStorageConfig entity by its id.
+func (c *FileStorageConfigClient) Get(ctx context.Context, id int) (*FileStorageConfig, error) {
+	return c.Query().Where(filestorageconfig.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *FileStorageConfigClient) GetX(ctx context.Context, id int) *FileStorageConfig {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *FileStorageConfigClient) Hooks() []Hook {
+	return c.hooks.FileStorageConfig
+}
+
+// Interceptors returns the client interceptors.
+func (c *FileStorageConfigClient) Interceptors() []Interceptor {
+	return c.inters.FileStorageConfig
+}
+
+func (c *FileStorageConfigClient) mutate(ctx context.Context, m *FileStorageConfigMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&FileStorageConfigCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&FileStorageConfigUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&FileStorageConfigUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&FileStorageConfigDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown FileStorageConfig mutation op: %q", m.Op())
+	}
+}
+
 // LoginAttemptClient is a client for the LoginAttempt schema.
 type LoginAttemptClient struct {
 	config
@@ -1340,6 +1508,139 @@ func (c *LoginLogClient) mutate(ctx context.Context, m *LoginLogMutation) (Value
 		return (&LoginLogDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("ent: unknown LoginLog mutation op: %q", m.Op())
+	}
+}
+
+// ManagedFileClient is a client for the ManagedFile schema.
+type ManagedFileClient struct {
+	config
+}
+
+// NewManagedFileClient returns a client for the ManagedFile from the given config.
+func NewManagedFileClient(c config) *ManagedFileClient {
+	return &ManagedFileClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `managedfile.Hooks(f(g(h())))`.
+func (c *ManagedFileClient) Use(hooks ...Hook) {
+	c.hooks.ManagedFile = append(c.hooks.ManagedFile, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `managedfile.Intercept(f(g(h())))`.
+func (c *ManagedFileClient) Intercept(interceptors ...Interceptor) {
+	c.inters.ManagedFile = append(c.inters.ManagedFile, interceptors...)
+}
+
+// Create returns a builder for creating a ManagedFile entity.
+func (c *ManagedFileClient) Create() *ManagedFileCreate {
+	mutation := newManagedFileMutation(c.config, OpCreate)
+	return &ManagedFileCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of ManagedFile entities.
+func (c *ManagedFileClient) CreateBulk(builders ...*ManagedFileCreate) *ManagedFileCreateBulk {
+	return &ManagedFileCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *ManagedFileClient) MapCreateBulk(slice any, setFunc func(*ManagedFileCreate, int)) *ManagedFileCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &ManagedFileCreateBulk{err: fmt.Errorf("calling to ManagedFileClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*ManagedFileCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &ManagedFileCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for ManagedFile.
+func (c *ManagedFileClient) Update() *ManagedFileUpdate {
+	mutation := newManagedFileMutation(c.config, OpUpdate)
+	return &ManagedFileUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ManagedFileClient) UpdateOne(_m *ManagedFile) *ManagedFileUpdateOne {
+	mutation := newManagedFileMutation(c.config, OpUpdateOne, withManagedFile(_m))
+	return &ManagedFileUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ManagedFileClient) UpdateOneID(id uuid.UUID) *ManagedFileUpdateOne {
+	mutation := newManagedFileMutation(c.config, OpUpdateOne, withManagedFileID(id))
+	return &ManagedFileUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for ManagedFile.
+func (c *ManagedFileClient) Delete() *ManagedFileDelete {
+	mutation := newManagedFileMutation(c.config, OpDelete)
+	return &ManagedFileDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *ManagedFileClient) DeleteOne(_m *ManagedFile) *ManagedFileDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *ManagedFileClient) DeleteOneID(id uuid.UUID) *ManagedFileDeleteOne {
+	builder := c.Delete().Where(managedfile.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ManagedFileDeleteOne{builder}
+}
+
+// Query returns a query builder for ManagedFile.
+func (c *ManagedFileClient) Query() *ManagedFileQuery {
+	return &ManagedFileQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeManagedFile},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a ManagedFile entity by its id.
+func (c *ManagedFileClient) Get(ctx context.Context, id uuid.UUID) (*ManagedFile, error) {
+	return c.Query().Where(managedfile.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ManagedFileClient) GetX(ctx context.Context, id uuid.UUID) *ManagedFile {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ManagedFileClient) Hooks() []Hook {
+	return c.hooks.ManagedFile
+}
+
+// Interceptors returns the client interceptors.
+func (c *ManagedFileClient) Interceptors() []Interceptor {
+	return c.inters.ManagedFile
+}
+
+func (c *ManagedFileClient) mutate(ctx context.Context, m *ManagedFileMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&ManagedFileCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&ManagedFileUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&ManagedFileUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&ManagedFileDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown ManagedFile mutation op: %q", m.Op())
 	}
 }
 
@@ -2673,6 +2974,272 @@ func (c *TenantPackageFeatureClient) mutate(ctx context.Context, m *TenantPackag
 	}
 }
 
+// UploadChunkClient is a client for the UploadChunk schema.
+type UploadChunkClient struct {
+	config
+}
+
+// NewUploadChunkClient returns a client for the UploadChunk from the given config.
+func NewUploadChunkClient(c config) *UploadChunkClient {
+	return &UploadChunkClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `uploadchunk.Hooks(f(g(h())))`.
+func (c *UploadChunkClient) Use(hooks ...Hook) {
+	c.hooks.UploadChunk = append(c.hooks.UploadChunk, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `uploadchunk.Intercept(f(g(h())))`.
+func (c *UploadChunkClient) Intercept(interceptors ...Interceptor) {
+	c.inters.UploadChunk = append(c.inters.UploadChunk, interceptors...)
+}
+
+// Create returns a builder for creating a UploadChunk entity.
+func (c *UploadChunkClient) Create() *UploadChunkCreate {
+	mutation := newUploadChunkMutation(c.config, OpCreate)
+	return &UploadChunkCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of UploadChunk entities.
+func (c *UploadChunkClient) CreateBulk(builders ...*UploadChunkCreate) *UploadChunkCreateBulk {
+	return &UploadChunkCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *UploadChunkClient) MapCreateBulk(slice any, setFunc func(*UploadChunkCreate, int)) *UploadChunkCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &UploadChunkCreateBulk{err: fmt.Errorf("calling to UploadChunkClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*UploadChunkCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &UploadChunkCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for UploadChunk.
+func (c *UploadChunkClient) Update() *UploadChunkUpdate {
+	mutation := newUploadChunkMutation(c.config, OpUpdate)
+	return &UploadChunkUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *UploadChunkClient) UpdateOne(_m *UploadChunk) *UploadChunkUpdateOne {
+	mutation := newUploadChunkMutation(c.config, OpUpdateOne, withUploadChunk(_m))
+	return &UploadChunkUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *UploadChunkClient) UpdateOneID(id int) *UploadChunkUpdateOne {
+	mutation := newUploadChunkMutation(c.config, OpUpdateOne, withUploadChunkID(id))
+	return &UploadChunkUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for UploadChunk.
+func (c *UploadChunkClient) Delete() *UploadChunkDelete {
+	mutation := newUploadChunkMutation(c.config, OpDelete)
+	return &UploadChunkDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *UploadChunkClient) DeleteOne(_m *UploadChunk) *UploadChunkDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *UploadChunkClient) DeleteOneID(id int) *UploadChunkDeleteOne {
+	builder := c.Delete().Where(uploadchunk.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &UploadChunkDeleteOne{builder}
+}
+
+// Query returns a query builder for UploadChunk.
+func (c *UploadChunkClient) Query() *UploadChunkQuery {
+	return &UploadChunkQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeUploadChunk},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a UploadChunk entity by its id.
+func (c *UploadChunkClient) Get(ctx context.Context, id int) (*UploadChunk, error) {
+	return c.Query().Where(uploadchunk.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *UploadChunkClient) GetX(ctx context.Context, id int) *UploadChunk {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *UploadChunkClient) Hooks() []Hook {
+	return c.hooks.UploadChunk
+}
+
+// Interceptors returns the client interceptors.
+func (c *UploadChunkClient) Interceptors() []Interceptor {
+	return c.inters.UploadChunk
+}
+
+func (c *UploadChunkClient) mutate(ctx context.Context, m *UploadChunkMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&UploadChunkCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&UploadChunkUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&UploadChunkUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&UploadChunkDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown UploadChunk mutation op: %q", m.Op())
+	}
+}
+
+// UploadSessionClient is a client for the UploadSession schema.
+type UploadSessionClient struct {
+	config
+}
+
+// NewUploadSessionClient returns a client for the UploadSession from the given config.
+func NewUploadSessionClient(c config) *UploadSessionClient {
+	return &UploadSessionClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `uploadsession.Hooks(f(g(h())))`.
+func (c *UploadSessionClient) Use(hooks ...Hook) {
+	c.hooks.UploadSession = append(c.hooks.UploadSession, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `uploadsession.Intercept(f(g(h())))`.
+func (c *UploadSessionClient) Intercept(interceptors ...Interceptor) {
+	c.inters.UploadSession = append(c.inters.UploadSession, interceptors...)
+}
+
+// Create returns a builder for creating a UploadSession entity.
+func (c *UploadSessionClient) Create() *UploadSessionCreate {
+	mutation := newUploadSessionMutation(c.config, OpCreate)
+	return &UploadSessionCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of UploadSession entities.
+func (c *UploadSessionClient) CreateBulk(builders ...*UploadSessionCreate) *UploadSessionCreateBulk {
+	return &UploadSessionCreateBulk{config: c.config, builders: builders}
+}
+
+// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
+// a builder and applies setFunc on it.
+func (c *UploadSessionClient) MapCreateBulk(slice any, setFunc func(*UploadSessionCreate, int)) *UploadSessionCreateBulk {
+	rv := reflect.ValueOf(slice)
+	if rv.Kind() != reflect.Slice {
+		return &UploadSessionCreateBulk{err: fmt.Errorf("calling to UploadSessionClient.MapCreateBulk with wrong type %T, need slice", slice)}
+	}
+	builders := make([]*UploadSessionCreate, rv.Len())
+	for i := 0; i < rv.Len(); i++ {
+		builders[i] = c.Create()
+		setFunc(builders[i], i)
+	}
+	return &UploadSessionCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for UploadSession.
+func (c *UploadSessionClient) Update() *UploadSessionUpdate {
+	mutation := newUploadSessionMutation(c.config, OpUpdate)
+	return &UploadSessionUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *UploadSessionClient) UpdateOne(_m *UploadSession) *UploadSessionUpdateOne {
+	mutation := newUploadSessionMutation(c.config, OpUpdateOne, withUploadSession(_m))
+	return &UploadSessionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *UploadSessionClient) UpdateOneID(id string) *UploadSessionUpdateOne {
+	mutation := newUploadSessionMutation(c.config, OpUpdateOne, withUploadSessionID(id))
+	return &UploadSessionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for UploadSession.
+func (c *UploadSessionClient) Delete() *UploadSessionDelete {
+	mutation := newUploadSessionMutation(c.config, OpDelete)
+	return &UploadSessionDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *UploadSessionClient) DeleteOne(_m *UploadSession) *UploadSessionDeleteOne {
+	return c.DeleteOneID(_m.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *UploadSessionClient) DeleteOneID(id string) *UploadSessionDeleteOne {
+	builder := c.Delete().Where(uploadsession.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &UploadSessionDeleteOne{builder}
+}
+
+// Query returns a query builder for UploadSession.
+func (c *UploadSessionClient) Query() *UploadSessionQuery {
+	return &UploadSessionQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeUploadSession},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a UploadSession entity by its id.
+func (c *UploadSessionClient) Get(ctx context.Context, id string) (*UploadSession, error) {
+	return c.Query().Where(uploadsession.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *UploadSessionClient) GetX(ctx context.Context, id string) *UploadSession {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *UploadSessionClient) Hooks() []Hook {
+	return c.hooks.UploadSession
+}
+
+// Interceptors returns the client interceptors.
+func (c *UploadSessionClient) Interceptors() []Interceptor {
+	return c.inters.UploadSession
+}
+
+func (c *UploadSessionClient) mutate(ctx context.Context, m *UploadSessionMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&UploadSessionCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&UploadSessionUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&UploadSessionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&UploadSessionDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("ent: unknown UploadSession mutation op: %q", m.Op())
+	}
+}
+
 // UserClient is a client for the User schema.
 type UserClient struct {
 	config
@@ -3873,16 +4440,18 @@ func (c *UserRoleClient) mutate(ctx context.Context, m *UserRoleMutation) (Value
 // hooks and interceptors per client, for fast access.
 type (
 	hooks struct {
-		AuditLog, Captcha, Department, Dict, DictItem, LoginAttempt, LoginLog, Menu,
-		Position, Role, RoleDepartment, RoleMenu, RolePermission, Session, Tenant,
-		TenantPackage, TenantPackageFeature, User, UserDepartmentScope, UserGroup,
+		AuditLog, Captcha, Department, Dict, DictItem, FileStorageConfig, LoginAttempt,
+		LoginLog, ManagedFile, Menu, Position, Role, RoleDepartment, RoleMenu,
+		RolePermission, Session, Tenant, TenantPackage, TenantPackageFeature,
+		UploadChunk, UploadSession, User, UserDepartmentScope, UserGroup,
 		UserGroupMember, UserGroupRole, UserMenu, UserPermission, UserPosition,
 		UserRole []ent.Hook
 	}
 	inters struct {
-		AuditLog, Captcha, Department, Dict, DictItem, LoginAttempt, LoginLog, Menu,
-		Position, Role, RoleDepartment, RoleMenu, RolePermission, Session, Tenant,
-		TenantPackage, TenantPackageFeature, User, UserDepartmentScope, UserGroup,
+		AuditLog, Captcha, Department, Dict, DictItem, FileStorageConfig, LoginAttempt,
+		LoginLog, ManagedFile, Menu, Position, Role, RoleDepartment, RoleMenu,
+		RolePermission, Session, Tenant, TenantPackage, TenantPackageFeature,
+		UploadChunk, UploadSession, User, UserDepartmentScope, UserGroup,
 		UserGroupMember, UserGroupRole, UserMenu, UserPermission, UserPosition,
 		UserRole []ent.Interceptor
 	}

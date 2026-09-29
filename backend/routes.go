@@ -102,6 +102,22 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{Method: "POST", Path: "/api/v1/dicts/{id}/items", OperationID: "dictsCreateItem", Permission: "system:dict:item", Handler: http.HandlerFunc(f.saveDictItem)},
 		{Method: "PUT", Path: "/api/v1/dicts/{id}/items/{itemId}", OperationID: "dictsUpdateItem", Permission: "system:dict:item", Handler: http.HandlerFunc(f.saveDictItem)},
 		{Method: "DELETE", Path: "/api/v1/dicts/{id}/items/{itemId}", OperationID: "dictsRemoveItem", Permission: "system:dict:item", Handler: http.HandlerFunc(f.deleteDictItem)},
+		{Method: "GET", Path: "/api/v1/file-storage-configs", OperationID: "fileConfigsList", Permission: "system:file:config", Handler: http.HandlerFunc(f.listFileConfigs)},
+		{Method: "GET", Path: "/api/v1/file-storage-configs/default", OperationID: "fileConfigsDefault", Permission: "system:file:config", Handler: http.HandlerFunc(f.defaultFileConfig)},
+		{Method: "POST", Path: "/api/v1/file-storage-configs/test", OperationID: "fileConfigsTest", Permission: "system:file:config", Handler: http.HandlerFunc(f.testFileConfig)},
+		{Method: "GET", Path: "/api/v1/file-storage-configs/{id}", OperationID: "fileConfigsDetail", Permission: "system:file:config", Handler: http.HandlerFunc(f.getFileConfig)},
+		{Method: "POST", Path: "/api/v1/file-storage-configs", OperationID: "fileConfigsCreate", Permission: "system:file:config:create", Handler: http.HandlerFunc(f.saveFileConfig)},
+		{Method: "PUT", Path: "/api/v1/file-storage-configs/{id}", OperationID: "fileConfigsUpdate", Permission: "system:file:config:update", Handler: http.HandlerFunc(f.saveFileConfig)},
+		{Method: "PUT", Path: "/api/v1/file-storage-configs/{id}/default", OperationID: "fileConfigsSetDefault", Permission: "system:file:config:default", Handler: http.HandlerFunc(f.setDefaultFileConfig)},
+		{Method: "DELETE", Path: "/api/v1/file-storage-configs/{id}", OperationID: "fileConfigsRemove", Permission: "system:file:config:delete", Handler: http.HandlerFunc(f.deleteFileConfig)},
+		{Method: "GET", Path: "/api/v1/files/stats", OperationID: "filesStats", Permission: "system:file:list", Handler: http.HandlerFunc(f.fileStats)},
+		{Method: "GET", Path: "/api/v1/files", OperationID: "filesList", Permission: "system:file:list", Handler: http.HandlerFunc(f.listFiles)},
+		{Method: "POST", Path: "/api/v1/files/upload-one", OperationID: "filesUploadOne", Permission: "system:file:upload", Handler: http.HandlerFunc(f.uploadOne)},
+		{Method: "GET", Path: "/api/v1/files/{id}/content", OperationID: "filesContent", Public: true, Handler: http.HandlerFunc(f.fileContent)},
+		{Method: "GET", Path: "/api/v1/files/{id}/private-content", OperationID: "filesPrivateContent", Permission: "authenticated", Handler: http.HandlerFunc(f.privateFileContent)},
+		{Method: "GET", Path: "/api/v1/files/{id}/access-url", OperationID: "filesAccessURL", Permission: "authenticated", Handler: http.HandlerFunc(f.accessFileURL)},
+		{Method: "GET", Path: "/api/v1/files/{id}", OperationID: "filesDetail", Permission: "system:file:list", Handler: http.HandlerFunc(f.getFile)},
+		{Method: "DELETE", Path: "/api/v1/files/{id}", OperationID: "filesRemove", Permission: "system:file:delete", Handler: http.HandlerFunc(f.deleteFile)},
 	}
 	for _, route := range routes {
 		if err := r.Register(route); err != nil {

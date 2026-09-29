@@ -11,6 +11,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
 	"github.com/fudanda/zenith-admin/backend/internal/dash"
 	gofrhttp "gofr.dev/pkg/gofr/http"
 )
@@ -294,8 +295,24 @@ func (f *Framework) startMaintenance() {
 						log.Printf("maintenance: %v", err)
 					}
 				}
+				if err := f.retryPendingFileDeletes(work); err != nil {
+					log.Printf("file maintenance: %v", err)
+				}
 				stop()
 			}
 		}
 	}()
+}
+
+func (f *Framework) retryPendingFileDeletes(ctx context.Context) error {
+	rows, err := f.Store.Client.ManagedFile.Query().Where(managedfile.DeletePending(true)).Limit(100).All(ctx)
+	if err != nil {
+		return err
+	}
+	for _, row := range rows {
+		if err := f.removePendingFile(ctx, row); err != nil {
+			log.Printf("file delete retry %s: %v", row.ID, err)
+		}
+	}
+	return nil
 }

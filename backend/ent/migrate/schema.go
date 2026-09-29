@@ -130,6 +130,24 @@ var (
 			},
 		},
 	}
+	// FileStorageConfigsColumns holds the columns for the "file_storage_configs" table.
+	FileStorageConfigsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString, Size: 64},
+		{Name: "provider", Type: field.TypeString, Default: "local"},
+		{Name: "status", Type: field.TypeString, Default: "enabled"},
+		{Name: "is_default", Type: field.TypeBool, Default: false},
+		{Name: "local_root_path", Type: field.TypeString, Size: 512},
+		{Name: "remark", Type: field.TypeString, Nullable: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+	}
+	// FileStorageConfigsTable holds the schema information for the "file_storage_configs" table.
+	FileStorageConfigsTable = &schema.Table{
+		Name:       "file_storage_configs",
+		Columns:    FileStorageConfigsColumns,
+		PrimaryKey: []*schema.Column{FileStorageConfigsColumns[0]},
+	}
 	// LoginAttemptsColumns holds the columns for the "login_attempts" table.
 	LoginAttemptsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -165,6 +183,41 @@ var (
 				Name:    "loginlog_tenant_id_created_at",
 				Unique:  false,
 				Columns: []*schema.Column{LoginLogsColumns[3], LoginLogsColumns[7]},
+			},
+		},
+	}
+	// ManagedFilesColumns holds the columns for the "managed_files" table.
+	ManagedFilesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeUUID},
+		{Name: "storage_config_id", Type: field.TypeInt},
+		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
+		{Name: "uploader_id", Type: field.TypeInt},
+		{Name: "original_name", Type: field.TypeString, Size: 256},
+		{Name: "object_key", Type: field.TypeString, Size: 512},
+		{Name: "size", Type: field.TypeInt64},
+		{Name: "mime_type", Type: field.TypeString, Nullable: true},
+		{Name: "extension", Type: field.TypeString, Nullable: true},
+		{Name: "visibility", Type: field.TypeString, Default: "public"},
+		{Name: "content_hash", Type: field.TypeString, Nullable: true},
+		{Name: "delete_pending", Type: field.TypeBool, Default: false},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+	}
+	// ManagedFilesTable holds the schema information for the "managed_files" table.
+	ManagedFilesTable = &schema.Table{
+		Name:       "managed_files",
+		Columns:    ManagedFilesColumns,
+		PrimaryKey: []*schema.Column{ManagedFilesColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "managedfile_tenant_id_created_at",
+				Unique:  false,
+				Columns: []*schema.Column{ManagedFilesColumns[2], ManagedFilesColumns[12]},
+			},
+			{
+				Name:    "managedfile_storage_config_id",
+				Unique:  false,
+				Columns: []*schema.Column{ManagedFilesColumns[1]},
 			},
 		},
 	}
@@ -392,6 +445,61 @@ var (
 			},
 		},
 	}
+	// UploadChunksColumns holds the columns for the "upload_chunks" table.
+	UploadChunksColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "upload_id", Type: field.TypeString, Size: 64},
+		{Name: "chunk_index", Type: field.TypeInt},
+		{Name: "size", Type: field.TypeInt64},
+		{Name: "hash", Type: field.TypeString},
+	}
+	// UploadChunksTable holds the schema information for the "upload_chunks" table.
+	UploadChunksTable = &schema.Table{
+		Name:       "upload_chunks",
+		Columns:    UploadChunksColumns,
+		PrimaryKey: []*schema.Column{UploadChunksColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "uploadchunk_upload_id_chunk_index",
+				Unique:  true,
+				Columns: []*schema.Column{UploadChunksColumns[1], UploadChunksColumns[2]},
+			},
+		},
+	}
+	// UploadSessionsColumns holds the columns for the "upload_sessions" table.
+	UploadSessionsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeString, Size: 64},
+		{Name: "storage_config_id", Type: field.TypeInt},
+		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
+		{Name: "uploader_id", Type: field.TypeInt},
+		{Name: "file_name", Type: field.TypeString, Size: 256},
+		{Name: "file_size", Type: field.TypeInt64},
+		{Name: "mime_type", Type: field.TypeString, Nullable: true},
+		{Name: "chunk_size", Type: field.TypeInt64},
+		{Name: "total_chunks", Type: field.TypeInt},
+		{Name: "status", Type: field.TypeString, Default: "uploading"},
+		{Name: "expires_at", Type: field.TypeTime},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
+	}
+	// UploadSessionsTable holds the schema information for the "upload_sessions" table.
+	UploadSessionsTable = &schema.Table{
+		Name:       "upload_sessions",
+		Columns:    UploadSessionsColumns,
+		PrimaryKey: []*schema.Column{UploadSessionsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "uploadsession_expires_at",
+				Unique:  false,
+				Columns: []*schema.Column{UploadSessionsColumns[10]},
+			},
+			{
+				Name:    "uploadsession_uploader_id",
+				Unique:  false,
+				Columns: []*schema.Column{UploadSessionsColumns[3]},
+			},
+		},
+	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -594,8 +702,10 @@ var (
 		DepartmentsTable,
 		DictsTable,
 		DictItemsTable,
+		FileStorageConfigsTable,
 		LoginAttemptsTable,
 		LoginLogsTable,
+		ManagedFilesTable,
 		MenusTable,
 		PositionsTable,
 		RolesTable,
@@ -606,6 +716,8 @@ var (
 		TenantsTable,
 		TenantPackagesTable,
 		TenantPackageFeaturesTable,
+		UploadChunksTable,
+		UploadSessionsTable,
 		UsersTable,
 		UserDepartmentScopesTable,
 		UserGroupsTable,

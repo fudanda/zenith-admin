@@ -17,8 +17,10 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/department"
 	"github.com/fudanda/zenith-admin/backend/ent/dict"
 	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
+	"github.com/fudanda/zenith-admin/backend/ent/filestorageconfig"
 	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
 	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
+	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
 	"github.com/fudanda/zenith-admin/backend/ent/menu"
 	"github.com/fudanda/zenith-admin/backend/ent/position"
 	"github.com/fudanda/zenith-admin/backend/ent/role"
@@ -29,6 +31,8 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/tenant"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackage"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackagefeature"
+	"github.com/fudanda/zenith-admin/backend/ent/uploadchunk"
+	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
 	"github.com/fudanda/zenith-admin/backend/ent/userdepartmentscope"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroup"
@@ -103,8 +107,10 @@ func checkColumn(t, c string) error {
 			department.Table:           department.ValidColumn,
 			dict.Table:                 dict.ValidColumn,
 			dictitem.Table:             dictitem.ValidColumn,
+			filestorageconfig.Table:    filestorageconfig.ValidColumn,
 			loginattempt.Table:         loginattempt.ValidColumn,
 			loginlog.Table:             loginlog.ValidColumn,
+			managedfile.Table:          managedfile.ValidColumn,
 			menu.Table:                 menu.ValidColumn,
 			position.Table:             position.ValidColumn,
 			role.Table:                 role.ValidColumn,
@@ -115,6 +121,8 @@ func checkColumn(t, c string) error {
 			tenant.Table:               tenant.ValidColumn,
 			tenantpackage.Table:        tenantpackage.ValidColumn,
 			tenantpackagefeature.Table: tenantpackagefeature.ValidColumn,
+			uploadchunk.Table:          uploadchunk.ValidColumn,
+			uploadsession.Table:        uploadsession.ValidColumn,
 			user.Table:                 user.ValidColumn,
 			userdepartmentscope.Table:  userdepartmentscope.ValidColumn,
 			usergroup.Table:            usergroup.ValidColumn,

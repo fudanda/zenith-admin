@@ -64,10 +64,10 @@ func (s *Store) Migrate(ctx context.Context) error {
 	if err := s.DB.QueryRowContext(ctx, `SELECT COALESCE(MAX(version), 0) FROM zenith_schema_versions`).Scan(&current); err != nil {
 		return err
 	}
-	if current > 1 {
+	if current > 2 {
 		return fmt.Errorf("database schema version %d is newer than this binary", current)
 	}
-	if current == 1 {
+	if current == 2 {
 		return nil
 	}
 	if err := s.Client.Schema.Create(ctx, schema.WithDropColumn(false), schema.WithDropIndex(false)); err != nil {
@@ -80,6 +80,7 @@ func (s *Store) Migrate(ctx context.Context) error {
 		`CREATE UNIQUE INDEX IF NOT EXISTS roles_platform_code_unique ON roles(code) WHERE tenant_id IS NULL`,
 		`CREATE UNIQUE INDEX IF NOT EXISTS user_groups_platform_code_unique ON user_groups(code) WHERE tenant_id IS NULL`,
 		`CREATE UNIQUE INDEX IF NOT EXISTS dicts_platform_code_unique ON dicts(code) WHERE tenant_id IS NULL`,
+		`CREATE UNIQUE INDEX IF NOT EXISTS file_storage_configs_default_unique ON file_storage_configs(is_default) WHERE is_default = true`,
 	}
 	for _, statement := range indexes {
 		if _, err := s.DB.ExecContext(ctx, statement); err != nil {
@@ -119,6 +120,13 @@ func (s *Store) Migrate(ctx context.Context) error {
 		{"dicts_tenant_fk", `ALTER TABLE dicts ADD CONSTRAINT dicts_tenant_fk FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE`},
 		{"dict_items_dict_fk", `ALTER TABLE dict_items ADD CONSTRAINT dict_items_dict_fk FOREIGN KEY (dict_id) REFERENCES dicts(id) ON DELETE CASCADE`},
 		{"dict_items_parent_fk", `ALTER TABLE dict_items ADD CONSTRAINT dict_items_parent_fk FOREIGN KEY (parent_id) REFERENCES dict_items(id) ON DELETE SET NULL`},
+		{"managed_files_storage_fk", `ALTER TABLE managed_files ADD CONSTRAINT managed_files_storage_fk FOREIGN KEY (storage_config_id) REFERENCES file_storage_configs(id) ON DELETE RESTRICT`},
+		{"managed_files_tenant_fk", `ALTER TABLE managed_files ADD CONSTRAINT managed_files_tenant_fk FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE`},
+		{"managed_files_uploader_fk", `ALTER TABLE managed_files ADD CONSTRAINT managed_files_uploader_fk FOREIGN KEY (uploader_id) REFERENCES users(id) ON DELETE RESTRICT`},
+		{"upload_sessions_storage_fk", `ALTER TABLE upload_sessions ADD CONSTRAINT upload_sessions_storage_fk FOREIGN KEY (storage_config_id) REFERENCES file_storage_configs(id) ON DELETE RESTRICT`},
+		{"upload_sessions_tenant_fk", `ALTER TABLE upload_sessions ADD CONSTRAINT upload_sessions_tenant_fk FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE`},
+		{"upload_sessions_uploader_fk", `ALTER TABLE upload_sessions ADD CONSTRAINT upload_sessions_uploader_fk FOREIGN KEY (uploader_id) REFERENCES users(id) ON DELETE RESTRICT`},
+		{"upload_chunks_session_fk", `ALTER TABLE upload_chunks ADD CONSTRAINT upload_chunks_session_fk FOREIGN KEY (upload_id) REFERENCES upload_sessions(id) ON DELETE CASCADE`},
 	}
 	for _, constraint := range constraints {
 		var exists bool
@@ -131,7 +139,7 @@ func (s *Store) Migrate(ctx context.Context) error {
 			}
 		}
 	}
-	_, err = s.DB.ExecContext(ctx, `INSERT INTO zenith_schema_versions(version) VALUES (1) ON CONFLICT DO NOTHING`)
+	_, err = s.DB.ExecContext(ctx, `INSERT INTO zenith_schema_versions(version) VALUES (2) ON CONFLICT DO NOTHING`)
 	return err
 }
 

@@ -10,3 +10,5 @@ export { UsersPage } from './users';
 export { RolesPage } from './roles';
 export { UserGroupsPage } from './user-groups';
 export { DictsPage } from './dicts';
+export { FileConfigsPage } from './file-configs';
+export { FilesPage } from './files';

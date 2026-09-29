@@ -6,6 +6,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
+	"github.com/google/uuid"
 )
 
 // These tables deliberately retain Zenith's numeric identifiers and tenant semantics.
@@ -286,3 +287,54 @@ func (DictItem) Fields() []ent.Field {
 	}
 }
 func (DictItem) Indexes() []ent.Index { return []ent.Index{index.Fields("dict_id", "value").Unique()} }
+
+type FileStorageConfig struct{ ent.Schema }
+
+func (FileStorageConfig) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("name").MaxLen(64), field.String("provider").Default("local"), field.String("status").Default("enabled"),
+		field.Bool("is_default").Default(false), field.String("local_root_path").MaxLen(512), field.String("remark").Optional().Nillable(),
+		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+
+type ManagedFile struct{ ent.Schema }
+
+func (ManagedFile) Fields() []ent.Field {
+	return []ent.Field{
+		field.UUID("id", uuid.UUID{}).Default(uuid.New), field.Int("storage_config_id"), field.Int("tenant_id").Optional().Nillable(),
+		field.Int("uploader_id"), field.String("original_name").MaxLen(256), field.String("object_key").MaxLen(512),
+		field.Int64("size"), field.String("mime_type").Optional().Nillable(), field.String("extension").Optional().Nillable(),
+		field.String("visibility").Default("public"), field.String("content_hash").Optional().Nillable(),
+		field.Bool("delete_pending").Default(false),
+		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+func (ManagedFile) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("tenant_id", "created_at"), index.Fields("storage_config_id")}
+}
+
+type UploadSession struct{ ent.Schema }
+
+func (UploadSession) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("id").MaxLen(64), field.Int("storage_config_id"), field.Int("tenant_id").Optional().Nillable(), field.Int("uploader_id"),
+		field.String("file_name").MaxLen(256), field.Int64("file_size"), field.String("mime_type").Optional().Nillable(),
+		field.Int64("chunk_size"), field.Int("total_chunks"), field.String("status").Default("uploading"),
+		field.Time("expires_at"), field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
+	}
+}
+func (UploadSession) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("expires_at"), index.Fields("uploader_id")}
+}
+
+type UploadChunk struct{ ent.Schema }
+
+func (UploadChunk) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("upload_id").MaxLen(64), field.Int("chunk_index"), field.Int64("size"), field.String("hash"),
+	}
+}
+func (UploadChunk) Indexes() []ent.Index {
+	return []ent.Index{index.Fields("upload_id", "chunk_index").Unique()}
+}

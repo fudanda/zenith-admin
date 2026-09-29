@@ -10,8 +10,10 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/department"
 	"github.com/fudanda/zenith-admin/backend/ent/dict"
 	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
+	"github.com/fudanda/zenith-admin/backend/ent/filestorageconfig"
 	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
 	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
+	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
 	"github.com/fudanda/zenith-admin/backend/ent/menu"
 	"github.com/fudanda/zenith-admin/backend/ent/position"
 	"github.com/fudanda/zenith-admin/backend/ent/role"
@@ -19,10 +21,13 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/session"
 	"github.com/fudanda/zenith-admin/backend/ent/tenant"
 	"github.com/fudanda/zenith-admin/backend/ent/tenantpackage"
+	"github.com/fudanda/zenith-admin/backend/ent/uploadchunk"
+	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroup"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroupmember"
 	"github.com/fudanda/zenith-admin/backend/ent/userposition"
+	"github.com/google/uuid"
 )
 
 // The init function reads all schema descriptors with runtime code
@@ -137,6 +142,38 @@ func init() {
 	dictitem.DefaultUpdatedAt = dictitemDescUpdatedAt.Default.(func() time.Time)
 	// dictitem.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	dictitem.UpdateDefaultUpdatedAt = dictitemDescUpdatedAt.UpdateDefault.(func() time.Time)
+	filestorageconfigFields := schema.FileStorageConfig{}.Fields()
+	_ = filestorageconfigFields
+	// filestorageconfigDescName is the schema descriptor for name field.
+	filestorageconfigDescName := filestorageconfigFields[0].Descriptor()
+	// filestorageconfig.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	filestorageconfig.NameValidator = filestorageconfigDescName.Validators[0].(func(string) error)
+	// filestorageconfigDescProvider is the schema descriptor for provider field.
+	filestorageconfigDescProvider := filestorageconfigFields[1].Descriptor()
+	// filestorageconfig.DefaultProvider holds the default value on creation for the provider field.
+	filestorageconfig.DefaultProvider = filestorageconfigDescProvider.Default.(string)
+	// filestorageconfigDescStatus is the schema descriptor for status field.
+	filestorageconfigDescStatus := filestorageconfigFields[2].Descriptor()
+	// filestorageconfig.DefaultStatus holds the default value on creation for the status field.
+	filestorageconfig.DefaultStatus = filestorageconfigDescStatus.Default.(string)
+	// filestorageconfigDescIsDefault is the schema descriptor for is_default field.
+	filestorageconfigDescIsDefault := filestorageconfigFields[3].Descriptor()
+	// filestorageconfig.DefaultIsDefault holds the default value on creation for the is_default field.
+	filestorageconfig.DefaultIsDefault = filestorageconfigDescIsDefault.Default.(bool)
+	// filestorageconfigDescLocalRootPath is the schema descriptor for local_root_path field.
+	filestorageconfigDescLocalRootPath := filestorageconfigFields[4].Descriptor()
+	// filestorageconfig.LocalRootPathValidator is a validator for the "local_root_path" field. It is called by the builders before save.
+	filestorageconfig.LocalRootPathValidator = filestorageconfigDescLocalRootPath.Validators[0].(func(string) error)
+	// filestorageconfigDescCreatedAt is the schema descriptor for created_at field.
+	filestorageconfigDescCreatedAt := filestorageconfigFields[6].Descriptor()
+	// filestorageconfig.DefaultCreatedAt holds the default value on creation for the created_at field.
+	filestorageconfig.DefaultCreatedAt = filestorageconfigDescCreatedAt.Default.(func() time.Time)
+	// filestorageconfigDescUpdatedAt is the schema descriptor for updated_at field.
+	filestorageconfigDescUpdatedAt := filestorageconfigFields[7].Descriptor()
+	// filestorageconfig.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	filestorageconfig.DefaultUpdatedAt = filestorageconfigDescUpdatedAt.Default.(func() time.Time)
+	// filestorageconfig.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	filestorageconfig.UpdateDefaultUpdatedAt = filestorageconfigDescUpdatedAt.UpdateDefault.(func() time.Time)
 	loginattemptFields := schema.LoginAttempt{}.Fields()
 	_ = loginattemptFields
 	// loginattemptDescFailures is the schema descriptor for failures field.
@@ -155,6 +192,38 @@ func init() {
 	loginlogDescCreatedAt := loginlogFields[6].Descriptor()
 	// loginlog.DefaultCreatedAt holds the default value on creation for the created_at field.
 	loginlog.DefaultCreatedAt = loginlogDescCreatedAt.Default.(func() time.Time)
+	managedfileFields := schema.ManagedFile{}.Fields()
+	_ = managedfileFields
+	// managedfileDescOriginalName is the schema descriptor for original_name field.
+	managedfileDescOriginalName := managedfileFields[4].Descriptor()
+	// managedfile.OriginalNameValidator is a validator for the "original_name" field. It is called by the builders before save.
+	managedfile.OriginalNameValidator = managedfileDescOriginalName.Validators[0].(func(string) error)
+	// managedfileDescObjectKey is the schema descriptor for object_key field.
+	managedfileDescObjectKey := managedfileFields[5].Descriptor()
+	// managedfile.ObjectKeyValidator is a validator for the "object_key" field. It is called by the builders before save.
+	managedfile.ObjectKeyValidator = managedfileDescObjectKey.Validators[0].(func(string) error)
+	// managedfileDescVisibility is the schema descriptor for visibility field.
+	managedfileDescVisibility := managedfileFields[9].Descriptor()
+	// managedfile.DefaultVisibility holds the default value on creation for the visibility field.
+	managedfile.DefaultVisibility = managedfileDescVisibility.Default.(string)
+	// managedfileDescDeletePending is the schema descriptor for delete_pending field.
+	managedfileDescDeletePending := managedfileFields[11].Descriptor()
+	// managedfile.DefaultDeletePending holds the default value on creation for the delete_pending field.
+	managedfile.DefaultDeletePending = managedfileDescDeletePending.Default.(bool)
+	// managedfileDescCreatedAt is the schema descriptor for created_at field.
+	managedfileDescCreatedAt := managedfileFields[12].Descriptor()
+	// managedfile.DefaultCreatedAt holds the default value on creation for the created_at field.
+	managedfile.DefaultCreatedAt = managedfileDescCreatedAt.Default.(func() time.Time)
+	// managedfileDescUpdatedAt is the schema descriptor for updated_at field.
+	managedfileDescUpdatedAt := managedfileFields[13].Descriptor()
+	// managedfile.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	managedfile.DefaultUpdatedAt = managedfileDescUpdatedAt.Default.(func() time.Time)
+	// managedfile.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	managedfile.UpdateDefaultUpdatedAt = managedfileDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// managedfileDescID is the schema descriptor for id field.
+	managedfileDescID := managedfileFields[0].Descriptor()
+	// managedfile.DefaultID holds the default value on creation for the id field.
+	managedfile.DefaultID = managedfileDescID.Default.(func() uuid.UUID)
 	menuFields := schema.Menu{}.Fields()
 	_ = menuFields
 	// menuDescParentID is the schema descriptor for parent_id field.
@@ -289,6 +358,36 @@ func init() {
 	tenantpackage.DefaultUpdatedAt = tenantpackageDescUpdatedAt.Default.(func() time.Time)
 	// tenantpackage.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	tenantpackage.UpdateDefaultUpdatedAt = tenantpackageDescUpdatedAt.UpdateDefault.(func() time.Time)
+	uploadchunkFields := schema.UploadChunk{}.Fields()
+	_ = uploadchunkFields
+	// uploadchunkDescUploadID is the schema descriptor for upload_id field.
+	uploadchunkDescUploadID := uploadchunkFields[0].Descriptor()
+	// uploadchunk.UploadIDValidator is a validator for the "upload_id" field. It is called by the builders before save.
+	uploadchunk.UploadIDValidator = uploadchunkDescUploadID.Validators[0].(func(string) error)
+	uploadsessionFields := schema.UploadSession{}.Fields()
+	_ = uploadsessionFields
+	// uploadsessionDescFileName is the schema descriptor for file_name field.
+	uploadsessionDescFileName := uploadsessionFields[4].Descriptor()
+	// uploadsession.FileNameValidator is a validator for the "file_name" field. It is called by the builders before save.
+	uploadsession.FileNameValidator = uploadsessionDescFileName.Validators[0].(func(string) error)
+	// uploadsessionDescStatus is the schema descriptor for status field.
+	uploadsessionDescStatus := uploadsessionFields[9].Descriptor()
+	// uploadsession.DefaultStatus holds the default value on creation for the status field.
+	uploadsession.DefaultStatus = uploadsessionDescStatus.Default.(string)
+	// uploadsessionDescCreatedAt is the schema descriptor for created_at field.
+	uploadsessionDescCreatedAt := uploadsessionFields[11].Descriptor()
+	// uploadsession.DefaultCreatedAt holds the default value on creation for the created_at field.
+	uploadsession.DefaultCreatedAt = uploadsessionDescCreatedAt.Default.(func() time.Time)
+	// uploadsessionDescUpdatedAt is the schema descriptor for updated_at field.
+	uploadsessionDescUpdatedAt := uploadsessionFields[12].Descriptor()
+	// uploadsession.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	uploadsession.DefaultUpdatedAt = uploadsessionDescUpdatedAt.Default.(func() time.Time)
+	// uploadsession.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	uploadsession.UpdateDefaultUpdatedAt = uploadsessionDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// uploadsessionDescID is the schema descriptor for id field.
+	uploadsessionDescID := uploadsessionFields[0].Descriptor()
+	// uploadsession.IDValidator is a validator for the "id" field. It is called by the builders before save.
+	uploadsession.IDValidator = uploadsessionDescID.Validators[0].(func(string) error)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescUsername is the schema descriptor for username field.

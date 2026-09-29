@@ -29,6 +29,28 @@ export function operation<T>(op: { method: string; fullPath: string }, args: { i
   return request<T>(`${suffix}${search.size ? `?${search}` : ''}`, { method: op.method.toUpperCase(), body: args.body === undefined ? undefined : JSON.stringify(args.body) });
 }
 
+export function uploadOne<T>(file: File, visibility: 'public' | 'restricted', onProgress?: (percent: number) => void, signal?: AbortSignal): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `/api/v1/files/upload-one?visibility=${visibility}`);
+    xhr.withCredentials = true;
+    xhr.setRequestHeader('X-CSRF-Token', csrf);
+    xhr.upload.onprogress = event => { if (event.lengthComputable) onProgress?.(Math.round(event.loaded * 100 / event.total)); };
+    xhr.onerror = () => reject(new ApiError('上传失败', xhr.status));
+    xhr.onabort = () => reject(new ApiError('上传已取消', 0));
+    xhr.onload = () => {
+      try {
+        const envelope = JSON.parse(xhr.responseText) as Envelope<T>;
+        if (xhr.status < 200 || xhr.status >= 300 || envelope.code !== 0) reject(new ApiError(envelope.message || '上传失败', xhr.status));
+        else resolve(envelope.data);
+      } catch { reject(new ApiError(`上传失败 (${xhr.status})`, xhr.status)); }
+    };
+    signal?.addEventListener('abort', () => xhr.abort(), { once: true });
+    if (signal?.aborted) { xhr.abort(); return; }
+    const body = new FormData(); body.append('file', file); xhr.send(body);
+  });
+}
+
 export const authApi = {
   captcha: () => request<{ captchaId: string; image: string }>('/auth/captcha'),
   me: async () => { const data = await request<Session>('/auth/me'); setCsrf(data.csrfToken); return data; },

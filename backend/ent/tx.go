@@ -22,10 +22,14 @@ type Tx struct {
 	Dict *DictClient
 	// DictItem is the client for interacting with the DictItem builders.
 	DictItem *DictItemClient
+	// FileStorageConfig is the client for interacting with the FileStorageConfig builders.
+	FileStorageConfig *FileStorageConfigClient
 	// LoginAttempt is the client for interacting with the LoginAttempt builders.
 	LoginAttempt *LoginAttemptClient
 	// LoginLog is the client for interacting with the LoginLog builders.
 	LoginLog *LoginLogClient
+	// ManagedFile is the client for interacting with the ManagedFile builders.
+	ManagedFile *ManagedFileClient
 	// Menu is the client for interacting with the Menu builders.
 	Menu *MenuClient
 	// Position is the client for interacting with the Position builders.
@@ -46,6 +50,10 @@ type Tx struct {
 	TenantPackage *TenantPackageClient
 	// TenantPackageFeature is the client for interacting with the TenantPackageFeature builders.
 	TenantPackageFeature *TenantPackageFeatureClient
+	// UploadChunk is the client for interacting with the UploadChunk builders.
+	UploadChunk *UploadChunkClient
+	// UploadSession is the client for interacting with the UploadSession builders.
+	UploadSession *UploadSessionClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
 	// UserDepartmentScope is the client for interacting with the UserDepartmentScope builders.
@@ -200,8 +208,10 @@ func (tx *Tx) init() {
 	tx.Department = NewDepartmentClient(tx.config)
 	tx.Dict = NewDictClient(tx.config)
 	tx.DictItem = NewDictItemClient(tx.config)
+	tx.FileStorageConfig = NewFileStorageConfigClient(tx.config)
 	tx.LoginAttempt = NewLoginAttemptClient(tx.config)
 	tx.LoginLog = NewLoginLogClient(tx.config)
+	tx.ManagedFile = NewManagedFileClient(tx.config)
 	tx.Menu = NewMenuClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.Role = NewRoleClient(tx.config)
@@ -212,6 +222,8 @@ func (tx *Tx) init() {
 	tx.Tenant = NewTenantClient(tx.config)
 	tx.TenantPackage = NewTenantPackageClient(tx.config)
 	tx.TenantPackageFeature = NewTenantPackageFeatureClient(tx.config)
+	tx.UploadChunk = NewUploadChunkClient(tx.config)
+	tx.UploadSession = NewUploadSessionClient(tx.config)
 	tx.User = NewUserClient(tx.config)
 	tx.UserDepartmentScope = NewUserDepartmentScopeClient(tx.config)
 	tx.UserGroup = NewUserGroupClient(tx.config)

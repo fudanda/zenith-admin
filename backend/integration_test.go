@@ -8,6 +8,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -297,6 +298,64 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	}
 	if err := json.Unmarshal(itemsByCode.Body.Bytes(), &itemResult); err != nil || len(itemResult.Data) != 1 {
 		t.Fatalf("dictionary item count: %v %s", err, itemsByCode.Body.String())
+	}
+	storageRoot := t.TempDir()
+	storage := call("POST", "/api/v1/file-storage-configs", map[string]any{"name": "测试磁盘", "provider": "local", "status": "enabled", "isDefault": true, "localRootPath": storageRoot}, cookie, csrf)
+	if storage.Code != 200 {
+		t.Fatalf("create local storage: %d %s", storage.Code, storage.Body.String())
+	}
+	upload := func(visibility string) *httptest.ResponseRecorder {
+		var body bytes.Buffer
+		writer := multipart.NewWriter(&body)
+		part, err := writer.CreateFormFile("file", "hello.txt")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err := part.Write([]byte("hello from postgres integration")); err != nil {
+			t.Fatal(err)
+		}
+		if err := writer.Close(); err != nil {
+			t.Fatal(err)
+		}
+		req := httptest.NewRequest("POST", "http://zenith.test/api/v1/files/upload-one?visibility="+visibility, &body)
+		req.Header.Set("Content-Type", writer.FormDataContentType())
+		req.Header.Set("Origin", "http://zenith.test")
+		req.Header.Set("X-CSRF-Token", csrf)
+		req.AddCookie(cookie)
+		response := httptest.NewRecorder()
+		handler.ServeHTTP(response, req)
+		return response
+	}
+	privateUpload := upload("restricted")
+	if privateUpload.Code != 200 {
+		t.Fatalf("private upload: %d %s", privateUpload.Code, privateUpload.Body.String())
+	}
+	privateID := read(privateUpload)["id"].(string)
+	if publicAccess := call("GET", "/api/v1/files/"+privateID+"/content", nil, nil, ""); publicAccess.Code != 404 {
+		t.Fatalf("private file exposed publicly: %d", publicAccess.Code)
+	}
+	if otherAccess := call("GET", "/api/v1/files/"+privateID+"/private-content", nil, memberCookie, ""); otherAccess.Code != 403 {
+		t.Fatalf("private file exposed to tenant member: %d %s", otherAccess.Code, otherAccess.Body.String())
+	}
+	if ownAccess := call("GET", "/api/v1/files/"+privateID+"/private-content", nil, cookie, ""); ownAccess.Code != 200 || ownAccess.Body.String() != "hello from postgres integration" {
+		t.Fatalf("owner download: %d %s", ownAccess.Code, ownAccess.Body.String())
+	}
+	publicUpload := upload("public")
+	if publicUpload.Code != 200 {
+		t.Fatalf("public upload: %d %s", publicUpload.Code, publicUpload.Body.String())
+	}
+	publicID := read(publicUpload)["id"].(string)
+	if publicAccess := call("GET", "/api/v1/files/"+publicID+"/content", nil, nil, ""); publicAccess.Code != 200 {
+		t.Fatalf("public download: %d %s", publicAccess.Code, publicAccess.Body.String())
+	}
+	if stats := call("GET", "/api/v1/files/stats", nil, cookie, ""); stats.Code != 200 || int(read(stats)["summary"].(map[string]any)["totalFiles"].(float64)) != 2 {
+		t.Fatalf("file stats: %d %s", stats.Code, stats.Body.String())
+	}
+	if removed := call("DELETE", "/api/v1/files/"+privateID, nil, cookie, csrf); removed.Code != 200 {
+		t.Fatalf("delete private file: %d %s", removed.Code, removed.Body.String())
+	}
+	if gone := call("GET", "/api/v1/files/"+privateID+"/private-content", nil, cookie, ""); gone.Code != 404 {
+		t.Fatalf("deleted file accessible: %d", gone.Code)
 	}
 	logout := call("POST", "/api/v1/auth/logout", map[string]any{}, cookie, csrf)
 	if logout.Code != 200 {
