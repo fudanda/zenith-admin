@@ -378,6 +378,25 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		t.Fatalf("create role: %d %s", roleResponse.Code, roleResponse.Body.String())
 	}
 	roleID := int(read(roleResponse)["id"].(float64))
+	roleCreatedAt, err := time.Parse(time.RFC3339Nano, read(roleResponse)["createdAt"].(string))
+	if err != nil {
+		t.Fatal(err)
+	}
+	roleDay := roleCreatedAt.In(time.Local).Format("2006-01-02")
+	roleFilter := "/api/v1/roles?keyword=tenant_admin_test&status=enabled&startTime=" + roleDay + "&endTime=" + roleDay
+	if filtered := call("GET", roleFilter, nil, cookie, ""); filtered.Code != 200 || read(filtered)["total"].(float64) != 1 {
+		t.Fatalf("role list filters: %d %s", filtered.Code, filtered.Body.String())
+	}
+	roleCSV := call("GET", strings.Replace(roleFilter, "/api/v1/roles?", "/api/v1/roles/export?", 1), nil, cookie, "")
+	if roleCSV.Code != 200 || !strings.Contains(roleCSV.Body.String(), "tenant_admin_test") {
+		t.Fatalf("tenant role CSV: %d %s", roleCSV.Code, roleCSV.Body.String())
+	}
+	if hidden := call("GET", "/api/v1/roles/export?keyword=super_admin", nil, cookie, ""); hidden.Code != 200 || strings.Contains(hidden.Body.String(), "super_admin") {
+		t.Fatalf("cross tenant role CSV leaked: %d %s", hidden.Code, hidden.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/roles/export?status=unknown", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid role status accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
 	auditQuery := fmt.Sprintf("/api/v1/operation-logs?userId=%d&module=roles&description=create", adminID)
 	auditLogs := call("GET", auditQuery, nil, cookie, "")
 	if auditLogs.Code != 200 || read(auditLogs)["total"].(float64) < 1 {

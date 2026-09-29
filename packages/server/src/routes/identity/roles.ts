@@ -2,7 +2,8 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { roleContract } from '@zenith/shared/identity';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
-import { validationHook, conflictResponse, okBody } from '../../lib/openapi-schemas';
+import { validationHook, conflictResponse, okBody, csvStreamBody } from '../../lib/openapi-schemas';
+import { streamToCsv } from '../../lib/excel-export';
 import { defineScopeMembersRoute } from './_scope-members';
 import {
   listAllRoles,
@@ -27,6 +28,27 @@ const rolesRouter = new OpenAPIHono({ defaultHook: validationHook });
 
 const allRoute = defineContractRoute(roleContract.all, {
   handler: async (c) => c.json(okBody(await listAllRoles()), 200),
+});
+const exportCsvRoute = defineContractRoute(roleContract.exportCsv, {
+  handler: async (c) => {
+    const filters = c.req.valid('query');
+    async function* rows() {
+      for (let page = 1; ; page++) {
+        const result = await listRoles({ ...filters, page, pageSize: 200 });
+        for (const row of result.list) yield row;
+        if (result.list.length < 200) break;
+      }
+    }
+    const safe = (value: unknown) => {
+      const text = String(value ?? '');
+      return /^[\s]*[=+\-@]/.test(text) ? `'${text}` : text;
+    };
+    return csvStreamBody(c, streamToCsv([
+      { key: 'id', header: 'ID' }, { key: 'name', header: '角色名称', transform: safe },
+      { key: 'code', header: '角色编码', transform: safe }, { key: 'description', header: '描述', transform: safe },
+      { key: 'status', header: '状态' }, { key: 'createdAt', header: '创建时间' },
+    ], rows()), 'roles.csv');
+  },
 });
 const assignMenusRoute = defineContractRoute(roleContract.assignMenus, {
   handler: async (c) => {
@@ -57,7 +79,7 @@ const assignUsersRoute = defineContractRoute(roleContract.assignUsers, {
 mountCrud(rolesRouter, roleContract,
   { list: listRoles, get: getRole, create: createRole, update: updateRole, remove: deleteRole },
   { responses: { remove: conflictResponse } },
-  [allRoute, assignMenusRoute, getUsersRoute, assignUsersRoute, memberPreviewRoute],
+  [allRoute, exportCsvRoute, assignMenusRoute, getUsersRoute, assignUsersRoute, memberPreviewRoute],
 );
 
 export default rolesRouter;

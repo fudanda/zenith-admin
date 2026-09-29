@@ -4,8 +4,11 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/url"
 	"regexp"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/department"
@@ -70,16 +73,17 @@ func (f *Framework) listRoles(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_page_size", err.Error())
 		return
 	}
-	query := f.Store.Client.Role.Query().Where(roleScope(p))
-	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
-		query = query.Where(role.Or(role.NameContainsFold(keyword), role.CodeContainsFold(keyword)))
+	query, err := f.filteredRoles(p, q)
+	if err != nil {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
 	}
 	total, err := query.Clone().Count(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
 	}
-	rows, err := query.Order(ent.Desc(role.FieldID)).Offset((page - 1) * size).Limit(size).All(r.Context())
+	rows, err := query.Offset((page - 1) * size).Limit(size).All(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
@@ -94,6 +98,59 @@ func (f *Framework) listRoles(w http.ResponseWriter, r *http.Request) {
 		list = append(list, view)
 	}
 	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
+}
+
+func (f *Framework) filteredRoles(p *principal, q url.Values) (*ent.RoleQuery, error) {
+	query := f.Store.Client.Role.Query().Where(roleScope(p))
+	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
+		query = query.Where(role.Or(role.NameContainsFold(keyword), role.CodeContainsFold(keyword)))
+	}
+	if status := q.Get("status"); status != "" {
+		if status != "enabled" && status != "disabled" {
+			return nil, errors.New("状态无效")
+		}
+		query = query.Where(role.StatusEQ(status))
+	}
+	for _, bound := range []struct {
+		key string
+		end bool
+	}{{"startTime", false}, {"endTime", true}} {
+		if raw := q.Get(bound.key); raw != "" {
+			value, err := parseFilterDateBound(raw, bound.end)
+			if err != nil {
+				return nil, err
+			}
+			if bound.end {
+				query = query.Where(role.CreatedAtLTE(value))
+			} else {
+				query = query.Where(role.CreatedAtGTE(value))
+			}
+		}
+	}
+	return query.Order(ent.Desc(role.FieldID)), nil
+}
+
+func (f *Framework) exportRolesCSV(w http.ResponseWriter, r *http.Request) {
+	query, err := f.filteredRoles(fromContext(r.Context()), r.URL.Query())
+	if err != nil {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
+	}
+	streamCSV(w, "roles.csv", []string{"ID", "角色名称", "角色编码", "描述", "状态", "创建时间"}, func(offset int) ([][]string, error) {
+		rows, err := query.Clone().Offset(offset).Limit(200).All(r.Context())
+		if err != nil {
+			return nil, err
+		}
+		result := make([][]string, 0, len(rows))
+		for _, row := range rows {
+			description := ""
+			if row.Description != nil {
+				description = *row.Description
+			}
+			result = append(result, []string{strconv.Itoa(row.ID), row.Name, row.Code, description, row.Status, row.CreatedAt.Format(time.RFC3339)})
+		}
+		return result, nil
+	})
 }
 
 func (f *Framework) allRoles(w http.ResponseWriter, r *http.Request) {

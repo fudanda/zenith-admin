@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button, Input, Modal, Select, Table, Toast } from '@douyinfe/semi-ui';
 import { roleContract, menuContract, userContract, departmentContract, type Role, type Menu, type Department } from '@zenith/shared/identity';
-import { operation } from '@zenith/admin-client';
+import { downloadOperation, operation } from '@zenith/admin-client';
 import { useAuth } from '@zenith/admin-core';
 import { PageHeader } from '@zenith/admin-ui';
 
@@ -13,10 +13,15 @@ const blank: Form = { name: '', code: '', description: '', status: 'enabled', da
 export function RolesPage() {
   const { can } = useAuth(); const cache = useQueryClient();
   const [page, setPage] = useState(1); const [keyword, setKeyword] = useState(''); const [search, setSearch] = useState('');
+  const [status, setStatus] = useState(''); const [startTime, setStartTime] = useState(''); const [endTime, setEndTime] = useState('');
+  const [range, setRange] = useState({ startTime: '', endTime: '' });
   const [editing, setEditing] = useState<Role | null>(null); const [open, setOpen] = useState(false); const [form, setForm] = useState<Form>(blank);
   const [assigning, setAssigning] = useState<Role | null>(null); const [menuIds, setMenuIds] = useState<number[]>([]);
   const [memberRole, setMemberRole] = useState<Role | null>(null); const [userIds, setUserIds] = useState<number[]>([]);
-  const rows = useQuery({ queryKey: ['roles', page, search], queryFn: () => operation<Paged>(roleContract.list, { query: { page, pageSize: 10, keyword: search } }) });
+  const rows = useQuery({ queryKey: ['roles', page, search, status, range], queryFn: () => operation<Paged>(roleContract.list, { query: { page, pageSize: 10, keyword: search, status, ...range } }) });
+  const exportCsv = useMutation({ mutationFn: () => downloadOperation(roleContract.exportCsv, { query: { keyword: search, status, ...range } }), onSuccess: blob => {
+    const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = 'roles.csv'; link.click(); window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  }, onError: error => Toast.error(String(error)) });
   const menus = useQuery({ queryKey: ['menus-flat'], queryFn: () => operation<Menu[]>(menuContract.flat), enabled: assigning !== null && can('system:menu:list') });
   const departments = useQuery({ queryKey: ['departments'], queryFn: () => operation<Department[]>(departmentContract.flat), enabled: open && can('system:department:list') });
   const users = useQuery({ queryKey: ['users-all'], queryFn: () => operation<{ id: number; nickname: string; username: string }[]>(userContract.all), enabled: memberRole !== null });
@@ -32,8 +37,17 @@ export function RolesPage() {
   const assignUsers = useMutation({ mutationFn: () => operation<null>(roleContract.assignUsers, { id: memberRole!.id, body: { userIds } }), onSuccess: () => { setMemberRole(null); void cache.invalidateQueries({ queryKey: ['roles'] }); Toast.success('成员已更新'); }, onError: error => Toast.error(String(error)) });
   const edit = (row: Role) => { setEditing(row); setForm({ name: row.name, code: row.code, description: row.description ?? '', status: row.status, dataScope: row.dataScope, deptScopeIds: row.deptScopeIds ?? [] }); setOpen(true); };
   const openMembers = async (row: Role) => { setMemberRole(row); setUserIds([]); try { const list = await operation<{ id: number }[]>(roleContract.users, { id: row.id }); setUserIds(list.map(item => item.id)); } catch (error) { Toast.error(String(error)); } };
+  const applyFilters = () => { setSearch(keyword); setRange({ startTime, endTime }); setPage(1); };
   return <><PageHeader title="角色管理" description="配置角色、数据范围和菜单权限" actions={can('system:role:create') ? <Button theme="solid" onClick={() => { setEditing(null); setForm(blank); setOpen(true); }}>新增角色</Button> : null}/>
-    <div className="zenith-card"><div style={{ display: 'flex', gap: 8, marginBottom: 16 }}><Input placeholder="名称或编码" value={keyword} onChange={setKeyword} onEnterPress={() => { setSearch(keyword); setPage(1); }} style={{ width: 230 }}/><Button onClick={() => { setSearch(keyword); setPage(1); }}>查询</Button></div>
+    <div className="zenith-card"><div style={{ display: 'flex', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
+      <Input placeholder="名称或编码" value={keyword} onChange={setKeyword} onEnterPress={applyFilters} style={{ width: 200 }}/>
+      <Select value={status} onChange={value => { setStatus(String(value)); setPage(1); }} style={{ width: 120 }} optionList={[{ label: '全部状态', value: '' }, { label: '启用', value: 'enabled' }, { label: '停用', value: 'disabled' }]}/>
+      <Input placeholder="开始 YYYY-MM-DD" value={startTime} onChange={setStartTime} style={{ width: 160 }}/>
+      <Input placeholder="结束 YYYY-MM-DD" value={endTime} onChange={setEndTime} style={{ width: 160 }}/>
+      <Button onClick={applyFilters}>查询</Button><Button onClick={() => { setKeyword(''); setSearch(''); setStatus(''); setStartTime(''); setEndTime(''); setRange({ startTime: '', endTime: '' }); setPage(1); }}>重置</Button>
+      {can('system:role:list') && <Button loading={exportCsv.isPending} onClick={() => exportCsv.mutate()}>导出 CSV</Button>}
+    </div>
+      {rows.isError && <p role="alert">{String(rows.error)}</p>}
       <Table<Role> rowKey="id" dataSource={rows.data?.list ?? []} loading={rows.isLoading} pagination={{ currentPage: page, pageSize: 10, total: rows.data?.total ?? 0, onPageChange: setPage }} columns={[
         { title: '角色', dataIndex: 'name' }, { title: '编码', dataIndex: 'code' }, { title: '数据范围', dataIndex: 'dataScope' }, { title: '用户数', dataIndex: 'userCount' }, { title: '状态', dataIndex: 'status', render: value => value === 'enabled' ? '启用' : '停用' },
         { title: '操作', render: (_, row) => <div style={{ display: 'flex', gap: 4 }}>{can('system:role:update') && <Button theme="borderless" onClick={() => edit(row)}>编辑</Button>}{can('system:role:assign') && <Button theme="borderless" onClick={() => { setAssigning(row); setMenuIds(row.menuIds ?? []); }}>菜单权限</Button>}{can('system:role:assign') && <Button theme="borderless" onClick={() => void openMembers(row)}>分配用户</Button>}{can('system:role:delete') && <Button theme="borderless" type="danger" onClick={() => Modal.confirm({ title: `删除角色「${row.name}」？`, onOk: () => remove.mutateAsync(row.id) })}>删除</Button>}</div> },

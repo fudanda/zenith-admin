@@ -41,6 +41,14 @@
       "audit": null
     },
     {
+      "id": "rolesExportCsv",
+      "method": "GET",
+      "path": "/api/v1/roles/export",
+      "permission": "system:role:list",
+      "platformOnly": false,
+      "audit": null
+    },
+    {
       "id": "operationLogsExportCsv",
       "method": "GET",
       "path": "/api/v1/operation-logs/export",

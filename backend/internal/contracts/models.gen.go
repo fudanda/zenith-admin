@@ -454,6 +454,24 @@ func (e PositionsUpdate200JSONResponseBodyCode) Valid() bool {
 	}
 }
 
+// Defines values for RolesExportCsvParamsStatus.
+const (
+	RolesExportCsvParamsStatusDisabled RolesExportCsvParamsStatus = "disabled"
+	RolesExportCsvParamsStatusEnabled  RolesExportCsvParamsStatus = "enabled"
+)
+
+// Valid indicates whether the value is a known member of the RolesExportCsvParamsStatus enum.
+func (e RolesExportCsvParamsStatus) Valid() bool {
+	switch e {
+	case RolesExportCsvParamsStatusDisabled:
+		return true
+	case RolesExportCsvParamsStatusEnabled:
+		return true
+	default:
+		return false
+	}
+}
+
 // FoundationError defines model for FoundationError.
 type FoundationError struct {
 	Code    int         `json:"code"`
@@ -768,6 +786,30 @@ type PositionsUpdateJSONBodyStatus string
 
 // PositionsUpdate200JSONResponseBodyCode defines parameters for PositionsUpdate.
 type PositionsUpdate200JSONResponseBodyCode float32
+
+// RolesExportCsvParams defines parameters for RolesExportCsv.
+type RolesExportCsvParams struct {
+	// Page 页码（从 1 开始）
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PageSize 每页数量，最大 200
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Keyword 按名称 / 编码模糊匹配
+	Keyword *string `form:"keyword,omitempty" json:"keyword,omitempty"`
+
+	// Status 状态；空 = 全部
+	Status *RolesExportCsvParamsStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// StartTime 创建时间起
+	StartTime *string `form:"startTime,omitempty" json:"startTime,omitempty"`
+
+	// EndTime 创建时间止
+	EndTime *string `form:"endTime,omitempty" json:"endTime,omitempty"`
+}
+
+// RolesExportCsvParamsStatus defines parameters for RolesExportCsv.
+type RolesExportCsvParamsStatus string
 
 // FilesRemoveBatchJSONRequestBody defines body for FilesRemoveBatch for application/json ContentType.
 type FilesRemoveBatchJSONRequestBody FilesRemoveBatchJSONBody

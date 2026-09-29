@@ -1233,6 +1233,190 @@
         }
       }
     },
+    "/api/v1/roles/export": {
+      "get": {
+        "operationId": "rolesExportCsv",
+        "summary": "按角色列表筛选导出 CSV",
+        "tags": [
+          "Roles"
+        ],
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "description": "页码（从 1 开始）",
+              "example": 1
+            },
+            "required": false,
+            "description": "页码（从 1 开始）",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 10,
+              "description": "每页数量，最大 200",
+              "example": 10
+            },
+            "required": false,
+            "description": "每页数量，最大 200",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "按名称 / 编码模糊匹配",
+              "x-filter": {
+                "kind": "keyword",
+                "fields": "名称 / 编码"
+              }
+            },
+            "required": false,
+            "description": "按名称 / 编码模糊匹配",
+            "name": "keyword",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "enabled",
+                "disabled"
+              ],
+              "description": "状态；空 = 全部",
+              "x-filter": {
+                "kind": "enum",
+                "values": [
+                  "enabled",
+                  "disabled"
+                ],
+                "dict": "common_status"
+              }
+            },
+            "required": false,
+            "description": "状态；空 = 全部",
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2}:\\d{2})?$",
+              "description": "创建时间起",
+              "example": "2026-08-01 00:00:00",
+              "x-filter": {
+                "kind": "date-bound",
+                "bound": "start"
+              }
+            },
+            "required": false,
+            "description": "创建时间起",
+            "name": "startTime",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2}:\\d{2})?$",
+              "description": "创建时间止",
+              "example": "2026-08-01 00:00:00",
+              "x-filter": {
+                "kind": "date-bound",
+                "bound": "end"
+              }
+            },
+            "required": false,
+            "description": "创建时间止",
+            "name": "endTime",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "文件下载",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/operation-logs/export": {
       "get": {
         "operationId": "operationLogsExportCsv",

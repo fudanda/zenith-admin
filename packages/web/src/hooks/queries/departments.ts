@@ -67,7 +67,7 @@ export function useDepartmentTreeSearch(params: DepartmentTreeParams, options?: 
 
 /** 扁平部门列表（用户穿梭框等场景共享缓存） */
 export function useFlatDepartments(options?: { enabled?: boolean }) {
-  return useApiQuery(departmentContract.flat, {
+  return useApiQuery(departmentContract.flat, { query: {} }, {
     select: (data) => (Array.isArray(data) ? data : []),
     staleTime: LOOKUP_STALE_TIME,
     enabled: options?.enabled ?? true,
