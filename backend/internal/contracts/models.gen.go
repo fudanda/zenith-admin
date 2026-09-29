@@ -538,6 +538,24 @@ func (e TenantsExportCsvParamsStatus) Valid() bool {
 	}
 }
 
+// Defines values for UsersExportCsvParamsStatus.
+const (
+	UsersExportCsvParamsStatusDisabled UsersExportCsvParamsStatus = "disabled"
+	UsersExportCsvParamsStatusEnabled  UsersExportCsvParamsStatus = "enabled"
+)
+
+// Valid indicates whether the value is a known member of the UsersExportCsvParamsStatus enum.
+func (e UsersExportCsvParamsStatus) Valid() bool {
+	switch e {
+	case UsersExportCsvParamsStatusDisabled:
+		return true
+	case UsersExportCsvParamsStatusEnabled:
+		return true
+	default:
+		return false
+	}
+}
+
 // BatchIdsBody defines model for BatchIdsBody.
 type BatchIdsBody struct {
 	Ids []int `json:"ids"`
@@ -929,6 +947,34 @@ type TenantsExportCsvParams struct {
 
 // TenantsExportCsvParamsStatus defines parameters for TenantsExportCsv.
 type TenantsExportCsvParamsStatus string
+
+// UsersExportCsvParams defines parameters for UsersExportCsv.
+type UsersExportCsvParams struct {
+	// Page 页码（从 1 开始）
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PageSize 每页数量，最大 200
+	PageSize *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+
+	// Keyword 按用户名 / 昵称 / 邮箱模糊匹配
+	Keyword *string `form:"keyword,omitempty" json:"keyword,omitempty"`
+
+	// Phone 按手机号模糊匹配
+	Phone        *string `form:"phone,omitempty" json:"phone,omitempty"`
+	DepartmentId *int    `form:"departmentId,omitempty" json:"departmentId,omitempty"`
+
+	// Status 状态；空 = 全部
+	Status *UsersExportCsvParamsStatus `form:"status,omitempty" json:"status,omitempty"`
+
+	// StartTime 创建时间起
+	StartTime *string `form:"startTime,omitempty" json:"startTime,omitempty"`
+
+	// EndTime 创建时间止
+	EndTime *string `form:"endTime,omitempty" json:"endTime,omitempty"`
+}
+
+// UsersExportCsvParamsStatus defines parameters for UsersExportCsv.
+type UsersExportCsvParamsStatus string
 
 // FilesRemoveBatchJSONRequestBody defines body for FilesRemoveBatch for application/json ContentType.
 type FilesRemoveBatchJSONRequestBody FilesRemoveBatchJSONBody

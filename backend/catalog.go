@@ -34,6 +34,7 @@ var foundationMenus = []foundationMenu{
 	{Name: "user_update", Title: "修改账号", Type: "button", Permission: "system:user:update", Sort: 322},
 	{Name: "user_delete", Title: "删除账号", Type: "button", Permission: "system:user:delete", Sort: 323},
 	{Name: "user_assign", Title: "分配账号权限", Type: "button", Permission: "system:user:assign", Sort: 324},
+	{Name: "user_export", Title: "导出账号", Type: "button", Permission: "system:user:export", Sort: 325},
 	{Name: "role_create", Title: "新增角色", Type: "button", Permission: "system:role:create", Sort: 331},
 	{Name: "role_update", Title: "修改角色", Type: "button", Permission: "system:role:update", Sort: 332},
 	{Name: "role_delete", Title: "删除角色", Type: "button", Permission: "system:role:delete", Sort: 333},

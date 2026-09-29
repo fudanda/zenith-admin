@@ -441,6 +441,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if tenantDepartment.Code != 200 {
 		t.Fatalf("create tenant department: %d %s", tenantDepartment.Code, tenantDepartment.Body.String())
 	}
+	tenantDepartmentID := int(read(tenantDepartment)["id"].(float64))
 	filteredDepartment := call("GET", "/api/v1/departments/flat?keyword="+tenantDepartmentCode+"&status=enabled", nil, cookie, "")
 	if filteredDepartment.Code != 200 || !strings.Contains(filteredDepartment.Body.String(), tenantDepartmentCode) || strings.Contains(filteredDepartment.Body.String(), platformDepartmentCode) {
 		t.Fatalf("department list filters: %d %s", filteredDepartment.Code, filteredDepartment.Body.String())
@@ -515,7 +516,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if err := json.Unmarshal(menuResponse.Body.Bytes(), &catalog); err != nil {
 		t.Fatal(err)
 	}
-	var listMenuID, createMenuID, userListMenuID int
+	var listMenuID, createMenuID, userListMenuID, userExportMenuID int
 	for _, item := range catalog.Data {
 		if item.Permission == "system:position:list" {
 			listMenuID = item.ID
@@ -526,8 +527,11 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		if item.Permission == "system:user:list" {
 			userListMenuID = item.ID
 		}
+		if item.Permission == "system:user:export" {
+			userExportMenuID = item.ID
+		}
 	}
-	if listMenuID == 0 || createMenuID == 0 || userListMenuID == 0 {
+	if listMenuID == 0 || createMenuID == 0 || userListMenuID == 0 || userExportMenuID == 0 {
 		t.Fatal("missing seeded position permissions")
 	}
 	assigned := call("PUT", fmt.Sprintf("/api/v1/roles/%d/menus", roleID), map[string]any{"menuIds": []int{listMenuID}}, cookie, csrf)
@@ -536,7 +540,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	}
 	memberName := fmt.Sprintf("member_%d", time.Now().UnixNano())
 	memberPassword := "tenant-member-password-123"
-	createdMember := call("POST", "/api/v1/users", map[string]any{"username": memberName, "nickname": "Tenant Member", "password": memberPassword, "status": "enabled", "roleIds": []int{roleID}}, cookie, csrf)
+	createdMember := call("POST", "/api/v1/users", map[string]any{"username": memberName, "nickname": "Tenant Member", "password": memberPassword, "email": "member@example.test", "phone": "13812345679", "departmentId": tenantDepartmentID, "status": "enabled", "roleIds": []int{roleID}}, cookie, csrf)
 	if createdMember.Code != 200 {
 		t.Fatalf("create member: %d %s", createdMember.Code, createdMember.Body.String())
 	}
@@ -571,6 +575,9 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if denied := call("DELETE", "/api/v1/tenant-packages/batch", map[string]any{"ids": []int{packageOneID}}, memberCookie, memberCSRF); denied.Code != 403 {
 		t.Fatalf("non-platform package delete accepted: %d %s", denied.Code, denied.Body.String())
 	}
+	if denied := call("GET", "/api/v1/users/export", nil, memberCookie, ""); denied.Code != 403 {
+		t.Fatalf("ungranted user export accepted: %d %s", denied.Code, denied.Body.String())
+	}
 	if allowed := call("GET", "/api/v1/positions", nil, memberCookie, ""); allowed.Code != 200 {
 		t.Fatalf("role list permission: %d %s", allowed.Code, allowed.Body.String())
 	}
@@ -592,7 +599,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if denied := call("GET", "/api/v1/positions", nil, memberCookie, ""); denied.Code != 403 {
 		t.Fatalf("disabled role still authorizes: %d", denied.Code)
 	}
-	directGrant := call("PUT", fmt.Sprintf("/api/v1/users/%d/menus", memberID), map[string]any{"menuIds": []int{listMenuID, userListMenuID}}, cookie, csrf)
+	directGrant := call("PUT", fmt.Sprintf("/api/v1/users/%d/menus", memberID), map[string]any{"menuIds": []int{listMenuID, userListMenuID, userExportMenuID}}, cookie, csrf)
 	if directGrant.Code != 200 {
 		t.Fatalf("direct menu grant: %d %s", directGrant.Code, directGrant.Body.String())
 	}
@@ -608,6 +615,38 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if selfList.Code != 200 || int(read(selfList)["total"].(float64)) != 1 {
 		t.Fatalf("self scope did not filter users: %d %s", selfList.Code, selfList.Body.String())
 	}
+	selfCSV := call("GET", "/api/v1/users/export?keyword="+memberName+"&phone=13812345679&status=enabled", nil, memberCookie, "")
+	if selfCSV.Code != 200 || !strings.HasPrefix(selfCSV.Header().Get("Content-Type"), "text/csv") {
+		t.Fatalf("user CSV response: %d %s", selfCSV.Code, selfCSV.Body.String())
+	}
+	userRows, err := csv.NewReader(strings.NewReader(strings.TrimPrefix(selfCSV.Body.String(), "\ufeff"))).ReadAll()
+	if err != nil || len(userRows) != 2 || userRows[1][1] != memberName || userRows[1][5] != "***" || userRows[1][6] != "***" || strings.Contains(selfCSV.Body.String(), "member@example.test") || strings.Contains(selfCSV.Body.String(), "13812345679") {
+		t.Fatalf("user CSV filtered/masked: %v %#v", err, userRows)
+	}
+	memberCreatedAt, err := time.Parse(time.RFC3339Nano, read(createdMember)["createdAt"].(string))
+	if err != nil {
+		t.Fatal(err)
+	}
+	userDay := memberCreatedAt.In(time.Local).Format("2006-01-02")
+	matched := call("GET", fmt.Sprintf("/api/v1/users/export?departmentId=%d&startTime=%s&endTime=%s&keyword=%s", tenantDepartmentID, userDay, userDay, memberName), nil, memberCookie, "")
+	if matched.Code != 200 || !strings.Contains(matched.Body.String(), memberName) {
+		t.Fatalf("user CSV department/date filter: %d %s", matched.Code, matched.Body.String())
+	}
+	if empty := call("GET", "/api/v1/users/export?departmentId=999999&keyword="+memberName, nil, memberCookie, ""); empty.Code != 200 || strings.Contains(empty.Body.String(), memberName) {
+		t.Fatalf("user CSV department filter ignored: %d %s", empty.Code, empty.Body.String())
+	}
+	if hidden := call("GET", "/api/v1/users/export?keyword="+otherName, nil, memberCookie, ""); hidden.Code != 200 || strings.Contains(hidden.Body.String(), otherName) {
+		t.Fatalf("self scope leaked another account: %d %s", hidden.Code, hidden.Body.String())
+	}
+	if hidden := call("GET", "/api/v1/users/export?keyword="+username, nil, cookie, ""); hidden.Code != 200 || strings.Contains(hidden.Body.String(), username) {
+		t.Fatalf("tenant CSV leaked platform account: %d %s", hidden.Code, hidden.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/users/export?startTime=bad-date", nil, memberCookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid user CSV date accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/users?status=unknown", nil, memberCookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid user list status accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
 	wideScope := call("PUT", fmt.Sprintf("/api/v1/users/%d/data-permission", memberID), map[string]any{"dataScope": "all", "deptScopeIds": []int{}}, cookie, csrf)
 	if wideScope.Code != 200 {
 		t.Fatalf("set direct data scope: %d %s", wideScope.Code, wideScope.Body.String())
@@ -615,6 +654,9 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	allList := call("GET", "/api/v1/users", nil, memberCookie, "")
 	if allList.Code != 200 || int(read(allList)["total"].(float64)) != 2 {
 		t.Fatalf("direct data scope not immediate: %d %s", allList.Code, allList.Body.String())
+	}
+	if visible := call("GET", "/api/v1/users/export?keyword="+otherName, nil, memberCookie, ""); visible.Code != 200 || !strings.Contains(visible.Body.String(), otherName) {
+		t.Fatalf("wide scope CSV omitted another account: %d %s", visible.Code, visible.Body.String())
 	}
 	removeDirectList := call("PUT", fmt.Sprintf("/api/v1/users/%d/menus", memberID), map[string]any{"menuIds": []int{userListMenuID}}, cookie, csrf)
 	if removeDirectList.Code != 200 {

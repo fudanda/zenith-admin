@@ -3,7 +3,9 @@ package zenith
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
+	"net/url"
 	"regexp"
 	"strings"
 	"time"
@@ -84,39 +86,21 @@ func (f *Framework) listUsers(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_page_size", err.Error())
 		return
 	}
-	query := f.Store.Client.User.Query().Where(userScope(p))
-	dataScope, err := f.userDataPredicate(r.Context(), p)
+	query, err := f.filteredUsers(r, p, q)
+	if errors.Is(err, errUserFilter) {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
+	}
 	if err != nil {
 		fail(w, 503, "database_unavailable", "数据权限查询失败")
 		return
-	}
-	if dataScope != nil {
-		query = query.Where(dataScope)
-	}
-	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
-		query = query.Where(user.Or(user.UsernameContainsFold(keyword), user.NicknameContainsFold(keyword)))
-	}
-	if status := q.Get("status"); status != "" {
-		if status != "enabled" && status != "disabled" {
-			fail(w, 400, "invalid_status", "状态无效")
-			return
-		}
-		query = query.Where(user.StatusEQ(status))
-	}
-	if raw := q.Get("departmentId"); raw != "" {
-		id, err := intParam(raw)
-		if err != nil {
-			fail(w, 400, "invalid_department", err.Error())
-			return
-		}
-		query = query.Where(user.DepartmentIDEQ(id))
 	}
 	total, err := query.Clone().Count(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
 	}
-	rows, err := query.Order(ent.Desc(user.FieldID)).Offset((page - 1) * size).Limit(size).All(r.Context())
+	rows, err := query.Offset((page - 1) * size).Limit(size).All(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
@@ -131,6 +115,55 @@ func (f *Framework) listUsers(w http.ResponseWriter, r *http.Request) {
 		list = append(list, view)
 	}
 	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
+}
+
+var errUserFilter = errors.New("账号筛选条件无效")
+
+func (f *Framework) filteredUsers(r *http.Request, p *principal, q url.Values) (*ent.UserQuery, error) {
+	query := f.Store.Client.User.Query().Where(userScope(p))
+	dataScope, err := f.userDataPredicate(r.Context(), p)
+	if err != nil {
+		return nil, err
+	}
+	if dataScope != nil {
+		query = query.Where(dataScope)
+	}
+	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
+		query = query.Where(user.Or(user.UsernameContainsFold(keyword), user.NicknameContainsFold(keyword), user.EmailContainsFold(keyword)))
+	}
+	if phone := strings.TrimSpace(q.Get("phone")); phone != "" {
+		query = query.Where(user.PhoneContains(phone))
+	}
+	if status := q.Get("status"); status != "" {
+		if status != "enabled" && status != "disabled" {
+			return nil, fmt.Errorf("%w: 状态无效", errUserFilter)
+		}
+		query = query.Where(user.StatusEQ(status))
+	}
+	if raw := q.Get("departmentId"); raw != "" {
+		id, err := intParam(raw)
+		if err != nil {
+			return nil, fmt.Errorf("%w: 部门 ID 无效", errUserFilter)
+		}
+		query = query.Where(user.DepartmentIDEQ(id))
+	}
+	for _, bound := range []struct {
+		key string
+		end bool
+	}{{"startTime", false}, {"endTime", true}} {
+		if raw := q.Get(bound.key); raw != "" {
+			value, err := parseFilterDateBound(raw, bound.end)
+			if err != nil {
+				return nil, fmt.Errorf("%w: %s", errUserFilter, err)
+			}
+			if bound.end {
+				query = query.Where(user.CreatedAtLTE(value))
+			} else {
+				query = query.Where(user.CreatedAtGTE(value))
+			}
+		}
+	}
+	return query.Order(ent.Desc(user.FieldID)), nil
 }
 
 func (f *Framework) getUser(w http.ResponseWriter, r *http.Request) {

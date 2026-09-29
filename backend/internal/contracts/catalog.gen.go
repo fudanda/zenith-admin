@@ -21,6 +21,7 @@ var Operations = map[string]Operation{
 	"tenantsExportCsv":          {Method: "GET", Path: "/api/v1/tenants/export", Permission: "platform", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
 	"tenantPackagesRemoveBatch": {Method: "DELETE", Path: "/api/v1/tenant-packages/batch", Permission: "platform", PlatformOnly: false, AuditModule: "租户套餐", AuditDescription: "批量删除套餐"},
 	"tenantPackagesRemove":      {Method: "DELETE", Path: "/api/v1/tenant-packages/{id}", Permission: "platform", PlatformOnly: false, AuditModule: "租户套餐", AuditDescription: "删除套餐"},
+	"usersExportCsv":            {Method: "GET", Path: "/api/v1/users/export", Permission: "system:user:export", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
 	"operationLogsExportCsv":    {Method: "GET", Path: "/api/v1/operation-logs/export", Permission: "system:log:operation", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
 	"positionsDetail":           {Method: "GET", Path: "/api/v1/positions/{id}", Permission: "system:position:list", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
 	"positionsCreate":           {Method: "POST", Path: "/api/v1/positions", Permission: "system:position:create", PlatformOnly: false, AuditModule: "岗位管理", AuditDescription: "创建岗位"},

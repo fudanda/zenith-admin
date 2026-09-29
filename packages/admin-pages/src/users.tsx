@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button, Input, Modal, Select, Table, Toast } from '@douyinfe/semi-ui';
 import { userContract, departmentContract, positionContract, menuContract, type User, type Department, type Position, type Menu } from '@zenith/shared/identity';
-import { operation } from '@zenith/admin-client';
+import { downloadOperation, operation } from '@zenith/admin-client';
 import { useAuth } from '@zenith/admin-core';
 import { PageHeader } from '@zenith/admin-ui';
 
@@ -11,12 +11,14 @@ type Form = { username:string;nickname:string;password:string;email:string;depar
 const empty:Form={username:'',nickname:'',password:'',email:'',departmentId:null,positionIds:[],status:'enabled'};
 
 export function UsersPage(){
-  const {can}=useAuth();const client=useQueryClient();const [page,setPage]=useState(1);const [keyword,setKeyword]=useState('');const [search,setSearch]=useState('');
+  const {can}=useAuth();const client=useQueryClient();const [page,setPage]=useState(1);const [keyword,setKeyword]=useState('');const [phone,setPhone]=useState('');const [departmentId,setDepartmentId]=useState<number|undefined>();const [status,setStatus]=useState('');const [startTime,setStartTime]=useState('');const [endTime,setEndTime]=useState('');
+  const [filters,setFilters]=useState({keyword:'',phone:'',departmentId:undefined as number|undefined,startTime:'',endTime:''});
   const [editing,setEditing]=useState<User|null>(null);const [open,setOpen]=useState(false);const [form,setForm]=useState<Form>(empty);
   const [resetUser,setResetUser]=useState<User|null>(null);const [newPassword,setNewPassword]=useState('');
   const [permissionUser,setPermissionUser]=useState<User|null>(null);const [directMenuIds,setDirectMenuIds]=useState<number[]>([]);
   const [scopeUser,setScopeUser]=useState<User|null>(null);const [dataScope,setDataScope]=useState<string|null>(null);const [deptScopeIds,setDeptScopeIds]=useState<number[]>([]);
-  const list=useQuery({queryKey:['users',page,search],queryFn:()=>operation<Paged>(userContract.list,{query:{page,pageSize:10,keyword:search}})});
+  const list=useQuery({queryKey:['users',page,filters,status],queryFn:()=>operation<Paged>(userContract.list,{query:{page,pageSize:10,...filters,status}})});
+  const exportCsv=useMutation({mutationFn:()=>downloadOperation(userContract.exportCsv,{query:{...filters,status}}),onSuccess:blob=>{const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='users.csv';link.click();window.setTimeout(()=>URL.revokeObjectURL(url),60_000);},onError:error=>Toast.error(String(error))});
   const departments=useQuery({queryKey:['departments'],queryFn:()=>operation<Department[]>(departmentContract.flat)});
   const positions=useQuery({queryKey:['positions-all'],queryFn:()=>operation<Position[]>(positionContract.all)});
   const menus=useQuery({queryKey:['menus-flat'],queryFn:()=>operation<Menu[]>(menuContract.flat),enabled:permissionUser!==null&&can('system:menu:list')});
@@ -32,7 +34,8 @@ export function UsersPage(){
   const saveScope=useMutation({mutationFn:()=>operation<null>(userContract.updateDataPermission,{id:scopeUser!.id,body:{dataScope,deptScopeIds:dataScope==='custom'?deptScopeIds:[]}}),onSuccess:()=>{setScopeUser(null);void client.invalidateQueries({queryKey:['user-data-permission']});Toast.success('数据范围已更新');},onError:error=>Toast.error(String(error))});
   const edit=(row:User)=>{setEditing(row);setForm({username:row.username,nickname:row.nickname,password:'',email:row.email??'',departmentId:row.departmentId??null,positionIds:row.positionIds??[],status:row.status});setOpen(true);};
   return <><PageHeader title="账号管理" description="维护管理员账号、部门与岗位" actions={can('system:user:create')?<Button theme="solid" onClick={()=>{setEditing(null);setForm(empty);setOpen(true);}}>新增账号</Button>:null}/>
-    <div className="zenith-card"><div style={{display:'flex',gap:8,marginBottom:16}}><Input placeholder="用户名或昵称" value={keyword} onChange={setKeyword} style={{width:220}} onEnterPress={()=>{setSearch(keyword);setPage(1);}}/><Button onClick={()=>{setSearch(keyword);setPage(1);}}>查询</Button></div>
+    <div className="zenith-card"><div style={{display:'flex',gap:8,marginBottom:16,flexWrap:'wrap'}}><Input placeholder="用户名、昵称或邮箱" value={keyword} onChange={setKeyword} style={{width:220}} onEnterPress={()=>{setFilters({keyword,phone,departmentId,startTime,endTime});setPage(1);}}/><Input placeholder="手机号" value={phone} onChange={setPhone} style={{width:150}}/><Select value={departmentId===undefined?'':String(departmentId)} onChange={value=>setDepartmentId(value===''?undefined:Number(value))} style={{width:150}} placeholder="全部部门" optionList={[{label:'全部部门',value:''},...(departments.data??[]).map(dept=>({label:dept.name,value:String(dept.id)}))]}/><Select value={status} onChange={value=>{setStatus(String(value));setPage(1);}} style={{width:120}} optionList={[{label:'全部状态',value:''},{label:'启用',value:'enabled'},{label:'停用',value:'disabled'}]}/><Input placeholder="开始 YYYY-MM-DD" value={startTime} onChange={setStartTime} style={{width:160}}/><Input placeholder="结束 YYYY-MM-DD" value={endTime} onChange={setEndTime} style={{width:160}}/><Button onClick={()=>{setFilters({keyword,phone,departmentId,startTime,endTime});setPage(1);}}>查询</Button><Button onClick={()=>{setKeyword('');setPhone('');setDepartmentId(undefined);setStatus('');setStartTime('');setEndTime('');setFilters({keyword:'',phone:'',departmentId:undefined,startTime:'',endTime:''});setPage(1);}}>重置</Button>{can('system:user:export')&&<Button loading={exportCsv.isPending} onClick={()=>exportCsv.mutate()}>导出 CSV</Button>}</div>
+      {list.isError&&<p role="alert">{String(list.error)}</p>}
       <Table<User> rowKey="id" dataSource={list.data?.list??[]} loading={list.isLoading} pagination={{currentPage:page,pageSize:10,total:list.data?.total??0,onPageChange:setPage}} columns={[
         {title:'用户名',dataIndex:'username'},{title:'昵称',dataIndex:'nickname'},{title:'部门',dataIndex:'departmentName',render:value=>value??'—'},{title:'状态',dataIndex:'status',render:value=>value==='enabled'?'启用':'停用'},
         {title:'操作',render:(_,row)=><div style={{display:'flex',gap:4,flexWrap:'wrap'}}>{can('system:user:update')&&<Button theme="borderless" onClick={()=>edit(row)}>编辑</Button>}{can('system:user:assign')&&<Button theme="borderless" onClick={()=>setPermissionUser(row)}>菜单授权</Button>}{can('system:user:assign')&&<Button theme="borderless" onClick={()=>setScopeUser(row)}>数据范围</Button>}{can('system:user:update')&&<Button theme="borderless" onClick={()=>setResetUser(row)}>重置密码</Button>}{can('system:user:delete')&&<Button theme="borderless" type="danger" onClick={()=>Modal.confirm({title:`删除账号「${row.username}」？`,onOk:()=>remove.mutateAsync(row.id)})}>删除</Button>}</div>},

@@ -87,6 +87,14 @@
       }
     },
     {
+      "id": "usersExportCsv",
+      "method": "GET",
+      "path": "/api/v1/users/export",
+      "permission": "system:user:export",
+      "platformOnly": false,
+      "audit": null
+    },
+    {
       "id": "operationLogsExportCsv",
       "method": "GET",
       "path": "/api/v1/operation-logs/export",

@@ -126,6 +126,7 @@ export const userContract = defineContract('/api/users', {
   alertRecipients: op.get('/alert-recipients', { access: { permission: ['alert:rule:create', 'alert:rule:update'] }, response: z.array(alertRecipientUserSchema), summary: '告警接收用户下拉项' }),
   all: op.get('/all', { access: { permission: 'system:user:list' }, response: z.array(userSchema), summary: '全量用户（供下拉框）' }),
   list: op.get('/', { access: { permission: 'system:user:list' }, query: userListQuery, response: paginated(userSchema), summary: '用户列表' }),
+  exportCsv: op.get('/export', { access: { permission: 'system:user:export' }, query: userListQuery, kind: 'csv', summary: '按账号列表筛选导出脱敏 CSV' }),
   create: op.post('/', { access: { permission: 'system:user:create' }, audit: '创建用户', body: createUserSchema, response: userSchema, summary: '创建用户' }),
   removeBatch: op.delete('/batch', { access: { permission: 'system:user:delete' }, audit: '批量删除用户', body: batchIdsBody, summary: '批量删除用户' }),
   batchStatus: op.put('/batch-status', { access: { permission: 'system:user:update' }, audit: '批量修改用户状态', body: batchUpdateUserStatusSchema, summary: '批量修改用户状态' }),
