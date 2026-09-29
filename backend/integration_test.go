@@ -153,7 +153,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if err := json.Unmarshal(menuResponse.Body.Bytes(), &catalog); err != nil {
 		t.Fatal(err)
 	}
-	var listMenuID, createMenuID int
+	var listMenuID, createMenuID, userListMenuID int
 	for _, item := range catalog.Data {
 		if item.Permission == "system:position:list" {
 			listMenuID = item.ID
@@ -161,8 +161,11 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		if item.Permission == "system:position:create" {
 			createMenuID = item.ID
 		}
+		if item.Permission == "system:user:list" {
+			userListMenuID = item.ID
+		}
 	}
-	if listMenuID == 0 || createMenuID == 0 {
+	if listMenuID == 0 || createMenuID == 0 || userListMenuID == 0 {
 		t.Fatal("missing seeded position permissions")
 	}
 	assigned := call("PUT", fmt.Sprintf("/api/v1/roles/%d/menus", roleID), map[string]any{"menuIds": []int{listMenuID}}, cookie, csrf)
@@ -175,6 +178,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if createdMember.Code != 200 {
 		t.Fatalf("create member: %d %s", createdMember.Code, createdMember.Body.String())
 	}
+	memberID := int(read(createdMember)["id"].(float64))
 	memberCaptcha := call("GET", "/api/v1/auth/captcha", nil, nil, "")
 	memberChallenge := read(memberCaptcha)
 	memberSVG, err := base64.StdEncoding.DecodeString(strings.TrimPrefix(memberChallenge["image"].(string), "data:image/svg+xml;base64,"))
@@ -219,6 +223,30 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	}
 	if denied := call("GET", "/api/v1/positions", nil, memberCookie, ""); denied.Code != 403 {
 		t.Fatalf("disabled role still authorizes: %d", denied.Code)
+	}
+	directGrant := call("PUT", fmt.Sprintf("/api/v1/users/%d/menus", memberID), map[string]any{"menuIds": []int{listMenuID, userListMenuID}}, cookie, csrf)
+	if directGrant.Code != 200 {
+		t.Fatalf("direct menu grant: %d %s", directGrant.Code, directGrant.Body.String())
+	}
+	if allowed := call("GET", "/api/v1/positions", nil, memberCookie, ""); allowed.Code != 200 {
+		t.Fatalf("direct grant not immediate: %d %s", allowed.Code, allowed.Body.String())
+	}
+	otherName := fmt.Sprintf("other_%d", time.Now().UnixNano())
+	other := call("POST", "/api/v1/users", map[string]any{"username": otherName, "nickname": "Other Tenant User", "password": "other-tenant-password-123", "status": "enabled"}, cookie, csrf)
+	if other.Code != 200 {
+		t.Fatalf("create second tenant user: %d %s", other.Code, other.Body.String())
+	}
+	selfList := call("GET", "/api/v1/users", nil, memberCookie, "")
+	if selfList.Code != 200 || int(read(selfList)["total"].(float64)) != 1 {
+		t.Fatalf("self scope did not filter users: %d %s", selfList.Code, selfList.Body.String())
+	}
+	wideScope := call("PUT", fmt.Sprintf("/api/v1/users/%d/data-permission", memberID), map[string]any{"dataScope": "all", "deptScopeIds": []int{}}, cookie, csrf)
+	if wideScope.Code != 200 {
+		t.Fatalf("set direct data scope: %d %s", wideScope.Code, wideScope.Body.String())
+	}
+	allList := call("GET", "/api/v1/users", nil, memberCookie, "")
+	if allList.Code != 200 || int(read(allList)["total"].(float64)) != 2 {
+		t.Fatalf("direct data scope not immediate: %d %s", allList.Code, allList.Body.String())
 	}
 	logout := call("POST", "/api/v1/auth/logout", map[string]any{}, cookie, csrf)
 	if logout.Code != 200 {
