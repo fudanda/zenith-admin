@@ -49,7 +49,8 @@ export const departmentTreeQuery = z.object({
 
 export const departmentContract = defineContract('/api/departments', {
   tree: op.get('/', { access: { permission: 'system:department:list' }, query: departmentTreeQuery, response: z.array(departmentSchema), summary: '部门树' }),
-  flat: op.get('/flat', { access: { permission: 'system:department:list' }, response: z.array(departmentSchema), summary: '部门扁平列表' }),
+  flat: op.get('/flat', { access: { permission: 'system:department:list' }, query: departmentTreeQuery, response: z.array(departmentSchema), summary: '部门扁平列表' }),
+  exportCsv: op.get('/export', { access: { permission: 'system:department:list' }, query: departmentTreeQuery, kind: 'csv', summary: '按部门列表筛选导出 CSV' }),
   detail: op.get('/{id}', { access: { permission: 'system:department:list' }, params: idParam, response: departmentSchema, summary: '部门详情' }),
   create: op.post('/', { access: { permission: 'system:department:create' }, audit: '创建部门', body: createDepartmentSchema, response: departmentSchema, summary: '创建部门' }),
   update: op.put('/{id}', { access: { permission: 'system:department:update' }, audit: '更新部门', params: idParam, body: updateDepartmentSchema, response: departmentSchema, summary: '更新部门' }),

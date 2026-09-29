@@ -7,6 +7,7 @@ import { positionContract } from '../packages/shared/src/identity/contracts/posi
 import { menuContract } from '../packages/shared/src/identity/contracts/menus';
 import { fileContract } from '../packages/shared/src/platform/contracts/files';
 import { loginLogContract } from '../packages/shared/src/identity/contracts/login-logs';
+import { departmentContract } from '../packages/shared/src/identity/contracts/departments';
 import { operationLogContract } from '../packages/shared/src/platform/contracts/operation-logs';
 import type { AnyOperation } from '../packages/shared/src/core/contract';
 
@@ -17,6 +18,7 @@ const selected: readonly [string, AnyOperation][] = [
   ['positionsList', positionContract.list],
   ['positionsExportCsv', positionContract.exportCsv],
   ['loginLogsExportCsv', loginLogContract.exportCsv],
+  ['departmentsExportCsv', departmentContract.exportCsv],
   ['operationLogsExportCsv', operationLogContract.exportCsv],
   ['positionsDetail', positionContract.detail],
   ['positionsCreate', positionContract.create],

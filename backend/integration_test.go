@@ -323,6 +323,15 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if detail := call("GET", fmt.Sprintf("/api/v1/positions/%d", positionID), nil, cookie, ""); detail.Code != 200 {
 		t.Fatalf("position detail: %d %s", detail.Code, detail.Body.String())
 	}
+	platformDepartmentCode := fmt.Sprintf("d%d", time.Now().UnixNano())
+	platformDepartment := call("POST", "/api/v1/departments", map[string]any{"name": "平台部门", "code": platformDepartmentCode}, cookie, csrf)
+	if platformDepartment.Code != 200 {
+		t.Fatalf("create platform department: %d %s", platformDepartment.Code, platformDepartment.Body.String())
+	}
+	platformDepartmentCSV := call("GET", "/api/v1/departments/export?keyword="+platformDepartmentCode, nil, cookie, "")
+	if platformDepartmentCSV.Code != 200 || !strings.Contains(platformDepartmentCSV.Body.String(), platformDepartmentCode) {
+		t.Fatalf("platform department CSV: %d %s", platformDepartmentCSV.Code, platformDepartmentCSV.Body.String())
+	}
 	tenantCode := fmt.Sprintf("t%d", time.Now().UnixNano())
 	createdTenant := call("POST", "/api/v1/tenants", map[string]any{"name": "测试租户", "code": tenantCode, "status": "enabled"}, cookie, csrf)
 	if createdTenant.Code != 201 {
@@ -338,6 +347,25 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	}
 	if hidden := call("GET", "/api/v1/positions/export?keyword="+code, nil, cookie, ""); hidden.Code != 200 || !strings.Contains(hidden.Body.String(), "岗位名称") || strings.Contains(hidden.Body.String(), code) {
 		t.Fatalf("cross tenant CSV leaked position: %d %s", hidden.Code, hidden.Body.String())
+	}
+	if hidden := call("GET", "/api/v1/departments/export?keyword="+platformDepartmentCode, nil, cookie, ""); hidden.Code != 200 || strings.Contains(hidden.Body.String(), platformDepartmentCode) {
+		t.Fatalf("cross tenant department CSV leaked: %d %s", hidden.Code, hidden.Body.String())
+	}
+	tenantDepartmentCode := fmt.Sprintf("td%d", time.Now().UnixNano())
+	tenantDepartment := call("POST", "/api/v1/departments", map[string]any{"name": "租户部门", "code": tenantDepartmentCode}, cookie, csrf)
+	if tenantDepartment.Code != 200 {
+		t.Fatalf("create tenant department: %d %s", tenantDepartment.Code, tenantDepartment.Body.String())
+	}
+	filteredDepartment := call("GET", "/api/v1/departments/flat?keyword="+tenantDepartmentCode+"&status=enabled", nil, cookie, "")
+	if filteredDepartment.Code != 200 || !strings.Contains(filteredDepartment.Body.String(), tenantDepartmentCode) || strings.Contains(filteredDepartment.Body.String(), platformDepartmentCode) {
+		t.Fatalf("department list filters: %d %s", filteredDepartment.Code, filteredDepartment.Body.String())
+	}
+	tenantDepartmentCSV := call("GET", "/api/v1/departments/export?keyword="+tenantDepartmentCode+"&status=enabled", nil, cookie, "")
+	if tenantDepartmentCSV.Code != 200 || !strings.Contains(tenantDepartmentCSV.Body.String(), tenantDepartmentCode) {
+		t.Fatalf("tenant department CSV: %d %s", tenantDepartmentCSV.Code, tenantDepartmentCSV.Body.String())
+	}
+	if invalid := call("GET", "/api/v1/departments/export?status=invalid", nil, cookie, ""); invalid.Code != 400 {
+		t.Fatalf("invalid department filter accepted: %d %s", invalid.Code, invalid.Body.String())
 	}
 	if hidden := call("GET", "/api/v1/operation-logs?module=positions", nil, cookie, ""); hidden.Code != 200 || read(hidden)["total"].(float64) != 0 {
 		t.Fatalf("cross tenant audit leaked: %d %s", hidden.Code, hidden.Body.String())

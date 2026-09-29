@@ -627,6 +627,7 @@ exports[`路由表快照 > 完整路由表保持不变 1`] = `
   "GET /api/departments",
   "GET /api/departments/:id",
   "GET /api/departments/:id/member-preview",
+  "GET /api/departments/export",
   "GET /api/departments/flat",
   "GET /api/deploy/releases",
   "GET /api/deploy/runs",

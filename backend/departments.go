@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"net/url"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/department"
@@ -76,8 +79,27 @@ func (f *Framework) departmentRows(r *http.Request, p *principal) ([]*ent.Depart
 	return f.Store.Client.Department.Query().Where(departmentScope(p)).Order(ent.Asc(department.FieldSort), ent.Asc(department.FieldID)).All(r.Context())
 }
 
+func (f *Framework) filteredDepartments(p *principal, q url.Values) (*ent.DepartmentQuery, error) {
+	query := f.Store.Client.Department.Query().Where(departmentScope(p))
+	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
+		query = query.Where(department.Or(department.NameContains(keyword), department.CodeContains(keyword)))
+	}
+	if status := q.Get("status"); status != "" {
+		if status != "enabled" && status != "disabled" {
+			return nil, errors.New("状态无效")
+		}
+		query = query.Where(department.StatusEQ(status))
+	}
+	return query.Order(ent.Asc(department.FieldSort), ent.Asc(department.FieldID)), nil
+}
+
 func (f *Framework) flatDepartments(w http.ResponseWriter, r *http.Request) {
-	rows, err := f.departmentRows(r, fromContext(r.Context()))
+	query, err := f.filteredDepartments(fromContext(r.Context()), r.URL.Query())
+	if err != nil {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
+	}
+	rows, err := query.All(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
@@ -92,6 +114,38 @@ func (f *Framework) flatDepartments(w http.ResponseWriter, r *http.Request) {
 		list = append(list, view)
 	}
 	respond(w, 200, list)
+}
+
+func (f *Framework) exportDepartmentsCSV(w http.ResponseWriter, r *http.Request) {
+	query, err := f.filteredDepartments(fromContext(r.Context()), r.URL.Query())
+	if err != nil {
+		fail(w, 400, "invalid_filter", err.Error())
+		return
+	}
+	streamCSV(w, "departments.csv", []string{"ID", "部门名称", "部门编码", "类别", "负责人", "电话", "状态", "创建时间"}, func(offset int) ([][]string, error) {
+		rows, err := query.Clone().Offset(offset).Limit(200).All(r.Context())
+		if err != nil {
+			return nil, err
+		}
+		result := make([][]string, 0, len(rows))
+		for _, row := range rows {
+			leaderName, phone := "", ""
+			if row.LeaderID != nil {
+				leader, err := f.Store.Client.User.Get(r.Context(), *row.LeaderID)
+				if err != nil && !ent.IsNotFound(err) {
+					return nil, err
+				}
+				if err == nil {
+					leaderName = leader.Nickname
+				}
+			}
+			if row.Phone != nil {
+				phone = *row.Phone
+			}
+			result = append(result, []string{strconv.Itoa(row.ID), row.Name, row.Code, row.Category, leaderName, phone, row.Status, row.CreatedAt.Format(time.RFC3339)})
+		}
+		return result, nil
+	})
 }
 
 func (f *Framework) treeDepartments(w http.ResponseWriter, r *http.Request) {

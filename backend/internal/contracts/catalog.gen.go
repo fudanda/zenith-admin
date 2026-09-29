@@ -15,6 +15,7 @@ var Operations = map[string]Operation{
 	"positionsList":          {Method: "GET", Path: "/api/v1/positions", Permission: "system:position:list", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
 	"positionsExportCsv":     {Method: "GET", Path: "/api/v1/positions/export", Permission: "system:position:list", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
 	"loginLogsExportCsv":     {Method: "GET", Path: "/api/v1/login-logs/export", Permission: "system:log:login", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
+	"departmentsExportCsv":   {Method: "GET", Path: "/api/v1/departments/export", Permission: "system:department:list", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
 	"operationLogsExportCsv": {Method: "GET", Path: "/api/v1/operation-logs/export", Permission: "system:log:operation", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
 	"positionsDetail":        {Method: "GET", Path: "/api/v1/positions/{id}", Permission: "system:position:list", PlatformOnly: false, AuditModule: "", AuditDescription: ""},
 	"positionsCreate":        {Method: "POST", Path: "/api/v1/positions", Permission: "system:position:create", PlatformOnly: false, AuditModule: "岗位管理", AuditDescription: "创建岗位"},

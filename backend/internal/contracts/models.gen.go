@@ -547,6 +547,13 @@ type UserPreview struct {
 	Nickname string  `json:"nickname"`
 }
 
+// DepartmentsExportCsvParams defines parameters for DepartmentsExportCsv.
+type DepartmentsExportCsvParams struct {
+	// Keyword 按按名称 / 编码过滤，命中节点保留其祖先链模糊匹配
+	Keyword *string `form:"keyword,omitempty" json:"keyword,omitempty"`
+	Status  *string `form:"status,omitempty" json:"status,omitempty"`
+}
+
 // FilesRemoveBatchJSONBody defines parameters for FilesRemoveBatch.
 type FilesRemoveBatchJSONBody struct {
 	Ids []openapi_types.UUID `json:"ids"`

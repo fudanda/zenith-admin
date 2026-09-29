@@ -33,6 +33,14 @@
       "audit": null
     },
     {
+      "id": "departmentsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/departments/export",
+      "permission": "system:department:list",
+      "platformOnly": false,
+      "audit": null
+    },
+    {
       "id": "operationLogsExportCsv",
       "method": "GET",
       "path": "/api/v1/operation-logs/export",

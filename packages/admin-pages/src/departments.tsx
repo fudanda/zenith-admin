@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button, Input, Modal, Select, Table, Toast } from '@douyinfe/semi-ui';
 import { departmentContract, type Department } from '@zenith/shared/identity';
-import { operation } from '@zenith/admin-client';
+import { downloadOperation, operation } from '@zenith/admin-client';
 import { useAuth } from '@zenith/admin-core';
 import { PageHeader } from '@zenith/admin-ui';
 
@@ -11,13 +11,22 @@ const empty:Form={parentId:0,name:'',code:'',category:'department',sort:0,status
 
 export function DepartmentsPage(){
   const {can}=useAuth();const client=useQueryClient();const [editing,setEditing]=useState<Department|null>(null);const [open,setOpen]=useState(false);const [form,setForm]=useState<Form>(empty);
-  const rows=useQuery({queryKey:['departments'],queryFn:()=>operation<Department[]>(departmentContract.flat)});
+  const [keyword,setKeyword]=useState('');const [search,setSearch]=useState('');const [status,setStatus]=useState('');
+  const rows=useQuery({queryKey:['departments',search,status],queryFn:()=>operation<Department[]>(departmentContract.flat,{query:{keyword:search,status}})});
+  const exportCsv=useMutation({mutationFn:()=>downloadOperation(departmentContract.exportCsv,{query:{keyword:search,status}}),onSuccess:blob=>{
+    const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='departments.csv';link.click();window.setTimeout(()=>URL.revokeObjectURL(url),60_000);
+  },onError:error=>Toast.error(String(error))});
   const save=useMutation({mutationFn:()=>editing?operation<Department>(departmentContract.update,{id:editing.id,body:form}):operation<Department>(departmentContract.create,{body:form}),
     onSuccess:()=>{setOpen(false);void client.invalidateQueries({queryKey:['departments']});Toast.success('保存成功');},onError:error=>Toast.error(String(error))});
   const remove=useMutation({mutationFn:(id:number)=>operation<null>(departmentContract.remove,{id}),onSuccess:()=>{void client.invalidateQueries({queryKey:['departments']});Toast.success('删除成功');},onError:error=>Toast.error(String(error))});
   const startEdit=(row:Department)=>{setEditing(row);setForm({parentId:row.parentId,name:row.name,code:row.code,category:row.category,sort:row.sort,status:row.status});setOpen(true);};
   return <><PageHeader title="部门管理" description="维护部门层级与负责人" actions={can('system:department:create')?<Button theme="solid" onClick={()=>{setEditing(null);setForm(empty);setOpen(true);}}>新增部门</Button>:null}/>
-    <div className="zenith-card"><Table<Department> rowKey="id" dataSource={rows.data??[]} loading={rows.isLoading} pagination={false} columns={[
+    <div className="zenith-card"><div style={{display:'flex',gap:8,marginBottom:16,flexWrap:'wrap'}}>
+      <Input placeholder="搜索名称 / 编码" value={keyword} onChange={setKeyword} onEnterPress={()=>setSearch(keyword)} style={{width:230}}/>
+      <Select value={status} onChange={value=>setStatus(String(value))} style={{width:130}} optionList={[{label:'全部状态',value:''},{label:'启用',value:'enabled'},{label:'停用',value:'disabled'}]}/>
+      <Button onClick={()=>setSearch(keyword)}>查询</Button><Button onClick={()=>{setKeyword('');setSearch('');setStatus('');}}>重置</Button>
+      {can('system:department:list')&&<Button loading={exportCsv.isPending} onClick={()=>exportCsv.mutate()}>导出 CSV</Button>}
+    </div><Table<Department> rowKey="id" dataSource={rows.data??[]} loading={rows.isLoading} pagination={false} columns={[
       {title:'部门名称',dataIndex:'name'},{title:'编码',dataIndex:'code'},{title:'上级部门',dataIndex:'parentId',render:value=>Number(value)===0?'根部门':rows.data?.find(item=>item.id===value)?.name??'—'},
       {title:'负责人',dataIndex:'leaderName',render:value=>value??'—'},{title:'成员',dataIndex:'userCount',render:value=>Number(value)},{title:'状态',dataIndex:'status',render:value=>value==='enabled'?'启用':'停用'},
       {title:'操作',render:(_,row)=><div style={{display:'flex',gap:8}}>{can('system:department:update')&&<Button theme="borderless" onClick={()=>startEdit(row)}>编辑</Button>}{can('system:department:delete')&&<Button theme="borderless" type="danger" onClick={()=>Modal.confirm({title:`删除部门「${row.name}」？`,onOk:()=>remove.mutateAsync(row.id)})}>删除</Button>}</div>},
