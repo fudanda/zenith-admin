@@ -538,6 +538,54 @@ func (e TenantsExportCsvParamsStatus) Valid() bool {
 	}
 }
 
+// Defines values for UsersRemoveBatch200JSONResponseBodyCode.
+const (
+	UsersRemoveBatch200JSONResponseBodyCodeN0 UsersRemoveBatch200JSONResponseBodyCode = 0
+)
+
+// Valid indicates whether the value is a known member of the UsersRemoveBatch200JSONResponseBodyCode enum.
+func (e UsersRemoveBatch200JSONResponseBodyCode) Valid() bool {
+	switch e {
+	case UsersRemoveBatch200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UsersBatchStatusJSONBodyStatus.
+const (
+	UsersBatchStatusJSONBodyStatusDisabled UsersBatchStatusJSONBodyStatus = "disabled"
+	UsersBatchStatusJSONBodyStatusEnabled  UsersBatchStatusJSONBodyStatus = "enabled"
+)
+
+// Valid indicates whether the value is a known member of the UsersBatchStatusJSONBodyStatus enum.
+func (e UsersBatchStatusJSONBodyStatus) Valid() bool {
+	switch e {
+	case UsersBatchStatusJSONBodyStatusDisabled:
+		return true
+	case UsersBatchStatusJSONBodyStatusEnabled:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UsersBatchStatus200JSONResponseBodyCode.
+const (
+	UsersBatchStatus200JSONResponseBodyCodeN0 UsersBatchStatus200JSONResponseBodyCode = 0
+)
+
+// Valid indicates whether the value is a known member of the UsersBatchStatus200JSONResponseBodyCode enum.
+func (e UsersBatchStatus200JSONResponseBodyCode) Valid() bool {
+	switch e {
+	case UsersBatchStatus200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for UsersExportCsvParamsStatus.
 const (
 	UsersExportCsvParamsStatusDisabled UsersExportCsvParamsStatus = "disabled"
@@ -948,6 +996,21 @@ type TenantsExportCsvParams struct {
 // TenantsExportCsvParamsStatus defines parameters for TenantsExportCsv.
 type TenantsExportCsvParamsStatus string
 
+// UsersRemoveBatch200JSONResponseBodyCode defines parameters for UsersRemoveBatch.
+type UsersRemoveBatch200JSONResponseBodyCode float32
+
+// UsersBatchStatusJSONBody defines parameters for UsersBatchStatus.
+type UsersBatchStatusJSONBody struct {
+	Ids    []int                          `json:"ids"`
+	Status UsersBatchStatusJSONBodyStatus `json:"status"`
+}
+
+// UsersBatchStatusJSONBodyStatus defines parameters for UsersBatchStatus.
+type UsersBatchStatusJSONBodyStatus string
+
+// UsersBatchStatus200JSONResponseBodyCode defines parameters for UsersBatchStatus.
+type UsersBatchStatus200JSONResponseBodyCode float32
+
 // UsersExportCsvParams defines parameters for UsersExportCsv.
 type UsersExportCsvParams struct {
 	// Page 页码（从 1 开始）
@@ -996,3 +1059,9 @@ type PositionsUpdateJSONRequestBody PositionsUpdateJSONBody
 
 // TenantPackagesRemoveBatchJSONRequestBody defines body for TenantPackagesRemoveBatch for application/json ContentType.
 type TenantPackagesRemoveBatchJSONRequestBody = BatchIdsBody
+
+// UsersRemoveBatchJSONRequestBody defines body for UsersRemoveBatch for application/json ContentType.
+type UsersRemoveBatchJSONRequestBody = BatchIdsBody
+
+// UsersBatchStatusJSONRequestBody defines body for UsersBatchStatus for application/json ContentType.
+type UsersBatchStatusJSONRequestBody UsersBatchStatusJSONBody

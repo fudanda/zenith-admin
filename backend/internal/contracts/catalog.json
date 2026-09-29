@@ -95,6 +95,28 @@
       "audit": null
     },
     {
+      "id": "usersRemoveBatch",
+      "method": "DELETE",
+      "path": "/api/v1/users/batch",
+      "permission": "system:user:delete",
+      "platformOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "批量删除用户"
+      }
+    },
+    {
+      "id": "usersBatchStatus",
+      "method": "PUT",
+      "path": "/api/v1/users/batch-status",
+      "permission": "system:user:update",
+      "platformOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "批量修改用户状态"
+      }
+    },
+    {
       "id": "operationLogsExportCsv",
       "method": "GET",
       "path": "/api/v1/operation-logs/export",

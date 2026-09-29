@@ -30,6 +30,8 @@ const selected: readonly [string, AnyOperation][] = [
   ['tenantPackagesRemoveBatch', tenantPackageContract.removeBatch],
   ['tenantPackagesRemove', tenantPackageContract.remove],
   ['usersExportCsv', userContract.exportCsv],
+  ['usersRemoveBatch', userContract.removeBatch],
+  ['usersBatchStatus', userContract.batchStatus],
   ['operationLogsExportCsv', operationLogContract.exportCsv],
   ['positionsDetail', positionContract.detail],
   ['positionsCreate', positionContract.create],

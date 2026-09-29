@@ -516,7 +516,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if err := json.Unmarshal(menuResponse.Body.Bytes(), &catalog); err != nil {
 		t.Fatal(err)
 	}
-	var listMenuID, createMenuID, userListMenuID, userExportMenuID int
+	var listMenuID, createMenuID, userListMenuID, userExportMenuID, userUpdateMenuID, userDeleteMenuID int
 	for _, item := range catalog.Data {
 		if item.Permission == "system:position:list" {
 			listMenuID = item.ID
@@ -530,8 +530,14 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 		if item.Permission == "system:user:export" {
 			userExportMenuID = item.ID
 		}
+		if item.Permission == "system:user:update" {
+			userUpdateMenuID = item.ID
+		}
+		if item.Permission == "system:user:delete" {
+			userDeleteMenuID = item.ID
+		}
 	}
-	if listMenuID == 0 || createMenuID == 0 || userListMenuID == 0 || userExportMenuID == 0 {
+	if listMenuID == 0 || createMenuID == 0 || userListMenuID == 0 || userExportMenuID == 0 || userUpdateMenuID == 0 || userDeleteMenuID == 0 {
 		t.Fatal("missing seeded position permissions")
 	}
 	assigned := call("PUT", fmt.Sprintf("/api/v1/roles/%d/menus", roleID), map[string]any{"menuIds": []int{listMenuID}}, cookie, csrf)
@@ -599,7 +605,7 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if denied := call("GET", "/api/v1/positions", nil, memberCookie, ""); denied.Code != 403 {
 		t.Fatalf("disabled role still authorizes: %d", denied.Code)
 	}
-	directGrant := call("PUT", fmt.Sprintf("/api/v1/users/%d/menus", memberID), map[string]any{"menuIds": []int{listMenuID, userListMenuID, userExportMenuID}}, cookie, csrf)
+	directGrant := call("PUT", fmt.Sprintf("/api/v1/users/%d/menus", memberID), map[string]any{"menuIds": []int{listMenuID, userListMenuID, userExportMenuID, userUpdateMenuID, userDeleteMenuID}}, cookie, csrf)
 	if directGrant.Code != 200 {
 		t.Fatalf("direct menu grant: %d %s", directGrant.Code, directGrant.Body.String())
 	}
@@ -610,6 +616,29 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	other := call("POST", "/api/v1/users", map[string]any{"username": otherName, "nickname": "Other Tenant User", "password": "other-tenant-password-123", "status": "enabled"}, cookie, csrf)
 	if other.Code != 200 {
 		t.Fatalf("create second tenant user: %d %s", other.Code, other.Body.String())
+	}
+	otherID := int(read(other)["id"].(float64))
+	otherChallenge := read(call("GET", "/api/v1/auth/captcha", nil, nil, ""))
+	otherSVG, err := base64.StdEncoding.DecodeString(strings.TrimPrefix(otherChallenge["image"].(string), "data:image/svg+xml;base64,"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	otherAnswer := regexp.MustCompile(`>([A-F0-9]{6})</text>`).FindSubmatch(otherSVG)
+	if len(otherAnswer) != 2 {
+		t.Fatal("other captcha missing answer")
+	}
+	otherLogin := call("POST", "/api/v1/auth/login", map[string]any{"username": otherName, "password": "other-tenant-password-123", "tenantCode": tenantCode, "captchaId": otherChallenge["captchaId"], "captchaAnswer": string(otherAnswer[1])}, nil, "")
+	if otherLogin.Code != 200 {
+		t.Fatalf("other login: %d %s", otherLogin.Code, otherLogin.Body.String())
+	}
+	var otherCookie *http.Cookie
+	for _, candidate := range otherLogin.Result().Cookies() {
+		if candidate.Name == "zenith_session" {
+			otherCookie = candidate
+		}
+	}
+	if otherCookie == nil {
+		t.Fatal("other session cookie missing")
 	}
 	selfList := call("GET", "/api/v1/users", nil, memberCookie, "")
 	if selfList.Code != 200 || int(read(selfList)["total"].(float64)) != 1 {
@@ -647,6 +676,15 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if invalid := call("GET", "/api/v1/users?status=unknown", nil, memberCookie, ""); invalid.Code != 400 {
 		t.Fatalf("invalid user list status accepted: %d %s", invalid.Code, invalid.Body.String())
 	}
+	if hidden := call("PUT", "/api/v1/users/batch-status", map[string]any{"ids": []int{otherID}, "status": "disabled"}, memberCookie, memberCSRF); hidden.Code != 404 {
+		t.Fatalf("batch status escaped self scope: %d %s", hidden.Code, hidden.Body.String())
+	}
+	if hidden := call("DELETE", "/api/v1/users/batch", map[string]any{"ids": []int{otherID}}, memberCookie, memberCSRF); hidden.Code != 404 {
+		t.Fatalf("batch delete escaped self scope: %d %s", hidden.Code, hidden.Body.String())
+	}
+	if protected := call("DELETE", "/api/v1/users/batch", map[string]any{"ids": []int{memberID}}, memberCookie, memberCSRF); protected.Code != 409 {
+		t.Fatalf("member deleted own account: %d %s", protected.Code, protected.Body.String())
+	}
 	wideScope := call("PUT", fmt.Sprintf("/api/v1/users/%d/data-permission", memberID), map[string]any{"dataScope": "all", "deptScopeIds": []int{}}, cookie, csrf)
 	if wideScope.Code != 200 {
 		t.Fatalf("set direct data scope: %d %s", wideScope.Code, wideScope.Body.String())
@@ -658,12 +696,53 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if visible := call("GET", "/api/v1/users/export?keyword="+otherName, nil, memberCookie, ""); visible.Code != 200 || !strings.Contains(visible.Body.String(), otherName) {
 		t.Fatalf("wide scope CSV omitted another account: %d %s", visible.Code, visible.Body.String())
 	}
+	if changed := call("PUT", "/api/v1/users/batch-status", map[string]any{"ids": []int{otherID}, "status": "disabled"}, memberCookie, memberCSRF); changed.Code != 200 {
+		t.Fatalf("wide scope batch status denied: %d %s", changed.Code, changed.Body.String())
+	}
+	if current := call("GET", fmt.Sprintf("/api/v1/users/%d", otherID), nil, cookie, ""); current.Code != 200 || read(current)["status"] != "disabled" {
+		t.Fatalf("batch status not applied: %d %s", current.Code, current.Body.String())
+	}
+	if revoked := call("GET", "/api/v1/auth/me", nil, otherCookie, ""); revoked.Code != 401 {
+		t.Fatalf("batch disable kept session valid: %d %s", revoked.Code, revoked.Body.String())
+	}
+	if restored := call("PUT", "/api/v1/users/batch-status", map[string]any{"ids": []int{otherID}, "status": "enabled"}, cookie, csrf); restored.Code != 200 {
+		t.Fatalf("batch status restore failed: %d %s", restored.Code, restored.Body.String())
+	}
+	if revoked := call("GET", "/api/v1/auth/me", nil, otherCookie, ""); revoked.Code != 401 {
+		t.Fatalf("batch re-enable restored revoked session: %d %s", revoked.Code, revoked.Body.String())
+	}
 	removeDirectList := call("PUT", fmt.Sprintf("/api/v1/users/%d/menus", memberID), map[string]any{"menuIds": []int{userListMenuID}}, cookie, csrf)
 	if removeDirectList.Code != 200 {
 		t.Fatalf("remove direct list: %d %s", removeDirectList.Code, removeDirectList.Body.String())
 	}
 	if denied := call("GET", "/api/v1/positions", nil, memberCookie, ""); denied.Code != 403 {
 		t.Fatalf("direct grant revocation delayed: %d", denied.Code)
+	}
+	if denied := call("PUT", "/api/v1/users/batch-status", map[string]any{"ids": []int{otherID}, "status": "disabled"}, memberCookie, memberCSRF); denied.Code != 403 {
+		t.Fatalf("batch permission revocation delayed: %d %s", denied.Code, denied.Body.String())
+	}
+	batchIDs := make([]int, 0, 2)
+	for index := 0; index < 2; index++ {
+		created := call("POST", "/api/v1/users", map[string]any{"username": fmt.Sprintf("batch_%d_%d", time.Now().UnixNano(), index), "nickname": "批量测试", "password": "batch-test-password-123", "status": "enabled"}, cookie, csrf)
+		if created.Code != 200 {
+			t.Fatalf("create batch target: %d %s", created.Code, created.Body.String())
+		}
+		batchIDs = append(batchIDs, int(read(created)["id"].(float64)))
+	}
+	if invalid := call("PUT", "/api/v1/users/batch-status", map[string]any{"ids": []int{batchIDs[0], batchIDs[0]}, "status": "disabled"}, cookie, csrf); invalid.Code != 400 {
+		t.Fatalf("duplicate batch IDs accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
+	if partial := call("DELETE", "/api/v1/users/batch", map[string]any{"ids": []int{batchIDs[0], 999999}}, cookie, csrf); partial.Code != 404 {
+		t.Fatalf("partial batch delete accepted: %d %s", partial.Code, partial.Body.String())
+	}
+	if preserved := call("GET", fmt.Sprintf("/api/v1/users/%d", batchIDs[0]), nil, cookie, ""); preserved.Code != 200 {
+		t.Fatalf("partial batch delete did not roll back: %d %s", preserved.Code, preserved.Body.String())
+	}
+	if removed := call("DELETE", "/api/v1/users/batch", map[string]any{"ids": batchIDs}, cookie, csrf); removed.Code != 200 {
+		t.Fatalf("batch delete failed: %d %s", removed.Code, removed.Body.String())
+	}
+	if missing := call("GET", fmt.Sprintf("/api/v1/users/%d", batchIDs[0]), nil, cookie, ""); missing.Code != 404 {
+		t.Fatalf("batch delete left account: %d %s", missing.Code, missing.Body.String())
 	}
 	groupRole := call("POST", "/api/v1/roles", map[string]any{"name": "用户组岗位角色", "code": "group_position_role", "status": "enabled", "dataScope": "self"}, cookie, csrf)
 	if groupRole.Code != 200 {
