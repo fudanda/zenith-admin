@@ -30,6 +30,7 @@ go run ./cmd/zenith serve
 
 `init-admin` 在终端安全读取密码，也支持从标准输入读取；不创建默认密码。生产默认给会话 Cookie 加 `Secure`，本地纯 HTTP 调试可显式设置 `ZENITH_INSECURE_COOKIES=true`。
 前端开发使用根目录的 `npm run dev:dash`，构建使用 `npm run build:dash`，产物写入 `backend/internal/dash/dist` 并随 Go 编译嵌入。访问 `/dash/`，健康检查为 `/api/v1/health` 与 `/api/v1/ready`。
+Go 宿主嵌入示例位于 `backend/examples/embed/main.go`，展示将 `Framework.Handler()` 挂到现有 HTTP 服务器并在停机时调用 `Shutdown()`；同样需要先运行迁移和初始化命令。
 
 本地 PostgreSQL 验证：设置 `ZENITH_TEST_DATABASE_URL` 指向独立测试库，在 `backend/` 执行 `go test -tags integration ./...`；CI 默认运行该测试，不用 Mock 替代数据库验收。
 核对已纳入的契约生成物：仓库根目录执行 `npm run check:foundation-contracts`；修改 shared 契约后依次执行 `npm run generate:foundation-contracts` 和 `npm run generate:foundation-go-models`，提交 `backend/internal/contracts/` 下的变更。
