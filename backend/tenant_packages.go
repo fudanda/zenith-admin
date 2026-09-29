@@ -40,7 +40,7 @@ func validatePackage(in packageInput) error {
 			continue
 		}
 		maxUsers, ok := value.(float64)
-		if !ok || maxUsers < 1 || math.Trunc(maxUsers) != maxUsers {
+		if !ok || maxUsers < 1 || math.Trunc(maxUsers) != maxUsers || maxUsers >= float64(math.MaxInt) {
 			return errors.New("最大用户数无效")
 		}
 	}

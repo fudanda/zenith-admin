@@ -36,7 +36,7 @@ func reserveTenantSeat(ctx context.Context, tx *ent.Tx, tenantID *int) error {
 		}
 		if raw, exists := pkg.Quotas["maxUsers"]; exists && raw != nil {
 			value, ok := raw.(float64)
-			if !ok || value < 1 || math.Trunc(value) != value || value > float64(math.MaxInt) {
+			if !ok || value < 1 || math.Trunc(value) != value || value >= float64(math.MaxInt) {
 				return errors.New("套餐用户数配额无效")
 			}
 			packageLimit := int(value)

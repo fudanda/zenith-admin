@@ -379,6 +379,9 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if invalid := call("POST", "/api/v1/tenant-packages", map[string]any{"name": "错误配额", "status": "enabled", "quotas": map[string]any{"maxUsers": -1}}, cookie, csrf); invalid.Code != 400 {
 		t.Fatalf("invalid package quota accepted: %d %s", invalid.Code, invalid.Body.String())
 	}
+	if invalid := call("POST", "/api/v1/tenant-packages", map[string]any{"name": "过大配额", "status": "enabled", "quotas": map[string]any{"maxUsers": 1e20}}, cookie, csrf); invalid.Code != 400 {
+		t.Fatalf("oversized package quota accepted: %d %s", invalid.Code, invalid.Body.String())
+	}
 	boundTenant := call("POST", "/api/v1/tenants", map[string]any{"name": "绑定套餐的租户", "code": tenantCode + "b", "status": "enabled", "packageId": packageOneID, "maxUsers": 2}, cookie, csrf)
 	if boundTenant.Code != 201 {
 		t.Fatalf("create package-bound tenant: %d %s", boundTenant.Code, boundTenant.Body.String())
