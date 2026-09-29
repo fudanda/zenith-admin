@@ -298,6 +298,9 @@ func (f *Framework) startMaintenance() {
 				if err := f.retryPendingFileDeletes(work); err != nil {
 					log.Printf("file maintenance: %v", err)
 				}
+				if err := f.cleanupExpiredUploads(work); err != nil {
+					log.Printf("upload maintenance: %v", err)
+				}
 				stop()
 			}
 		}

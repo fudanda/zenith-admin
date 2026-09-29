@@ -194,6 +194,20 @@ func (_u *UploadSessionUpdate) AddTotalChunks(v int) *UploadSessionUpdate {
 	return _u
 }
 
+// SetVisibility sets the "visibility" field.
+func (_u *UploadSessionUpdate) SetVisibility(v string) *UploadSessionUpdate {
+	_u.mutation.SetVisibility(v)
+	return _u
+}
+
+// SetNillableVisibility sets the "visibility" field if the given value is not nil.
+func (_u *UploadSessionUpdate) SetNillableVisibility(v *string) *UploadSessionUpdate {
+	if v != nil {
+		_u.SetVisibility(*v)
+	}
+	return _u
+}
+
 // SetStatus sets the "status" field.
 func (_u *UploadSessionUpdate) SetStatus(v string) *UploadSessionUpdate {
 	_u.mutation.SetStatus(v)
@@ -352,6 +366,9 @@ func (_u *UploadSessionUpdate) sqlSave(ctx context.Context) (_node int, err erro
 	}
 	if value, ok := _u.mutation.AddedTotalChunks(); ok {
 		_spec.AddField(uploadsession.FieldTotalChunks, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.Visibility(); ok {
+		_spec.SetField(uploadsession.FieldVisibility, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(uploadsession.FieldStatus, field.TypeString, value)
@@ -551,6 +568,20 @@ func (_u *UploadSessionUpdateOne) AddTotalChunks(v int) *UploadSessionUpdateOne 
 	return _u
 }
 
+// SetVisibility sets the "visibility" field.
+func (_u *UploadSessionUpdateOne) SetVisibility(v string) *UploadSessionUpdateOne {
+	_u.mutation.SetVisibility(v)
+	return _u
+}
+
+// SetNillableVisibility sets the "visibility" field if the given value is not nil.
+func (_u *UploadSessionUpdateOne) SetNillableVisibility(v *string) *UploadSessionUpdateOne {
+	if v != nil {
+		_u.SetVisibility(*v)
+	}
+	return _u
+}
+
 // SetStatus sets the "status" field.
 func (_u *UploadSessionUpdateOne) SetStatus(v string) *UploadSessionUpdateOne {
 	_u.mutation.SetStatus(v)
@@ -739,6 +770,9 @@ func (_u *UploadSessionUpdateOne) sqlSave(ctx context.Context) (_node *UploadSes
 	}
 	if value, ok := _u.mutation.AddedTotalChunks(); ok {
 		_spec.AddField(uploadsession.FieldTotalChunks, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.Visibility(); ok {
+		_spec.SetField(uploadsession.FieldVisibility, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Status(); ok {
 		_spec.SetField(uploadsession.FieldStatus, field.TypeString, value)

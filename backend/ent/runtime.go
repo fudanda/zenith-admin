@@ -370,16 +370,20 @@ func init() {
 	uploadsessionDescFileName := uploadsessionFields[4].Descriptor()
 	// uploadsession.FileNameValidator is a validator for the "file_name" field. It is called by the builders before save.
 	uploadsession.FileNameValidator = uploadsessionDescFileName.Validators[0].(func(string) error)
+	// uploadsessionDescVisibility is the schema descriptor for visibility field.
+	uploadsessionDescVisibility := uploadsessionFields[9].Descriptor()
+	// uploadsession.DefaultVisibility holds the default value on creation for the visibility field.
+	uploadsession.DefaultVisibility = uploadsessionDescVisibility.Default.(string)
 	// uploadsessionDescStatus is the schema descriptor for status field.
-	uploadsessionDescStatus := uploadsessionFields[9].Descriptor()
+	uploadsessionDescStatus := uploadsessionFields[10].Descriptor()
 	// uploadsession.DefaultStatus holds the default value on creation for the status field.
 	uploadsession.DefaultStatus = uploadsessionDescStatus.Default.(string)
 	// uploadsessionDescCreatedAt is the schema descriptor for created_at field.
-	uploadsessionDescCreatedAt := uploadsessionFields[11].Descriptor()
+	uploadsessionDescCreatedAt := uploadsessionFields[12].Descriptor()
 	// uploadsession.DefaultCreatedAt holds the default value on creation for the created_at field.
 	uploadsession.DefaultCreatedAt = uploadsessionDescCreatedAt.Default.(func() time.Time)
 	// uploadsessionDescUpdatedAt is the schema descriptor for updated_at field.
-	uploadsessionDescUpdatedAt := uploadsessionFields[12].Descriptor()
+	uploadsessionDescUpdatedAt := uploadsessionFields[13].Descriptor()
 	// uploadsession.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	uploadsession.DefaultUpdatedAt = uploadsessionDescUpdatedAt.Default.(func() time.Time)
 	// uploadsession.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.

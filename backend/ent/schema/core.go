@@ -320,7 +320,7 @@ func (UploadSession) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("id").MaxLen(64), field.Int("storage_config_id"), field.Int("tenant_id").Optional().Nillable(), field.Int("uploader_id"),
 		field.String("file_name").MaxLen(256), field.Int64("file_size"), field.String("mime_type").Optional().Nillable(),
-		field.Int64("chunk_size"), field.Int("total_chunks"), field.String("status").Default("uploading"),
+		field.Int64("chunk_size"), field.Int("total_chunks"), field.String("visibility").Default("public"), field.String("status").Default("uploading"),
 		field.Time("expires_at"), field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}
 }

@@ -357,6 +357,66 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if gone := call("GET", "/api/v1/files/"+privateID+"/private-content", nil, cookie, ""); gone.Code != 404 {
 		t.Fatalf("deleted file accessible: %d", gone.Code)
 	}
+	chunkBytes := bytes.Repeat([]byte("z"), 6*1024*1024)
+	started := call("POST", "/api/v1/files/upload/init", map[string]any{"fileName": "chunked.bin", "fileSize": len(chunkBytes), "chunkSize": 5 * 1024 * 1024, "visibility": "restricted"}, cookie, csrf)
+	if started.Code != 200 {
+		t.Fatalf("chunk init: %d %s", started.Code, started.Body.String())
+	}
+	uploadID := read(started)["uploadId"].(string)
+	for index := 0; index < 2; index++ {
+		start := index * 5 * 1024 * 1024
+		end := start + 5*1024*1024
+		if end > len(chunkBytes) {
+			end = len(chunkBytes)
+		}
+		var body bytes.Buffer
+		writer := multipart.NewWriter(&body)
+		_ = writer.WriteField("uploadId", uploadID)
+		_ = writer.WriteField("index", fmt.Sprint(index))
+		part, err := writer.CreateFormFile("chunk", "chunked.bin")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err := part.Write(chunkBytes[start:end]); err != nil {
+			t.Fatal(err)
+		}
+		if err := writer.Close(); err != nil {
+			t.Fatal(err)
+		}
+		req := httptest.NewRequest("POST", "http://zenith.test/api/v1/files/upload/chunk", &body)
+		req.Header.Set("Content-Type", writer.FormDataContentType())
+		req.Header.Set("Origin", "http://zenith.test")
+		req.Header.Set("X-CSRF-Token", csrf)
+		req.AddCookie(cookie)
+		response := httptest.NewRecorder()
+		handler.ServeHTTP(response, req)
+		if response.Code != 200 {
+			t.Fatalf("chunk %d: %d %s", index, response.Code, response.Body.String())
+		}
+	}
+	status := call("GET", "/api/v1/files/upload/"+uploadID+"/status", nil, cookie, "")
+	if status.Code != 200 || len(read(status)["received"].([]any)) != 2 {
+		t.Fatalf("chunk status: %d %s", status.Code, status.Body.String())
+	}
+	completed := call("POST", "/api/v1/files/upload/complete", map[string]any{"uploadId": uploadID}, cookie, csrf)
+	if completed.Code != 200 {
+		t.Fatalf("chunk complete: %d %s", completed.Code, completed.Body.String())
+	}
+	chunkedID := read(completed)["id"].(string)
+	if exposed := call("GET", "/api/v1/files/"+chunkedID+"/content", nil, nil, ""); exposed.Code != 404 {
+		t.Fatalf("chunked private file exposed: %d", exposed.Code)
+	}
+	if downloaded := call("GET", "/api/v1/files/"+chunkedID+"/private-content", nil, cookie, ""); downloaded.Code != 200 || !bytes.Equal(downloaded.Body.Bytes(), chunkBytes) {
+		t.Fatalf("chunked download: %d size %d", downloaded.Code, downloaded.Body.Len())
+	}
+	abortStart := call("POST", "/api/v1/files/upload/init", map[string]any{"fileName": "aborted.bin", "fileSize": 0, "chunkSize": 5 * 1024 * 1024}, cookie, csrf)
+	if abortStart.Code != 200 {
+		t.Fatalf("abort init: %d %s", abortStart.Code, abortStart.Body.String())
+	}
+	abortID := read(abortStart)["uploadId"].(string)
+	if aborted := call("DELETE", "/api/v1/files/upload/"+abortID, nil, cookie, csrf); aborted.Code != 200 {
+		t.Fatalf("abort upload: %d %s", aborted.Code, aborted.Body.String())
+	}
 	logout := call("POST", "/api/v1/auth/logout", map[string]any{}, cookie, csrf)
 	if logout.Code != 200 {
 		t.Fatalf("logout: %d %s", logout.Code, logout.Body.String())

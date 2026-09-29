@@ -15500,6 +15500,7 @@ type UploadSessionMutation struct {
 	addchunk_size        *int64
 	total_chunks         *int
 	addtotal_chunks      *int
+	visibility           *string
 	status               *string
 	expires_at           *time.Time
 	created_at           *time.Time
@@ -16049,6 +16050,42 @@ func (m *UploadSessionMutation) ResetTotalChunks() {
 	m.addtotal_chunks = nil
 }
 
+// SetVisibility sets the "visibility" field.
+func (m *UploadSessionMutation) SetVisibility(s string) {
+	m.visibility = &s
+}
+
+// Visibility returns the value of the "visibility" field in the mutation.
+func (m *UploadSessionMutation) Visibility() (r string, exists bool) {
+	v := m.visibility
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldVisibility returns the old "visibility" field's value of the UploadSession entity.
+// If the UploadSession object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UploadSessionMutation) OldVisibility(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldVisibility is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldVisibility requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldVisibility: %w", err)
+	}
+	return oldValue.Visibility, nil
+}
+
+// ResetVisibility resets all changes to the "visibility" field.
+func (m *UploadSessionMutation) ResetVisibility() {
+	m.visibility = nil
+}
+
 // SetStatus sets the "status" field.
 func (m *UploadSessionMutation) SetStatus(s string) {
 	m.status = &s
@@ -16227,7 +16264,7 @@ func (m *UploadSessionMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UploadSessionMutation) Fields() []string {
-	fields := make([]string, 0, 12)
+	fields := make([]string, 0, 13)
 	if m.storage_config_id != nil {
 		fields = append(fields, uploadsession.FieldStorageConfigID)
 	}
@@ -16251,6 +16288,9 @@ func (m *UploadSessionMutation) Fields() []string {
 	}
 	if m.total_chunks != nil {
 		fields = append(fields, uploadsession.FieldTotalChunks)
+	}
+	if m.visibility != nil {
+		fields = append(fields, uploadsession.FieldVisibility)
 	}
 	if m.status != nil {
 		fields = append(fields, uploadsession.FieldStatus)
@@ -16288,6 +16328,8 @@ func (m *UploadSessionMutation) Field(name string) (ent.Value, bool) {
 		return m.ChunkSize()
 	case uploadsession.FieldTotalChunks:
 		return m.TotalChunks()
+	case uploadsession.FieldVisibility:
+		return m.Visibility()
 	case uploadsession.FieldStatus:
 		return m.Status()
 	case uploadsession.FieldExpiresAt:
@@ -16321,6 +16363,8 @@ func (m *UploadSessionMutation) OldField(ctx context.Context, name string) (ent.
 		return m.OldChunkSize(ctx)
 	case uploadsession.FieldTotalChunks:
 		return m.OldTotalChunks(ctx)
+	case uploadsession.FieldVisibility:
+		return m.OldVisibility(ctx)
 	case uploadsession.FieldStatus:
 		return m.OldStatus(ctx)
 	case uploadsession.FieldExpiresAt:
@@ -16393,6 +16437,13 @@ func (m *UploadSessionMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTotalChunks(v)
+		return nil
+	case uploadsession.FieldVisibility:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetVisibility(v)
 		return nil
 	case uploadsession.FieldStatus:
 		v, ok := value.(string)
@@ -16584,6 +16635,9 @@ func (m *UploadSessionMutation) ResetField(name string) error {
 		return nil
 	case uploadsession.FieldTotalChunks:
 		m.ResetTotalChunks()
+		return nil
+	case uploadsession.FieldVisibility:
+		m.ResetVisibility()
 		return nil
 	case uploadsession.FieldStatus:
 		m.ResetStatus()

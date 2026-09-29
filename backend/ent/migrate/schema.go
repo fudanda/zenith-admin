@@ -477,6 +477,7 @@ var (
 		{Name: "mime_type", Type: field.TypeString, Nullable: true},
 		{Name: "chunk_size", Type: field.TypeInt64},
 		{Name: "total_chunks", Type: field.TypeInt},
+		{Name: "visibility", Type: field.TypeString, Default: "public"},
 		{Name: "status", Type: field.TypeString, Default: "uploading"},
 		{Name: "expires_at", Type: field.TypeTime},
 		{Name: "created_at", Type: field.TypeTime},
@@ -491,7 +492,7 @@ var (
 			{
 				Name:    "uploadsession_expires_at",
 				Unique:  false,
-				Columns: []*schema.Column{UploadSessionsColumns[10]},
+				Columns: []*schema.Column{UploadSessionsColumns[11]},
 			},
 			{
 				Name:    "uploadsession_uploader_id",

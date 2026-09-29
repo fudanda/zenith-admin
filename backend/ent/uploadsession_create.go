@@ -84,6 +84,20 @@ func (_c *UploadSessionCreate) SetTotalChunks(v int) *UploadSessionCreate {
 	return _c
 }
 
+// SetVisibility sets the "visibility" field.
+func (_c *UploadSessionCreate) SetVisibility(v string) *UploadSessionCreate {
+	_c.mutation.SetVisibility(v)
+	return _c
+}
+
+// SetNillableVisibility sets the "visibility" field if the given value is not nil.
+func (_c *UploadSessionCreate) SetNillableVisibility(v *string) *UploadSessionCreate {
+	if v != nil {
+		_c.SetVisibility(*v)
+	}
+	return _c
+}
+
 // SetStatus sets the "status" field.
 func (_c *UploadSessionCreate) SetStatus(v string) *UploadSessionCreate {
 	_c.mutation.SetStatus(v)
@@ -173,6 +187,10 @@ func (_c *UploadSessionCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *UploadSessionCreate) defaults() {
+	if _, ok := _c.mutation.Visibility(); !ok {
+		v := uploadsession.DefaultVisibility
+		_c.mutation.SetVisibility(v)
+	}
 	if _, ok := _c.mutation.Status(); !ok {
 		v := uploadsession.DefaultStatus
 		_c.mutation.SetStatus(v)
@@ -211,6 +229,9 @@ func (_c *UploadSessionCreate) check() error {
 	}
 	if _, ok := _c.mutation.TotalChunks(); !ok {
 		return &ValidationError{Name: "total_chunks", err: errors.New(`ent: missing required field "UploadSession.total_chunks"`)}
+	}
+	if _, ok := _c.mutation.Visibility(); !ok {
+		return &ValidationError{Name: "visibility", err: errors.New(`ent: missing required field "UploadSession.visibility"`)}
 	}
 	if _, ok := _c.mutation.Status(); !ok {
 		return &ValidationError{Name: "status", err: errors.New(`ent: missing required field "UploadSession.status"`)}
@@ -295,6 +316,10 @@ func (_c *UploadSessionCreate) createSpec() (*UploadSession, *sqlgraph.CreateSpe
 	if value, ok := _c.mutation.TotalChunks(); ok {
 		_spec.SetField(uploadsession.FieldTotalChunks, field.TypeInt, value)
 		_node.TotalChunks = value
+	}
+	if value, ok := _c.mutation.Visibility(); ok {
+		_spec.SetField(uploadsession.FieldVisibility, field.TypeString, value)
+		_node.Visibility = value
 	}
 	if value, ok := _c.mutation.Status(); ok {
 		_spec.SetField(uploadsession.FieldStatus, field.TypeString, value)

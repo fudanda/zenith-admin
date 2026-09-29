@@ -29,6 +29,8 @@ const (
 	FieldChunkSize = "chunk_size"
 	// FieldTotalChunks holds the string denoting the total_chunks field in the database.
 	FieldTotalChunks = "total_chunks"
+	// FieldVisibility holds the string denoting the visibility field in the database.
+	FieldVisibility = "visibility"
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
 	// FieldExpiresAt holds the string denoting the expires_at field in the database.
@@ -52,6 +54,7 @@ var Columns = []string{
 	FieldMimeType,
 	FieldChunkSize,
 	FieldTotalChunks,
+	FieldVisibility,
 	FieldStatus,
 	FieldExpiresAt,
 	FieldCreatedAt,
@@ -71,6 +74,8 @@ func ValidColumn(column string) bool {
 var (
 	// FileNameValidator is a validator for the "file_name" field. It is called by the builders before save.
 	FileNameValidator func(string) error
+	// DefaultVisibility holds the default value on creation for the "visibility" field.
+	DefaultVisibility string
 	// DefaultStatus holds the default value on creation for the "status" field.
 	DefaultStatus string
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
@@ -129,6 +134,11 @@ func ByChunkSize(opts ...sql.OrderTermOption) OrderOption {
 // ByTotalChunks orders the results by the total_chunks field.
 func ByTotalChunks(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldTotalChunks, opts...).ToFunc()
+}
+
+// ByVisibility orders the results by the visibility field.
+func ByVisibility(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldVisibility, opts...).ToFunc()
 }
 
 // ByStatus orders the results by the status field.

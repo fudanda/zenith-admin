@@ -104,6 +104,11 @@ func TotalChunks(v int) predicate.UploadSession {
 	return predicate.UploadSession(sql.FieldEQ(FieldTotalChunks, v))
 }
 
+// Visibility applies equality check predicate on the "visibility" field. It's identical to VisibilityEQ.
+func Visibility(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldEQ(FieldVisibility, v))
+}
+
 // Status applies equality check predicate on the "status" field. It's identical to StatusEQ.
 func Status(v string) predicate.UploadSession {
 	return predicate.UploadSession(sql.FieldEQ(FieldStatus, v))
@@ -512,6 +517,71 @@ func TotalChunksLT(v int) predicate.UploadSession {
 // TotalChunksLTE applies the LTE predicate on the "total_chunks" field.
 func TotalChunksLTE(v int) predicate.UploadSession {
 	return predicate.UploadSession(sql.FieldLTE(FieldTotalChunks, v))
+}
+
+// VisibilityEQ applies the EQ predicate on the "visibility" field.
+func VisibilityEQ(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldEQ(FieldVisibility, v))
+}
+
+// VisibilityNEQ applies the NEQ predicate on the "visibility" field.
+func VisibilityNEQ(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldNEQ(FieldVisibility, v))
+}
+
+// VisibilityIn applies the In predicate on the "visibility" field.
+func VisibilityIn(vs ...string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldIn(FieldVisibility, vs...))
+}
+
+// VisibilityNotIn applies the NotIn predicate on the "visibility" field.
+func VisibilityNotIn(vs ...string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldNotIn(FieldVisibility, vs...))
+}
+
+// VisibilityGT applies the GT predicate on the "visibility" field.
+func VisibilityGT(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldGT(FieldVisibility, v))
+}
+
+// VisibilityGTE applies the GTE predicate on the "visibility" field.
+func VisibilityGTE(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldGTE(FieldVisibility, v))
+}
+
+// VisibilityLT applies the LT predicate on the "visibility" field.
+func VisibilityLT(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldLT(FieldVisibility, v))
+}
+
+// VisibilityLTE applies the LTE predicate on the "visibility" field.
+func VisibilityLTE(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldLTE(FieldVisibility, v))
+}
+
+// VisibilityContains applies the Contains predicate on the "visibility" field.
+func VisibilityContains(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldContains(FieldVisibility, v))
+}
+
+// VisibilityHasPrefix applies the HasPrefix predicate on the "visibility" field.
+func VisibilityHasPrefix(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldHasPrefix(FieldVisibility, v))
+}
+
+// VisibilityHasSuffix applies the HasSuffix predicate on the "visibility" field.
+func VisibilityHasSuffix(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldHasSuffix(FieldVisibility, v))
+}
+
+// VisibilityEqualFold applies the EqualFold predicate on the "visibility" field.
+func VisibilityEqualFold(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldEqualFold(FieldVisibility, v))
+}
+
+// VisibilityContainsFold applies the ContainsFold predicate on the "visibility" field.
+func VisibilityContainsFold(v string) predicate.UploadSession {
+	return predicate.UploadSession(sql.FieldContainsFold(FieldVisibility, v))
 }
 
 // StatusEQ applies the EQ predicate on the "status" field.

@@ -33,6 +33,8 @@ type UploadSession struct {
 	ChunkSize int64 `json:"chunk_size,omitempty"`
 	// TotalChunks holds the value of the "total_chunks" field.
 	TotalChunks int `json:"total_chunks,omitempty"`
+	// Visibility holds the value of the "visibility" field.
+	Visibility string `json:"visibility,omitempty"`
 	// Status holds the value of the "status" field.
 	Status string `json:"status,omitempty"`
 	// ExpiresAt holds the value of the "expires_at" field.
@@ -51,7 +53,7 @@ func (*UploadSession) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case uploadsession.FieldStorageConfigID, uploadsession.FieldTenantID, uploadsession.FieldUploaderID, uploadsession.FieldFileSize, uploadsession.FieldChunkSize, uploadsession.FieldTotalChunks:
 			values[i] = new(sql.NullInt64)
-		case uploadsession.FieldID, uploadsession.FieldFileName, uploadsession.FieldMimeType, uploadsession.FieldStatus:
+		case uploadsession.FieldID, uploadsession.FieldFileName, uploadsession.FieldMimeType, uploadsession.FieldVisibility, uploadsession.FieldStatus:
 			values[i] = new(sql.NullString)
 		case uploadsession.FieldExpiresAt, uploadsession.FieldCreatedAt, uploadsession.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -125,6 +127,12 @@ func (_m *UploadSession) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field total_chunks", values[i])
 			} else if value.Valid {
 				_m.TotalChunks = int(value.Int64)
+			}
+		case uploadsession.FieldVisibility:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field visibility", values[i])
+			} else if value.Valid {
+				_m.Visibility = value.String
 			}
 		case uploadsession.FieldStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -213,6 +221,9 @@ func (_m *UploadSession) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("total_chunks=")
 	builder.WriteString(fmt.Sprintf("%v", _m.TotalChunks))
+	builder.WriteString(", ")
+	builder.WriteString("visibility=")
+	builder.WriteString(_m.Visibility)
 	builder.WriteString(", ")
 	builder.WriteString("status=")
 	builder.WriteString(_m.Status)

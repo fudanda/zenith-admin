@@ -202,9 +202,16 @@ func (f *Framework) uploadOne(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f *Framework) persistFile(ctx context.Context, p *principal, input io.Reader, rawName, visibility, trace string) (map[string]any, error) {
-	storage, err := f.defaultStorage(ctx)
-	if err != nil {
-		return nil, errors.New("无可用本地存储配置")
+	return f.persistFileWithLimit(ctx, p, input, rawName, visibility, trace, maxSingleUploadBytes, -1, nil, nil)
+}
+
+func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, input io.Reader, rawName, visibility, trace string, maxBytes, expected int64, storage *ent.FileStorageConfig, afterSave func(*ent.Tx) error) (map[string]any, error) {
+	if storage == nil {
+		var err error
+		storage, err = f.defaultStorage(ctx)
+		if err != nil {
+			return nil, errors.New("无可用本地存储配置")
+		}
 	}
 	root := storage.LocalRootPath
 	if err := os.MkdirAll(filepath.Join(root, ".tmp"), 0700); err != nil {
@@ -224,7 +231,7 @@ func (f *Framework) persistFile(ctx context.Context, p *principal, input io.Read
 		return nil, readErr
 	}
 	mimeType := http.DetectContentType(head[:n])
-	if _, err = io.Copy(io.MultiWriter(temp, hash), io.MultiReader(bytes.NewReader(head[:n]), io.LimitReader(input, maxSingleUploadBytes+1))); err != nil {
+	if _, err = io.Copy(io.MultiWriter(temp, hash), io.MultiReader(bytes.NewReader(head[:n]), io.LimitReader(input, maxBytes+1))); err != nil {
 		temp.Close()
 		return nil, err
 	}
@@ -233,9 +240,13 @@ func (f *Framework) persistFile(ctx context.Context, p *principal, input io.Read
 		temp.Close()
 		return nil, err
 	}
-	if size > maxSingleUploadBytes {
+	if size > maxBytes {
 		temp.Close()
-		return nil, errors.New("文件超过 100 MiB 上限，请使用分片上传")
+		return nil, errors.New("文件超过上传大小限制")
+	}
+	if expected >= 0 && size != expected {
+		temp.Close()
+		return nil, errors.New("合并后的文件大小与上传会话不一致")
 	}
 	if err := temp.Sync(); err != nil {
 		temp.Close()
@@ -276,7 +287,13 @@ func (f *Framework) persistFile(ctx context.Context, p *principal, input io.Read
 		if p.TenantID != nil {
 			audit.SetTenantID(*p.TenantID)
 		}
-		return audit.Exec(ctx)
+		if err := audit.Exec(ctx); err != nil {
+			return err
+		}
+		if afterSave != nil {
+			return afterSave(tx)
+		}
+		return nil
 	})
 	if err != nil {
 		_ = os.Remove(finalPath)
