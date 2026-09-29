@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Button, Input, Modal, Progress, Select, Table, Toast } from '@douyinfe/semi-ui';
 import { fileContract, type ManagedFile } from '@zenith/shared/platform';
-import { operation, request, uploadOne } from '@zenith/admin-client';
+import { downloadOperation, operation, request, uploadOne } from '@zenith/admin-client';
 import { useAuth } from '@zenith/admin-core';
 import { PageHeader } from '@zenith/admin-ui';
 
@@ -18,6 +18,11 @@ export function FilesPage() {
   const list = useQuery({ queryKey: ['files', page, search], queryFn: () => operation<Paged>(fileContract.list, { query: { page, pageSize: 10, keyword: search } }) });
   const remove = useMutation({ mutationFn: (id: string) => operation<null>(fileContract.remove, { params: { id } }), onSuccess: () => { void cache.invalidateQueries({ queryKey: ['files'] }); Toast.success('已删除'); }, onError: error => Toast.error(String(error)) });
   const removeBatch = useMutation({ mutationFn: () => operation<null>(fileContract.removeBatch, { body: { ids: selectedIds } }), onSuccess: () => { setSelectedIds([]); void cache.invalidateQueries({ queryKey: ['files'] }); Toast.success('已批量删除'); }, onError: error => Toast.error(String(error)) });
+  const downloadBatch = useMutation({ mutationFn: () => downloadOperation(fileContract.batchDownload, { ids: selectedIds }), onSuccess: blob => {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a'); link.href = url; link.download = 'zenith-files.zip'; link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  }, onError: error => Toast.error(String(error)) });
   const startUpload = async (file: File | undefined) => {
     if (!file) return;
     const controller = new AbortController(); uploadCancel.current = controller; setUploading(true); setProgress(0);
@@ -32,8 +37,8 @@ export function FilesPage() {
   };
   return <><PageHeader title="文件管理" description="本地文件上传、预览和访问控制" actions={can('system:file:upload') ? <div style={{ display: 'flex', gap: 8 }}><Select value={visibility} onChange={value => setVisibility(value as typeof visibility)} optionList={[{ label: '私有', value: 'restricted' }, { label: '公开', value: 'public' }]}/><input ref={input} type="file" hidden onChange={event => void startUpload(event.target.files?.[0])}/><Button theme="solid" loading={uploading} onClick={() => input.current?.click()}>上传文件</Button></div> : null}/>
     {progress !== null && <div className="zenith-card"><Progress percent={progress} showInfo/><Button onClick={() => uploadCancel.current?.abort()}>取消上传</Button></div>}
-    <div className="zenith-card"><div style={{ display: 'flex', gap: 8, marginBottom: 16 }}><Input placeholder="文件名或对象键" value={keyword} onChange={setKeyword} onEnterPress={() => { setSearch(keyword); setPage(1); }} style={{ width: 240 }}/><Button onClick={() => { setSearch(keyword); setPage(1); }}>查询</Button>{can('system:file:delete') && <Button type="danger" disabled={selectedIds.length === 0} loading={removeBatch.isPending} onClick={() => Modal.confirm({ title: `删除选中的 ${selectedIds.length} 个文件？`, content: '删除后无法恢复。', okType: 'danger', onOk: () => removeBatch.mutateAsync() })}>批量删除</Button>}</div>
-      <Table<ManagedFile> rowKey="id" dataSource={list.data?.list ?? []} loading={list.isLoading} rowSelection={can('system:file:delete') ? { selectedRowKeys: selectedIds, onChange: keys => setSelectedIds(keys as string[]) } : undefined} pagination={{ currentPage: page, pageSize: 10, total: list.data?.total ?? 0, onPageChange: setPage }} columns={[
+    <div className="zenith-card"><div style={{ display: 'flex', gap: 8, marginBottom: 16 }}><Input placeholder="文件名或对象键" value={keyword} onChange={setKeyword} onEnterPress={() => { setSearch(keyword); setPage(1); }} style={{ width: 240 }}/><Button onClick={() => { setSearch(keyword); setPage(1); }}>查询</Button>{can('system:file:list') && <Button disabled={selectedIds.length === 0} loading={downloadBatch.isPending} onClick={() => downloadBatch.mutate()}>批量下载</Button>}{can('system:file:delete') && <Button type="danger" disabled={selectedIds.length === 0} loading={removeBatch.isPending} onClick={() => Modal.confirm({ title: `删除选中的 ${selectedIds.length} 个文件？`, content: '删除后无法恢复。', okType: 'danger', onOk: () => removeBatch.mutateAsync() })}>批量删除</Button>}</div>
+      <Table<ManagedFile> rowKey="id" dataSource={list.data?.list ?? []} loading={list.isLoading} rowSelection={can('system:file:list') ? { selectedRowKeys: selectedIds, onChange: keys => setSelectedIds(keys as string[]) } : undefined} pagination={{ currentPage: page, pageSize: 10, total: list.data?.total ?? 0, onPageChange: setPage }} columns={[
         { title: '文件名', dataIndex: 'originalName' }, { title: '大小', dataIndex: 'size', render: value => `${(Number(value) / 1024).toFixed(1)} KiB` }, { title: '可见性', dataIndex: 'visibility', render: value => value === 'public' ? '公开' : '私有' }, { title: '上传人', dataIndex: 'uploaderName' },
         { title: '操作', render: (_, row) => <div style={{ display: 'flex', gap: 4 }}><Button theme="borderless" onClick={() => setPreview(row)}>预览</Button><Button theme="borderless" onClick={() => window.open(row.url, '_blank', 'noopener,noreferrer')}>下载</Button>{can('system:file:delete') && <Button theme="borderless" type="danger" onClick={() => Modal.confirm({ title: `删除文件「${row.originalName}」？`, onOk: () => remove.mutateAsync(row.id) })}>删除</Button>}</div> },
       ]}/></div>

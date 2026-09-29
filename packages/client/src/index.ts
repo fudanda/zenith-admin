@@ -29,6 +29,25 @@ export function operation<T>(op: { method: string; fullPath: string }, args: { i
   return request<T>(`${suffix}${search.size ? `?${search}` : ''}`, { method: op.method.toUpperCase(), body: args.body === undefined ? undefined : JSON.stringify(args.body) });
 }
 
+export async function downloadOperation(op: { method: string; fullPath: string }, body: unknown): Promise<Blob> {
+  const response = await fetch(op.fullPath.replace(/^\/api/, '/api/v1'), {
+    method: op.method.toUpperCase(),
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    try {
+      const envelope = await response.json() as Envelope<null>;
+      throw new ApiError(envelope.message || `下载失败 (${response.status})`, response.status);
+    } catch (error) {
+      if (error instanceof ApiError) throw error;
+      throw new ApiError(`下载失败 (${response.status})`, response.status);
+    }
+  }
+  return response.blob();
+}
+
 export function uploadOne<T>(file: File, visibility: 'public' | 'restricted', onProgress?: (percent: number) => void, signal?: AbortSignal): Promise<T> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();

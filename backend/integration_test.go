@@ -3,11 +3,13 @@
 package zenith
 
 import (
+	"archive/zip"
 	"bytes"
 	"context"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io"
 	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
@@ -639,13 +641,42 @@ func TestPostgresAuthPositionAndTenantIsolation(t *testing.T) {
 	if downloaded := call("GET", "/api/v1/files/"+chunkedID+"/private-content", nil, cookie, ""); downloaded.Code != 200 || !bytes.Equal(downloaded.Body.Bytes(), chunkBytes) {
 		t.Fatalf("chunked download: %d size %d", downloaded.Code, downloaded.Body.Len())
 	}
+	if denied := call("POST", "/api/v1/files/batch-download", map[string]any{"ids": []string{publicID}}, memberCookie, memberCSRF); denied.Code != 403 {
+		t.Fatalf("batch download bypassed permission: %d %s", denied.Code, denied.Body.String())
+	}
+	archiveUpload := upload("public", "archive.txt", message)
+	if archiveUpload.Code != 200 {
+		t.Fatalf("archive test upload: %d %s", archiveUpload.Code, archiveUpload.Body.String())
+	}
+	archiveID := read(archiveUpload)["id"].(string)
+	archiveResponse := call("POST", "/api/v1/files/batch-download", map[string]any{"ids": []string{archiveID, chunkedID}}, cookie, csrf)
+	if archiveResponse.Code != 200 || archiveResponse.Header().Get("Content-Type") != "application/zip" {
+		t.Fatalf("batch download: %d %s", archiveResponse.Code, archiveResponse.Body.String())
+	}
+	archive, err := zip.NewReader(bytes.NewReader(archiveResponse.Body.Bytes()), int64(archiveResponse.Body.Len()))
+	if err != nil || len(archive.File) != 2 {
+		t.Fatalf("batch ZIP invalid: %v", err)
+	}
+	for _, entry := range archive.File {
+		if entry.Name == "chunked.bin" {
+			reader, err := entry.Open()
+			if err != nil {
+				t.Fatal(err)
+			}
+			content, readErr := io.ReadAll(reader)
+			_ = reader.Close()
+			if readErr != nil || !bytes.Equal(content, chunkBytes) {
+				t.Fatalf("chunked ZIP content: %v", readErr)
+			}
+		}
+	}
 	if denied := call("DELETE", "/api/v1/files/batch", map[string]any{"ids": []string{publicID}}, memberCookie, memberCSRF); denied.Code != 403 {
 		t.Fatalf("batch file deletion bypassed permission: %d %s", denied.Code, denied.Body.String())
 	}
 	if duplicate := call("DELETE", "/api/v1/files/batch", map[string]any{"ids": []string{publicID, publicID}}, cookie, csrf); duplicate.Code != 400 {
 		t.Fatalf("duplicate batch file IDs accepted: %d %s", duplicate.Code, duplicate.Body.String())
 	}
-	if removed := call("DELETE", "/api/v1/files/batch", map[string]any{"ids": []string{publicID, chunkedID}}, cookie, csrf); removed.Code != 200 {
+	if removed := call("DELETE", "/api/v1/files/batch", map[string]any{"ids": []string{publicID, chunkedID, archiveID}}, cookie, csrf); removed.Code != 200 {
 		t.Fatalf("batch delete files: %d %s", removed.Code, removed.Body.String())
 	}
 	if gone := call("GET", "/api/v1/files/"+chunkedID+"/private-content", nil, cookie, ""); gone.Code != 404 {

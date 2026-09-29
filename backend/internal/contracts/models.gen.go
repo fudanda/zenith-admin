@@ -492,6 +492,11 @@ type FilesRemoveBatchJSONBody struct {
 // FilesRemoveBatch200JSONResponseBodyCode defines parameters for FilesRemoveBatch.
 type FilesRemoveBatch200JSONResponseBodyCode float32
 
+// FilesBatchDownloadJSONBody defines parameters for FilesBatchDownload.
+type FilesBatchDownloadJSONBody struct {
+	Ids []openapi_types.UUID `json:"ids"`
+}
+
 // MenusTree200JSONResponseBodyCode defines parameters for MenusTree.
 type MenusTree200JSONResponseBodyCode float32
 
@@ -628,6 +633,9 @@ type PositionsUpdate200JSONResponseBodyCode float32
 
 // FilesRemoveBatchJSONRequestBody defines body for FilesRemoveBatch for application/json ContentType.
 type FilesRemoveBatchJSONRequestBody FilesRemoveBatchJSONBody
+
+// FilesBatchDownloadJSONRequestBody defines body for FilesBatchDownload for application/json ContentType.
+type FilesBatchDownloadJSONRequestBody FilesBatchDownloadJSONBody
 
 // MenusCreateJSONRequestBody defines body for MenusCreate for application/json ContentType.
 type MenusCreateJSONRequestBody MenusCreateJSONBody

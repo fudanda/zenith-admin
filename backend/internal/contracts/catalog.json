@@ -125,6 +125,14 @@
         "description": "批量删除文件",
         "recordBody": false
       }
+    },
+    {
+      "id": "filesBatchDownload",
+      "method": "POST",
+      "path": "/api/v1/files/batch-download",
+      "permission": "system:file:list",
+      "platformOnly": false,
+      "audit": null
     }
   ]
 }

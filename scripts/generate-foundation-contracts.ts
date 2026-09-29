@@ -24,6 +24,7 @@ const selected: readonly [string, AnyOperation][] = [
   ['menusUpdate', menuContract.update],
   ['menusRemove', menuContract.remove],
   ['filesRemoveBatch', fileContract.removeBatch],
+  ['filesBatchDownload', fileContract.batchDownload],
 ];
 
 const registry = new OpenAPIRegistry();
@@ -52,7 +53,10 @@ const catalog = selected.map(([id, operation]) => {
   if (operation.params) request.params = operation.params;
   if (operation.query) request.query = operation.query;
   if (operation.body) request.body = { required: true, content: { 'application/json': { schema: operation.body } } };
-  const success = operation.method === 'post' ? 201 : 200;
+  const success = operation.kind === 'file' ? 200 : operation.method === 'post' ? 201 : 200;
+  const successResponse = operation.kind === 'file'
+    ? { description: 'ZIP 文件', content: { 'application/zip': { schema: z.string().meta({ format: 'binary' }) } } }
+    : { description: '成功', content: { 'application/json': { schema: z.object({ code: z.literal(0), message: z.string(), data: operation.response }) } } };
   registry.registerPath({
     method: operation.method,
     path,
@@ -62,10 +66,7 @@ const catalog = selected.map(([id, operation]) => {
     security: [{ SessionCookie: [], ...(write ? { CsrfToken: [] } : {}) }],
     ...(Object.keys(request).length ? { request } : {}),
     responses: {
-      [success]: {
-        description: '成功',
-        content: { 'application/json': { schema: z.object({ code: z.literal(0), message: z.string(), data: operation.response }) } },
-      },
+      [success]: successResponse,
       400: { description: '请求无效', content: { 'application/json': { schema: errorSchema } } },
       401: { description: '未登录', content: { 'application/json': { schema: errorSchema } } },
       403: { description: '无权限或 CSRF 校验失败', content: { 'application/json': { schema: errorSchema } } },

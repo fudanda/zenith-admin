@@ -1,6 +1,7 @@
 package zenith
 
 import (
+	"archive/zip"
 	"bytes"
 	"context"
 	"crypto/sha256"
@@ -8,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -518,6 +520,96 @@ func (f *Framework) deleteFilesBatch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	respond(w, 200, nil)
+}
+
+func (f *Framework) downloadFilesBatch(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		IDs []string `json:"ids"`
+	}
+	if err := decode(r, &body); err != nil || len(body.IDs) == 0 || len(body.IDs) > 100 {
+		fail(w, 400, "invalid_request", "文件 ID 列表无效")
+		return
+	}
+	ids := make([]uuid.UUID, 0, len(body.IDs))
+	seen := map[uuid.UUID]bool{}
+	for _, raw := range body.IDs {
+		id, err := uuid.Parse(raw)
+		if err != nil || seen[id] {
+			fail(w, 400, "invalid_id", "文件 ID 无效或重复")
+			return
+		}
+		seen[id] = true
+		ids = append(ids, id)
+	}
+	p := fromContext(r.Context())
+	rows, err := f.Store.Client.ManagedFile.Query().Where(managedfile.IDIn(ids...), fileScope(p), managedfile.DeletePending(false)).All(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "查询失败")
+		return
+	}
+	if len(rows) != len(ids) {
+		fail(w, 404, "not_found", "部分文件不存在或不在当前租户")
+		return
+	}
+	byID := make(map[uuid.UUID]*ent.ManagedFile, len(rows))
+	for _, row := range rows {
+		byID[row.ID] = row
+	}
+	type source struct {
+		file *os.File
+		name string
+	}
+	sources := make([]source, 0, len(ids))
+	defer func() {
+		for _, item := range sources {
+			_ = item.file.Close()
+		}
+	}()
+	names := map[string]int{}
+	for _, id := range ids {
+		row := byID[id]
+		storage, err := f.Store.Client.FileStorageConfig.Get(r.Context(), row.StorageConfigID)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "存储不可用")
+			return
+		}
+		root, err := os.OpenRoot(storage.LocalRootPath)
+		if err != nil {
+			fail(w, 503, "storage_unavailable", "存储不可用")
+			return
+		}
+		file, openErr := root.Open(row.ObjectKey)
+		_ = root.Close()
+		if openErr != nil {
+			fail(w, 503, "storage_unavailable", "文件读取失败")
+			return
+		}
+		name := cleanFileName(row.OriginalName)
+		names[name]++
+		if names[name] > 1 {
+			name = fmt.Sprintf("%d_%s", names[name], name)
+		}
+		sources = append(sources, source{file: file, name: name})
+	}
+	w.Header().Set("Content-Type", "application/zip")
+	w.Header().Set("Content-Disposition", "attachment; filename=zenith-files.zip")
+	w.Header().Set("Cache-Control", "private, no-store")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	archive := zip.NewWriter(w)
+	for _, item := range sources {
+		entry, err := archive.Create(item.name)
+		if err != nil {
+			log.Printf("batch download zip header: %v", err)
+			return
+		}
+		if _, err := io.Copy(entry, item.file); err != nil {
+			log.Printf("batch download read: %v", err)
+			return
+		}
+	}
+	if err := archive.Close(); err != nil {
+		log.Printf("batch download close: %v", err)
+	}
 }
 
 func (f *Framework) removePendingFile(ctx context.Context, row *ent.ManagedFile) error {

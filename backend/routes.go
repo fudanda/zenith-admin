@@ -121,6 +121,19 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{Method: "GET", Path: "/api/v1/files/{id}", OperationID: "filesDetail", Permission: "system:file:list", Handler: http.HandlerFunc(f.getFile)},
 		{Method: "DELETE", Path: "/api/v1/files/{id}", OperationID: "filesRemove", Permission: "system:file:delete", Handler: http.HandlerFunc(f.deleteFile)},
 	}
+	// GoFr matches the earlier parameter route before a later literal route.
+	// Register file collection actions first so /files/batch is not parsed as {id}.
+	for _, bound := range []struct {
+		id      string
+		handler http.Handler
+	}{
+		{"filesRemoveBatch", http.HandlerFunc(f.deleteFilesBatch)},
+		{"filesBatchDownload", http.HandlerFunc(f.downloadFilesBatch)},
+	} {
+		if err := r.registerContract(bound.id, bound.handler); err != nil {
+			return err
+		}
+	}
 	for _, route := range routes {
 		if err := r.Register(route); err != nil {
 			return err
@@ -142,7 +155,6 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{"menusCreate", http.HandlerFunc(f.saveMenu)},
 		{"menusUpdate", http.HandlerFunc(f.saveMenu)},
 		{"menusRemove", http.HandlerFunc(f.deleteMenu)},
-		{"filesRemoveBatch", http.HandlerFunc(f.deleteFilesBatch)},
 	} {
 		if err := r.registerContract(bound.id, bound.handler); err != nil {
 			return err
