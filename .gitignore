@@ -13,6 +13,9 @@ docs/.vitepress/cache/
 docs/.vitepress/dist/
 **/storage/backups/
 **/storage/local/
+!/backend/internal/storage/local/
+/backend/internal/storage/local/*
+!/backend/internal/storage/local/*.go
 **/storage/tmp/
 **/storage/cms-static/
 **/coverage/

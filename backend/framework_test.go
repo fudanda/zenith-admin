@@ -4,9 +4,11 @@ import (
 	"context"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
-	gofrhttp "gofr.dev/pkg/gofr/http"
+	"github.com/fudanda/zenith-admin/backend/internal/modules/organization/positions"
+	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
 )
 
 type testModule struct {
@@ -30,17 +32,45 @@ func TestModuleOrderAndCycle(t *testing.T) {
 }
 
 func TestRegistrarRejectsDuplicateAndMissingPermission(t *testing.T) {
-	reg := &Registrar{routes: map[string]bool{}, operations: map[string]bool{}, router: nil, guard: func(route Route) http.Handler { return route.Handler }}
+	reg := httptransport.NewRegistrar(func(route Route) http.Handler { return route.Handler })
 	if err := reg.Register(Route{Method: "GET", Path: "/api/v1/x", OperationID: "x", Handler: http.HandlerFunc(func(http.ResponseWriter, *http.Request) {})}); err == nil {
 		t.Fatal("unprotected route accepted")
+	}
+	handler := http.HandlerFunc(func(http.ResponseWriter, *http.Request) {})
+	if err := reg.Register(Route{Method: "GET", Path: "/api/v1/x", OperationID: "x", Public: true, Handler: handler}); err != nil {
+		t.Fatal(err)
+	}
+	for _, route := range []Route{
+		{Method: "GET", Path: "/api/v1/x", OperationID: "other", Public: true, Handler: handler},
+		{Method: "GET", Path: "/api/v1/other", OperationID: "x", Public: true, Handler: handler},
+	} {
+		if err := reg.Register(route); err == nil {
+			t.Fatal("duplicate route/operation accepted")
+		}
+	}
+	reg.Seal()
+	if err := reg.Register(Route{Method: "GET", Path: "/api/v1/late", OperationID: "late", Public: true, Handler: handler}); err == nil {
+		t.Fatal("registration remained open")
+	}
+}
+
+func TestInvalidModulesRejectedBeforeOpeningDatabase(t *testing.T) {
+	_, err := New(context.Background(), Config{Modules: []Module{testModule{name: "broken", dependencies: []string{"missing"}}}})
+	if err == nil || !strings.Contains(err.Error(), "missing module dependency") {
+		t.Fatalf("invalid module reached database initialization: %v", err)
 	}
 }
 
 func TestGoFrRoutesHealthAndUnknownAPI(t *testing.T) {
 	f := &Framework{}
-	router := gofrhttp.NewRouter()
-	reg := &Registrar{routes: map[string]bool{}, operations: map[string]bool{}, router: router, guard: f.guard}
+	reg := httptransport.NewRegistrar(f.guard)
 	if err := f.registerCore(reg); err != nil {
+		t.Fatal(err)
+	}
+	if err := positions.NewModule(f.positionHandler()).Initialize(context.Background(), reg); err != nil {
+		t.Fatal(err)
+	}
+	if err := reg.VerifyContracts(); err != nil {
 		t.Fatal(err)
 	}
 	for _, tc := range []struct {
@@ -48,7 +78,7 @@ func TestGoFrRoutesHealthAndUnknownAPI(t *testing.T) {
 		status int
 	}{{"/api/v1/health", 503}, {"/api/v1/missing", 404}, {"/dash", 404}, {"/dash/system/positions", 404}} {
 		response := httptest.NewRecorder()
-		router.ServeHTTP(response, httptest.NewRequest(http.MethodGet, tc.path, nil))
+		reg.Handler().ServeHTTP(response, httptest.NewRequest(http.MethodGet, tc.path, nil))
 		if response.Code != tc.status {
 			t.Errorf("%s: got %d, want %d", tc.path, response.Code, tc.status)
 		}

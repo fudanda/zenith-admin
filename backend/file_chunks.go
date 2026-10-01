@@ -17,6 +17,7 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/predicate"
 	"github.com/fudanda/zenith-admin/backend/ent/uploadchunk"
 	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
+	"github.com/fudanda/zenith-admin/backend/internal/storage"
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 )
@@ -140,7 +141,7 @@ func (f *Framework) uploadChunk(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_upload", "上传会话无效")
 		return
 	}
-	root, err := os.OpenRoot(storage.LocalRootPath)
+	root, err := f.fileStorage().OpenRoot(storage.LocalRootPath)
 	if err != nil {
 		fail(w, 503, "storage_unavailable", "存储不可用")
 		return
@@ -224,7 +225,7 @@ func (f *Framework) uploadChunk(w http.ResponseWriter, r *http.Request) {
 	respond(w, 200, map[string]any{"index": index, "receivedCount": count})
 }
 
-func hashFile(root *os.Root, name string) (string, error) {
+func hashFile(root storage.Root, name string) (string, error) {
 	file, err := root.Open(name)
 	if err != nil {
 		return "", err
@@ -336,7 +337,7 @@ func (f *Framework) uploadComplete(w http.ResponseWriter, r *http.Request) {
 		fail(w, 500, "invalid_storage_key", "分片路径无效")
 		return
 	}
-	root, err := os.OpenRoot(storage.LocalRootPath)
+	root, err := f.fileStorage().OpenRoot(storage.LocalRootPath)
 	if err != nil {
 		fail(w, 503, "storage_unavailable", "存储不可用")
 		return
@@ -436,7 +437,7 @@ func (f *Framework) uploadAbort(w http.ResponseWriter, r *http.Request) {
 	storage, err := f.Store.Client.FileStorageConfig.Get(r.Context(), session.StorageConfigID)
 	if err == nil {
 		if key, pathErr := uploadPartsKey(id); pathErr == nil {
-			if root, openErr := os.OpenRoot(storage.LocalRootPath); openErr == nil {
+			if root, openErr := f.fileStorage().OpenRoot(storage.LocalRootPath); openErr == nil {
 				_ = root.RemoveAll(key)
 				root.Close()
 			}
@@ -459,7 +460,7 @@ func (f *Framework) cleanupExpiredUploads(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
-		root, err := os.OpenRoot(storage.LocalRootPath)
+		root, err := f.fileStorage().OpenRoot(storage.LocalRootPath)
 		if err != nil {
 			return err
 		}
@@ -477,7 +478,7 @@ func (f *Framework) cleanupExpiredUploads(ctx context.Context) error {
 		return err
 	}
 	for _, config := range configs {
-		root, err := os.OpenRoot(config.LocalRootPath)
+		root, err := f.fileStorage().OpenRoot(config.LocalRootPath)
 		if err != nil {
 			return err
 		}

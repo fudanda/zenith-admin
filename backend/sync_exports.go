@@ -55,7 +55,8 @@ type transferCapture struct {
 	exportErr error
 }
 
-func (c *transferCapture) Header() http.Header { return c.header }
+func (c *transferCapture) Header() http.Header    { return c.header }
+func (c *transferCapture) ExportFailed(err error) { c.exportErr = err }
 func (c *transferCapture) WriteHeader(status int) {
 	if c.status == 0 {
 		c.status = status

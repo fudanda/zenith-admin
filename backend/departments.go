@@ -13,6 +13,7 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/department"
 	"github.com/fudanda/zenith-admin/backend/ent/predicate"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
+	"github.com/fudanda/zenith-admin/backend/internal/validation"
 	"github.com/gorilla/mux"
 )
 
@@ -37,7 +38,7 @@ func validateDepartment(in departmentInput) error {
 	if len([]rune(strings.TrimSpace(in.Name))) == 0 || len([]rune(in.Name)) > 64 {
 		return errors.New("部门名称无效")
 	}
-	if len(in.Code) == 0 || len(in.Code) > 64 || !positionCode.MatchString(in.Code) {
+	if len(in.Code) == 0 || len(in.Code) > 64 || !validation.BusinessCode(in.Code) {
 		return errors.New("部门编码无效")
 	}
 	if in.Category == "" {

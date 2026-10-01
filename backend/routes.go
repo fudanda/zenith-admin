@@ -30,10 +30,6 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{Method: "GET", Path: "/api/v1/auth/favorite-menus", OperationID: "authFavoriteMenus", Permission: "authenticated", Handler: http.HandlerFunc(f.favoriteMenus)},
 		{Method: "PUT", Path: "/api/v1/auth/favorite-menus", OperationID: "authFavoriteMenusSave", Permission: "authenticated", Handler: http.HandlerFunc(f.saveFavoriteMenus)},
 		{Method: "PUT", Path: "/api/v1/auth/preferences", OperationID: "authPreferencesUpdate", Permission: "authenticated", Handler: http.HandlerFunc(f.updatePreferences)},
-		{Method: "DELETE", Path: "/api/v1/positions/batch", OperationID: "positionsRemoveBatch", Permission: "system:position:delete", Handler: http.HandlerFunc(f.deletePositionsBatch)},
-		{Method: "GET", Path: "/api/v1/positions/{id}/members", OperationID: "positionsMembers", Permission: "system:position:list", Handler: http.HandlerFunc(f.positionMembers)},
-		{Method: "GET", Path: "/api/v1/positions/{id}/member-preview", OperationID: "positionsMemberPreview", Permission: "system:position:list", Handler: http.HandlerFunc(f.positionMemberPreview)},
-		{Method: "PUT", Path: "/api/v1/positions/{id}/members", OperationID: "positionsSetMembers", Permission: "system:position:update", Handler: http.HandlerFunc(f.setPositionMembers)},
 		{Method: "GET", Path: "/api/v1/users/all", OperationID: "usersAll", Permission: "system:user:list", Handler: http.HandlerFunc(f.allUsers)},
 		{Method: "GET", Path: "/api/v1/users", OperationID: "usersList", Permission: "system:user:list", Handler: http.HandlerFunc(f.listUsers)},
 		{Method: "GET", Path: "/api/v1/users/{id}", OperationID: "usersDetail", Permission: "system:user:list", Handler: http.HandlerFunc(f.getUser)},
@@ -158,7 +154,6 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{"userGroupsAddMembers", http.HandlerFunc(f.changeGroupMembers)},
 		{"userGroupsRemoveMembers", http.HandlerFunc(f.changeGroupMembers)},
 		{"userGroupsRemoveBatch", http.HandlerFunc(f.deleteGroupsBatch)},
-		{"positionsExportCsv", http.HandlerFunc(f.exportPositionsCsv)},
 		{"loginLogsExportCsv", http.HandlerFunc(f.exportLoginLogsCSV)},
 		{"departmentsExportCsv", http.HandlerFunc(f.exportDepartmentsCSV)},
 		{"departmentsMemberPreview", http.HandlerFunc(f.departmentMemberPreview)},
@@ -171,7 +166,7 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{"filesRemoveBatch", http.HandlerFunc(f.deleteFilesBatch)},
 		{"filesBatchDownload", http.HandlerFunc(f.downloadFilesBatch)},
 	} {
-		if err := r.registerContract(bound.id, bound.handler); err != nil {
+		if err := r.RegisterContract(bound.id, bound.handler); err != nil {
 			return err
 		}
 	}
@@ -185,12 +180,6 @@ func (f *Framework) registerCore(r *Registrar) error {
 		handler http.Handler
 	}{
 		{"operationLogsDetail", http.HandlerFunc(f.auditLogDetail)},
-		{"positionsList", http.HandlerFunc(f.listPositions)},
-		{"positionsAll", http.HandlerFunc(f.allPositions)},
-		{"positionsDetail", http.HandlerFunc(f.getPosition)},
-		{"positionsCreate", http.HandlerFunc(f.createPosition)},
-		{"positionsUpdate", http.HandlerFunc(f.updatePosition)},
-		{"positionsRemove", http.HandlerFunc(f.deletePosition)},
 		{"menusTree", http.HandlerFunc(f.listMenus)},
 		{"menusFlat", http.HandlerFunc(f.listMenus)},
 		{"menusDetail", http.HandlerFunc(f.getMenu)},
@@ -198,12 +187,9 @@ func (f *Framework) registerCore(r *Registrar) error {
 		{"menusUpdate", http.HandlerFunc(f.saveMenu)},
 		{"menusRemove", http.HandlerFunc(f.deleteMenu)},
 	} {
-		if err := r.registerContract(bound.id, bound.handler); err != nil {
+		if err := r.RegisterContract(bound.id, bound.handler); err != nil {
 			return err
 		}
-	}
-	if err := r.verifyContracts(); err != nil {
-		return err
 	}
 	return nil
 }

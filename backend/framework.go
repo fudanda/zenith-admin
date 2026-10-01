@@ -6,15 +6,14 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
-	"log"
+
 	"net/http"
-	"strings"
 	"sync"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	gofrhttp "gofr.dev/pkg/gofr/http"
+	"github.com/fudanda/zenith-admin/backend/internal/app"
+	"github.com/fudanda/zenith-admin/backend/internal/modules/organization/positions"
+	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
 )
 
 type Config struct {
@@ -23,111 +22,32 @@ type Config struct {
 	SecureCookies bool
 	Modules       []Module
 	DashboardFS   fs.FS
+	FileStorage   FileStorage
 }
 
-type Module interface {
-	Name() string
-	Dependencies() []string
-	Initialize(context.Context, *Registrar) error
-	Shutdown(context.Context) error
-}
+type Module = app.Module
+type Route = httptransport.Route
+type Registrar = httptransport.Registrar
 
-type Route struct {
-	Method, Path, OperationID, Permission string
-	AnyPermissions                        []string
-	Public, SuperAdminOnly                bool
-	Handler                               http.Handler
-}
-
-type Registrar struct {
-	router     *gofrhttp.Router
-	routes     map[string]bool
-	operations map[string]bool
-	guard      func(Route) http.Handler
-	sealed     bool
-}
-
-func (r *Registrar) Register(route Route) error {
-	if r.sealed {
-		return errors.New("route registration is closed")
-	}
-	if route.Method == "" || !strings.HasPrefix(route.Path, "/api/v1/") || route.OperationID == "" || route.Handler == nil || (!route.Public && route.Permission == "") {
-		return errors.New("route requires method, /api/v1 path, operation ID, handler, and permission unless public")
-	}
-	if op, ok := contracts.Operations[route.OperationID]; ok {
-		if route.Method != op.Method || route.Path != op.Path || route.Permission != op.Permission || route.Public != op.Public || route.SuperAdminOnly != op.SuperAdminOnly || strings.Join(route.AnyPermissions, ",") != strings.Join(op.AnyPermissions, ",") {
-			return fmt.Errorf("route %s differs from its generated contract", route.OperationID)
-		}
-	}
-	key := route.Method + " " + route.Path
-	if r.routes[key] || r.operations[route.OperationID] {
-		return fmt.Errorf("duplicate route or operation %s", key)
-	}
-	r.routes[key], r.operations[route.OperationID] = true, true
-	r.router.Add(route.Method, route.Path, r.guard(route))
-	return nil
-}
+var orderModules = app.OrderModules
 
 type Framework struct {
-	Store             *Store
-	config            Config
-	handler           http.Handler
-	modules           []Module
-	server            *http.Server
-	maintenanceCancel context.CancelFunc
-	maintenanceDone   chan struct{}
-	mu                sync.Mutex
-	closed            bool
-	active            int
-	idle              chan struct{}
-}
-
-func orderModules(modules []Module) ([]Module, error) {
-	lookup := map[string]Module{}
-	for _, m := range modules {
-		if m == nil || m.Name() == "" {
-			return nil, errors.New("module name is required")
-		}
-		if lookup[m.Name()] != nil {
-			return nil, fmt.Errorf("duplicate module %s", m.Name())
-		}
-		lookup[m.Name()] = m
-	}
-	state := map[string]int{}
-	ordered := make([]Module, 0, len(modules))
-	var visit func(string) error
-	visit = func(name string) error {
-		m := lookup[name]
-		if m == nil {
-			return fmt.Errorf("missing module dependency %s", name)
-		}
-		if state[name] == 1 {
-			return fmt.Errorf("cyclic module dependency %s", name)
-		}
-		if state[name] == 2 {
-			return nil
-		}
-		state[name] = 1
-		for _, dependency := range m.Dependencies() {
-			if err := visit(dependency); err != nil {
-				return err
-			}
-		}
-		state[name] = 2
-		ordered = append(ordered, m)
-		return nil
-	}
-	for _, m := range modules {
-		if err := visit(m.Name()); err != nil {
-			return nil, err
-		}
-	}
-	return ordered, nil
+	Store       *Store
+	config      Config
+	handler     http.Handler
+	modules     []Module
+	server      *http.Server
+	maintenance *app.Maintenance
+	mu          sync.Mutex
+	closed      bool
+	active      int
+	idle        chan struct{}
 }
 
 func New(ctx context.Context, config Config) (*Framework, error) {
-	modules, err := orderModules(config.Modules)
-	if err != nil {
+	// Check declarations before opening infrastructure. Real handlers are wired
+	// only after the shared store is available.
+	if _, err := orderModules(append([]Module{foundationModule{}, positions.NewModule(nil)}, config.Modules...)); err != nil {
 		return nil, err
 	}
 	store, err := OpenStore(ctx, config.DSN)
@@ -143,28 +63,18 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 	close(idle)
 	store.installAuditHooks()
 	f := &Framework{Store: store, config: config, idle: idle}
-	router := gofrhttp.NewRouter()
-	reg := &Registrar{router: router, routes: map[string]bool{}, operations: map[string]bool{}, guard: f.guard}
-	if err = f.registerCore(reg); err != nil {
-		store.Close()
-		return nil, err
+	reg := httptransport.NewRegistrar(f.guard)
+	modules, err := orderModules(append([]Module{
+		foundationModule{f}, positions.NewModule(f.positionHandler()),
+	}, config.Modules...))
+	if err != nil {
+		return nil, errors.Join(err, store.Close())
 	}
-	for _, module := range modules {
-		f.modules = append(f.modules, module)
-		if err = module.Initialize(ctx, reg); err != nil {
-			cleanup, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-			for i := len(f.modules) - 1; i >= 0; i-- {
-				err = errors.Join(err, f.modules[i].Shutdown(cleanup))
-			}
-			cancel()
-			return nil, errors.Join(err, store.Close())
-		}
+	f.modules, err = app.InitializeModules(ctx, modules, reg)
+	if err != nil {
+		return nil, errors.Join(err, store.Close())
 	}
-	reg.sealed = true
-	router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fail(w, http.StatusNotFound, "not_found", "资源不存在")
-	})
-	f.handler = dashboardHandler(router, config.DashboardFS)
+	f.handler = dashboardHandler(reg.Handler(), config.DashboardFS)
 	f.startMaintenance()
 	return f, nil
 }
@@ -270,61 +180,6 @@ func (f *Framework) Shutdown(ctx context.Context) error {
 	case <-ctx.Done():
 		err = errors.Join(err, ctx.Err())
 	}
-	if f.maintenanceCancel != nil {
-		f.maintenanceCancel()
-		select {
-		case <-f.maintenanceDone:
-		case <-ctx.Done():
-			err = errors.Join(err, ctx.Err())
-		}
-	}
-	for i := len(f.modules) - 1; i >= 0; i-- {
-		err = errors.Join(err, f.modules[i].Shutdown(ctx))
-	}
+	err = errors.Join(err, f.maintenance.Shutdown(ctx), app.ShutdownModules(ctx, f.modules))
 	return errors.Join(err, f.Store.Close())
-}
-
-func (f *Framework) startMaintenance() {
-	ctx, cancel := context.WithCancel(context.Background())
-	f.maintenanceCancel = cancel
-	f.maintenanceDone = make(chan struct{})
-	go func() {
-		defer close(f.maintenanceDone)
-		ticker := time.NewTicker(30 * time.Minute)
-		defer ticker.Stop()
-		for {
-			select {
-			case <-ctx.Done():
-				return
-			case <-ticker.C:
-				work, stop := context.WithTimeout(ctx, 30*time.Second)
-				if err := f.Store.cleanupAuthentication(work, time.Now().UTC()); err != nil {
-					log.Printf("maintenance: %v", err)
-				}
-				if err := f.retryPendingFileDeletes(work); err != nil {
-					log.Printf("file maintenance: %v", err)
-				}
-				if err := f.cleanupExpiredUploads(work); err != nil {
-					log.Printf("upload maintenance: %v", err)
-				}
-				if err := f.Store.reconcileDynamicGroups(work); err != nil {
-					log.Printf("group maintenance: %v", err)
-				}
-				stop()
-			}
-		}
-	}()
-}
-
-func (f *Framework) retryPendingFileDeletes(ctx context.Context) error {
-	rows, err := f.Store.Client.ManagedFile.Query().Where(managedfile.DeletePending(true)).Limit(100).All(ctx)
-	if err != nil {
-		return err
-	}
-	for _, row := range rows {
-		if err := f.removePendingFile(ctx, row); err != nil {
-			log.Printf("file delete retry %s: %v", row.ID, err)
-		}
-	}
-	return nil
 }

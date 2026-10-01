@@ -230,7 +230,7 @@ func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, inpu
 		}
 	}
 	root := storage.LocalRootPath
-	rootHandle, err := os.OpenRoot(root)
+	rootHandle, err := f.fileStorage().OpenRoot(root)
 	if err != nil {
 		return nil, err
 	}
@@ -382,7 +382,7 @@ func (f *Framework) serveFileBytes(w http.ResponseWriter, r *http.Request, row *
 		fail(w, 503, "database_unavailable", "存储不可用")
 		return
 	}
-	root, err := os.OpenRoot(storage.LocalRootPath)
+	root, err := f.fileStorage().OpenRoot(storage.LocalRootPath)
 	if err != nil {
 		fail(w, 503, "storage_unavailable", "存储不可用")
 		return
@@ -586,7 +586,7 @@ func (f *Framework) downloadFilesBatch(w http.ResponseWriter, r *http.Request) {
 			fail(w, 503, "database_unavailable", "存储不可用")
 			return
 		}
-		root, err := os.OpenRoot(storage.LocalRootPath)
+		root, err := f.fileStorage().OpenRoot(storage.LocalRootPath)
 		if err != nil {
 			fail(w, 503, "storage_unavailable", "存储不可用")
 			return
@@ -630,7 +630,7 @@ func (f *Framework) removePendingFile(ctx context.Context, row *ent.ManagedFile)
 	if err != nil {
 		return err
 	}
-	root, err := os.OpenRoot(storage.LocalRootPath)
+	root, err := f.fileStorage().OpenRoot(storage.LocalRootPath)
 	if err != nil {
 		return err
 	}

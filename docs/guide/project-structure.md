@@ -1,6 +1,6 @@
 # 项目结构
 
-Zenith Admin 是 npm workspaces monorepo。后端是模块化单体，前端提供多入口应用，共享层维护前后端契约。
+Zenith Admin 是 npm workspaces monorepo。当前默认后端为 `backend/` 中的 GoFr + Ent 单组织基础版，原管理台保留在 `packages/web`，shared 维护前后端契约。Go 的目录及拆分进度见 [Go 后端目录与分层](./go-backend-architecture.md)。以下 Hono、多入口和运行时目录属于保留的历史链路。
 
 ```text
 zenith-admin/
@@ -8,6 +8,7 @@ zenith-admin/
 ├── .github/workflows/    # CI、Pages、Release 工作流
 ├── docs/                 # VitePress 文档站
 ├── docker/               # Nginx、entrypoint、Mastra Studio 构建脚本
+├── backend/              # 默认 Go 后端、Ent、版本迁移与内嵌管理台
 ├── packages/
 │   ├── server/           # Hono API、CMS SSR/静态化、后台运行时
 │   ├── web/              # React 管理后台、会员前台、移动审批、Demo

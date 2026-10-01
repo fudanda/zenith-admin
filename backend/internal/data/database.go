@@ -1,4 +1,4 @@
-package zenith
+package data
 
 import (
 	"database/sql"

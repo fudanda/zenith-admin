@@ -26,6 +26,11 @@
 | 目录 | 职责 |
 | --- | --- |
 | `backend/` | GoFr 路由与适配、认证授权、组织/账号/配置/文件/审计规则、模块生命周期、CLI |
+| `backend/internal/app/` | 模块依赖排序、初始化/关闭、可停止的维护任务调度 |
+| `backend/internal/transport/http/` | GoFr 路由、契约校验、响应及流式文件协议；不访问数据库 |
+| `backend/internal/data/` | 唯一业务连接池、显式 Ent 事务、版本迁移和 SQLite 备份 |
+| `backend/internal/modules/` | 已拆分的领域模块；岗位包含独立 Handler、Service 和成员维护 |
+| `backend/internal/security/`、`backend/internal/storage/` | 业务身份与本地字节存储边界 |
 | `backend/ent/` | Ent 固定系统模型和生成持久化代码 |
 | `backend/migrations/` | 不可变版本 SQL；运行时不自动变更结构 |
 | `backend/internal/contracts/` | shared 生成的 OpenAPI、Go DTO、操作/权限/审计及策略定义 |
@@ -57,6 +62,7 @@ API 统一 `/api/v1`，管理台 `/dash`。SPA 只回退已开放页面，未知
 | 内容 | 位置 |
 | --- | --- |
 | 当前运行、安装、升级、部署和验收 | [docs/guide/go-foundation.md](docs/guide/go-foundation.md) |
+| Go 包边界、目录重构状态和领域拆分方式 | [docs/guide/go-backend-architecture.md](docs/guide/go-backend-architecture.md) |
 | 后端及全局约束 | [.agents/skills/zenith/references/constraints.md](.agents/skills/zenith/references/constraints.md) |
 | 前端约束 | [.agents/skills/zenith/references/constraints-frontend.md](.agents/skills/zenith/references/constraints-frontend.md) |
 | 模块修改流程 | [.agents/skills/zenith/SKILL.md](.agents/skills/zenith/SKILL.md) |

@@ -24,23 +24,15 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/usergrouprole"
 	"github.com/fudanda/zenith-admin/backend/ent/usermenu"
 	"github.com/fudanda/zenith-admin/backend/ent/userrole"
+	"github.com/fudanda/zenith-admin/backend/internal/security"
 	"golang.org/x/crypto/bcrypt"
 )
 
 var errUnauthenticated = errors.New("authentication required")
 
-type principal struct {
-	User                   *ent.User
-	Session                *ent.Session
-	SuperAdmin             bool
-	PasswordChangeRequired bool
-}
-type principalKey struct{}
+type principal = security.Principal
 
-func fromContext(ctx context.Context) *principal {
-	p, _ := ctx.Value(principalKey{}).(*principal)
-	return p
-}
+var fromContext = security.FromContext
 
 func (f *Framework) principal(ctx context.Context, r *http.Request) (*principal, error) {
 	cookie, err := r.Cookie("zenith_session")
@@ -296,7 +288,7 @@ func (f *Framework) guard(route Route) http.Handler {
 			fail(w, 400, "invalid_request", err.Error())
 			return
 		}
-		route.Handler.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), principalKey{}, p)))
+		route.Handler.ServeHTTP(w, r.WithContext(security.WithPrincipal(r.Context(), p)))
 	})
 }
 
