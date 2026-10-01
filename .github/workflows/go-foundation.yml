@@ -35,9 +35,12 @@ jobs:
       - run: npm ci
       - name: Start isolated S3-compatible storage
         run: |
-          docker run -d --name zenith-s3-ci -p 127.0.0.1:19000:9000 -e MINIO_ROOT_USER=zenith_test -e MINIO_ROOT_PASSWORD=zenith_s3_test_only minio/minio@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e server /data
+          # Upstream community images were withdrawn. Build the same release
+          # from a pinned upstream commit instead of using a mutable mirror.
+          GOBIN="$RUNNER_TEMP/minio-bin" go install github.com/minio/minio@01ce918d8279a20e4706b96a64396146894adee4
+          MINIO_ROOT_USER=zenith_test MINIO_ROOT_PASSWORD=zenith_s3_test_only "$RUNNER_TEMP/minio-bin/minio" server "$RUNNER_TEMP/minio-data" --address 127.0.0.1:19000 > "$RUNNER_TEMP/minio.log" 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19000/minio/health/ready && exit 0; sleep 1; done
-          docker logs zenith-s3-ci
+          cat "$RUNNER_TEMP/minio.log"
           exit 1
       - run: npm run check:foundation-contracts
       - run: npm run check:foundation-ui
