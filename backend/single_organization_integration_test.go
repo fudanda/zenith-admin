@@ -81,6 +81,9 @@ func assertSingleSchema(t *testing.T, s *Store) {
 }
 
 func TestPostgresVersionedMigrations(t *testing.T) {
+	if strings.HasPrefix(os.Getenv("ZENITH_TEST_DATABASE_URL"), "sqlite:") {
+		t.Skip("historical PostgreSQL upgrade paths; SQLite baseline is tested separately")
+	}
 	ctx := context.Background()
 	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
 	if dsn == "" {
@@ -143,6 +146,9 @@ func TestPostgresVersionedMigrations(t *testing.T) {
 }
 
 func TestSingleOrganizationMigrationRefusesTenantData(t *testing.T) {
+	if strings.HasPrefix(os.Getenv("ZENITH_TEST_DATABASE_URL"), "sqlite:") {
+		t.Skip("historical PostgreSQL tenant migration; SQLite has no tenant baseline")
+	}
 	s := legacyFixture(t, 6)
 	ctx := context.Background()
 	var tenantID int

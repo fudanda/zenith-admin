@@ -5,9 +5,9 @@
 [![Release](https://github.com/iwangbowen/zenith-admin/actions/workflows/release.yml/badge.svg)](https://github.com/iwangbowen/zenith-admin/actions/workflows/release.yml)
 [![License](https://img.shields.io/github/license/iwangbowen/zenith-admin)](./LICENSE)
 
-基于 **Hono v4 + React 19 + Semi Design v2 + Drizzle ORM** 的全栈后台管理系统。涵盖认证授权（OAuth / 企业 SSO）、组织架构（含通讯录同步）、权限控制、运行时设置、通知中心（事件驱动多渠道触达）、会话中心（IM / 音视频通话）、日志审计、告警中心、在线会话、定时任务、文件存储、企业网盘、缓存管理、低代码工作流、规则引擎、智能助手（Mastra 驱动的 AI 对话 / 智能体 / RAG 知识库）、全局搜索、数据分析、报表中心（BI）、支付中心（含对账）、会员体系（含 C 端门户）、公众号管理、增长运营（短链 / 营销）、开放平台、CMS 内容管理、知识中心（Wiki）、物联网（IoT）、服务器运维（Web 终端 / SSH / Docker）等完整业务场景，并内置可选的 **多租户（Multi-Tenant）** 与 **License 授权** 支持。
+当前交付是 **GoFr + Ent + PostgreSQL / SQLite** 的单组织基础后台。前端保留 `packages/web` 原 React Router、Semi UI、布局与业务页面；Go 二进制内嵌管理台，生产仅依赖所选数据库与本地文件目录。
 
-项目采用 **npm monorepo** 结构：后端使用 Hono + PostgreSQL 提供 RESTful API，前端使用 React 19 + Vite + Semi Design v2 构建界面，`shared` 包统一维护前后端共享类型、常量与 Zod 校验 schema。
+首版开放用户、部门、岗位、菜单、角色、用户组、字典、设置、身份安全、文件、在线用户、审计及个人中心。原 Hono 和其他业务保留源码，通过显式历史命令使用。当前安装、部署及验收以 [Go 基础版说明](docs/guide/go-foundation.md) 为准。
 
 ---
 
@@ -20,7 +20,7 @@
 
 ---
 
-## 技术栈
+## 历史源码技术栈
 
 | 层级 | 技术 |
 | ---- | ---- |
@@ -204,54 +204,20 @@ Zenith Admin 专为 AI 辅助开发场景设计，让 GitHub Copilot、Claude、
 
 ## 快速开始
 
-**前置条件**：Node.js 24.x、PostgreSQL、Redis
-
-### 1. 安装依赖
+开发需要 Node.js 24、Go（版本见 `backend/go.mod`），以及 PostgreSQL 或 SQLite。复制 `.env.go.example` 为 `.env.go` 后选择数据库连接；SQLite 可用 `ZENITH_DATABASE_URL=sqlite:./data/zenith.db`。测试库必须独立于业务库。
 
 ```bash
-npm install
+npm ci
+npm run db:migrate
+npm run db:seed
+npm run init-admin -- admin  # 仅新库，交互输入密码；没有默认密码
+npm run dev
+npm run build
 ```
 
-### 2. 配置环境变量
+开发管理台为 `http://127.0.0.1:5373/dash/`；Go API 为 `http://127.0.0.1:8080/api/v1`。构建产物是 `backend/bin/zenith`（Windows 为 `zenith.exe`），携带原页面与迁移。生产无需 Node 或 Redis。已有管理员不重复创建。
 
-在 `packages/server/` 目录下创建 `.env` 文件（参考 `packages/server/.env.example`），最小配置如下：
-
-```env
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/zenith_admin
-REDIS_URL=redis://127.0.0.1:6379
-```
-
-`JWT_SECRET` / `FIELD_ENCRYPTION_KEY` 本地开发（`npm run dev`）可以省略，会自动使用内置开发密钥；生产环境必填且无默认值，用 `npm run secret:generate` 生成。
-
-前端默认请求 `http://localhost:3300`，如需修改，在 `packages/web/` 下创建 `.env` 并设置 `VITE_API_BASE_URL`。
-
-### 3. 初始化数据库
-
-```bash
-npm run db:migrate   # 执行数据库迁移
-npm run db:seed      # 填充初始数据（创建默认 admin 账号）
-```
-
-### 4. 启动开发服务器
-
-```bash
-npm run dev            # 同时启动前端 + 后端（推荐）
-
-npm run dev:server     # 仅启动后端
-npm run dev:web        # 仅启动前端
-```
-
-默认账号：`admin` / 密码：`123456`
-
-### 5. 生产构建
-
-```bash
-npm run build          # 顺序构建：shared → server → web
-```
-
-构建产物：后端 `packages/server/dist/`，前端 `packages/web/dist/`。
-
-> 完整部署说明（进程角色、Docker Compose、Nginx 反代等）参见文档站：[部署说明](https://iwangbowen.github.io/zenith-admin/guide/deployment) 与 [Docker 部署](https://iwangbowen.github.io/zenith-admin/guide/docker)。
+独立部署、Cookie/HTTPS、SQLite 备份与 PostgreSQL 升级步骤见 [部署说明](docs/guide/go-foundation.md)。历史源码使用 `legacy:dev`、`legacy:build`、`legacy:test` 与 `legacy:db:*`；旧演示站与历史能力说明不代表当前首版已开放。
 
 ---
 

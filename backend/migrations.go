@@ -4,13 +4,14 @@ import (
 	"context"
 	"database/sql"
 	"embed"
+	"entgo.io/ent/dialect"
 	"fmt"
 )
 
 // These SQL files are reviewed snapshots of the Ent schema. Once released,
 // migration files must remain immutable; new schema changes get a new version.
 //
-//go:embed migrations/*.sql
+//go:embed migrations/*.sql migrations/sqlite/*.sql
 var migrationFiles embed.FS
 
 const foundationSchemaVersion = 10
@@ -19,6 +20,9 @@ const foundationSchemaVersion = 10
 // Version 0 is a fresh database. Older foundation versions are upgraded in
 // order; released SQL snapshots remain unchanged.
 func (s *Store) Migrate(ctx context.Context) error {
+	if s.Dialect == dialect.SQLite {
+		return s.migrateSQLite(ctx)
+	}
 	tx, err := s.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return err

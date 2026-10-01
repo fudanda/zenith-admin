@@ -41,6 +41,11 @@ func main() {
 		err = store.Migrate(ctx)
 	case "seed":
 		err = store.Seed(ctx)
+	case "backup-sqlite":
+		if len(os.Args) != 3 {
+			fatal(fmt.Errorf("usage: zenith backup-sqlite OUTPUT.db"))
+		}
+		err = store.BackupSQLite(ctx, os.Args[2])
 	case "init-admin":
 		if len(os.Args) < 3 {
 			fatal(fmt.Errorf("usage: zenith init-admin USERNAME < password-file"))
@@ -71,5 +76,7 @@ func main() {
 	}
 }
 
-func usage()          { fmt.Fprintln(os.Stderr, "usage: zenith {serve|migrate|seed|init-admin USERNAME}") }
+func usage() {
+	fmt.Fprintln(os.Stderr, "usage: zenith {serve|migrate|seed|init-admin USERNAME|backup-sqlite OUTPUT.db}")
+}
 func fatal(err error) { fmt.Fprintln(os.Stderr, err); os.Exit(1) }

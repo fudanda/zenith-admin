@@ -16,29 +16,35 @@ import (
 // Store owns the only business connection pool. Services receive an explicit
 // Ent transaction for multi-step writes rather than creating hidden pools.
 type Store struct {
-	DB     *sql.DB
-	Client *ent.Client
-	driver dialect.Driver
+	DB      *sql.DB
+	Client  *ent.Client
+	Dialect string
+	driver  dialect.Driver
 }
 
 func OpenStore(ctx context.Context, dsn string) (*Store, error) {
 	if dsn == "" {
 		return nil, errors.New("ZENITH_DATABASE_URL is required")
 	}
-	db, err := sql.Open("pgx", dsn)
+	db, dbDialect, err := openDatabase(dsn)
 	if err != nil {
 		return nil, err
 	}
-	db.SetMaxOpenConns(20)
-	db.SetMaxIdleConns(5)
-	db.SetConnMaxLifetime(30 * time.Minute)
+	if dbDialect == dialect.Postgres {
+		db.SetMaxOpenConns(20)
+		db.SetMaxIdleConns(5)
+		db.SetConnMaxLifetime(30 * time.Minute)
+	} else {
+		db.SetMaxOpenConns(8)
+		db.SetMaxIdleConns(8)
+	}
 	if err = db.PingContext(ctx); err != nil {
 		db.Close()
-		return nil, fmt.Errorf("PostgreSQL: %w", err)
+		return nil, fmt.Errorf("%s database: %w", dbDialect, err)
 	}
-	driver := entsql.OpenDB(dialect.Postgres, db)
+	driver := entsql.OpenDB(dbDialect, db)
 	client := ent.NewClient(ent.Driver(driver))
-	return &Store{DB: db, Client: client, driver: driver}, nil
+	return &Store{DB: db, Client: client, driver: driver, Dialect: dbDialect}, nil
 }
 
 func (s *Store) Close() error { return s.DB.Close() }

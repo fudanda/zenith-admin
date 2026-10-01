@@ -13,6 +13,7 @@ import (
 	"net/http/httptest"
 	"net/url"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"testing"
@@ -21,6 +22,9 @@ import (
 
 func isolatedTestDSN(t *testing.T, dsn string) string {
 	t.Helper()
+	if strings.HasPrefix(dsn, "sqlite:") {
+		return "sqlite:" + filepath.Join(t.TempDir(), "zenith.db")
+	}
 	admin, err := OpenStore(context.Background(), dsn)
 	if err != nil {
 		t.Fatal(err)

@@ -48,6 +48,13 @@ jobs:
         working-directory: backend
       - run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" ZENITH_BROWSER_PRODUCTION=true go test -tags integration -run TestOriginalWebFoundation .
         working-directory: backend
+      - name: Verify SQLite APIs and embedded original dashboard
+        env:
+          ZENITH_TEST_DATABASE_URL: sqlite:./sqlite-ci.db
+          ZENITH_BROWSER_PRODUCTION: 'true'
+          ZENITH_DEPLOYMENT_BINARY: ${{ github.workspace }}/backend/bin/zenith
+        run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration -count=1 ./...
+        working-directory: backend
       - name: Verify HTTPS release restart and backup recovery
         env:
           ZENITH_DEPLOYMENT_BINARY: ${{ github.workspace }}/backend/bin/zenith

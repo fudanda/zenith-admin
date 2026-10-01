@@ -298,14 +298,8 @@ func (f *Framework) startMaintenance() {
 				return
 			case <-ticker.C:
 				work, stop := context.WithTimeout(ctx, 30*time.Second)
-				for _, statement := range []string{
-					`DELETE FROM captchas WHERE expires_at < now() OR used_at IS NOT NULL`,
-					`DELETE FROM sessions WHERE expires_at < now() OR revoked_at < now() - interval '7 days'`,
-					`DELETE FROM login_attempts WHERE updated_at < now() - interval '1 day'`,
-				} {
-					if _, err := f.Store.DB.ExecContext(work, statement); err != nil {
-						log.Printf("maintenance: %v", err)
-					}
+				if err := f.Store.cleanupAuthentication(work, time.Now().UTC()); err != nil {
+					log.Printf("maintenance: %v", err)
 				}
 				if err := f.retryPendingFileDeletes(work); err != nil {
 					log.Printf("file maintenance: %v", err)

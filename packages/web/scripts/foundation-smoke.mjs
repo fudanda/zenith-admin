@@ -169,6 +169,8 @@ try {
   const templateDownload=page.waitForEvent('download');
   await page.getByText('下载导入模板',{exact:true}).click();
   assert.equal((await readFile(await (await templateDownload).path())).subarray(0,2).toString(),'PK','real XLSX template');
+  // Wait for clickToHide's exit animation before reopening the same dropdown.
+  await page.getByRole('menuitem',{name:'下载导入模板',exact:true}).waitFor({state:'hidden'});
   await page.getByRole('button',{name:/^导入/}).click();
   await page.getByText('预检文件（仅校验不落库）',{exact:true}).click();
   await page.locator('input[accept=".xlsx"]').setInputFiles(process.env.ZENITH_BROWSER_IMPORT_FILE);

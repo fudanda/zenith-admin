@@ -1,6 +1,6 @@
 # 单组织 Go 基础版
 
-管理台继续使用 `packages/web` 中的 Zenith 原页面、React Router 和 Semi UI。默认后端是 `backend/` 中的 GoFr + Ent，主数据及认证状态使用 PostgreSQL，本地文件目录保存文件字节。生产不需要 Node、Redis 或独立 Worker。原 Hono、会员、审批、Electron 和未迁移业务保留源码，通过显式历史命令使用，不进入基础版构建。
+管理台继续使用 `packages/web` 中的 Zenith 原页面、React Router 和 Semi UI。默认后端是 `backend/` 中的 GoFr + Ent，主数据及认证状态支持 PostgreSQL 或 SQLite，本地文件目录保存文件字节。生产不需要 Node、Redis 或独立 Worker。原 Hono、会员、审批、Electron 和未迁移业务保留源码，通过显式历史命令使用，不进入基础版构建。
 
 ## 菜单与运行边界
 
@@ -53,6 +53,20 @@ npm test
 `seed` 幂等创建基础菜单、权限及必要配置，并从原 shared seed 补齐状态、菜单类型、菜单显示、性别和部门类别字典；保留已编辑字典项和自定义菜单。不创建固定密码管理员。`db:generate` 重新生成 Ent 代码，结构变更须另增版本 SQL 并审核，不得覆盖已发布迁移。服务启动不执行 DDL。
 
 ## 独立生产部署
+
+### 选择数据库
+
+现有 PostgreSQL 配置保持兼容；SQLite 使用 `ZENITH_DATABASE_URL=sqlite:PATH`，如 Windows 的 `sqlite:D:/ai/zenith-admin/storage/zenith.db` 或 Linux 的 `sqlite:/var/lib/zenith/zenith.db`。路径不接受 URI 查询参数或内存数据库。服务自动创建父目录与数据库文件，但表结构仍须显式执行 `migrate`。相对路径以进程工作目录为基准，独立部署建议绝对路径。
+
+SQLite 使用纯 Go 驱动，发布包不需要 C 编译器或另一个数据库服务。连接强制外键、WAL、FULL 同步、10 秒锁等待与即时写事务；时间保存为 UTC 纳秒并恢复为 `time.Time`。业务、权限、Cookie、配置冲突与审计路径共用 Ent。SQLite 面向单机单服务实例；多实例部署继续使用 PostgreSQL。
+
+两个数据库是独立安装，切换 URL 不转换或搬迁数据。已有 PostgreSQL 管理员和业务数据保留在原库。SQLite 从 `migrations/sqlite/0010_baseline.sql` 的单组织基线开始，拒绝未标记版本的其他表及未知版本；不会执行 PostgreSQL 历史多租户迁移。已发布迁移不可改写。
+
+备份 SQLite 使用 `zenith backup-sqlite OUTPUT.db`，以 `VACUUM INTO` 捕获已提交的 WAL 数据，拒绝覆盖已有文件。数据库与文件目录一起备份时先停止应用写入，创建数据库快照，再复制文件目录。不能仅复制运行中的 `.db` 而遗漏 WAL。恢复时停止服务，使用备份数据库的新路径和匹配的文件目录，再启动对应版本。PostgreSQL 继续使用 `pg_dump` / `pg_restore`。
+
+本机 HTTP 验收可显式设置 `ZENITH_INSECURE_COOKIES=true`；正式 HTTPS 配置继续使用 Secure Cookie。
+
+### PostgreSQL 示例
 
 只需发布 Go 二进制、配置 PostgreSQL 和持久化本地文件目录。二进制同时携带 SQL 迁移、生成契约和原管理台资源（包括 Monaco 文本预览运行时），不读取 Node 或 Hono 产物，不通过 CDN 加载文本预览。
 
@@ -108,6 +122,8 @@ ZENITH_BROWSER_PRODUCTION=true go test -tags integration -count=1 -run TestOrigi
 ```
 
 CI 必跑真实 PostgreSQL 集成测试、类型、lint、生成漂移、页面构建、开发及 Go 嵌入两种浏览器验收。覆盖单组织升级拒绝与回滚、并发设置、角色/直接/组继承、数据范围、会话重启和失效、登录防护、CSRF、数据库故障、文件私有访问、分片与清理、同步导入导出及原页面闭环。
+
+CI 同时以 `ZENITH_TEST_DATABASE_URL=sqlite:./data/test.db` 运行真实 SQLite 集成和 Go 内嵌原页面验收。每项测试使用独立临时数据库文件；PostgreSQL 历史迁移测试仅在 PostgreSQL 分组执行。SQLite 基线、拒绝未知结构、各连接外键、唯一约束、事务回滚、并发迁移/登录失败、时区及维护清理、WAL 快照恢复由常规 Go 测试覆盖。`ZENITH_BROWSER_TEST_NODE` 与 `ZENITH_BROWSER_PRODUCTION=true` 的配置与 PostgreSQL 一致。
 
 发布二进制验收使用 `TestReleaseHTTPSBackupRecovery`：从空库执行真实 CLI，通过本地 TLS 反向代理访问原页面，验证管理员和受限用户、Secure Cookie、服务进程重启、数据库与文件快照恢复，以及实际 PostgreSQL 中断后的 503 和恢复。TLS 代理使用临时测试证书，Node 单独信任该证书，Chromium 仅在验收上下文接受它；生产 Cookie 配置始终开启 Secure。此项不替代实际部署域名的证书配置。
 

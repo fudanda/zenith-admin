@@ -4,11 +4,9 @@ package zenith
 
 import (
 	"context"
-	"fmt"
 	"image"
 	"image/png"
 	"net/http/httptest"
-	"net/url"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -16,7 +14,7 @@ import (
 	"time"
 )
 
-// The browser uses original packages/web components and a real Go/PG fixture.
+// The browser uses original packages/web components and a real Go/DB fixture.
 // This optional browser runner is separate from mandatory DB integration tests.
 func TestOriginalWebFoundation(t *testing.T) {
 	node := os.Getenv("ZENITH_BROWSER_TEST_NODE")
@@ -29,24 +27,8 @@ func TestOriginalWebFoundation(t *testing.T) {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
-	admin, err := OpenStore(ctx, dsn)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer admin.Close()
-	name := fmt.Sprintf("zenith_browser_%d", time.Now().UnixNano())
-	if _, err := admin.DB.ExecContext(ctx, "CREATE SCHEMA "+name); err != nil {
-		t.Fatal(err)
-	}
-	defer func() { _, _ = admin.DB.ExecContext(context.Background(), "DROP SCHEMA "+name+" CASCADE") }()
-	parsed, err := url.Parse(dsn)
-	if err != nil {
-		t.Fatal(err)
-	}
-	q := parsed.Query()
-	q.Set("search_path", name)
-	parsed.RawQuery = q.Encode()
-	store, err := OpenStore(ctx, parsed.String())
+	dsn = isolatedTestDSN(t, dsn)
+	store, err := OpenStore(ctx, dsn)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -64,7 +46,7 @@ func TestOriginalWebFoundation(t *testing.T) {
 	if err := store.Close(); err != nil {
 		t.Fatal(err)
 	}
-	f, err := New(ctx, Config{DSN: parsed.String(), SecureCookies: false})
+	f, err := New(ctx, Config{DSN: dsn, SecureCookies: false})
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -96,7 +96,11 @@ func (f *Framework) requiresChallenge(ctx context.Context, name, ip string, poli
 	return false, nil
 }
 func (f *Framework) recordLoginFailure(ctx context.Context, name, ip string, policy securityPolicy) error {
-	_, err := f.Store.DB.ExecContext(ctx, `INSERT INTO login_attempts(key,username_hash,failures,locked_until,updated_at) VALUES($1,$2,1,now()+$3*interval '1 minute',now()) ON CONFLICT(key) DO UPDATE SET failures=CASE WHEN login_attempts.locked_until>now() THEN login_attempts.failures+1 ELSE 1 END,locked_until=now()+$3*interval '1 minute',updated_at=now()`, sourceKey(name, ip), usernameHash(name), policy.LoginChallenge.WindowMinutes)
+	now := time.Now().UTC()
+	until := now.Add(time.Duration(policy.LoginChallenge.WindowMinutes) * time.Minute)
+	// Both dialects support this atomic upsert, including simultaneous first
+	// failures. Bind times instead of database-specific interval expressions.
+	_, err := f.Store.DB.ExecContext(ctx, `INSERT INTO login_attempts(key,username_hash,failures,locked_until,updated_at) VALUES($1,$2,1,$3,$4) ON CONFLICT(key) DO UPDATE SET failures=CASE WHEN login_attempts.locked_until>excluded.updated_at THEN login_attempts.failures+1 ELSE 1 END,locked_until=excluded.locked_until,updated_at=excluded.updated_at`, sourceKey(name, ip), usernameHash(name), until, now)
 	return err
 }
 

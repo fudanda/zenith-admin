@@ -1,6 +1,6 @@
 # Zenith Admin — 项目架构导航
 
-当前默认交付是单组织管理后台：**GoFr + Ent + PostgreSQL** 后端、`packages/web` 原 React Router / Semi UI 管理台。生产由 Go 二进制携带静态资源和迁移，仅依赖 PostgreSQL 与本地文件目录。npm workspaces 用于开发、shared 契约和前端构建。
+当前默认交付是单组织管理后台：**GoFr + Ent** 后端，支持 **PostgreSQL / SQLite**；`packages/web` 原 React Router / Semi UI 管理台。生产由 Go 二进制携带静态资源和迁移，依赖所选数据库与本地文件目录。npm workspaces 用于开发、shared 契约和前端构建。
 
 本文件只维护稳定的架构事实、依赖方向和文档入口。参数、字段、模板和验收步骤见专门文档。
 
@@ -12,13 +12,13 @@
 原管理台页面 / Feature
   → 域 Query Hooks → shared Contract Query → Cookie/CSRF Request Adapter
   → /api/v1 → GoFr Router / 协议与授权适配
-  → Go 领域规则 / 显式事务 → Ent → PostgreSQL / 本地文件
+  → Go 领域规则 / 显式事务 → Ent → PostgreSQL 或 SQLite / 本地文件
 ```
 
 - Web 是交互边界，保留原页面、主题、布局、弹窗、表格、权限抽屉和 React Router，不访问数据库或磁盘。
 - Go 是业务权威边界，负责认证、授权、校验、数据范围、事务、审计和文件访问控制。服务逻辑使用标准 Context 和显式业务身份，不依赖 GoFr Context。
 - shared 是契约边界，维护 Zod schema、操作、枚举、校验、首版页面及设置清单；生成 OpenAPI、Go DTO、权限与审计元数据。生成类型不能代替运行时验证。
-- PostgreSQL 是唯一主数据源，同时保存会话摘要、登录防护、配置版本和文件元数据；本地文件接口保存字节。
+- 所选 PostgreSQL 或 SQLite 是主数据源，同时保存会话摘要、登录防护、配置版本和文件元数据；本地文件接口保存字节。切换连接不搬迁数据。
 - 没有租户、套餐、租户视角、Redis、独立 Worker 或生产 Node 后端。未迁移业务保留源码，入口和其后台请求不挂载。
 
 ## 目录职责与依赖
@@ -40,11 +40,11 @@
 
 ## 后端与部署
 
-`New` 装配已声明的模块并检查依赖、循环和重复路由；初始化失败逆序关闭。`Handler` 支持宿主挂载，`Run` 独立监听，`Shutdown` 停止接入与维护任务并关闭资源。数据层持有一个 PostgreSQL 连接池，事务显式传递。
+`New` 装配已声明的模块并检查依赖、循环和重复路由；初始化失败逆序关闭。`Handler` 支持宿主挂载，`Run` 独立监听，`Shutdown` 停止接入与维护任务并关闭资源。数据层持有一个所选数据库连接池，事务显式传递。SQLite 强制 WAL、外键、等待锁及即时写事务。
 
 认证使用 HttpOnly Cookie 服务端会话、生产 Secure/SameSite 和写请求 CSRF。登录校验来源，每次请求读取会话及授权；停用、改密和下线立即生效。管理员由 `init-admin` 显式创建，没有固定密码。
 
-API 统一 `/api/v1`，管理台 `/dash`。SPA 只回退已开放页面，未知 API 和缺失资源真实 404。健康与就绪检查反映 PostgreSQL 状态。迁移显式执行且不可覆盖已发布版本；单组织升级预检冲突时失败，保留管理员密码摘要并撤销旧会话。
+API 统一 `/api/v1`，管理台 `/dash`。SPA 只回退已开放页面，未知 API 和缺失资源真实 404。健康与就绪检查反映所选数据库状态。迁移显式执行且不可覆盖已发布版本；PostgreSQL 单组织升级预检冲突时失败，保留管理员密码摘要并撤销旧会话。SQLite 使用独立的单组织版本迁移。
 
 ## 前端与范围
 

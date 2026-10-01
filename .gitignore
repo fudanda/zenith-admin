@@ -44,6 +44,10 @@ packages/web/dist-go/
 /backend/bin/
 
 /backend/backups/
+/backend/data/
+*.db
+*.db-wal
+*.db-shm
 
 # Original preview runtime copied from the installed dependency for Go embedding.
 packages/web/public/monaco/
