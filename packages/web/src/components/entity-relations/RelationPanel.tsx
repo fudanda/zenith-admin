@@ -1,3 +1,4 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { lazy, Suspense, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Button, Collapse, Empty, List, Space, Spin, Tag, Tooltip, Typography } from '@douyinfe/semi-ui';
 import type { EntityRelationItem, EntityRelationKind, EntityRelationSection, EntityRelationSummaryState, CanonicalEntityType } from '@zenith/shared/platform';
@@ -231,7 +232,7 @@ export default function RelationPanel({ entityType, entityKey, enabled = true, s
     {entityType === 'workflow.attachment' && query.data && <WorkflowAttachmentView id={Number(entityKey)} />}
     {entityType === 'platform.managed-file' && query.data && <ManagedBusinessFileView fileId={entityKey} />}
     <Space spacing={8} style={{ marginBottom: 8 }}>
-      <EntityWatchButton entityRef={{ type: entityType, key: entityKey }} />
+      {!IS_GO_FOUNDATION && <EntityWatchButton entityRef={{ type: entityType, key: entityKey }} />}
       {query.data?.canManageLinks && <EntityLinkManager key={`manager:${entityType}:${entityKey}:${JSON.stringify(access)}`} anchor={{ type: entityType, key: entityKey }} />}
       <Tooltip content={display.submittedParams.hideEmpty ? '显示空分组' : '隐藏空分组'}><Button size="small" theme={display.submittedParams.hideEmpty ? 'light' : 'borderless'} aria-label="隐藏空分组" aria-pressed={display.submittedParams.hideEmpty} icon={<EyeOff size={14} />} onClick={() => display.applySearch({ hideEmpty: !display.submittedParams.hideEmpty })} /></Tooltip>
     </Space>

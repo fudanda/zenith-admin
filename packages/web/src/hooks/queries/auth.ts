@@ -1,6 +1,7 @@
 import { queryOptions, type QueryClient } from '@tanstack/react-query';
-import { authContract, type User } from '@zenith/shared/identity';
-import { api } from '@/lib/contract-query';
+import { authContract, goAuthContract, type GoSession, type User } from '@zenith/shared/identity';
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
+import { api, contractKey } from '@/lib/contract-query';
 import { ApiError, LOOKUP_STALE_TIME } from '@/lib/query';
 
 export interface AuthSession {
@@ -40,6 +41,10 @@ export function authSessionQueryOptions() {
 }
 
 export function updateCachedAuthUser(queryClient: QueryClient, user: User): void {
+  if (IS_GO_FOUNDATION) {
+    queryClient.setQueryData<GoSession | null>(contractKey(goAuthContract.me), current => current?.user.id === user.id ? { ...current, user } : current);
+    return;
+  }
   queryClient.setQueryData<AuthSession>(authKeys.me, (current) => {
     if (!current || current.user.id !== user.id) return current;
     return { ...current, user };

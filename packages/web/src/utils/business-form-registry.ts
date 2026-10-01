@@ -11,13 +11,13 @@
 import { createComponentRegistry, type ComponentModuleMap } from './component-registry';
 
 // glob 相对当前文件（src/utils），故使用 ../pages
-export const businessFormModules = import.meta.glob([
+export const businessFormModules = (import.meta.env.VITE_GO_FOUNDATION === 'true' ? {} : import.meta.glob([
   '../pages/biz/**/*.tsx',
   '../pages/**/*BusinessForm.tsx',
   '../pages/**/*ApprovalView.tsx',
   '!../pages/**/*Skeleton.tsx',
   '!../pages/**/*.test.tsx',
-]) as ComponentModuleMap;
+])) as ComponentModuleMap;
 
 const registry = createComponentRegistry(businessFormModules);
 

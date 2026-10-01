@@ -33,10 +33,16 @@ jobs:
           node-version: 24
           cache: npm
 
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
+
       - name: Install dependencies
         run: npm ci
 
-      - name: Build all packages
+      - name: Build Go and original dashboard
         env:
           VITE_DEPLOYMENT_ID: release-artifact
         run: npm run build
@@ -50,28 +56,24 @@ jobs:
             echo "name=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Package server artifact
+      - name: Package Go artifacts
+        env:
+          RELEASE_TAG: ${{ steps.tag.outputs.name }}
+          CGO_ENABLED: '0'
         run: |
-          TAG="${{ steps.tag.outputs.name }}"
-          # 与 Dockerfile / 本地 npm run package:server 同一脚本：dist + drizzle + package.json + assets/fonts。
-          # Release 只携带子集字体（约 2.5MB）；需要全量字体的用户自行打包（--pdf-font=full）或部署后把全量文件放进 assets/fonts
-          npm run package:server -- --out release_artifacts/server
-          cd release_artifacts
-          zip -r "../zenith-admin-server-${TAG}.zip" server/
-          cd ..
-
-      - name: Package web artifact
-        run: |
-          TAG="${{ steps.tag.outputs.name }}"
-          mkdir -p release_artifacts/web
-          cp -r packages/web/dist release_artifacts/web/dist
-          # 预压缩副本（.gz/.br）不进发布包：它们是同一份 JS/CSS 的另一种编码、zip 无法再压缩（约占包体积一半），
-          # 部署时按需生成：node web/precompress.mjs web/dist（Docker 镜像内由 npm run build 自行产出）
-          find release_artifacts/web/dist -type f \( -name '*.gz' -o -name '*.br' \) -delete
-          cp packages/web/scripts/precompress.mjs release_artifacts/web/precompress.mjs
-          cd release_artifacts
-          zip -r "../zenith-admin-web-${TAG}.zip" web/
-          cd ..
+          for TARGET in linux-amd64 windows-amd64; do
+            OS="${TARGET%-*}"
+            ARCH="${TARGET#*-}"
+            DIR="$PWD/release_artifacts/zenith-admin-${TARGET}"
+            mkdir -p "$DIR"
+            EXECUTABLE=zenith
+            if [ "$OS" = windows ]; then EXECUTABLE=zenith.exe; fi
+            (cd backend && GOOS="$OS" GOARCH="$ARCH" go build -trimpath -o "$DIR/$EXECUTABLE" ./cmd/zenith)
+            cp .env.production.example "$DIR/env.example"
+            cp docs/guide/go-foundation.md "$DIR/README.md"
+            cp -r backend/migrations "$DIR/migrations"
+            (cd release_artifacts && zip -r "../zenith-admin-${TARGET}-${RELEASE_TAG}.zip" "zenith-admin-${TARGET}")
+          done
 
       - name: Extract release notes from CHANGELOG
         run: |
@@ -101,5 +103,5 @@ jobs:
           draft: false
           prerelease: ${{ contains(steps.tag.outputs.name, '-beta') || contains(steps.tag.outputs.name, '-rc') || contains(steps.tag.outputs.name, '-alpha') }}
           files: |
-            zenith-admin-server-${{ steps.tag.outputs.name }}.zip
-            zenith-admin-web-${{ steps.tag.outputs.name }}.zip
+            zenith-admin-linux-amd64-${{ steps.tag.outputs.name }}.zip
+            zenith-admin-windows-amd64-${{ steps.tag.outputs.name }}.zip

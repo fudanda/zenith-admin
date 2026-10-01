@@ -7,6 +7,8 @@
  *
  * ImportProgressModal 为独立受控组件，导入中心页复用它展示任意导入任务详情。
  */
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
+import FoundationImportButton from './FoundationImportButton';
 import { useEffect, useRef, useState } from 'react';
 import { Button, Dropdown, Modal, Table, Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
@@ -151,7 +153,7 @@ interface ImportButtonProps {
   onFinished?: () => void;
 }
 
-export function ImportButton({ entity, title, label = '导入', context, beforeSubmit, onFinished }: Readonly<ImportButtonProps>) {
+function LegacyImportButton({ entity, title, label = '导入', context, beforeSubmit, onFinished }: Readonly<ImportButtonProps>) {
   const [taskId, setTaskId] = useState<number | null>(null);
   const { fileInput, pickFile, submitting } = useImportUpload({
     resolveTarget: () => (beforeSubmit && !beforeSubmit() ? null : { entity, context }),
@@ -187,4 +189,7 @@ export function ImportButton({ entity, title, label = '导入', context, beforeS
   );
 }
 
+export function ImportButton(props: Readonly<ImportButtonProps>) {
+ return IS_GO_FOUNDATION ? <FoundationImportButton {...props} /> : <LegacyImportButton {...props} />;
+}
 export default ImportButton;

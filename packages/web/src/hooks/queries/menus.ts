@@ -5,6 +5,19 @@ import { apiQueryOptions, contractKey, useApiMutation, useApiQuery, useSaveMutat
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { authKeys } from './auth';
 import { dataMaskKeys } from './data-mask';
+import { IS_GO_FOUNDATION, isPageAvailable } from '@/lib/foundation-mode';
+import type { Menu } from '@zenith/shared/identity';
+
+export function availableMenus(menus: Menu[]): Menu[] {
+  if (!IS_GO_FOUNDATION) return menus;
+  return menus.flatMap((menu) => {
+    const children = menu.children ? availableMenus(menu.children) : undefined;
+    if (menu.type === 'button' || (menu.path && isPageAvailable(menu.path)) || children?.length) {
+      return [{ ...menu, ...(children ? { children } : {}) }];
+    }
+    return [];
+  });
+}
 
 /** 保存载荷：创建入参的部分形态，同一表单同时服务新增与编辑，必填字段由表单 rules 与服务端 schema 保证 */
 export type MenuFormValues = Partial<BodyOf<typeof menuContract.create>>;
@@ -27,6 +40,7 @@ export function useMenuTree(options?: { enabled?: boolean }) {
     staleTime: LOOKUP_STALE_TIME,
     enabled: options?.enabled ?? true,
     requestOptions: silent,
+    select: availableMenus,
   });
 }
 
@@ -37,7 +51,7 @@ export function userMenuTreeQueryOptions() {
 
 /** 当前用户可见菜单树；失败静默，由 App 渲染显式重试页（空菜单不得伪装成正常态） */
 export function useCurrentUserMenuTree() {
-  return useApiQuery(menuContract.userTree, { staleTime: LOOKUP_STALE_TIME, requestOptions: silent });
+  return useApiQuery(menuContract.userTree, { staleTime: LOOKUP_STALE_TIME, requestOptions: silent, select: availableMenus });
 }
 
 export function useMenuDetail(id: number | undefined, enabled = true) {

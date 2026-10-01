@@ -2,7 +2,8 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { userContract } from '@zenith/shared/identity';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
-import { validationHook, okBody } from '../../lib/openapi-schemas';
+import { validationHook, okBody, csvStreamBody } from '../../lib/openapi-schemas';
+import { streamToCsv } from '../../lib/excel-export';
 import {
   listAlertRecipientUsers,
   listAllUsers,
@@ -34,6 +35,36 @@ const usersRouter = new OpenAPIHono({ defaultHook: validationHook });
 
 const getAllUsersRoute = defineContractRoute(userContract.all, {
   handler: async (c) => c.json(okBody(await listAllUsers()), 200),
+});
+
+const exportCsvRoute = defineContractRoute(userContract.exportCsv, {
+  handler: async (c) => {
+    const filters = c.req.valid('query');
+    async function* rows() {
+      for (let page = 1; ; page++) {
+        const result = await listUsers({ ...filters, page, pageSize: 200 });
+        for (const row of result.list) yield {
+          ...row,
+          email: row.email ? '***' : '',
+          phone: row.phone ? '***' : '',
+          rolesText: row.roles?.map(role => role.name).join(', ') ?? '',
+          positionsText: row.positions?.map(position => position.name).join(', ') ?? '',
+        };
+        if (result.list.length < 200) break;
+      }
+    }
+    const safe = (value: unknown) => {
+      const text = String(value ?? '');
+      return /^[\s]*[=+\-@]/.test(text) ? `'${text}` : text;
+    };
+    return csvStreamBody(c, streamToCsv([
+      { key: 'id', header: 'ID' }, { key: 'username', header: '用户名', transform: safe },
+      { key: 'nickname', header: '昵称', transform: safe }, { key: 'departmentName', header: '部门', transform: safe },
+      { key: 'status', header: '状态' }, { key: 'email', header: '邮箱' }, { key: 'phone', header: '手机号' },
+      { key: 'rolesText', header: '角色', transform: safe }, { key: 'positionsText', header: '岗位', transform: safe },
+      { key: 'lastLoginAt', header: '最后登录时间' }, { key: 'createdAt', header: '创建时间' }, { key: 'updatedAt', header: '更新时间' },
+    ], rows()), 'users.csv');
+  },
 });
 
 const getAlertRecipientUsersRoute = defineContractRoute(userContract.alertRecipients, {
@@ -144,6 +175,7 @@ mountCrud(usersRouter, userContract,
   [
     getAlertRecipientUsersRoute,
     getAllUsersRoute,
+    exportCsvRoute,
     batchDeleteUsersRoute,
     batchStatusUsersRoute,
     batchResetPasswordRoute,

@@ -22,6 +22,7 @@ import { parseRangeHeader, rangeNotSatisfiable, supportsRange, rangeContentHeade
 import { attachmentDisposition, inlineOrAttachmentDisposition } from '../../lib/content-disposition';
 import { mountCrud } from '../_crud';
 import { recordCmsDownloadResponse } from '../../services/cms/cms-telemetry-download';
+import { getSettings } from '../../lib/settings';
 
 const filesRouter = new OpenAPIHono({ defaultHook: validationHook });
 
@@ -85,6 +86,12 @@ const browseRoute = defineContractRoute(fileContract.browse, {
 });
 const statsRoute = defineContractRoute(fileContract.stats, {
   handler: async (c) => c.json(okBody(await getFileStats()), 200),
+});
+const uploadPolicyRoute = defineContractRoute(fileContract.uploadPolicy, {
+  handler: async (c) => {
+    const { uploadMaxSizeMb, chunkThresholdMb, chunkSizeMb } = await getSettings('files');
+    return c.json(okBody({ uploadMaxSizeMb, chunkThresholdMb, chunkSizeMb }), 200);
+  },
 });
 const uploadRoute = defineContractRoute(fileContract.upload, {
   responses: { 400: { content: jsonContent(ErrorResponse), description: '未选择文件或无可用存储' } },
@@ -177,6 +184,7 @@ mountCrud(filesRouter, fileContract,
     contentRoute,
     accessUrlRoute,
     statsRoute,
+    uploadPolicyRoute,
     browseRoute,
     uploadInitRoute,
     uploadChunkRoute,

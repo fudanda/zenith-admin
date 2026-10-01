@@ -71,6 +71,7 @@ export const tenantListQuery = paginationQuery.extend({
 
 export const tenantContract = defineContract('/api/tenants', {
   list: op.get('/', { access: { platformOnly: true }, query: tenantListQuery, response: paginated(tenantSchema), summary: '租户列表' }),
+  exportCsv: op.get('/export', { access: { platformOnly: true }, query: tenantListQuery, kind: 'csv', summary: '按租户列表筛选导出 CSV' }),
   all: op.get('/all', { access: { platformOnly: true }, response: z.array(tenantOptionSchema), summary: '全部租户' }),
   stats: op.get('/{id}/stats', { access: { platformOnly: true }, params: idParam, response: tenantStatsSchema, summary: '租户用量概览' }),
   detail: op.get('/{id}', { access: { platformOnly: true }, params: idParam, response: tenantSchema, summary: '租户详情' }),

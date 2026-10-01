@@ -1,9 +1,13 @@
 import { fileURLToPath, URL } from 'node:url';
+import { createRequire } from 'node:module';
+import { cpSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileViewerRenderers } from '@file-viewer/vite-plugin';
 import { VitePWA } from 'vite-plugin-pwa';
 import entriesManifest from './entries.json';
+import { connectedFoundationPages } from '@zenith/shared/foundation';
 
 /**
  * 三个 SPA 入口的内容安全策略（构建期注入 <meta http-equiv="Content-Security-Policy">）。
@@ -104,6 +108,11 @@ const APP_SOURCE = /[\\/]packages[\\/](?:web|shared|analytics-sdk)[\\/]src[\\/]/
 const APP_SHARED_LOGIC = /[\\/]packages[\\/](?:shared|analytics-sdk)[\\/]src[\\/]|[\\/]packages[\\/]web[\\/]src[\\/](?:hooks|lib|utils|providers|config)[\\/.]/;
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  if (env.VITE_GO_FOUNDATION === 'true') {
+    // Keep the original preview runtime local in both development and the Go embed.
+    const monaco = dirname(createRequire(import.meta.url).resolve('monaco-editor'));
+    cpSync(monaco, resolve(process.cwd(), 'public/monaco/vs'), { recursive: true });
+  }
   // 仅用于 Vite dev server 代理目标，不会暴露到客户端
   const apiTarget = env.VITE_API_PROXY_TARGET || 'http://localhost:3300';
   const port = Number(env.VITE_PORT) || 5373;
@@ -137,6 +146,39 @@ export default defineConfig(({ command, mode }) => {
       'import.meta.env.VITE_APP_VERSION': JSON.stringify(appVersion),
     },
     plugins: [
+      {
+        name: 'foundation-page-boundary',
+        generateBundle(_options, bundle) {
+          if (env.VITE_GO_FOUNDATION !== 'true') return;
+          const allowed = new Set([...connectedFoundationPages.map((page) => `${page.component}.tsx`), 'login/LoginPage.tsx', 'not-found/NotFoundPage.tsx', 'forbidden/ForbiddenPage.tsx']);
+          for (const output of Object.values(bundle)) {
+            if (output.type !== 'chunk') continue;
+            for (const moduleId of Object.keys(output.modules)) {
+              const page = moduleId.replaceAll('\\', '/').split('/src/pages/')[1];
+              if (page?.endsWith('Page.tsx') && !allowed.has(page)) this.error(`Go 构建包含未开放页面：${page}`);
+            }
+          }
+        },
+      },
+      {
+        name: 'canonical-dashboard-root',
+        configureServer(server) {
+          if (env.VITE_GO_FOUNDATION !== 'true') return;
+          server.middlewares.use((req, res, next) => {
+            if (req.url?.split('?')[0] !== base.slice(0, -1)) return next();
+            res.writeHead(308, { Location: base + (req.url.includes('?') ? `?${req.url.split('?')[1]}` : '') });
+            res.end();
+          });
+        },
+        configurePreviewServer(server) {
+          if (env.VITE_GO_FOUNDATION !== 'true') return;
+          server.middlewares.use((req, res, next) => {
+            if (req.url?.split('?')[0] !== base.slice(0, -1)) return next();
+            res.writeHead(308, { Location: base + (req.url.includes('?') ? `?${req.url.split('?')[1]}` : '') });
+            res.end();
+          });
+        },
+      },
       fileViewerRenderers({
         // Presentation and Archive are registered explicitly in FileViewerPreviewPanel.
         // Keeping them out prevents copyAssets from duplicating resources that
@@ -339,8 +381,10 @@ export default defineConfig(({ command, mode }) => {
       proxy: {
         '/api': {
           target: apiTarget,
-          changeOrigin: true,
-          ws: true,
+          // Go validates browser Origin against Host. Preserve the incoming
+          // host instead of weakening the server's login/CSRF check.
+          changeOrigin: env.VITE_GO_FOUNDATION !== 'true',
+          ws: env.VITE_GO_FOUNDATION !== 'true',
         },
         // CMS 前台预览（/__cms/{siteCode}/...）由后端 SSR 渲染，需转发到 server
         '/__cms': {

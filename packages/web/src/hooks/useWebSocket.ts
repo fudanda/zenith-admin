@@ -7,6 +7,7 @@ type MessageHandler = (message: WsMessage) => void;
 type StatusListener = (connected: boolean) => void;
 
 /** Demo 模式无实时后端：跳过 WebSocket，避免反复连接/断开触发“已恢复”提示 */
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 const IS_DEMO = import.meta.env.VITE_DEMO_MODE === 'true';
 
 const MAX_RECONNECT_DELAY = 30_000;
@@ -77,7 +78,7 @@ function notifyListeners(message: WsMessage) {
 }
 
 function connectSharedSocket() {
-  if (IS_DEMO) return;
+  if (IS_DEMO || IS_GO_FOUNDATION) return;
   if (sharedSocket?.readyState === WebSocket.OPEN || sharedSocket?.readyState === WebSocket.CONNECTING) {
     return;
   }

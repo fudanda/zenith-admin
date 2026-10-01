@@ -89,6 +89,12 @@ export const operationLogListQuery = paginationQuery.extend({
   maxDurationMs: z.coerce.number().int().nonnegative().optional(),
 });
 
+// The foundation audit store records these fields; keep its synchronous CSV
+// contract limited to filters both runtimes can apply consistently.
+export const operationLogExportQuery = operationLogListQuery.pick({
+  userId: true, module: true, description: true, startTime: true, endTime: true,
+});
+
 export const operationLogStatsQuery = z.object({
   days: z.coerce.number().optional().meta({ description: '统计天数，默认 7' }),
 });
@@ -101,6 +107,7 @@ export const operationLogCleanQuery = z.object({
 
 export const operationLogContract = defineContract('/api/operation-logs', {
   list: op.get('/', { access: { permission: 'system:log:operation' }, query: operationLogListQuery, response: paginated(operationLogSchema), summary: '操作日志分页列表' }),
+  exportCsv: op.get('/export', { access: { permission: 'system:log:operation' }, query: operationLogExportQuery, kind: 'csv', summary: '按基础操作审计筛选导出 CSV' }),
   detail: op.get('/{id}', { access: { permission: 'system:log:operation' }, params: idParam, response: operationLogSchema, summary: '操作日志详情' }),
   stats: op.get('/stats', { access: { permission: 'system:log:operation' }, query: operationLogStatsQuery, response: operationLogStatsSchema, summary: '操作日志统计' }),
   clean: op.delete('/clean', { access: { permission: 'system:log:operation' }, audit: '清除操作日志', query: operationLogCleanQuery, summary: '清除操作日志' }),

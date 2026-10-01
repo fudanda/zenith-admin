@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { authContract, enterpriseAuthContract, oauthContract, type OAuthProviderType } from '@zenith/shared/identity';
+import { authContract, goAuthContract, enterpriseAuthContract, oauthContract, type OAuthProviderType } from '@zenith/shared/identity';
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { api, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 const silent = { silent: true } as const;
@@ -13,7 +14,10 @@ export const authPublicKeys = {
 };
 
 export function usePublicCaptcha() {
-  return useApiQuery(authContract.captcha, { requestOptions: silent });
+  return useApiQuery(IS_GO_FOUNDATION ? goAuthContract.captcha : authContract.captcha, {
+    requestOptions: silent,
+    select: (data) => 'image' in data ? { enabled: data.enabled, captchaId: data.captchaId, svg: data.image } : data,
+  });
 }
 
 /**
@@ -27,6 +31,7 @@ export function useEnterpriseProviders(tenantCode: string) {
       api(enterpriseAuthContract.providers, { query: { tenantCode: tenantCode || undefined } }, silent)
         .catch(() => ({ tenantCode, providers: [] })),
     placeholderData: keepPreviousData,
+    enabled: !IS_GO_FOUNDATION,
   });
 }
 
@@ -42,7 +47,7 @@ export function useOAuthProviders(enabled = true) {
     queryFn: () =>
       api(oauthContract.providers, silent)
         .catch((): OAuthProviderType[] => []),
-    enabled,
+    enabled: enabled && !IS_GO_FOUNDATION,
   });
 }
 

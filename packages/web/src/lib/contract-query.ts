@@ -1,3 +1,4 @@
+import { foundationSettingsBody, foundationSettingsOperation } from '@zenith/shared/settings/foundation';
 import {
   keepPreviousData,
   queryOptions,
@@ -23,6 +24,9 @@ import {
 } from '@zenith/shared/core';
 import { request, type RequestOptions } from '@/utils/request';
 import { LOOKUP_STALE_TIME, toQueryString, unwrap } from '@/lib/query';
+import { IS_GO_FOUNDATION } from './foundation-mode';
+import { foundationPath, foundationRequestBody, isFoundationOperation } from './foundation-operations';
+import { goApiClient } from './go-api-client';
 
 /**
  * 契约驱动的数据访问层。
@@ -77,7 +81,7 @@ type LooseInput = { params?: Record<string, unknown>; query?: object; headers?: 
  */
 export function urlOf<Op extends AnyOperation>(op: Op, ...args: UrlInputArgs<Op>): string {
   const input = args[0] as LooseInput;
-  return fillPath(op.fullPath, input?.params) + (input?.query ? toQueryString(input.query) : '');
+  return fillPath(IS_GO_FOUNDATION ? foundationPath(op) : op.fullPath, input?.params) + (input?.query ? toQueryString(input.query) : '');
 }
 
 /** 契约声明的业务请求头（输入 `headers` 段）合并到请求选项；未声明时原样返回 */
@@ -102,13 +106,18 @@ export async function apiRaw<Op extends AnyOperation>(
   if (op.kind !== 'json') {
     throw new Error(`契约操作「${op.name}」为 ${op.kind} 响应，请使用 request.download(urlOf(op, input)) 等二进制通道`);
   }
-  const { client = request, ...baseOptions } = rawOptions ?? {};
+  const { client = IS_GO_FOUNDATION ? goApiClient : request, ...baseOptions } = rawOptions ?? {};
   const requestOptions = withContractHeaders(baseOptions, (rawInput as LooseInput)?.headers);
   const url = urlOf(op, ...([rawInput] as unknown as UrlInputArgs<Op>));
-  const body = (rawInput as LooseInput)?.body;
-  return op.method === 'get'
+  const body = IS_GO_FOUNDATION ? foundationRequestBody(foundationSettingsOperation(op), foundationSettingsBody(op, (rawInput as LooseInput)?.body)) : (rawInput as LooseInput)?.body;
+  const response = await (op.method === 'get'
     ? client.get<OutputOf<Op>>(url, requestOptions)
-    : client[op.method]<OutputOf<Op>>(url, body, requestOptions);
+    : client[op.method]<OutputOf<Op>>(url, body, requestOptions));
+  if (IS_GO_FOUNDATION && response.code === 0) {
+    // Generated types alone do not verify the HTTP payload at runtime.
+    return { ...response, data: foundationSettingsOperation(op).response.parse(response.data) as OutputOf<Op> };
+  }
+  return response;
 }
 
 /** 调用契约操作并解包 `data`；`code !== 0` 抛 `ApiError` */
@@ -169,6 +178,9 @@ export function apiQueryOptions<Op extends AnyOperation, TData = OutputOf<Op>>(
     queryKey: contractKey(op, input),
     queryFn: () => api(op, ...([input, requestOptions] as unknown as [...InputArgs<Op>, ApiCallOptions?])),
     ...queryExtras,
+    // Capability and permission are independent: unconnected operations never
+    // prefetch/poll, including when a platform administrator has '*'.
+    ...(IS_GO_FOUNDATION && !isFoundationOperation(op) ? { enabled: false } : {}),
   });
 }
 

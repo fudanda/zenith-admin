@@ -7,5 +7,6 @@ export * from './analytics-experiments';
 export * from './analytics-segments';
 export * from './analytics-sites';
 export * from './dashboard';
+export * from './go-dashboard';
 export * from './frontend-errors';
 export * from './session-replays';

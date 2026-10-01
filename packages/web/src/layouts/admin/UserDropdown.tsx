@@ -10,6 +10,7 @@ import { usePreferences } from '@/hooks/usePreferences';
 import { AccountSwitcherModal } from './AccountSwitcher';
 import { confirmDanger } from '@/utils/confirm';
 import './AccountSwitcher.css';
+import { IS_GO_FOUNDATION, isPageAvailable } from '@/lib/foundation-mode';
 
 // 顶栏用户下拉菜单（账号切换 / 个人中心 / 消息 / 设置 / 锁屏 / 退出登录）
 export function UserDropdown({
@@ -52,7 +53,7 @@ export function UserDropdown({
   const { hasAnyPermission } = usePermission();
   // 移动审批轻页首屏即查待办 / 角标 / 可发起流程，无任一审批相关权限必 403；
   // 与意见反馈入口同模式：无权限直接隐藏入口，而不是点进去再报错
-  const canUseApproval = hasAnyPermission('workflow:task:handle', 'workflow:instance:list', 'workflow:instance:create');
+  const canUseApproval = !IS_GO_FOUNDATION && hasAnyPermission('workflow:task:handle', 'workflow:instance:list', 'workflow:instance:create');
   const [switcherVisible, setSwitcherVisible] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const impersonating = impersonation !== null;
@@ -63,12 +64,12 @@ export function UserDropdown({
   };
   return (
     <>
-    <AccountSwitcherModal
+    {!IS_GO_FOUNDATION && <AccountSwitcherModal
       visible={switcherVisible}
       onClose={() => setSwitcherVisible(false)}
       navigate={navigate}
       disconnectWs={disconnectWs}
-    />
+    />}
     <Dropdown
       position="bottomRight"
       visible={menuVisible}
@@ -83,7 +84,7 @@ export function UserDropdown({
               <span className="user-dropdown-account-sub">{impersonating ? `模拟登录 · 操作人 ${impersonation.operatorUsername}` : user.username}</span>
             </div>
             {/* 模拟态下不能切换 / 添加账号：模拟身份没有 refresh token，切走即无法回切 */}
-            {!impersonating && (
+            {!IS_GO_FOUNDATION && !impersonating && (
               <Tooltip content="账号切换">
                 <Button
                   icon={<ArrowLeftRight size={14} />}
@@ -97,14 +98,14 @@ export function UserDropdown({
             )}
           </div>
           <Dropdown.Divider />
-          <Dropdown.Item icon={<UserIcon size={14} strokeWidth={1.5} />} onClick={closeAndRun(() => navigate('/profile'))}>个人中心</Dropdown.Item>
-          <Dropdown.Item
+          {isPageAvailable('/profile') && <Dropdown.Item icon={<UserIcon size={14} strokeWidth={1.5} />} onClick={closeAndRun(() => navigate('/profile'))}>个人中心</Dropdown.Item>}
+          {!IS_GO_FOUNDATION && <Dropdown.Item
             icon={<Bell size={14} strokeWidth={1.5} />}
             onClick={closeAndRun(() => navigate('/inbox'))}
           >
             站内信{unreadCount > 0 && <Badge count={unreadCount} overflowCount={99} type="danger" style={{ marginLeft: 6 }} />}
-          </Dropdown.Item>
-          <Dropdown.Item icon={<Megaphone size={14} strokeWidth={1.5} />} onClick={closeAndRun(() => navigate('/announcements'))}>公告中心{announcementUnreadCount > 0 && <Badge count={announcementUnreadCount} overflowCount={99} type="danger" style={{ marginLeft: 6 }} />}</Dropdown.Item>
+          </Dropdown.Item>}
+          {!IS_GO_FOUNDATION && <Dropdown.Item icon={<Megaphone size={14} strokeWidth={1.5} />} onClick={closeAndRun(() => navigate('/announcements'))}>公告中心{announcementUnreadCount > 0 && <Badge count={announcementUnreadCount} overflowCount={99} type="danger" style={{ marginLeft: 6 }} />}</Dropdown.Item>}
           {canUseApproval && (
             <Dropdown.Item icon={<Smartphone size={14} strokeWidth={1.5} />} onClick={closeAndRun(() => window.open(`${import.meta.env.BASE_URL.replace(/\/$/, '')}/approval.html`, '_blank'))}>移动审批</Dropdown.Item>
           )}

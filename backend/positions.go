@@ -1,0 +1,477 @@
+package zenith
+
+import (
+	"context"
+	"encoding/csv"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"log"
+	"net/http"
+	"net/url"
+	"regexp"
+	"strings"
+	"time"
+
+	"github.com/fudanda/zenith-admin/backend/ent"
+	"github.com/fudanda/zenith-admin/backend/ent/position"
+	"github.com/fudanda/zenith-admin/backend/ent/predicate"
+	"github.com/fudanda/zenith-admin/backend/ent/user"
+	"github.com/fudanda/zenith-admin/backend/ent/userposition"
+	"github.com/fudanda/zenith-admin/backend/internal/contracts"
+	"github.com/gorilla/mux"
+)
+
+var positionCode = regexp.MustCompile(`^\w+$`)
+
+func positionScope(_ *principal) predicate.Position { return position.IDGT(0) }
+
+func positionView(row *ent.Position, count int) contracts.Position {
+	return contracts.Position{
+		Id: row.ID, Name: row.Name, Code: row.Code, Sort: row.Sort,
+		Status: contracts.PositionStatus(row.Status), Remark: row.Remark, UserCount: &count,
+		CreatedAt: row.CreatedAt.Format(time.RFC3339Nano), UpdatedAt: row.UpdatedAt.Format(time.RFC3339Nano),
+	}
+}
+
+func (f *Framework) positionMemberSummary(ctx context.Context, p *principal, row *ent.Position) (contracts.Position, error) {
+	view := positionView(row, 0)
+	preview := []contracts.UserPreview{}
+	view.UserPreview = &preview
+	ids, err := f.Store.Client.UserPosition.Query().Where(userposition.PositionIDEQ(row.ID)).Select(userposition.FieldUserID).Ints(ctx)
+	if err != nil || len(ids) == 0 {
+		return view, err
+	}
+	scope, err := f.userDataPredicate(ctx, p)
+	if err != nil {
+		return view, err
+	}
+	query := f.Store.Client.User.Query().Where(user.IDIn(ids...), userScope(p))
+	if scope != nil {
+		query = query.Where(scope)
+	}
+	count, err := query.Clone().Count(ctx)
+	if err != nil {
+		return view, err
+	}
+	view.UserCount = &count
+	members, err := query.Select(user.FieldID, user.FieldNickname, user.FieldAvatar).Order(ent.Asc(user.FieldID)).Limit(5).All(ctx)
+	if err != nil {
+		return view, err
+	}
+	for _, account := range members {
+		preview = append(preview, contracts.UserPreview{Id: account.ID, Nickname: account.Nickname, Avatar: account.Avatar})
+	}
+	return view, nil
+}
+
+func (f *Framework) scopedPosition(ctx context.Context, p *principal, id int) (*ent.Position, error) {
+	return f.Store.Client.Position.Query().Where(position.IDEQ(id), positionScope(p)).Only(ctx)
+}
+
+func (f *Framework) listPositions(w http.ResponseWriter, r *http.Request) {
+	p := fromContext(r.Context())
+	q := r.URL.Query()
+	page, err := positiveInt(q.Get("page"), 1, 1000000)
+	if err != nil {
+		fail(w, 400, "invalid_page", err.Error())
+		return
+	}
+	size, err := positiveInt(q.Get("pageSize"), 10, 200)
+	if err != nil {
+		fail(w, 400, "invalid_page_size", err.Error())
+		return
+	}
+	query, code, err := f.filteredPositions(p, q)
+	if err != nil {
+		fail(w, 400, code, err.Error())
+		return
+	}
+	total, err := query.Clone().Count(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "查询失败")
+		return
+	}
+	rows, err := query.Order(ent.Asc(position.FieldSort), ent.Desc(position.FieldID)).Offset((page - 1) * size).Limit(size).All(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "查询失败")
+		return
+	}
+	list := make([]any, 0, len(rows))
+	for _, row := range rows {
+		view, err := f.positionMemberSummary(r.Context(), p, row)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "查询失败")
+			return
+		}
+		list = append(list, view)
+	}
+	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
+}
+
+func (f *Framework) deletePositionsBatch(w http.ResponseWriter, r *http.Request) {
+	var input struct {
+		IDs []int `json:"ids"`
+	}
+	if err := decode(r, &input); err != nil || len(input.IDs) == 0 || len(input.IDs) > 200 {
+		fail(w, 400, "invalid_ids", "请选择 1 到 200 个岗位")
+		return
+	}
+	seen := map[int]bool{}
+	for _, id := range input.IDs {
+		if id < 1 || seen[id] {
+			fail(w, 400, "invalid_ids", "岗位 ID 无效或重复")
+			return
+		}
+		seen[id] = true
+	}
+	p := fromContext(r.Context())
+	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+		rows, err := tx.Position.Query().Where(position.IDIn(input.IDs...), positionScope(p)).All(r.Context())
+		if err != nil {
+			return err
+		}
+		if len(rows) != len(input.IDs) {
+			return &ent.NotFoundError{}
+		}
+		for _, row := range rows {
+			if err := tx.Position.DeleteOne(row).Exec(r.Context()); err != nil {
+				return err
+			}
+			if err := f.auditPosition(r.Context(), tx, p, requestID(r), "delete", row.ID); err != nil {
+				return err
+			}
+		}
+		return f.syncDynamicGroupsInTx(r.Context(), tx, p)
+	})
+	if ent.IsNotFound(err) {
+		fail(w, 404, "not_found", "岗位不存在或不可访问")
+		return
+	}
+	if err != nil {
+		fail(w, 503, "database_unavailable", "批量删除失败")
+		return
+	}
+	respond(w, 200, nil)
+}
+
+func (f *Framework) filteredPositions(p *principal, q url.Values) (*ent.PositionQuery, string, error) {
+	query := f.Store.Client.Position.Query().Where(positionScope(p))
+	if keyword := strings.TrimSpace(q.Get("keyword")); keyword != "" {
+		query = query.Where(position.Or(position.NameContainsFold(keyword), position.CodeContainsFold(keyword)))
+	}
+	if status := q.Get("status"); status != "" {
+		if status != "enabled" && status != "disabled" {
+			return nil, "invalid_status", errors.New("状态无效")
+		}
+		query = query.Where(position.StatusEQ(status))
+	}
+	for _, bound := range []struct {
+		name string
+		end  bool
+	}{
+		{"startTime", false}, {"endTime", true},
+	} {
+		if raw := q.Get(bound.name); raw != "" {
+			value, err := parseFilterDateBound(raw, bound.end)
+			if err != nil {
+				return nil, "invalid_date_range", err
+			}
+			if bound.end {
+				query = query.Where(position.CreatedAtLTE(value))
+			} else {
+				query = query.Where(position.CreatedAtGTE(value))
+			}
+		}
+	}
+	return query, "", nil
+}
+
+// csvCell keeps spreadsheet programs from interpreting user-authored text as a formula.
+func csvCell(value string) string {
+	if trimmed := strings.TrimLeft(value, " \t\r\n"); trimmed != "" && strings.ContainsRune("=+-@", rune(trimmed[0])) {
+		return "'" + value
+	}
+	return value
+}
+
+func (f *Framework) exportPositionsCsv(w http.ResponseWriter, r *http.Request) {
+	query, code, err := f.filteredPositions(fromContext(r.Context()), r.URL.Query())
+	if err != nil {
+		fail(w, 400, code, err.Error())
+		return
+	}
+	query.Order(ent.Asc(position.FieldSort), ent.Desc(position.FieldID))
+	const batchSize = 200
+	rows, err := query.Clone().Limit(batchSize).All(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "导出查询失败")
+		return
+	}
+	w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+	w.Header().Set("Content-Disposition", "attachment; filename=positions.csv")
+	w.Header().Set("Cache-Control", "private, no-store")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	_, _ = w.Write([]byte{0xef, 0xbb, 0xbf})
+	writer := csv.NewWriter(w)
+	if err := writer.Write([]string{"ID", "岗位名称", "岗位编码", "排序", "状态", "备注", "创建时间"}); err != nil {
+		log.Printf("position CSV header: %v", err)
+		return
+	}
+	writer.Flush()
+	if err := writer.Error(); err != nil {
+		log.Printf("position CSV header flush: %v", err)
+		return
+	}
+	for offset := 0; len(rows) != 0; offset += len(rows) {
+		for _, row := range rows {
+			remark := ""
+			if row.Remark != nil {
+				remark = *row.Remark
+			}
+			if err := writer.Write([]string{fmt.Sprint(row.ID), csvCell(row.Name), csvCell(row.Code), fmt.Sprint(row.Sort), row.Status, csvCell(remark), row.CreatedAt.Format(time.RFC3339)}); err != nil {
+				log.Printf("position CSV row: %v", err)
+				return
+			}
+		}
+		writer.Flush()
+		if err := writer.Error(); err != nil {
+			log.Printf("position CSV flush: %v", err)
+			return
+		}
+		if flusher, ok := w.(http.Flusher); ok {
+			flusher.Flush()
+		}
+		if len(rows) < batchSize {
+			break
+		}
+		rows, err = query.Clone().Offset(offset + len(rows)).Limit(batchSize).All(r.Context())
+		if err != nil {
+			exportFailed(w, err)
+			log.Printf("position CSV query: %v", err)
+			return
+		}
+	}
+}
+
+func (f *Framework) allPositions(w http.ResponseWriter, r *http.Request) {
+	rows, err := f.Store.Client.Position.Query().Where(positionScope(fromContext(r.Context()))).Order(ent.Asc(position.FieldSort)).All(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "查询失败")
+		return
+	}
+	list := make([]any, 0, len(rows))
+	for _, row := range rows {
+		view, err := f.positionMemberSummary(r.Context(), fromContext(r.Context()), row)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "查询失败")
+			return
+		}
+		list = append(list, view)
+	}
+	respond(w, 200, list)
+}
+
+func (f *Framework) getPosition(w http.ResponseWriter, r *http.Request) {
+	id, err := intParam(mux.Vars(r)["id"])
+	if err != nil {
+		fail(w, 400, "invalid_id", err.Error())
+		return
+	}
+	row, err := f.scopedPosition(r.Context(), fromContext(r.Context()), id)
+	if ent.IsNotFound(err) {
+		fail(w, 404, "not_found", "岗位不存在")
+		return
+	}
+	if err != nil {
+		fail(w, 503, "database_unavailable", "查询失败")
+		return
+	}
+	view, err := f.positionMemberSummary(r.Context(), fromContext(r.Context()), row)
+	if err != nil {
+		fail(w, 503, "database_unavailable", "查询失败")
+		return
+	}
+	respond(w, 200, view)
+}
+
+type positionInput struct {
+	Name   string  `json:"name"`
+	Code   string  `json:"code"`
+	Sort   int     `json:"sort"`
+	Status string  `json:"status"`
+	Remark *string `json:"remark"`
+}
+
+func validatePosition(in positionInput) error {
+	if len([]rune(strings.TrimSpace(in.Name))) < 1 || len([]rune(in.Name)) > 64 {
+		return errors.New("岗位名称长度无效")
+	}
+	if len(in.Code) < 1 || len(in.Code) > 64 || !positionCode.MatchString(in.Code) {
+		return errors.New("岗位编码只能包含字母、数字和下划线")
+	}
+	if in.Status != "enabled" && in.Status != "disabled" {
+		return errors.New("岗位状态无效")
+	}
+	if in.Remark != nil && len([]rune(*in.Remark)) > 256 {
+		return errors.New("备注过长")
+	}
+	return nil
+}
+
+func (f *Framework) auditPosition(ctx context.Context, tx *ent.Tx, p *principal, requestID, operation string, id int) error {
+	create := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID).SetOperation(operation).SetResource("positions").SetResourceID(id)
+
+	return create.Exec(ctx)
+}
+
+func (f *Framework) createPosition(w http.ResponseWriter, r *http.Request) {
+	var body contracts.PositionsCreateJSONBody
+	if err := decode(r, &body); err != nil {
+		fail(w, 400, "invalid_request", err.Error())
+		return
+	}
+	in := positionInput{Name: body.Name, Code: body.Code, Remark: body.Remark, Status: "enabled"}
+	if body.Sort != nil {
+		in.Sort = *body.Sort
+	}
+	if body.Status != nil {
+		in.Status = string(*body.Status)
+	}
+	if err := validatePosition(in); err != nil {
+		fail(w, 400, "invalid_request", err.Error())
+		return
+	}
+	p := fromContext(r.Context())
+	var saved *ent.Position
+	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+		create := tx.Position.Create().SetName(in.Name).SetCode(in.Code).SetSort(in.Sort).SetStatus(in.Status)
+
+		if in.Remark != nil {
+			create.SetRemark(*in.Remark)
+		}
+		var err error
+		saved, err = create.Save(r.Context())
+		if err != nil {
+			return err
+		}
+		return f.auditPosition(r.Context(), tx, p, requestID(r), "create", saved.ID)
+	})
+	if err != nil {
+		fail(w, 409, "position_conflict", "岗位保存失败，请检查编码是否重复")
+		return
+	}
+	respond(w, 201, positionView(saved, 0))
+}
+
+func (f *Framework) updatePosition(w http.ResponseWriter, r *http.Request) {
+	id, err := intParam(mux.Vars(r)["id"])
+	if err != nil {
+		fail(w, 400, "invalid_id", err.Error())
+		return
+	}
+	var patch map[string]json.RawMessage
+	if err = decode(r, &patch); err != nil || len(patch) == 0 {
+		fail(w, 400, "invalid_request", "更新内容不能为空")
+		return
+	}
+	for key := range patch {
+		if key != "name" && key != "code" && key != "sort" && key != "status" && key != "remark" {
+			fail(w, 400, "invalid_request", "未知字段")
+			return
+		}
+	}
+	p := fromContext(r.Context())
+	var saved *ent.Position
+	err = f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+		current, err := tx.Position.Query().Where(position.IDEQ(id), positionScope(p)).Only(r.Context())
+		if err != nil {
+			return err
+		}
+		in := positionInput{Name: current.Name, Code: current.Code, Sort: current.Sort, Status: current.Status, Remark: current.Remark}
+		if raw, ok := patch["name"]; ok {
+			if err = json.Unmarshal(raw, &in.Name); err != nil {
+				return err
+			}
+		}
+		if raw, ok := patch["code"]; ok {
+			if err = json.Unmarshal(raw, &in.Code); err != nil {
+				return err
+			}
+		}
+		if raw, ok := patch["sort"]; ok {
+			if err = json.Unmarshal(raw, &in.Sort); err != nil {
+				return err
+			}
+		}
+		if raw, ok := patch["status"]; ok {
+			if err = json.Unmarshal(raw, &in.Status); err != nil {
+				return err
+			}
+		}
+		if raw, ok := patch["remark"]; ok {
+			if err = json.Unmarshal(raw, &in.Remark); err != nil {
+				return err
+			}
+		}
+		if err = validatePosition(in); err != nil {
+			return err
+		}
+		update := tx.Position.UpdateOneID(id).SetName(in.Name).SetCode(in.Code).SetSort(in.Sort).SetStatus(in.Status)
+		if in.Remark == nil {
+			update.ClearRemark()
+		} else {
+			update.SetRemark(*in.Remark)
+		}
+		saved, err = update.Save(r.Context())
+		if err != nil {
+			return err
+		}
+		return f.auditPosition(r.Context(), tx, p, requestID(r), "update", id)
+	})
+	if ent.IsNotFound(err) {
+		fail(w, 404, "not_found", "岗位不存在")
+		return
+	}
+	if err != nil {
+		fail(w, 409, "position_conflict", err.Error())
+		return
+	}
+	view, err := f.positionMemberSummary(r.Context(), p, saved)
+	if err != nil {
+		fail(w, 503, "database_unavailable", "查询失败")
+		return
+	}
+	respond(w, 200, view)
+}
+
+func (f *Framework) deletePosition(w http.ResponseWriter, r *http.Request) {
+	id, err := intParam(mux.Vars(r)["id"])
+	if err != nil {
+		fail(w, 400, "invalid_id", err.Error())
+		return
+	}
+	p := fromContext(r.Context())
+	err = f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+		row, err := tx.Position.Query().Where(position.IDEQ(id), positionScope(p)).Only(r.Context())
+		if err != nil {
+			return err
+		}
+		if err = tx.Position.DeleteOne(row).Exec(r.Context()); err != nil {
+			return err
+		}
+		if err := f.syncDynamicGroupsInTx(r.Context(), tx, p); err != nil {
+			return err
+		}
+		return f.auditPosition(r.Context(), tx, p, requestID(r), "delete", id)
+	})
+	if ent.IsNotFound(err) {
+		fail(w, 404, "not_found", "岗位不存在")
+		return
+	}
+	if err != nil {
+		fail(w, 503, "database_unavailable", "删除失败")
+		return
+	}
+	respond(w, 200, nil)
+}

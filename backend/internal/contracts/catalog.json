@@ -1,0 +1,1801 @@
+{
+  "operations": [
+    {
+      "id": "health",
+      "method": "GET",
+      "path": "/api/v1/health",
+      "permission": "",
+      "anyPermissions": [],
+      "public": true,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "ready",
+      "method": "GET",
+      "path": "/api/v1/ready",
+      "permission": "",
+      "anyPermissions": [],
+      "public": true,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authCaptcha",
+      "method": "GET",
+      "path": "/api/v1/auth/captcha",
+      "permission": "",
+      "anyPermissions": [],
+      "public": true,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authLogin",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "permission": "",
+      "anyPermissions": [],
+      "public": true,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authResolveSessionConflict",
+      "method": "POST",
+      "path": "/api/v1/auth/session-conflict/resolve",
+      "permission": "",
+      "anyPermissions": [],
+      "public": true,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authMe",
+      "method": "GET",
+      "path": "/api/v1/auth/me",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authLogout",
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authPreferencePolicy",
+      "method": "GET",
+      "path": "/api/v1/auth/preference-policy",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authPreferences",
+      "method": "GET",
+      "path": "/api/v1/auth/preferences",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authPreferencesUpdate",
+      "method": "PUT",
+      "path": "/api/v1/auth/preferences",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authProfileUpdate",
+      "method": "PUT",
+      "path": "/api/v1/auth/profile",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authChangePassword",
+      "method": "PUT",
+      "path": "/api/v1/auth/password",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authMySessions",
+      "method": "GET",
+      "path": "/api/v1/auth/my-sessions",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authDeleteOtherSessions",
+      "method": "DELETE",
+      "path": "/api/v1/auth/my-sessions/others",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authDeleteSession",
+      "method": "DELETE",
+      "path": "/api/v1/auth/my-sessions/{tokenId}",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authMyLoginLogs",
+      "method": "GET",
+      "path": "/api/v1/auth/my-login-logs",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authMyOperationLogs",
+      "method": "GET",
+      "path": "/api/v1/auth/my-operation-logs",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authFavoriteMenus",
+      "method": "GET",
+      "path": "/api/v1/auth/favorite-menus",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authFavoriteMenusSave",
+      "method": "PUT",
+      "path": "/api/v1/auth/favorite-menus",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "dashboardStats",
+      "method": "GET",
+      "path": "/api/v1/dashboard/stats",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "menusUserTree",
+      "method": "GET",
+      "path": "/api/v1/menus/user",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "departmentsTree",
+      "method": "GET",
+      "path": "/api/v1/departments",
+      "permission": "system:department:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "departmentsFlat",
+      "method": "GET",
+      "path": "/api/v1/departments/flat",
+      "permission": "system:department:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "departmentsDetail",
+      "method": "GET",
+      "path": "/api/v1/departments/{id}",
+      "permission": "system:department:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "departmentsCreate",
+      "method": "POST",
+      "path": "/api/v1/departments",
+      "permission": "system:department:create",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "部门管理",
+        "description": "创建部门"
+      }
+    },
+    {
+      "id": "departmentsUpdate",
+      "method": "PUT",
+      "path": "/api/v1/departments/{id}",
+      "permission": "system:department:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "部门管理",
+        "description": "更新部门"
+      }
+    },
+    {
+      "id": "departmentsRemove",
+      "method": "DELETE",
+      "path": "/api/v1/departments/{id}",
+      "permission": "system:department:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "部门管理",
+        "description": "删除部门"
+      }
+    },
+    {
+      "id": "departmentsMemberPreview",
+      "method": "GET",
+      "path": "/api/v1/departments/{id}/member-preview",
+      "permission": "system:department:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "positionsRemoveBatch",
+      "method": "DELETE",
+      "path": "/api/v1/positions/batch",
+      "permission": "system:position:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "岗位管理",
+        "description": "批量删除岗位"
+      }
+    },
+    {
+      "id": "positionsMembers",
+      "method": "GET",
+      "path": "/api/v1/positions/{id}/members",
+      "permission": "system:position:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "positionsMemberPreview",
+      "method": "GET",
+      "path": "/api/v1/positions/{id}/member-preview",
+      "permission": "system:position:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "positionsSetMembers",
+      "method": "PUT",
+      "path": "/api/v1/positions/{id}/members",
+      "permission": "system:position:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "岗位管理",
+        "description": "设置岗位成员"
+      }
+    },
+    {
+      "id": "positionsAll",
+      "method": "GET",
+      "path": "/api/v1/positions/all",
+      "permission": "system:position:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "positionsList",
+      "method": "GET",
+      "path": "/api/v1/positions",
+      "permission": "system:position:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "positionsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/positions/export",
+      "permission": "system:position:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "loginLogsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/login-logs/export",
+      "permission": "system:log:login",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "departmentsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/departments/export",
+      "permission": "system:department:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "rolesExportCsv",
+      "method": "GET",
+      "path": "/api/v1/roles/export",
+      "permission": "system:role:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "dictsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/dicts/export",
+      "permission": "system:dict:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "usersExportCsv",
+      "method": "GET",
+      "path": "/api/v1/users/export",
+      "permission": "system:user:export",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "usersRemoveBatch",
+      "method": "DELETE",
+      "path": "/api/v1/users/batch",
+      "permission": "system:user:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "批量删除用户"
+      }
+    },
+    {
+      "id": "usersBatchStatus",
+      "method": "PUT",
+      "path": "/api/v1/users/batch-status",
+      "permission": "system:user:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "批量修改用户状态"
+      }
+    },
+    {
+      "id": "operationLogsExportCsv",
+      "method": "GET",
+      "path": "/api/v1/operation-logs/export",
+      "permission": "system:log:operation",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "positionsDetail",
+      "method": "GET",
+      "path": "/api/v1/positions/{id}",
+      "permission": "system:position:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "positionsCreate",
+      "method": "POST",
+      "path": "/api/v1/positions",
+      "permission": "system:position:create",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "岗位管理",
+        "description": "创建岗位"
+      }
+    },
+    {
+      "id": "positionsUpdate",
+      "method": "PUT",
+      "path": "/api/v1/positions/{id}",
+      "permission": "system:position:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "岗位管理",
+        "description": "更新岗位"
+      }
+    },
+    {
+      "id": "positionsRemove",
+      "method": "DELETE",
+      "path": "/api/v1/positions/{id}",
+      "permission": "system:position:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "岗位管理",
+        "description": "删除岗位"
+      }
+    },
+    {
+      "id": "menusTree",
+      "method": "GET",
+      "path": "/api/v1/menus",
+      "permission": "system:menu:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "menusFlat",
+      "method": "GET",
+      "path": "/api/v1/menus/flat",
+      "permission": "system:menu:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "menusDetail",
+      "method": "GET",
+      "path": "/api/v1/menus/{id}",
+      "permission": "system:menu:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "menusCreate",
+      "method": "POST",
+      "path": "/api/v1/menus",
+      "permission": "system:menu:create",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "菜单管理",
+        "description": "创建菜单"
+      }
+    },
+    {
+      "id": "menusUpdate",
+      "method": "PUT",
+      "path": "/api/v1/menus/{id}",
+      "permission": "system:menu:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "菜单管理",
+        "description": "更新菜单"
+      }
+    },
+    {
+      "id": "menusRemove",
+      "method": "DELETE",
+      "path": "/api/v1/menus/{id}",
+      "permission": "system:menu:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "菜单管理",
+        "description": "删除菜单"
+      }
+    },
+    {
+      "id": "filesRemoveBatch",
+      "method": "DELETE",
+      "path": "/api/v1/files/batch",
+      "permission": "system:file:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件管理",
+        "description": "批量删除文件",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "filesBatchDownload",
+      "method": "POST",
+      "path": "/api/v1/files/batch-download",
+      "permission": "system:file:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "usersAll",
+      "method": "GET",
+      "path": "/api/v1/users/all",
+      "permission": "system:user:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "usersList",
+      "method": "GET",
+      "path": "/api/v1/users",
+      "permission": "system:user:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "usersCreate",
+      "method": "POST",
+      "path": "/api/v1/users",
+      "permission": "system:user:create",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "创建用户"
+      }
+    },
+    {
+      "id": "usersBatchResetPassword",
+      "method": "PUT",
+      "path": "/api/v1/users/batch-password",
+      "permission": "system:user:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "批量重置用户密码"
+      }
+    },
+    {
+      "id": "usersResetPassword",
+      "method": "PUT",
+      "path": "/api/v1/users/{id}/password",
+      "permission": "system:user:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "修改用户密码"
+      }
+    },
+    {
+      "id": "usersUnlock",
+      "method": "POST",
+      "path": "/api/v1/users/{id}/unlock",
+      "permission": "system:user:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "清除账号登录验证码要求"
+      }
+    },
+    {
+      "id": "usersDetail",
+      "method": "GET",
+      "path": "/api/v1/users/{id}",
+      "permission": "system:user:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "usersUpdate",
+      "method": "PUT",
+      "path": "/api/v1/users/{id}",
+      "permission": "system:user:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "更新用户"
+      }
+    },
+    {
+      "id": "usersRemove",
+      "method": "DELETE",
+      "path": "/api/v1/users/{id}",
+      "permission": "system:user:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "删除用户"
+      }
+    },
+    {
+      "id": "usersMenus",
+      "method": "GET",
+      "path": "/api/v1/users/{id}/menus",
+      "permission": "system:user:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "usersAssignMenus",
+      "method": "PUT",
+      "path": "/api/v1/users/{id}/menus",
+      "permission": "system:user:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "分配用户菜单权限"
+      }
+    },
+    {
+      "id": "usersAssignRoles",
+      "method": "PUT",
+      "path": "/api/v1/users/{id}/roles",
+      "permission": "system:user:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "分配用户角色"
+      }
+    },
+    {
+      "id": "usersDataPermission",
+      "method": "GET",
+      "path": "/api/v1/users/{id}/data-permission",
+      "permission": "system:user:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "usersUpdateDataPermission",
+      "method": "PUT",
+      "path": "/api/v1/users/{id}/data-permission",
+      "permission": "system:user:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "设置用户数据权限"
+      }
+    },
+    {
+      "id": "usersEffectivePermissions",
+      "method": "GET",
+      "path": "/api/v1/users/{id}/effective-permissions",
+      "permission": "system:user:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "rolesAll",
+      "method": "GET",
+      "path": "/api/v1/roles/all",
+      "permission": "system:role:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "rolesList",
+      "method": "GET",
+      "path": "/api/v1/roles",
+      "permission": "system:role:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "rolesDetail",
+      "method": "GET",
+      "path": "/api/v1/roles/{id}",
+      "permission": "system:role:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "rolesCreate",
+      "method": "POST",
+      "path": "/api/v1/roles",
+      "permission": "system:role:create",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "角色管理",
+        "description": "创建角色"
+      }
+    },
+    {
+      "id": "rolesUpdate",
+      "method": "PUT",
+      "path": "/api/v1/roles/{id}",
+      "permission": "system:role:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "角色管理",
+        "description": "更新角色"
+      }
+    },
+    {
+      "id": "rolesRemove",
+      "method": "DELETE",
+      "path": "/api/v1/roles/{id}",
+      "permission": "system:role:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "角色管理",
+        "description": "删除角色"
+      }
+    },
+    {
+      "id": "rolesAssignMenus",
+      "method": "PUT",
+      "path": "/api/v1/roles/{id}/menus",
+      "permission": "system:role:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "角色管理",
+        "description": "分配角色菜单"
+      }
+    },
+    {
+      "id": "rolesUsers",
+      "method": "GET",
+      "path": "/api/v1/roles/{id}/users",
+      "permission": "system:role:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "rolesAssignUsers",
+      "method": "PUT",
+      "path": "/api/v1/roles/{id}/users",
+      "permission": "system:role:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "角色管理",
+        "description": "分配角色用户"
+      }
+    },
+    {
+      "id": "rolesMemberPreview",
+      "method": "GET",
+      "path": "/api/v1/roles/{id}/member-preview",
+      "permission": "system:role:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "userGroupsAll",
+      "method": "GET",
+      "path": "/api/v1/user-groups/all",
+      "permission": "system:user-groups:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "userGroupsList",
+      "method": "GET",
+      "path": "/api/v1/user-groups",
+      "permission": "system:user-groups:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "userGroupsRulePreview",
+      "method": "POST",
+      "path": "/api/v1/user-groups/rule-preview",
+      "permission": "authenticated",
+      "anyPermissions": [
+        "system:user-groups:create",
+        "system:user-groups:update"
+      ],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "userGroupsMembers",
+      "method": "GET",
+      "path": "/api/v1/user-groups/{id}/members",
+      "permission": "system:user-groups:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "userGroupsMemberPreview",
+      "method": "GET",
+      "path": "/api/v1/user-groups/{id}/member-preview",
+      "permission": "system:user-groups:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "userGroupsSetMembers",
+      "method": "PUT",
+      "path": "/api/v1/user-groups/{id}/members",
+      "permission": "system:user-groups:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户组管理",
+        "description": "设置用户组成员"
+      }
+    },
+    {
+      "id": "userGroupsAddMembers",
+      "method": "POST",
+      "path": "/api/v1/user-groups/{id}/members",
+      "permission": "system:user-groups:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户组管理",
+        "description": "添加用户组成员"
+      }
+    },
+    {
+      "id": "userGroupsRemoveMembers",
+      "method": "DELETE",
+      "path": "/api/v1/user-groups/{id}/members",
+      "permission": "system:user-groups:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户组管理",
+        "description": "移除用户组成员"
+      }
+    },
+    {
+      "id": "userGroupsRoles",
+      "method": "GET",
+      "path": "/api/v1/user-groups/{id}/roles",
+      "permission": "system:user-groups:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "userGroupsSetRoles",
+      "method": "PUT",
+      "path": "/api/v1/user-groups/{id}/roles",
+      "permission": "system:user-groups:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户组管理",
+        "description": "分配用户组角色"
+      }
+    },
+    {
+      "id": "userGroupsSync",
+      "method": "POST",
+      "path": "/api/v1/user-groups/{id}/sync",
+      "permission": "system:user-groups:assign",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户组管理",
+        "description": "手动同步动态组成员"
+      }
+    },
+    {
+      "id": "userGroupsDetail",
+      "method": "GET",
+      "path": "/api/v1/user-groups/{id}",
+      "permission": "system:user-groups:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "userGroupsCreate",
+      "method": "POST",
+      "path": "/api/v1/user-groups",
+      "permission": "system:user-groups:create",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户组管理",
+        "description": "创建用户组"
+      }
+    },
+    {
+      "id": "userGroupsUpdate",
+      "method": "PUT",
+      "path": "/api/v1/user-groups/{id}",
+      "permission": "system:user-groups:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户组管理",
+        "description": "更新用户组"
+      }
+    },
+    {
+      "id": "userGroupsRemoveBatch",
+      "method": "DELETE",
+      "path": "/api/v1/user-groups/batch",
+      "permission": "system:user-groups:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户组管理",
+        "description": "批量删除用户组"
+      }
+    },
+    {
+      "id": "userGroupsRemove",
+      "method": "DELETE",
+      "path": "/api/v1/user-groups/{id}",
+      "permission": "system:user-groups:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户组管理",
+        "description": "删除用户组"
+      }
+    },
+    {
+      "id": "sessionsList",
+      "method": "GET",
+      "path": "/api/v1/sessions",
+      "permission": "system:session:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "sessionsForceLogoutUser",
+      "method": "DELETE",
+      "path": "/api/v1/sessions/user/{id}",
+      "permission": "system:session:forceLogout",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "会话管理",
+        "description": "强制下线全部会话"
+      }
+    },
+    {
+      "id": "sessionsForceLogout",
+      "method": "DELETE",
+      "path": "/api/v1/sessions/{tokenId}",
+      "permission": "system:session:forceLogout",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "会话管理",
+        "description": "强制下线"
+      }
+    },
+    {
+      "id": "loginLogsList",
+      "method": "GET",
+      "path": "/api/v1/login-logs",
+      "permission": "system:log:login",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "loginLogsStats",
+      "method": "GET",
+      "path": "/api/v1/login-logs/stats",
+      "permission": "system:log:login",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "loginLogsClean",
+      "method": "DELETE",
+      "path": "/api/v1/login-logs/clean",
+      "permission": "system:log:login",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "登录日志",
+        "description": "清除登录日志"
+      }
+    },
+    {
+      "id": "operationLogsList",
+      "method": "GET",
+      "path": "/api/v1/operation-logs",
+      "permission": "system:log:operation",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "operationLogsDetail",
+      "method": "GET",
+      "path": "/api/v1/operation-logs/{id}",
+      "permission": "system:log:operation",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "operationLogsStats",
+      "method": "GET",
+      "path": "/api/v1/operation-logs/stats",
+      "permission": "system:log:operation",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "operationLogsClean",
+      "method": "DELETE",
+      "path": "/api/v1/operation-logs/clean",
+      "permission": "system:log:operation",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "操作日志",
+        "description": "清除操作日志"
+      }
+    },
+    {
+      "id": "dictsList",
+      "method": "GET",
+      "path": "/api/v1/dicts",
+      "permission": "system:dict:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "dictsDetail",
+      "method": "GET",
+      "path": "/api/v1/dicts/{id}",
+      "permission": "system:dict:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "dictsCreate",
+      "method": "POST",
+      "path": "/api/v1/dicts",
+      "permission": "system:dict:create",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "字典管理",
+        "description": "创建字典"
+      }
+    },
+    {
+      "id": "dictsUpdate",
+      "method": "PUT",
+      "path": "/api/v1/dicts/{id}",
+      "permission": "system:dict:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "字典管理",
+        "description": "更新字典"
+      }
+    },
+    {
+      "id": "dictsRemove",
+      "method": "DELETE",
+      "path": "/api/v1/dicts/{id}",
+      "permission": "system:dict:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "字典管理",
+        "description": "删除字典"
+      }
+    },
+    {
+      "id": "dictsItems",
+      "method": "GET",
+      "path": "/api/v1/dicts/{id}/items",
+      "permission": "system:dict:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "dictsItemsByCode",
+      "method": "GET",
+      "path": "/api/v1/dicts/code/{code}/items",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "dictsItemDetail",
+      "method": "GET",
+      "path": "/api/v1/dicts/{id}/items/{itemId}",
+      "permission": "system:dict:item",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "dictsCreateItem",
+      "method": "POST",
+      "path": "/api/v1/dicts/{id}/items",
+      "permission": "system:dict:item",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "字典管理",
+        "description": "创建字典项"
+      }
+    },
+    {
+      "id": "dictsUpdateItem",
+      "method": "PUT",
+      "path": "/api/v1/dicts/{id}/items/{itemId}",
+      "permission": "system:dict:item",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "字典管理",
+        "description": "更新字典项"
+      }
+    },
+    {
+      "id": "dictsRemoveItem",
+      "method": "DELETE",
+      "path": "/api/v1/dicts/{id}/items/{itemId}",
+      "permission": "system:dict:item",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "字典管理",
+        "description": "删除字典项"
+      }
+    },
+    {
+      "id": "filesContent",
+      "method": "GET",
+      "path": "/api/v1/files/{id}/content",
+      "permission": "",
+      "anyPermissions": [],
+      "public": true,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "filesAccessUrl",
+      "method": "GET",
+      "path": "/api/v1/files/{id}/access-url",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "filesStats",
+      "method": "GET",
+      "path": "/api/v1/files/stats",
+      "permission": "system:file:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "filesUploadPolicy",
+      "method": "GET",
+      "path": "/api/v1/files/upload-policy",
+      "permission": "system:file:upload",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "filesList",
+      "method": "GET",
+      "path": "/api/v1/files",
+      "permission": "system:file:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "filesBrowse",
+      "method": "GET",
+      "path": "/api/v1/files/browse",
+      "permission": "system:file:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "filesUploadInit",
+      "method": "POST",
+      "path": "/api/v1/files/upload/init",
+      "permission": "system:file:upload",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件管理",
+        "description": "初始化分片上传"
+      }
+    },
+    {
+      "id": "filesUploadChunk",
+      "method": "POST",
+      "path": "/api/v1/files/upload/chunk",
+      "permission": "system:file:upload",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "filesUploadComplete",
+      "method": "POST",
+      "path": "/api/v1/files/upload/complete",
+      "permission": "system:file:upload",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件管理",
+        "description": "完成分片上传"
+      }
+    },
+    {
+      "id": "filesUploadStatus",
+      "method": "GET",
+      "path": "/api/v1/files/upload/{uploadId}/status",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "filesUploadAbort",
+      "method": "DELETE",
+      "path": "/api/v1/files/upload/{uploadId}",
+      "permission": "system:file:upload",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件管理",
+        "description": "中止分片上传"
+      }
+    },
+    {
+      "id": "filesDetail",
+      "method": "GET",
+      "path": "/api/v1/files/{id}",
+      "permission": "system:file:list",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "filesUpload",
+      "method": "POST",
+      "path": "/api/v1/files/upload",
+      "permission": "system:file:upload",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件管理",
+        "description": "上传文件",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "filesUploadOne",
+      "method": "POST",
+      "path": "/api/v1/files/upload-one",
+      "permission": "system:file:upload",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件管理",
+        "description": "上传单个文件",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "filesRemove",
+      "method": "DELETE",
+      "path": "/api/v1/files/{id}",
+      "permission": "system:file:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件管理",
+        "description": "删除文件",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "fileConfigsList",
+      "method": "GET",
+      "path": "/api/v1/file-storage-configs",
+      "permission": "system:file:config",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "fileConfigsDefaultConfig",
+      "method": "GET",
+      "path": "/api/v1/file-storage-configs/default",
+      "permission": "system:file:config",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "fileConfigsTest",
+      "method": "POST",
+      "path": "/api/v1/file-storage-configs/test",
+      "permission": "system:file:config",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件存储配置",
+        "description": "测试文件存储连接",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "fileConfigsTestExisting",
+      "method": "POST",
+      "path": "/api/v1/file-storage-configs/{id}/test",
+      "permission": "system:file:config",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件存储配置",
+        "description": "测试文件存储连接",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "fileConfigsDetail",
+      "method": "GET",
+      "path": "/api/v1/file-storage-configs/{id}",
+      "permission": "system:file:config",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "fileConfigsCreate",
+      "method": "POST",
+      "path": "/api/v1/file-storage-configs",
+      "permission": "system:file:config:create",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件存储配置",
+        "description": "创建文件存储配置"
+      }
+    },
+    {
+      "id": "fileConfigsUpdate",
+      "method": "PUT",
+      "path": "/api/v1/file-storage-configs/{id}",
+      "permission": "system:file:config:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件存储配置",
+        "description": "更新文件存储配置"
+      }
+    },
+    {
+      "id": "fileConfigsSetDefault",
+      "method": "PUT",
+      "path": "/api/v1/file-storage-configs/{id}/default",
+      "permission": "system:file:config:default",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件存储配置",
+        "description": "设置默认文件存储",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "fileConfigsRemove",
+      "method": "DELETE",
+      "path": "/api/v1/file-storage-configs/{id}",
+      "permission": "system:file:config:delete",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "文件存储配置",
+        "description": "删除文件存储配置"
+      }
+    },
+    {
+      "id": "settingsList",
+      "method": "GET",
+      "path": "/api/v1/settings",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "settingsPublic",
+      "method": "GET",
+      "path": "/api/v1/settings/public",
+      "permission": "",
+      "anyPermissions": [],
+      "public": true,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "settingsMe",
+      "method": "GET",
+      "path": "/api/v1/settings/me",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "settingsGetAuth",
+      "method": "GET",
+      "path": "/api/v1/settings/auth",
+      "permission": "system:setting:view",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "settingsUpdateAuth",
+      "method": "PUT",
+      "path": "/api/v1/settings/auth",
+      "permission": "system:setting:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "系统设置",
+        "description": "更新「登录与注册」设置"
+      }
+    },
+    {
+      "id": "settingsGetIdentitySecurity",
+      "method": "GET",
+      "path": "/api/v1/settings/identity-security",
+      "permission": "system:identity-security:manage",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "settingsUpdateIdentitySecurity",
+      "method": "PUT",
+      "path": "/api/v1/settings/identity-security",
+      "permission": "system:identity-security:manage",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "系统设置",
+        "description": "更新「身份安全」设置"
+      }
+    },
+    {
+      "id": "settingsGetUi",
+      "method": "GET",
+      "path": "/api/v1/settings/ui",
+      "permission": "system:setting:view",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "settingsUpdateUi",
+      "method": "PUT",
+      "path": "/api/v1/settings/ui",
+      "permission": "system:setting:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "系统设置",
+        "description": "更新「界面与体验」设置"
+      }
+    },
+    {
+      "id": "settingsGetFiles",
+      "method": "GET",
+      "path": "/api/v1/settings/files",
+      "permission": "system:setting:view",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "settingsUpdateFiles",
+      "method": "PUT",
+      "path": "/api/v1/settings/files",
+      "permission": "system:setting:update",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "系统设置",
+        "description": "更新「文件上传」设置"
+      }
+    },
+    {
+      "id": "transferExport",
+      "method": "GET",
+      "path": "/api/v1/foundation/exports/{entity}",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "transferTemplate",
+      "method": "GET",
+      "path": "/api/v1/foundation/imports/users/template",
+      "permission": "system:user:import",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "transferUsers",
+      "method": "POST",
+      "path": "/api/v1/foundation/imports/users",
+      "permission": "system:user:import",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "用户管理",
+        "description": "同步导入用户",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "relationsDescribe",
+      "method": "GET",
+      "path": "/api/v1/platform/entities/{type}/{key}/relations",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "relationsSection",
+      "method": "GET",
+      "path": "/api/v1/platform/entities/{type}/{key}/relations/{sectionKey}",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "authAvatarUpload",
+      "method": "POST",
+      "path": "/api/v1/auth/avatar",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": {
+        "module": "个人中心",
+        "description": "上传个人头像",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "filesPrivateContent",
+      "method": "GET",
+      "path": "/api/v1/files/{id}/private-content",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "superAdminOnly": false,
+      "audit": null
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+[
+  {
+    "name": "通用状态",
+    "code": "common_status",
+    "description": "通用启用/禁用状态",
+    "items": [
+      {
+        "label": "启用",
+        "value": "enabled",
+        "color": "green",
+        "sort": 1,
+        "status": "enabled"
+      },
+      {
+        "label": "禁用",
+        "value": "disabled",
+        "color": "grey",
+        "sort": 2,
+        "status": "enabled"
+      }
+    ]
+  },
+  {
+    "name": "菜单类型",
+    "code": "menu_type",
+    "description": "菜单节点类型",
+    "items": [
+      {
+        "label": "目录",
+        "value": "directory",
+        "color": "blue",
+        "sort": 1,
+        "status": "enabled"
+      },
+      {
+        "label": "菜单",
+        "value": "menu",
+        "color": "green",
+        "sort": 2,
+        "status": "enabled"
+      },
+      {
+        "label": "按钮",
+        "value": "button",
+        "color": "orange",
+        "sort": 3,
+        "status": "enabled"
+      }
+    ]
+  },
+  {
+    "name": "用户性别",
+    "code": "user_gender",
+    "description": "用户性别",
+    "items": [
+      {
+        "label": "男",
+        "value": "male",
+        "color": "blue",
+        "sort": 1,
+        "status": "enabled"
+      },
+      {
+        "label": "女",
+        "value": "female",
+        "color": "pink",
+        "sort": 2,
+        "status": "enabled"
+      },
+      {
+        "label": "保密",
+        "value": "secret",
+        "color": "grey",
+        "sort": 3,
+        "status": "enabled"
+      }
+    ]
+  },
+  {
+    "name": "显示状态",
+    "code": "menu_visible",
+    "description": "菜单显示/隐藏状态",
+    "items": [
+      {
+        "label": "显示",
+        "value": "show",
+        "color": "green",
+        "sort": 1,
+        "status": "enabled"
+      },
+      {
+        "label": "隐藏",
+        "value": "hidden",
+        "color": "grey",
+        "sort": 2,
+        "status": "enabled"
+      }
+    ]
+  },
+  {
+    "name": "部门类别",
+    "code": "department_category",
+    "description": "部门类别",
+    "items": [
+      {
+        "label": "集团",
+        "value": "group",
+        "color": "purple",
+        "sort": 1,
+        "status": "enabled"
+      },
+      {
+        "label": "公司",
+        "value": "company",
+        "color": "blue",
+        "sort": 2,
+        "status": "enabled"
+      },
+      {
+        "label": "部门",
+        "value": "department",
+        "color": "green",
+        "sort": 3,
+        "status": "enabled"
+      }
+    ]
+  }
+]

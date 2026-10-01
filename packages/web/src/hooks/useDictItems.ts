@@ -9,11 +9,11 @@ import { LOOKUP_STALE_TIME } from '@/lib/query';
  * 按字典编码获取字典项。
  * 基于 TanStack Query：同一 code 全局共享缓存、自动去重并发请求。
  */
-export function useDictItems(code: string) {
+export function useDictItems(code: string, enabled = true) {
   const { data, isPending } = useQuery({
     queryKey: dictKeys.itemsByCode(code),
     queryFn: () => api(dictContract.itemsByCode, { params: { code } }),
-    enabled: !!code,
+    enabled: !!code && enabled,
     staleTime: LOOKUP_STALE_TIME,
   });
 
@@ -34,5 +34,5 @@ export function useDictItems(code: string) {
     [items],
   );
 
-  return { items, options, loading: !!code && isPending, getLabel, getColor };
+  return { items, options, loading: !!code && enabled && isPending, getLabel, getColor };
 }

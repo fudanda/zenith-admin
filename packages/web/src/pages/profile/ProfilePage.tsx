@@ -1,3 +1,4 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { FormPasswordInput } from '@/components/PasswordInput';
 import { useState } from 'react';
 import { Form, Button, Typography, Toast, Tag, Space, Spin, Avatar, Modal, Tabs, List as SemiList, Descriptions, Divider, PinCode, Banner } from '@douyinfe/semi-ui';
@@ -144,7 +145,7 @@ function SessionList({
 }
 
 export default function ProfilePage({ user }: ProfilePageProps) {
-  const [activeSection, setActiveSection] = useUrlTabState(['profile', 'signature', 'security', 'notifications', 'devices', 'login', 'operation', 'api-tokens', 'authorized-apps'] as const, 'profile');
+  const [activeSection, setActiveSection] = useUrlTabState(IS_GO_FOUNDATION ? ['profile', 'security', 'devices', 'login', 'operation'] : ['profile', 'signature', 'security', 'notifications', 'devices', 'login', 'operation', 'api-tokens', 'authorized-apps'] as readonly SectionKey[], 'profile');
 
   // ─── 基本信息 ────────────────────────────────────────────────────────────────
   const { options: genderOptions } = useDictItems('user_gender');
@@ -242,7 +243,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
   // ─── 事件处理 ────────────────────────────────────────────────────────────────
 
   async function handleUpdateProfile(values: { nickname: string; email: string; phone?: string; gender?: string | null; birthDate?: Date | string | null }) {
-    await updateProfileMutation.mutateAsync({ body: { ...values, gender: values.gender ?? null, birthDate: values.birthDate ? formatDateForApi(values.birthDate) : null } });
+    await updateProfileMutation.mutateAsync({ body: { ...values, email: values.email || null, phone: values.phone || null, gender: values.gender ?? null, birthDate: values.birthDate ? formatDateForApi(values.birthDate) : null } });
     Toast.success('资料已更新');
   }
 
@@ -475,9 +476,9 @@ export default function ProfilePage({ user }: ProfilePageProps) {
               </div>
             </Tabs.TabPane>
 
-            <Tabs.TabPane itemKey="signature" tab={<span className="profile-tab-label"><PenTool size={14} /><span>我的签名</span></span>}>
+            {!IS_GO_FOUNDATION && <Tabs.TabPane itemKey="signature" tab={<span className="profile-tab-label"><PenTool size={14} /><span>我的签名</span></span>}>
               {activeSection === 'signature' && <MySignatureTab />}
-            </Tabs.TabPane>
+            </Tabs.TabPane>}
 
             {/* ── 账号安全 ──────────────────────────────────────── */}
             <Tabs.TabPane
@@ -518,6 +519,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
                     </Form.Slot>
                   </Form>
 
+                  {!IS_GO_FOUNDATION && <>
                   <Divider margin={28} />
 
                   <div className="section-title">多因素认证</div>
@@ -636,16 +638,17 @@ export default function ProfilePage({ user }: ProfilePageProps) {
                     }}
                   />
                   )}
+                  </>}
               </div>
             </Tabs.TabPane>
 
             {/* ── 通知设置 ──────────────────────────────────────── */}
-            <Tabs.TabPane
+            {!IS_GO_FOUNDATION && <Tabs.TabPane
               itemKey="notifications"
               tab={<span className="profile-tab-label"><BellRing size={14} /><span>通知设置</span></span>}
             >
               {activeSection === 'notifications' && <NotificationSettingsTab />}
-            </Tabs.TabPane>
+            </Tabs.TabPane>}
 
             {/* ── 我的设备 ──────────────────────────────────────── */}
             <Tabs.TabPane
@@ -699,7 +702,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
             </Tabs.TabPane>
 
             {/* ── API Token ─────────────────────────────────────── */}
-            <Tabs.TabPane
+            {!IS_GO_FOUNDATION && <Tabs.TabPane
               itemKey="api-tokens"
               tab={<span className="profile-tab-label"><Key size={14} /><span>API Token</span></span>}
             >
@@ -740,10 +743,10 @@ export default function ProfilePage({ user }: ProfilePageProps) {
                     />
                   )}
               </div>
-            </Tabs.TabPane>
+            </Tabs.TabPane>}
 
             {/* ── 已授权应用 ────────────────────────────────────── */}
-            <Tabs.TabPane
+            {!IS_GO_FOUNDATION && <Tabs.TabPane
               itemKey="authorized-apps"
               tab={<span className="profile-tab-label"><ShieldCheck size={14} /><span>已授权应用</span></span>}
             >
@@ -806,7 +809,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
                   ]}
                 />
               </div>
-            </Tabs.TabPane>
+            </Tabs.TabPane>}
 
           </Tabs>
       </div>
@@ -822,6 +825,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
         onRemove={user.avatar ? handleRemoveAvatar : undefined}
       />
 
+      {!IS_GO_FOUNDATION && <>
       <AppModal
         title="绑定身份验证器"
         visible={!!totpSetup}
@@ -899,6 +903,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
           </div>
         )}
       </Modal>
+      </>}
     </div>
   );
 }

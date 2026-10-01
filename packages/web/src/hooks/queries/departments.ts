@@ -46,7 +46,7 @@ export const departmentKeys = {
   /** 全部部门树查询（不带条件的共享树 + 部门管理页带筛选的搜索树）的公共前缀 */
   tree: contractKey(departmentContract.tree),
   treeSearch: (params: DepartmentTreeParams) => contractKey(departmentContract.tree, { query: params }),
-  flat: contractKey(departmentContract.flat),
+  flat: contractKey(departmentContract.flat, { query: {} }),
   detail: (id: number | undefined) => contractKey(departmentContract.detail, { params: { id: id ?? 0 } }),
 };
 
@@ -67,7 +67,7 @@ export function useDepartmentTreeSearch(params: DepartmentTreeParams, options?: 
 
 /** 扁平部门列表（用户穿梭框等场景共享缓存） */
 export function useFlatDepartments(options?: { enabled?: boolean }) {
-  return useApiQuery(departmentContract.flat, {
+  return useApiQuery(departmentContract.flat, { query: {} }, {
     select: (data) => (Array.isArray(data) ? data : []),
     staleTime: LOOKUP_STALE_TIME,
     enabled: options?.enabled ?? true,

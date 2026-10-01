@@ -1,0 +1,1951 @@
+{
+  "auth": {
+    "defaults": {
+      "captchaEnabled": true,
+      "captchaComplexity": "medium"
+    },
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "captchaEnabled": {
+          "default": false,
+          "title": "登录验证码",
+          "description": "开启后登录必须输入图形验证码",
+          "type": "boolean"
+        },
+        "captchaComplexity": {
+          "default": "medium",
+          "title": "验证码复杂度",
+          "description": "仅在开启登录验证码后生效",
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      },
+      "required": [
+        "captchaEnabled",
+        "captchaComplexity"
+      ],
+      "additionalProperties": false
+    },
+    "title": "登录与注册",
+    "description": "登录验证码、自助注册与找回密码入口",
+    "path": "/auth",
+    "readPermission": "system:setting:view",
+    "writePermission": "system:setting:update",
+    "page": null
+  },
+  "identitySecurity": {
+    "defaults": {
+      "password": {
+        "minLength": 6,
+        "requireUppercase": false,
+        "requireSpecialChar": false,
+        "expiryEnabled": false,
+        "expiryDays": 90
+      },
+      "loginChallenge": {
+        "maxAttemptsPerSource": 30,
+        "sourceLimit": 5,
+        "windowMinutes": 30
+      },
+      "session": {
+        "maxSessions": 0,
+        "scope": "global",
+        "exceedAction": "kick-oldest"
+      }
+    },
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "password": {
+          "title": "密码策略",
+          "type": "object",
+          "properties": {
+            "minLength": {
+              "default": 6,
+              "title": "密码最小长度",
+              "type": "integer",
+              "minimum": 6,
+              "maximum": 64
+            },
+            "requireUppercase": {
+              "default": false,
+              "title": "必须包含大写字母",
+              "type": "boolean"
+            },
+            "requireSpecialChar": {
+              "default": false,
+              "title": "必须包含特殊字符",
+              "type": "boolean"
+            },
+            "expiryEnabled": {
+              "default": false,
+              "title": "密码过期强制重置",
+              "type": "boolean"
+            },
+            "expiryDays": {
+              "default": 90,
+              "title": "密码过期天数",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3650
+            }
+          },
+          "required": [
+            "minLength",
+            "requireUppercase",
+            "requireSpecialChar",
+            "expiryEnabled",
+            "expiryDays"
+          ],
+          "additionalProperties": false
+        },
+        "loginChallenge": {
+          "type": "object",
+          "properties": {
+            "maxAttemptsPerSource": {
+              "default": 30,
+              "title": "单来源失败次数阈值",
+              "description": "同一账号同一 IP 在窗口内的失败次数，达到后该来源登录需先通过验证码",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "sourceLimit": {
+              "default": 5,
+              "title": "多来源失败阈值",
+              "description": "窗口内失败来源 IP 数达到后，该账号所有来源登录都需通过验证码（应对分布式猜解）",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "windowMinutes": {
+              "default": 30,
+              "title": "计数窗口（分钟）",
+              "description": "失败计数与验证码要求的持续时长",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1440
+            }
+          },
+          "required": [
+            "maxAttemptsPerSource",
+            "sourceLimit",
+            "windowMinutes"
+          ],
+          "additionalProperties": false
+        },
+        "session": {
+          "title": "会话并发",
+          "type": "object",
+          "properties": {
+            "maxSessions": {
+              "default": 0,
+              "title": "同时在线上限",
+              "description": "0 不限制；1 = 同一账号只能在一处登录；模拟登录会话不计入",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 20
+            },
+            "scope": {
+              "default": "global",
+              "title": "统计范围",
+              "description": "global 全部终端合计 / per-client 网页、移动审批、桌面端各算一份",
+              "type": "string",
+              "enum": [
+                "global",
+                "per-client"
+              ]
+            },
+            "exceedAction": {
+              "default": "kick-oldest",
+              "title": "超限处理",
+              "description": "kick-oldest 新登录挤掉最早的会话 / reject-new 拒绝新登录，登录页可选择下线其它设备",
+              "type": "string",
+              "enum": [
+                "kick-oldest",
+                "reject-new"
+              ]
+            }
+          },
+          "required": [
+            "maxSessions",
+            "scope",
+            "exceedAction"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "password",
+        "loginChallenge",
+        "session"
+      ],
+      "additionalProperties": false
+    },
+    "title": "身份安全",
+    "description": "密码策略、登录失败防护、多因素认证与登录风险",
+    "path": "/identity-security",
+    "readPermission": "system:identity-security:manage",
+    "writePermission": "system:identity-security:manage",
+    "page": "/system/identity-security"
+  },
+  "ui": {
+    "defaults": {
+      "watermark": {
+        "enabled": false,
+        "content": "",
+        "fontSize": 14,
+        "opacity": 15
+      },
+      "preferencesEntryEnabled": true,
+      "preferences": {
+        "defaults": {
+          "enableTabs": true,
+          "keepTabs": true,
+          "enablePageCache": true,
+          "tabsMaxCount": 20,
+          "showTabIcon": true,
+          "compactTabs": true,
+          "autoHideTabs": false,
+          "tabsSize": "small",
+          "tabsType": "line",
+          "tabStyle": "line",
+          "navLayout": "vertical",
+          "doubleRailStyle": "icon",
+          "showBreadcrumb": false,
+          "breadcrumbIcon": true,
+          "breadcrumbShowHome": true,
+          "tabAnimation": "fade",
+          "colorMode": "light",
+          "scheduledDarkMode": "off",
+          "scheduledDarkStart": "18:00",
+          "scheduledDarkEnd": "06:00",
+          "themeColor": "blue",
+          "sidebarDarkMode": false,
+          "headerDarkMode": false,
+          "darkSidebarTone": "bg-1",
+          "darkHeaderTone": "bg-1",
+          "darkContentTone": "bg-1",
+          "showMenuSearch": true,
+          "topbarClock": "off",
+          "topbarClockShowDate": true,
+          "showFullscreen": true,
+          "showQuickChat": false,
+          "showLogo": true,
+          "showFavorites": false,
+          "dynamicTitle": true,
+          "filesViewMode": "list",
+          "sidebarStickyScroll": true,
+          "showTableColumnSettings": true,
+          "tableBordered": true,
+          "tableStriped": false,
+          "tableSize": "small",
+          "tablePageSize": 10,
+          "enableLockScreen": false,
+          "sidebarAccordion": true,
+          "sidebarHoverTrigger": false,
+          "sidebarToggleIconPosition": "right",
+          "breadcrumbClickable": true,
+          "breadcrumbSubMenu": false,
+          "openTabBehavior": "append",
+          "scrollMenuIntoView": true,
+          "tabDoubleClickAction": "refresh",
+          "tabEvictPolicy": "fifo",
+          "routeAnimation": "fade",
+          "grayscale": false,
+          "colorBlind": false,
+          "contentWidth": "fluid",
+          "sidebarWidth": 216,
+          "borderRadius": "medium",
+          "showBackTop": true,
+          "showProgressBar": true,
+          "loadingStyle": "flip",
+          "enableShortcuts": true,
+          "syncPageStateToUrl": false,
+          "homePath": "/",
+          "autoLockMinutes": 0,
+          "reduceMotion": false,
+          "confirmLogout": true,
+          "modalClickMaskToClose": false,
+          "showTabSwitcher": true,
+          "notificationSound": false,
+          "notificationSoundStyle": "chime",
+          "desktopNotification": false,
+          "desktopNotificationContent": "summary",
+          "uiScale": 100,
+          "fontFamily": "system",
+          "timeDisplay": "absolute",
+          "weekStart": "monday",
+          "refetchOnFocus": false,
+          "rememberListFilters": false,
+          "terminal": {
+            "defaultShell": "",
+            "themeDark": "catppuccin-mocha",
+            "themeLight": "vscode-light",
+            "fontSize": 14,
+            "fontFamily": "\"Cascadia Code\", \"JetBrains Mono\", Menlo, Monaco, \"Courier New\", monospace",
+            "lineHeight": 1.2,
+            "scrollback": 5000,
+            "tabPosition": "top",
+            "tabCollapsed": false,
+            "cursorStyle": "block",
+            "cursorBlink": true,
+            "copyOnSelect": true,
+            "rendererType": "canvas",
+            "fastScrollSensitivity": 5,
+            "letterSpacing": 0,
+            "fontWeight": "normal",
+            "rightClickSelectsWord": false,
+            "minimumContrastRatio": 1,
+            "showStatusBar": true
+          }
+        },
+        "allowUserOverride": {
+          "enableTabs": true,
+          "keepTabs": true,
+          "enablePageCache": true,
+          "tabsMaxCount": true,
+          "showTabIcon": true,
+          "compactTabs": true,
+          "autoHideTabs": true,
+          "tabsSize": true,
+          "tabsType": true,
+          "tabStyle": true,
+          "navLayout": true,
+          "doubleRailStyle": true,
+          "showBreadcrumb": true,
+          "breadcrumbIcon": true,
+          "breadcrumbShowHome": true,
+          "tabAnimation": true,
+          "colorMode": true,
+          "scheduledDarkMode": true,
+          "scheduledDarkStart": true,
+          "scheduledDarkEnd": true,
+          "themeColor": true,
+          "sidebarDarkMode": true,
+          "headerDarkMode": true,
+          "darkSidebarTone": true,
+          "darkHeaderTone": true,
+          "darkContentTone": true,
+          "showMenuSearch": true,
+          "topbarClock": true,
+          "topbarClockShowDate": true,
+          "showFullscreen": true,
+          "showQuickChat": false,
+          "showLogo": true,
+          "showFavorites": true,
+          "dynamicTitle": true,
+          "filesViewMode": true,
+          "sidebarStickyScroll": true,
+          "showTableColumnSettings": true,
+          "tableBordered": true,
+          "tableStriped": true,
+          "tableSize": true,
+          "tablePageSize": true,
+          "enableLockScreen": false,
+          "sidebarAccordion": true,
+          "sidebarHoverTrigger": true,
+          "sidebarToggleIconPosition": true,
+          "breadcrumbClickable": true,
+          "breadcrumbSubMenu": true,
+          "openTabBehavior": true,
+          "scrollMenuIntoView": true,
+          "tabDoubleClickAction": true,
+          "tabEvictPolicy": true,
+          "routeAnimation": true,
+          "grayscale": true,
+          "colorBlind": true,
+          "contentWidth": true,
+          "sidebarWidth": true,
+          "borderRadius": true,
+          "showBackTop": true,
+          "showProgressBar": true,
+          "loadingStyle": true,
+          "enableShortcuts": true,
+          "syncPageStateToUrl": true,
+          "homePath": true,
+          "autoLockMinutes": false,
+          "reduceMotion": true,
+          "confirmLogout": true,
+          "modalClickMaskToClose": true,
+          "showTabSwitcher": true,
+          "notificationSound": false,
+          "notificationSoundStyle": false,
+          "desktopNotification": false,
+          "desktopNotificationContent": false,
+          "uiScale": true,
+          "fontFamily": true,
+          "timeDisplay": true,
+          "weekStart": true,
+          "refetchOnFocus": true,
+          "rememberListFilters": true,
+          "terminal": {
+            "defaultShell": false,
+            "themeDark": false,
+            "themeLight": false,
+            "fontSize": false,
+            "fontFamily": false,
+            "lineHeight": false,
+            "scrollback": false,
+            "tabPosition": false,
+            "tabCollapsed": false,
+            "cursorStyle": false,
+            "cursorBlink": false,
+            "copyOnSelect": false,
+            "rendererType": false,
+            "fastScrollSensitivity": false,
+            "letterSpacing": false,
+            "fontWeight": false,
+            "rightClickSelectsWord": false,
+            "minimumContrastRatio": false,
+            "showStatusBar": false
+          }
+        }
+      }
+    },
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "watermark": {
+          "title": "水印",
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "default": false,
+              "title": "页面水印",
+              "description": "开启后全站叠加水印（防截图泄漏）",
+              "type": "boolean"
+            },
+            "content": {
+              "default": "",
+              "title": "水印文本",
+              "description": "留空则显示当前用户名",
+              "type": "string",
+              "maxLength": 200
+            },
+            "fontSize": {
+              "default": 14,
+              "title": "字体大小（px）",
+              "type": "integer",
+              "minimum": 8,
+              "maximum": 72
+            },
+            "opacity": {
+              "default": 15,
+              "title": "透明度（1-100）",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          "required": [
+            "enabled",
+            "content",
+            "fontSize",
+            "opacity"
+          ],
+          "additionalProperties": false
+        },
+        "preferencesEntryEnabled": {
+          "default": true,
+          "title": "偏好设置入口",
+          "description": "显示在用户头像下拉菜单，关闭后隐藏“偏好设置”（含锁屏密码设置）",
+          "type": "boolean"
+        },
+        "preferences": {
+          "title": "偏好默认值与用户权限",
+          "description": "设置所有用户的默认偏好，并控制每项是否允许个人覆盖",
+          "type": "object",
+          "properties": {
+            "defaults": {
+              "type": "object",
+              "properties": {
+                "enableTabs": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "keepTabs": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "enablePageCache": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabsMaxCount": {
+                  "default": 20,
+                  "type": "integer",
+                  "minimum": 5,
+                  "maximum": 50
+                },
+                "showTabIcon": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "compactTabs": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "autoHideTabs": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "tabsSize": {
+                  "default": "small",
+                  "type": "string",
+                  "enum": [
+                    "small",
+                    "medium",
+                    "large"
+                  ]
+                },
+                "tabsType": {
+                  "default": "line",
+                  "type": "string",
+                  "enum": [
+                    "line",
+                    "button",
+                    "card",
+                    "slash"
+                  ]
+                },
+                "tabStyle": {
+                  "default": "line",
+                  "type": "string",
+                  "enum": [
+                    "line",
+                    "pill",
+                    "card",
+                    "chrome",
+                    "minimal",
+                    "segment",
+                    "block",
+                    "shortline",
+                    "dot",
+                    "topline"
+                  ]
+                },
+                "navLayout": {
+                  "default": "vertical",
+                  "type": "string",
+                  "enum": [
+                    "vertical",
+                    "horizontal",
+                    "mixed",
+                    "double"
+                  ]
+                },
+                "doubleRailStyle": {
+                  "default": "icon",
+                  "type": "string",
+                  "enum": [
+                    "icon",
+                    "icon-text"
+                  ]
+                },
+                "showBreadcrumb": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "breadcrumbIcon": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "breadcrumbShowHome": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabAnimation": {
+                  "default": "fade",
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "fade",
+                    "slide",
+                    "scale"
+                  ]
+                },
+                "colorMode": {
+                  "default": "light",
+                  "type": "string",
+                  "enum": [
+                    "light",
+                    "dark",
+                    "system"
+                  ]
+                },
+                "scheduledDarkMode": {
+                  "default": "off",
+                  "type": "string",
+                  "enum": [
+                    "off",
+                    "custom"
+                  ]
+                },
+                "scheduledDarkStart": {
+                  "default": "18:00",
+                  "type": "string",
+                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                },
+                "scheduledDarkEnd": {
+                  "default": "06:00",
+                  "type": "string",
+                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+                },
+                "themeColor": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "blue",
+                        "wechat",
+                        "navy",
+                        "indigo",
+                        "violet",
+                        "purple",
+                        "cyan",
+                        "peacock",
+                        "green",
+                        "forest",
+                        "orange",
+                        "rose",
+                        "wine",
+                        "fuchsia",
+                        "teal",
+                        "slate",
+                        "red",
+                        "pink",
+                        "amber",
+                        "gold",
+                        "sky",
+                        "coral",
+                        "lime",
+                        "brown",
+                        "charcoal",
+                        "klein",
+                        "tiffany",
+                        "jade",
+                        "mars",
+                        "bamboo",
+                        "wisteria",
+                        "sakura",
+                        "ink",
+                        "copper",
+                        "plum"
+                      ]
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^#[0-9a-fA-F]{6}$"
+                    }
+                  ]
+                },
+                "sidebarDarkMode": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "headerDarkMode": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "darkSidebarTone": {
+                  "default": "bg-1",
+                  "type": "string",
+                  "enum": [
+                    "bg-1",
+                    "bg-0"
+                  ]
+                },
+                "darkHeaderTone": {
+                  "default": "bg-1",
+                  "type": "string",
+                  "enum": [
+                    "bg-1",
+                    "bg-0"
+                  ]
+                },
+                "darkContentTone": {
+                  "default": "bg-1",
+                  "type": "string",
+                  "enum": [
+                    "bg-1",
+                    "bg-0"
+                  ]
+                },
+                "showMenuSearch": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "topbarClock": {
+                  "default": "off",
+                  "type": "string",
+                  "enum": [
+                    "off",
+                    "12h",
+                    "24h"
+                  ]
+                },
+                "topbarClockShowDate": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showFullscreen": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showQuickChat": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showLogo": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showFavorites": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "dynamicTitle": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "filesViewMode": {
+                  "default": "list",
+                  "type": "string",
+                  "enum": [
+                    "list",
+                    "grid"
+                  ]
+                },
+                "sidebarStickyScroll": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showTableColumnSettings": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tableBordered": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tableStriped": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "tableSize": {
+                  "default": "small",
+                  "type": "string",
+                  "enum": [
+                    "small",
+                    "default",
+                    "middle"
+                  ]
+                },
+                "tablePageSize": {
+                  "default": 10,
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "const": 10
+                    },
+                    {
+                      "type": "number",
+                      "const": 20
+                    },
+                    {
+                      "type": "number",
+                      "const": 50
+                    },
+                    {
+                      "type": "number",
+                      "const": 100
+                    }
+                  ]
+                },
+                "enableLockScreen": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "sidebarAccordion": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "sidebarHoverTrigger": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "sidebarToggleIconPosition": {
+                  "default": "right",
+                  "type": "string",
+                  "enum": [
+                    "left",
+                    "right"
+                  ]
+                },
+                "breadcrumbClickable": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "breadcrumbSubMenu": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "openTabBehavior": {
+                  "default": "append",
+                  "type": "string",
+                  "enum": [
+                    "append",
+                    "insert-next"
+                  ]
+                },
+                "scrollMenuIntoView": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabDoubleClickAction": {
+                  "default": "refresh",
+                  "type": "string",
+                  "enum": [
+                    "refresh",
+                    "close",
+                    "none"
+                  ]
+                },
+                "tabEvictPolicy": {
+                  "default": "fifo",
+                  "type": "string",
+                  "enum": [
+                    "fifo",
+                    "lru"
+                  ]
+                },
+                "routeAnimation": {
+                  "default": "fade",
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "fade",
+                    "slide-up",
+                    "slide-left"
+                  ]
+                },
+                "grayscale": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "colorBlind": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "contentWidth": {
+                  "default": "fluid",
+                  "type": "string",
+                  "enum": [
+                    "fluid",
+                    "fixed"
+                  ]
+                },
+                "sidebarWidth": {
+                  "default": 216,
+                  "type": "integer",
+                  "minimum": 160,
+                  "maximum": 320
+                },
+                "borderRadius": {
+                  "default": "medium",
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "small",
+                    "medium",
+                    "large"
+                  ]
+                },
+                "showBackTop": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showProgressBar": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "loadingStyle": {
+                  "default": "flip",
+                  "type": "string",
+                  "enum": [
+                    "flip",
+                    "dots",
+                    "ring",
+                    "bars",
+                    "spinner",
+                    "bounce",
+                    "ripple",
+                    "progress",
+                    "orbit",
+                    "grid",
+                    "travel",
+                    "ellipsis",
+                    "carousel",
+                    "landing",
+                    "pendulum",
+                    "marquee"
+                  ]
+                },
+                "enableShortcuts": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "syncPageStateToUrl": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "homePath": {
+                  "type": "string",
+                  "maxLength": 512,
+                  "enum": [
+                    "/",
+                    "/system/departments",
+                    "/system/positions",
+                    "/system/users",
+                    "/system/menus",
+                    "/system/roles",
+                    "/system/user-groups",
+                    "/system/dicts",
+                    "/system/settings",
+                    "/system/identity-security",
+                    "/system/file-configs",
+                    "/system/files",
+                    "/system/sessions",
+                    "/system/login-logs",
+                    "/system/operation-logs",
+                    "/profile"
+                  ]
+                },
+                "autoLockMinutes": {
+                  "default": 0,
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "const": 0
+                    },
+                    {
+                      "type": "number",
+                      "const": 5
+                    },
+                    {
+                      "type": "number",
+                      "const": 10
+                    },
+                    {
+                      "type": "number",
+                      "const": 30
+                    }
+                  ]
+                },
+                "reduceMotion": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "confirmLogout": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "modalClickMaskToClose": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "showTabSwitcher": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "notificationSound": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "notificationSoundStyle": {
+                  "default": "chime",
+                  "type": "string",
+                  "enum": [
+                    "chime",
+                    "ding",
+                    "pop",
+                    "arpeggio",
+                    "woodblock",
+                    "windchime",
+                    "lowtone"
+                  ]
+                },
+                "desktopNotification": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "desktopNotificationContent": {
+                  "default": "summary",
+                  "type": "string",
+                  "enum": [
+                    "summary",
+                    "type"
+                  ]
+                },
+                "uiScale": {
+                  "default": 100,
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "const": 90
+                    },
+                    {
+                      "type": "number",
+                      "const": 100
+                    },
+                    {
+                      "type": "number",
+                      "const": 110
+                    },
+                    {
+                      "type": "number",
+                      "const": 120
+                    }
+                  ]
+                },
+                "fontFamily": {
+                  "default": "system",
+                  "type": "string",
+                  "enum": [
+                    "system",
+                    "inter",
+                    "noto-sans-sc",
+                    "mono"
+                  ]
+                },
+                "timeDisplay": {
+                  "default": "absolute",
+                  "type": "string",
+                  "enum": [
+                    "absolute",
+                    "relative"
+                  ]
+                },
+                "weekStart": {
+                  "default": "monday",
+                  "type": "string",
+                  "enum": [
+                    "monday",
+                    "sunday"
+                  ]
+                },
+                "refetchOnFocus": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "rememberListFilters": {
+                  "default": false,
+                  "type": "boolean"
+                },
+                "terminal": {
+                  "type": "object",
+                  "properties": {
+                    "defaultShell": {
+                      "default": "",
+                      "type": "string",
+                      "maxLength": 128
+                    },
+                    "themeDark": {
+                      "default": "catppuccin-mocha",
+                      "type": "string",
+                      "enum": [
+                        "catppuccin-mocha",
+                        "vscode-dark",
+                        "dracula",
+                        "one-dark",
+                        "solarized-dark",
+                        "github-dark",
+                        "nord",
+                        "monokai",
+                        "tokyo-night",
+                        "gruvbox-dark",
+                        "night-owl",
+                        "ayu-dark",
+                        "palenight",
+                        "everforest-dark",
+                        "cobalt2",
+                        "rose-pine",
+                        "rose-pine-moon",
+                        "kanagawa",
+                        "synthwave-84",
+                        "catppuccin-macchiato",
+                        "catppuccin-frappe",
+                        "tokyo-night-storm",
+                        "material-dark",
+                        "horizon",
+                        "panda",
+                        "oxocarbon",
+                        "monokai-pro",
+                        "shades-of-purple",
+                        "flexoki-dark",
+                        "zenburn"
+                      ]
+                    },
+                    "themeLight": {
+                      "default": "vscode-light",
+                      "type": "string",
+                      "enum": [
+                        "vscode-light",
+                        "catppuccin-latte",
+                        "one-light",
+                        "solarized-light",
+                        "github-light",
+                        "gruvbox-light",
+                        "ayu-light",
+                        "everforest-light",
+                        "rose-pine-dawn",
+                        "kanagawa-lotus",
+                        "tokyo-day",
+                        "material-light",
+                        "flexoki-light",
+                        "pencil-light"
+                      ]
+                    },
+                    "fontSize": {
+                      "default": 14,
+                      "type": "integer",
+                      "minimum": 10,
+                      "maximum": 28
+                    },
+                    "fontFamily": {
+                      "default": "\"Cascadia Code\", \"JetBrains Mono\", Menlo, Monaco, \"Courier New\", monospace",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 512
+                    },
+                    "lineHeight": {
+                      "default": 1.2,
+                      "type": "number",
+                      "minimum": 1,
+                      "maximum": 2
+                    },
+                    "scrollback": {
+                      "default": 5000,
+                      "type": "integer",
+                      "minimum": 100,
+                      "maximum": 100000
+                    },
+                    "tabPosition": {
+                      "default": "top",
+                      "type": "string",
+                      "enum": [
+                        "top",
+                        "left",
+                        "right",
+                        "bottom"
+                      ]
+                    },
+                    "tabCollapsed": {
+                      "default": false,
+                      "type": "boolean"
+                    },
+                    "cursorStyle": {
+                      "default": "block",
+                      "type": "string",
+                      "enum": [
+                        "block",
+                        "underline",
+                        "bar"
+                      ]
+                    },
+                    "cursorBlink": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "copyOnSelect": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "rendererType": {
+                      "default": "canvas",
+                      "type": "string",
+                      "enum": [
+                        "canvas",
+                        "webgl"
+                      ]
+                    },
+                    "fastScrollSensitivity": {
+                      "default": 5,
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 20
+                    },
+                    "letterSpacing": {
+                      "default": 0,
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 8
+                    },
+                    "fontWeight": {
+                      "default": "normal",
+                      "type": "string",
+                      "enum": [
+                        "300",
+                        "600",
+                        "normal",
+                        "bold"
+                      ]
+                    },
+                    "rightClickSelectsWord": {
+                      "default": false,
+                      "type": "boolean"
+                    },
+                    "minimumContrastRatio": {
+                      "default": 1,
+                      "type": "number",
+                      "minimum": 1,
+                      "maximum": 21
+                    },
+                    "showStatusBar": {
+                      "default": true,
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "defaultShell",
+                    "themeDark",
+                    "themeLight",
+                    "fontSize",
+                    "fontFamily",
+                    "lineHeight",
+                    "scrollback",
+                    "tabPosition",
+                    "tabCollapsed",
+                    "cursorStyle",
+                    "cursorBlink",
+                    "copyOnSelect",
+                    "rendererType",
+                    "fastScrollSensitivity",
+                    "letterSpacing",
+                    "fontWeight",
+                    "rightClickSelectsWord",
+                    "minimumContrastRatio",
+                    "showStatusBar"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "enableTabs",
+                "keepTabs",
+                "enablePageCache",
+                "tabsMaxCount",
+                "showTabIcon",
+                "compactTabs",
+                "autoHideTabs",
+                "tabsSize",
+                "tabsType",
+                "tabStyle",
+                "navLayout",
+                "doubleRailStyle",
+                "showBreadcrumb",
+                "breadcrumbIcon",
+                "breadcrumbShowHome",
+                "tabAnimation",
+                "colorMode",
+                "scheduledDarkMode",
+                "scheduledDarkStart",
+                "scheduledDarkEnd",
+                "themeColor",
+                "sidebarDarkMode",
+                "headerDarkMode",
+                "darkSidebarTone",
+                "darkHeaderTone",
+                "darkContentTone",
+                "showMenuSearch",
+                "topbarClock",
+                "topbarClockShowDate",
+                "showFullscreen",
+                "showQuickChat",
+                "showLogo",
+                "showFavorites",
+                "dynamicTitle",
+                "filesViewMode",
+                "sidebarStickyScroll",
+                "showTableColumnSettings",
+                "tableBordered",
+                "tableStriped",
+                "tableSize",
+                "tablePageSize",
+                "enableLockScreen",
+                "sidebarAccordion",
+                "sidebarHoverTrigger",
+                "sidebarToggleIconPosition",
+                "breadcrumbClickable",
+                "breadcrumbSubMenu",
+                "openTabBehavior",
+                "scrollMenuIntoView",
+                "tabDoubleClickAction",
+                "tabEvictPolicy",
+                "routeAnimation",
+                "grayscale",
+                "colorBlind",
+                "contentWidth",
+                "sidebarWidth",
+                "borderRadius",
+                "showBackTop",
+                "showProgressBar",
+                "loadingStyle",
+                "enableShortcuts",
+                "syncPageStateToUrl",
+                "homePath",
+                "autoLockMinutes",
+                "reduceMotion",
+                "confirmLogout",
+                "modalClickMaskToClose",
+                "showTabSwitcher",
+                "notificationSound",
+                "notificationSoundStyle",
+                "desktopNotification",
+                "desktopNotificationContent",
+                "uiScale",
+                "fontFamily",
+                "timeDisplay",
+                "weekStart",
+                "refetchOnFocus",
+                "rememberListFilters",
+                "terminal"
+              ],
+              "additionalProperties": false
+            },
+            "allowUserOverride": {
+              "type": "object",
+              "properties": {
+                "enableTabs": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "keepTabs": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "enablePageCache": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabsMaxCount": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showTabIcon": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "compactTabs": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "autoHideTabs": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabsSize": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabsType": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabStyle": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "navLayout": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "doubleRailStyle": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showBreadcrumb": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "breadcrumbIcon": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "breadcrumbShowHome": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabAnimation": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "colorMode": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "scheduledDarkMode": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "scheduledDarkStart": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "scheduledDarkEnd": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "themeColor": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "sidebarDarkMode": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "headerDarkMode": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "darkSidebarTone": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "darkHeaderTone": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "darkContentTone": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showMenuSearch": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "topbarClock": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "topbarClockShowDate": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showFullscreen": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showQuickChat": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showLogo": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showFavorites": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "dynamicTitle": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "filesViewMode": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "sidebarStickyScroll": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showTableColumnSettings": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tableBordered": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tableStriped": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tableSize": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tablePageSize": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "enableLockScreen": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "sidebarAccordion": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "sidebarHoverTrigger": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "sidebarToggleIconPosition": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "breadcrumbClickable": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "breadcrumbSubMenu": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "openTabBehavior": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "scrollMenuIntoView": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabDoubleClickAction": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "tabEvictPolicy": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "routeAnimation": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "grayscale": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "colorBlind": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "contentWidth": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "sidebarWidth": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "borderRadius": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showBackTop": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showProgressBar": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "loadingStyle": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "enableShortcuts": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "syncPageStateToUrl": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "homePath": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "autoLockMinutes": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "reduceMotion": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "confirmLogout": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "modalClickMaskToClose": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "showTabSwitcher": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "notificationSound": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "notificationSoundStyle": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "desktopNotification": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "desktopNotificationContent": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "uiScale": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "fontFamily": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "timeDisplay": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "weekStart": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "refetchOnFocus": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "rememberListFilters": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "terminal": {
+                  "type": "object",
+                  "properties": {
+                    "defaultShell": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "themeDark": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "themeLight": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "fontSize": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "fontFamily": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "lineHeight": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "scrollback": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "tabPosition": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "tabCollapsed": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "cursorStyle": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "cursorBlink": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "copyOnSelect": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "rendererType": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "fastScrollSensitivity": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "letterSpacing": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "fontWeight": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "rightClickSelectsWord": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "minimumContrastRatio": {
+                      "default": true,
+                      "type": "boolean"
+                    },
+                    "showStatusBar": {
+                      "default": true,
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "defaultShell",
+                    "themeDark",
+                    "themeLight",
+                    "fontSize",
+                    "fontFamily",
+                    "lineHeight",
+                    "scrollback",
+                    "tabPosition",
+                    "tabCollapsed",
+                    "cursorStyle",
+                    "cursorBlink",
+                    "copyOnSelect",
+                    "rendererType",
+                    "fastScrollSensitivity",
+                    "letterSpacing",
+                    "fontWeight",
+                    "rightClickSelectsWord",
+                    "minimumContrastRatio",
+                    "showStatusBar"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "enableTabs",
+                "keepTabs",
+                "enablePageCache",
+                "tabsMaxCount",
+                "showTabIcon",
+                "compactTabs",
+                "autoHideTabs",
+                "tabsSize",
+                "tabsType",
+                "tabStyle",
+                "navLayout",
+                "doubleRailStyle",
+                "showBreadcrumb",
+                "breadcrumbIcon",
+                "breadcrumbShowHome",
+                "tabAnimation",
+                "colorMode",
+                "scheduledDarkMode",
+                "scheduledDarkStart",
+                "scheduledDarkEnd",
+                "themeColor",
+                "sidebarDarkMode",
+                "headerDarkMode",
+                "darkSidebarTone",
+                "darkHeaderTone",
+                "darkContentTone",
+                "showMenuSearch",
+                "topbarClock",
+                "topbarClockShowDate",
+                "showFullscreen",
+                "showQuickChat",
+                "showLogo",
+                "showFavorites",
+                "dynamicTitle",
+                "filesViewMode",
+                "sidebarStickyScroll",
+                "showTableColumnSettings",
+                "tableBordered",
+                "tableStriped",
+                "tableSize",
+                "tablePageSize",
+                "enableLockScreen",
+                "sidebarAccordion",
+                "sidebarHoverTrigger",
+                "sidebarToggleIconPosition",
+                "breadcrumbClickable",
+                "breadcrumbSubMenu",
+                "openTabBehavior",
+                "scrollMenuIntoView",
+                "tabDoubleClickAction",
+                "tabEvictPolicy",
+                "routeAnimation",
+                "grayscale",
+                "colorBlind",
+                "contentWidth",
+                "sidebarWidth",
+                "borderRadius",
+                "showBackTop",
+                "showProgressBar",
+                "loadingStyle",
+                "enableShortcuts",
+                "syncPageStateToUrl",
+                "homePath",
+                "autoLockMinutes",
+                "reduceMotion",
+                "confirmLogout",
+                "modalClickMaskToClose",
+                "showTabSwitcher",
+                "notificationSound",
+                "notificationSoundStyle",
+                "desktopNotification",
+                "desktopNotificationContent",
+                "uiScale",
+                "fontFamily",
+                "timeDisplay",
+                "weekStart",
+                "refetchOnFocus",
+                "rememberListFilters",
+                "terminal"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "defaults",
+            "allowUserOverride"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "watermark",
+        "preferencesEntryEnabled",
+        "preferences"
+      ],
+      "additionalProperties": false
+    },
+    "title": "界面与体验",
+    "description": "页面水印、快捷聊天、意见反馈与偏好设置入口、偏好策略",
+    "path": "/ui",
+    "readPermission": "system:setting:view",
+    "writePermission": "system:setting:update",
+    "page": null
+  },
+  "files": {
+    "defaults": {
+      "uploadValidateType": true,
+      "uploadAllowedTypes": [
+        "image/*",
+        "video/*",
+        "audio/*",
+        "application/pdf",
+        "text/plain",
+        "text/csv",
+        "text/vtt",
+        "application/zip",
+        "application/x-zip-compressed",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "application/vnd.ms-excel",
+        "application/msword",
+        "application/vnd.ms-powerpoint"
+      ],
+      "uploadMaxSizeMb": 0,
+      "chunkThresholdMb": 5,
+      "chunkSizeMb": 5
+    },
+    "schema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "uploadValidateType": {
+          "default": true,
+          "title": "校验真实文件类型",
+          "description": "基于 magic bytes 识别，防止伪造 MIME type 绕过校验",
+          "type": "boolean"
+        },
+        "uploadAllowedTypes": {
+          "default": [
+            "image/*",
+            "video/*",
+            "audio/*",
+            "application/pdf",
+            "text/plain",
+            "text/csv",
+            "text/vtt",
+            "application/zip",
+            "application/x-zip-compressed",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            "application/vnd.ms-excel",
+            "application/msword",
+            "application/vnd.ms-powerpoint"
+          ],
+          "title": "允许的 MIME 类型",
+          "description": "支持通配符（如 image/*）；填 * 或 */* 放行全部类型",
+          "maxItems": 200,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "uploadMaxSizeMb": {
+          "default": 0,
+          "title": "单文件大小上限（MB）",
+          "description": "0 表示不限制；超过的上传（含分片）将被拒绝",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 102400
+        },
+        "chunkThresholdMb": {
+          "default": 5,
+          "title": "分片上传阈值（MB）",
+          "description": "超过该大小的文件走分片上传 + 断点续传，不超过则单请求上传（含网盘简单上传 / 新版本）；受反向代理请求体上限约束",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "chunkSizeMb": {
+          "default": 5,
+          "title": "分片大小（MB）",
+          "description": "服务端裁定的分片基线，不低于对象存储要求的最小分片；文件过大时自动上调以不超过片数上限",
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 32
+        }
+      },
+      "required": [
+        "uploadValidateType",
+        "uploadAllowedTypes",
+        "uploadMaxSizeMb",
+        "chunkThresholdMb",
+        "chunkSizeMb"
+      ],
+      "additionalProperties": false
+    },
+    "title": "文件上传",
+    "description": "托管文件上传的类型校验、大小上限与分片策略",
+    "path": "/files",
+    "readPermission": "system:setting:view",
+    "writePermission": "system:setting:update",
+    "page": null
+  }
+}

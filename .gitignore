@@ -1,5 +1,7 @@
 node_modules/
 dist/
+!backend/internal/dash/dist/
+!backend/internal/dash/dist/**
 .env
 *.local
 .DS_Store
@@ -32,3 +34,20 @@ packages/server/assets/fonts/*.subset.otf
 release_artifacts/
 
 .freebuff/
+packages/web/dist-go/
+
+!/backend/internal/dashboard/dist/
+/backend/internal/dashboard/dist/*
+!/backend/internal/dashboard/dist/README.txt
+
+/.env.go
+/backend/bin/
+
+/backend/backups/
+/backend/data/
+*.db
+*.db-wal
+*.db-shm
+
+# Original preview runtime copied from the installed dependency for Go embedding.
+packages/web/public/monaco/

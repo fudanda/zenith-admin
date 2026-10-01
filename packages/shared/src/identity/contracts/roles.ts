@@ -54,6 +54,7 @@ export const roleListQuery = paginationQuery.extend({
 export const roleContract = defineContract('/api/roles', {
   all: op.get('/all', { access: { permission: 'system:role:list' }, response: z.array(roleSchema), summary: '全量角色（供下拉框）' }),
   list: op.get('/', { access: { permission: 'system:role:list' }, query: roleListQuery, response: paginated(roleSchema), summary: '角色列表' }),
+  exportCsv: op.get('/export', { access: { permission: 'system:role:list' }, query: roleListQuery, kind: 'csv', summary: '按角色列表筛选导出 CSV' }),
   detail: op.get('/{id}', { access: { permission: 'system:role:list' }, params: idParam, response: roleSchema, summary: '获取单个角色（含 menuIds）' }),
   create: op.post('/', { access: { permission: 'system:role:create' }, audit: '创建角色', body: createRoleSchema, response: roleSchema, summary: '新增角色' }),
   update: op.put('/{id}', { access: { permission: 'system:role:update' }, audit: '更新角色', params: idParam, body: updateRoleSchema, response: roleSchema, summary: '更新角色' }),

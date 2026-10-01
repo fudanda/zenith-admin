@@ -1,11 +1,12 @@
 import { createContext, useContext } from 'react';
 import type { ApiResponse } from '@zenith/shared/core';
-import type { ImpersonationStartResult, User, LoginResponse, LoginResult } from '@zenith/shared/identity';
+import type { ImpersonationStartResult, User, LoginResponse, LoginResult, GoSession } from '@zenith/shared/identity';
 import type { StoredAccount } from '@/lib/account-store';
 import type { ImpersonationMarker } from '@/lib/impersonation-store';
 
 export type AuthStatus = 'checking' | 'authenticated' | 'anonymous' | 'unavailable';
 export type AuthResponse<T> = ApiResponse<T> & { retryAfterSeconds?: number };
+export type AdminLoginResult = LoginResult | GoSession;
 
 export interface LoginOptions {
   /** 添加账号模式：保留当前登录，成功后停靠原账号并整页切换为新账号 */
@@ -39,7 +40,7 @@ export interface AuthContextValue {
     captchaCode?: string,
     tenantCode?: string,
     options?: LoginOptions,
-  ) => Promise<AuthResponse<LoginResult>>;
+  ) => Promise<AuthResponse<AdminLoginResult>>;
   verifyMfaLogin: (
     challengeId: string,
     code: string,
@@ -47,7 +48,7 @@ export interface AuthContextValue {
     options?: LoginOptions,
   ) => Promise<AuthResponse<LoginResponse>>;
   /** 会话并发拒绝模式：用户确认「下线其它设备并登录」，凭冲突票据继续原登录流程（可能再转入 MFA） */
-  resolveSessionConflict: (ticket: string, options?: LoginOptions) => Promise<AuthResponse<LoginResult>>;
+  resolveSessionConflict: (ticket: string, options?: LoginOptions) => Promise<AuthResponse<AdminLoginResult>>;
   register: (data: {
     username: string;
     nickname: string;

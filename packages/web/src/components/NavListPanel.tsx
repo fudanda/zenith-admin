@@ -265,7 +265,7 @@ export function NavListItemActions({ items }: Readonly<{ items: readonly NavList
         </Dropdown.Menu>
       )}
     >
-      <Button theme="borderless" size="small" icon={<MoreHorizontal size={14} />} onClick={(e) => e.stopPropagation()} />
+      <Button aria-label="更多操作" theme="borderless" size="small" icon={<MoreHorizontal size={14} />} onClick={(e) => e.stopPropagation()} />
     </Dropdown>
   );
 }

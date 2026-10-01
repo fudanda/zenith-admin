@@ -1,6 +1,7 @@
 import { authContract } from '@zenith/shared/identity';
 import { apiQueryOptions, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 
 export const preferencesKey = contractKey(authContract.preferences);
 
@@ -9,6 +10,7 @@ export function preferencesQueryOptions() {
     staleTime: LOOKUP_STALE_TIME,
     refetchOnWindowFocus: true,
     refetchOnReconnect: 'always',
+    requestOptions: { silent: IS_GO_FOUNDATION },
   });
 }
 
@@ -17,6 +19,7 @@ export function usePersonalPreferences() {
     staleTime: LOOKUP_STALE_TIME,
     refetchOnWindowFocus: true,
     refetchOnReconnect: 'always',
+    requestOptions: { silent: IS_GO_FOUNDATION },
   });
 }
 

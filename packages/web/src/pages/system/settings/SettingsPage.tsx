@@ -1,3 +1,5 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
+import { foundationSettingSchemas } from '@zenith/shared/settings/foundation';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Banner, Button, Empty, Spin, Tag, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
@@ -82,7 +84,7 @@ export default function SettingsPage() {
                 secondary={item.version > 0 ? `v${item.version}` : undefined}
                 meta={(
                   <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}>
-                    <Tag size="small" color={item.scope === 'tenant' ? 'blue' : 'grey'}>{SCOPE_LABELS[item.scope]}</Tag>
+                    <Tag size="small" color={item.scope === 'tenant' ? 'blue' : 'grey'}>{IS_GO_FOUNDATION ? '系统级' : SCOPE_LABELS[item.scope]}</Tag>
                     {item.overriddenCount > 0 ? <Tag size="small" color="orange">{item.overriddenCount} 项覆盖</Tag> : null}
                   </span>
                 )}
@@ -156,7 +158,7 @@ function ModuleDetail({ module, meta }: { readonly module: SettingsModuleKey; re
           ) : null}
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
-          <Tag color={meta.scope === 'tenant' ? 'blue' : 'grey'}>{SCOPE_LABELS[meta.scope]}</Tag>
+          <Tag color={meta.scope === 'tenant' ? 'blue' : 'grey'}>{IS_GO_FOUNDATION ? '系统级' : SCOPE_LABELS[meta.scope]}</Tag>
           {meta.feature ? <Tag>License 特性：{meta.feature}</Tag> : null}
           {envelope ? <Tag>版本 {envelope.version}</Tag> : null}
           {meta.overriddenCount > 0 ? <Tag color="orange">{meta.overriddenCount} 项覆盖</Tag> : null}
@@ -185,7 +187,7 @@ function ModuleDetail({ module, meta }: { readonly module: SettingsModuleKey; re
           {envelope && value ? (
             <>
             <SchemaForm
-              schema={module === 'ui' ? SETTINGS_MODULES.ui.schema.omit({ preferences: true }) : def.schema}
+              schema={IS_GO_FOUNDATION && module in foundationSettingSchemas ? (module === 'ui' ? foundationSettingSchemas.ui.omit({ preferences: true }) : foundationSettingSchemas[module as keyof typeof foundationSettingSchemas]) : module === 'ui' ? SETTINGS_MODULES.ui.schema.omit({ preferences: true }) : def.schema}
               value={value}
               inheritedValue={envelope.inherited as Record<string, unknown>}
               onChange={(next) => setDraft({ ...value, ...next })}

@@ -1,3 +1,4 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { FileTypeIcon } from '@/components/FileTypeIcon';
 import { escapeRegExp } from '@zenith/shared/core';
 import { drivePublicShareContract } from '@zenith/shared/drive';
@@ -373,7 +374,7 @@ export async function fetchProtectedFile(url: string): Promise<Blob> {
 
 /** 由契约路径 `fileContract.content` 派生的匹配器；捕获组 1 为文件 ID（UUID） */
 const MANAGED_FILE_CONTENT_URL = (() => {
-  const [prefix, suffix] = fileContract.content.fullPath.split('{id}');
+  const [prefix, suffix] = (IS_GO_FOUNDATION ? fileContract.content.fullPath.replace(/^\/api\//, '/api/v1/') : fileContract.content.fullPath).split('{id}');
   return new RegExp(`${escapeRegExp(prefix)}([0-9a-f-]{36})${escapeRegExp(suffix)}`, 'i');
 })();
 

@@ -1,3 +1,4 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { FormPasswordInput } from '@/components/PasswordInput';
 import { useEffect, useState } from 'react';
 import { Button, Col, Form, Radio, Row, Select, Switch, Tag, Toast, Typography } from '@douyinfe/semi-ui';
@@ -208,7 +209,7 @@ export default function FileStorageConfigsPage() {
       provider: 'local',
       status: 'enabled',
       isDefault: false,
-      basePath: 'uploads',
+      basePath: IS_GO_FOUNDATION ? '' : 'uploads',
       objectAcl: 'default',
       urlStrategy: 'proxy',
       publicBaseUrl: '',
@@ -499,7 +500,7 @@ export default function FileStorageConfigsPage() {
                 field="provider"
                 label="存储类型"
                 style={{ width: '100%' }}
-                optionList={FILE_STORAGE_PROVIDER_OPTIONS}
+                optionList={IS_GO_FOUNDATION ? FILE_STORAGE_PROVIDER_OPTIONS.filter(option => option.value === 'local') : FILE_STORAGE_PROVIDER_OPTIONS}
                 onChange={(value) => {
                   const next = value as FileStorageProvider;
                   setFormProvider(next);
@@ -519,9 +520,9 @@ export default function FileStorageConfigsPage() {
                 <Select.Option value="disabled">禁用</Select.Option>
               </Form.Select>
             </Col>
-            <Col span={12}>
+            {!IS_GO_FOUNDATION && <Col span={12}>
               <Form.Input field="basePath" label="基础路径" placeholder="例如 uploads / images" />
-            </Col>
+            </Col>}
           </Row>
           <Form.Slot label="设为默认服务">
             <Switch checked={formIsDefault} onChange={setFormIsDefault} />
@@ -800,11 +801,12 @@ export default function FileStorageConfigsPage() {
             <Col span={24}>
               <Form.Select
                 field="urlStrategy"
+                disabled={IS_GO_FOUNDATION}
                 label="访问策略"
                 style={{ width: '100%' }}
                 extraText="代理：文件流量经过服务端（兜底）；公开直链：返回永久直连地址，要求对象可公开读；临时签名：按需签发限时直连地址，适合私有文件（本地磁盘 / SFTP 不支持）"
               >
-                {FILE_URL_STRATEGY_OPTIONS.map((opt) => (
+                {(IS_GO_FOUNDATION ? FILE_URL_STRATEGY_OPTIONS.filter(option=>option.value==='proxy') : FILE_URL_STRATEGY_OPTIONS).map((opt) => (
                   <Select.Option key={opt.value} value={opt.value}>{opt.label}</Select.Option>
                 ))}
               </Form.Select>
@@ -814,6 +816,7 @@ export default function FileStorageConfigsPage() {
             <Col span={24}>
               <Form.InputNumber
                 field="presignedExpirySeconds"
+                disabled={IS_GO_FOUNDATION}
                 label="签名有效期（秒）"
                 style={{ width: '100%' }}
                 min={PRESIGNED_EXPIRY_MIN_SECONDS}
@@ -826,6 +829,7 @@ export default function FileStorageConfigsPage() {
             <Col span={24}>
               <Form.Input
                 field="publicBaseUrl"
+                disabled={IS_GO_FOUNDATION}
                 label="访问域名（CDN）"
                 placeholder="可选，例如 https://cdn.example.com，公开直链优先使用该域名"
               />

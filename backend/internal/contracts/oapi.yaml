@@ -1,0 +1,6 @@
+package: contracts
+generate:
+  models: true
+output-options:
+  skip-prune: true
+output: internal/contracts/models.gen.go
