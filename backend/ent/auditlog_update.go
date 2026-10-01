@@ -298,6 +298,33 @@ func (_u *AuditLogUpdate) AddResponseCode(v int) *AuditLogUpdate {
 	return _u
 }
 
+// SetAPIKeyID sets the "api_key_id" field.
+func (_u *AuditLogUpdate) SetAPIKeyID(v int) *AuditLogUpdate {
+	_u.mutation.ResetAPIKeyID()
+	_u.mutation.SetAPIKeyID(v)
+	return _u
+}
+
+// SetNillableAPIKeyID sets the "api_key_id" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableAPIKeyID(v *int) *AuditLogUpdate {
+	if v != nil {
+		_u.SetAPIKeyID(*v)
+	}
+	return _u
+}
+
+// AddAPIKeyID adds value to the "api_key_id" field.
+func (_u *AuditLogUpdate) AddAPIKeyID(v int) *AuditLogUpdate {
+	_u.mutation.AddAPIKeyID(v)
+	return _u
+}
+
+// ClearAPIKeyID clears the value of the "api_key_id" field.
+func (_u *AuditLogUpdate) ClearAPIKeyID() *AuditLogUpdate {
+	_u.mutation.ClearAPIKeyID()
+	return _u
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (_u *AuditLogUpdate) SetCreatedAt(v time.Time) *AuditLogUpdate {
 	_u.mutation.SetCreatedAt(v)
@@ -439,6 +466,15 @@ func (_u *AuditLogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if value, ok := _u.mutation.AddedResponseCode(); ok {
 		_spec.AddField(auditlog.FieldResponseCode, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.APIKeyID(); ok {
+		_spec.SetField(auditlog.FieldAPIKeyID, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedAPIKeyID(); ok {
+		_spec.AddField(auditlog.FieldAPIKeyID, field.TypeInt, value)
+	}
+	if _u.mutation.APIKeyIDCleared() {
+		_spec.ClearField(auditlog.FieldAPIKeyID, field.TypeInt)
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(auditlog.FieldCreatedAt, field.TypeTime, value)
@@ -733,6 +769,33 @@ func (_u *AuditLogUpdateOne) AddResponseCode(v int) *AuditLogUpdateOne {
 	return _u
 }
 
+// SetAPIKeyID sets the "api_key_id" field.
+func (_u *AuditLogUpdateOne) SetAPIKeyID(v int) *AuditLogUpdateOne {
+	_u.mutation.ResetAPIKeyID()
+	_u.mutation.SetAPIKeyID(v)
+	return _u
+}
+
+// SetNillableAPIKeyID sets the "api_key_id" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableAPIKeyID(v *int) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetAPIKeyID(*v)
+	}
+	return _u
+}
+
+// AddAPIKeyID adds value to the "api_key_id" field.
+func (_u *AuditLogUpdateOne) AddAPIKeyID(v int) *AuditLogUpdateOne {
+	_u.mutation.AddAPIKeyID(v)
+	return _u
+}
+
+// ClearAPIKeyID clears the value of the "api_key_id" field.
+func (_u *AuditLogUpdateOne) ClearAPIKeyID() *AuditLogUpdateOne {
+	_u.mutation.ClearAPIKeyID()
+	return _u
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (_u *AuditLogUpdateOne) SetCreatedAt(v time.Time) *AuditLogUpdateOne {
 	_u.mutation.SetCreatedAt(v)
@@ -904,6 +967,15 @@ func (_u *AuditLogUpdateOne) sqlSave(ctx context.Context) (_node *AuditLog, err 
 	}
 	if value, ok := _u.mutation.AddedResponseCode(); ok {
 		_spec.AddField(auditlog.FieldResponseCode, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.APIKeyID(); ok {
+		_spec.SetField(auditlog.FieldAPIKeyID, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedAPIKeyID(); ok {
+		_spec.AddField(auditlog.FieldAPIKeyID, field.TypeInt, value)
+	}
+	if _u.mutation.APIKeyIDCleared() {
+		_spec.ClearField(auditlog.FieldAPIKeyID, field.TypeInt)
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(auditlog.FieldCreatedAt, field.TypeTime, value)

@@ -5,6 +5,7 @@ import { RefreshCw, Home, Copy } from 'lucide-react';
 import { formatDateTime } from '@/utils/date';
 import { copyTextWithToast } from '@/utils/clipboard';
 import { emptyIllustration } from '@/components/EmptyIllustration';
+import { AdminPathsContext } from '@/admin/runtime';
 
 interface Props {
   children: React.ReactNode;
@@ -47,6 +48,8 @@ function isChunkLoadError(error: Error): boolean {
 }
 
 export class PageErrorBoundary extends React.Component<Props, State> {
+  static contextType = AdminPathsContext;
+  declare context: React.ContextType<typeof AdminPathsContext>;
   constructor(props: Props) {
     super(props);
     this.state = { error: null, componentStack: null, resetKey: props.resetKey };
@@ -166,7 +169,7 @@ export class PageErrorBoundary extends React.Component<Props, State> {
               icon={<Home size={14} />}
               theme="light"
               type="primary"
-              onClick={() => { globalThis.location.href = import.meta.env.BASE_URL; }}
+              onClick={() => { globalThis.location.href = this.context?.basePath ?? import.meta.env.BASE_URL; }}
             >
               返回首页
             </Button>

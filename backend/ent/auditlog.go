@@ -49,6 +49,8 @@ type AuditLog struct {
 	DurationMs int `json:"duration_ms,omitempty"`
 	// ResponseCode holds the value of the "response_code" field.
 	ResponseCode int `json:"response_code,omitempty"`
+	// APIKeyID holds the value of the "api_key_id" field.
+	APIKeyID *int `json:"api_key_id,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt    time.Time `json:"created_at,omitempty"`
 	selectValues sql.SelectValues
@@ -59,7 +61,7 @@ func (*AuditLog) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case auditlog.FieldID, auditlog.FieldActorID, auditlog.FieldResourceID, auditlog.FieldDurationMs, auditlog.FieldResponseCode:
+		case auditlog.FieldID, auditlog.FieldActorID, auditlog.FieldResourceID, auditlog.FieldDurationMs, auditlog.FieldResponseCode, auditlog.FieldAPIKeyID:
 			values[i] = new(sql.NullInt64)
 		case auditlog.FieldOperation, auditlog.FieldResource, auditlog.FieldRequestID, auditlog.FieldModule, auditlog.FieldDescription, auditlog.FieldMethod, auditlog.FieldPath, auditlog.FieldIP, auditlog.FieldUserAgent, auditlog.FieldBrowser, auditlog.FieldOs, auditlog.FieldRequestBody:
 			values[i] = new(sql.NullString)
@@ -184,6 +186,13 @@ func (_m *AuditLog) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.ResponseCode = int(value.Int64)
 			}
+		case auditlog.FieldAPIKeyID:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field api_key_id", values[i])
+			} else if value.Valid {
+				_m.APIKeyID = new(int)
+				*_m.APIKeyID = int(value.Int64)
+			}
 		case auditlog.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field created_at", values[i])
@@ -277,6 +286,11 @@ func (_m *AuditLog) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("response_code=")
 	builder.WriteString(fmt.Sprintf("%v", _m.ResponseCode))
+	builder.WriteString(", ")
+	if v := _m.APIKeyID; v != nil {
+		builder.WriteString("api_key_id=")
+		builder.WriteString(fmt.Sprintf("%v", *v))
+	}
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
 	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))

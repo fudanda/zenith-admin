@@ -3,9 +3,7 @@ import { Camera } from 'lucide-react';
 import { AppModal } from './AppModal';
 import { AvatarCropperModal } from './AvatarCropperModal';
 import { useAvatarCropUpload } from '@/hooks/useAvatarCropUpload';
-
-/** 系统内置预设头像（public/avatars/avatar-01..12.svg）；BASE_URL 前缀保证子路径部署可用 */
-const PRESET_AVATARS = Array.from({ length: 12 }, (_, i) => `${import.meta.env.BASE_URL}avatars/avatar-${String(i + 1).padStart(2, '0')}.svg`);
+import { useAdminPaths } from '@/admin/runtime';
 
 export interface AvatarSelectModalProps {
   readonly visible: boolean;
@@ -31,6 +29,8 @@ export interface AvatarSelectModalProps {
  * 管理后台个人中心、用户管理、会员前台编辑资料三处共用。
  */
 export function AvatarSelectModal({ visible, currentAvatar, confirmLoading, uploadBlob, onCancel, onSelect, onRemove }: AvatarSelectModalProps) {
+  const { assetBasePath } = useAdminPaths();
+  const presetAvatars = Array.from({ length: 12 }, (_, i) => `${assetBasePath}avatars/avatar-${String(i + 1).padStart(2, '0')}.svg`);
   const avatarUpload = useAvatarCropUpload({
     uploadBlob,
     onUploaded: (url) => {
@@ -52,7 +52,7 @@ export function AvatarSelectModal({ visible, currentAvatar, confirmLoading, uplo
         <div style={{ marginBottom: 16 }}>
           <div style={{ fontSize: 13, color: 'var(--semi-color-text-2)', marginBottom: 12 }}>预设头像</div>
           <div className="auto-grid" style={{ ['--auto-grid-min' as string]: '80px', ['--auto-grid-cols' as string]: 4, ['--auto-grid-gap' as string]: '12px' }}>
-            {PRESET_AVATARS.map((url) => (
+            {presetAvatars.map((url) => (
               <button
                 key={url}
                 type="button"

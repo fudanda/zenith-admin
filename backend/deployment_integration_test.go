@@ -48,6 +48,10 @@ func TestReleaseHTTPSBackupRecovery(t *testing.T) {
 	if err != nil || dsn.Host == "" {
 		t.Fatal("a real PostgreSQL test URL is required")
 	}
+	if dsn.User == nil || dsn.User.Username() == "" {
+		t.Fatal("PostgreSQL acceptance requires an explicit database user")
+	}
+	databaseUser := dsn.User.Username()
 	admin, err := OpenStore(ctx, dsn.String())
 	if err != nil {
 		t.Fatal(err)
@@ -294,7 +298,7 @@ func TestReleaseHTTPSBackupRecovery(t *testing.T) {
 		}
 		return result
 	}
-	dump := docker("exec", container, "pg_dump", "-U", "zenith", "-Fc", source)
+	dump := docker("exec", container, "pg_dump", "-U", databaseUser, "-Fc", source)
 	if err := os.WriteFile(filepath.Join(artifacts, fmt.Sprintf("postgres-%d.dump", stamp)), dump, 0600); err != nil {
 		t.Fatal(err)
 	}
@@ -303,7 +307,7 @@ func TestReleaseHTTPSBackupRecovery(t *testing.T) {
 	start(source)
 	jsonRequest("PUT", fmt.Sprintf("/api/v1/positions/%d", int(position["id"].(float64))), map[string]any{"name": "备份后修改"}, 200)
 	stop()
-	restore := exec.CommandContext(ctx, "docker", "exec", "-i", container, "pg_restore", "-U", "zenith", "--no-owner", "--exit-on-error", "-d", recovered)
+	restore := exec.CommandContext(ctx, "docker", "exec", "-i", container, "pg_restore", "-U", databaseUser, "--no-owner", "--exit-on-error", "-d", recovered)
 	restore.Stdin = bytes.NewReader(dump)
 	if output, err := restore.CombinedOutput(); err != nil {
 		t.Fatalf("pg_restore: %v (%s)", err, output)

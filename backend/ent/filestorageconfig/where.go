@@ -84,6 +84,41 @@ func Remark(v string) predicate.FileStorageConfig {
 	return predicate.FileStorageConfig(sql.FieldEQ(FieldRemark, v))
 }
 
+// S3Region applies equality check predicate on the "s3_region" field. It's identical to S3RegionEQ.
+func S3Region(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3Region, v))
+}
+
+// S3Endpoint applies equality check predicate on the "s3_endpoint" field. It's identical to S3EndpointEQ.
+func S3Endpoint(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3Endpoint, v))
+}
+
+// S3Bucket applies equality check predicate on the "s3_bucket" field. It's identical to S3BucketEQ.
+func S3Bucket(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3Bucket, v))
+}
+
+// S3AccessKeyID applies equality check predicate on the "s3_access_key_id" field. It's identical to S3AccessKeyIDEQ.
+func S3AccessKeyID(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3AccessKeyID, v))
+}
+
+// S3SecretCipher applies equality check predicate on the "s3_secret_cipher" field. It's identical to S3SecretCipherEQ.
+func S3SecretCipher(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3SecretCipher, v))
+}
+
+// S3ForcePathStyle applies equality check predicate on the "s3_force_path_style" field. It's identical to S3ForcePathStyleEQ.
+func S3ForcePathStyle(v bool) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3ForcePathStyle, v))
+}
+
+// BasePath applies equality check predicate on the "base_path" field. It's identical to BasePathEQ.
+func BasePath(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldBasePath, v))
+}
+
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
 func CreatedAt(v time.Time) predicate.FileStorageConfig {
 	return predicate.FileStorageConfig(sql.FieldEQ(FieldCreatedAt, v))
@@ -437,6 +472,406 @@ func RemarkEqualFold(v string) predicate.FileStorageConfig {
 // RemarkContainsFold applies the ContainsFold predicate on the "remark" field.
 func RemarkContainsFold(v string) predicate.FileStorageConfig {
 	return predicate.FileStorageConfig(sql.FieldContainsFold(FieldRemark, v))
+}
+
+// S3RegionEQ applies the EQ predicate on the "s3_region" field.
+func S3RegionEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3Region, v))
+}
+
+// S3RegionNEQ applies the NEQ predicate on the "s3_region" field.
+func S3RegionNEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNEQ(FieldS3Region, v))
+}
+
+// S3RegionIn applies the In predicate on the "s3_region" field.
+func S3RegionIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldIn(FieldS3Region, vs...))
+}
+
+// S3RegionNotIn applies the NotIn predicate on the "s3_region" field.
+func S3RegionNotIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNotIn(FieldS3Region, vs...))
+}
+
+// S3RegionGT applies the GT predicate on the "s3_region" field.
+func S3RegionGT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGT(FieldS3Region, v))
+}
+
+// S3RegionGTE applies the GTE predicate on the "s3_region" field.
+func S3RegionGTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGTE(FieldS3Region, v))
+}
+
+// S3RegionLT applies the LT predicate on the "s3_region" field.
+func S3RegionLT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLT(FieldS3Region, v))
+}
+
+// S3RegionLTE applies the LTE predicate on the "s3_region" field.
+func S3RegionLTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLTE(FieldS3Region, v))
+}
+
+// S3RegionContains applies the Contains predicate on the "s3_region" field.
+func S3RegionContains(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContains(FieldS3Region, v))
+}
+
+// S3RegionHasPrefix applies the HasPrefix predicate on the "s3_region" field.
+func S3RegionHasPrefix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasPrefix(FieldS3Region, v))
+}
+
+// S3RegionHasSuffix applies the HasSuffix predicate on the "s3_region" field.
+func S3RegionHasSuffix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasSuffix(FieldS3Region, v))
+}
+
+// S3RegionEqualFold applies the EqualFold predicate on the "s3_region" field.
+func S3RegionEqualFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEqualFold(FieldS3Region, v))
+}
+
+// S3RegionContainsFold applies the ContainsFold predicate on the "s3_region" field.
+func S3RegionContainsFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContainsFold(FieldS3Region, v))
+}
+
+// S3EndpointEQ applies the EQ predicate on the "s3_endpoint" field.
+func S3EndpointEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3Endpoint, v))
+}
+
+// S3EndpointNEQ applies the NEQ predicate on the "s3_endpoint" field.
+func S3EndpointNEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNEQ(FieldS3Endpoint, v))
+}
+
+// S3EndpointIn applies the In predicate on the "s3_endpoint" field.
+func S3EndpointIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldIn(FieldS3Endpoint, vs...))
+}
+
+// S3EndpointNotIn applies the NotIn predicate on the "s3_endpoint" field.
+func S3EndpointNotIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNotIn(FieldS3Endpoint, vs...))
+}
+
+// S3EndpointGT applies the GT predicate on the "s3_endpoint" field.
+func S3EndpointGT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGT(FieldS3Endpoint, v))
+}
+
+// S3EndpointGTE applies the GTE predicate on the "s3_endpoint" field.
+func S3EndpointGTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGTE(FieldS3Endpoint, v))
+}
+
+// S3EndpointLT applies the LT predicate on the "s3_endpoint" field.
+func S3EndpointLT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLT(FieldS3Endpoint, v))
+}
+
+// S3EndpointLTE applies the LTE predicate on the "s3_endpoint" field.
+func S3EndpointLTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLTE(FieldS3Endpoint, v))
+}
+
+// S3EndpointContains applies the Contains predicate on the "s3_endpoint" field.
+func S3EndpointContains(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContains(FieldS3Endpoint, v))
+}
+
+// S3EndpointHasPrefix applies the HasPrefix predicate on the "s3_endpoint" field.
+func S3EndpointHasPrefix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasPrefix(FieldS3Endpoint, v))
+}
+
+// S3EndpointHasSuffix applies the HasSuffix predicate on the "s3_endpoint" field.
+func S3EndpointHasSuffix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasSuffix(FieldS3Endpoint, v))
+}
+
+// S3EndpointEqualFold applies the EqualFold predicate on the "s3_endpoint" field.
+func S3EndpointEqualFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEqualFold(FieldS3Endpoint, v))
+}
+
+// S3EndpointContainsFold applies the ContainsFold predicate on the "s3_endpoint" field.
+func S3EndpointContainsFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContainsFold(FieldS3Endpoint, v))
+}
+
+// S3BucketEQ applies the EQ predicate on the "s3_bucket" field.
+func S3BucketEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3Bucket, v))
+}
+
+// S3BucketNEQ applies the NEQ predicate on the "s3_bucket" field.
+func S3BucketNEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNEQ(FieldS3Bucket, v))
+}
+
+// S3BucketIn applies the In predicate on the "s3_bucket" field.
+func S3BucketIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldIn(FieldS3Bucket, vs...))
+}
+
+// S3BucketNotIn applies the NotIn predicate on the "s3_bucket" field.
+func S3BucketNotIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNotIn(FieldS3Bucket, vs...))
+}
+
+// S3BucketGT applies the GT predicate on the "s3_bucket" field.
+func S3BucketGT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGT(FieldS3Bucket, v))
+}
+
+// S3BucketGTE applies the GTE predicate on the "s3_bucket" field.
+func S3BucketGTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGTE(FieldS3Bucket, v))
+}
+
+// S3BucketLT applies the LT predicate on the "s3_bucket" field.
+func S3BucketLT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLT(FieldS3Bucket, v))
+}
+
+// S3BucketLTE applies the LTE predicate on the "s3_bucket" field.
+func S3BucketLTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLTE(FieldS3Bucket, v))
+}
+
+// S3BucketContains applies the Contains predicate on the "s3_bucket" field.
+func S3BucketContains(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContains(FieldS3Bucket, v))
+}
+
+// S3BucketHasPrefix applies the HasPrefix predicate on the "s3_bucket" field.
+func S3BucketHasPrefix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasPrefix(FieldS3Bucket, v))
+}
+
+// S3BucketHasSuffix applies the HasSuffix predicate on the "s3_bucket" field.
+func S3BucketHasSuffix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasSuffix(FieldS3Bucket, v))
+}
+
+// S3BucketEqualFold applies the EqualFold predicate on the "s3_bucket" field.
+func S3BucketEqualFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEqualFold(FieldS3Bucket, v))
+}
+
+// S3BucketContainsFold applies the ContainsFold predicate on the "s3_bucket" field.
+func S3BucketContainsFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContainsFold(FieldS3Bucket, v))
+}
+
+// S3AccessKeyIDEQ applies the EQ predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDNEQ applies the NEQ predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDNEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNEQ(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDIn applies the In predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldIn(FieldS3AccessKeyID, vs...))
+}
+
+// S3AccessKeyIDNotIn applies the NotIn predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDNotIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNotIn(FieldS3AccessKeyID, vs...))
+}
+
+// S3AccessKeyIDGT applies the GT predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDGT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGT(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDGTE applies the GTE predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDGTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGTE(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDLT applies the LT predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDLT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLT(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDLTE applies the LTE predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDLTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLTE(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDContains applies the Contains predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDContains(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContains(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDHasPrefix applies the HasPrefix predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDHasPrefix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasPrefix(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDHasSuffix applies the HasSuffix predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDHasSuffix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasSuffix(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDEqualFold applies the EqualFold predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDEqualFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEqualFold(FieldS3AccessKeyID, v))
+}
+
+// S3AccessKeyIDContainsFold applies the ContainsFold predicate on the "s3_access_key_id" field.
+func S3AccessKeyIDContainsFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContainsFold(FieldS3AccessKeyID, v))
+}
+
+// S3SecretCipherEQ applies the EQ predicate on the "s3_secret_cipher" field.
+func S3SecretCipherEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherNEQ applies the NEQ predicate on the "s3_secret_cipher" field.
+func S3SecretCipherNEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNEQ(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherIn applies the In predicate on the "s3_secret_cipher" field.
+func S3SecretCipherIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldIn(FieldS3SecretCipher, vs...))
+}
+
+// S3SecretCipherNotIn applies the NotIn predicate on the "s3_secret_cipher" field.
+func S3SecretCipherNotIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNotIn(FieldS3SecretCipher, vs...))
+}
+
+// S3SecretCipherGT applies the GT predicate on the "s3_secret_cipher" field.
+func S3SecretCipherGT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGT(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherGTE applies the GTE predicate on the "s3_secret_cipher" field.
+func S3SecretCipherGTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGTE(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherLT applies the LT predicate on the "s3_secret_cipher" field.
+func S3SecretCipherLT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLT(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherLTE applies the LTE predicate on the "s3_secret_cipher" field.
+func S3SecretCipherLTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLTE(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherContains applies the Contains predicate on the "s3_secret_cipher" field.
+func S3SecretCipherContains(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContains(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherHasPrefix applies the HasPrefix predicate on the "s3_secret_cipher" field.
+func S3SecretCipherHasPrefix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasPrefix(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherHasSuffix applies the HasSuffix predicate on the "s3_secret_cipher" field.
+func S3SecretCipherHasSuffix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasSuffix(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherEqualFold applies the EqualFold predicate on the "s3_secret_cipher" field.
+func S3SecretCipherEqualFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEqualFold(FieldS3SecretCipher, v))
+}
+
+// S3SecretCipherContainsFold applies the ContainsFold predicate on the "s3_secret_cipher" field.
+func S3SecretCipherContainsFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContainsFold(FieldS3SecretCipher, v))
+}
+
+// S3ForcePathStyleEQ applies the EQ predicate on the "s3_force_path_style" field.
+func S3ForcePathStyleEQ(v bool) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldS3ForcePathStyle, v))
+}
+
+// S3ForcePathStyleNEQ applies the NEQ predicate on the "s3_force_path_style" field.
+func S3ForcePathStyleNEQ(v bool) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNEQ(FieldS3ForcePathStyle, v))
+}
+
+// BasePathEQ applies the EQ predicate on the "base_path" field.
+func BasePathEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEQ(FieldBasePath, v))
+}
+
+// BasePathNEQ applies the NEQ predicate on the "base_path" field.
+func BasePathNEQ(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNEQ(FieldBasePath, v))
+}
+
+// BasePathIn applies the In predicate on the "base_path" field.
+func BasePathIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldIn(FieldBasePath, vs...))
+}
+
+// BasePathNotIn applies the NotIn predicate on the "base_path" field.
+func BasePathNotIn(vs ...string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldNotIn(FieldBasePath, vs...))
+}
+
+// BasePathGT applies the GT predicate on the "base_path" field.
+func BasePathGT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGT(FieldBasePath, v))
+}
+
+// BasePathGTE applies the GTE predicate on the "base_path" field.
+func BasePathGTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldGTE(FieldBasePath, v))
+}
+
+// BasePathLT applies the LT predicate on the "base_path" field.
+func BasePathLT(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLT(FieldBasePath, v))
+}
+
+// BasePathLTE applies the LTE predicate on the "base_path" field.
+func BasePathLTE(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldLTE(FieldBasePath, v))
+}
+
+// BasePathContains applies the Contains predicate on the "base_path" field.
+func BasePathContains(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContains(FieldBasePath, v))
+}
+
+// BasePathHasPrefix applies the HasPrefix predicate on the "base_path" field.
+func BasePathHasPrefix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasPrefix(FieldBasePath, v))
+}
+
+// BasePathHasSuffix applies the HasSuffix predicate on the "base_path" field.
+func BasePathHasSuffix(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldHasSuffix(FieldBasePath, v))
+}
+
+// BasePathEqualFold applies the EqualFold predicate on the "base_path" field.
+func BasePathEqualFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldEqualFold(FieldBasePath, v))
+}
+
+// BasePathContainsFold applies the ContainsFold predicate on the "base_path" field.
+func BasePathContainsFold(v string) predicate.FileStorageConfig {
+	return predicate.FileStorageConfig(sql.FieldContainsFold(FieldBasePath, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.

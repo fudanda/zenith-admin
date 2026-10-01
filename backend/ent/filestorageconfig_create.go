@@ -88,6 +88,104 @@ func (_c *FileStorageConfigCreate) SetNillableRemark(v *string) *FileStorageConf
 	return _c
 }
 
+// SetS3Region sets the "s3_region" field.
+func (_c *FileStorageConfigCreate) SetS3Region(v string) *FileStorageConfigCreate {
+	_c.mutation.SetS3Region(v)
+	return _c
+}
+
+// SetNillableS3Region sets the "s3_region" field if the given value is not nil.
+func (_c *FileStorageConfigCreate) SetNillableS3Region(v *string) *FileStorageConfigCreate {
+	if v != nil {
+		_c.SetS3Region(*v)
+	}
+	return _c
+}
+
+// SetS3Endpoint sets the "s3_endpoint" field.
+func (_c *FileStorageConfigCreate) SetS3Endpoint(v string) *FileStorageConfigCreate {
+	_c.mutation.SetS3Endpoint(v)
+	return _c
+}
+
+// SetNillableS3Endpoint sets the "s3_endpoint" field if the given value is not nil.
+func (_c *FileStorageConfigCreate) SetNillableS3Endpoint(v *string) *FileStorageConfigCreate {
+	if v != nil {
+		_c.SetS3Endpoint(*v)
+	}
+	return _c
+}
+
+// SetS3Bucket sets the "s3_bucket" field.
+func (_c *FileStorageConfigCreate) SetS3Bucket(v string) *FileStorageConfigCreate {
+	_c.mutation.SetS3Bucket(v)
+	return _c
+}
+
+// SetNillableS3Bucket sets the "s3_bucket" field if the given value is not nil.
+func (_c *FileStorageConfigCreate) SetNillableS3Bucket(v *string) *FileStorageConfigCreate {
+	if v != nil {
+		_c.SetS3Bucket(*v)
+	}
+	return _c
+}
+
+// SetS3AccessKeyID sets the "s3_access_key_id" field.
+func (_c *FileStorageConfigCreate) SetS3AccessKeyID(v string) *FileStorageConfigCreate {
+	_c.mutation.SetS3AccessKeyID(v)
+	return _c
+}
+
+// SetNillableS3AccessKeyID sets the "s3_access_key_id" field if the given value is not nil.
+func (_c *FileStorageConfigCreate) SetNillableS3AccessKeyID(v *string) *FileStorageConfigCreate {
+	if v != nil {
+		_c.SetS3AccessKeyID(*v)
+	}
+	return _c
+}
+
+// SetS3SecretCipher sets the "s3_secret_cipher" field.
+func (_c *FileStorageConfigCreate) SetS3SecretCipher(v string) *FileStorageConfigCreate {
+	_c.mutation.SetS3SecretCipher(v)
+	return _c
+}
+
+// SetNillableS3SecretCipher sets the "s3_secret_cipher" field if the given value is not nil.
+func (_c *FileStorageConfigCreate) SetNillableS3SecretCipher(v *string) *FileStorageConfigCreate {
+	if v != nil {
+		_c.SetS3SecretCipher(*v)
+	}
+	return _c
+}
+
+// SetS3ForcePathStyle sets the "s3_force_path_style" field.
+func (_c *FileStorageConfigCreate) SetS3ForcePathStyle(v bool) *FileStorageConfigCreate {
+	_c.mutation.SetS3ForcePathStyle(v)
+	return _c
+}
+
+// SetNillableS3ForcePathStyle sets the "s3_force_path_style" field if the given value is not nil.
+func (_c *FileStorageConfigCreate) SetNillableS3ForcePathStyle(v *bool) *FileStorageConfigCreate {
+	if v != nil {
+		_c.SetS3ForcePathStyle(*v)
+	}
+	return _c
+}
+
+// SetBasePath sets the "base_path" field.
+func (_c *FileStorageConfigCreate) SetBasePath(v string) *FileStorageConfigCreate {
+	_c.mutation.SetBasePath(v)
+	return _c
+}
+
+// SetNillableBasePath sets the "base_path" field if the given value is not nil.
+func (_c *FileStorageConfigCreate) SetNillableBasePath(v *string) *FileStorageConfigCreate {
+	if v != nil {
+		_c.SetBasePath(*v)
+	}
+	return _c
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (_c *FileStorageConfigCreate) SetCreatedAt(v time.Time) *FileStorageConfigCreate {
 	_c.mutation.SetCreatedAt(v)
@@ -163,6 +261,34 @@ func (_c *FileStorageConfigCreate) defaults() {
 		v := filestorageconfig.DefaultIsDefault
 		_c.mutation.SetIsDefault(v)
 	}
+	if _, ok := _c.mutation.S3Region(); !ok {
+		v := filestorageconfig.DefaultS3Region
+		_c.mutation.SetS3Region(v)
+	}
+	if _, ok := _c.mutation.S3Endpoint(); !ok {
+		v := filestorageconfig.DefaultS3Endpoint
+		_c.mutation.SetS3Endpoint(v)
+	}
+	if _, ok := _c.mutation.S3Bucket(); !ok {
+		v := filestorageconfig.DefaultS3Bucket
+		_c.mutation.SetS3Bucket(v)
+	}
+	if _, ok := _c.mutation.S3AccessKeyID(); !ok {
+		v := filestorageconfig.DefaultS3AccessKeyID
+		_c.mutation.SetS3AccessKeyID(v)
+	}
+	if _, ok := _c.mutation.S3SecretCipher(); !ok {
+		v := filestorageconfig.DefaultS3SecretCipher
+		_c.mutation.SetS3SecretCipher(v)
+	}
+	if _, ok := _c.mutation.S3ForcePathStyle(); !ok {
+		v := filestorageconfig.DefaultS3ForcePathStyle
+		_c.mutation.SetS3ForcePathStyle(v)
+	}
+	if _, ok := _c.mutation.BasePath(); !ok {
+		v := filestorageconfig.DefaultBasePath
+		_c.mutation.SetBasePath(v)
+	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		v := filestorageconfig.DefaultCreatedAt()
 		_c.mutation.SetCreatedAt(v)
@@ -199,6 +325,27 @@ func (_c *FileStorageConfigCreate) check() error {
 		if err := filestorageconfig.LocalRootPathValidator(v); err != nil {
 			return &ValidationError{Name: "local_root_path", err: fmt.Errorf(`ent: validator failed for field "FileStorageConfig.local_root_path": %w`, err)}
 		}
+	}
+	if _, ok := _c.mutation.S3Region(); !ok {
+		return &ValidationError{Name: "s3_region", err: errors.New(`ent: missing required field "FileStorageConfig.s3_region"`)}
+	}
+	if _, ok := _c.mutation.S3Endpoint(); !ok {
+		return &ValidationError{Name: "s3_endpoint", err: errors.New(`ent: missing required field "FileStorageConfig.s3_endpoint"`)}
+	}
+	if _, ok := _c.mutation.S3Bucket(); !ok {
+		return &ValidationError{Name: "s3_bucket", err: errors.New(`ent: missing required field "FileStorageConfig.s3_bucket"`)}
+	}
+	if _, ok := _c.mutation.S3AccessKeyID(); !ok {
+		return &ValidationError{Name: "s3_access_key_id", err: errors.New(`ent: missing required field "FileStorageConfig.s3_access_key_id"`)}
+	}
+	if _, ok := _c.mutation.S3SecretCipher(); !ok {
+		return &ValidationError{Name: "s3_secret_cipher", err: errors.New(`ent: missing required field "FileStorageConfig.s3_secret_cipher"`)}
+	}
+	if _, ok := _c.mutation.S3ForcePathStyle(); !ok {
+		return &ValidationError{Name: "s3_force_path_style", err: errors.New(`ent: missing required field "FileStorageConfig.s3_force_path_style"`)}
+	}
+	if _, ok := _c.mutation.BasePath(); !ok {
+		return &ValidationError{Name: "base_path", err: errors.New(`ent: missing required field "FileStorageConfig.base_path"`)}
 	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "FileStorageConfig.created_at"`)}
@@ -255,6 +402,34 @@ func (_c *FileStorageConfigCreate) createSpec() (*FileStorageConfig, *sqlgraph.C
 	if value, ok := _c.mutation.Remark(); ok {
 		_spec.SetField(filestorageconfig.FieldRemark, field.TypeString, value)
 		_node.Remark = &value
+	}
+	if value, ok := _c.mutation.S3Region(); ok {
+		_spec.SetField(filestorageconfig.FieldS3Region, field.TypeString, value)
+		_node.S3Region = value
+	}
+	if value, ok := _c.mutation.S3Endpoint(); ok {
+		_spec.SetField(filestorageconfig.FieldS3Endpoint, field.TypeString, value)
+		_node.S3Endpoint = value
+	}
+	if value, ok := _c.mutation.S3Bucket(); ok {
+		_spec.SetField(filestorageconfig.FieldS3Bucket, field.TypeString, value)
+		_node.S3Bucket = value
+	}
+	if value, ok := _c.mutation.S3AccessKeyID(); ok {
+		_spec.SetField(filestorageconfig.FieldS3AccessKeyID, field.TypeString, value)
+		_node.S3AccessKeyID = value
+	}
+	if value, ok := _c.mutation.S3SecretCipher(); ok {
+		_spec.SetField(filestorageconfig.FieldS3SecretCipher, field.TypeString, value)
+		_node.S3SecretCipher = value
+	}
+	if value, ok := _c.mutation.S3ForcePathStyle(); ok {
+		_spec.SetField(filestorageconfig.FieldS3ForcePathStyle, field.TypeBool, value)
+		_node.S3ForcePathStyle = value
+	}
+	if value, ok := _c.mutation.BasePath(); ok {
+		_spec.SetField(filestorageconfig.FieldBasePath, field.TypeString, value)
+		_node.BasePath = value
 	}
 	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(filestorageconfig.FieldCreatedAt, field.TypeTime, value)

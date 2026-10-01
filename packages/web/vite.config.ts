@@ -102,10 +102,10 @@ const HEAVY_LIBRARIES: Array<[name: string, test: RegExp]> = [
   ['semi-json-viewer', /node_modules[\\/]@douyinfe[\\/]semi-json-viewer-core[\\/]/],
 ];
 
-const APP_SOURCE = /[\\/]packages[\\/](?:web|shared|analytics-sdk)[\\/]src[\\/]/;
+const APP_SOURCE = /[\\/]packages[\\/](?:web|shared|analytics-sdk|client)[\\/]src[\\/]|[\\/]packages[\\/]elements[\\/](?:src|dist)[\\/]/;
 // 应用公共层只收 hooks / lib / utils / 契约等「纯逻辑」模块：组件会把图表 / 编辑器等重型依赖静态拖进公共层，
 // 让登录页为一个共享组件下载 2MB 图表库
-const APP_SHARED_LOGIC = /[\\/]packages[\\/](?:shared|analytics-sdk)[\\/]src[\\/]|[\\/]packages[\\/]web[\\/]src[\\/](?:hooks|lib|utils|providers|config)[\\/.]/;
+const APP_SHARED_LOGIC = /[\\/]packages[\\/](?:shared|analytics-sdk|client)[\\/]src[\\/]|[\\/]packages[\\/]elements[\\/](?:src|dist)[\\/]|[\\/]packages[\\/]web[\\/]src[\\/](?:hooks|lib|utils|providers|config)[\\/.]/;
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   if (env.VITE_GO_FOUNDATION === 'true') {

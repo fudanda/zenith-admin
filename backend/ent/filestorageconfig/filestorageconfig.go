@@ -25,6 +25,20 @@ const (
 	FieldLocalRootPath = "local_root_path"
 	// FieldRemark holds the string denoting the remark field in the database.
 	FieldRemark = "remark"
+	// FieldS3Region holds the string denoting the s3_region field in the database.
+	FieldS3Region = "s3_region"
+	// FieldS3Endpoint holds the string denoting the s3_endpoint field in the database.
+	FieldS3Endpoint = "s3_endpoint"
+	// FieldS3Bucket holds the string denoting the s3_bucket field in the database.
+	FieldS3Bucket = "s3_bucket"
+	// FieldS3AccessKeyID holds the string denoting the s3_access_key_id field in the database.
+	FieldS3AccessKeyID = "s3_access_key_id"
+	// FieldS3SecretCipher holds the string denoting the s3_secret_cipher field in the database.
+	FieldS3SecretCipher = "s3_secret_cipher"
+	// FieldS3ForcePathStyle holds the string denoting the s3_force_path_style field in the database.
+	FieldS3ForcePathStyle = "s3_force_path_style"
+	// FieldBasePath holds the string denoting the base_path field in the database.
+	FieldBasePath = "base_path"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updated_at field in the database.
@@ -42,6 +56,13 @@ var Columns = []string{
 	FieldIsDefault,
 	FieldLocalRootPath,
 	FieldRemark,
+	FieldS3Region,
+	FieldS3Endpoint,
+	FieldS3Bucket,
+	FieldS3AccessKeyID,
+	FieldS3SecretCipher,
+	FieldS3ForcePathStyle,
+	FieldBasePath,
 	FieldCreatedAt,
 	FieldUpdatedAt,
 }
@@ -67,6 +88,20 @@ var (
 	DefaultIsDefault bool
 	// LocalRootPathValidator is a validator for the "local_root_path" field. It is called by the builders before save.
 	LocalRootPathValidator func(string) error
+	// DefaultS3Region holds the default value on creation for the "s3_region" field.
+	DefaultS3Region string
+	// DefaultS3Endpoint holds the default value on creation for the "s3_endpoint" field.
+	DefaultS3Endpoint string
+	// DefaultS3Bucket holds the default value on creation for the "s3_bucket" field.
+	DefaultS3Bucket string
+	// DefaultS3AccessKeyID holds the default value on creation for the "s3_access_key_id" field.
+	DefaultS3AccessKeyID string
+	// DefaultS3SecretCipher holds the default value on creation for the "s3_secret_cipher" field.
+	DefaultS3SecretCipher string
+	// DefaultS3ForcePathStyle holds the default value on creation for the "s3_force_path_style" field.
+	DefaultS3ForcePathStyle bool
+	// DefaultBasePath holds the default value on creation for the "base_path" field.
+	DefaultBasePath string
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt func() time.Time
 	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
@@ -111,6 +146,41 @@ func ByLocalRootPath(opts ...sql.OrderTermOption) OrderOption {
 // ByRemark orders the results by the remark field.
 func ByRemark(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRemark, opts...).ToFunc()
+}
+
+// ByS3Region orders the results by the s3_region field.
+func ByS3Region(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldS3Region, opts...).ToFunc()
+}
+
+// ByS3Endpoint orders the results by the s3_endpoint field.
+func ByS3Endpoint(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldS3Endpoint, opts...).ToFunc()
+}
+
+// ByS3Bucket orders the results by the s3_bucket field.
+func ByS3Bucket(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldS3Bucket, opts...).ToFunc()
+}
+
+// ByS3AccessKeyID orders the results by the s3_access_key_id field.
+func ByS3AccessKeyID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldS3AccessKeyID, opts...).ToFunc()
+}
+
+// ByS3SecretCipher orders the results by the s3_secret_cipher field.
+func ByS3SecretCipher(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldS3SecretCipher, opts...).ToFunc()
+}
+
+// ByS3ForcePathStyle orders the results by the s3_force_path_style field.
+func ByS3ForcePathStyle(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldS3ForcePathStyle, opts...).ToFunc()
+}
+
+// ByBasePath orders the results by the base_path field.
+func ByBasePath(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBasePath, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.

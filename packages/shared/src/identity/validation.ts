@@ -586,7 +586,8 @@ export const saveFavoriteMenusSchema = z.object({
 export const userPreferencesInputSchema = z.strictObject({ overrides: preferenceOverridesSchema });
 
 export const createApiTokenSchema = z.object({
-  name: z.string(),
+  name: z.string().trim().min(1).max(64),
+  permissions: z.array(z.string().min(1).max(100)).min(1).max(100).optional(),
   expiresAt: z.string().optional(),
 });
 

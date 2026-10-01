@@ -12,7 +12,8 @@ import (
 type Route struct {
 	Method, Path, OperationID, Permission string
 	AnyPermissions                        []string
-	Public, SuperAdminOnly                bool
+	APIKeyPermission                      string
+	Public, SuperAdminOnly, APIKeyAllowed bool
 	Handler                               http.Handler
 }
 
@@ -32,6 +33,9 @@ func (r *Registrar) Register(route Route) error {
 		return errors.New("route requires method, /api/v1 path, operation ID, handler, and permission unless public")
 	}
 	if op, ok := contracts.Operations[route.OperationID]; ok {
+		if route.APIKeyAllowed != op.APIKeyAllowed || route.APIKeyPermission != op.APIKeyPermission {
+			return fmt.Errorf("API Key policy differs for %s", route.OperationID)
+		}
 		if route.Method != op.Method || route.Path != op.Path || route.Permission != op.Permission || route.Public != op.Public || route.SuperAdminOnly != op.SuperAdminOnly || strings.Join(route.AnyPermissions, ",") != strings.Join(op.AnyPermissions, ",") {
 			return fmt.Errorf("route %s differs from its generated contract", route.OperationID)
 		}
@@ -63,7 +67,7 @@ func contractRoute(id string, handler http.Handler) (Route, error) {
 	if !ok {
 		return Route{}, fmt.Errorf("generated contract operation %q not found", id)
 	}
-	return Route{Method: op.Method, Path: op.Path, OperationID: id, Permission: op.Permission, AnyPermissions: op.AnyPermissions, Public: op.Public, SuperAdminOnly: op.SuperAdminOnly, Handler: handler}, nil
+	return Route{Method: op.Method, Path: op.Path, OperationID: id, Permission: op.Permission, AnyPermissions: op.AnyPermissions, Public: op.Public, APIKeyAllowed: op.APIKeyAllowed, APIKeyPermission: op.APIKeyPermission, SuperAdminOnly: op.SuperAdminOnly, Handler: handler}, nil
 }
 
 func (r *Registrar) RegisterContract(id string, handler http.Handler) error {

@@ -8,9 +8,9 @@ import (
 type FileStorage = storage.Provider
 type FileRoot = storage.Root
 
-func (f *Framework) fileStorage() storage.Provider {
-	if f.config.FileStorage != nil {
-		return f.config.FileStorage
+func configuredFileStorage(config Config) storage.Provider {
+	if config.FileStorage != nil {
+		return config.FileStorage
 	}
 	return local.Provider{}
 }

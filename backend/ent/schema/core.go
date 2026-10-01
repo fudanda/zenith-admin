@@ -90,6 +90,7 @@ func (AuditLog) Fields() []ent.Field {
 		field.String("module").Default(""), field.String("description").Default(""), field.String("method").Default(""), field.String("path").Default(""),
 		field.String("ip").Default(""), field.String("user_agent").Default(""), field.String("browser").Default(""), field.String("os").Default(""),
 		field.String("request_body").Optional().Nillable(), field.Int("duration_ms").Default(0), field.Int("response_code").Default(200),
+		field.Int("api_key_id").Optional().Nillable(),
 		field.Time("created_at").Default(time.Now),
 	}
 }
@@ -269,9 +270,24 @@ func (FileStorageConfig) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name").MaxLen(64), field.String("provider").Default("local"), field.String("status").Default("enabled"),
 		field.Bool("is_default").Default(false), field.String("local_root_path").MaxLen(512), field.String("remark").Optional().Nillable(),
+		field.String("s3_region").Default(""), field.String("s3_endpoint").Default(""), field.String("s3_bucket").Default(""),
+		field.String("s3_access_key_id").Default(""), field.String("s3_secret_cipher").Sensitive().Default(""), field.Bool("s3_force_path_style").Default(false),
+		field.String("base_path").Default(""),
 		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}
 }
+
+// API secrets are random, hashed and only returned once at creation.
+type APIKey struct{ ent.Schema }
+
+func (APIKey) Fields() []ent.Field {
+	return []ent.Field{
+		field.Int("user_id"), field.String("name").MaxLen(64), field.String("token_hash").Sensitive().Unique(), field.String("token_prefix").MaxLen(16),
+		field.JSON("permissions", []string{}), field.Time("expires_at").Optional().Nillable(), field.Time("revoked_at").Optional().Nillable(),
+		field.Time("last_used_at").Optional().Nillable(), field.Time("created_at").Default(time.Now),
+	}
+}
+func (APIKey) Indexes() []ent.Index { return []ent.Index{index.Fields("user_id")} }
 
 type ManagedFile struct{ ent.Schema }
 

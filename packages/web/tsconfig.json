@@ -2,19 +2,37 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
     "outDir": "./dist",
     "tsBuildInfoFile": "./dist/.tsbuildinfo",
     "rootDir": "./src",
     "jsx": "react-jsx",
-    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2024",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "composite": true,
     "noEmit": true
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "references": [
-    { "path": "../analytics-sdk" },
-    { "path": "../shared" }
+    {
+      "path": "../analytics-sdk"
+    },
+    {
+      "path": "../shared"
+    },
+    {
+      "path": "../client"
+    },
+    {
+      "path": "../elements"
+    }
   ]
 }

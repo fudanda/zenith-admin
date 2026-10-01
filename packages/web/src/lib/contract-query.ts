@@ -1,4 +1,4 @@
-import { foundationSettingsBody, foundationSettingsOperation } from '@zenith/shared/settings/foundation';
+import { callRaw } from '@zenith/client';
 import {
   keepPreviousData,
   queryOptions,
@@ -25,7 +25,7 @@ import {
 import { request, type RequestOptions } from '@/utils/request';
 import { LOOKUP_STALE_TIME, toQueryString, unwrap } from '@/lib/query';
 import { IS_GO_FOUNDATION } from './foundation-mode';
-import { foundationPath, foundationRequestBody, isFoundationOperation } from './foundation-operations';
+import { foundationPath, isFoundationOperation } from './foundation-operations';
 import { goApiClient } from './go-api-client';
 
 /**
@@ -107,16 +107,15 @@ export async function apiRaw<Op extends AnyOperation>(
     throw new Error(`契约操作「${op.name}」为 ${op.kind} 响应，请使用 request.download(urlOf(op, input)) 等二进制通道`);
   }
   const { client = IS_GO_FOUNDATION ? goApiClient : request, ...baseOptions } = rawOptions ?? {};
+  if (IS_GO_FOUNDATION) {
+    return callRaw(client, op, ...([rawInput, baseOptions] as unknown as [...InputArgs<Op>, ApiCallOptions?]));
+  }
   const requestOptions = withContractHeaders(baseOptions, (rawInput as LooseInput)?.headers);
   const url = urlOf(op, ...([rawInput] as unknown as UrlInputArgs<Op>));
-  const body = IS_GO_FOUNDATION ? foundationRequestBody(foundationSettingsOperation(op), foundationSettingsBody(op, (rawInput as LooseInput)?.body)) : (rawInput as LooseInput)?.body;
+  const body = (rawInput as LooseInput)?.body;
   const response = await (op.method === 'get'
     ? client.get<OutputOf<Op>>(url, requestOptions)
     : client[op.method]<OutputOf<Op>>(url, body, requestOptions));
-  if (IS_GO_FOUNDATION && response.code === 0) {
-    // Generated types alone do not verify the HTTP payload at runtime.
-    return { ...response, data: foundationSettingsOperation(op).response.parse(response.data) as OutputOf<Op> };
-  }
   return response;
 }
 

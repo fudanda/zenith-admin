@@ -12,6 +12,8 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
 	"github.com/fudanda/zenith-admin/backend/ent/position"
+	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/zenith-admin/backend/internal/modules/identity"
 )
 
 func sqliteStore(t *testing.T) *Store {
@@ -134,12 +136,15 @@ func TestSQLiteConcurrentMigrationAndLoginFailures(t *testing.T) {
 		go func() { defer wg.Done(); errs <- s.Migrate(ctx) }()
 	}
 	wg.Wait()
-	f := &Framework{Store: stores[0]}
-	policy := securityPolicy{}
+	services := assembleServices(stores[0], configuredFileStorage(Config{}))
+	policy := kernel.SecurityPolicy{}
 	policy.LoginChallenge.WindowMinutes = 10
 	for i := 0; i < 20; i++ {
 		wg.Add(1)
-		go func() { defer wg.Done(); errs <- f.recordLoginFailure(ctx, "sqlite-user", "192.0.2.1", policy) }()
+		go func() {
+			defer wg.Done()
+			errs <- services.identity.RecordLoginFailure(ctx, "sqlite-user", "192.0.2.1", policy)
+		}()
 	}
 	wg.Wait()
 	close(errs)
@@ -148,7 +153,7 @@ func TestSQLiteConcurrentMigrationAndLoginFailures(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	row, err := stores[0].Client.LoginAttempt.Query().Where(loginattempt.KeyEQ(sourceKey("sqlite-user", "192.0.2.1"))).Only(ctx)
+	row, err := stores[0].Client.LoginAttempt.Query().Where(loginattempt.KeyEQ(identity.SourceKey("sqlite-user", "192.0.2.1"))).Only(ctx)
 	if err != nil || row.Failures != 20 {
 		t.Fatal("lost concurrent failures", row, err)
 	}
@@ -160,7 +165,7 @@ func TestSQLiteConcurrentMigrationAndLoginFailures(t *testing.T) {
 	if err := stores[0].Client.LoginAttempt.UpdateOne(row).SetUpdatedAt(local.Add(-24 * time.Hour)).Exec(ctx); err != nil {
 		t.Fatal(err)
 	}
-	if err := stores[0].cleanupAuthentication(ctx, time.Now().UTC()); err != nil {
+	if err := services.identity.CleanupAuthentication(ctx, time.Now().UTC()); err != nil {
 		t.Fatal(err)
 	}
 	if count, err := stores[0].Client.LoginAttempt.Query().Count(ctx); err != nil || count != 0 {

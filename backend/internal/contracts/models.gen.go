@@ -3178,6 +3178,66 @@ func (e UserSessionClient) Valid() bool {
 	}
 }
 
+// Defines values for ApiTokensList200JSONResponseBodyCode.
+const (
+	ApiTokensList200JSONResponseBodyCodeN0 ApiTokensList200JSONResponseBodyCode = 0
+)
+
+// Valid indicates whether the value is a known member of the ApiTokensList200JSONResponseBodyCode enum.
+func (e ApiTokensList200JSONResponseBodyCode) Valid() bool {
+	switch e {
+	case ApiTokensList200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ApiTokensCreate200JSONResponseBodyCode.
+const (
+	ApiTokensCreate200JSONResponseBodyCodeN0 ApiTokensCreate200JSONResponseBodyCode = 0
+)
+
+// Valid indicates whether the value is a known member of the ApiTokensCreate200JSONResponseBodyCode enum.
+func (e ApiTokensCreate200JSONResponseBodyCode) Valid() bool {
+	switch e {
+	case ApiTokensCreate200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for IntegrationKeyPermissions200JSONResponseBodyCode.
+const (
+	IntegrationKeyPermissions200JSONResponseBodyCodeN0 IntegrationKeyPermissions200JSONResponseBodyCode = 0
+)
+
+// Valid indicates whether the value is a known member of the IntegrationKeyPermissions200JSONResponseBodyCode enum.
+func (e IntegrationKeyPermissions200JSONResponseBodyCode) Valid() bool {
+	switch e {
+	case IntegrationKeyPermissions200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for ApiTokensRemove200JSONResponseBodyCode.
+const (
+	ApiTokensRemove200JSONResponseBodyCodeN0 ApiTokensRemove200JSONResponseBodyCode = 0
+)
+
+// Valid indicates whether the value is a known member of the ApiTokensRemove200JSONResponseBodyCode enum.
+func (e ApiTokensRemove200JSONResponseBodyCode) Valid() bool {
+	switch e {
+	case ApiTokensRemove200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for AuthAvatarUpload200JSONResponseBodyCode.
 const (
 	AuthAvatarUpload200JSONResponseBodyCodeN0 AuthAvatarUpload200JSONResponseBodyCode = 0
@@ -7495,6 +7555,21 @@ const (
 func (e LoginLogsStats200JSONResponseBodyCode) Valid() bool {
 	switch e {
 	case LoginLogsStats200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for IntegrationMcpJSONBodyJsonrpc.
+const (
+	IntegrationMcpJSONBodyJsonrpcN20 IntegrationMcpJSONBodyJsonrpc = "2.0"
+)
+
+// Valid indicates whether the value is a known member of the IntegrationMcpJSONBodyJsonrpc enum.
+func (e IntegrationMcpJSONBodyJsonrpc) Valid() bool {
+	switch e {
+	case IntegrationMcpJSONBodyJsonrpcN20:
 		return true
 	default:
 		return false
@@ -16554,6 +16629,27 @@ type User struct {
 // UserStatus Example: enabled
 type UserStatus string
 
+// UserApiToken defines model for UserApiToken.
+type UserApiToken struct {
+	CreatedAt   string    `json:"createdAt"`
+	ExpiresAt   *string   `json:"expiresAt"`
+	Id          int       `json:"id"`
+	LastUsedAt  *string   `json:"lastUsedAt"`
+	Name        string    `json:"name"`
+	Permissions *[]string `json:"permissions,omitempty"`
+	TokenPrefix string    `json:"tokenPrefix"`
+}
+
+// UserApiTokenCreated defines model for UserApiTokenCreated.
+type UserApiTokenCreated struct {
+	CreatedAt string `json:"createdAt"`
+	Id        int    `json:"id"`
+	Name      string `json:"name"`
+
+	// Token 完整 token，仅创建时返回
+	Token string `json:"token"`
+}
+
 // UserDataPermission defines model for UserDataPermission.
 type UserDataPermission struct {
 	// DeptScopeIds 用户直接指定的部门 ID 列表
@@ -17085,6 +17181,25 @@ type UserSession struct {
 
 // UserSessionClient 登录终端：web 网页 / mobile 移动审批 / desktop 桌面端
 type UserSessionClient string
+
+// ApiTokensList200JSONResponseBodyCode defines parameters for ApiTokensList.
+type ApiTokensList200JSONResponseBodyCode float32
+
+// ApiTokensCreateJSONBody defines parameters for ApiTokensCreate.
+type ApiTokensCreateJSONBody struct {
+	ExpiresAt   *string   `json:"expiresAt,omitempty"`
+	Name        string    `json:"name"`
+	Permissions *[]string `json:"permissions,omitempty"`
+}
+
+// ApiTokensCreate200JSONResponseBodyCode defines parameters for ApiTokensCreate.
+type ApiTokensCreate200JSONResponseBodyCode float32
+
+// IntegrationKeyPermissions200JSONResponseBodyCode defines parameters for IntegrationKeyPermissions.
+type IntegrationKeyPermissions200JSONResponseBodyCode float32
+
+// ApiTokensRemove200JSONResponseBodyCode defines parameters for ApiTokensRemove.
+type ApiTokensRemove200JSONResponseBodyCode float32
 
 // AuthAvatarUploadMultipartBody defines parameters for AuthAvatarUpload.
 type AuthAvatarUploadMultipartBody struct {
@@ -18620,6 +18735,28 @@ type LoginLogsStatsParams struct {
 
 // LoginLogsStats200JSONResponseBodyCode defines parameters for LoginLogsStats.
 type LoginLogsStats200JSONResponseBodyCode float32
+
+// IntegrationMcpJSONBody defines parameters for IntegrationMcp.
+type IntegrationMcpJSONBody struct {
+	Id      *IntegrationMcpJSONBody_Id    `json:"id,omitempty"`
+	Jsonrpc IntegrationMcpJSONBodyJsonrpc `json:"jsonrpc"`
+	Method  string                        `json:"method"`
+	Params  *map[string]*interface{}      `json:"params,omitempty"`
+}
+
+// IntegrationMcpJSONBodyId0 defines parameters for IntegrationMcp.
+type IntegrationMcpJSONBodyId0 = string
+
+// IntegrationMcpJSONBodyId1 defines parameters for IntegrationMcp.
+type IntegrationMcpJSONBodyId1 = float32
+
+// IntegrationMcpJSONBody_Id defines parameters for IntegrationMcp.
+type IntegrationMcpJSONBody_Id struct {
+	union json.RawMessage
+}
+
+// IntegrationMcpJSONBodyJsonrpc defines parameters for IntegrationMcp.
+type IntegrationMcpJSONBodyJsonrpc string
 
 // MenusTree200JSONResponseBodyCode defines parameters for MenusTree.
 type MenusTree200JSONResponseBodyCode float32
@@ -20620,6 +20757,9 @@ type UsersAssignRoles200JSONResponseBodyCode float32
 // UsersUnlock200JSONResponseBodyCode defines parameters for UsersUnlock.
 type UsersUnlock200JSONResponseBodyCode float32
 
+// ApiTokensCreateJSONRequestBody defines body for ApiTokensCreate for application/json ContentType.
+type ApiTokensCreateJSONRequestBody ApiTokensCreateJSONBody
+
 // AuthAvatarUploadMultipartRequestBody defines body for AuthAvatarUpload for multipart/form-data ContentType.
 type AuthAvatarUploadMultipartRequestBody AuthAvatarUploadMultipartBody
 
@@ -20694,6 +20834,9 @@ type FilesUploadInitJSONRequestBody FilesUploadInitJSONBody
 
 // TransferUsersMultipartRequestBody defines body for TransferUsers for multipart/form-data ContentType.
 type TransferUsersMultipartRequestBody TransferUsersMultipartBody
+
+// IntegrationMcpJSONRequestBody defines body for IntegrationMcp for application/json ContentType.
+type IntegrationMcpJSONRequestBody IntegrationMcpJSONBody
 
 // MenusCreateJSONRequestBody defines body for MenusCreate for application/json ContentType.
 type MenusCreateJSONRequestBody MenusCreateJSONBody
@@ -22488,6 +22631,68 @@ func (t FileConfigsTestExistingJSONBody_PublicBaseUrl) MarshalJSON() ([]byte, er
 }
 
 func (t *FileConfigsTestExistingJSONBody_PublicBaseUrl) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsIntegrationMcpJSONBodyId0 returns the union data inside the IntegrationMcpJSONBody_Id as a IntegrationMcpJSONBodyId0
+func (t IntegrationMcpJSONBody_Id) AsIntegrationMcpJSONBodyId0() (IntegrationMcpJSONBodyId0, error) {
+	var body IntegrationMcpJSONBodyId0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromIntegrationMcpJSONBodyId0 overwrites any union data inside the IntegrationMcpJSONBody_Id as the provided IntegrationMcpJSONBodyId0
+func (t *IntegrationMcpJSONBody_Id) FromIntegrationMcpJSONBodyId0(v IntegrationMcpJSONBodyId0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeIntegrationMcpJSONBodyId0 performs a merge with any union data inside the IntegrationMcpJSONBody_Id, using the provided IntegrationMcpJSONBodyId0
+func (t *IntegrationMcpJSONBody_Id) MergeIntegrationMcpJSONBodyId0(v IntegrationMcpJSONBodyId0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsIntegrationMcpJSONBodyId1 returns the union data inside the IntegrationMcpJSONBody_Id as a IntegrationMcpJSONBodyId1
+func (t IntegrationMcpJSONBody_Id) AsIntegrationMcpJSONBodyId1() (IntegrationMcpJSONBodyId1, error) {
+	var body IntegrationMcpJSONBodyId1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromIntegrationMcpJSONBodyId1 overwrites any union data inside the IntegrationMcpJSONBody_Id as the provided IntegrationMcpJSONBodyId1
+func (t *IntegrationMcpJSONBody_Id) FromIntegrationMcpJSONBodyId1(v IntegrationMcpJSONBodyId1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeIntegrationMcpJSONBodyId1 performs a merge with any union data inside the IntegrationMcpJSONBody_Id, using the provided IntegrationMcpJSONBodyId1
+func (t *IntegrationMcpJSONBody_Id) MergeIntegrationMcpJSONBodyId1(v IntegrationMcpJSONBodyId1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t IntegrationMcpJSONBody_Id) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *IntegrationMcpJSONBody_Id) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }

@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { NavLink, type NavigateFunction } from 'react-router-dom';
 import type { NavItem } from './utils';
+import { useAdminExternalNavigation, useAdminOptions } from '@/admin/runtime';
 
 // ─── Render wrappers 与导航交互 ────────────────────────────────────────────
 export function useNavInteractions({
@@ -14,6 +15,8 @@ export function useNavInteractions({
   setMobileNavVisible: (visible: boolean) => void;
   setManualTopKey: (key: string | null) => void;
 }) {
+  const openExternal = useAdminExternalNavigation();
+  const customNavigation = useAdminOptions().navigateExternal;
   // 预构建 itemKey → isExternal 映射，避免每次 renderWrapper 调用时重复遍历
   const externalNavKeys = useMemo(() => {
     const map = new Set<string>();
@@ -49,28 +52,29 @@ export function useNavInteractions({
     (args: { itemElement: React.ReactNode; props: { itemKey?: string | number } }) => {
       const { itemElement, props: itemProps } = args;
       const itemKey = String(itemProps.itemKey ?? '');
-      if (!itemKey.startsWith('/')) return itemElement;
       if (externalNavKeys.has(itemKey)) {
         return (
-          <a href={itemKey} target="_blank" rel="noopener noreferrer" className="admin-nav-link-wrapper">
+          <a href={itemKey} target="_blank" rel="noopener noreferrer" className="admin-nav-link-wrapper" onClick={event => {
+            if (customNavigation && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) { event.preventDefault(); openExternal(itemKey); }
+          }}>
             {itemElement}
           </a>
         );
       }
+      if (!itemKey.startsWith('/')) return itemElement;
       return (
         <NavLink to={withMenuQuery(itemKey)} className="admin-nav-link-wrapper">
           {itemElement}
         </NavLink>
       );
     },
-    [externalNavKeys, withMenuQuery],
+    [externalNavKeys, withMenuQuery, customNavigation, openExternal],
   );
 
   const renderMobileWrapper = useCallback(
     (args: { itemElement: React.ReactNode; props: { itemKey?: string | number } }) => {
       const { itemElement, props: itemProps } = args;
       const itemKey = String(itemProps.itemKey ?? '');
-      if (!itemKey.startsWith('/')) return itemElement;
       if (externalNavKeys.has(itemKey)) {
         return (
           <a
@@ -78,19 +82,23 @@ export function useNavInteractions({
             target="_blank"
             rel="noopener noreferrer"
             className="admin-nav-link-wrapper"
-            onClick={() => setMobileNavVisible(false)}
+            onClick={event => {
+              setMobileNavVisible(false);
+              if (customNavigation && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) { event.preventDefault(); openExternal(itemKey); }
+            }}
           >
             {itemElement}
           </a>
         );
       }
+      if (!itemKey.startsWith('/')) return itemElement;
       return (
         <NavLink to={withMenuQuery(itemKey)} className="admin-nav-link-wrapper" onClick={() => setMobileNavVisible(false)}>
           {itemElement}
         </NavLink>
       );
     },
-    [externalNavKeys, withMenuQuery, setMobileNavVisible],
+    [externalNavKeys, withMenuQuery, setMobileNavVisible, customNavigation, openExternal],
   );
 
   const handleDoubleRailClick = useCallback((item: NavItem) => {

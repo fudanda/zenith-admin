@@ -29,6 +29,20 @@ type FileStorageConfig struct {
 	LocalRootPath string `json:"local_root_path,omitempty"`
 	// Remark holds the value of the "remark" field.
 	Remark *string `json:"remark,omitempty"`
+	// S3Region holds the value of the "s3_region" field.
+	S3Region string `json:"s3_region,omitempty"`
+	// S3Endpoint holds the value of the "s3_endpoint" field.
+	S3Endpoint string `json:"s3_endpoint,omitempty"`
+	// S3Bucket holds the value of the "s3_bucket" field.
+	S3Bucket string `json:"s3_bucket,omitempty"`
+	// S3AccessKeyID holds the value of the "s3_access_key_id" field.
+	S3AccessKeyID string `json:"s3_access_key_id,omitempty"`
+	// S3SecretCipher holds the value of the "s3_secret_cipher" field.
+	S3SecretCipher string `json:"-"`
+	// S3ForcePathStyle holds the value of the "s3_force_path_style" field.
+	S3ForcePathStyle bool `json:"s3_force_path_style,omitempty"`
+	// BasePath holds the value of the "base_path" field.
+	BasePath string `json:"base_path,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
@@ -41,11 +55,11 @@ func (*FileStorageConfig) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case filestorageconfig.FieldIsDefault:
+		case filestorageconfig.FieldIsDefault, filestorageconfig.FieldS3ForcePathStyle:
 			values[i] = new(sql.NullBool)
 		case filestorageconfig.FieldID:
 			values[i] = new(sql.NullInt64)
-		case filestorageconfig.FieldName, filestorageconfig.FieldProvider, filestorageconfig.FieldStatus, filestorageconfig.FieldLocalRootPath, filestorageconfig.FieldRemark:
+		case filestorageconfig.FieldName, filestorageconfig.FieldProvider, filestorageconfig.FieldStatus, filestorageconfig.FieldLocalRootPath, filestorageconfig.FieldRemark, filestorageconfig.FieldS3Region, filestorageconfig.FieldS3Endpoint, filestorageconfig.FieldS3Bucket, filestorageconfig.FieldS3AccessKeyID, filestorageconfig.FieldS3SecretCipher, filestorageconfig.FieldBasePath:
 			values[i] = new(sql.NullString)
 		case filestorageconfig.FieldCreatedAt, filestorageconfig.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -106,6 +120,48 @@ func (_m *FileStorageConfig) assignValues(columns []string, values []any) error 
 			} else if value.Valid {
 				_m.Remark = new(string)
 				*_m.Remark = value.String
+			}
+		case filestorageconfig.FieldS3Region:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field s3_region", values[i])
+			} else if value.Valid {
+				_m.S3Region = value.String
+			}
+		case filestorageconfig.FieldS3Endpoint:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field s3_endpoint", values[i])
+			} else if value.Valid {
+				_m.S3Endpoint = value.String
+			}
+		case filestorageconfig.FieldS3Bucket:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field s3_bucket", values[i])
+			} else if value.Valid {
+				_m.S3Bucket = value.String
+			}
+		case filestorageconfig.FieldS3AccessKeyID:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field s3_access_key_id", values[i])
+			} else if value.Valid {
+				_m.S3AccessKeyID = value.String
+			}
+		case filestorageconfig.FieldS3SecretCipher:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field s3_secret_cipher", values[i])
+			} else if value.Valid {
+				_m.S3SecretCipher = value.String
+			}
+		case filestorageconfig.FieldS3ForcePathStyle:
+			if value, ok := values[i].(*sql.NullBool); !ok {
+				return fmt.Errorf("unexpected type %T for field s3_force_path_style", values[i])
+			} else if value.Valid {
+				_m.S3ForcePathStyle = value.Bool
+			}
+		case filestorageconfig.FieldBasePath:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field base_path", values[i])
+			} else if value.Valid {
+				_m.BasePath = value.String
 			}
 		case filestorageconfig.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -174,6 +230,26 @@ func (_m *FileStorageConfig) String() string {
 		builder.WriteString("remark=")
 		builder.WriteString(*v)
 	}
+	builder.WriteString(", ")
+	builder.WriteString("s3_region=")
+	builder.WriteString(_m.S3Region)
+	builder.WriteString(", ")
+	builder.WriteString("s3_endpoint=")
+	builder.WriteString(_m.S3Endpoint)
+	builder.WriteString(", ")
+	builder.WriteString("s3_bucket=")
+	builder.WriteString(_m.S3Bucket)
+	builder.WriteString(", ")
+	builder.WriteString("s3_access_key_id=")
+	builder.WriteString(_m.S3AccessKeyID)
+	builder.WriteString(", ")
+	builder.WriteString("s3_secret_cipher=<sensitive>")
+	builder.WriteString(", ")
+	builder.WriteString("s3_force_path_style=")
+	builder.WriteString(fmt.Sprintf("%v", _m.S3ForcePathStyle))
+	builder.WriteString(", ")
+	builder.WriteString("base_path=")
+	builder.WriteString(_m.BasePath)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
 	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))

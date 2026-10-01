@@ -7,6 +7,8 @@
       "permission": "",
       "anyPermissions": [],
       "public": true,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -17,6 +19,8 @@
       "permission": "",
       "anyPermissions": [],
       "public": true,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -27,6 +31,8 @@
       "permission": "",
       "anyPermissions": [],
       "public": true,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -37,6 +43,8 @@
       "permission": "",
       "anyPermissions": [],
       "public": true,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -47,6 +55,8 @@
       "permission": "",
       "anyPermissions": [],
       "public": true,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -57,6 +67,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -67,6 +79,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -77,6 +91,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -87,6 +103,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -97,6 +115,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -107,6 +127,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -117,6 +139,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -127,6 +151,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -137,6 +163,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -147,6 +175,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -157,6 +187,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -167,6 +199,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -177,6 +211,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -187,6 +223,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -197,6 +235,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -207,6 +247,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -217,6 +259,8 @@
       "permission": "system:department:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:department:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -227,6 +271,8 @@
       "permission": "system:department:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:department:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -237,6 +283,8 @@
       "permission": "system:department:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:department:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -247,6 +295,8 @@
       "permission": "system:department:create",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:department:create",
       "superAdminOnly": false,
       "audit": {
         "module": "部门管理",
@@ -260,6 +310,8 @@
       "permission": "system:department:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:department:update",
       "superAdminOnly": false,
       "audit": {
         "module": "部门管理",
@@ -273,6 +325,8 @@
       "permission": "system:department:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:department:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "部门管理",
@@ -286,6 +340,8 @@
       "permission": "system:department:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:department:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -296,6 +352,8 @@
       "permission": "system:position:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "岗位管理",
@@ -309,6 +367,8 @@
       "permission": "system:position:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -319,6 +379,8 @@
       "permission": "system:position:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -329,6 +391,8 @@
       "permission": "system:position:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:update",
       "superAdminOnly": false,
       "audit": {
         "module": "岗位管理",
@@ -342,6 +406,8 @@
       "permission": "system:position:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -352,6 +418,8 @@
       "permission": "system:position:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -362,6 +430,8 @@
       "permission": "system:position:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -372,6 +442,8 @@
       "permission": "system:log:login",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:log:login",
       "superAdminOnly": false,
       "audit": null
     },
@@ -382,6 +454,8 @@
       "permission": "system:department:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:department:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -392,6 +466,8 @@
       "permission": "system:role:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:role:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -402,6 +478,8 @@
       "permission": "system:dict:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -412,6 +490,8 @@
       "permission": "system:user:export",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user:export",
       "superAdminOnly": false,
       "audit": null
     },
@@ -422,6 +502,8 @@
       "permission": "system:user:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -435,6 +517,8 @@
       "permission": "system:user:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:update",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -448,6 +532,8 @@
       "permission": "system:log:operation",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:log:operation",
       "superAdminOnly": false,
       "audit": null
     },
@@ -458,6 +544,8 @@
       "permission": "system:position:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -468,6 +556,8 @@
       "permission": "system:position:create",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:create",
       "superAdminOnly": false,
       "audit": {
         "module": "岗位管理",
@@ -481,6 +571,8 @@
       "permission": "system:position:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:update",
       "superAdminOnly": false,
       "audit": {
         "module": "岗位管理",
@@ -494,6 +586,8 @@
       "permission": "system:position:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:position:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "岗位管理",
@@ -507,6 +601,8 @@
       "permission": "system:menu:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:menu:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -517,6 +613,8 @@
       "permission": "system:menu:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:menu:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -527,6 +625,8 @@
       "permission": "system:menu:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:menu:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -537,6 +637,8 @@
       "permission": "system:menu:create",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:menu:create",
       "superAdminOnly": false,
       "audit": {
         "module": "菜单管理",
@@ -550,6 +652,8 @@
       "permission": "system:menu:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:menu:update",
       "superAdminOnly": false,
       "audit": {
         "module": "菜单管理",
@@ -563,6 +667,8 @@
       "permission": "system:menu:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:menu:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "菜单管理",
@@ -576,6 +682,8 @@
       "permission": "system:file:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "文件管理",
@@ -590,6 +698,8 @@
       "permission": "system:file:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -600,6 +710,8 @@
       "permission": "system:user:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -610,6 +722,8 @@
       "permission": "system:user:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -620,6 +734,8 @@
       "permission": "system:user:create",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:create",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -633,6 +749,8 @@
       "permission": "system:user:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:update",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -646,6 +764,8 @@
       "permission": "system:user:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:update",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -659,6 +779,8 @@
       "permission": "system:user:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:update",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -672,6 +794,8 @@
       "permission": "system:user:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -682,6 +806,8 @@
       "permission": "system:user:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:update",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -695,6 +821,8 @@
       "permission": "system:user:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -708,6 +836,8 @@
       "permission": "system:user:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user:assign",
       "superAdminOnly": false,
       "audit": null
     },
@@ -718,6 +848,8 @@
       "permission": "system:user:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -731,6 +863,8 @@
       "permission": "system:user:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -744,6 +878,8 @@
       "permission": "system:user:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user:assign",
       "superAdminOnly": false,
       "audit": null
     },
@@ -754,6 +890,8 @@
       "permission": "system:user:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -767,6 +905,8 @@
       "permission": "system:user:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user:assign",
       "superAdminOnly": false,
       "audit": null
     },
@@ -777,6 +917,8 @@
       "permission": "system:role:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:role:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -787,6 +929,8 @@
       "permission": "system:role:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:role:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -797,6 +941,8 @@
       "permission": "system:role:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:role:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -807,6 +953,8 @@
       "permission": "system:role:create",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:role:create",
       "superAdminOnly": false,
       "audit": {
         "module": "角色管理",
@@ -820,6 +968,8 @@
       "permission": "system:role:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:role:update",
       "superAdminOnly": false,
       "audit": {
         "module": "角色管理",
@@ -833,6 +983,8 @@
       "permission": "system:role:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:role:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "角色管理",
@@ -846,6 +998,8 @@
       "permission": "system:role:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:role:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "角色管理",
@@ -859,6 +1013,8 @@
       "permission": "system:role:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:role:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -869,6 +1025,8 @@
       "permission": "system:role:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:role:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "角色管理",
@@ -882,6 +1040,8 @@
       "permission": "system:role:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:role:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -892,6 +1052,8 @@
       "permission": "system:user-groups:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user-groups:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -902,6 +1064,8 @@
       "permission": "system:user-groups:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user-groups:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -915,6 +1079,8 @@
         "system:user-groups:update"
       ],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -925,6 +1091,8 @@
       "permission": "system:user-groups:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user-groups:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -935,6 +1103,8 @@
       "permission": "system:user-groups:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user-groups:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -945,6 +1115,8 @@
       "permission": "system:user-groups:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user-groups:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "用户组管理",
@@ -958,6 +1130,8 @@
       "permission": "system:user-groups:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user-groups:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "用户组管理",
@@ -971,6 +1145,8 @@
       "permission": "system:user-groups:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user-groups:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "用户组管理",
@@ -984,6 +1160,8 @@
       "permission": "system:user-groups:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user-groups:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -994,6 +1172,8 @@
       "permission": "system:user-groups:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user-groups:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "用户组管理",
@@ -1007,6 +1187,8 @@
       "permission": "system:user-groups:assign",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user-groups:assign",
       "superAdminOnly": false,
       "audit": {
         "module": "用户组管理",
@@ -1020,6 +1202,8 @@
       "permission": "system:user-groups:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:user-groups:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1030,6 +1214,8 @@
       "permission": "system:user-groups:create",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user-groups:create",
       "superAdminOnly": false,
       "audit": {
         "module": "用户组管理",
@@ -1043,6 +1229,8 @@
       "permission": "system:user-groups:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user-groups:update",
       "superAdminOnly": false,
       "audit": {
         "module": "用户组管理",
@@ -1056,6 +1244,8 @@
       "permission": "system:user-groups:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user-groups:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "用户组管理",
@@ -1069,6 +1259,8 @@
       "permission": "system:user-groups:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user-groups:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "用户组管理",
@@ -1082,6 +1274,8 @@
       "permission": "system:session:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:session:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1092,6 +1286,8 @@
       "permission": "system:session:forceLogout",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:session:forceLogout",
       "superAdminOnly": false,
       "audit": {
         "module": "会话管理",
@@ -1105,6 +1301,8 @@
       "permission": "system:session:forceLogout",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:session:forceLogout",
       "superAdminOnly": false,
       "audit": {
         "module": "会话管理",
@@ -1118,6 +1316,8 @@
       "permission": "system:log:login",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:log:login",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1128,6 +1328,8 @@
       "permission": "system:log:login",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:log:login",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1138,6 +1340,8 @@
       "permission": "system:log:login",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:log:login",
       "superAdminOnly": false,
       "audit": {
         "module": "登录日志",
@@ -1151,6 +1355,8 @@
       "permission": "system:log:operation",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:log:operation",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1161,6 +1367,8 @@
       "permission": "system:log:operation",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:log:operation",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1171,6 +1379,8 @@
       "permission": "system:log:operation",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:log:operation",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1181,6 +1391,8 @@
       "permission": "system:log:operation",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:log:operation",
       "superAdminOnly": false,
       "audit": {
         "module": "操作日志",
@@ -1194,6 +1406,8 @@
       "permission": "system:dict:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1204,6 +1418,8 @@
       "permission": "system:dict:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1214,6 +1430,8 @@
       "permission": "system:dict:create",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:create",
       "superAdminOnly": false,
       "audit": {
         "module": "字典管理",
@@ -1227,6 +1445,8 @@
       "permission": "system:dict:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:update",
       "superAdminOnly": false,
       "audit": {
         "module": "字典管理",
@@ -1240,6 +1460,8 @@
       "permission": "system:dict:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "字典管理",
@@ -1253,6 +1475,8 @@
       "permission": "system:dict:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1263,6 +1487,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1273,6 +1499,8 @@
       "permission": "system:dict:item",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:item",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1283,6 +1511,8 @@
       "permission": "system:dict:item",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:item",
       "superAdminOnly": false,
       "audit": {
         "module": "字典管理",
@@ -1296,6 +1526,8 @@
       "permission": "system:dict:item",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:item",
       "superAdminOnly": false,
       "audit": {
         "module": "字典管理",
@@ -1309,6 +1541,8 @@
       "permission": "system:dict:item",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:dict:item",
       "superAdminOnly": false,
       "audit": {
         "module": "字典管理",
@@ -1322,6 +1556,8 @@
       "permission": "",
       "anyPermissions": [],
       "public": true,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1332,6 +1568,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:download",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1342,6 +1580,8 @@
       "permission": "system:file:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1352,6 +1592,8 @@
       "permission": "system:file:upload",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:upload",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1362,6 +1604,8 @@
       "permission": "system:file:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1372,6 +1616,8 @@
       "permission": "system:file:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1382,6 +1628,8 @@
       "permission": "system:file:upload",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:upload",
       "superAdminOnly": false,
       "audit": {
         "module": "文件管理",
@@ -1395,6 +1643,8 @@
       "permission": "system:file:upload",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:upload",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1405,6 +1655,8 @@
       "permission": "system:file:upload",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:upload",
       "superAdminOnly": false,
       "audit": {
         "module": "文件管理",
@@ -1418,6 +1670,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:upload",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1428,6 +1682,8 @@
       "permission": "system:file:upload",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:upload",
       "superAdminOnly": false,
       "audit": {
         "module": "文件管理",
@@ -1441,6 +1697,8 @@
       "permission": "system:file:list",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:list",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1451,6 +1709,8 @@
       "permission": "system:file:upload",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:upload",
       "superAdminOnly": false,
       "audit": {
         "module": "文件管理",
@@ -1465,6 +1725,8 @@
       "permission": "system:file:upload",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:upload",
       "superAdminOnly": false,
       "audit": {
         "module": "文件管理",
@@ -1479,6 +1741,8 @@
       "permission": "system:file:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "文件管理",
@@ -1493,6 +1757,8 @@
       "permission": "system:file:config",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:file:config",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1503,6 +1769,8 @@
       "permission": "system:file:config",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:file:config",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1513,6 +1781,8 @@
       "permission": "system:file:config",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:file:config",
       "superAdminOnly": false,
       "audit": {
         "module": "文件存储配置",
@@ -1527,6 +1797,8 @@
       "permission": "system:file:config",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:file:config",
       "superAdminOnly": false,
       "audit": {
         "module": "文件存储配置",
@@ -1541,6 +1813,8 @@
       "permission": "system:file:config",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:file:config",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1551,6 +1825,8 @@
       "permission": "system:file:config:create",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:file:config:create",
       "superAdminOnly": false,
       "audit": {
         "module": "文件存储配置",
@@ -1564,6 +1840,8 @@
       "permission": "system:file:config:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:file:config:update",
       "superAdminOnly": false,
       "audit": {
         "module": "文件存储配置",
@@ -1577,6 +1855,8 @@
       "permission": "system:file:config:default",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:file:config:default",
       "superAdminOnly": false,
       "audit": {
         "module": "文件存储配置",
@@ -1591,6 +1871,8 @@
       "permission": "system:file:config:delete",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:file:config:delete",
       "superAdminOnly": false,
       "audit": {
         "module": "文件存储配置",
@@ -1604,6 +1886,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1614,6 +1898,8 @@
       "permission": "",
       "anyPermissions": [],
       "public": true,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1624,6 +1910,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1634,6 +1922,8 @@
       "permission": "system:setting:view",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:setting:view",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1644,6 +1934,8 @@
       "permission": "system:setting:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:setting:update",
       "superAdminOnly": false,
       "audit": {
         "module": "系统设置",
@@ -1657,6 +1949,8 @@
       "permission": "system:identity-security:manage",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:identity-security:manage",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1667,6 +1961,8 @@
       "permission": "system:identity-security:manage",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:identity-security:manage",
       "superAdminOnly": false,
       "audit": {
         "module": "系统设置",
@@ -1680,6 +1976,8 @@
       "permission": "system:setting:view",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:setting:view",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1690,6 +1988,8 @@
       "permission": "system:setting:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:setting:update",
       "superAdminOnly": false,
       "audit": {
         "module": "系统设置",
@@ -1703,6 +2003,8 @@
       "permission": "system:setting:view",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:setting:view",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1713,6 +2015,8 @@
       "permission": "system:setting:update",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:setting:update",
       "superAdminOnly": false,
       "audit": {
         "module": "系统设置",
@@ -1726,6 +2030,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1736,6 +2042,8 @@
       "permission": "system:user:import",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:import",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1746,6 +2054,8 @@
       "permission": "system:user:import",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "system:user:import",
       "superAdminOnly": false,
       "audit": {
         "module": "用户管理",
@@ -1760,6 +2070,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1770,6 +2082,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": null
     },
@@ -1780,6 +2094,8 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
       "superAdminOnly": false,
       "audit": {
         "module": "个人中心",
@@ -1794,8 +2110,94 @@
       "permission": "authenticated",
       "anyPermissions": [],
       "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "system:file:download",
       "superAdminOnly": false,
       "audit": null
+    },
+    {
+      "id": "apiTokensList",
+      "method": "GET",
+      "path": "/api/v1/api-tokens",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "apiTokensCreate",
+      "method": "POST",
+      "path": "/api/v1/api-tokens",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
+      "superAdminOnly": false,
+      "audit": {
+        "module": "API Key",
+        "description": "创建 API Key",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "apiTokensRemove",
+      "method": "DELETE",
+      "path": "/api/v1/api-tokens/{id}",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
+      "superAdminOnly": false,
+      "audit": {
+        "module": "API Key",
+        "description": "撤销 API Key",
+        "recordBody": false
+      }
+    },
+    {
+      "id": "integrationKeyPermissions",
+      "method": "GET",
+      "path": "/api/v1/api-tokens/permissions",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "integrationEvents",
+      "method": "GET",
+      "path": "/api/v1/events",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "",
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
+      "id": "integrationMcp",
+      "method": "POST",
+      "path": "/api/v1/mcp",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "apiKeyAllowed": true,
+      "apiKeyPermission": "",
+      "superAdminOnly": false,
+      "audit": {
+        "module": "集成接口",
+        "description": "只读 MCP 请求",
+        "recordBody": false
+      }
     }
   ]
 }

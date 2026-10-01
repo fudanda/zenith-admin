@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { hashKey, useQuery, useQueryClient } from '@tanstack/react-query';
 import { goAuthContract, type GoSession } from '@zenith/shared/identity';
 import { AuthContext, type AuthContextValue } from '@/hooks/useAuth';
@@ -10,11 +10,16 @@ import { GO_SESSION_INVALIDATED, goApiClient } from '@/lib/go-api-client';
 import { goTransport } from '@/lib/go-transport';
 import { TOKEN_KEY, REFRESH_TOKEN_KEY, PREFERENCES_KEY, TABS_STORAGE_KEY } from '@zenith/shared/core';
 import { showRequestErrorToast } from '@/utils/request-toast';
+import { ZenithProvider, useSession, type ZenithSessionAdapter, type ZenithSessionValue, type LoginResult as ElementsLoginResult } from '@zenith/elements';
+import type { Client, ApiEnvelope } from '@zenith/client';
+import { useAdminOptions } from '@/admin/runtime';
+import { useAuth } from '@/hooks/useAuth';
+import PageLoading from '@/components/PageLoading';
 
 export const goSessionKey = contractKey(goAuthContract.me);
 const unsupported = async (): Promise<never> => { throw new Error('此功能尚未迁移到 Go'); };
 
-export function GoAuthProvider({ children }: Readonly<{ children: ReactNode }>) {
+function OwnedGoAuthProvider({ children }: Readonly<{ children: ReactNode }>) {
   const qc = useQueryClient();
   const session = useQuery({
     queryKey: goSessionKey,
@@ -27,6 +32,7 @@ export function GoAuthProvider({ children }: Readonly<{ children: ReactNode }>) 
     retry: false, staleTime: 0, refetchOnWindowFocus: true,
   });
   const authenticated = useRef(false);
+  const mounted = useRef(true);
   const { refetch } = session;
   authenticated.current = Boolean(session.data);
   const channel = useRef<BroadcastChannel | null>(null);
@@ -40,8 +46,10 @@ export function GoAuthProvider({ children }: Readonly<{ children: ReactNode }>) 
   }, [qc]);
 
   const clearIdentity = useCallback(async () => {
+    if (!mounted.current) return;
     // Identity changes invalidate every user's cached resource, not only /me.
     await clearResourceCache();
+    if (!mounted.current) return;
     goTransport.clearSession();
     localStorage.removeItem(PREFERENCES_KEY);
     localStorage.removeItem(TABS_STORAGE_KEY);
@@ -49,6 +57,7 @@ export function GoAuthProvider({ children }: Readonly<{ children: ReactNode }>) 
   }, [qc, clearResourceCache]);
 
   useEffect(() => {
+    mounted.current = true;
     // Remove legacy credentials during migration. Cookie state is always
     // established by /me, never inferred from these browser values.
     localStorage.removeItem(TOKEN_KEY);
@@ -60,6 +69,7 @@ export function GoAuthProvider({ children }: Readonly<{ children: ReactNode }>) 
       channel.current.onmessage = () => { void clearIdentity().then(() => refetch()); };
     }
     return () => {
+      mounted.current = false;
       globalThis.removeEventListener(GO_SESSION_INVALIDATED, invalidated);
       channel.current?.close();
       channel.current = null;
@@ -104,4 +114,68 @@ export function GoAuthProvider({ children }: Readonly<{ children: ReactNode }>) 
     startImpersonation: () => { throw new Error('模拟登录尚未迁移'); }, endImpersonation: unsupported,
   }), [session.data, session.isError, session.isPending, session.isFetching, session.error, login, logout, refresh, qc, clearIdentity, resolveSessionConflict]);
   return <AuthContext.Provider value={value}><PermissionContext.Provider value={value.permissions}>{children}</PermissionContext.Provider></AuthContext.Provider>;
+}
+
+/** The original admin and composable elements share one existing Cookie session. */
+function ElementsBridge({ children, client }: { children: ReactNode; client: Client }) {
+  const auth = useAuth();
+  const options = useAdminOptions();
+  const session = useMemo<ZenithSessionValue>(() => ({
+    status: auth.status, error: auth.error, refreshing: auth.refreshing,
+    session: auth.user ? { user: auth.user, permissions: auth.permissions, csrfToken: client.sessionHeaders()['X-CSRF-Token'] ?? '', superAdmin: auth.permissions.includes('*') } : null,
+    login: input => auth.login(input.username, input.password, input.captchaId, input.captchaAnswer) as Promise<ApiEnvelope<ElementsLoginResult>>,
+    resolveSessionConflict: ticket => auth.resolveSessionConflict(ticket) as Promise<ApiEnvelope<GoSession>>,
+    refresh: auth.refresh, updateUser: auth.updateUser,
+    logout: auth.logoutAllAccounts,
+  }), [auth, client]);
+  return <ZenithProvider client={client} session={session} locale={options.locale} brand={options.brand}>{children}</ZenithProvider>;
+}
+
+function HostAuthBridge({ children }: { children: ReactNode }) {
+  const hostSession = useSession();
+  const refreshSession = hostSession.refresh;
+  const qc = useQueryClient();
+  const previous = useRef<number | null>(null);
+  const invalidationInFlight = useRef(false);
+  const [visibleIdentity, setVisibleIdentity] = useState<number | null>(null);
+  const user = hostSession.status === 'authenticated' ? hostSession.session?.user ?? null : null;
+  useEffect(() => {
+    if (previous.current !== (user?.id ?? null)) {
+      // A host identity change invalidates every previous user's cached resource.
+      void qc.cancelQueries(); qc.removeQueries(); qc.getMutationCache().clear();
+      localStorage.removeItem(PREFERENCES_KEY); localStorage.removeItem(TABS_STORAGE_KEY);
+      previous.current = user?.id ?? null;
+      setVisibleIdentity(user?.id ?? null);
+    }
+    qc.setQueryData(goSessionKey, hostSession.session);
+  }, [qc, user?.id, hostSession.session]);
+  useEffect(() => {
+    const refresh = () => {
+      if (invalidationInFlight.current) return;
+      invalidationInFlight.current = true;
+      void refreshSession().catch((error: unknown) => showRequestErrorToast(error instanceof Error ? error.message : '会话恢复失败'))
+        .finally(() => { invalidationInFlight.current = false; });
+    };
+    globalThis.addEventListener(GO_SESSION_INVALIDATED, refresh);
+    return () => globalThis.removeEventListener(GO_SESSION_INVALIDATED, refresh);
+  }, [refreshSession]);
+  const value = useMemo<AuthContextValue>(() => ({
+    user, permissions: user ? hostSession.session?.permissions ?? [] : [], status: hostSession.status,
+    error: hostSession.error, loading: hostSession.status === 'checking', refreshing: hostSession.refreshing,
+    parkedAccounts: [], canAddAccount: false, impersonation: null,
+    login: (username, password, captchaId, captchaAnswer) => hostSession.login({ username, password, captchaId, captchaAnswer }),
+    logout: () => { void hostSession.logout().catch((error: unknown) => showRequestErrorToast(error instanceof Error ? error.message : '退出失败，请重试')); },
+    refresh: hostSession.refresh, updateUser: hostSession.updateUser,
+    resolveSessionConflict: hostSession.resolveSessionConflict, logoutAllAccounts: hostSession.logout,
+    verifyMfaLogin: unsupported, register: unsupported, switchAccount: unsupported, removeAccount: unsupported,
+    startImpersonation: () => { throw new Error('模拟登录尚未迁移'); }, endImpersonation: unsupported,
+  }), [hostSession, user]);
+  return <AuthContext.Provider value={value}><PermissionContext.Provider value={value.permissions}>{visibleIdentity === (user?.id ?? null) ? children : <PageLoading />}</PermissionContext.Provider></AuthContext.Provider>;
+}
+
+export function GoAuthProvider({ children, client = goTransport, authSession }: { children: ReactNode; client?: Client; authSession?: ZenithSessionAdapter }) {
+  const options = useAdminOptions();
+  return authSession
+    ? <ZenithProvider client={client} authSession={authSession} locale={options.locale} brand={options.brand}><HostAuthBridge>{children}</HostAuthBridge></ZenithProvider>
+    : <OwnedGoAuthProvider><ElementsBridge client={client}>{children}</ElementsBridge></OwnedGoAuthProvider>;
 }

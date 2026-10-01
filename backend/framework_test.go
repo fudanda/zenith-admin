@@ -7,7 +7,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/fudanda/zenith-admin/backend/internal/modules/organization/positions"
 	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
 )
 
@@ -62,13 +61,12 @@ func TestInvalidModulesRejectedBeforeOpeningDatabase(t *testing.T) {
 }
 
 func TestGoFrRoutesHealthAndUnknownAPI(t *testing.T) {
-	f := &Framework{}
+	f := &Framework{services: assembleServices(nil, configuredFileStorage(Config{}))}
 	reg := httptransport.NewRegistrar(f.guard)
-	if err := f.registerCore(reg); err != nil {
-		t.Fatal(err)
-	}
-	if err := positions.NewModule(f.positionHandler()).Initialize(context.Background(), reg); err != nil {
-		t.Fatal(err)
+	for _, module := range builtinModules(f.services) {
+		if err := module.Initialize(context.Background(), reg); err != nil {
+			t.Fatal(err)
+		}
 	}
 	if err := reg.VerifyContracts(); err != nil {
 		t.Fatal(err)

@@ -45,6 +45,8 @@ const (
 	FieldDurationMs = "duration_ms"
 	// FieldResponseCode holds the string denoting the response_code field in the database.
 	FieldResponseCode = "response_code"
+	// FieldAPIKeyID holds the string denoting the api_key_id field in the database.
+	FieldAPIKeyID = "api_key_id"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// Table holds the table name of the auditlog in the database.
@@ -70,6 +72,7 @@ var Columns = []string{
 	FieldRequestBody,
 	FieldDurationMs,
 	FieldResponseCode,
+	FieldAPIKeyID,
 	FieldCreatedAt,
 }
 
@@ -198,6 +201,11 @@ func ByDurationMs(opts ...sql.OrderTermOption) OrderOption {
 // ByResponseCode orders the results by the response_code field.
 func ByResponseCode(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldResponseCode, opts...).ToFunc()
+}
+
+// ByAPIKeyID orders the results by the api_key_id field.
+func ByAPIKeyID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldAPIKeyID, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.

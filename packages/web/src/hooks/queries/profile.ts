@@ -1,3 +1,4 @@
+import { integrationContract } from '@zenith/shared/integrations';
 import { keepPreviousData } from '@tanstack/react-query';
 import type { QueryOf } from '@zenith/shared/core';
 import { apiTokenContract, authContract, oauthContract } from '@zenith/shared/identity';
@@ -109,4 +110,8 @@ export function useDeleteApiToken() {
   return useApiMutation(apiTokenContract.remove, {
     invalidate: (qc) => void qc.invalidateQueries({ queryKey: profileKeys.apiTokens }),
   });
+}
+
+export function useApiKeyPermissions(enabled = true) {
+ return useApiQuery(integrationContract.keyPermissions, { enabled });
 }

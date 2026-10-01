@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import { LOGO_FACES, LOGO_STROKE_WIDTH, LOGO_VIEW_BOX, logoGradientAxis, logoStopCssColor } from '@/lib/brand-logo';
 import './AppLogo.css';
+import { useAdminOptions } from '@/admin/runtime';
 
 interface AppLogoProps {
   size?: number;
@@ -13,6 +14,8 @@ interface AppLogoProps {
  */
 export default function AppLogo({ size = 28, className }: Readonly<AppLogoProps>) {
   const uid = useId().replaceAll(/[^a-zA-Z0-9]/g, '');
+  const logo = useAdminOptions().brand?.logo;
+  if (logo !== undefined) return <span className={['app-logo', className].filter(Boolean).join(' ')} style={{ width: size, height: size, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>{logo}</span>;
   const gradientId = (key: string) => `app-logo-${key}-${uid}`;
   const cls = ['app-logo', className].filter(Boolean).join(' ');
   return (

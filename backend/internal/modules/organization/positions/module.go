@@ -9,9 +9,11 @@ import (
 
 type Module struct{ handler *Handler }
 
-func NewModule(handler *Handler) *Module       { return &Module{handler: handler} }
-func (*Module) Name() string                   { return "organization.positions" }
-func (*Module) Dependencies() []string         { return []string{"foundation-core"} }
+func NewModule(handler *Handler) *Module { return &Module{handler: handler} }
+func (*Module) Name() string             { return "organization.positions" }
+func (*Module) Dependencies() []string {
+	return []string{"organization", "authorization", "usergroups"}
+}
 func (*Module) Shutdown(context.Context) error { return nil }
 
 func (m *Module) Initialize(_ context.Context, reg *httptransport.Registrar) error {

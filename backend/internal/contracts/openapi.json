@@ -6,6 +6,11 @@
   },
   "components": {
     "securitySchemes": {
+      "ApiKey": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "受限的个人 API Key；不支持会话、安全策略或授权管理。"
+      },
       "SessionCookie": {
         "type": "apiKey",
         "in": "cookie",
@@ -4492,6 +4497,69 @@
           "passwordUpdatedAt",
           "createdAt",
           "updatedAt"
+        ]
+      },
+      "UserApiToken": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tokenPrefix": {
+            "type": "string"
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "lastUsedAt": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiresAt": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "tokenPrefix",
+          "lastUsedAt",
+          "expiresAt",
+          "createdAt"
+        ]
+      },
+      "UserApiTokenCreated": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string",
+            "description": "完整 token，仅创建时返回"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "token",
+          "createdAt"
         ]
       },
       "UserDataPermission": {
@@ -10936,6 +11004,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -11067,6 +11138,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -11237,6 +11311,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -11369,6 +11446,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -11488,6 +11568,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -11664,6 +11747,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -11784,6 +11870,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -11966,6 +12055,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -12081,6 +12173,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -12203,6 +12298,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -12346,6 +12444,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -12527,6 +12628,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "responses": {
@@ -12635,6 +12739,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -12859,6 +12966,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -13008,6 +13118,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -13192,6 +13305,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -13411,6 +13527,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -13522,6 +13641,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -13706,6 +13828,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -13890,6 +14015,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -14352,6 +14480,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -14514,6 +14645,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -14633,6 +14767,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -14790,6 +14927,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -15754,6 +15894,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -15883,6 +16026,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -15992,6 +16138,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "responses": {
@@ -16100,6 +16249,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -16932,6 +17084,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -17363,6 +17518,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -17765,6 +17923,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -18038,6 +18199,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -18158,6 +18322,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "responses": {
@@ -18266,6 +18433,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -18654,6 +18824,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -19207,6 +19380,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -19470,6 +19646,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -19651,6 +19830,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "responses": {
@@ -19759,6 +19941,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -20344,6 +20529,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -20893,6 +21081,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -21074,6 +21265,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -21460,6 +21654,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -22483,6 +22680,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -22743,6 +22943,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -22982,6 +23185,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -23338,6 +23544,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -23458,6 +23667,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -23697,6 +23909,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -23921,6 +24136,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -24065,6 +24283,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -24184,6 +24405,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -24337,6 +24561,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -24457,6 +24684,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -24579,6 +24809,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -24758,6 +24991,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -24879,6 +25115,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -25011,6 +25250,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -25196,6 +25438,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -25426,6 +25671,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -25564,6 +25812,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "responses": {
@@ -25669,6 +25920,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "responses": {
@@ -25793,6 +26047,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -26052,6 +26309,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -26183,6 +26443,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -26332,6 +26595,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -26467,6 +26733,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -26592,6 +26861,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -26711,6 +26983,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -26829,6 +27104,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -26947,6 +27225,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -27067,6 +27348,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -27197,6 +27481,9 @@
           {
             "SessionCookie": [],
             "CsrfToken": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "requestBody": {
@@ -38723,6 +39010,9 @@
         "security": [
           {
             "SessionCookie": []
+          },
+          {
+            "ApiKey": []
           }
         ],
         "parameters": [
@@ -38755,6 +39045,700 @@
                 "schema": {
                   "type": "string",
                   "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/api-tokens": {
+      "get": {
+        "operationId": "apiTokensList",
+        "summary": "获取我的 API Token 列表",
+        "tags": [
+          "ApiTokens"
+        ],
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/UserApiToken"
+                      }
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "apiTokensCreate",
+        "summary": "创建 API Token（完整 token 仅返回一次）",
+        "tags": [
+          "ApiTokens"
+        ],
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                  },
+                  "permissions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100
+                    },
+                    "minItems": 1,
+                    "maxItems": 100
+                  },
+                  "expiresAt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/UserApiTokenCreated"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/api-tokens/{id}": {
+      "delete": {
+        "operationId": "apiTokensRemove",
+        "summary": "撤销 API Token",
+        "tags": [
+          "ApiTokens"
+        ],
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "exclusiveMinimum": true,
+              "description": "主键 ID",
+              "example": 1
+            },
+            "required": true,
+            "description": "主键 ID",
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/api-tokens/permissions": {
+      "get": {
+        "operationId": "integrationKeyPermissions",
+        "summary": "本人可授予 API Key 的权限",
+        "tags": [
+          "Integrations"
+        ],
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "data"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/events": {
+      "get": {
+        "operationId": "integrationEvents",
+        "summary": "权限过滤的数据变更与重查提示",
+        "tags": [
+          "Integrations"
+        ],
+        "security": [
+          {
+            "SessionCookie": []
+          },
+          {
+            "ApiKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SSE 重查提示",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "无权限或 CSRF 校验失败",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "资源不存在",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "版本或唯一性冲突",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "服务暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FoundationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/mcp": {
+      "post": {
+        "operationId": "integrationMcp",
+        "summary": "只读 MCP Streamable HTTP",
+        "tags": [
+          "Integrations"
+        ],
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfToken": []
+          },
+          {
+            "ApiKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "jsonrpc": {
+                    "type": "string",
+                    "enum": [
+                      "2.0"
+                    ]
+                  },
+                  "method": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "params": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "nullable": true
+                    }
+                  }
+                },
+                "required": [
+                  "jsonrpc",
+                  "method"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "MCP JSON-RPC",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
                 }
               }
             }

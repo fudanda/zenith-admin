@@ -24,17 +24,22 @@ func (s *Store) migrateSQLite(ctx context.Context) error {
 	if current == SchemaVersion {
 		return tx.Commit()
 	}
-	if current != 0 {
+	if current != 0 && current != 10 {
 		return fmt.Errorf("SQLite schema version %d is unsupported by this binary (expected %d)", current, SchemaVersion)
 	}
-	var existing int
-	if err := tx.QueryRowContext(ctx, `SELECT count(*) FROM sqlite_schema WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name <> 'zenith_schema_versions'`).Scan(&existing); err != nil {
-		return err
+	if current == 0 {
+		var existing int
+		if err := tx.QueryRowContext(ctx, `SELECT count(*) FROM sqlite_schema WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name <> 'zenith_schema_versions'`).Scan(&existing); err != nil {
+			return err
+		}
+		if existing != 0 {
+			return fmt.Errorf("unversioned SQLite schema exists; refusing to overwrite it")
+		}
+		if err := ApplyMigration(ctx, tx, "migrations/sqlite/0010_baseline.sql"); err != nil {
+			return err
+		}
 	}
-	if existing != 0 {
-		return fmt.Errorf("unversioned SQLite schema exists; refusing to overwrite it")
-	}
-	if err := ApplyMigration(ctx, tx, "migrations/sqlite/0010_baseline.sql"); err != nil {
+	if err := ApplyMigration(ctx, tx, "migrations/sqlite/0011_integrations.sql"); err != nil {
 		return err
 	}
 	if _, err := tx.ExecContext(ctx, `INSERT INTO zenith_schema_versions(version) VALUES (?)`, SchemaVersion); err != nil {

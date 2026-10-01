@@ -41,20 +41,50 @@ function createScopedStorage(source: Storage): Storage {
   } as Storage;
 }
 
-let installed = false;
+let installed: { users: number; restore: () => void } | null = null;
 
-export function installScopedStorage(): void {
-  if (installed || typeof window === 'undefined') return;
-  installed = true;
+/** Entrypoints retain a lease; an embedded admin releases its lease on unmount. */
+export function installScopedStorage(): () => void {
+  if (typeof window === 'undefined') return () => {};
+  if (installed) {
+    installed.users += 1;
+    return storageLease(installed);
+  }
+  const localDescriptor = Object.getOwnPropertyDescriptor(window, 'localStorage');
+  const sessionDescriptor = Object.getOwnPropertyDescriptor(window, 'sessionStorage');
+  const restoreDescriptor = (key: 'localStorage' | 'sessionStorage', descriptor: PropertyDescriptor | undefined) => {
+    try {
+      if (descriptor) Object.defineProperty(window, key, descriptor);
+      else Reflect.deleteProperty(window, key);
+    } catch { /* Restricted WebViews may refuse descriptor replacement. */ }
+  };
   try {
     const local = createScopedStorage(window.localStorage);
     const session = createScopedStorage(window.sessionStorage);
     Object.defineProperty(window, 'localStorage', { configurable: true, value: local });
     Object.defineProperty(window, 'sessionStorage', { configurable: true, value: session });
+    installed = { users: 1, restore: () => {
+      if (window.localStorage === local) restoreDescriptor('localStorage', localDescriptor);
+      if (window.sessionStorage === session) restoreDescriptor('sessionStorage', sessionDescriptor);
+    } };
+    return storageLease(installed);
   } catch {
+    restoreDescriptor('localStorage', localDescriptor);
+    restoreDescriptor('sessionStorage', sessionDescriptor);
     // Private browsing / restricted WebViews may reject replacement; callers
     // already handle Storage errors and deployment-specific explicit keys still work.
+    return () => {};
   }
+}
+
+function storageLease(state: NonNullable<typeof installed>): () => void {
+  let released = false;
+  return () => {
+    if (released) return;
+    released = true;
+    state.users -= 1;
+    if (state.users === 0 && installed === state) { state.restore(); installed = null; }
+  };
 }
 
 export const storageNamespace = `${STORAGE_PREFIX}${config.deploymentId}`;

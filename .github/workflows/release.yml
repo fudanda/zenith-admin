@@ -71,6 +71,7 @@ jobs:
             (cd backend && GOOS="$OS" GOARCH="$ARCH" go build -trimpath -o "$DIR/$EXECUTABLE" ./cmd/zenith)
             cp .env.production.example "$DIR/env.example"
             cp docs/guide/go-foundation.md "$DIR/README.md"
+            cp docs/guide/go-integrations.md "$DIR/go-integrations.md"
             cp -r backend/migrations "$DIR/migrations"
             (cd release_artifacts && zip -r "../zenith-admin-${TARGET}-${RELEASE_TAG}.zip" "zenith-admin-${TARGET}")
           done

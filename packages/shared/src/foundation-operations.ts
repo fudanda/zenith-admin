@@ -18,6 +18,8 @@ import { contractOperations } from './core/contract';
 import type { AnyOperation } from './core/contract';
 import { goAuthContract } from './identity/contracts/go-auth';
 import { authContract } from './identity/contracts/auth';
+import { apiTokenContract } from './identity/contracts/api-tokens';
+import { integrationContract } from './integrations';
 import { goDashboardContract } from './analytics/contracts/go-dashboard';
 
 import { entityRelationsContract } from './platform/contracts/entity-relations';
@@ -91,4 +93,6 @@ selected.push(['relationsDescribe',entityRelationsContract.describe],['relations
 selected.push(['authAvatarUpload',foundationProfileContract.avatar]);
 selected.push(['filesPrivateContent',foundationFileContract.privateContent]);
 /** Shared release operation inventory consumed by Go generation and Web capability checks. */
+for (const operation of contractOperations(apiTokenContract)) selected.push(['apiTokens'+operation.name[0].toUpperCase()+operation.name.slice(1), operation]);
+for (const operation of contractOperations(integrationContract)) selected.push(['integration'+operation.name[0].toUpperCase()+operation.name.slice(1), operation]);
 export const foundationOperations: ReadonlyArray<readonly [string, AnyOperation]> = selected;

@@ -9,7 +9,7 @@ export { GO_SESSION_INVALIDATED } from './go-transport';
 export function createGoApiClient(transport: GoTransport): ApiClient {
   const call = async <T>(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', url: string, body?: unknown, options?: RequestOptions): Promise<ApiResponse<T>> => {
     const response = await transport.request<T>(method, url, {
-      body, signal: options?.signal,
+      body, signal: options?.signal, headers: options?.headers,
       anonymousWrite: method === 'POST' && [goAuthContract.login.fullPath,goAuthContract.resolveSessionConflict.fullPath].includes(url),
     });
     if (response.code === 0 && (url === goAuthContract.me.fullPath || [goAuthContract.login.fullPath,goAuthContract.resolveSessionConflict.fullPath].includes(url) && response.data && typeof response.data === 'object' && 'csrfToken' in response.data)) {
@@ -20,10 +20,7 @@ export function createGoApiClient(transport: GoTransport): ApiClient {
     if (response.code === 0 && method === 'PUT' && url === '/api/v1/auth/password') {
       transport.clearSession(); globalThis.dispatchEvent(new Event(GO_SESSION_INVALIDATED));
     }
-    if (response.code === 401 && url !== goAuthContract.login.fullPath) {
-      globalThis.dispatchEvent(new Event(GO_SESSION_INVALIDATED));
-    }
-    if (response.code !== 0 && !options?.silent) showRequestErrorToast(response.message);
+    if (response.code !== 0 && !options?.silent) showRequestErrorToast(response.message, response.requestId);
     return response;
   };
   return {

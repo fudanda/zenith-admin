@@ -1,6 +1,6 @@
 # 单组织 Go 基础版
 
-管理台继续使用 `packages/web` 中的 Zenith 原页面、React Router 和 Semi UI。默认后端是 `backend/` 中的 GoFr + Ent，主数据及认证状态支持 PostgreSQL 或 SQLite，本地文件目录保存文件字节。生产不需要 Node、Redis 或独立 Worker。原 Hono、会员、审批、Electron 和未迁移业务保留源码，通过显式历史命令使用，不进入基础版构建。
+管理台继续使用 `packages/web` 中的 Zenith 原页面、React Router 和 Semi UI。默认后端是 `backend/` 中的 GoFr + Ent，主数据及认证状态支持 PostgreSQL 或 SQLite，本地目录或可选 S3 兼容存储保存文件字节。生产不需要 Node、Redis 或独立 Worker。原 Hono、会员、审批、Electron 和未迁移业务保留源码，通过显式历史命令使用，不进入基础版构建。
 
 ## 菜单与运行边界
 
@@ -10,12 +10,12 @@
 | 系统管理 | 用户、部门、岗位、菜单、角色、用户组、字典及字典项 |
 | 系统设置 | 登录验证码、界面策略、个人偏好策略、文件上传设置 |
 | 身份安全 | 密码、失败防护、验证码触发和会话策略 |
-| 文件管理 | 本地配置、连接测试、普通与分片上传、预览、下载、批量和失败重试 |
+| 文件管理 | 本地 / S3 配置、连接测试、普通与分片上传、预览、下载、批量和失败重试 |
 | 在线用户 | 查询和强制下线 |
 | 审计日志 | 登录日志、操作日志、筛选、详情、统计和导出 |
-| 头像菜单 | 个人资料、头像裁剪上传、改密、偏好、设备与个人日志、退出 |
+| 头像菜单 | 个人资料、头像裁剪上传、改密、偏好、设备与个人日志、受限 API Key、退出 |
 
-保留原层级、图标和页面路径。`packages/shared/src/foundation.ts` 声明开放页面，`foundation-operations.ts` 是生成后端契约与前端可用性检查共用的操作清单；生成目录收录权限、审计、菜单和设置。构建检查禁止未开放页面入口进入产物，请求适配器拒绝未纳入的操作。通知、聊天、任务、工作流、CMS、AI、第三方登录、MFA、模拟登录和 API Token 不挂载，不启动其预取、轮询或 WebSocket。
+保留原层级、图标和页面路径。`packages/shared/src/foundation.ts` 声明开放页面，`foundation-operations.ts` 是生成后端契约与前端可用性检查共用的操作清单；生成目录收录权限、审计、菜单和设置。构建检查禁止未开放页面入口进入产物，请求适配器拒绝未纳入的操作。通知、聊天、任务、工作流、CMS、AI、第三方登录、MFA、模拟登录不挂载，不启动其预取、轮询或 WebSocket。
 
 Go 和当前 Ent 模型没有租户、套餐、配额或租户视角。历史迁移保留旧结构的快照，仅用于安全升级；运行库升级完成后不存在租户表和业务租户列。租户、套餐和旧 `/api` 路径均返回 404。
 
@@ -42,11 +42,11 @@ npm run lint
 npm test
 ```
 
-默认构建执行契约和页面清单漂移检查、原管理台类型检查及构建、页面隔离检查，复制静态产物后生成 `backend/bin/zenith`（Windows 为 `zenith.exe`）。`npm test` 必须连接真实 PostgreSQL，执行 Go 集成测试、shared 测试和首版 Web 测试；未配置测试库会失败。历史链路使用 `legacy:dev`、`legacy:build`、`legacy:test`、`legacy:lint` 和 `legacy:db:*`。
+默认构建执行契约和页面清单漂移检查、原管理台类型检查及构建、页面隔离检查，复制静态产物后生成 `backend/bin/zenith`（Windows 为 `zenith.exe`）。`npm test` 必须连接隔离的真实 PostgreSQL 或 SQLite 以及 S3 兼容服务，执行 Go 集成测试、shared 测试和首版 Web 测试；未配置测试库会失败。历史链路使用 `legacy:dev`、`legacy:build`、`legacy:test`、`legacy:lint` 和 `legacy:db:*`。
 
 ## 数据库安装与升级
 
-当前版本为 10。新库、基础版 v3 至 v9 均通过不可变 SQL 顺序迁移到该版本；迁移运行于事务和 PostgreSQL advisory lock 中。未标记版本的现有 Zenith/Hono 库不会被覆盖；v1/v2 须先用对应旧版本程序升级到 v3。此工具不迁移原 Hono 数据库。
+当前版本为 11。新库、基础版 v3 至 v10 均通过不可变 SQL 顺序迁移到该版本；迁移运行于事务和 PostgreSQL advisory lock 中。未标记版本的现有 Zenith/Hono 库不会被覆盖；v1/v2 须先用对应旧版本程序升级到 v3。此工具不迁移原 Hono 数据库。
 
 升级前备份 PostgreSQL 和文件目录。`0007_single_organization.sql` 预检所有业务租户列：存在租户归属数据时失败；全局用户名和业务编码冲突也会使事务回滚，不自动合并或清空。保留原管理员、密码摘要和授权，仅撤销旧会话，升级后重新登录。
 
@@ -85,11 +85,11 @@ export ZENITH_ADDR='127.0.0.1:8080'
 - 深链接：如 `/dash/system/users`；只有已开放页面执行 SPA 回退，缺失资源和未知 API 返回真实 404。
 - 健康：`/api/v1/health`；就绪：`/api/v1/ready`。数据库故障返回 503。
 - API：`/api/v1`，JSON 使用 `{ code, message, data }`。
-- 配置文件根目录通过原文件配置页维护，只支持本地存储，不返回磁盘路径。须备份并保留该目录。
+- 文件配置沿用原页面，支持本地和 S3 兼容存储，不返回磁盘路径或存储秘密。须备份文件、上传暂存目录及加密清理记录；S3 凭据加密要求配置并独立备份 `ZENITH_STORAGE_KEY`。
 
 `New`、`Handler`、`Run`、`Shutdown` 支持 Go 宿主嵌入，见 `backend/examples/embed/main.go`。宿主也必须显式完成迁移，并在关闭时调用 `Shutdown`。模块检查依赖、循环和重复路由，失败逆序清理；维护任务可停止并重复执行。
 
-Go 的包职责和当前领域拆分进度见 [Go 后端目录与分层](./go-backend-architecture.md)。已拆分的岗位模块通过独立 Service 完成查询、成员维护、事务及审计；其余领域仍由明确的 `foundation-core` 过渡模块挂载。
+Go 的包职责和领域边界见 [Go 后端目录与分层](./go-backend-architecture.md)。首版领域已使用独立 Service、HTTP Handler 和模块注册，`foundation-core` 过渡模块已移除。原管理台、契约、数据库表和版本迁移保持原有边界。
 
 ## 权限、会话与文件
 
@@ -138,6 +138,8 @@ go test -tags integration -count=1 -run TestReleaseHTTPSBackupRecovery -v .
 可选 `ZENITH_ACCEPTANCE_ARTIFACTS` 指定验收日志、截图与快照目录；默认使用测试临时目录。数据库快照包含账号和会话状态，应存入备份目录，不能提交 Git。测试创建的业务库和恢复库均自动清理。`TestGracefulReleaseShutdown` 随普通 PostgreSQL 集成测试执行，验证停止接入、拒绝新请求、等待现有请求完成、关闭模块和维护任务、关闭连接池及重复停机。
 
 当前验收记录见 [首版交付验收](./go-foundation-acceptance.md)。
+
+集成扩展、API Key、订阅与 MCP 使用说明见 [集成扩展](./go-integrations.md)。
 
 ## 发布包
 

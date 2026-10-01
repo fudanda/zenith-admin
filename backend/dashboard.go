@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/fudanda/zenith-admin/backend/internal/dashboard"
+	"github.com/fudanda/zenith-admin/backend/internal/kernel"
 )
 
 func dashboardHandler(api http.Handler, assets fs.FS) http.Handler {
@@ -14,7 +15,7 @@ func dashboardHandler(api http.Handler, assets fs.FS) http.Handler {
 		assets = dashboard.Assets()
 	}
 	pages := map[string]bool{"/": true, "/login": true, "/profile": true}
-	for _, menu := range foundationMenus {
+	for _, menu := range kernel.FoundationMenus {
 		if menu.Component != "" {
 			pages[menu.Path] = true
 		}

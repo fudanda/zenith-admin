@@ -5,14 +5,15 @@ import (
 	"go/parser"
 	"go/token"
 	"io/fs"
+	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"testing"
 )
 
-// These rules enforce the new boundaries as domains migrate out of the bridge.
-// Generated Ent/contracts and historical foundation services are not rewritten.
+// Domain services, HTTP adapters and infrastructure have separate ownership.
+// Generated Ent/contracts and released SQL retain their original locations.
 func TestBackendPackageBoundaries(t *testing.T) {
 	const module = "github.com/fudanda/zenith-admin/backend"
 	err := filepath.WalkDir("internal", func(path string, entry fs.DirEntry, err error) error {
@@ -46,6 +47,9 @@ func TestBackendPackageBoundaries(t *testing.T) {
 			if strings.HasPrefix(rel, "internal/app/") {
 				forbidden = forbidden || strings.HasPrefix(importPath, module+"/ent") || importPath == module+"/internal/data" || strings.HasPrefix(importPath, module+"/internal/modules/")
 			}
+			if strings.HasPrefix(rel, "internal/kernel/") {
+				forbidden = forbidden || importPath == "net/http" || importPath == module+"/internal/data" || strings.HasPrefix(importPath, module+"/internal/modules/") || strings.HasPrefix(importPath, module+"/internal/transport/") || strings.HasPrefix(importPath, "gofr.dev/")
+			}
 			if strings.HasSuffix(rel, "/handler.go") {
 				forbidden = forbidden || strings.HasPrefix(importPath, module+"/ent") || importPath == module+"/internal/data" || importPath == "database/sql"
 			}
@@ -65,5 +69,18 @@ func TestBackendPackageBoundaries(t *testing.T) {
 	})
 	if err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestNoFoundationBridgeAndDomainMethodsInRoot(t *testing.T) {
+	for _, module := range builtinDeclarations() {
+		if module.Name() == "foundation-core" {
+			t.Fatal("transitional foundation module returned")
+		}
+	}
+	for _, name := range []string{"contract_routes.go", "routes.go", "users.go", "departments.go", "roles.go", "menus.go", "files.go", "auth.go"} {
+		if _, err := fs.Stat(os.DirFS("."), name); err == nil {
+			t.Errorf("domain implementation returned to root: %s", name)
+		}
 	}
 }

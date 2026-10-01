@@ -9,6 +9,7 @@ import { applyThemeFavicon } from '@/lib/brand-logo';
 import { withThemeTransition } from '@/lib/theme-transition';
 import { defaultPreferences, useOptionalPreferences } from '@/hooks/usePreferences';
 import { ThemeControllerContext, type ThemeControllerValue } from './theme-controller';
+import { useAdminOptions } from '@/admin/runtime';
 
 type ThemePrefs = {
   colorMode: ThemeMode;
@@ -33,11 +34,17 @@ function persistThemePrefs(partial: Partial<ThemePrefs>) {
 }
 
 export function ThemeProvider({ children }: Readonly<{ children: ReactNode }>) {
+  const hostTheme = useAdminOptions().theme;
   const preferencesContext = useOptionalPreferences();
   const serverSyncedPreferences = preferencesContext?.preferences;
   const syncPreferences = preferencesContext?.setPreferences;
   const canChangePreference = preferencesContext?.canEditPreference;
-  const initial = useMemo(() => loadThemePrefs(), []);
+  const initial = useMemo(() => {
+    const stored = readPreferenceCache();
+    const defaults = loadThemePrefs();
+    return hostTheme && stored.overrides.colorMode === undefined && canOverridePreference('colorMode', stored.policy)
+      ? { ...defaults, colorMode: hostTheme } : defaults;
+  }, [hostTheme]);
   const initialSchedule = useMemo(() => {
     const prefs = readCachedPreferences();
     return {

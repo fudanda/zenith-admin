@@ -1,6 +1,6 @@
 # Zenith Admin — 项目架构导航
 
-当前默认交付是单组织管理后台：**GoFr + Ent** 后端，支持 **PostgreSQL / SQLite**；`packages/web` 原 React Router / Semi UI 管理台。生产由 Go 二进制携带静态资源和迁移，依赖所选数据库与本地文件目录。npm workspaces 用于开发、shared 契约和前端构建。
+当前默认交付是单组织管理后台：**GoFr + Ent** 后端，支持 **PostgreSQL / SQLite**；`packages/web` 原 React Router / Semi UI 管理台。生产由 Go 二进制携带静态资源和迁移，依赖所选数据库、本地暂存目录与本地或 S3 文件存储。npm workspaces 用于开发、shared 契约和前端构建。
 
 本文件只维护稳定的架构事实、依赖方向和文档入口。参数、字段、模板和验收步骤见专门文档。
 
@@ -29,19 +29,23 @@
 | `backend/internal/app/` | 模块依赖排序、初始化/关闭、可停止的维护任务调度 |
 | `backend/internal/transport/http/` | GoFr 路由、契约校验、响应及流式文件协议；不访问数据库 |
 | `backend/internal/data/` | 唯一业务连接池、显式 Ent 事务、版本迁移和 SQLite 备份 |
-| `backend/internal/modules/` | 已拆分的领域模块；岗位包含独立 Handler、Service 和成员维护 |
-| `backend/internal/security/`、`backend/internal/storage/` | 业务身份与本地字节存储边界 |
+| `backend/internal/modules/` | 认证、组织、授权、用户组、配置、文件、审计、关联、导入导出、系统、集成及初始化领域；各 HTTP 模块独立注册契约操作 |
+| `backend/internal/kernel/` | 无连接池和网络 I/O 的共享业务值、命令参数、结果、错误及审计元数据 |
+| `backend/internal/security/`、`backend/internal/storage/` | 业务身份、本地字节边界、S3 适配与凭据加密 |
 | `backend/ent/` | Ent 固定系统模型和生成持久化代码 |
 | `backend/migrations/` | 不可变版本 SQL；运行时不自动变更结构 |
 | `backend/internal/contracts/` | shared 生成的 OpenAPI、Go DTO、操作/权限/审计及策略定义 |
 | `backend/internal/dashboard/` | Go 内嵌原管理台静态资源 |
 | `packages/web/` | 原 React 应用、页面、域 hooks、请求适配；首版前端继续放这里 |
+| `packages/client/` | 独立 TypeScript API 客户端、契约调用、Cookie/CSRF、错误及文件传输；不依赖 UI 或查询缓存 |
+| `packages/elements/` | 可组合的会话、登录、权限、头像与上传组件，复用 Client 或宿主会话；不依赖 Web 和全局存储 |
+| `packages/admin/` | 导出 `ZenithAdmin` 的独立管理台包、ESM/类型/样式和宿主示例；复用 Web 中的原页面与装配 |
 | `packages/shared/` | 领域契约、纯校验、常量、首版能力清单和种子 |
 | `packages/server/` | 保留的历史 Hono API、Drizzle、CMS、Worker 与外部集成，退出默认链路 |
 | `packages/analytics-sdk/`、`packages/electron/` | 保留的采集 SDK 和桌面容器源码，退出首版构建 |
 | `docs/` | 开发、产品、部署及历史架构文档 |
 
-依赖单向：shared 不依赖 Web、Go 或历史 Server；Web/Go 通过 shared 契约和生成物协作，不导入彼此实现。Web 不依赖 Server 源码。历史业务不接入基础版运行时。
+依赖单向：shared 不依赖 Client、Elements、Web、Admin、Go 或历史 Server；Client 只依赖 shared，Elements 依赖 Client/shared 和 Semi UI，Web 通过 Client 调用 Go并复用 Elements，Admin 复用 Web 的管理台入口；Web 不反向依赖 Admin。Web/Go 通过 shared 契约和生成物协作，不导入彼此实现。Web 不依赖 Server 源码。历史业务不接入基础版运行时。
 
 ## 后端与部署
 
@@ -62,11 +66,15 @@ API 统一 `/api/v1`，管理台 `/dash`。SPA 只回退已开放页面，未知
 | 内容 | 位置 |
 | --- | --- |
 | 当前运行、安装、升级、部署和验收 | [docs/guide/go-foundation.md](docs/guide/go-foundation.md) |
+| API Key、S3、SSE 与只读 MCP | [docs/guide/go-integrations.md](docs/guide/go-integrations.md) |
 | Go 包边界、目录重构状态和领域拆分方式 | [docs/guide/go-backend-architecture.md](docs/guide/go-backend-architecture.md) |
 | 后端及全局约束 | [.agents/skills/zenith/references/constraints.md](.agents/skills/zenith/references/constraints.md) |
 | 前端约束 | [.agents/skills/zenith/references/constraints-frontend.md](.agents/skills/zenith/references/constraints-frontend.md) |
 | 模块修改流程 | [.agents/skills/zenith/SKILL.md](.agents/skills/zenith/SKILL.md) |
 | 前端数据访问与缓存 | [docs/frontend/data-fetching.md](docs/frontend/data-fetching.md) |
+| 独立 API 客户端与使用示例 | [packages/client/README.md](packages/client/README.md) |
+| 独立管理台组件、资源部署与宿主示例 | [packages/admin/README.md](packages/admin/README.md) |
+| 可组合前端组件与宿主会话适配器 | [packages/elements/README.md](packages/elements/README.md) |
 | 历史后端/产品文档 | [docs/backend/](docs/backend/)、[docs/product/](docs/product/) |
 
 ## 默认命令

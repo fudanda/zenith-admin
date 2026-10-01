@@ -1,3 +1,4 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { AppModal } from '@/components/AppModal';
@@ -370,7 +371,7 @@ export default function FilesPage() {
           <>
             <FilterSelect
               placeholder="全部存储类型"
-              items={FILE_STORAGE_PROVIDER_OPTIONS}
+              items={IS_GO_FOUNDATION ? FILE_STORAGE_PROVIDER_OPTIONS.filter(option=>['local','s3'].includes(option.value)) : FILE_STORAGE_PROVIDER_OPTIONS}
               {...bind('provider')}
               width={140}
             />

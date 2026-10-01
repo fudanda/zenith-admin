@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { ConfigProvider, Nav } from '@douyinfe/semi-ui';
 import AppLogo from '@/components/AppLogo';
-import { config } from '@/config';
+import { useAdminTitle } from '@/admin/runtime';
 import { decorateNavItemsWithBadges, type NavItem } from './utils';
 
 // 垂直 / mixed 布局的侧边栏（double 布局见 DoubleSidebar）
@@ -75,7 +75,7 @@ export function SidebarNav({
                       onKeyDown={handleNavigateHomeKey}
                     >
                       <AppLogo size={28} />
-                      <span className="admin-sidebar__title">{config.appTitle}</span>
+                      <span className="admin-sidebar__title"><AdminBrandName /></span>
                     </button>
                   ),
                 }
@@ -91,3 +91,5 @@ export function SidebarNav({
     </aside>
   );
 }
+
+function AdminBrandName() { return <>{useAdminTitle()}</>; }

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { Nav, SideSheet } from '@douyinfe/semi-ui';
 import { Menu as MenuIcon, Search } from 'lucide-react';
 import AppLogo from '@/components/AppLogo';
-import { config } from '@/config';
+import { useAdminTitle } from '@/admin/runtime';
 import { decorateNavItemsWithBadges, type NavItem } from './utils';
 
 // 移动端顶栏（汉堡菜单 + 品牌 + 头部操作区）
@@ -87,7 +87,7 @@ export function MobileNavSheet({
           onKeyDown={handleNavigateHomeKey}
         >
           <AppLogo size={26} />
-          <span>{config.appTitle}</span>
+          <span><AdminBrandName /></span>
         </button>
       }
       visible={mobileNavVisible}
@@ -124,3 +124,5 @@ export function MobileNavSheet({
     </SideSheet>
   );
 }
+
+function AdminBrandName() { return <>{useAdminTitle()}</>; }

@@ -1,0 +1,52 @@
+{
+  "name": "@zenith/admin",
+  "version": "2.58.0",
+  "private": true,
+  "type": "module",
+  "description": "Original Zenith admin as an embeddable React component.",
+  "sideEffects": [
+    "./dist/**/*.js",
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check:types": "tsc -b",
+    "lint": "eslint src --max-warnings 0",
+    "test": "vitest run",
+    "build:example": "node scripts/build-example.mjs"
+  },
+  "peerDependencies": {
+    "@zenith/client": "^2.58.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@tanstack/react-query": "^5.102.8",
+    "@zenith/elements": "^2.58.0"
+  },
+  "devDependencies": {
+    "@zenith/web": "^2.58.0",
+    "@zenith/shared": "^2.58.0",
+    "@testing-library/react": "^16.3.3",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^5.0.0",
+    "vite": "^8.2.2",
+    "rolldown": "1.2.5",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  }
+}

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { ConfigProvider } from '@douyinfe/semi-ui';
 import AppLogo from '@/components/AppLogo';
-import { config } from '@/config';
+import { useAdminTitle } from '@/admin/runtime';
 import type { NavLayout } from '@/hooks/usePreferences';
 import { TopNavWithOverflow } from '../TopNavWithOverflow';
 import type { NavItem } from './utils';
@@ -48,7 +48,7 @@ export function TopBar({
           onKeyDown={handleNavigateHomeKey}
         >
           <AppLogo size={28} />
-          <span className="admin-sidebar__title">{config.appTitle}</span>
+          <span className="admin-sidebar__title"><AdminBrandName /></span>
         </button>
       )}
       <ConfigProvider getPopupContainer={getPopupContainer}>
@@ -65,3 +65,5 @@ export function TopBar({
     </header>
   );
 }
+
+function AdminBrandName() { return <>{useAdminTitle()}</>; }

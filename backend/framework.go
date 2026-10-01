@@ -6,23 +6,26 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
-
 	"net/http"
 	"sync"
 	"time"
 
 	"github.com/fudanda/zenith-admin/backend/internal/app"
-	"github.com/fudanda/zenith-admin/backend/internal/modules/organization/positions"
+	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/zenith-admin/backend/internal/modules/audit"
+	"github.com/fudanda/zenith-admin/backend/internal/storage"
 	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
 )
 
 type Config struct {
-	DSN           string
-	Address       string
-	SecureCookies bool
-	Modules       []Module
-	DashboardFS   fs.FS
-	FileStorage   FileStorage
+	DSN                  string
+	Address              string
+	SecureCookies        bool
+	Modules              []Module
+	DashboardFS          fs.FS
+	FileStorage          FileStorage
+	StorageEncryptionKey string
+	FileStagingPath      string
 }
 
 type Module = app.Module
@@ -33,6 +36,7 @@ var orderModules = app.OrderModules
 
 type Framework struct {
 	Store       *Store
+	services    *services
 	config      Config
 	handler     http.Handler
 	modules     []Module
@@ -47,7 +51,7 @@ type Framework struct {
 func New(ctx context.Context, config Config) (*Framework, error) {
 	// Check declarations before opening infrastructure. Real handlers are wired
 	// only after the shared store is available.
-	if _, err := orderModules(append([]Module{foundationModule{}, positions.NewModule(nil)}, config.Modules...)); err != nil {
+	if _, err := orderModules(append(builtinDeclarations(), config.Modules...)); err != nil {
 		return nil, err
 	}
 	store, err := OpenStore(ctx, config.DSN)
@@ -61,12 +65,17 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 	}
 	idle := make(chan struct{})
 	close(idle)
-	store.installAuditHooks()
-	f := &Framework{Store: store, config: config, idle: idle}
+	audit.InstallMetadataHooks(store.Store)
+	key, keyErr := storage.SecretKey(config.StorageEncryptionKey)
+	if keyErr != nil {
+		store.Close()
+		return nil, keyErr
+	}
+	f := &Framework{Store: store, config: config, idle: idle, services: assembleServices(store, configuredFileStorage(config))}
+	f.services.files.EncryptionKey = key
+	f.services.files.StagingPath = config.FileStagingPath
 	reg := httptransport.NewRegistrar(f.guard)
-	modules, err := orderModules(append([]Module{
-		foundationModule{f}, positions.NewModule(f.positionHandler()),
-	}, config.Modules...))
+	modules, err := orderModules(append(builtinModules(f.services), config.Modules...))
 	if err != nil {
 		return nil, errors.Join(err, store.Close())
 	}
@@ -91,7 +100,7 @@ func (f *Framework) Handler() http.Handler {
 			id = value[:32]
 		}
 		w.Header().Set("X-Request-Id", id)
-		r = r.WithContext(context.WithValue(r.Context(), requestIDKey{}, id))
+		r = r.WithContext(kernel.WithTrace(r.Context(), id))
 		f.mu.Lock()
 		closed := f.closed
 		if !closed {
@@ -168,6 +177,7 @@ func (f *Framework) Shutdown(ctx context.Context) error {
 		return nil
 	}
 	f.closed = true
+	f.services.integrations.Close()
 	srv := f.server
 	idle := f.idle
 	f.mu.Unlock()

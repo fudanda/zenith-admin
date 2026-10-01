@@ -11,6 +11,7 @@ import (
 
 	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
+	"github.com/fudanda/zenith-admin/backend/internal/modules/transfers"
 	"github.com/xuri/excelize/v2"
 )
 
@@ -18,7 +19,7 @@ func importWorkbook(t *testing.T, rows [][]string) []byte {
 	t.Helper()
 	book := excelize.NewFile()
 	defer book.Close()
-	all := append([][]string{userImportHeaders}, rows...)
+	all := append([][]string{transfers.UserImportHeaders}, rows...)
 	for i, row := range all {
 		cells := make([]any, len(row))
 		for j, cell := range row {
@@ -39,10 +40,10 @@ func TestSynchronousTransfers(t *testing.T) {
 	a := newAPIFixture(t)
 	a.expect(a.adminResponse("GET", "/api/v1/foundation/imports/users/template", nil), 200)
 	workbook := importWorkbook(t, [][]string{{"xlsx_user", "XLSX", "xlsx@example.test", "StrongPass123!", "", "", "", "enabled"}, {"bad_user", "invalid", "bad-email", "short", "", "", "", "enabled"}, {"xlsx_user", "duplicate", "", "StrongPass123!", "", "", "", "enabled"}})
-	send := func(dry, duplicate string) importResult {
+	send := func(dry, duplicate string) transfers.ImportResult {
 		res := a.multipart("/api/v1/foundation/imports/users", "file", "users.xlsx", workbook, map[string]string{"dryRun": dry, "duplicate": duplicate}, a.cookie, a.csrf)
 		a.expect(res, 200)
-		var envelope struct{ Data importResult }
+		var envelope struct{ Data transfers.ImportResult }
 		if err := json.Unmarshal(res.Body.Bytes(), &envelope); err != nil {
 			t.Fatal(err)
 		}

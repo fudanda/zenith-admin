@@ -21,7 +21,7 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 	if os.Args[1] == "serve" {
-		framework, err := zenith.New(ctx, zenith.Config{DSN: os.Getenv("ZENITH_DATABASE_URL"), Address: os.Getenv("ZENITH_ADDR"), SecureCookies: os.Getenv("ZENITH_INSECURE_COOKIES") != "true"})
+		framework, err := zenith.New(ctx, zenith.Config{DSN: os.Getenv("ZENITH_DATABASE_URL"), Address: os.Getenv("ZENITH_ADDR"), SecureCookies: os.Getenv("ZENITH_INSECURE_COOKIES") != "true", StorageEncryptionKey: os.Getenv("ZENITH_STORAGE_KEY"), FileStagingPath: os.Getenv("ZENITH_FILE_STAGING_PATH")})
 		if err != nil {
 			fatal(err)
 		}

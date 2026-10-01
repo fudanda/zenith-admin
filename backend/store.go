@@ -2,6 +2,7 @@ package zenith
 
 import (
 	"context"
+
 	"github.com/fudanda/zenith-admin/backend/internal/data"
 )
 
@@ -14,4 +15,13 @@ func OpenStore(ctx context.Context, dsn string) (*Store, error) {
 		return nil, err
 	}
 	return &Store{Store: store}, nil
+}
+
+// Seed and InitAdmin preserve the public embedding/CLI API while business
+// initialization lives in the bootstrap domain.
+func (s *Store) Seed(ctx context.Context) error {
+	return assembleServices(s, configuredFileStorage(Config{})).bootstrap.Seed(ctx)
+}
+func (s *Store) InitAdmin(ctx context.Context, username, password string) error {
+	return assembleServices(s, configuredFileStorage(Config{})).bootstrap.InitAdmin(ctx, username, password)
 }

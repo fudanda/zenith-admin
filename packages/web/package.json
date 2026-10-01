@@ -3,6 +3,9 @@
   "version": "2.58.0",
   "private": true,
   "type": "module",
+  "exports": {
+    "./admin": "./src/admin/ZenithAdmin.tsx"
+  },
   "scripts": {
     "dev": "vite",
     "dev:go": "vite --mode go-foundation",
@@ -23,7 +26,7 @@
     "lint": "eslint src && stylelint \"src/**/*.css\"",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:fix": "eslint src --fix && stylelint \"src/**/*.css\" --fix",
-    "test:foundation": "vitest run src/providers/GoAuthProvider.test.tsx src/lib/go-transport.test.ts src/lib/go-auth-api.test.ts src/lib/foundation-operations.test.ts src/lib/contract-query.test.tsx src/hooks/PreferencesProvider.test.tsx --maxWorkers=3"
+    "test:foundation": "vitest run src/admin/ZenithAdmin.test.tsx src/admin/runtime.test.ts src/utils/storage.test.ts src/providers/GoAuthProvider.test.tsx src/lib/go-transport.test.ts src/lib/go-auth-api.test.ts src/lib/foundation-operations.test.ts src/lib/contract-query.test.tsx src/hooks/PreferencesProvider.test.tsx --maxWorkers=3"
   },
   "dependencies": {
     "@douyinfe/semi-illustrations": "^2.103.0",
@@ -62,6 +65,7 @@
     "@xyflow/react": "^12.11.6",
     "@zenith/analytics-sdk": "^2.0.0",
     "@zenith/shared": "^2.0.0",
+    "@zenith/client": "^2.58.0",
     "cron-parser": "^5.10.0",
     "dagre": "^0.8.5",
     "dayjs": "^1.11.23",
@@ -92,7 +96,8 @@
     "remend": "^1.3.1",
     "rrweb-player": "^2.1.4",
     "sql-formatter": "^15.8.2",
-    "utif2": "^4.1.0"
+    "utif2": "^4.1.0",
+    "@zenith/elements": "^2.58.0"
   },
   "devDependencies": {
     "@csstools/postcss-global-data": "^4.0.0",

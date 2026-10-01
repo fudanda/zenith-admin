@@ -3,7 +3,7 @@ package migrations
 
 import "embed"
 
-const SchemaVersion = 10
+const SchemaVersion = 11
 
 //go:embed *.sql sqlite/*.sql
 var Files embed.FS

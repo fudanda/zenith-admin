@@ -6,7 +6,7 @@ import { HttpClient, type ApiResponseWithMeta, type HttpRequestOptions } from '.
 import { downloadBlob } from './download';
 import { showRequestErrorToast } from './request-toast';
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
-import { goTransport, GO_SESSION_INVALIDATED, validateGoPath } from '@/lib/go-transport';
+import { goTransport, GO_SESSION_INVALIDATED } from '@/lib/go-transport';
 
 export type { ApiResponseWithMeta } from './http-client';
 
@@ -91,22 +91,49 @@ class Request extends HttpClient {
 /** Retains Zenith's upload progress and binary channels with Cookie/CSRF auth. */
 class GoRequest extends Request {
   override authHeaders(): Record<string, string> { return goTransport.sessionHeaders(); }
-  protected override async tryRefreshToken(): Promise<'invalid'> { return 'invalid'; }
-  protected override clearAuthAndRedirect(): void {
-    goTransport.clearSession();
-    globalThis.dispatchEvent(new Event(GO_SESSION_INVALIDATED));
+
+  private failed<T>(error: unknown, silent?: boolean): ApiResponseWithMeta<T> {
+    const canceled = error instanceof Error && error.name === 'AbortError';
+    const message = canceled ? '已取消' : error instanceof Error ? error.message : '请求失败';
+    if (!silent && !canceled) showRequestErrorToast(message);
+    return { code: -1, message, data: null as T };
   }
-  override request<T>(url: string, options: RequestInit & RequestOptions = {}): Promise<ApiResponseWithMeta<T>> {
-    validateGoPath(url);
-    return super.request<T>(url, { ...options, credentials: 'same-origin' });
+
+  override async request<T>(url: string, options: RequestInit & RequestOptions = {}): Promise<ApiResponseWithMeta<T>> {
+    const { silent, skipAuth: _skipAuth, ...init } = options;
+    try {
+      const result = await goTransport.requestRaw<T>(url, init);
+      if (result.code !== 0 && !silent) showRequestErrorToast(result.message, result.requestId);
+      return result;
+    } catch (error) { return this.failed<T>(error, silent); }
   }
-  override fetchRaw(url: string, options: RequestInit & Pick<RequestOptions, 'silent'> = {}): Promise<Response | null> {
-    validateGoPath(url);
-    return super.fetchRaw(url, { ...options, credentials: 'same-origin' });
+
+  override async fetchRaw(url: string, options: RequestInit & Pick<RequestOptions, 'silent'> = {}): Promise<Response | null> {
+    const { silent, ...init } = options;
+    try { const response = await goTransport.fetchRaw(url, init); return response.status === 401 ? null : response; }
+    catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') throw error;
+      this.failed(error, silent);
+      return null;
+    }
   }
-  override postForm<T>(url: string, body: FormData, options: RequestOptions & { onProgress?: (percent: number) => void } = {}) {
-    validateGoPath(url);
-    return super.postForm<T>(url, body, options);
+
+  override async postForm<T>(url: string, body: FormData, options: RequestOptions & { onProgress?: (percent: number) => void } = {}): Promise<ApiResponseWithMeta<T>> {
+    const { silent, skipAuth: _skipAuth, ...init } = options;
+    try {
+      const result = await goTransport.postForm<T>(url, body, init);
+      if (result.code !== 0 && !silent) showRequestErrorToast(result.message, result.requestId);
+      return result;
+    } catch (error) { return this.failed<T>(error, silent); }
+  }
+
+  override async getBlob(url: string, options: RequestInit = {}): Promise<Blob | null> {
+    try { return await goTransport.readBlob(url, options); }
+    catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') throw error;
+      this.failed(error);
+      return null;
+    }
   }
 }
 

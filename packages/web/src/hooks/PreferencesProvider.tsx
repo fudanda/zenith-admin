@@ -15,8 +15,10 @@ import { PreferencesContext, type PreferenceChangeResult } from './usePreference
 import { goAuthContract } from '@zenith/shared/identity';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
+import { useAdminOptions } from '@/admin/runtime';
 
 export function PreferencesProvider({ children }: Readonly<{ children: ReactNode }>) {
+  const hostTheme = useAdminOptions().theme;
   const [cached] = useState(readPreferenceCache);
   const queryClient = useQueryClient();
   const personal = usePersonalPreferences();
@@ -27,7 +29,9 @@ export function PreferencesProvider({ children }: Readonly<{ children: ReactNode
   const revision = useRef(0);
   const policy = (IS_GO_FOUNDATION ? goPolicy.data : settings.data?.ui.preferences) ?? cached.policy;
   const overrides = draft ?? personal.data?.overrides ?? cached.overrides;
-  const preferences = useMemo(() => resolvePreferences(policy, overrides), [policy, overrides]);
+  const preferences = useMemo(() => resolvePreferences(policy,
+    hostTheme && overrides.colorMode === undefined && canOverridePreference('colorMode', policy) ? { ...overrides, colorMode: hostTheme } : overrides),
+  [policy, overrides, hostTheme]);
   const ready = personal.isFetched && (IS_GO_FOUNDATION ? goPolicy.isFetched : settings.isFetched);
   // 缓存只用于渲染，策略和个人数据未成功读取时不允许写入。
   const writable = Boolean(personal.data && (IS_GO_FOUNDATION ? goPolicy.data : settings.data));

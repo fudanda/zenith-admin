@@ -2,15 +2,18 @@ package zenith
 
 import (
 	"context"
-	"github.com/fudanda/zenith-admin/backend/internal/app"
 	"time"
+
+	"github.com/fudanda/zenith-admin/backend/internal/app"
 )
 
 func (f *Framework) startMaintenance() {
 	f.maintenance = app.StartMaintenance([]app.Task{
-		{Name: "authentication", Run: func(ctx context.Context) error { return f.Store.cleanupAuthentication(ctx, time.Now().UTC()) }},
-		{Name: "files", Run: f.retryPendingFileDeletes},
-		{Name: "uploads", Run: f.cleanupExpiredUploads},
-		{Name: "groups", Run: f.Store.reconcileDynamicGroups},
+		{Name: "authentication", Run: func(ctx context.Context) error {
+			return f.services.identity.CleanupAuthentication(ctx, time.Now().UTC())
+		}},
+		{Name: "files", Run: f.services.files.RetryPendingFileDeletes},
+		{Name: "uploads", Run: f.services.files.CleanupExpiredUploads},
+		{Name: "groups", Run: f.services.usergroups.ReconcileDynamicGroups},
 	}, 30*time.Minute, 30*time.Second)
 }

@@ -134,6 +134,11 @@ func ResponseCode(v int) predicate.AuditLog {
 	return predicate.AuditLog(sql.FieldEQ(FieldResponseCode, v))
 }
 
+// APIKeyID applies equality check predicate on the "api_key_id" field. It's identical to APIKeyIDEQ.
+func APIKeyID(v int) predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldEQ(FieldAPIKeyID, v))
+}
+
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
 func CreatedAt(v time.Time) predicate.AuditLog {
 	return predicate.AuditLog(sql.FieldEQ(FieldCreatedAt, v))
@@ -1107,6 +1112,56 @@ func ResponseCodeLT(v int) predicate.AuditLog {
 // ResponseCodeLTE applies the LTE predicate on the "response_code" field.
 func ResponseCodeLTE(v int) predicate.AuditLog {
 	return predicate.AuditLog(sql.FieldLTE(FieldResponseCode, v))
+}
+
+// APIKeyIDEQ applies the EQ predicate on the "api_key_id" field.
+func APIKeyIDEQ(v int) predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldEQ(FieldAPIKeyID, v))
+}
+
+// APIKeyIDNEQ applies the NEQ predicate on the "api_key_id" field.
+func APIKeyIDNEQ(v int) predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldNEQ(FieldAPIKeyID, v))
+}
+
+// APIKeyIDIn applies the In predicate on the "api_key_id" field.
+func APIKeyIDIn(vs ...int) predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldIn(FieldAPIKeyID, vs...))
+}
+
+// APIKeyIDNotIn applies the NotIn predicate on the "api_key_id" field.
+func APIKeyIDNotIn(vs ...int) predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldNotIn(FieldAPIKeyID, vs...))
+}
+
+// APIKeyIDGT applies the GT predicate on the "api_key_id" field.
+func APIKeyIDGT(v int) predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldGT(FieldAPIKeyID, v))
+}
+
+// APIKeyIDGTE applies the GTE predicate on the "api_key_id" field.
+func APIKeyIDGTE(v int) predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldGTE(FieldAPIKeyID, v))
+}
+
+// APIKeyIDLT applies the LT predicate on the "api_key_id" field.
+func APIKeyIDLT(v int) predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldLT(FieldAPIKeyID, v))
+}
+
+// APIKeyIDLTE applies the LTE predicate on the "api_key_id" field.
+func APIKeyIDLTE(v int) predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldLTE(FieldAPIKeyID, v))
+}
+
+// APIKeyIDIsNil applies the IsNil predicate on the "api_key_id" field.
+func APIKeyIDIsNil() predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldIsNull(FieldAPIKeyID))
+}
+
+// APIKeyIDNotNil applies the NotNil predicate on the "api_key_id" field.
+func APIKeyIDNotNil() predicate.AuditLog {
+	return predicate.AuditLog(sql.FieldNotNull(FieldAPIKeyID))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.

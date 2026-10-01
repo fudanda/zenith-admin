@@ -36,6 +36,7 @@ import {
   useKickOtherProfileSessions,
   useKickProfileSession,
   useProfileApiTokens,
+  useApiKeyPermissions,
   useProfileMfaFactors,
   useProfileOauthAccounts,
   useProfileOAuthBindUrl,
@@ -145,7 +146,7 @@ function SessionList({
 }
 
 export default function ProfilePage({ user }: ProfilePageProps) {
-  const [activeSection, setActiveSection] = useUrlTabState(IS_GO_FOUNDATION ? ['profile', 'security', 'devices', 'login', 'operation'] : ['profile', 'signature', 'security', 'notifications', 'devices', 'login', 'operation', 'api-tokens', 'authorized-apps'] as readonly SectionKey[], 'profile');
+  const [activeSection, setActiveSection] = useUrlTabState(IS_GO_FOUNDATION ? ['profile', 'security', 'devices', 'login', 'operation', 'api-tokens'] : ['profile', 'signature', 'security', 'notifications', 'devices', 'login', 'operation', 'api-tokens', 'authorized-apps'] as readonly SectionKey[], 'profile');
 
   // ─── 基本信息 ────────────────────────────────────────────────────────────────
   const { options: genderOptions } = useDictItems('user_gender');
@@ -170,6 +171,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
   const mfaFactorsQuery = useProfileMfaFactors(activeSection === 'security');
   const sessionsQuery = useProfileSessions(activeSection === 'devices');
   const apiTokensQuery = useProfileApiTokens(activeSection === 'api-tokens');
+  const keyPermissionsQuery = useApiKeyPermissions(IS_GO_FOUNDATION && activeSection === 'api-tokens');
 
   // ─── 已授权应用 ──────────────────────────────────────────────────────────────
   const {
@@ -213,7 +215,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
   const createTokenMutation = useCreateApiToken();
   const deleteTokenMutation = useDeleteApiToken();
   // 完整 token 只返回一次：创建成功后由结果框展示并复制，不再叠加默认成功提示
-  const tokenModal = useEditModal<UserApiTokenCreated, { name: string; expiresAt?: Date | string | null }, { name: string; expiresAt?: string }>({
+  const tokenModal = useEditModal<UserApiTokenCreated, { name: string; expiresAt?: Date | string | null; permissions?: string[] }, { name: string; expiresAt?: string; permissions?: string[] }>({
     save: {
       mutateAsync: ({ values }) => createTokenMutation.mutateAsync({ body: values }),
       isPending: createTokenMutation.isPending,
@@ -224,7 +226,8 @@ export default function ProfilePage({ user }: ProfilePageProps) {
         Toast.error('请填写 Token 名称');
         abortSubmit('validation');
       }
-      return values.expiresAt ? { name, expiresAt: formatDateTimeForApi(values.expiresAt) } : { name };
+      if (IS_GO_FOUNDATION && !values.permissions?.length) { Toast.error('请选择 API Key 权限'); abortSubmit('validation'); }
+      return { name, ...(values.expiresAt ? { expiresAt: formatDateTimeForApi(values.expiresAt) } : {}), ...(IS_GO_FOUNDATION ? { permissions: values.permissions } : {}) };
     },
     successMessage: () => null,
     onSaved: (created) => setCreatedToken(created),
@@ -702,7 +705,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
             </Tabs.TabPane>
 
             {/* ── API Token ─────────────────────────────────────── */}
-            {!IS_GO_FOUNDATION && <Tabs.TabPane
+            <Tabs.TabPane
               itemKey="api-tokens"
               tab={<span className="profile-tab-label"><Key size={14} /><span>API Token</span></span>}
             >
@@ -743,7 +746,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
                     />
                   )}
               </div>
-            </Tabs.TabPane>}
+            </Tabs.TabPane>
 
             {/* ── 已授权应用 ────────────────────────────────────── */}
             {!IS_GO_FOUNDATION && <Tabs.TabPane
@@ -854,6 +857,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
         )}
       </AppModal>
 
+      </>}
       {/* ── 新建 Token Modal ──────────────────────────────────────────────────────────────── */}
       <EditFormModal modal={tokenModal} title="新建 API Token" okText="创建" cancelText="取消" width={480} centered>
         <Form.Input
@@ -863,6 +867,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
           rules={[{ required: true, message: '请填写 Token 名称' }]}
           style={{ width: '100%' }}
         />
+        {IS_GO_FOUNDATION && <Form.Select field="permissions" label="权限范围" multiple filter optionList={(keyPermissionsQuery.data ?? []).map(value => ({label:value,value}))} rules={[{required:true,message:'请选择权限'}]} style={{width:'100%'}} extraText="密钥权限不会超过账号当前权限；权限撤销、停用和改密后立即失效。" />}
         <Form.DatePicker
           field="expiresAt"
           label="过期时间"
@@ -903,7 +908,6 @@ export default function ProfilePage({ user }: ProfilePageProps) {
           </div>
         )}
       </Modal>
-      </>}
     </div>
   );
 }

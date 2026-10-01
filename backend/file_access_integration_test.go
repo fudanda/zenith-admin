@@ -5,11 +5,10 @@ package zenith
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"image"
 	"image/color"
 	"image/png"
-
-	"fmt"
 	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
@@ -18,6 +17,7 @@ import (
 
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
+	"github.com/fudanda/zenith-admin/backend/internal/kernel"
 	"github.com/google/uuid"
 )
 
@@ -105,16 +105,16 @@ func TestLocalFilesAndPrivateAccess(t *testing.T) {
 	a.expect(a.adminResponse("GET", "/api/v1/files/stats", nil), 200)
 	a.expect(a.adminResponse("GET", fmt.Sprintf("/api/v1/files/browse?storageConfigId=%d", configID), nil), 200)
 	a.expect(a.adminResponse("PUT", fmt.Sprintf("/api/v1/file-storage-configs/%d", configID), map[string]any{"localRootPath": t.TempDir()}), 409)
-	init := a.adminResponse("POST", "/api/v1/files/upload/init", map[string]any{"fileName": "chunk.txt", "fileSize": 6 * mib, "mimeType": "text/plain", "chunkSize": 5 * mib, "visibility": "restricted"})
+	init := a.adminResponse("POST", "/api/v1/files/upload/init", map[string]any{"fileName": "chunk.txt", "fileSize": 6 * kernel.Mib, "mimeType": "text/plain", "chunkSize": 5 * kernel.Mib, "visibility": "restricted"})
 	a.expect(init, 200)
 	uploadID := fixtureData(t, init)["uploadId"].(string)
-	for i, size := range []int{5 * int(mib), int(mib)} {
+	for i, size := range []int{5 * int(kernel.Mib), int(kernel.Mib)} {
 		a.expect(a.multipart("/api/v1/files/upload/chunk", "chunk", "part", bytes.Repeat([]byte("A"), size), map[string]string{"uploadId": uploadID, "index": fmt.Sprint(i)}, a.cookie, a.csrf), 200)
 	}
 	a.expect(a.adminResponse("GET", "/api/v1/files/upload/"+uploadID+"/status", nil), 200)
 	completed := a.adminResponse("POST", "/api/v1/files/upload/complete", map[string]any{"uploadId": uploadID})
 	a.expect(completed, 200)
-	abort := a.adminResponse("POST", "/api/v1/files/upload/init", map[string]any{"fileName": "abort.txt", "fileSize": 1, "chunkSize": 5 * mib})
+	abort := a.adminResponse("POST", "/api/v1/files/upload/init", map[string]any{"fileName": "abort.txt", "fileSize": 1, "chunkSize": 5 * kernel.Mib})
 	a.expect(abort, 200)
 	abortID := fixtureData(t, abort)["uploadId"].(string)
 	a.expect(a.adminResponse("DELETE", "/api/v1/files/upload/"+abortID, nil), 200)
@@ -134,7 +134,7 @@ func TestLocalFilesAndPrivateAccess(t *testing.T) {
 		t.Fatal("failed deletion lost retry state")
 	}
 	a.expect(a.adminResponse("DELETE", "/api/v1/files/"+publicID, nil), 200)
-	if err = a.f.removePendingFile(context.Background(), row); !ent.IsNotFound(err) {
+	if err = a.f.services.files.RemovePendingFile(context.Background(), row); !ent.IsNotFound(err) {
 		t.Fatal("retry should observe already removed metadata")
 	}
 	count, err := a.f.Store.Client.ManagedFile.Query().Where(managedfile.IDEQ(id)).Count(context.Background())

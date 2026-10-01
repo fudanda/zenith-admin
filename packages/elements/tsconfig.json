@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src", "outDir": "./dist-types", "tsBuildInfoFile": "./dist-types/.tsbuildinfo",
+    "jsx": "react-jsx", "lib": ["ES2024", "DOM", "DOM.Iterable"], "composite": true, "emitDeclarationOnly": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "../shared" }, { "path": "../client" }]
+}

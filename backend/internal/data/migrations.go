@@ -11,7 +11,6 @@ import (
 
 // These SQL files are reviewed snapshots of the Ent schema. Once released,
 // migration files must remain immutable; new schema changes get a new version.
-//
 var migrationFiles = migrations.Files
 
 const SchemaVersion = migrations.SchemaVersion
@@ -67,6 +66,8 @@ func (s *Store) Migrate(ctx context.Context) error {
 		// Menu columns are already present.
 	case 9:
 		// Login protection is already present.
+	case 10:
+		// Audit metadata is already present.
 	case 8:
 		// Session metadata is already present.
 	case 7:
@@ -101,7 +102,12 @@ func (s *Store) Migrate(ctx context.Context) error {
 			return err
 		}
 	}
-	if err := ApplyMigration(ctx, tx, "migrations/0010_audit_metadata.sql"); err != nil {
+	if current < 10 {
+		if err := ApplyMigration(ctx, tx, "migrations/0010_audit_metadata.sql"); err != nil {
+			return err
+		}
+	}
+	if err := ApplyMigration(ctx, tx, "migrations/0011_integrations.sql"); err != nil {
 		return err
 	}
 	if _, err := tx.ExecContext(ctx, `INSERT INTO zenith_schema_versions(version) VALUES ($1)`, SchemaVersion); err != nil {

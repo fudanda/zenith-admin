@@ -24,16 +24,17 @@ vi.mock('./useWebSocket', () => ({
 
 import { PreferencesProvider } from './PreferencesProvider';
 import { usePreferences } from './usePreferences';
+import { AdminOptionsContext } from '@/admin/runtime';
 
 const base = BaseDatePicker as unknown as { defaultProps: { weekStartsOn: number } };
 let policy = preferencePolicySchema.parse({});
 let document: UserPreferencesDocument = { overrides: {} };
 
-async function setup() {
+async function setup(theme?: 'light' | 'dark' | 'system') {
   const client = createTestQueryClient();
   const QueryWrapper = createWrapper(client);
   const wrapper = ({ children }: { children: ReactNode }) =>
-    createElement(QueryWrapper, null, createElement(PreferencesProvider, null, children));
+    createElement(QueryWrapper, null, createElement(AdminOptionsContext.Provider, { value: { theme } }, createElement(PreferencesProvider, null, children)));
   const hook = renderHook(() => usePreferences(), { wrapper });
   await waitFor(() => expect(hook.result.current.ready).toBe(true));
   return { client, hook };
@@ -59,6 +60,21 @@ afterEach(() => {
 });
 
 describe('PreferencesProvider', () => {
+  it('uses the host theme as a default without persisting it, and preserves explicit personal choices', async () => {
+    const { hook } = await setup('dark');
+    expect(hook.result.current.preferences.colorMode).toBe('dark');
+    expect(hook.result.current.overrides.colorMode).toBeUndefined();
+    expect(api.countOf('PUT')).toBe(0);
+    act(() => hook.result.current.setPreferences({ colorMode: 'light' }));
+    await waitFor(() => expect(api.countOf('PUT')).toBe(1));
+    expect(hook.result.current.preferences.colorMode).toBe('light');
+  });
+  it('does not allow host defaults to override a locked server theme', async () => {
+    policy.defaults.colorMode = 'light'; policy.allowUserOverride.colorMode = false;
+    const { hook } = await setup('dark');
+    expect(hook.result.current.preferences.colorMode).toBe('light');
+    expect(hook.result.current.canEditPreference('colorMode')).toBe(false);
+  });
   it('applies the week start before the first render and on every change', async () => {
     const { hook } = await setup();
     // 默认周一：Provider 初始化时已同步写入，而不是等 effect

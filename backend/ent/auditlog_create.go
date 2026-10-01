@@ -220,6 +220,20 @@ func (_c *AuditLogCreate) SetNillableResponseCode(v *int) *AuditLogCreate {
 	return _c
 }
 
+// SetAPIKeyID sets the "api_key_id" field.
+func (_c *AuditLogCreate) SetAPIKeyID(v int) *AuditLogCreate {
+	_c.mutation.SetAPIKeyID(v)
+	return _c
+}
+
+// SetNillableAPIKeyID sets the "api_key_id" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableAPIKeyID(v *int) *AuditLogCreate {
+	if v != nil {
+		_c.SetAPIKeyID(*v)
+	}
+	return _c
+}
+
 // SetCreatedAt sets the "created_at" field.
 func (_c *AuditLogCreate) SetCreatedAt(v time.Time) *AuditLogCreate {
 	_c.mutation.SetCreatedAt(v)
@@ -458,6 +472,10 @@ func (_c *AuditLogCreate) createSpec() (*AuditLog, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.ResponseCode(); ok {
 		_spec.SetField(auditlog.FieldResponseCode, field.TypeInt, value)
 		_node.ResponseCode = value
+	}
+	if value, ok := _c.mutation.APIKeyID(); ok {
+		_spec.SetField(auditlog.FieldAPIKeyID, field.TypeInt, value)
+		_node.APIKeyID = &value
 	}
 	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(auditlog.FieldCreatedAt, field.TypeTime, value)

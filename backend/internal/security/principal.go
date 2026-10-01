@@ -11,6 +11,20 @@ type Principal struct {
 	Session                *ent.Session
 	SuperAdmin             bool
 	PasswordChangeRequired bool
+	APIKeyID               int
+	KeyPermissions         []string
+}
+
+func (p *Principal) KeyAllows(permission string) bool {
+	if p.APIKeyID == 0 {
+		return true
+	}
+	for _, granted := range p.KeyPermissions {
+		if granted == permission {
+			return true
+		}
+	}
+	return false
 }
 
 type principalKey struct{}

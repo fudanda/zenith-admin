@@ -1,3 +1,4 @@
+import { useAdminOptions, useAdminTitle } from '@/admin/runtime';
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type SubmitEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button, Checkbox, Divider, PinCode, Spin, Toast, Typography } from '@douyinfe/semi-ui';
@@ -96,6 +97,8 @@ function isLoginCaptchaChallenge(data: LoginResult): data is LoginCaptchaChallen
 }
 
 export default function LoginPage({ onLogin, onVerifyMfa, onRegister }: Readonly<LoginPageProps>) {
+  const appTitle = useAdminTitle();
+  const { brand } = useAdminOptions();
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -636,13 +639,13 @@ export default function LoginPage({ onLogin, onVerifyMfa, onRegister }: Readonly
 
   return (
     <div className="login-page">
-      <div className="login-bg" aria-hidden="true">
+      <div className="login-bg" aria-hidden="true" style={brand?.loginImage ? { backgroundImage: `url(${JSON.stringify(brand.loginImage)})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}>
         <div className="login-wash login-wash-a" />
         <div className="login-wash login-wash-b" />
       </div>
       <header className="login-topbar">
         <AppLogo size={34} />
-        <span className="login-brand-name">{config.appTitle}</span>
+        <span className="login-brand-name">{appTitle}</span>
       </header>
       <main className="login-main">
         <section className="login-hero">
@@ -777,7 +780,8 @@ export default function LoginPage({ onLogin, onVerifyMfa, onRegister }: Readonly
         </div>
       </main>
       <footer className="login-footer">
-        © {dayjs().year()} {config.appTitle} · 高效 · 稳定 · 安全
+        © {dayjs().year()} {brand?.copyrightName ?? appTitle} · 高效 · 稳定 · 安全
+        {brand?.icpNumber && <span> · {brand.icpUrl ? <a href={brand.icpUrl} target="_blank" rel="noopener noreferrer">{brand.icpNumber}</a> : brand.icpNumber}</span>}
       </footer>
       {forgotPasswordMounted && (
         <Suspense fallback={null}>

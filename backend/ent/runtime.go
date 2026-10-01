@@ -5,6 +5,7 @@ package ent
 import (
 	"time"
 
+	"github.com/fudanda/zenith-admin/backend/ent/apikey"
 	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
 	"github.com/fudanda/zenith-admin/backend/ent/captcha"
 	"github.com/fudanda/zenith-admin/backend/ent/department"
@@ -33,6 +34,20 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	apikeyFields := schema.APIKey{}.Fields()
+	_ = apikeyFields
+	// apikeyDescName is the schema descriptor for name field.
+	apikeyDescName := apikeyFields[1].Descriptor()
+	// apikey.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	apikey.NameValidator = apikeyDescName.Validators[0].(func(string) error)
+	// apikeyDescTokenPrefix is the schema descriptor for token_prefix field.
+	apikeyDescTokenPrefix := apikeyFields[3].Descriptor()
+	// apikey.TokenPrefixValidator is a validator for the "token_prefix" field. It is called by the builders before save.
+	apikey.TokenPrefixValidator = apikeyDescTokenPrefix.Validators[0].(func(string) error)
+	// apikeyDescCreatedAt is the schema descriptor for created_at field.
+	apikeyDescCreatedAt := apikeyFields[8].Descriptor()
+	// apikey.DefaultCreatedAt holds the default value on creation for the created_at field.
+	apikey.DefaultCreatedAt = apikeyDescCreatedAt.Default.(func() time.Time)
 	auditlogFields := schema.AuditLog{}.Fields()
 	_ = auditlogFields
 	// auditlogDescOperation is the schema descriptor for operation field.
@@ -84,7 +99,7 @@ func init() {
 	// auditlog.DefaultResponseCode holds the default value on creation for the response_code field.
 	auditlog.DefaultResponseCode = auditlogDescResponseCode.Default.(int)
 	// auditlogDescCreatedAt is the schema descriptor for created_at field.
-	auditlogDescCreatedAt := auditlogFields[16].Descriptor()
+	auditlogDescCreatedAt := auditlogFields[17].Descriptor()
 	// auditlog.DefaultCreatedAt holds the default value on creation for the created_at field.
 	auditlog.DefaultCreatedAt = auditlogDescCreatedAt.Default.(func() time.Time)
 	captchaFields := schema.Captcha{}.Fields()
@@ -203,12 +218,40 @@ func init() {
 	filestorageconfigDescLocalRootPath := filestorageconfigFields[4].Descriptor()
 	// filestorageconfig.LocalRootPathValidator is a validator for the "local_root_path" field. It is called by the builders before save.
 	filestorageconfig.LocalRootPathValidator = filestorageconfigDescLocalRootPath.Validators[0].(func(string) error)
+	// filestorageconfigDescS3Region is the schema descriptor for s3_region field.
+	filestorageconfigDescS3Region := filestorageconfigFields[6].Descriptor()
+	// filestorageconfig.DefaultS3Region holds the default value on creation for the s3_region field.
+	filestorageconfig.DefaultS3Region = filestorageconfigDescS3Region.Default.(string)
+	// filestorageconfigDescS3Endpoint is the schema descriptor for s3_endpoint field.
+	filestorageconfigDescS3Endpoint := filestorageconfigFields[7].Descriptor()
+	// filestorageconfig.DefaultS3Endpoint holds the default value on creation for the s3_endpoint field.
+	filestorageconfig.DefaultS3Endpoint = filestorageconfigDescS3Endpoint.Default.(string)
+	// filestorageconfigDescS3Bucket is the schema descriptor for s3_bucket field.
+	filestorageconfigDescS3Bucket := filestorageconfigFields[8].Descriptor()
+	// filestorageconfig.DefaultS3Bucket holds the default value on creation for the s3_bucket field.
+	filestorageconfig.DefaultS3Bucket = filestorageconfigDescS3Bucket.Default.(string)
+	// filestorageconfigDescS3AccessKeyID is the schema descriptor for s3_access_key_id field.
+	filestorageconfigDescS3AccessKeyID := filestorageconfigFields[9].Descriptor()
+	// filestorageconfig.DefaultS3AccessKeyID holds the default value on creation for the s3_access_key_id field.
+	filestorageconfig.DefaultS3AccessKeyID = filestorageconfigDescS3AccessKeyID.Default.(string)
+	// filestorageconfigDescS3SecretCipher is the schema descriptor for s3_secret_cipher field.
+	filestorageconfigDescS3SecretCipher := filestorageconfigFields[10].Descriptor()
+	// filestorageconfig.DefaultS3SecretCipher holds the default value on creation for the s3_secret_cipher field.
+	filestorageconfig.DefaultS3SecretCipher = filestorageconfigDescS3SecretCipher.Default.(string)
+	// filestorageconfigDescS3ForcePathStyle is the schema descriptor for s3_force_path_style field.
+	filestorageconfigDescS3ForcePathStyle := filestorageconfigFields[11].Descriptor()
+	// filestorageconfig.DefaultS3ForcePathStyle holds the default value on creation for the s3_force_path_style field.
+	filestorageconfig.DefaultS3ForcePathStyle = filestorageconfigDescS3ForcePathStyle.Default.(bool)
+	// filestorageconfigDescBasePath is the schema descriptor for base_path field.
+	filestorageconfigDescBasePath := filestorageconfigFields[12].Descriptor()
+	// filestorageconfig.DefaultBasePath holds the default value on creation for the base_path field.
+	filestorageconfig.DefaultBasePath = filestorageconfigDescBasePath.Default.(string)
 	// filestorageconfigDescCreatedAt is the schema descriptor for created_at field.
-	filestorageconfigDescCreatedAt := filestorageconfigFields[6].Descriptor()
+	filestorageconfigDescCreatedAt := filestorageconfigFields[13].Descriptor()
 	// filestorageconfig.DefaultCreatedAt holds the default value on creation for the created_at field.
 	filestorageconfig.DefaultCreatedAt = filestorageconfigDescCreatedAt.Default.(func() time.Time)
 	// filestorageconfigDescUpdatedAt is the schema descriptor for updated_at field.
-	filestorageconfigDescUpdatedAt := filestorageconfigFields[7].Descriptor()
+	filestorageconfigDescUpdatedAt := filestorageconfigFields[14].Descriptor()
 	// filestorageconfig.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	filestorageconfig.DefaultUpdatedAt = filestorageconfigDescUpdatedAt.Default.(func() time.Time)
 	// filestorageconfig.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.

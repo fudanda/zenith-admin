@@ -500,7 +500,7 @@ export default function FileStorageConfigsPage() {
                 field="provider"
                 label="存储类型"
                 style={{ width: '100%' }}
-                optionList={IS_GO_FOUNDATION ? FILE_STORAGE_PROVIDER_OPTIONS.filter(option => option.value === 'local') : FILE_STORAGE_PROVIDER_OPTIONS}
+                optionList={IS_GO_FOUNDATION ? FILE_STORAGE_PROVIDER_OPTIONS.filter(option => ['local','s3'].includes(option.value)) : FILE_STORAGE_PROVIDER_OPTIONS}
                 onChange={(value) => {
                   const next = value as FileStorageProvider;
                   setFormProvider(next);
@@ -520,7 +520,7 @@ export default function FileStorageConfigsPage() {
                 <Select.Option value="disabled">禁用</Select.Option>
               </Form.Select>
             </Col>
-            {!IS_GO_FOUNDATION && <Col span={12}>
+            {(!IS_GO_FOUNDATION || formProvider === 's3') && <Col span={12}>
               <Form.Input field="basePath" label="基础路径" placeholder="例如 uploads / images" />
             </Col>}
           </Row>
@@ -791,7 +791,7 @@ export default function FileStorageConfigsPage() {
                 ? '上传文件将按此权限设置对象 ACL。注意：AWS S3 新建桶默认禁用 ACL（Bucket owner enforced），启用前请先在桶设置中开启；MinIO / Cloudflare R2 不支持对象 ACL，请保持「继承 Bucket」。'
                 : '上传文件将按此权限设置对象 ACL；「继承 Bucket」表示不单独指定、跟随 Bucket 权限。公共读 / 公共读写存在数据泄露风险，请谨慎选择。'}
             >
-              {(FILE_OBJECT_ACL_SUPPORT[formProvider] ?? []).map((acl) => (
+              {(IS_GO_FOUNDATION ? ['default'] as const : FILE_OBJECT_ACL_SUPPORT[formProvider] ?? []).map((acl) => (
                 <Radio key={acl} value={acl}>{FILE_OBJECT_ACL_LABELS[acl]}</Radio>
               ))}
             </Form.RadioGroup>

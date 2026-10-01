@@ -6,7 +6,7 @@ const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const envFile=resolve(root,'.env.go');
 if(existsSync(envFile)) process.loadEnvFile(envFile);
 const [command,...args]=process.argv.slice(2);
-const goArgs=command==='test'?['test','-tags','integration','./...',...args]:command==='generate'?['generate','./ent']:['run','./cmd/zenith',command??'serve',...args];
+const goArgs=command==='test'?['test','-tags','integration','./...',...args]:command==='generate'?['run','entgo.io/ent/cmd/ent','generate','--feature','sql/lock','./ent/schema']:['run','./cmd/zenith',command??'serve',...args];
 const result=spawnSync('go',goArgs,{cwd:resolve(root,'backend'),stdio:'inherit',env:process.env,windowsHide:true});
 if(result.error) console.error(result.error.message);
 process.exit(result.status??1);

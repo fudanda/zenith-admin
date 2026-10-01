@@ -1,3 +1,4 @@
+import { useAdminTitle, useAdminPaths, useAdminExternalNavigation } from '@/admin/runtime';
 import { lazy, startTransition, Suspense, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { RouteErrorBoundary } from '@/components/PageErrorBoundary';
@@ -90,6 +91,9 @@ interface AdminLayoutProps {
 }
 
 export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLayoutProps) {
+  const appTitle = useAdminTitle();
+  const { basePath } = useAdminPaths();
+  const openExternal = useAdminExternalNavigation();
   const { preferences, setPreferences, resetPreferences, canEditPreference } = usePreferences();
   // hover 模式下侧边栏应保持收起：刷新页面后依据偏好恢复收起状态
   const [collapsed, setCollapsed] = useState(() => preferences.sidebarHoverTrigger ?? false);
@@ -414,8 +418,8 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
     const pageTitle = resolveTitle(location.pathname);
     const isDynamic = preferences.dynamicTitle ?? true;
     document.title = isDynamic && pageTitle !== location.pathname
-      ? `${pageTitle} - ${config.appTitle}`
-      : config.appTitle;
+      ? `${pageTitle} - ${appTitle}`
+      : appTitle;
   }, [location.pathname, resolveTitle, preferences.dynamicTitle]);
 
   // Sync current route to tabs
@@ -556,7 +560,7 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
   });
 
   const handleOpenTabInNewWindow = useEventCallback((tab: TabItem) => {
-    window.open(tab.key, '_blank');
+    openExternal(`${basePath === '/' ? '' : basePath}${tab.key}`);
   });
 
   const handleCloseOthers = useEventCallback((key: string) => {
@@ -791,7 +795,7 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
   })();
   const topNavSelectedKeys = navLayout === 'mixed' ? mixedTopSelectedKeys : horizontalSelectedKeys;
   const stickyNavClass = preferences.sidebarStickyScroll === false ? '' : ' admin-sidebar--sticky-nav';
-  const mobileHeaderTitle = currentPageTitle ?? displayBreadcrumbs.at(-1)?.title ?? config.appTitle;
+  const mobileHeaderTitle = currentPageTitle ?? displayBreadcrumbs.at(-1)?.title ?? appTitle;
 
   // 分区深色走 Semi 官方的局部暗色：区域根元素挂 .semi-always-dark，整套 --semi-color-* 由 Semi 提供
   const sidebarDark = Boolean(preferences.sidebarDarkMode);

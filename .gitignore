@@ -1,5 +1,8 @@
 node_modules/
 dist/
+dist-types/
+dist-admin-types/
+dist-example/
 !backend/internal/dash/dist/
 !backend/internal/dash/dist/**
 .env

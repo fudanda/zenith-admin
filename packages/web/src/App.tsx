@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, Suspense, useMemo } from 'react';
 import { BrowserRouter, HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useAdminPaths } from '@/admin/runtime';
 import { PageErrorBoundary } from '@/components/PageErrorBoundary';
 import FullPageRetry from '@/components/FullPageRetry';
 import { useGlobalErrorHandler } from '@/hooks/useGlobalErrorHandler';
@@ -344,6 +345,7 @@ function AppChrome({ children }: Readonly<{ children: React.ReactNode }>) {
 }
 
 export default function App() {
+  const { basePath } = useAdminPaths();
   useGlobalErrorHandler();
   const queryClient = useQueryClient();
   const { user, status, refreshing, error, login, verifyMfaLogin, register, logout, refresh } = useAuth();
@@ -407,7 +409,7 @@ export default function App() {
     )}
     {/* Electron 自定义标题栏（登录页和内容页共用） */}
     <ElectronTitleBar />
-    <RouterComponent basename={import.meta.env.VITE_ELECTRON === 'true' ? undefined : (import.meta.env.BASE_URL.replace(/\/$/, '') || '/')}>
+    <RouterComponent basename={import.meta.env.VITE_ELECTRON === 'true' ? undefined : basePath}>
       {user ? (
         <PreferencesProvider>
           <ThemeProvider>
