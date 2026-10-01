@@ -14,7 +14,8 @@ import (
 
 func withMetadata(w http.ResponseWriter, r *http.Request, route Route) (*http.Request, error) {
 	meta := kernel.RequestMetadata{Method: r.Method, Path: r.URL.Path, IP: ClientIP(r), UserAgent: r.UserAgent(), Started: time.Now()}
-	recordBody := true
+	meta.Module, meta.Description, meta.SuccessStatus = route.AuditModule, route.AuditDescription, route.SuccessStatus
+	recordBody := route.AuditRecordBody
 	if op, ok := contracts.Operations[route.OperationID]; ok {
 		meta.Module = op.AuditModule
 		meta.Description = op.AuditDescription

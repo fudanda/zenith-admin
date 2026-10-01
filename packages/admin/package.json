@@ -19,7 +19,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": {
+      "types": "./dist/styles.d.ts",
+      "default": "./dist/styles.css"
+    }
   },
   "scripts": {
     "build": "node scripts/build.mjs",
@@ -37,7 +40,6 @@
   },
   "devDependencies": {
     "@zenith/web": "^2.58.0",
-    "@zenith/shared": "^2.58.0",
     "@testing-library/react": "^16.3.3",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.10.0",
@@ -48,5 +50,8 @@
     "rolldown": "1.2.5",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "@zenith/shared": "^2.58.0"
   }
 }

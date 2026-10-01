@@ -7759,6 +7759,21 @@ func (e MenusUpdate200JSONResponseBodyCode) Valid() bool {
 	}
 }
 
+// Defines values for IntegrationModules200JSONResponseBodyCode.
+const (
+	IntegrationModules200JSONResponseBodyCodeN0 IntegrationModules200JSONResponseBodyCode = 0
+)
+
+// Valid indicates whether the value is a known member of the IntegrationModules200JSONResponseBodyCode enum.
+func (e IntegrationModules200JSONResponseBodyCode) Valid() bool {
+	switch e {
+	case IntegrationModules200JSONResponseBodyCodeN0:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for OperationLogsListParamsStatus.
 const (
 	OperationLogsListParamsStatusFail    OperationLogsListParamsStatus = "fail"
@@ -18828,6 +18843,9 @@ type MenusUpdateJSONBodyType string
 
 // MenusUpdate200JSONResponseBodyCode defines parameters for MenusUpdate.
 type MenusUpdate200JSONResponseBodyCode float32
+
+// IntegrationModules200JSONResponseBodyCode defines parameters for IntegrationModules.
+type IntegrationModules200JSONResponseBodyCode float32
 
 // OperationLogsListParams defines parameters for OperationLogsList.
 type OperationLogsListParams struct {

@@ -36,9 +36,13 @@ type Dependencies struct {
 }
 
 type Service struct {
-	Store *data.Store
-	deps  Dependencies
+	Store                *data.Store
+	deps                 Dependencies
+	ExtensionPermissions map[string]bool
+	ExtensionPages       map[string]ExtensionPage
 }
+
+type ExtensionPage struct{ Permission, Component string }
 
 func NewService(store *data.Store, deps Dependencies) *Service {
 	return &Service{Store: store, deps: deps}
@@ -102,7 +106,7 @@ func mergeMenuInput(initial menuInput, patch map[string]json.RawMessage) (menuIn
 	return initial, nil
 }
 
-func validateMenu(in menuInput) error {
+func (f *Service) validateMenu(in menuInput) error {
 	if in.ParentID < 0 || utf8.RuneCountInString(strings.TrimSpace(in.Title)) == 0 || utf8.RuneCountInString(in.Title) > 64 {
 		return fmt.Errorf("%w: 标题或父级无效", errInvalidMenu)
 	}
@@ -121,7 +125,7 @@ func validateMenu(in menuInput) error {
 		}
 	}
 	if in.Permission != nil && *in.Permission != "" {
-		known := false
+		known := f.ExtensionPermissions[*in.Permission]
 		for _, item := range kernel.FoundationMenus {
 			if item.Permission == *in.Permission {
 				known = true
@@ -136,7 +140,11 @@ func validateMenu(in menuInput) error {
 		return fmt.Errorf("%w: 按钮需要权限码", errInvalidMenu)
 	}
 	if in.Type == "menu" && in.Path != nil && *in.Path != "" {
-		registered := false
+		page, isHost := f.ExtensionPages[*in.Path]
+		registered := isHost
+		if isHost && (in.Permission == nil || *in.Permission != page.Permission || in.Component == nil || *in.Component != page.Component) {
+			return fmt.Errorf("%w: 宿主页面的组件和权限必须与声明一致", errInvalidMenu)
+		}
 		for _, item := range kernel.FoundationMenus {
 			if item.Type == "menu" && item.Path == *in.Path {
 				registered = true
@@ -877,7 +885,7 @@ func (f *Service) SaveMenu(ctx context.Context, inArgs kernel.Input) (kernel.Out
 				return kernel.ErrGrantDenied
 			}
 		}
-		if err := validateMenu(in); err != nil {
+		if err := f.validateMenu(in); err != nil {
 			return err
 		}
 		if err := validateMenuParent(ctx, tx, id, in.ParentID); err != nil {

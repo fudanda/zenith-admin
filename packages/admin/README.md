@@ -34,6 +34,7 @@ createRoot(document.getElementById('root')!).render(
 | `theme` | 默认主题 `light/dark/system`；个人明确选择及服务端锁定策略优先，不写入个人偏好 |
 | `locale` | `zh-CN/en-US`：公共组件和 Semi 控件语言；原业务页面固定中文保持原样。省略时保持原控件默认语言 |
 | `authSession` | 宿主 Cookie 会话适配器，与 elements 共用；不再额外请求 `/auth/me` |
+| `modules` | 宿主业务模块、页面、菜单和页面权限；仅挂载 Go 能力清单确认的页面 |
 | `navigateExternal(url)` | 外链菜单及标签页新窗口操作交给宿主，接收完整 HTTP URL；内部路由仍由原 React Router 管理 |
 | `loading` | 启动和应用懒加载时的宿主占位内容 |
 | `errorFallback(error)` | 启动、配置或应用装配错误的宿主展示 |
@@ -53,7 +54,9 @@ npm run build:elements:example
 npm run test:admin
 ```
 
-`dist/` 包含 `index.js`、`index.d.ts`、`types.d.ts`、`styles.css`、懒加载 `chunks/`、`assets/`、`file-viewer/` 与 `public/`。运行时只保留 React、React DOM、React Query 和 client 的外部依赖，不引用 Web 源码、`@` 别名、历史 Server 或 Node API。原页面的首版构建守卫继续执行。
+`dist/` 包含 `index.js`、`index.d.ts`、`types.d.ts`、`styles.css`、懒加载 `chunks/`、`assets/`、`file-viewer/` 与 `public/`。React、React DOM、React Query、client 和 elements 为外部依赖，Admin 与宿主 Elements 共用同一会话上下文；不引用 Web 源码、`@` 别名、历史 Server 或 Node API。原页面的首版构建守卫继续执行。
+
+根目录 `npm run pack:packages` 交付四个编译后的 tarball；`npm run test:packages:external` 在仓库外执行真实安装、类型、构建和 Node 导入。宿主模块配置、Go API、权限及完整示例见 [宿主接入说明](../../docs/guide/go-host-integration.md)。
 
 宿主通过 Vite 等工具消费本包时，显式导入 `styles.css`，把 `dist/public/` 的内容复制到 `assetBasePath` 对应的公开目录，并保留 `dist/file-viewer/` 下的本地预览 worker/WASM。JS 中引用的 `assets/` 由宿主打包器处理。如果直接提供 ESM 文件，应完整保留 `dist/` 目录结构；这时省略 `assetBasePath` 会使用模块旁的 `public/`，并由宿主解析上述 peer dependencies。
 

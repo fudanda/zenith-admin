@@ -31,7 +31,9 @@ type DomainRegistry = (typeof PERMISSION_REGISTRY_BY_DOMAIN)[keyof typeof PERMIS
 type KeysOfUnion<T> = T extends unknown ? keyof T & string : never;
 
 /** 全部已注册权限码的字面量联合（各域注册表键的并集） */
-export type Permission = KeysOfUnion<DomainRegistry>;
+/** Hosts may augment this interface with their own registered permission names. */
+export interface HostPermissionRegistry {} // eslint-disable-line @typescript-eslint/no-empty-object-type
+export type Permission = KeysOfUnion<DomainRegistry> | (keyof HostPermissionRegistry & string);
 
 type PrefixOfSuffix<T, S extends string> = T extends `${infer P}:${S}` ? P : never;
 

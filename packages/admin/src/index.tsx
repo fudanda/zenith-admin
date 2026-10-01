@@ -7,4 +7,4 @@ export function ZenithAdmin(props: ZenithAdminProps) {
   return <OriginalAdmin {...props} assetBasePath={props.assetBasePath ?? new URL('./public/', import.meta.url).href} />;
 }
 
-export type { ZenithAdminProps, ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter } from '@zenith/web/admin';
+export type { ZenithAdminProps, ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter, ZenithAdminModule, ZenithAdminPage, ZenithPageProps } from '@zenith/web/admin';

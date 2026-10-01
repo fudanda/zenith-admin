@@ -1,5 +1,6 @@
 import type { ApiResponse } from '@zenith/shared/core';
 import { ClientError } from './errors';
+import type { AnyOperation } from '@zenith/shared/core';
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 export type ApiEnvelope<T> = ApiResponse<T> & { error?: string; requestId?: string; retryAfterSeconds?: number };
@@ -16,6 +17,8 @@ export interface ClientOptions {
   onUnauthorized?: () => void;
   /** For scripts/server integrations. Never persist or expose keys in browser storage. */
   apiKey?: string;
+  /** Explicit host contracts; built-in operations remain restricted to the release catalog. */
+  operations?: readonly AnyOperation[];
 }
 
 const loginPaths = ['/api/v1/auth/login', '/api/v1/auth/session-conflict/resolve'];
@@ -37,6 +40,7 @@ export class Client {
   private readonly baseURL: string;
   private readonly send: typeof fetch;
   private readonly credentials: RequestCredentials;
+  private readonly operations = new Map<AnyOperation, string>();
 
   constructor(private readonly options: ClientOptions = {}) {
     this.baseURL = (options.baseURL ?? '').replace(/\/$/, '');
@@ -44,7 +48,18 @@ export class Client {
     this.send = options.transport ?? ((...args) => globalThis.fetch(...args));
     if (options.apiKey && !/^zen_[a-f0-9]{64}$/.test(options.apiKey)) throw new Error('Invalid Zenith API Key');
     this.credentials = options.credentials ?? (options.apiKey ? 'omit' : 'same-origin');
+    const routes = new Set<string>();
+    for (const op of options.operations ?? []) {
+      validateGoPath(op.fullPath.replaceAll(/\{[a-zA-Z][a-zA-Z0-9_]*\}/g, '1'));
+      if (!op.fullPath.startsWith('/api/v1/extensions/')) throw new Error('Host operations must use /api/v1/extensions/');
+      const key = `${op.method} ${op.fullPath}`;
+      if (routes.has(key)) throw new Error('Duplicate host operation');
+      routes.add(key); this.operations.set(op, op.fullPath);
+    }
   }
+
+  /** Registration is instance-local and requires the exact declared operation. */
+  resolveOperationPath(op: AnyOperation): string | undefined { return this.operations.get(op); }
 
   setCsrfToken(value: string | null): void { this.csrfToken = value; }
   clearSession(): void { this.csrfToken = null; }

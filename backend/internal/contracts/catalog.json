@@ -2160,6 +2160,18 @@
       }
     },
     {
+      "id": "integrationModules",
+      "method": "GET",
+      "path": "/api/v1/modules",
+      "permission": "authenticated",
+      "anyPermissions": [],
+      "public": false,
+      "apiKeyAllowed": false,
+      "apiKeyPermission": "",
+      "superAdminOnly": false,
+      "audit": null
+    },
+    {
       "id": "integrationKeyPermissions",
       "method": "GET",
       "path": "/api/v1/api-tokens/permissions",

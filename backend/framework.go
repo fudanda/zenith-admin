@@ -54,6 +54,10 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 	if _, err := orderModules(append(builtinDeclarations(), config.Modules...)); err != nil {
 		return nil, err
 	}
+	extensions, err := describeExtensions(config.Modules)
+	if err != nil {
+		return nil, err
+	}
 	store, err := OpenStore(ctx, config.DSN)
 	if err != nil {
 		return nil, err
@@ -74,6 +78,14 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 	f := &Framework{Store: store, config: config, idle: idle, services: assembleServices(store, configuredFileStorage(config))}
 	f.services.files.EncryptionKey = key
 	f.services.files.StagingPath = config.FileStagingPath
+	f.configureExtensions(extensions)
+	for _, module := range config.Modules {
+		if binder, ok := module.(ServiceModule); ok {
+			if err := binder.BindServices(f.HostServices()); err != nil {
+				return nil, errors.Join(err, store.Close())
+			}
+		}
+	}
 	reg := httptransport.NewRegistrar(f.guard)
 	modules, err := orderModules(append(builtinModules(f.services), config.Modules...))
 	if err != nil {
@@ -83,7 +95,13 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 	if err != nil {
 		return nil, errors.Join(err, store.Close())
 	}
-	f.handler = dashboardHandler(reg.Handler(), config.DashboardFS)
+	pages := []string{}
+	for _, extension := range extensions {
+		for _, page := range extension.Pages {
+			pages = append(pages, page.Path)
+		}
+	}
+	f.handler = dashboardHandler(reg.Handler(), config.DashboardFS, pages...)
 	f.startMaintenance()
 	return f, nil
 }

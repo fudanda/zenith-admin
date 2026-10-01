@@ -11,7 +11,7 @@ export default defineConfig(async (env: ConfigEnv) => {
     ...config,
     base: './',
     publicDir: false,
-    plugins: [...(config.plugins ?? []), esmExternalRequirePlugin({ external: [/^(?:react(?:\/.*)?|react-dom(?:\/.*)?|@tanstack\/react-query|@zenith\/client)$/] })],
+    plugins: [...(config.plugins ?? []), esmExternalRequirePlugin({ external: [/^(?:react(?:\/.*)?|react-dom(?:\/.*)?|@tanstack\/react-query|@zenith\/(?:client|elements))$/] })],
     build: {
       ...config.build,
       outDir: resolve(root, 'dist'),

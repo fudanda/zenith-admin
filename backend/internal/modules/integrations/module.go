@@ -21,5 +21,8 @@ func (m *Module) Initialize(_ context.Context, reg *httptransport.Registrar) err
 	if err := reg.RegisterContract("integrationEvents", http.HandlerFunc(m.handler.Events)); err != nil {
 		return err
 	}
+	if err := reg.RegisterContract("integrationModules", http.HandlerFunc(m.handler.Modules)); err != nil {
+		return err
+	}
 	return reg.RegisterContract("integrationMcp", http.HandlerFunc(m.handler.MCP))
 }

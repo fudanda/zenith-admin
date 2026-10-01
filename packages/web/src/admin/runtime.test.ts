@@ -1,7 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import { normalizeAdminBasePath, normalizeAssetBasePath, validateAdminOptions } from './runtime';
+import { hostMenus } from './modules';
 
 describe('admin paths', () => {
+  it('keeps host paths isolated and removes menus immediately when permissions are revoked', () => {
+    const module = { id: 'business', title: 'Business', pages: [{ id: 'positions', title: 'Positions', path: '/extensions/business/positions', permission: 'system:position:list', component: () => null }] };
+    expect(() => validateAdminOptions({ modules: [module] })).not.toThrow();
+    expect(hostMenus([module], []).length).toBe(0);
+    const menus = hostMenus([module], ['system:position:list']);
+    expect(menus[0].id).toBeLessThan(0);
+    expect(menus[0].children?.[0].path).toBe(module.pages[0].path);
+    for (const path of ['/system/users', '/extensions/other/positions', '/extensions/business/../users', '/extensions/business/file.js']) expect(() => validateAdminOptions({ modules: [{ ...module, pages: [{ ...module.pages[0], path }] }] })).toThrow();
+    expect(() => validateAdminOptions({ modules: [module, module] })).toThrow();
+  });
   it('normalizes local route basenames and independently hosted static assets', () => {
     expect(normalizeAdminBasePath('/console/')).toBe('/console');
     expect(normalizeAdminBasePath('/')).toBe('/');

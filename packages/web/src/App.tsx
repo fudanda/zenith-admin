@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback, Suspense, useMemo } from 'react';
 import { BrowserRouter, HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { useAdminPaths } from '@/admin/runtime';
+import { useAdminPaths, useAdminOptions } from '@/admin/runtime';
+import { useZenith } from '@zenith/elements';
+import type { ZenithAdminPage } from '@/admin/types';
+import { useMountedAdminModules } from '@/admin/modules';
 import { PageErrorBoundary } from '@/components/PageErrorBoundary';
 import FullPageRetry from '@/components/FullPageRetry';
 import { useGlobalErrorHandler } from '@/hooks/useGlobalErrorHandler';
@@ -131,10 +134,11 @@ function RedirectFromLogin() {
  * 它不参与正常导航，不能作为首载 gate 让每个用户每次启动都下载一遍。
  */
 function NotFoundOrForbidden({ userMenuPaths }: Readonly<{ userMenuPaths: Set<string> }>) {
+  const { modules } = useMountedAdminModules();
   const location = useLocation();
   const path = location.pathname;
   const allMenusQuery = useMenuTree({ enabled: !IS_GO_FOUNDATION });
-  const allMenuPaths = useMemo(() => IS_GO_FOUNDATION ? foundationPagePaths : buildAllMenuPaths(allMenusQuery.data ?? []), [allMenusQuery.data]);
+  const allMenuPaths = useMemo(() => IS_GO_FOUNDATION ? new Set([...foundationPagePaths, ...(modules ?? []).flatMap(module => module.pages.map(page => page.path))]) : buildAllMenuPaths(allMenusQuery.data ?? []), [allMenusQuery.data, modules]);
   // 树未到达前不下结论：直接渲染 404 会对「有页面但无权限」的路径闪一下错误结论
   if (!IS_GO_FOUNDATION && allMenusQuery.isPending) return <PageLoading />;
 
@@ -211,8 +215,19 @@ interface AdminRouteLoaderProps {
 
 const EMPTY_MENUS: Menu[] = [];
 
+function HostPage({ page }: { page: ZenithAdminPage }) {
+  const { client, session } = useZenith();
+  const permissions = session.session?.permissions ?? [];
+  const hasPermission = (permission: string) => permissions.includes('*') || permissions.includes(permission);
+  if (session.status !== 'authenticated' || !session.session) return <PageLoading />;
+  if (!hasPermission(page.permission)) return <ForbiddenPage />;
+  const Component = page.component;
+  return <Component client={client} user={session.session.user} permissions={permissions} hasPermission={hasPermission} />;
+}
+
 function AdminRouteLoader({ user, logout }: Readonly<AdminRouteLoaderProps>) {
   const { permissions } = usePermission();
+  const { modules } = useAdminOptions();
  const location=useLocation();
   const userMenusQuery = useCurrentUserMenuTree();
 
@@ -287,6 +302,8 @@ function AdminRouteLoader({ user, logout }: Readonly<AdminRouteLoaderProps>) {
 
         {/* 动态路由 */}
         {dynamicRoutes.map(m => {
+          const hostPage = modules?.flatMap(module => module.pages).find(page => page.path === m.path);
+          if (hostPage) return <Route key={m.id} path={hostPage.path.slice(1)} element={<RouteSuspense><HostPage page={hostPage} /></RouteSuspense>} />;
           const Component = lazyPageComponent(m.component);
 
           if (!Component) {

@@ -5,6 +5,7 @@ import type { RequestOptions } from './client';
 import { ApiError } from './errors';
 
 export interface JsonClient {
+  resolveOperationPath?(op: AnyOperation): string | undefined;
   get<T>(url: string, options?: RequestOptions): Promise<ApiResponse<T>>;
   post<T>(url: string, body?: unknown, options?: RequestOptions): Promise<ApiResponse<T>>;
   put<T>(url: string, body?: unknown, options?: RequestOptions): Promise<ApiResponse<T>>;
@@ -61,13 +62,23 @@ export async function callRaw<Op extends AnyOperation>(client: JsonClient, op: O
     if (value !== undefined && value !== null) headers.set(key, String(value));
   }
   const requestOptions = { ...options, headers };
-  const url = operationURL(op, ...([input] as unknown as UrlArgs<Op>));
-  const projected = foundationSettingsOperation(op);
-  const body = foundationRequestBody(projected, foundationSettingsBody(op, input?.body));
+  const hostPath = client.resolveOperationPath?.(op);
+  const url = hostPath ? fillPath(hostPath, input?.params) + (input?.query ? toQueryString(input.query) : '') : operationURL(op, ...([input] as unknown as UrlArgs<Op>));
+  const projected = hostPath ? op : foundationSettingsOperation(op);
+  const body = hostPath ? hostRequestBody(op, input?.body) : foundationRequestBody(projected, foundationSettingsBody(op, input?.body));
   const response = op.method === 'get'
     ? await client.get<OutputOf<Op>>(url, requestOptions)
     : await client[op.method]<OutputOf<Op>>(url, body, requestOptions);
   return response.code === 0 ? { ...response, data: projected.response.parse(response.data) as OutputOf<Op> } : response;
+}
+
+function hostRequestBody(op: AnyOperation, body: unknown): unknown {
+  if (!op.body || body === undefined || body instanceof FormData) return body;
+  const parsed: unknown = op.body.parse(body);
+  if ((op.method === 'put' || op.method === 'patch') && parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+    return Object.fromEntries(Object.entries(parsed).filter(([key]) => body && typeof body === 'object' && Object.hasOwn(body, key)));
+  }
+  return parsed;
 }
 
 export async function call<Op extends AnyOperation>(client: JsonClient, op: Op, ...args: [...InputArgs<Op>, options?: RequestOptions]): Promise<OutputOf<Op>> {

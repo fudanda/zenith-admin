@@ -80,3 +80,5 @@ HTTP → 认证/授权/契约校验 → 领域 Handler → 领域 Service
 `packages/elements` 提供可组合的 Provider、登录表单、权限/会话边界、原头像和文件选择/上传组件；不依赖 Web、Router 或全局凭据存储。管理台通过受控会话桥接复用现有 GoAuthProvider，也允许宿主提供 Cookie 会话适配器。`ZenithAdmin` 的品牌、默认主题、语言及外部导航配置都保持原页面与 Go 授权边界，说明见 [组件包](../../packages/elements/README.md)。
 
 集成扩展使用 shared 操作清单声明 API Key 可访问范围。Cookie 写请求继续校验 CSRF，Key 同时受密钥范围与实时账号权限限制。SSE 只发送审计游标与资源重查提示，每次轮询重新校验认证；MCP 使用标准 Streamable HTTP，只注册当前身份可调用的读取工具。S3 失败补偿记录独立于数据库配置，保存原目标与加密凭据，维护任务在重启后继续处理。详见 [集成扩展](./go-integrations.md)。
+
+宿主业务通过公开模块生命周期、`BindServices`、`Extension` 和 `RegisterHostContract` 接入；前端 `ZenithAdmin.modules` 与 Go 模块能力清单匹配，复用原导航和会话。构建后的四个包支持仓库外 tarball 安装。使用方法和真实岗位链路验收见 [宿主接入](./go-host-integration.md)。

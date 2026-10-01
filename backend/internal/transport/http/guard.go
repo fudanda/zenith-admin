@@ -39,6 +39,12 @@ func (f *Guard) Wrap(route Route) http.Handler {
 				Fail(w, 400, "invalid_request", err.Error())
 				return
 			}
+			if route.Validate != nil {
+				if err := route.Validate(r); err != nil {
+					Fail(w, 400, "invalid_request", err.Error())
+					return
+				}
+			}
 			route.Handler.ServeHTTP(w, r)
 			return
 		}
@@ -122,6 +128,12 @@ func (f *Guard) Wrap(route Route) http.Handler {
 		if err := ValidateContractRequest(r, route.OperationID); err != nil {
 			Fail(w, 400, "invalid_request", err.Error())
 			return
+		}
+		if route.Validate != nil {
+			if err := route.Validate(r); err != nil {
+				Fail(w, 400, "invalid_request", err.Error())
+				return
+			}
 		}
 		route.Handler.ServeHTTP(w, r.WithContext(security.WithPrincipal(r.Context(), p)))
 	})

@@ -102,10 +102,10 @@ const HEAVY_LIBRARIES: Array<[name: string, test: RegExp]> = [
   ['semi-json-viewer', /node_modules[\\/]@douyinfe[\\/]semi-json-viewer-core[\\/]/],
 ];
 
-const APP_SOURCE = /[\\/]packages[\\/](?:web|shared|analytics-sdk|client)[\\/]src[\\/]|[\\/]packages[\\/]elements[\\/](?:src|dist)[\\/]/;
+const APP_SOURCE = /[\\/]packages[\\/](?:web|shared|analytics-sdk|client|elements)[\\/](?:src|dist)[\\/]/;
 // 应用公共层只收 hooks / lib / utils / 契约等「纯逻辑」模块：组件会把图表 / 编辑器等重型依赖静态拖进公共层，
 // 让登录页为一个共享组件下载 2MB 图表库
-const APP_SHARED_LOGIC = /[\\/]packages[\\/](?:shared|analytics-sdk|client)[\\/]src[\\/]|[\\/]packages[\\/]elements[\\/](?:src|dist)[\\/]|[\\/]packages[\\/]web[\\/]src[\\/](?:hooks|lib|utils|providers|config)[\\/.]/;
+const APP_SHARED_LOGIC = /[\\/]packages[\\/](?:shared|analytics-sdk|client|elements)[\\/](?:src|dist)[\\/]|[\\/]packages[\\/]web[\\/]src[\\/](?:hooks|lib|utils|providers|config)[\\/.]/;
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   if (env.VITE_GO_FOUNDATION === 'true') {
@@ -351,7 +351,7 @@ export default defineConfig(({ command, mode }) => {
               // 那样会形成跨 chunk 环，契约在实体化时读到 undefined，入口直接抛“Cannot convert undefined or null to object”。
               {
                 name: 'entity-primitives',
-                test: (id: string) => /[\\/]packages[\\/]shared[\\/]src[\\/](?:core[\\/](?:entity-ref|timeline)\.ts$|platform[\\/](?:entity-catalog|entity-registry|entity-detail-routes|entity-timeline-events|entity-watches|manual-relations)\.ts$)/.test(id)
+                test: (id: string) => /[\\/]packages[\\/]shared[\\/](?:src|dist)[\\/](?:core[\\/](?:entity-ref|timeline)\.(?:ts|js)$|platform[\\/](?:entity-catalog|entity-registry|entity-detail-routes|entity-timeline-events|entity-watches|manual-relations)\.(?:ts|js)$)/.test(id)
                   || (entry === 'approval' && /[\\/]packages[\\/]web[\\/]src[\\/](?:utils[\\/](?:date|avatar-color)\.ts$|components[\\/]signature[\\/]SignatureClientContext\.tsx$)/.test(id)),
                 priority: 12,
               },
@@ -359,7 +359,7 @@ export default defineConfig(({ command, mode }) => {
               // primitives into its chunk: static consumers would then eagerly load the entire relation UI.
               {
                 name: 'entity-discovery',
-                test: /[\\/]packages[\\/](?:web[\\/]src[\\/](?:components[\\/](?:entity-relations[\\/](?!EntityRelationButton\.tsx$|entity-navigation\.ts$)|MenuCommandPalette\.tsx$)|hooks[\\/]queries[\\/](?:entity-relations|entity-timeline|entity-watches|global-search)\.ts$|utils[\\/](?:entity-relations|global-search)\.ts$)|shared[\\/]src[\\/]platform[\\/]contracts[\\/](?:entity-relations|entity-timeline|entity-watches|global-search)\.ts$)/,
+                test: /[\\/]packages[\\/](?:web[\\/]src[\\/](?:components[\\/](?:entity-relations[\\/](?!EntityRelationButton\.tsx$|entity-navigation\.ts$)|MenuCommandPalette\.tsx$)|hooks[\\/]queries[\\/](?:entity-relations|entity-timeline|entity-watches|global-search)\.ts$|utils[\\/](?:entity-relations|global-search)\.ts$)|shared[\\/](?:src|dist)[\\/]platform[\\/]contracts[\\/](?:entity-relations|entity-timeline|entity-watches|global-search)\.(?:ts|js)$)/,
                 priority: 12,
               },
               { name: 'vendor-common', test: /node_modules/, priority: 10, minShareCount: 10 },

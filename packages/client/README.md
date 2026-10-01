@@ -1,6 +1,6 @@
 # @zenith/client
 
-单组织 Go 基础版的独立 TypeScript API 客户端。运行时只依赖 `@zenith/shared`，不依赖 React、Semi UI、TanStack Query、Web 源码或浏览器存储。当前作为 npm workspace 使用。
+单组织 Go 基础版的独立 TypeScript API 客户端。运行时只依赖 `@zenith/shared`，不依赖 React、Semi UI、TanStack Query、Web 源码或浏览器存储。支持 workspace 开发和根目录 `pack:packages` 的编译后 tarball 交付，可在仓库外安装，并由普通 Node 直接导入 ESM。
 
 ```ts
 import { Client, call, operationURL } from '@zenith/client';
@@ -44,6 +44,8 @@ await client.postForm(operationURL(fileContract.uploadOne), form, {
 实际应用应通过 `operationURL(fileContract.uploadOne)` 获取上传路径，复用 shared 契约。文件下载返回 Blob；保存文件、Toast、重定向、用户信息和查询缓存由宿主负责。普通上传与进度上传使用相同的最新 CSRF，浏览器自行生成 multipart boundary。
 
 默认同源，`baseURL` 可显式设置为 HTTP origin；客户端不会接受请求路径中的外部 URL。`transport` 可注入 fetch，`xhrFactory` 可注入上传实现。Node 调用需要注入维护 Cookie 的 transport；Node 的原生 fetch 不会自动保存服务端会话 Cookie。
+
+宿主业务使用 `new Client({ operations: [hostContract.list] })` 明确注册 `/api/v1/extensions/` 契约，随后通过 `call` 调用；注册彼此隔离，不影响其他 Client 的首版限制。详见 [宿主接入说明](../../docs/guide/go-host-integration.md)。
 
 ## 验证
 

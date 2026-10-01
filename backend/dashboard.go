@@ -10,11 +10,14 @@ import (
 	"github.com/fudanda/zenith-admin/backend/internal/kernel"
 )
 
-func dashboardHandler(api http.Handler, assets fs.FS) http.Handler {
+func dashboardHandler(api http.Handler, assets fs.FS, extraPages ...string) http.Handler {
 	if assets == nil {
 		assets = dashboard.Assets()
 	}
 	pages := map[string]bool{"/": true, "/login": true, "/profile": true}
+	for _, page := range extraPages {
+		pages[page] = true
+	}
 	for _, menu := range kernel.FoundationMenus {
 		if menu.Component != "" {
 			pages[menu.Path] = true

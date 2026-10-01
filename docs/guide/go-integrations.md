@@ -93,6 +93,8 @@ await subscription.done;
 
 集成测试要求隔离测试数据库及真实 S3 兼容服务；未提供环境时失败，不使用 Mock 代替。CI 启动独立 PostgreSQL 与 MinIO，也运行 SQLite 分组。
 
+MinIO 社区版镜像已撤下，CI 从固定官方源码提交 `01ce918d8279a20e4706b96a64396146894adee4` 构建测试服务，避免依赖不可获取的镜像或可变镜像来源。该服务只用于隔离验收，不随 Zenith 生产服务发布。
+
 ```powershell
 $env:ZENITH_TEST_DATABASE_URL='sqlite:./bin/integrations-test.db'
 $env:ZENITH_TEST_S3_ENDPOINT='http://127.0.0.1:19000'

@@ -7,6 +7,9 @@ import { authKeys } from './auth';
 import { dataMaskKeys } from './data-mask';
 import { IS_GO_FOUNDATION, isPageAvailable } from '@/lib/foundation-mode';
 import type { Menu } from '@zenith/shared/identity';
+import { useMemo } from 'react';
+import { hostMenus, useMountedAdminModules } from '@/admin/modules';
+import { usePermission } from '@/hooks/usePermission';
 
 export function availableMenus(menus: Menu[]): Menu[] {
   if (!IS_GO_FOUNDATION) return menus;
@@ -51,7 +54,12 @@ export function userMenuTreeQueryOptions() {
 
 /** 当前用户可见菜单树；失败静默，由 App 渲染显式重试页（空菜单不得伪装成正常态） */
 export function useCurrentUserMenuTree() {
-  return useApiQuery(menuContract.userTree, { staleTime: LOOKUP_STALE_TIME, requestOptions: silent, select: availableMenus });
+  const { modules, enabled, query: moduleQuery } = useMountedAdminModules();
+  const { permissions } = usePermission();
+  const select = useMemo(() => (menus: Menu[]) => [...availableMenus(menus), ...hostMenus(modules ?? [], permissions)], [modules, permissions]);
+  const query = useApiQuery(menuContract.userTree, { staleTime: LOOKUP_STALE_TIME, requestOptions: silent, select });
+  return { ...query, isPending: query.isPending || (enabled && moduleQuery.isPending), isError: query.isError || (enabled && moduleQuery.isError), error: query.error ?? (enabled ? moduleQuery.error : null),
+    refetch: async (...args: Parameters<typeof query.refetch>) => { if (enabled) await moduleQuery.refetch(...args); return query.refetch(...args); } };
 }
 
 export function useMenuDetail(id: number | undefined, enabled = true) {

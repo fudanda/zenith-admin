@@ -55,6 +55,10 @@ type queryArgs struct {
 	Keyword  string `json:"keyword,omitempty"`
 }
 
+func (h *Handler) Modules(w http.ResponseWriter, r *http.Request) {
+	httptransport.Respond(w, 200, h.service.ModuleCatalog())
+}
+
 func (h *Handler) MCP(w http.ResponseWriter, r *http.Request) {
 	if r.Header.Get("Origin") != "" && !httptransport.SameOrigin(r) {
 		httptransport.Fail(w, 403, "origin_invalid", "请求来源无效")

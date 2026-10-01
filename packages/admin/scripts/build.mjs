@@ -18,4 +18,5 @@ const source = readFileSync(resolve(webRoot, 'src/admin/types.ts'), 'utf8');
 const declaration = ts.transpileDeclaration(source, { compilerOptions: { declaration: true, isolatedDeclarations: true }, fileName: 'types.ts' });
 if (declaration.diagnostics?.length) throw new Error(ts.formatDiagnosticsWithColorAndContext(declaration.diagnostics, { getCanonicalFileName: value => value, getCurrentDirectory: () => webRoot, getNewLine: () => '\n' }));
 writeFileSync(resolve(dist, 'types.d.ts'), declaration.outputText);
-writeFileSync(resolve(dist, 'index.d.ts'), 'import type { ReactElement } from "react";\nimport type { ZenithAdminProps } from "./types.js";\nexport type { ZenithAdminProps, ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter } from "./types.js";\nexport declare function ZenithAdmin(props: ZenithAdminProps): ReactElement;\n');
+writeFileSync(resolve(dist, 'styles.d.ts'), 'export {};\n');
+writeFileSync(resolve(dist, 'index.d.ts'), 'import type { ReactElement } from "react";\nimport type { ZenithAdminProps } from "./types.js";\nexport type { ZenithAdminProps, ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter, ZenithAdminModule, ZenithAdminPage, ZenithPageProps } from "./types.js";\nexport declare function ZenithAdmin(props: ZenithAdminProps): ReactElement;\n');

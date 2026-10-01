@@ -18,6 +18,10 @@ func ValidateContractRequest(r *http.Request, id string) error {
 	if !ok {
 		return nil
 	}
+	return ValidateRequestDefinition(r, definition)
+}
+
+func ValidateRequestDefinition(r *http.Request, definition contracts.RequestDefinition) error {
 	if definition.Query != nil {
 		value := map[string]any{}
 		for key, items := range r.URL.Query() {

@@ -4,12 +4,25 @@ import { config } from '../config';
 
 export interface AdminPaths { basePath: string; assetBasePath: string }
 export const AdminPathsContext = createContext<AdminPaths | null>(null);
-export type AdminOptions = Pick<ZenithAdminProps, 'brand' | 'locale' | 'theme' | 'navigateExternal' | 'authSession'>;
+export type AdminOptions = Pick<ZenithAdminProps, 'brand' | 'locale' | 'theme' | 'navigateExternal' | 'authSession' | 'modules'>;
 export const AdminOptionsContext = createContext<AdminOptions>({});
 export function useAdminOptions() { return useContext(AdminOptionsContext); }
 export function useAdminTitle() { return useAdminOptions().brand?.name ?? config.appTitle; }
 
 export function validateAdminOptions(options: AdminOptions) {
+  const ids = new Set<string>();
+  const paths = new Set<string>();
+  for (const module of options.modules ?? []) {
+    if (!/^[a-z][a-z0-9-]*$/.test(module.id) || ids.has(module.id) || !module.title.trim()) throw new Error('Invalid or duplicate host module');
+    ids.add(module.id);
+    const pageIDs = new Set<string>();
+    for (const page of module.pages) {
+      if (!/^[a-z][a-z0-9-]*$/.test(page.id) || pageIDs.has(page.id) || !page.title.trim()
+        || !new RegExp(`^/extensions/${module.id}/[a-zA-Z0-9_-]+(?:/[a-zA-Z0-9_-]+)*$`).test(page.path)
+        || paths.has(page.path) || !page.permission.trim() || !page.component) throw new Error('Invalid or duplicate host page');
+      pageIDs.add(page.id); paths.add(page.path);
+    }
+  }
   if (options.locale !== undefined && !['zh-CN', 'en-US'].includes(options.locale)) throw new Error('Unsupported admin locale');
   if (options.theme !== undefined && !['light', 'dark', 'system'].includes(options.theme)) throw new Error('Unsupported admin theme');
   for (const value of [options.brand?.loginImage, options.brand?.icpUrl]) {

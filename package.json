@@ -9,10 +9,10 @@
     "packages/*"
   ],
   "scripts": {
-    "generate:foundation-contracts": "tsx scripts/generate-foundation-contracts.ts",
-    "check:foundation-contracts": "tsx scripts/generate-foundation-contracts.ts --check",
-    "generate:foundation-ui": "tsx scripts/generate-foundation-ui.ts",
-    "check:foundation-ui": "tsx scripts/generate-foundation-ui.ts --check",
+    "generate:foundation-contracts": "npm run build -w @zenith/shared && tsx scripts/generate-foundation-contracts.ts",
+    "check:foundation-contracts": "npm run build -w @zenith/shared && tsx scripts/generate-foundation-contracts.ts --check",
+    "generate:foundation-ui": "npm run build -w @zenith/shared && tsx scripts/generate-foundation-ui.ts",
+    "check:foundation-ui": "npm run build -w @zenith/shared && tsx scripts/generate-foundation-ui.ts --check",
     "dev:go:web": "npm run dev:go -w @zenith/web",
     "build:go:web": "npm run build:go -w @zenith/web",
     "generate:foundation-go-models": "cd backend && go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.8.0 -config internal/contracts/oapi.yaml internal/contracts/openapi.json",
@@ -58,7 +58,7 @@
     "init-admin": "node scripts/go.mjs init-admin",
     "test:go:integration": "node scripts/go.mjs test",
     "test:web:foundation": "npm run test:foundation -w @zenith/web",
-    "check:types": "npm run build:elements && node --max-old-space-size=8192 node_modules/typescript/bin/tsc6 -b packages/shared packages/client packages/elements packages/web packages/admin",
+    "check:types": "npm run build:packages:core && npm run build:elements && node --max-old-space-size=8192 node_modules/typescript/bin/tsc6 -b packages/shared packages/client packages/elements packages/web packages/admin",
     "test:client": "npm run test -w @zenith/client",
     "check:boundaries": "node scripts/check-client-boundaries.mjs && node scripts/check-admin-boundaries.mjs && node scripts/check-elements-boundaries.mjs",
     "build:admin": "npm run build:elements && npm run build -w @zenith/admin",
@@ -67,8 +67,15 @@
     "build:elements": "npm run build -w @zenith/elements",
     "build:elements:example": "npm run build:example -w @zenith/elements",
     "test:elements": "npm run test -w @zenith/elements",
-    "predev": "npm run build:elements",
-    "predev:web": "npm run build:elements"
+    "predev": "npm run build:packages:core && npm run build:elements",
+    "predev:web": "npm run build:packages:core && npm run build:elements",
+    "build:packages:core": "npm run build -w @zenith/shared && npm run build -w @zenith/client",
+    "prebuild": "npm run build:packages:core",
+    "pretest": "npm run build:packages:core",
+    "pack:packages": "npm run build:packages:core && npm run build:admin && node scripts/pack-packages.mjs",
+    "test:packages:external": "node scripts/test-packages-external.mjs",
+    "generate:host-example": "tsx scripts/generate-host-example.ts",
+    "check:host-example": "tsx scripts/generate-host-example.ts --check"
   },
   "devDependencies": {
     "@asteasolutions/zod-to-openapi": "^9.1.0",

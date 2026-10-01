@@ -99,4 +99,4 @@ export function ZenithAdmin(props: ZenithAdminProps) {
   return <HostErrorBoundary fallback={props.errorFallback}><AdminHost {...props} /></HostErrorBoundary>;
 }
 
-export type { ZenithAdminProps, ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter } from './types';
+export type { ZenithAdminProps, ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter, ZenithAdminModule, ZenithAdminPage, ZenithPageProps } from './types';

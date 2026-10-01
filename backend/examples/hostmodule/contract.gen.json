@@ -1,0 +1,127 @@
+[
+  {
+    "id": "hostPositionsList",
+    "method": "GET",
+    "path": "/api/v1/extensions/position-host/positions",
+    "permission": "system:position:list",
+    "query": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "keyword": {
+          "description": "按名称 / 编码模糊匹配",
+          "x-filter": {
+            "kind": "keyword",
+            "fields": "名称 / 编码"
+          },
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "description": "状态；空 = 全部",
+          "x-filter": {
+            "kind": "enum",
+            "values": [
+              "enabled",
+              "disabled"
+            ],
+            "dict": "common_status"
+          },
+          "anyOf": [
+            {},
+            {
+              "type": "string",
+              "enum": [
+                "enabled",
+                "disabled"
+              ]
+            }
+          ]
+        },
+        "page": {
+          "default": 1,
+          "description": "页码（从 1 开始）",
+          "example": 1,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "pageSize": {
+          "default": 10,
+          "description": "每页数量，最大 200",
+          "example": 10,
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "queryTypes": {
+      "keyword": "string",
+      "status": "string",
+      "page": "integer",
+      "pageSize": "integer"
+    },
+    "auditModule": "宿主岗位模块",
+    "auditDescription": "",
+    "auditRecordBody": false,
+    "successStatus": 200
+  },
+  {
+    "id": "hostPositionsCreate",
+    "method": "POST",
+    "path": "/api/v1/extensions/position-host/positions",
+    "permission": "host:position-host:create",
+    "body": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^\\w+$"
+        },
+        "sort": {
+          "default": 0,
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "status": {
+          "default": "enabled",
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ]
+        },
+        "remark": {
+          "type": "string",
+          "maxLength": 256
+        }
+      },
+      "required": [
+        "name",
+        "code"
+      ],
+      "additionalProperties": false
+    },
+    "queryTypes": {},
+    "auditModule": "宿主岗位模块",
+    "auditDescription": "宿主创建岗位",
+    "auditRecordBody": false,
+    "successStatus": 201
+  }
+]

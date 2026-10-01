@@ -15,6 +15,11 @@ type Route struct {
 	APIKeyPermission                      string
 	Public, SuperAdminOnly, APIKeyAllowed bool
 	Handler                               http.Handler
+	// Host operations supply runtime validation and audit policy explicitly.
+	Validate                      func(*http.Request) error
+	AuditModule, AuditDescription string
+	AuditRecordBody               bool
+	SuccessStatus                 int
 }
 
 type Registrar struct {

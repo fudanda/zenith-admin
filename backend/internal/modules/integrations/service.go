@@ -25,14 +25,27 @@ type Dependencies struct {
 	Tools           []Tool
 }
 type Service struct {
-	store *data.Store
-	deps  Dependencies
-	stop  chan struct{}
-	once  sync.Once
+	Modules []ModuleInfo
+	store   *data.Store
+	deps    Dependencies
+	stop    chan struct{}
+	once    sync.Once
 }
 
+type PageInfo struct {
+	ID         string `json:"id"`
+	Path       string `json:"path"`
+	Permission string `json:"permission"`
+}
+type ModuleInfo struct {
+	ID    string     `json:"id"`
+	Pages []PageInfo `json:"pages"`
+}
+
+func (s *Service) ModuleCatalog() []ModuleInfo { return s.Modules }
+
 func NewService(store *data.Store, deps Dependencies) *Service {
-	return &Service{store: store, deps: deps, stop: make(chan struct{})}
+	return &Service{store: store, deps: deps, stop: make(chan struct{}), Modules: []ModuleInfo{}}
 }
 func (s *Service) Close()                   { s.once.Do(func() { close(s.stop) }) }
 func (s *Service) Stopped() <-chan struct{} { return s.stop }
