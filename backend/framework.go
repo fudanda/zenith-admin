@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 	"strings"
@@ -12,6 +13,7 @@ import (
 	"time"
 
 	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
+	"github.com/fudanda/zenith-admin/backend/internal/contracts"
 	gofrhttp "gofr.dev/pkg/gofr/http"
 )
 
@@ -20,6 +22,7 @@ type Config struct {
 	Address       string
 	SecureCookies bool
 	Modules       []Module
+	DashboardFS   fs.FS
 }
 
 type Module interface {
@@ -32,7 +35,7 @@ type Module interface {
 type Route struct {
 	Method, Path, OperationID, Permission string
 	AnyPermissions                        []string
-	Public, PlatformOnly                  bool
+	Public, SuperAdminOnly                bool
 	Handler                               http.Handler
 }
 
@@ -50,6 +53,11 @@ func (r *Registrar) Register(route Route) error {
 	}
 	if route.Method == "" || !strings.HasPrefix(route.Path, "/api/v1/") || route.OperationID == "" || route.Handler == nil || (!route.Public && route.Permission == "") {
 		return errors.New("route requires method, /api/v1 path, operation ID, handler, and permission unless public")
+	}
+	if op, ok := contracts.Operations[route.OperationID]; ok {
+		if route.Method != op.Method || route.Path != op.Path || route.Permission != op.Permission || route.Public != op.Public || route.SuperAdminOnly != op.SuperAdminOnly || strings.Join(route.AnyPermissions, ",") != strings.Join(op.AnyPermissions, ",") {
+			return fmt.Errorf("route %s differs from its generated contract", route.OperationID)
+		}
 	}
 	key := route.Method + " " + route.Path
 	if r.routes[key] || r.operations[route.OperationID] {
@@ -126,8 +134,14 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 	if err != nil {
 		return nil, err
 	}
+	var version int
+	if err = store.DB.QueryRowContext(ctx, "SELECT COALESCE(MAX(version),0) FROM zenith_schema_versions").Scan(&version); err != nil || version != foundationSchemaVersion {
+		store.Close()
+		return nil, fmt.Errorf("database migration required: run zenith migrate (expected version %d)", foundationSchemaVersion)
+	}
 	idle := make(chan struct{})
 	close(idle)
+	store.installAuditHooks()
 	f := &Framework{Store: store, config: config, idle: idle}
 	router := gofrhttp.NewRouter()
 	reg := &Registrar{router: router, routes: map[string]bool{}, operations: map[string]bool{}, guard: f.guard}
@@ -150,7 +164,7 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 	router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fail(w, http.StatusNotFound, "not_found", "资源不存在")
 	})
-	f.handler = router
+	f.handler = dashboardHandler(router, config.DashboardFS)
 	f.startMaintenance()
 	return f, nil
 }

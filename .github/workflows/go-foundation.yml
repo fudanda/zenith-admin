@@ -31,9 +31,20 @@ jobs:
           cache-dependency-path: backend/go.sum
       - run: npm ci
       - run: npm run check:foundation-contracts
+      - run: npm run check:foundation-ui
       - run: npm run generate:foundation-go-models
       - run: git diff --exit-code -- backend/internal/contracts
+      - run: npm run check:types
+      - run: npm run lint
+      - run: npm run test:shared
       - run: go test ./...
         working-directory: backend
-      - run: go test -tags integration ./...
+      - run: npm run build:go:web
+      - run: node scripts/build-go-release.mjs
+      - run: npx playwright install --with-deps chromium
+      - run: npx vitest run src/providers/GoAuthProvider.test.tsx src/lib/go-transport.test.ts src/lib/go-auth-api.test.ts src/lib/foundation-operations.test.ts src/lib/contract-query.test.tsx src/hooks/PreferencesProvider.test.tsx --maxWorkers=3
+        working-directory: packages/web
+      - run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration ./...
+        working-directory: backend
+      - run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" ZENITH_BROWSER_PRODUCTION=true go test -tags integration -run TestOriginalWebFoundation .
         working-directory: backend

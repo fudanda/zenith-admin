@@ -38,20 +38,6 @@ func (_c *SessionCreate) SetCsrfHash(v string) *SessionCreate {
 	return _c
 }
 
-// SetTenantViewID sets the "tenant_view_id" field.
-func (_c *SessionCreate) SetTenantViewID(v int) *SessionCreate {
-	_c.mutation.SetTenantViewID(v)
-	return _c
-}
-
-// SetNillableTenantViewID sets the "tenant_view_id" field if the given value is not nil.
-func (_c *SessionCreate) SetNillableTenantViewID(v *int) *SessionCreate {
-	if v != nil {
-		_c.SetTenantViewID(*v)
-	}
-	return _c
-}
-
 // SetExpiresAt sets the "expires_at" field.
 func (_c *SessionCreate) SetExpiresAt(v time.Time) *SessionCreate {
 	_c.mutation.SetExpiresAt(v)
@@ -68,6 +54,76 @@ func (_c *SessionCreate) SetRevokedAt(v time.Time) *SessionCreate {
 func (_c *SessionCreate) SetNillableRevokedAt(v *time.Time) *SessionCreate {
 	if v != nil {
 		_c.SetRevokedAt(*v)
+	}
+	return _c
+}
+
+// SetIP sets the "ip" field.
+func (_c *SessionCreate) SetIP(v string) *SessionCreate {
+	_c.mutation.SetIP(v)
+	return _c
+}
+
+// SetNillableIP sets the "ip" field if the given value is not nil.
+func (_c *SessionCreate) SetNillableIP(v *string) *SessionCreate {
+	if v != nil {
+		_c.SetIP(*v)
+	}
+	return _c
+}
+
+// SetClient sets the "client" field.
+func (_c *SessionCreate) SetClient(v string) *SessionCreate {
+	_c.mutation.SetClient(v)
+	return _c
+}
+
+// SetNillableClient sets the "client" field if the given value is not nil.
+func (_c *SessionCreate) SetNillableClient(v *string) *SessionCreate {
+	if v != nil {
+		_c.SetClient(*v)
+	}
+	return _c
+}
+
+// SetBrowser sets the "browser" field.
+func (_c *SessionCreate) SetBrowser(v string) *SessionCreate {
+	_c.mutation.SetBrowser(v)
+	return _c
+}
+
+// SetNillableBrowser sets the "browser" field if the given value is not nil.
+func (_c *SessionCreate) SetNillableBrowser(v *string) *SessionCreate {
+	if v != nil {
+		_c.SetBrowser(*v)
+	}
+	return _c
+}
+
+// SetOs sets the "os" field.
+func (_c *SessionCreate) SetOs(v string) *SessionCreate {
+	_c.mutation.SetOs(v)
+	return _c
+}
+
+// SetNillableOs sets the "os" field if the given value is not nil.
+func (_c *SessionCreate) SetNillableOs(v *string) *SessionCreate {
+	if v != nil {
+		_c.SetOs(*v)
+	}
+	return _c
+}
+
+// SetLastActiveAt sets the "last_active_at" field.
+func (_c *SessionCreate) SetLastActiveAt(v time.Time) *SessionCreate {
+	_c.mutation.SetLastActiveAt(v)
+	return _c
+}
+
+// SetNillableLastActiveAt sets the "last_active_at" field if the given value is not nil.
+func (_c *SessionCreate) SetNillableLastActiveAt(v *time.Time) *SessionCreate {
+	if v != nil {
+		_c.SetLastActiveAt(*v)
 	}
 	return _c
 }
@@ -121,6 +177,26 @@ func (_c *SessionCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *SessionCreate) defaults() {
+	if _, ok := _c.mutation.IP(); !ok {
+		v := session.DefaultIP
+		_c.mutation.SetIP(v)
+	}
+	if _, ok := _c.mutation.GetClient(); !ok {
+		v := session.DefaultClient
+		_c.mutation.SetClient(v)
+	}
+	if _, ok := _c.mutation.Browser(); !ok {
+		v := session.DefaultBrowser
+		_c.mutation.SetBrowser(v)
+	}
+	if _, ok := _c.mutation.Os(); !ok {
+		v := session.DefaultOs
+		_c.mutation.SetOs(v)
+	}
+	if _, ok := _c.mutation.LastActiveAt(); !ok {
+		v := session.DefaultLastActiveAt()
+		_c.mutation.SetLastActiveAt(v)
+	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		v := session.DefaultCreatedAt()
 		_c.mutation.SetCreatedAt(v)
@@ -140,6 +216,21 @@ func (_c *SessionCreate) check() error {
 	}
 	if _, ok := _c.mutation.ExpiresAt(); !ok {
 		return &ValidationError{Name: "expires_at", err: errors.New(`ent: missing required field "Session.expires_at"`)}
+	}
+	if _, ok := _c.mutation.IP(); !ok {
+		return &ValidationError{Name: "ip", err: errors.New(`ent: missing required field "Session.ip"`)}
+	}
+	if _, ok := _c.mutation.GetClient(); !ok {
+		return &ValidationError{Name: "client", err: errors.New(`ent: missing required field "Session.client"`)}
+	}
+	if _, ok := _c.mutation.Browser(); !ok {
+		return &ValidationError{Name: "browser", err: errors.New(`ent: missing required field "Session.browser"`)}
+	}
+	if _, ok := _c.mutation.Os(); !ok {
+		return &ValidationError{Name: "os", err: errors.New(`ent: missing required field "Session.os"`)}
+	}
+	if _, ok := _c.mutation.LastActiveAt(); !ok {
+		return &ValidationError{Name: "last_active_at", err: errors.New(`ent: missing required field "Session.last_active_at"`)}
 	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Session.created_at"`)}
@@ -182,10 +273,6 @@ func (_c *SessionCreate) createSpec() (*Session, *sqlgraph.CreateSpec) {
 		_spec.SetField(session.FieldCsrfHash, field.TypeString, value)
 		_node.CsrfHash = value
 	}
-	if value, ok := _c.mutation.TenantViewID(); ok {
-		_spec.SetField(session.FieldTenantViewID, field.TypeInt, value)
-		_node.TenantViewID = &value
-	}
 	if value, ok := _c.mutation.ExpiresAt(); ok {
 		_spec.SetField(session.FieldExpiresAt, field.TypeTime, value)
 		_node.ExpiresAt = value
@@ -193,6 +280,26 @@ func (_c *SessionCreate) createSpec() (*Session, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.RevokedAt(); ok {
 		_spec.SetField(session.FieldRevokedAt, field.TypeTime, value)
 		_node.RevokedAt = &value
+	}
+	if value, ok := _c.mutation.IP(); ok {
+		_spec.SetField(session.FieldIP, field.TypeString, value)
+		_node.IP = value
+	}
+	if value, ok := _c.mutation.GetClient(); ok {
+		_spec.SetField(session.FieldClient, field.TypeString, value)
+		_node.Client = value
+	}
+	if value, ok := _c.mutation.Browser(); ok {
+		_spec.SetField(session.FieldBrowser, field.TypeString, value)
+		_node.Browser = value
+	}
+	if value, ok := _c.mutation.Os(); ok {
+		_spec.SetField(session.FieldOs, field.TypeString, value)
+		_node.Os = value
+	}
+	if value, ok := _c.mutation.LastActiveAt(); ok {
+		_spec.SetField(session.FieldLastActiveAt, field.TypeTime, value)
+		_node.LastActiveAt = value
 	}
 	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(session.FieldCreatedAt, field.TypeTime, value)

@@ -1,3 +1,4 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, SideSheet, Space, Tabs, TabPane } from '@douyinfe/semi-ui';
@@ -67,7 +68,7 @@ function EntityContextContent({ entityRef, showAnchor }: {
           <TabPane tab="关联记录" itemKey="relations">
             <RelationPanel entityType={entityRef.type} entityKey={entityRef.key} enabled={tab === 'relations'} showAnchor={showAnchor} />
           </TabPane>
-          {ENTITY_REGISTRY[entityRef.type].capabilities.includes('timeline') && <TabPane tab="业务时间线" itemKey="timeline">
+          {!IS_GO_FOUNDATION && ENTITY_REGISTRY[entityRef.type].capabilities.includes('timeline') && <TabPane tab="业务时间线" itemKey="timeline">
             <EntityTimeline entityType={entityRef.type} entityKey={entityRef.key} enabled={tab === 'timeline'} />
           </TabPane>}
         </Tabs>

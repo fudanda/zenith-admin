@@ -5,6 +5,8 @@ import { config } from '@/config';
 import { HttpClient, type ApiResponseWithMeta, type HttpRequestOptions } from './http-client';
 import { downloadBlob } from './download';
 import { showRequestErrorToast } from './request-toast';
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
+import { goTransport, GO_SESSION_INVALIDATED, validateGoPath } from '@/lib/go-transport';
 
 export type { ApiResponseWithMeta } from './http-client';
 
@@ -29,6 +31,10 @@ class Request extends HttpClient {
         if (event.lengthComputable) onProgress(Math.round((event.loaded / event.total) * 100));
       });
       xhr.addEventListener('load', () => {
+        if (IS_GO_FOUNDATION && xhr.status === 401) {
+          goTransport.clearSession();
+          globalThis.dispatchEvent(new Event(GO_SESSION_INVALIDATED));
+        }
         try {
           const data = JSON.parse(xhr.responseText) as ApiResponse<T>;
           if (data.code !== 0 && !restOpts.silent) showRequestErrorToast(data.message || '操作失败');
@@ -82,8 +88,30 @@ class Request extends HttpClient {
   }
 }
 
-export const request = new Request({
-  baseUrl: config.apiBaseUrl,
+/** Retains Zenith's upload progress and binary channels with Cookie/CSRF auth. */
+class GoRequest extends Request {
+  override authHeaders(): Record<string, string> { return goTransport.sessionHeaders(); }
+  protected override async tryRefreshToken(): Promise<'invalid'> { return 'invalid'; }
+  protected override clearAuthAndRedirect(): void {
+    goTransport.clearSession();
+    globalThis.dispatchEvent(new Event(GO_SESSION_INVALIDATED));
+  }
+  override request<T>(url: string, options: RequestInit & RequestOptions = {}): Promise<ApiResponseWithMeta<T>> {
+    validateGoPath(url);
+    return super.request<T>(url, { ...options, credentials: 'same-origin' });
+  }
+  override fetchRaw(url: string, options: RequestInit & Pick<RequestOptions, 'silent'> = {}): Promise<Response | null> {
+    validateGoPath(url);
+    return super.fetchRaw(url, { ...options, credentials: 'same-origin' });
+  }
+  override postForm<T>(url: string, body: FormData, options: RequestOptions & { onProgress?: (percent: number) => void } = {}) {
+    validateGoPath(url);
+    return super.postForm<T>(url, body, options);
+  }
+}
+
+export const request = new (IS_GO_FOUNDATION ? GoRequest : Request)({
+  baseUrl: IS_GO_FOUNDATION ? '' : config.apiBaseUrl,
   tokenKey: TOKEN_KEY,
   refreshTokenKey: REFRESH_TOKEN_KEY,
   refreshPath: authContract.refresh.fullPath,

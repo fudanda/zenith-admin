@@ -28,33 +28,6 @@ func (_u *DictUpdate) Where(ps ...predicate.Dict) *DictUpdate {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *DictUpdate) SetTenantID(v int) *DictUpdate {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *DictUpdate) SetNillableTenantID(v *int) *DictUpdate {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *DictUpdate) AddTenantID(v int) *DictUpdate {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *DictUpdate) ClearTenantID() *DictUpdate {
-	_u.mutation.ClearTenantID()
-	return _u
-}
-
 // SetName sets the "name" field.
 func (_u *DictUpdate) SetName(v string) *DictUpdate {
 	_u.mutation.SetName(v)
@@ -205,15 +178,6 @@ func (_u *DictUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(dict.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(dict.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(dict.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(dict.FieldName, field.TypeString, value)
 	}
@@ -253,33 +217,6 @@ type DictUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *DictMutation
-}
-
-// SetTenantID sets the "tenant_id" field.
-func (_u *DictUpdateOne) SetTenantID(v int) *DictUpdateOne {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *DictUpdateOne) SetNillableTenantID(v *int) *DictUpdateOne {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *DictUpdateOne) AddTenantID(v int) *DictUpdateOne {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *DictUpdateOne) ClearTenantID() *DictUpdateOne {
-	_u.mutation.ClearTenantID()
-	return _u
 }
 
 // SetName sets the "name" field.
@@ -461,15 +398,6 @@ func (_u *DictUpdateOne) sqlSave(ctx context.Context) (_node *Dict, err error) {
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(dict.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(dict.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(dict.FieldTenantID, field.TypeInt)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(dict.FieldName, field.TypeString, value)

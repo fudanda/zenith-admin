@@ -9,14 +9,14 @@ import { useAuth } from '@/hooks/useAuth';
 
 // 图表区懒加载：'@/components/charts' 拖 ~1.9MB 的 @visactor 依赖树，
 // 首页主体（欢迎区/统计概览/公告）先渲染，图表 chunk 就绪后补齐
-const DashboardChartsRow = lazy(() => import('./DashboardCharts'));
+const DashboardChartsRow = /* @__PURE__ */ lazy(() => import('./DashboardCharts'));
 
 import { formatDate, stripHtml } from '@/utils/date';
 import DateTimeText from '@/components/DateTimeText';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { usePermission } from '@/hooks/usePermission';
 import { useDictItems } from '@/hooks/useDictItems';
-const AnnouncementDetailModal = lazy(() => import('@/components/AnnouncementDetailModal'));
+const AnnouncementDetailModal = /* @__PURE__ */ lazy(() => import('@/components/AnnouncementDetailModal'));
 import { UserAvatar } from '@/components/UserAvatar';
 import type { DashboardCharts, DashboardStats } from '@zenith/shared/analytics';
 import { useDashboardCharts, useDashboardStats } from '@/hooks/queries/dashboard';
@@ -27,6 +27,8 @@ import {
 } from '@/hooks/queries/announcements';
 import { useMonitorAlertOverview } from '@/hooks/queries/monitor-alerts';
 import './DashboardPage.css';
+import { isPageAvailable } from '@/lib/foundation-mode';
+const IS_GO_FOUNDATION = import.meta.env.VITE_GO_FOUNDATION === 'true';
 
 const { Text } = Typography;
 
@@ -80,15 +82,15 @@ export default function DashboardPage() {
   const {
     getLabel: getAnnouncementTypeLabel,
     getColor: getAnnouncementTypeColor,
-  } = useDictItems('announcement_type');
+  } = useDictItems('announcement_type', !IS_GO_FOUNDATION);
   const {
     getLabel: getAnnouncementPriorityLabel,
     getColor: getAnnouncementPriorityColor,
-  } = useDictItems('announcement_priority');
+  } = useDictItems('announcement_priority', !IS_GO_FOUNDATION);
   const { permissions, hasPermission } = usePermission();
   const { user } = useAuth();
   const isAdmin = permissions.includes('*');
-  const canViewAlertOverview = hasPermission('alert:overview:list');
+  const canViewAlertOverview = !IS_GO_FOUNDATION && hasPermission('alert:overview:list');
   const alertOverviewQuery = useMonitorAlertOverview('24h', canViewAlertOverview);
   const alertOverview = alertOverviewQuery.data ?? null;
   const [selectedNotice, setSelectedNotice] = useState<AnnouncementWithRead | null>(null);
@@ -264,7 +266,7 @@ export default function DashboardPage() {
                 key={item.key}
                 type="button"
                 className="dashboard-stat-item dashboard-stat-item--link"
-                onClick={() => navigate(item.to)}
+                disabled={!isPageAvailable(item.to)} onClick={() => navigate(item.to)}
               >
                 <div className="dashboard-stat-item__value">
                   {stats?.[item.key] ?? EMPTY_PLACEHOLDER}
@@ -318,7 +320,7 @@ export default function DashboardPage() {
         </section>
       )}
 
-      {isAdmin && (
+      {isAdmin && !IS_GO_FOUNDATION && (
         <Suspense          fallback={
             <div className="dashboard-charts-row">
               {['7 天登录趋势', '今日操作分布'].map((title) => (
@@ -344,7 +346,7 @@ export default function DashboardPage() {
       )}
 
       {/* 区块只承载公告（列表与「查看全部」都指向 /announcements），标题不再叫「通知公告」避免被当成通知中心 */}
-      <section className="dashboard-section dashboard-section--notice" aria-label="公告">
+      {!IS_GO_FOUNDATION && <section className="dashboard-section dashboard-section--notice" aria-label="公告">
         <header className="dashboard-section-header">
           <div className="dashboard-section-heading">
             <Megaphone size={15} />
@@ -353,7 +355,7 @@ export default function DashboardPage() {
           <Button theme="borderless" size="small" type="tertiary" onClick={() => navigate('/announcements')}>查看全部</Button>
         </header>
         {renderNotices()}
-      </section>
+      </section>}
 
       {/* ===== 公告详情 Modal ===== */}
       {selectedNotice !== null && <Suspense fallback={null}><AnnouncementDetailModal

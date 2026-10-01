@@ -12,7 +12,7 @@ import (
 )
 
 var errBatchUserMissing = errors.New("部分账号不存在或不在当前可操作范围")
-var errBatchUserProtected = errors.New("不能批量删除或停用当前账号、平台超级管理员")
+var errBatchUserProtected = errors.New("不能批量删除或停用当前账号、系统超级管理员")
 
 func validBatchUserIDs(ids []int) bool {
 	if len(ids) == 0 || len(ids) > 200 {
@@ -41,7 +41,7 @@ func (f *Framework) protectedBatchUser(r *http.Request, id int) (bool, error) {
 		if err != nil {
 			return false, err
 		}
-		if row.Code == "super_admin" && row.TenantID == nil {
+		if row.Code == "super_admin" {
 			return true, nil
 		}
 	}
@@ -113,13 +113,11 @@ func (f *Framework) batchUsers(w http.ResponseWriter, r *http.Request, ids []int
 				}
 			}
 		}
-		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+		if err := f.syncDynamicGroupsInTx(r.Context(), tx, p); err != nil {
 			return err
 		}
 		audit := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation(operation).SetResource("users")
-		if p.TenantID != nil {
-			audit.SetTenantID(*p.TenantID)
-		}
+
 		return audit.Exec(r.Context())
 	})
 	if errors.Is(err, errBatchUserMissing) {

@@ -20,20 +20,6 @@ type RoleCreate struct {
 	hooks    []Hook
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *RoleCreate) SetTenantID(v int) *RoleCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *RoleCreate) SetNillableTenantID(v *int) *RoleCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetName sets the "name" field.
 func (_c *RoleCreate) SetName(v string) *RoleCreate {
 	_c.mutation.SetName(v)
@@ -215,10 +201,6 @@ func (_c *RoleCreate) createSpec() (*Role, *sqlgraph.CreateSpec) {
 		_node = &Role{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(role.Table, sqlgraph.NewFieldSpec(role.FieldID, field.TypeInt))
 	)
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(role.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
-	}
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(role.FieldName, field.TypeString, value)
 		_node.Name = value

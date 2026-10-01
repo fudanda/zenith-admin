@@ -17,8 +17,6 @@ type Department struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
-	// TenantID holds the value of the "tenant_id" field.
-	TenantID *int `json:"tenant_id,omitempty"`
 	// ParentID holds the value of the "parent_id" field.
 	ParentID int `json:"parent_id,omitempty"`
 	// Name holds the value of the "name" field.
@@ -49,7 +47,7 @@ func (*Department) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case department.FieldID, department.FieldTenantID, department.FieldParentID, department.FieldLeaderID, department.FieldSort:
+		case department.FieldID, department.FieldParentID, department.FieldLeaderID, department.FieldSort:
 			values[i] = new(sql.NullInt64)
 		case department.FieldName, department.FieldCode, department.FieldCategory, department.FieldPhone, department.FieldEmail, department.FieldStatus:
 			values[i] = new(sql.NullString)
@@ -76,13 +74,6 @@ func (_m *Department) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			_m.ID = int(value.Int64)
-		case department.FieldTenantID:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
-			} else if value.Valid {
-				_m.TenantID = new(int)
-				*_m.TenantID = int(value.Int64)
-			}
 		case department.FieldParentID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
 				return fmt.Errorf("unexpected type %T for field parent_id", values[i])
@@ -188,11 +179,6 @@ func (_m *Department) String() string {
 	var builder strings.Builder
 	builder.WriteString("Department(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
-	if v := _m.TenantID; v != nil {
-		builder.WriteString("tenant_id=")
-		builder.WriteString(fmt.Sprintf("%v", *v))
-	}
-	builder.WriteString(", ")
 	builder.WriteString("parent_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.ParentID))
 	builder.WriteString(", ")

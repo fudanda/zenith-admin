@@ -20,20 +20,6 @@ type UserCreate struct {
 	hooks    []Hook
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *UserCreate) SetTenantID(v int) *UserCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *UserCreate) SetNillableTenantID(v *int) *UserCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetUsername sets the "username" field.
 func (_c *UserCreate) SetUsername(v string) *UserCreate {
 	_c.mutation.SetUsername(v)
@@ -330,10 +316,6 @@ func (_c *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node = &User{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt))
 	)
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(user.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
-	}
 	if value, ok := _c.mutation.Username(); ok {
 		_spec.SetField(user.FieldUsername, field.TypeString, value)
 		_node.Username = value

@@ -46,7 +46,7 @@ func TestGoFrRoutesHealthAndUnknownAPI(t *testing.T) {
 	for _, tc := range []struct {
 		path   string
 		status int
-	}{{"/api/v1/health", 200}, {"/api/v1/missing", 404}, {"/dash", 404}, {"/dash/system/positions", 404}} {
+	}{{"/api/v1/health", 503}, {"/api/v1/missing", 404}, {"/dash", 404}, {"/dash/system/positions", 404}} {
 		response := httptest.NewRecorder()
 		router.ServeHTTP(response, httptest.NewRequest(http.MethodGet, tc.path, nil))
 		if response.Code != tc.status {

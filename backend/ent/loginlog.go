@@ -21,10 +21,16 @@ type LoginLog struct {
 	UserID *int `json:"user_id,omitempty"`
 	// Username holds the value of the "username" field.
 	Username string `json:"username,omitempty"`
-	// TenantID holds the value of the "tenant_id" field.
-	TenantID *int `json:"tenant_id,omitempty"`
 	// IP holds the value of the "ip" field.
 	IP string `json:"ip,omitempty"`
+	// EventType holds the value of the "event_type" field.
+	EventType string `json:"event_type,omitempty"`
+	// UserAgent holds the value of the "user_agent" field.
+	UserAgent string `json:"user_agent,omitempty"`
+	// Browser holds the value of the "browser" field.
+	Browser string `json:"browser,omitempty"`
+	// Os holds the value of the "os" field.
+	Os string `json:"os,omitempty"`
 	// Success holds the value of the "success" field.
 	Success bool `json:"success,omitempty"`
 	// Reason holds the value of the "reason" field.
@@ -41,9 +47,9 @@ func (*LoginLog) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case loginlog.FieldSuccess:
 			values[i] = new(sql.NullBool)
-		case loginlog.FieldID, loginlog.FieldUserID, loginlog.FieldTenantID:
+		case loginlog.FieldID, loginlog.FieldUserID:
 			values[i] = new(sql.NullInt64)
-		case loginlog.FieldUsername, loginlog.FieldIP, loginlog.FieldReason:
+		case loginlog.FieldUsername, loginlog.FieldIP, loginlog.FieldEventType, loginlog.FieldUserAgent, loginlog.FieldBrowser, loginlog.FieldOs, loginlog.FieldReason:
 			values[i] = new(sql.NullString)
 		case loginlog.FieldCreatedAt:
 			values[i] = new(sql.NullTime)
@@ -81,18 +87,35 @@ func (_m *LoginLog) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.Username = value.String
 			}
-		case loginlog.FieldTenantID:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
-			} else if value.Valid {
-				_m.TenantID = new(int)
-				*_m.TenantID = int(value.Int64)
-			}
 		case loginlog.FieldIP:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field ip", values[i])
 			} else if value.Valid {
 				_m.IP = value.String
+			}
+		case loginlog.FieldEventType:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field event_type", values[i])
+			} else if value.Valid {
+				_m.EventType = value.String
+			}
+		case loginlog.FieldUserAgent:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field user_agent", values[i])
+			} else if value.Valid {
+				_m.UserAgent = value.String
+			}
+		case loginlog.FieldBrowser:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field browser", values[i])
+			} else if value.Valid {
+				_m.Browser = value.String
+			}
+		case loginlog.FieldOs:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field os", values[i])
+			} else if value.Valid {
+				_m.Os = value.String
 			}
 		case loginlog.FieldSuccess:
 			if value, ok := values[i].(*sql.NullBool); !ok {
@@ -156,13 +179,20 @@ func (_m *LoginLog) String() string {
 	builder.WriteString("username=")
 	builder.WriteString(_m.Username)
 	builder.WriteString(", ")
-	if v := _m.TenantID; v != nil {
-		builder.WriteString("tenant_id=")
-		builder.WriteString(fmt.Sprintf("%v", *v))
-	}
-	builder.WriteString(", ")
 	builder.WriteString("ip=")
 	builder.WriteString(_m.IP)
+	builder.WriteString(", ")
+	builder.WriteString("event_type=")
+	builder.WriteString(_m.EventType)
+	builder.WriteString(", ")
+	builder.WriteString("user_agent=")
+	builder.WriteString(_m.UserAgent)
+	builder.WriteString(", ")
+	builder.WriteString("browser=")
+	builder.WriteString(_m.Browser)
+	builder.WriteString(", ")
+	builder.WriteString("os=")
+	builder.WriteString(_m.Os)
 	builder.WriteString(", ")
 	builder.WriteString("success=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Success))

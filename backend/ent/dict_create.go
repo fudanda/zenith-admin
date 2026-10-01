@@ -20,20 +20,6 @@ type DictCreate struct {
 	hooks    []Hook
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *DictCreate) SetTenantID(v int) *DictCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *DictCreate) SetNillableTenantID(v *int) *DictCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetName sets the "name" field.
 func (_c *DictCreate) SetName(v string) *DictCreate {
 	_c.mutation.SetName(v)
@@ -204,10 +190,6 @@ func (_c *DictCreate) createSpec() (*Dict, *sqlgraph.CreateSpec) {
 		_node = &Dict{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(dict.Table, sqlgraph.NewFieldSpec(dict.FieldID, field.TypeInt))
 	)
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(dict.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
-	}
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(dict.FieldName, field.TypeString, value)
 		_node.Name = value

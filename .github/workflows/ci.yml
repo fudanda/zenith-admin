@@ -1,9 +1,7 @@
-name: CI
+name: Legacy CI
 
 on:
-  push:
-    branches: [master]
-  pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -40,15 +38,15 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint
+        run: npm run legacy:lint
 
       - name: Test
-        run: npm run test
+        run: npm run legacy:test
 
       - name: Build
         env:
           VITE_DEPLOYMENT_ID: ci-build
-        run: npm run build
+        run: npm run legacy:build
 
       # 产物预算：入口关键路径文件数 / 体积、壳层增量、chunk 总数超过 packages/web/bundle-budget.json 即失败
       - name: Bundle budget

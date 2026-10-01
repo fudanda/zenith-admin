@@ -12,13 +12,14 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/filestorageconfig"
 	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
 	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
+	"github.com/fudanda/zenith-admin/backend/internal/contracts"
 	"github.com/gorilla/mux"
 )
 
 func storageConfigView(row *ent.FileStorageConfig) map[string]any {
 	return map[string]any{
 		"id": row.ID, "name": row.Name, "provider": "local", "status": row.Status, "isDefault": row.IsDefault, "basePath": nil, "objectAcl": "default",
-		"urlStrategy": "proxy", "publicBaseUrl": nil, "presignedExpirySeconds": 3600, "localRootPath": row.LocalRootPath, "remark": row.Remark,
+		"urlStrategy": "proxy", "publicBaseUrl": nil, "presignedExpirySeconds": contracts.StorageDefaults.PresignedExpirySeconds, "localRootPath": row.LocalRootPath, "remark": row.Remark,
 		"createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt,
 	}
 }
@@ -38,6 +39,9 @@ func validateStorageConfig(in storageConfigInput) error {
 	}
 	if in.Status != "enabled" && in.Status != "disabled" {
 		return errors.New("状态无效")
+	}
+	if in.IsDefault && in.Status != "enabled" {
+		return errors.New("默认存储必须启用")
 	}
 	if !filepath.IsAbs(in.LocalRootPath) || len(in.LocalRootPath) > 512 {
 		return errors.New("存储目录必须是绝对路径")
@@ -67,6 +71,23 @@ func (f *Framework) listFileConfigs(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		query = query.Where(filestorageconfig.StatusEQ(status))
+	}
+	for _, bound := range []struct {
+		key string
+		end bool
+	}{{"startTime", false}, {"endTime", true}} {
+		if raw := q.Get(bound.key); raw != "" {
+			value, err := parseFilterDateBound(raw, bound.end)
+			if err != nil {
+				fail(w, 400, "invalid_filter", err.Error())
+				return
+			}
+			if bound.end {
+				query = query.Where(filestorageconfig.UpdatedAtLTE(value))
+			} else {
+				query = query.Where(filestorageconfig.UpdatedAtGTE(value))
+			}
+		}
 	}
 	total, err := query.Clone().Count(r.Context())
 	if err != nil {
@@ -176,7 +197,7 @@ func (f *Framework) saveFileConfig(w http.ResponseWriter, r *http.Request) {
 		case "presignedExpirySeconds":
 			var value int
 			err = json.Unmarshal(raw, &value)
-			if err == nil && value != 3600 {
+			if err == nil && value != contracts.StorageDefaults.PresignedExpirySeconds {
 				fail(w, 400, "unsupported_option", "本地存储固定使用代理访问")
 				return
 			}
@@ -194,9 +215,38 @@ func (f *Framework) saveFileConfig(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	resolved, pathErr := filepath.Abs(in.LocalRootPath)
+	if pathErr != nil {
+		fail(w, 400, "invalid_path", "存储目录无效")
+		return
+	}
+	in.LocalRootPath = resolved
 	if err := validateStorageConfig(in); err != nil {
 		fail(w, 400, "invalid_request", err.Error())
 		return
+	}
+	if id != 0 {
+		current, err := f.Store.Client.FileStorageConfig.Get(r.Context(), id)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "存储查询失败")
+			return
+		}
+		if filepath.Clean(current.LocalRootPath) != filepath.Clean(in.LocalRootPath) {
+			files, err := f.Store.Client.ManagedFile.Query().Where(managedfile.StorageConfigIDEQ(id)).Exist(r.Context())
+			if err != nil {
+				fail(w, 503, "database_unavailable", "文件查询失败")
+				return
+			}
+			active, err := f.Store.Client.UploadSession.Query().Where(uploadsession.StorageConfigIDEQ(id), uploadsession.StatusEQ("uploading")).Exist(r.Context())
+			if err != nil {
+				fail(w, 503, "database_unavailable", "上传查询失败")
+				return
+			}
+			if files || active {
+				fail(w, 409, "storage_in_use", "仍有文件或上传时不能修改存储目录")
+				return
+			}
+		}
 	}
 	in.LocalRootPath = filepath.Clean(in.LocalRootPath)
 	if err := os.MkdirAll(in.LocalRootPath, 0700); err != nil {
@@ -318,16 +368,52 @@ func (f *Framework) deleteFileConfig(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f *Framework) testFileConfig(w http.ResponseWriter, r *http.Request) {
-	var in struct{ Provider, LocalRootPath string }
-	if err := decode(r, &in); err != nil || in.Provider != "local" || !filepath.IsAbs(in.LocalRootPath) {
-		fail(w, 400, "invalid_request", "需要本地绝对目录")
+	var values map[string]json.RawMessage
+	if err := decode(r, &values); err != nil {
+		fail(w, 400, "invalid_request", "配置无效")
 		return
 	}
-	if err := checkWritableDirectory(in.LocalRootPath); err != nil {
+	provider, localPath := "local", ""
+	if rawID := mux.Vars(r)["id"]; rawID != "" {
+		id, err := intParam(rawID)
+		if err != nil {
+			fail(w, 400, "invalid_id", err.Error())
+			return
+		}
+		row, err := f.Store.Client.FileStorageConfig.Get(r.Context(), id)
+		if err != nil {
+			fail(w, 404, "not_found", "存储配置不存在")
+			return
+		}
+		provider = row.Provider
+		localPath = row.LocalRootPath
+	}
+	if raw, ok := values["provider"]; ok {
+		if json.Unmarshal(raw, &provider) != nil {
+			fail(w, 400, "invalid_request", "存储类型无效")
+			return
+		}
+	}
+	if raw, ok := values["localRootPath"]; ok {
+		if json.Unmarshal(raw, &localPath) != nil {
+			fail(w, 400, "invalid_request", "存储目录无效")
+			return
+		}
+	}
+	if provider != "local" || localPath == "" {
+		fail(w, 400, "invalid_request", "需要本地存储目录")
+		return
+	}
+	resolved, err := filepath.Abs(localPath)
+	if err != nil {
+		fail(w, 400, "invalid_request", "存储目录无效")
+		return
+	}
+	if err = checkWritableDirectory(resolved); err != nil {
 		fail(w, 400, "storage_unavailable", "存储目录不可写")
 		return
 	}
-	respond(w, 200, map[string]bool{"ok": true})
+	respond(w, 200, nil)
 }
 
 func checkWritableDirectory(path string) error {

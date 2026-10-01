@@ -196,7 +196,7 @@ export default function DepartmentsPage() {
         actions={(
           <>
             {expandButton}
-            <ExportButton entity="system.departments" query={filterQuery} />
+            <ExportButton  entity="system.departments" query={filterQuery} />
           </>
         )}
         filterTitle="部门筛选"

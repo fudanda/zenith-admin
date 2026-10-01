@@ -64,14 +64,29 @@ func Username(v string) predicate.LoginLog {
 	return predicate.LoginLog(sql.FieldEQ(FieldUsername, v))
 }
 
-// TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
-func TenantID(v int) predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldEQ(FieldTenantID, v))
-}
-
 // IP applies equality check predicate on the "ip" field. It's identical to IPEQ.
 func IP(v string) predicate.LoginLog {
 	return predicate.LoginLog(sql.FieldEQ(FieldIP, v))
+}
+
+// EventType applies equality check predicate on the "event_type" field. It's identical to EventTypeEQ.
+func EventType(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEQ(FieldEventType, v))
+}
+
+// UserAgent applies equality check predicate on the "user_agent" field. It's identical to UserAgentEQ.
+func UserAgent(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEQ(FieldUserAgent, v))
+}
+
+// Browser applies equality check predicate on the "browser" field. It's identical to BrowserEQ.
+func Browser(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEQ(FieldBrowser, v))
+}
+
+// Os applies equality check predicate on the "os" field. It's identical to OsEQ.
+func Os(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEQ(FieldOs, v))
 }
 
 // Success applies equality check predicate on the "success" field. It's identical to SuccessEQ.
@@ -204,56 +219,6 @@ func UsernameContainsFold(v string) predicate.LoginLog {
 	return predicate.LoginLog(sql.FieldContainsFold(FieldUsername, v))
 }
 
-// TenantIDEQ applies the EQ predicate on the "tenant_id" field.
-func TenantIDEQ(v int) predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldEQ(FieldTenantID, v))
-}
-
-// TenantIDNEQ applies the NEQ predicate on the "tenant_id" field.
-func TenantIDNEQ(v int) predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldNEQ(FieldTenantID, v))
-}
-
-// TenantIDIn applies the In predicate on the "tenant_id" field.
-func TenantIDIn(vs ...int) predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldIn(FieldTenantID, vs...))
-}
-
-// TenantIDNotIn applies the NotIn predicate on the "tenant_id" field.
-func TenantIDNotIn(vs ...int) predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldNotIn(FieldTenantID, vs...))
-}
-
-// TenantIDGT applies the GT predicate on the "tenant_id" field.
-func TenantIDGT(v int) predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldGT(FieldTenantID, v))
-}
-
-// TenantIDGTE applies the GTE predicate on the "tenant_id" field.
-func TenantIDGTE(v int) predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldGTE(FieldTenantID, v))
-}
-
-// TenantIDLT applies the LT predicate on the "tenant_id" field.
-func TenantIDLT(v int) predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldLT(FieldTenantID, v))
-}
-
-// TenantIDLTE applies the LTE predicate on the "tenant_id" field.
-func TenantIDLTE(v int) predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldLTE(FieldTenantID, v))
-}
-
-// TenantIDIsNil applies the IsNil predicate on the "tenant_id" field.
-func TenantIDIsNil() predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldIsNull(FieldTenantID))
-}
-
-// TenantIDNotNil applies the NotNil predicate on the "tenant_id" field.
-func TenantIDNotNil() predicate.LoginLog {
-	return predicate.LoginLog(sql.FieldNotNull(FieldTenantID))
-}
-
 // IPEQ applies the EQ predicate on the "ip" field.
 func IPEQ(v string) predicate.LoginLog {
 	return predicate.LoginLog(sql.FieldEQ(FieldIP, v))
@@ -327,6 +292,266 @@ func IPEqualFold(v string) predicate.LoginLog {
 // IPContainsFold applies the ContainsFold predicate on the "ip" field.
 func IPContainsFold(v string) predicate.LoginLog {
 	return predicate.LoginLog(sql.FieldContainsFold(FieldIP, v))
+}
+
+// EventTypeEQ applies the EQ predicate on the "event_type" field.
+func EventTypeEQ(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEQ(FieldEventType, v))
+}
+
+// EventTypeNEQ applies the NEQ predicate on the "event_type" field.
+func EventTypeNEQ(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldNEQ(FieldEventType, v))
+}
+
+// EventTypeIn applies the In predicate on the "event_type" field.
+func EventTypeIn(vs ...string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldIn(FieldEventType, vs...))
+}
+
+// EventTypeNotIn applies the NotIn predicate on the "event_type" field.
+func EventTypeNotIn(vs ...string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldNotIn(FieldEventType, vs...))
+}
+
+// EventTypeGT applies the GT predicate on the "event_type" field.
+func EventTypeGT(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldGT(FieldEventType, v))
+}
+
+// EventTypeGTE applies the GTE predicate on the "event_type" field.
+func EventTypeGTE(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldGTE(FieldEventType, v))
+}
+
+// EventTypeLT applies the LT predicate on the "event_type" field.
+func EventTypeLT(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldLT(FieldEventType, v))
+}
+
+// EventTypeLTE applies the LTE predicate on the "event_type" field.
+func EventTypeLTE(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldLTE(FieldEventType, v))
+}
+
+// EventTypeContains applies the Contains predicate on the "event_type" field.
+func EventTypeContains(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldContains(FieldEventType, v))
+}
+
+// EventTypeHasPrefix applies the HasPrefix predicate on the "event_type" field.
+func EventTypeHasPrefix(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldHasPrefix(FieldEventType, v))
+}
+
+// EventTypeHasSuffix applies the HasSuffix predicate on the "event_type" field.
+func EventTypeHasSuffix(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldHasSuffix(FieldEventType, v))
+}
+
+// EventTypeEqualFold applies the EqualFold predicate on the "event_type" field.
+func EventTypeEqualFold(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEqualFold(FieldEventType, v))
+}
+
+// EventTypeContainsFold applies the ContainsFold predicate on the "event_type" field.
+func EventTypeContainsFold(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldContainsFold(FieldEventType, v))
+}
+
+// UserAgentEQ applies the EQ predicate on the "user_agent" field.
+func UserAgentEQ(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEQ(FieldUserAgent, v))
+}
+
+// UserAgentNEQ applies the NEQ predicate on the "user_agent" field.
+func UserAgentNEQ(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldNEQ(FieldUserAgent, v))
+}
+
+// UserAgentIn applies the In predicate on the "user_agent" field.
+func UserAgentIn(vs ...string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldIn(FieldUserAgent, vs...))
+}
+
+// UserAgentNotIn applies the NotIn predicate on the "user_agent" field.
+func UserAgentNotIn(vs ...string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldNotIn(FieldUserAgent, vs...))
+}
+
+// UserAgentGT applies the GT predicate on the "user_agent" field.
+func UserAgentGT(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldGT(FieldUserAgent, v))
+}
+
+// UserAgentGTE applies the GTE predicate on the "user_agent" field.
+func UserAgentGTE(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldGTE(FieldUserAgent, v))
+}
+
+// UserAgentLT applies the LT predicate on the "user_agent" field.
+func UserAgentLT(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldLT(FieldUserAgent, v))
+}
+
+// UserAgentLTE applies the LTE predicate on the "user_agent" field.
+func UserAgentLTE(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldLTE(FieldUserAgent, v))
+}
+
+// UserAgentContains applies the Contains predicate on the "user_agent" field.
+func UserAgentContains(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldContains(FieldUserAgent, v))
+}
+
+// UserAgentHasPrefix applies the HasPrefix predicate on the "user_agent" field.
+func UserAgentHasPrefix(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldHasPrefix(FieldUserAgent, v))
+}
+
+// UserAgentHasSuffix applies the HasSuffix predicate on the "user_agent" field.
+func UserAgentHasSuffix(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldHasSuffix(FieldUserAgent, v))
+}
+
+// UserAgentEqualFold applies the EqualFold predicate on the "user_agent" field.
+func UserAgentEqualFold(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEqualFold(FieldUserAgent, v))
+}
+
+// UserAgentContainsFold applies the ContainsFold predicate on the "user_agent" field.
+func UserAgentContainsFold(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldContainsFold(FieldUserAgent, v))
+}
+
+// BrowserEQ applies the EQ predicate on the "browser" field.
+func BrowserEQ(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEQ(FieldBrowser, v))
+}
+
+// BrowserNEQ applies the NEQ predicate on the "browser" field.
+func BrowserNEQ(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldNEQ(FieldBrowser, v))
+}
+
+// BrowserIn applies the In predicate on the "browser" field.
+func BrowserIn(vs ...string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldIn(FieldBrowser, vs...))
+}
+
+// BrowserNotIn applies the NotIn predicate on the "browser" field.
+func BrowserNotIn(vs ...string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldNotIn(FieldBrowser, vs...))
+}
+
+// BrowserGT applies the GT predicate on the "browser" field.
+func BrowserGT(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldGT(FieldBrowser, v))
+}
+
+// BrowserGTE applies the GTE predicate on the "browser" field.
+func BrowserGTE(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldGTE(FieldBrowser, v))
+}
+
+// BrowserLT applies the LT predicate on the "browser" field.
+func BrowserLT(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldLT(FieldBrowser, v))
+}
+
+// BrowserLTE applies the LTE predicate on the "browser" field.
+func BrowserLTE(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldLTE(FieldBrowser, v))
+}
+
+// BrowserContains applies the Contains predicate on the "browser" field.
+func BrowserContains(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldContains(FieldBrowser, v))
+}
+
+// BrowserHasPrefix applies the HasPrefix predicate on the "browser" field.
+func BrowserHasPrefix(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldHasPrefix(FieldBrowser, v))
+}
+
+// BrowserHasSuffix applies the HasSuffix predicate on the "browser" field.
+func BrowserHasSuffix(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldHasSuffix(FieldBrowser, v))
+}
+
+// BrowserEqualFold applies the EqualFold predicate on the "browser" field.
+func BrowserEqualFold(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEqualFold(FieldBrowser, v))
+}
+
+// BrowserContainsFold applies the ContainsFold predicate on the "browser" field.
+func BrowserContainsFold(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldContainsFold(FieldBrowser, v))
+}
+
+// OsEQ applies the EQ predicate on the "os" field.
+func OsEQ(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEQ(FieldOs, v))
+}
+
+// OsNEQ applies the NEQ predicate on the "os" field.
+func OsNEQ(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldNEQ(FieldOs, v))
+}
+
+// OsIn applies the In predicate on the "os" field.
+func OsIn(vs ...string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldIn(FieldOs, vs...))
+}
+
+// OsNotIn applies the NotIn predicate on the "os" field.
+func OsNotIn(vs ...string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldNotIn(FieldOs, vs...))
+}
+
+// OsGT applies the GT predicate on the "os" field.
+func OsGT(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldGT(FieldOs, v))
+}
+
+// OsGTE applies the GTE predicate on the "os" field.
+func OsGTE(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldGTE(FieldOs, v))
+}
+
+// OsLT applies the LT predicate on the "os" field.
+func OsLT(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldLT(FieldOs, v))
+}
+
+// OsLTE applies the LTE predicate on the "os" field.
+func OsLTE(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldLTE(FieldOs, v))
+}
+
+// OsContains applies the Contains predicate on the "os" field.
+func OsContains(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldContains(FieldOs, v))
+}
+
+// OsHasPrefix applies the HasPrefix predicate on the "os" field.
+func OsHasPrefix(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldHasPrefix(FieldOs, v))
+}
+
+// OsHasSuffix applies the HasSuffix predicate on the "os" field.
+func OsHasSuffix(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldHasSuffix(FieldOs, v))
+}
+
+// OsEqualFold applies the EqualFold predicate on the "os" field.
+func OsEqualFold(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldEqualFold(FieldOs, v))
+}
+
+// OsContainsFold applies the ContainsFold predicate on the "os" field.
+func OsContainsFold(v string) predicate.LoginLog {
+	return predicate.LoginLog(sql.FieldContainsFold(FieldOs, v))
 }
 
 // SuccessEQ applies the EQ predicate on the "success" field.

@@ -262,12 +262,12 @@ func (_q *DictQuery) Clone() *DictQuery {
 // Example:
 //
 //	var v []struct {
-//		TenantID int `json:"tenant_id,omitempty"`
+//		Name string `json:"name,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Dict.Query().
-//		GroupBy(dict.FieldTenantID).
+//		GroupBy(dict.FieldName).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (_q *DictQuery) GroupBy(field string, fields ...string) *DictGroupBy {
@@ -285,11 +285,11 @@ func (_q *DictQuery) GroupBy(field string, fields ...string) *DictGroupBy {
 // Example:
 //
 //	var v []struct {
-//		TenantID int `json:"tenant_id,omitempty"`
+//		Name string `json:"name,omitempty"`
 //	}
 //
 //	client.Dict.Query().
-//		Select(dict.FieldTenantID).
+//		Select(dict.FieldName).
 //		Scan(ctx, &v)
 func (_q *DictQuery) Select(fields ...string) *DictSelect {
 	_q.ctx.Fields = append(_q.ctx.Fields, fields...)

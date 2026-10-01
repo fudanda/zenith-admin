@@ -15,17 +15,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func dictScope(p *principal) predicate.Dict {
-	if p.TenantID == nil {
-		return dict.TenantIDIsNil()
-	}
-	return dict.TenantIDEQ(*p.TenantID)
-}
+func dictScope(_ *principal) predicate.Dict { return dict.IDGT(0) }
 func (f *Framework) scopedDict(r *http.Request, p *principal, id int) (*ent.Dict, error) {
 	return f.Store.Client.Dict.Query().Where(dict.IDEQ(id), dictScope(p)).Only(r.Context())
 }
 func dictView(row *ent.Dict) map[string]any {
-	return map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "description": row.Description, "status": row.Status, "tenantId": row.TenantID, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt}
+	return map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "description": row.Description, "status": row.Status, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt}
 }
 
 func (f *Framework) listDicts(w http.ResponseWriter, r *http.Request) {
@@ -213,9 +208,7 @@ func (f *Framework) saveDict(w http.ResponseWriter, r *http.Request) {
 		var err error
 		if id == 0 {
 			create := tx.Dict.Create().SetName(in.Name).SetCode(in.Code).SetStatus(in.Status)
-			if p.TenantID != nil {
-				create.SetTenantID(*p.TenantID)
-			}
+
 			if in.Description != nil {
 				create.SetDescription(*in.Description)
 			}
@@ -237,9 +230,7 @@ func (f *Framework) saveDict(w http.ResponseWriter, r *http.Request) {
 			operation = "create"
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation(operation).SetResource("dicts").SetResourceID(saved.ID)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -269,9 +260,7 @@ func (f *Framework) deleteDict(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete").SetResource("dicts").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {

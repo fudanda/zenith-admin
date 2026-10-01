@@ -54,11 +54,6 @@ func IDLTE(id int) predicate.Department {
 	return predicate.Department(sql.FieldLTE(FieldID, id))
 }
 
-// TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
-func TenantID(v int) predicate.Department {
-	return predicate.Department(sql.FieldEQ(FieldTenantID, v))
-}
-
 // ParentID applies equality check predicate on the "parent_id" field. It's identical to ParentIDEQ.
 func ParentID(v int) predicate.Department {
 	return predicate.Department(sql.FieldEQ(FieldParentID, v))
@@ -112,56 +107,6 @@ func CreatedAt(v time.Time) predicate.Department {
 // UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
 func UpdatedAt(v time.Time) predicate.Department {
 	return predicate.Department(sql.FieldEQ(FieldUpdatedAt, v))
-}
-
-// TenantIDEQ applies the EQ predicate on the "tenant_id" field.
-func TenantIDEQ(v int) predicate.Department {
-	return predicate.Department(sql.FieldEQ(FieldTenantID, v))
-}
-
-// TenantIDNEQ applies the NEQ predicate on the "tenant_id" field.
-func TenantIDNEQ(v int) predicate.Department {
-	return predicate.Department(sql.FieldNEQ(FieldTenantID, v))
-}
-
-// TenantIDIn applies the In predicate on the "tenant_id" field.
-func TenantIDIn(vs ...int) predicate.Department {
-	return predicate.Department(sql.FieldIn(FieldTenantID, vs...))
-}
-
-// TenantIDNotIn applies the NotIn predicate on the "tenant_id" field.
-func TenantIDNotIn(vs ...int) predicate.Department {
-	return predicate.Department(sql.FieldNotIn(FieldTenantID, vs...))
-}
-
-// TenantIDGT applies the GT predicate on the "tenant_id" field.
-func TenantIDGT(v int) predicate.Department {
-	return predicate.Department(sql.FieldGT(FieldTenantID, v))
-}
-
-// TenantIDGTE applies the GTE predicate on the "tenant_id" field.
-func TenantIDGTE(v int) predicate.Department {
-	return predicate.Department(sql.FieldGTE(FieldTenantID, v))
-}
-
-// TenantIDLT applies the LT predicate on the "tenant_id" field.
-func TenantIDLT(v int) predicate.Department {
-	return predicate.Department(sql.FieldLT(FieldTenantID, v))
-}
-
-// TenantIDLTE applies the LTE predicate on the "tenant_id" field.
-func TenantIDLTE(v int) predicate.Department {
-	return predicate.Department(sql.FieldLTE(FieldTenantID, v))
-}
-
-// TenantIDIsNil applies the IsNil predicate on the "tenant_id" field.
-func TenantIDIsNil() predicate.Department {
-	return predicate.Department(sql.FieldIsNull(FieldTenantID))
-}
-
-// TenantIDNotNil applies the NotNil predicate on the "tenant_id" field.
-func TenantIDNotNil() predicate.Department {
-	return predicate.Department(sql.FieldNotNull(FieldTenantID))
 }
 
 // ParentIDEQ applies the EQ predicate on the "parent_id" field.

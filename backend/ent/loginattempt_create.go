@@ -26,6 +26,20 @@ func (_c *LoginAttemptCreate) SetKey(v string) *LoginAttemptCreate {
 	return _c
 }
 
+// SetUsernameHash sets the "username_hash" field.
+func (_c *LoginAttemptCreate) SetUsernameHash(v string) *LoginAttemptCreate {
+	_c.mutation.SetUsernameHash(v)
+	return _c
+}
+
+// SetNillableUsernameHash sets the "username_hash" field if the given value is not nil.
+func (_c *LoginAttemptCreate) SetNillableUsernameHash(v *string) *LoginAttemptCreate {
+	if v != nil {
+		_c.SetUsernameHash(*v)
+	}
+	return _c
+}
+
 // SetFailures sets the "failures" field.
 func (_c *LoginAttemptCreate) SetFailures(v int) *LoginAttemptCreate {
 	_c.mutation.SetFailures(v)
@@ -103,6 +117,10 @@ func (_c *LoginAttemptCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *LoginAttemptCreate) defaults() {
+	if _, ok := _c.mutation.UsernameHash(); !ok {
+		v := loginattempt.DefaultUsernameHash
+		_c.mutation.SetUsernameHash(v)
+	}
 	if _, ok := _c.mutation.Failures(); !ok {
 		v := loginattempt.DefaultFailures
 		_c.mutation.SetFailures(v)
@@ -117,6 +135,9 @@ func (_c *LoginAttemptCreate) defaults() {
 func (_c *LoginAttemptCreate) check() error {
 	if _, ok := _c.mutation.Key(); !ok {
 		return &ValidationError{Name: "key", err: errors.New(`ent: missing required field "LoginAttempt.key"`)}
+	}
+	if _, ok := _c.mutation.UsernameHash(); !ok {
+		return &ValidationError{Name: "username_hash", err: errors.New(`ent: missing required field "LoginAttempt.username_hash"`)}
 	}
 	if _, ok := _c.mutation.Failures(); !ok {
 		return &ValidationError{Name: "failures", err: errors.New(`ent: missing required field "LoginAttempt.failures"`)}
@@ -153,6 +174,10 @@ func (_c *LoginAttemptCreate) createSpec() (*LoginAttempt, *sqlgraph.CreateSpec)
 	if value, ok := _c.mutation.Key(); ok {
 		_spec.SetField(loginattempt.FieldKey, field.TypeString, value)
 		_node.Key = value
+	}
+	if value, ok := _c.mutation.UsernameHash(); ok {
+		_spec.SetField(loginattempt.FieldUsernameHash, field.TypeString, value)
+		_node.UsernameHash = value
 	}
 	if value, ok := _c.mutation.Failures(); ok {
 		_spec.SetField(loginattempt.FieldFailures, field.TypeInt, value)

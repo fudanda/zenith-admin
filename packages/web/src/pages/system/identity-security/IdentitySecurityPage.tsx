@@ -1,3 +1,4 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { useEffect, useRef, useState } from 'react';
 import { Button, Empty, Form, Tabs, Toast } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
@@ -27,7 +28,7 @@ const defaultPolicy: IdentitySecuritySettings = identitySecuritySettingsSchema.p
 export default function IdentitySecurityPage() {
   const { hasPermission } = usePermission();
   const canManagePolicy = hasPermission('system:identity-security:manage');
-  const canReadRiskEvents = hasPermission('system:login-risk:list');
+  const canReadRiskEvents = !IS_GO_FOUNDATION && hasPermission('system:login-risk:list');
   const tabs: Array<'policy' | 'risk'> = [
     ...(canManagePolicy ? ['policy' as const] : []),
     ...(canReadRiskEvents ? ['risk' as const] : []),
@@ -47,7 +48,7 @@ export default function IdentitySecurityPage() {
   const savePolicyMutation = useSaveSettings('identitySecurity');
 
   useEffect(() => {
-    if (policyQuery.data) setPolicy(policyQuery.data.effective);
+    if (policyQuery.data) setPolicy(identitySecuritySettingsSchema.parse(policyQuery.data.effective));
   }, [policyQuery.data]);
 
   async function handleSavePolicy() {
@@ -59,7 +60,7 @@ export default function IdentitySecurityPage() {
     }
     try {
       const saved = await savePolicyMutation.mutateAsync({ body: { version: policyQuery.data?.version ?? 0, data: values } });
-      setPolicy(saved.effective);
+      setPolicy(identitySecuritySettingsSchema.parse(saved.effective));
       Toast.success('身份安全策略已保存');
     } catch (err) {
       // 409 = 他人已修改：请求层已提示，重载最新值供比对后再保存
@@ -112,13 +113,16 @@ export default function IdentitySecurityPage() {
               <Form.InputNumber field="loginChallenge.maxAttemptsPerSource" label="单来源失败阈值" min={1} max={1000} extraText="同一账号 + 同一 IP 的失败次数，达到后该来源需先过验证码" />
               <Form.InputNumber field="loginChallenge.sourceLimit" label="多来源失败阈值" min={1} max={100} extraText="窗口内失败来源 IP 数，达到后该账号所有来源都需验证码（防分布式猜解）" />
               <Form.InputNumber field="loginChallenge.windowMinutes" label="计数窗口（分钟）" min={1} max={1440} />
+              {!IS_GO_FOUNDATION && <>
               <Form.Switch field="loginChallenge.alert.enabled" label="登录失败突增告警" extraText="达到下方阈值即通知安全管理员（身份安全策略管理员 / 登录风险查看者 / 平台超管），同一账号同一原因每个窗口只告警一次" />
               <Form.InputNumber field="loginChallenge.alert.sourceThreshold" label="多来源告警阈值" min={2} max={100} extraText="窗口内失败来源 IP 数达到即告警一次（疑似分布式猜解）" />
               <Form.InputNumber field="loginChallenge.alert.failureThreshold" label="失败总量告警阈值" min={5} max={100000} extraText="窗口内同一账号失败总次数达到即告警一次（疑似口令爆破）" />
 
+              </>}
               <div className="section-title" style={{ marginTop: 24 }}>会话并发</div>
               <SessionPolicyFields />
 
+              {!IS_GO_FOUNDATION && <>
               <div className="section-title" style={{ marginTop: 24 }}>MFA 策略</div>
               <Form.Switch field="mfa.enabled" label="启用 MFA" />
               <Form.Select
@@ -150,6 +154,7 @@ export default function IdentitySecurityPage() {
               <Form.InputNumber field="impersonation.maxMinutes" label="单次时长上限（分钟）" min={1} max={120} extraText="模拟会话到期自动失效，不可续期；上限 120 分钟" />
               <Form.Switch field="impersonation.allowWrite" label="允许可操作模式" extraText="关闭时模拟会话只能只读；开启后发起时可选择可操作（仍禁止改密 / MFA / API Token 等账号安全操作）" />
               <Form.Switch field="impersonation.notifyTarget" label="通知被模拟用户" extraText="开始模拟时向目标用户发送站内通知" />
+              </>}
             </Form>
           </div>
         </TabPane>}

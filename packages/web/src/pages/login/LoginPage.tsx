@@ -13,7 +13,8 @@ import { config } from '@/config';
 import { markPostLoginHome } from '@/lib/post-login';
 import { readMfaHandoff } from '@/lib/mfa-handoff';
 import { rememberOAuthPending } from '@/lib/oauth-pending';
-import { useAuth, type LoginOptions } from '@/hooks/useAuth';
+import { useAuth, type LoginOptions, type AdminLoginResult } from '@/hooks/useAuth';
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { UserAvatar } from '@/components/UserAvatar';
 import AppLogo from '@/components/AppLogo';
 import { OAuthProviderIcon } from '@/components/OAuthProviderIcon';
@@ -34,7 +35,7 @@ const SessionConflictModal = lazy(() => import('./SessionConflictModal'));
 const { Title, Text } = Typography;
 
 interface LoginPageProps {
-  onLogin: (username: string, password: string, captchaId?: string, captchaCode?: string, tenantCode?: string, options?: LoginOptions) => Promise<{ code: number; message: string; retryAfterSeconds?: number; data: LoginResult }>;
+  onLogin: (username: string, password: string, captchaId?: string, captchaCode?: string, tenantCode?: string, options?: LoginOptions) => Promise<{ code: number; message: string; retryAfterSeconds?: number; data: AdminLoginResult }>;
   onVerifyMfa: (challengeId: string, code: string, rememberDevice: boolean, options?: LoginOptions) => Promise<{ code: number; message: string; retryAfterSeconds?: number; data: LoginResponse }>;
   onRegister: (data: { username: string; nickname: string; email: string; password: string }, options?: LoginOptions) => Promise<{ code: number; message: string; retryAfterSeconds?: number }>;
 }
@@ -102,7 +103,7 @@ export default function LoginPage({ onLogin, onVerifyMfa, onRegister }: Readonly
   const mfaHandoff = readMfaHandoff(location.state);
   const redirectTo = mfaHandoff?.redirectTo || params.get('redirect') || '/';
   // 添加账号模式：保留当前登录，成功后停靠原账号并整页切换为新账号
-  const addAccountMode = params.get('add_account') === '1';
+  const addAccountMode = !IS_GO_FOUNDATION && params.get('add_account') === '1';
   const prefillUsername = params.get('username') ?? '';
   const loginOptions: LoginOptions | undefined = addAccountMode ? { addAccount: true } : undefined;
   const { status: authStatus, parkedAccounts, canAddAccount, switchAccount, resolveSessionConflict } = useAuth();
@@ -226,7 +227,8 @@ export default function LoginPage({ onLogin, onVerifyMfa, onRegister }: Readonly
    * 登录结果的非终态分支：MFA 挑战转入验证表单，会话冲突弹出确认层，添加账号成功交给 AuthProvider 整页重载。
    * 返回 true 表示已接管、调用方不必再跳转。
    */
-  const handleLoginResult = (data: LoginResult): boolean => {
+  const handleLoginResult = (data: AdminLoginResult): boolean => {
+    if ('csrfToken' in data) return false;
     if (isMfaChallenge(data)) {
       setMfaChallenge(data);
       return true;
@@ -386,10 +388,10 @@ export default function LoginPage({ onLogin, onVerifyMfa, onRegister }: Readonly
           </div>
           {captchaEnabled ? (
             <button type="button" style={{ ...CAPTCHA_BOX_STYLE, cursor: 'pointer' }} title="点击刷新验证码" onClick={fetchCaptcha}>
-              <div dangerouslySetInnerHTML={{ __html: effectiveCaptchaSvg }} />
+              {IS_GO_FOUNDATION ? <img src={effectiveCaptchaSvg} alt="登录验证码" width={160} height={48} /> : <div dangerouslySetInnerHTML={{ __html: effectiveCaptchaSvg }} />}
             </button>
           ) : (
-            <div style={CAPTCHA_BOX_STYLE} title="验证码错误时重新提交会换新图" dangerouslySetInnerHTML={{ __html: effectiveCaptchaSvg }} />
+            IS_GO_FOUNDATION ? <img src={effectiveCaptchaSvg} alt="登录验证码" width={180} height={48} /> : <div style={CAPTCHA_BOX_STYLE} title="验证码错误时重新提交会换新图" dangerouslySetInnerHTML={{ __html: effectiveCaptchaSvg }} />
           )}
         </div>
       )}

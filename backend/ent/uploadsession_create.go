@@ -26,20 +26,6 @@ func (_c *UploadSessionCreate) SetStorageConfigID(v int) *UploadSessionCreate {
 	return _c
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *UploadSessionCreate) SetTenantID(v int) *UploadSessionCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *UploadSessionCreate) SetNillableTenantID(v *int) *UploadSessionCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetUploaderID sets the "uploader_id" field.
 func (_c *UploadSessionCreate) SetUploaderID(v int) *UploadSessionCreate {
 	_c.mutation.SetUploaderID(v)
@@ -288,10 +274,6 @@ func (_c *UploadSessionCreate) createSpec() (*UploadSession, *sqlgraph.CreateSpe
 	if value, ok := _c.mutation.StorageConfigID(); ok {
 		_spec.SetField(uploadsession.FieldStorageConfigID, field.TypeInt, value)
 		_node.StorageConfigID = value
-	}
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(uploadsession.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
 	}
 	if value, ok := _c.mutation.UploaderID(); ok {
 		_spec.SetField(uploadsession.FieldUploaderID, field.TypeInt, value)

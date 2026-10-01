@@ -15,6 +15,8 @@ const (
 	FieldID = "id"
 	// FieldKey holds the string denoting the key field in the database.
 	FieldKey = "key"
+	// FieldUsernameHash holds the string denoting the username_hash field in the database.
+	FieldUsernameHash = "username_hash"
 	// FieldFailures holds the string denoting the failures field in the database.
 	FieldFailures = "failures"
 	// FieldLockedUntil holds the string denoting the locked_until field in the database.
@@ -29,6 +31,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldKey,
+	FieldUsernameHash,
 	FieldFailures,
 	FieldLockedUntil,
 	FieldUpdatedAt,
@@ -45,6 +48,8 @@ func ValidColumn(column string) bool {
 }
 
 var (
+	// DefaultUsernameHash holds the default value on creation for the "username_hash" field.
+	DefaultUsernameHash string
 	// DefaultFailures holds the default value on creation for the "failures" field.
 	DefaultFailures int
 	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
@@ -64,6 +69,11 @@ func ByID(opts ...sql.OrderTermOption) OrderOption {
 // ByKey orders the results by the key field.
 func ByKey(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldKey, opts...).ToFunc()
+}
+
+// ByUsernameHash orders the results by the username_hash field.
+func ByUsernameHash(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUsernameHash, opts...).ToFunc()
 }
 
 // ByFailures orders the results by the failures field.

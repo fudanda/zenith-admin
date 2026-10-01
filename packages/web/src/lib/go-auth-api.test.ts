@@ -5,10 +5,9 @@ import { createGoApiClient } from './go-auth-api';
 import { GoTransport } from './go-transport';
 
 const session = {
-  user: { id: 1, username: 'admin', nickname: '管理员', tenantId: null, status: 'enabled', email: null },
+  user: { id: 1, username: 'admin', nickname: '管理员', tenantId: null, status: 'enabled', email: null, roles: [], passwordUpdatedAt: '2026-09-30T00:00:00Z', createdAt: '2026-09-30T00:00:00Z', updatedAt: '2026-09-30T00:00:00Z' },
   permissions: ['*'],
   csrfToken: 'csrf-from-go',
-  tenantViewId: null,
   superAdmin: true,
 };
 

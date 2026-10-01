@@ -27,20 +27,6 @@ func (_c *ManagedFileCreate) SetStorageConfigID(v int) *ManagedFileCreate {
 	return _c
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *ManagedFileCreate) SetTenantID(v int) *ManagedFileCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *ManagedFileCreate) SetNillableTenantID(v *int) *ManagedFileCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetUploaderID sets the "uploader_id" field.
 func (_c *ManagedFileCreate) SetUploaderID(v int) *ManagedFileCreate {
 	_c.mutation.SetUploaderID(v)
@@ -311,10 +297,6 @@ func (_c *ManagedFileCreate) createSpec() (*ManagedFile, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.StorageConfigID(); ok {
 		_spec.SetField(managedfile.FieldStorageConfigID, field.TypeInt, value)
 		_node.StorageConfigID = value
-	}
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(managedfile.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
 	}
 	if value, ok := _c.mutation.UploaderID(); ok {
 		_spec.SetField(managedfile.FieldUploaderID, field.TypeInt, value)

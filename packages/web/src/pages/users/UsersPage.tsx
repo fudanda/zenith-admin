@@ -1,3 +1,4 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { FormPasswordInput } from '@/components/PasswordInput';
 import EntityRelationButton from '@/components/entity-relations/EntityRelationButton';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
@@ -266,7 +267,7 @@ export default function UsersPage() {
   const canViewOperationLogs = hasPermission('system:log:operation');
   const canViewUserLogs = canViewLoginLogs || canViewOperationLogs;
   const canImpersonate = useCallback((record: User) => (
-    hasPermission('system:user:impersonate')
+    !IS_GO_FOUNDATION && hasPermission('system:user:impersonate')
     && !impersonation
     && record.id !== currentUser?.id
     && record.status === 'enabled'
@@ -867,7 +868,7 @@ export default function UsersPage() {
         />
       </EditFormModal>
 
-      <ImpersonateModal modal={impersonateModal} />
+      {!IS_GO_FOUNDATION && <ImpersonateModal modal={impersonateModal} />}
 
       {/* 批量修改密码 */}
       <AppModal

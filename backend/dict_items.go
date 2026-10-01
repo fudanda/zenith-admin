@@ -114,7 +114,9 @@ func (f *Framework) dictItemTarget(w http.ResponseWriter, r *http.Request) (int,
 
 type dictItemInput struct {
 	Label, Value, Status string
-	Color                *string
+	Color, Remark        *string
+	ParentID             *int
+	Metadata             map[string]any
 	Sort                 int
 }
 
@@ -127,6 +129,9 @@ func validateDictItem(in dictItemInput) error {
 	}
 	if in.Color != nil && len(*in.Color) > 32 {
 		return errors.New("颜色无效")
+	}
+	if in.Remark != nil && len([]rune(*in.Remark)) > 256 {
+		return errors.New("备注过长")
 	}
 	if in.Status != "enabled" && in.Status != "disabled" {
 		return errors.New("状态无效")
@@ -150,7 +155,7 @@ func (f *Framework) saveDictItem(w http.ResponseWriter, r *http.Request) {
 			fail(w, 503, "database_unavailable", "查询失败")
 			return
 		}
-		in = dictItemInput{Label: current.Label, Value: current.Value, Color: current.Color, Sort: current.Sort, Status: current.Status}
+		in = dictItemInput{Label: current.Label, Value: current.Value, Color: current.Color, Sort: current.Sort, Status: current.Status, ParentID: current.ParentID, Remark: current.Remark, Metadata: current.Metadata}
 	}
 	var patch map[string]json.RawMessage
 	if err := decode(r, &patch); err != nil || len(patch) == 0 {
@@ -166,6 +171,12 @@ func (f *Framework) saveDictItem(w http.ResponseWriter, r *http.Request) {
 			err = json.Unmarshal(raw, &in.Value)
 		case "color":
 			err = json.Unmarshal(raw, &in.Color)
+		case "remark":
+			err = json.Unmarshal(raw, &in.Remark)
+		case "parentId":
+			err = json.Unmarshal(raw, &in.ParentID)
+		case "metadata":
+			err = json.Unmarshal(raw, &in.Metadata)
 		case "sort":
 			err = json.Unmarshal(raw, &in.Sort)
 		case "status":
@@ -183,6 +194,23 @@ func (f *Framework) saveDictItem(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_request", err.Error())
 		return
 	}
+	if in.ParentID != nil {
+		seen := map[int]bool{itemID: true}
+		current := in.ParentID
+		for current != nil {
+			if seen[*current] {
+				fail(w, 400, "invalid_parent", "字典项父级循环")
+				return
+			}
+			seen[*current] = true
+			parent, err := f.scopedDictItem(r, dictID, *current)
+			if err != nil {
+				fail(w, 400, "invalid_parent", "父项不在当前字典")
+				return
+			}
+			current = parent.ParentID
+		}
+	}
 	p := fromContext(r.Context())
 	var saved *ent.DictItem
 	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
@@ -192,6 +220,15 @@ func (f *Framework) saveDictItem(w http.ResponseWriter, r *http.Request) {
 			if in.Color != nil {
 				create.SetColor(*in.Color)
 			}
+			if in.ParentID != nil {
+				create.SetParentID(*in.ParentID)
+			}
+			if in.Remark != nil {
+				create.SetRemark(*in.Remark)
+			}
+			if in.Metadata != nil {
+				create.SetMetadata(in.Metadata)
+			}
 			saved, err = create.Save(r.Context())
 		} else {
 			update := tx.DictItem.UpdateOneID(itemID).SetLabel(in.Label).SetValue(in.Value).SetSort(in.Sort).SetStatus(in.Status).SetUpdatedBy(p.User.ID)
@@ -199,6 +236,21 @@ func (f *Framework) saveDictItem(w http.ResponseWriter, r *http.Request) {
 				update.ClearColor()
 			} else {
 				update.SetColor(*in.Color)
+			}
+			if in.ParentID != nil {
+				update.SetParentID(*in.ParentID)
+			} else {
+				update.ClearParentID()
+			}
+			if in.Remark != nil {
+				update.SetRemark(*in.Remark)
+			} else {
+				update.ClearRemark()
+			}
+			if in.Metadata != nil {
+				update.SetMetadata(in.Metadata)
+			} else {
+				update.ClearMetadata()
 			}
 			saved, err = update.Save(r.Context())
 		}
@@ -210,9 +262,7 @@ func (f *Framework) saveDictItem(w http.ResponseWriter, r *http.Request) {
 			operation = "update_item"
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation(operation).SetResource("dicts").SetResourceID(dictID)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -236,13 +286,18 @@ func (f *Framework) deleteDictItem(w http.ResponseWriter, r *http.Request) {
 	}
 	p := fromContext(r.Context())
 	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+		children, err := tx.DictItem.Query().Where(dictitem.ParentIDEQ(itemID)).Exist(r.Context())
+		if err != nil {
+			return err
+		}
+		if children {
+			return errors.New("请先删除子项")
+		}
 		if err := tx.DictItem.DeleteOneID(itemID).Exec(r.Context()); err != nil {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete_item").SetResource("dicts").SetResourceID(dictID)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {

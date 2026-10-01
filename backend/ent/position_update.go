@@ -28,33 +28,6 @@ func (_u *PositionUpdate) Where(ps ...predicate.Position) *PositionUpdate {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *PositionUpdate) SetTenantID(v int) *PositionUpdate {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *PositionUpdate) SetNillableTenantID(v *int) *PositionUpdate {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *PositionUpdate) AddTenantID(v int) *PositionUpdate {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *PositionUpdate) ClearTenantID() *PositionUpdate {
-	_u.mutation.ClearTenantID()
-	return _u
-}
-
 // SetName sets the "name" field.
 func (_u *PositionUpdate) SetName(v string) *PositionUpdate {
 	_u.mutation.SetName(v)
@@ -226,15 +199,6 @@ func (_u *PositionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(position.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(position.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(position.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(position.FieldName, field.TypeString, value)
 	}
@@ -280,33 +244,6 @@ type PositionUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *PositionMutation
-}
-
-// SetTenantID sets the "tenant_id" field.
-func (_u *PositionUpdateOne) SetTenantID(v int) *PositionUpdateOne {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *PositionUpdateOne) SetNillableTenantID(v *int) *PositionUpdateOne {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *PositionUpdateOne) AddTenantID(v int) *PositionUpdateOne {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *PositionUpdateOne) ClearTenantID() *PositionUpdateOne {
-	_u.mutation.ClearTenantID()
-	return _u
 }
 
 // SetName sets the "name" field.
@@ -509,15 +446,6 @@ func (_u *PositionUpdateOne) sqlSave(ctx context.Context) (_node *Position, err 
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(position.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(position.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(position.FieldTenantID, field.TypeInt)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(position.FieldName, field.TypeString, value)

@@ -28,33 +28,6 @@ func (_u *DepartmentUpdate) Where(ps ...predicate.Department) *DepartmentUpdate 
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *DepartmentUpdate) SetTenantID(v int) *DepartmentUpdate {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *DepartmentUpdate) SetNillableTenantID(v *int) *DepartmentUpdate {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *DepartmentUpdate) AddTenantID(v int) *DepartmentUpdate {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *DepartmentUpdate) ClearTenantID() *DepartmentUpdate {
-	_u.mutation.ClearTenantID()
-	return _u
-}
-
 // SetParentID sets the "parent_id" field.
 func (_u *DepartmentUpdate) SetParentID(v int) *DepartmentUpdate {
 	_u.mutation.ResetParentID()
@@ -308,15 +281,6 @@ func (_u *DepartmentUpdate) sqlSave(ctx context.Context) (_node int, err error) 
 			}
 		}
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(department.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(department.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(department.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.ParentID(); ok {
 		_spec.SetField(department.FieldParentID, field.TypeInt, value)
 	}
@@ -386,33 +350,6 @@ type DepartmentUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *DepartmentMutation
-}
-
-// SetTenantID sets the "tenant_id" field.
-func (_u *DepartmentUpdateOne) SetTenantID(v int) *DepartmentUpdateOne {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *DepartmentUpdateOne) SetNillableTenantID(v *int) *DepartmentUpdateOne {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *DepartmentUpdateOne) AddTenantID(v int) *DepartmentUpdateOne {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *DepartmentUpdateOne) ClearTenantID() *DepartmentUpdateOne {
-	_u.mutation.ClearTenantID()
-	return _u
 }
 
 // SetParentID sets the "parent_id" field.
@@ -697,15 +634,6 @@ func (_u *DepartmentUpdateOne) sqlSave(ctx context.Context) (_node *Department, 
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(department.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(department.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(department.FieldTenantID, field.TypeInt)
 	}
 	if value, ok := _u.mutation.ParentID(); ok {
 		_spec.SetField(department.FieldParentID, field.TypeInt, value)

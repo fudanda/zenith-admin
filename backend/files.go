@@ -28,11 +28,8 @@ import (
 
 const maxSingleUploadBytes int64 = 100 * 1024 * 1024
 
-func fileScope(p *principal) predicate.ManagedFile {
-	if p.TenantID == nil {
-		return managedfile.TenantIDIsNil()
-	}
-	return managedfile.TenantIDEQ(*p.TenantID)
+func fileScope(_ *principal) predicate.ManagedFile {
+	return managedfile.Not(managedfile.IDEQ(uuid.Nil))
 }
 
 func (f *Framework) defaultStorage(ctx context.Context) (*ent.FileStorageConfig, error) {
@@ -98,6 +95,23 @@ func (f *Framework) listFiles(w http.ResponseWriter, r *http.Request) {
 		default:
 			fail(w, 400, "invalid_file_type", "文件类型无效")
 			return
+		}
+	}
+	for _, bound := range []struct {
+		key string
+		end bool
+	}{{"startDate", false}, {"endDate", true}} {
+		if raw := q.Get(bound.key); raw != "" {
+			value, err := parseFilterDateBound(raw, bound.end)
+			if err != nil {
+				fail(w, 400, "invalid_date", err.Error())
+				return
+			}
+			if bound.end {
+				query = query.Where(managedfile.CreatedAtLTE(value))
+			} else {
+				query = query.Where(managedfile.CreatedAtGTE(value))
+			}
 		}
 	}
 	total, err := query.Clone().Count(r.Context())
@@ -283,18 +297,14 @@ func (f *Framework) persistFileWithLimit(ctx context.Context, p *principal, inpu
 	var row *ent.ManagedFile
 	err = f.Store.WithTx(ctx, func(tx *ent.Tx) error {
 		create := tx.ManagedFile.Create().SetID(id).SetStorageConfigID(storage.ID).SetUploaderID(p.User.ID).SetOriginalName(name).SetObjectKey(key).SetSize(size).SetMimeType(mimeType).SetExtension(extension).SetVisibility(visibility).SetContentHash(hex.EncodeToString(hash.Sum(nil)))
-		if p.TenantID != nil {
-			create.SetTenantID(*p.TenantID)
-		}
+
 		var err error
 		row, err = create.Save(ctx)
 		if err != nil {
 			return err
 		}
 		audit := tx.AuditLog.Create().SetActorID(p.User.ID).SetOperation("upload").SetResource("files").SetRequestID(trace)
-		if p.TenantID != nil {
-			audit.SetTenantID(*p.TenantID)
-		}
+
 		if err := audit.Exec(ctx); err != nil {
 			return err
 		}
@@ -394,7 +404,11 @@ func (f *Framework) serveFileBytes(w http.ResponseWriter, r *http.Request, row *
 		w.Header().Set("Content-Type", "application/octet-stream")
 	}
 	w.Header().Set("X-Content-Type-Options", "nosniff")
-	w.Header().Set("Content-Disposition", fmt.Sprintf("inline; filename*=UTF-8''%s", url.PathEscape(row.OriginalName)))
+	disposition := "inline"
+	if r.URL.Query().Get("download") == "1" {
+		disposition = "attachment"
+	}
+	w.Header().Set("Content-Disposition", fmt.Sprintf("%s; filename*=UTF-8''%s", disposition, url.PathEscape(row.OriginalName)))
 	w.Header().Set("Cache-Control", "private, no-store")
 	http.ServeContent(w, r, row.OriginalName, row.UpdatedAt, file)
 }
@@ -422,6 +436,9 @@ func (f *Framework) accessFileURL(w http.ResponseWriter, r *http.Request) {
 	if row.Visibility != "public" {
 		suffix = "/private-content"
 	}
+	if r.URL.Query().Get("purpose") == "download" {
+		suffix += "?download=1"
+	}
 	respond(w, 200, map[string]any{"url": "/api/v1/files/" + id.String() + suffix, "strategy": "proxy", "expiresAt": nil})
 }
 
@@ -432,7 +449,7 @@ func (f *Framework) deleteFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	p := fromContext(r.Context())
-	row, err := f.scopedFile(r.Context(), p, id)
+	row, err := f.Store.Client.ManagedFile.Query().Where(managedfile.IDEQ(id), fileScope(p)).Only(r.Context())
 	if ent.IsNotFound(err) {
 		fail(w, 404, "not_found", "文件不存在")
 		return
@@ -446,9 +463,7 @@ func (f *Framework) deleteFile(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		audit := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete").SetResource("files")
-		if p.TenantID != nil {
-			audit.SetTenantID(*p.TenantID)
-		}
+
 		return audit.Exec(r.Context())
 	})
 	if err != nil {
@@ -485,7 +500,7 @@ func (f *Framework) deleteFilesBatch(w http.ResponseWriter, r *http.Request) {
 	var rows []*ent.ManagedFile
 	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		var err error
-		rows, err = tx.ManagedFile.Query().Where(managedfile.IDIn(ids...), fileScope(p), managedfile.DeletePending(false)).All(r.Context())
+		rows, err = tx.ManagedFile.Query().Where(managedfile.IDIn(ids...), fileScope(p)).All(r.Context())
 		if err != nil {
 			return err
 		}
@@ -496,13 +511,11 @@ func (f *Framework) deleteFilesBatch(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		audit := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete_batch").SetResource("files")
-		if p.TenantID != nil {
-			audit.SetTenantID(*p.TenantID)
-		}
+
 		return audit.Exec(r.Context())
 	})
 	if ent.IsNotFound(err) {
-		fail(w, 404, "not_found", "部分文件不存在或不在当前租户")
+		fail(w, 404, "not_found", "部分文件不存在或不在当前组织")
 		return
 	}
 	if err != nil {
@@ -542,13 +555,13 @@ func (f *Framework) downloadFilesBatch(w http.ResponseWriter, r *http.Request) {
 		ids = append(ids, id)
 	}
 	p := fromContext(r.Context())
-	rows, err := f.Store.Client.ManagedFile.Query().Where(managedfile.IDIn(ids...), fileScope(p), managedfile.DeletePending(false)).All(r.Context())
+	rows, err := f.Store.Client.ManagedFile.Query().Where(managedfile.IDIn(ids...), fileScope(p)).All(r.Context())
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
 	}
 	if len(rows) != len(ids) {
-		fail(w, 404, "not_found", "部分文件不存在或不在当前租户")
+		fail(w, 404, "not_found", "部分文件不存在或不在当前组织")
 		return
 	}
 	byID := make(map[uuid.UUID]*ent.ManagedFile, len(rows))

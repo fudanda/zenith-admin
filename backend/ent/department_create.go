@@ -20,20 +20,6 @@ type DepartmentCreate struct {
 	hooks    []Hook
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *DepartmentCreate) SetTenantID(v int) *DepartmentCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *DepartmentCreate) SetNillableTenantID(v *int) *DepartmentCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetParentID sets the "parent_id" field.
 func (_c *DepartmentCreate) SetParentID(v int) *DepartmentCreate {
 	_c.mutation.SetParentID(v)
@@ -295,10 +281,6 @@ func (_c *DepartmentCreate) createSpec() (*Department, *sqlgraph.CreateSpec) {
 		_node = &Department{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(department.Table, sqlgraph.NewFieldSpec(department.FieldID, field.TypeInt))
 	)
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(department.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
-	}
 	if value, ok := _c.mutation.ParentID(); ok {
 		_spec.SetField(department.FieldParentID, field.TypeInt, value)
 		_node.ParentID = value

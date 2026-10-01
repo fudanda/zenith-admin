@@ -11,9 +11,11 @@ import (
 
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/department"
+	"github.com/fudanda/zenith-admin/backend/ent/role"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroup"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroupmember"
+	"github.com/fudanda/zenith-admin/backend/ent/usergrouprole"
 	"github.com/fudanda/zenith-admin/backend/ent/userposition"
 	"github.com/gorilla/mux"
 )
@@ -85,10 +87,6 @@ func validateRuleShape(rule *memberRule) error {
 	return nil
 }
 
-func sameTenant(a, b *int) bool {
-	return a == nil && b == nil || a != nil && b != nil && *a == *b
-}
-
 func (f *Framework) validateRuleRefs(ctx context.Context, p *principal, rule *memberRule) error {
 	if err := validateRuleShape(rule); err != nil {
 		return err
@@ -96,27 +94,36 @@ func (f *Framework) validateRuleRefs(ctx context.Context, p *principal, rule *me
 	for _, id := range rule.DepartmentIDs {
 		if _, err := f.Store.Client.Department.Query().Where(department.IDEQ(id), departmentScope(p)).Only(ctx); err != nil {
 			if ent.IsNotFound(err) {
-				return fmt.Errorf("%w: 部门不在当前租户", errInvalidGroupRule)
+				return fmt.Errorf("%w: 部门不在当前组织", errInvalidGroupRule)
 			}
 			return err
 		}
 	}
 	for _, id := range rule.PositionIDs {
-		row, err := f.Store.Client.Position.Get(ctx, id)
-		if ent.IsNotFound(err) || err == nil && !sameTenant(row.TenantID, p.TenantID) {
-			return fmt.Errorf("%w: 岗位不在当前租户", errInvalidGroupRule)
+		_, err := f.Store.Client.Position.Get(ctx, id)
+		if ent.IsNotFound(err) {
+			return fmt.Errorf("%w: 岗位不在当前组织", errInvalidGroupRule)
 		}
 		if err != nil {
 			return err
 		}
 	}
 	for _, id := range append(append([]int{}, rule.IncludeUserIDs...), rule.ExcludeUserIDs...) {
-		row, err := f.Store.Client.User.Get(ctx, id)
-		if ent.IsNotFound(err) || err == nil && !sameTenant(row.TenantID, p.TenantID) {
-			return fmt.Errorf("%w: 账号不在当前租户", errInvalidGroupRule)
+		_, err := f.visibleUser(ctx, p, id)
+		if ent.IsNotFound(err) {
+			return fmt.Errorf("%w: 账号不在当前组织", errInvalidGroupRule)
 		}
 		if err != nil {
 			return err
+		}
+	}
+	target, err := targetRuleMembers(ctx, ruleQueries{f.Store.Client.User, f.Store.Client.Department, f.Store.Client.UserPosition}, rule)
+	if err != nil {
+		return err
+	}
+	for id := range target {
+		if _, err := f.visibleUser(ctx, p, id); err != nil {
+			return fmt.Errorf("%w: 规则覆盖了超出管理范围的账号", errInvalidGroupRule)
 		}
 	}
 	return nil
@@ -128,16 +135,12 @@ type ruleQueries struct {
 	positions   *ent.UserPositionClient
 }
 
-func targetRuleMembers(ctx context.Context, q ruleQueries, tenantID *int, rule *memberRule) (map[int]*ent.User, error) {
+func targetRuleMembers(ctx context.Context, q ruleQueries, rule *memberRule) (map[int]*ent.User, error) {
 	if err := validateRuleShape(rule); err != nil {
 		return nil, err
 	}
 	userQuery := q.users.Query().Where(user.StatusEQ("enabled"))
-	if tenantID == nil {
-		userQuery = userQuery.Where(user.TenantIDIsNil())
-	} else {
-		userQuery = userQuery.Where(user.TenantIDEQ(*tenantID))
-	}
+
 	users, err := userQuery.All(ctx)
 	if err != nil {
 		return nil, err
@@ -148,11 +151,7 @@ func targetRuleMembers(ctx context.Context, q ruleQueries, tenantID *int, rule *
 	}
 	if rule.IncludeSubDepartments && len(departmentSet) > 0 {
 		query := q.departments.Query()
-		if tenantID == nil {
-			query = query.Where(department.TenantIDIsNil())
-		} else {
-			query = query.Where(department.TenantIDEQ(*tenantID))
-		}
+
 		rows, err := query.All(ctx)
 		if err != nil {
 			return nil, err
@@ -205,13 +204,13 @@ func targetRuleMembers(ctx context.Context, q ruleQueries, tenantID *int, rule *
 	return target, nil
 }
 
-func syncRuleMembers(ctx context.Context, tx *ent.Tx, group *ent.UserGroup, rule *memberRule) (int, int, error) {
+func syncRuleMembers(ctx context.Context, tx *ent.Tx, group *ent.UserGroup, rule *memberRule, validateNewGrants ...func() error) (int, int, error) {
 	// Updating the group row first serializes concurrent materializations for
 	// this group before either transaction reads or diffs its members.
 	if err := tx.UserGroup.UpdateOneID(group.ID).SetRuleSyncedAt(time.Now()).Exec(ctx); err != nil {
 		return 0, 0, err
 	}
-	target, err := targetRuleMembers(ctx, ruleQueries{tx.User, tx.Department, tx.UserPosition}, group.TenantID, rule)
+	target, err := targetRuleMembers(ctx, ruleQueries{tx.User, tx.Department, tx.UserPosition}, rule)
 	if err != nil {
 		return 0, 0, err
 	}
@@ -225,6 +224,13 @@ func syncRuleMembers(ctx context.Context, tx *ent.Tx, group *ent.UserGroup, rule
 			delete(target, link.UserID)
 		} else {
 			toRemove = append(toRemove, link.UserID)
+		}
+	}
+	if len(target) > 0 {
+		for _, validate := range validateNewGrants {
+			if err := validate(); err != nil {
+				return 0, 0, err
+			}
 		}
 	}
 	if len(toRemove) > 0 {
@@ -242,13 +248,9 @@ func syncRuleMembers(ctx context.Context, tx *ent.Tx, group *ent.UserGroup, rule
 
 // Domain writes that affect rule membership call this inside their own
 // transaction, so authorization inheritance changes with the user/org write.
-func syncDynamicGroupsInTx(ctx context.Context, tx *ent.Tx, tenantID *int) error {
+func (f *Framework) syncDynamicGroupsInTx(ctx context.Context, tx *ent.Tx, actor *principal) error {
 	query := tx.UserGroup.Query().Where(usergroup.MemberModeEQ("dynamic"))
-	if tenantID == nil {
-		query = query.Where(usergroup.TenantIDIsNil())
-	} else {
-		query = query.Where(usergroup.TenantIDEQ(*tenantID))
-	}
+
 	groups, err := query.All(ctx)
 	if err != nil {
 		return err
@@ -258,11 +260,31 @@ func syncDynamicGroupsInTx(ctx context.Context, tx *ent.Tx, tenantID *int) error
 		if err != nil {
 			return err
 		}
-		if _, _, err := syncRuleMembers(ctx, tx, group, rule); err != nil {
+		if _, _, err := f.syncRuleMembersAs(ctx, tx, actor, group, rule); err != nil {
 			return err
 		}
 	}
 	return nil
+}
+
+// Changing organization fields can grant roles through dynamic rules. Validate
+// newly inherited grants against the actor's pre-transaction authorization.
+// The trusted maintenance reconciler has no actor and uses syncRuleMembers.
+func (f *Framework) syncRuleMembersAs(ctx context.Context, tx *ent.Tx, actor *principal, group *ent.UserGroup, rule *memberRule) (int, int, error) {
+	return syncRuleMembers(ctx, tx, group, rule, func() error {
+		if actor == nil || actor.SuperAdmin || group.Status != "enabled" {
+			return nil
+		}
+		ids, err := tx.UserGroupRole.Query().Where(usergrouprole.GroupIDEQ(group.ID)).Select(usergrouprole.FieldRoleID).Ints(ctx)
+		if err != nil {
+			return err
+		}
+		enabled, err := tx.Role.Query().Where(role.IDIn(ids...), role.StatusEQ("enabled")).IDs(ctx)
+		if err != nil {
+			return err
+		}
+		return f.validateGrantRoles(ctx, actor, enabled)
+	})
 }
 
 func (s *Store) reconcileDynamicGroups(ctx context.Context) error {
@@ -330,10 +352,15 @@ func (f *Framework) previewGroupRule(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		for _, link := range links {
-			current[link.UserID] = true
+			if _, err := f.visibleUser(r.Context(), p, link.UserID); err == nil {
+				current[link.UserID] = true
+			} else if !ent.IsNotFound(err) {
+				fail(w, 503, "database_unavailable", "成员查询失败")
+				return
+			}
 		}
 	}
-	target, err := targetRuleMembers(r.Context(), ruleQueries{f.Store.Client.User, f.Store.Client.Department, f.Store.Client.UserPosition}, p.TenantID, &body.MemberRule)
+	target, err := targetRuleMembers(r.Context(), ruleQueries{f.Store.Client.User, f.Store.Client.Department, f.Store.Client.UserPosition}, &body.MemberRule)
 	if err != nil {
 		fail(w, 503, "database_unavailable", "预览失败")
 		return
@@ -385,6 +412,31 @@ func (f *Framework) syncGroup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	p := fromContext(r.Context())
+	if err := f.validateExistingGroupGrant(r, p, id); err != nil {
+		fail(w, 403, "grant_denied", err.Error())
+		return
+	}
+	group, err := f.scopedGroup(r, p, id)
+	if err != nil {
+		fail(w, 404, "not_found", "用户组不存在")
+		return
+	}
+	rule, err := ruleFromMap(group.MemberRule)
+	if err != nil || f.validateRuleRefs(r.Context(), p, rule) != nil {
+		fail(w, 403, "grant_denied", "规则覆盖了管理范围外的账号")
+		return
+	}
+	links, err := f.Store.Client.UserGroupMember.Query().Where(usergroupmember.GroupIDEQ(id)).All(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "成员查询失败")
+		return
+	}
+	for _, link := range links {
+		if _, err := f.visibleUser(r.Context(), p, link.UserID); err != nil {
+			fail(w, 403, "grant_denied", "用户组包含管理范围外的账号")
+			return
+		}
+	}
 	var added, removed int
 	err = f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		group, err := tx.UserGroup.Query().Where(usergroup.IDEQ(id), groupScope(p)).Only(r.Context())
@@ -398,14 +450,12 @@ func (f *Framework) syncGroup(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return err
 		}
-		added, removed, err = syncRuleMembers(r.Context(), tx, group, rule)
+		added, removed, err = f.syncRuleMembersAs(r.Context(), tx, p, group, rule)
 		if err != nil {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("sync").SetResource("user_groups").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if ent.IsNotFound(err) {

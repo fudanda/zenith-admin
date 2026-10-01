@@ -32,9 +32,6 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/rolepermission"
 	"github.com/fudanda/zenith-admin/backend/ent/session"
 	"github.com/fudanda/zenith-admin/backend/ent/systemsetting"
-	"github.com/fudanda/zenith-admin/backend/ent/tenant"
-	"github.com/fudanda/zenith-admin/backend/ent/tenantpackage"
-	"github.com/fudanda/zenith-admin/backend/ent/tenantpackagefeature"
 	"github.com/fudanda/zenith-admin/backend/ent/uploadchunk"
 	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
@@ -87,12 +84,6 @@ type Client struct {
 	Session *SessionClient
 	// SystemSetting is the client for interacting with the SystemSetting builders.
 	SystemSetting *SystemSettingClient
-	// Tenant is the client for interacting with the Tenant builders.
-	Tenant *TenantClient
-	// TenantPackage is the client for interacting with the TenantPackage builders.
-	TenantPackage *TenantPackageClient
-	// TenantPackageFeature is the client for interacting with the TenantPackageFeature builders.
-	TenantPackageFeature *TenantPackageFeatureClient
 	// UploadChunk is the client for interacting with the UploadChunk builders.
 	UploadChunk *UploadChunkClient
 	// UploadSession is the client for interacting with the UploadSession builders.
@@ -143,9 +134,6 @@ func (c *Client) init() {
 	c.RolePermission = NewRolePermissionClient(c.config)
 	c.Session = NewSessionClient(c.config)
 	c.SystemSetting = NewSystemSettingClient(c.config)
-	c.Tenant = NewTenantClient(c.config)
-	c.TenantPackage = NewTenantPackageClient(c.config)
-	c.TenantPackageFeature = NewTenantPackageFeatureClient(c.config)
 	c.UploadChunk = NewUploadChunkClient(c.config)
 	c.UploadSession = NewUploadSessionClient(c.config)
 	c.User = NewUserClient(c.config)
@@ -247,39 +235,36 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	cfg := c.config
 	cfg.driver = tx
 	return &Tx{
-		ctx:                  ctx,
-		config:               cfg,
-		AuditLog:             NewAuditLogClient(cfg),
-		Captcha:              NewCaptchaClient(cfg),
-		Department:           NewDepartmentClient(cfg),
-		Dict:                 NewDictClient(cfg),
-		DictItem:             NewDictItemClient(cfg),
-		FileStorageConfig:    NewFileStorageConfigClient(cfg),
-		LoginAttempt:         NewLoginAttemptClient(cfg),
-		LoginLog:             NewLoginLogClient(cfg),
-		ManagedFile:          NewManagedFileClient(cfg),
-		Menu:                 NewMenuClient(cfg),
-		Position:             NewPositionClient(cfg),
-		Role:                 NewRoleClient(cfg),
-		RoleDepartment:       NewRoleDepartmentClient(cfg),
-		RoleMenu:             NewRoleMenuClient(cfg),
-		RolePermission:       NewRolePermissionClient(cfg),
-		Session:              NewSessionClient(cfg),
-		SystemSetting:        NewSystemSettingClient(cfg),
-		Tenant:               NewTenantClient(cfg),
-		TenantPackage:        NewTenantPackageClient(cfg),
-		TenantPackageFeature: NewTenantPackageFeatureClient(cfg),
-		UploadChunk:          NewUploadChunkClient(cfg),
-		UploadSession:        NewUploadSessionClient(cfg),
-		User:                 NewUserClient(cfg),
-		UserDepartmentScope:  NewUserDepartmentScopeClient(cfg),
-		UserGroup:            NewUserGroupClient(cfg),
-		UserGroupMember:      NewUserGroupMemberClient(cfg),
-		UserGroupRole:        NewUserGroupRoleClient(cfg),
-		UserMenu:             NewUserMenuClient(cfg),
-		UserPermission:       NewUserPermissionClient(cfg),
-		UserPosition:         NewUserPositionClient(cfg),
-		UserRole:             NewUserRoleClient(cfg),
+		ctx:                 ctx,
+		config:              cfg,
+		AuditLog:            NewAuditLogClient(cfg),
+		Captcha:             NewCaptchaClient(cfg),
+		Department:          NewDepartmentClient(cfg),
+		Dict:                NewDictClient(cfg),
+		DictItem:            NewDictItemClient(cfg),
+		FileStorageConfig:   NewFileStorageConfigClient(cfg),
+		LoginAttempt:        NewLoginAttemptClient(cfg),
+		LoginLog:            NewLoginLogClient(cfg),
+		ManagedFile:         NewManagedFileClient(cfg),
+		Menu:                NewMenuClient(cfg),
+		Position:            NewPositionClient(cfg),
+		Role:                NewRoleClient(cfg),
+		RoleDepartment:      NewRoleDepartmentClient(cfg),
+		RoleMenu:            NewRoleMenuClient(cfg),
+		RolePermission:      NewRolePermissionClient(cfg),
+		Session:             NewSessionClient(cfg),
+		SystemSetting:       NewSystemSettingClient(cfg),
+		UploadChunk:         NewUploadChunkClient(cfg),
+		UploadSession:       NewUploadSessionClient(cfg),
+		User:                NewUserClient(cfg),
+		UserDepartmentScope: NewUserDepartmentScopeClient(cfg),
+		UserGroup:           NewUserGroupClient(cfg),
+		UserGroupMember:     NewUserGroupMemberClient(cfg),
+		UserGroupRole:       NewUserGroupRoleClient(cfg),
+		UserMenu:            NewUserMenuClient(cfg),
+		UserPermission:      NewUserPermissionClient(cfg),
+		UserPosition:        NewUserPositionClient(cfg),
+		UserRole:            NewUserRoleClient(cfg),
 	}, nil
 }
 
@@ -297,39 +282,36 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	cfg := c.config
 	cfg.driver = &txDriver{tx: tx, drv: c.driver}
 	return &Tx{
-		ctx:                  ctx,
-		config:               cfg,
-		AuditLog:             NewAuditLogClient(cfg),
-		Captcha:              NewCaptchaClient(cfg),
-		Department:           NewDepartmentClient(cfg),
-		Dict:                 NewDictClient(cfg),
-		DictItem:             NewDictItemClient(cfg),
-		FileStorageConfig:    NewFileStorageConfigClient(cfg),
-		LoginAttempt:         NewLoginAttemptClient(cfg),
-		LoginLog:             NewLoginLogClient(cfg),
-		ManagedFile:          NewManagedFileClient(cfg),
-		Menu:                 NewMenuClient(cfg),
-		Position:             NewPositionClient(cfg),
-		Role:                 NewRoleClient(cfg),
-		RoleDepartment:       NewRoleDepartmentClient(cfg),
-		RoleMenu:             NewRoleMenuClient(cfg),
-		RolePermission:       NewRolePermissionClient(cfg),
-		Session:              NewSessionClient(cfg),
-		SystemSetting:        NewSystemSettingClient(cfg),
-		Tenant:               NewTenantClient(cfg),
-		TenantPackage:        NewTenantPackageClient(cfg),
-		TenantPackageFeature: NewTenantPackageFeatureClient(cfg),
-		UploadChunk:          NewUploadChunkClient(cfg),
-		UploadSession:        NewUploadSessionClient(cfg),
-		User:                 NewUserClient(cfg),
-		UserDepartmentScope:  NewUserDepartmentScopeClient(cfg),
-		UserGroup:            NewUserGroupClient(cfg),
-		UserGroupMember:      NewUserGroupMemberClient(cfg),
-		UserGroupRole:        NewUserGroupRoleClient(cfg),
-		UserMenu:             NewUserMenuClient(cfg),
-		UserPermission:       NewUserPermissionClient(cfg),
-		UserPosition:         NewUserPositionClient(cfg),
-		UserRole:             NewUserRoleClient(cfg),
+		ctx:                 ctx,
+		config:              cfg,
+		AuditLog:            NewAuditLogClient(cfg),
+		Captcha:             NewCaptchaClient(cfg),
+		Department:          NewDepartmentClient(cfg),
+		Dict:                NewDictClient(cfg),
+		DictItem:            NewDictItemClient(cfg),
+		FileStorageConfig:   NewFileStorageConfigClient(cfg),
+		LoginAttempt:        NewLoginAttemptClient(cfg),
+		LoginLog:            NewLoginLogClient(cfg),
+		ManagedFile:         NewManagedFileClient(cfg),
+		Menu:                NewMenuClient(cfg),
+		Position:            NewPositionClient(cfg),
+		Role:                NewRoleClient(cfg),
+		RoleDepartment:      NewRoleDepartmentClient(cfg),
+		RoleMenu:            NewRoleMenuClient(cfg),
+		RolePermission:      NewRolePermissionClient(cfg),
+		Session:             NewSessionClient(cfg),
+		SystemSetting:       NewSystemSettingClient(cfg),
+		UploadChunk:         NewUploadChunkClient(cfg),
+		UploadSession:       NewUploadSessionClient(cfg),
+		User:                NewUserClient(cfg),
+		UserDepartmentScope: NewUserDepartmentScopeClient(cfg),
+		UserGroup:           NewUserGroupClient(cfg),
+		UserGroupMember:     NewUserGroupMemberClient(cfg),
+		UserGroupRole:       NewUserGroupRoleClient(cfg),
+		UserMenu:            NewUserMenuClient(cfg),
+		UserPermission:      NewUserPermissionClient(cfg),
+		UserPosition:        NewUserPositionClient(cfg),
+		UserRole:            NewUserRoleClient(cfg),
 	}, nil
 }
 
@@ -362,9 +344,9 @@ func (c *Client) Use(hooks ...Hook) {
 		c.AuditLog, c.Captcha, c.Department, c.Dict, c.DictItem, c.FileStorageConfig,
 		c.LoginAttempt, c.LoginLog, c.ManagedFile, c.Menu, c.Position, c.Role,
 		c.RoleDepartment, c.RoleMenu, c.RolePermission, c.Session, c.SystemSetting,
-		c.Tenant, c.TenantPackage, c.TenantPackageFeature, c.UploadChunk,
-		c.UploadSession, c.User, c.UserDepartmentScope, c.UserGroup, c.UserGroupMember,
-		c.UserGroupRole, c.UserMenu, c.UserPermission, c.UserPosition, c.UserRole,
+		c.UploadChunk, c.UploadSession, c.User, c.UserDepartmentScope, c.UserGroup,
+		c.UserGroupMember, c.UserGroupRole, c.UserMenu, c.UserPermission,
+		c.UserPosition, c.UserRole,
 	} {
 		n.Use(hooks...)
 	}
@@ -377,9 +359,9 @@ func (c *Client) Intercept(interceptors ...Interceptor) {
 		c.AuditLog, c.Captcha, c.Department, c.Dict, c.DictItem, c.FileStorageConfig,
 		c.LoginAttempt, c.LoginLog, c.ManagedFile, c.Menu, c.Position, c.Role,
 		c.RoleDepartment, c.RoleMenu, c.RolePermission, c.Session, c.SystemSetting,
-		c.Tenant, c.TenantPackage, c.TenantPackageFeature, c.UploadChunk,
-		c.UploadSession, c.User, c.UserDepartmentScope, c.UserGroup, c.UserGroupMember,
-		c.UserGroupRole, c.UserMenu, c.UserPermission, c.UserPosition, c.UserRole,
+		c.UploadChunk, c.UploadSession, c.User, c.UserDepartmentScope, c.UserGroup,
+		c.UserGroupMember, c.UserGroupRole, c.UserMenu, c.UserPermission,
+		c.UserPosition, c.UserRole,
 	} {
 		n.Intercept(interceptors...)
 	}
@@ -422,12 +404,6 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Session.mutate(ctx, m)
 	case *SystemSettingMutation:
 		return c.SystemSetting.mutate(ctx, m)
-	case *TenantMutation:
-		return c.Tenant.mutate(ctx, m)
-	case *TenantPackageMutation:
-		return c.TenantPackage.mutate(ctx, m)
-	case *TenantPackageFeatureMutation:
-		return c.TenantPackageFeature.mutate(ctx, m)
 	case *UploadChunkMutation:
 		return c.UploadChunk.mutate(ctx, m)
 	case *UploadSessionMutation:
@@ -2716,405 +2692,6 @@ func (c *SystemSettingClient) mutate(ctx context.Context, m *SystemSettingMutati
 	}
 }
 
-// TenantClient is a client for the Tenant schema.
-type TenantClient struct {
-	config
-}
-
-// NewTenantClient returns a client for the Tenant from the given config.
-func NewTenantClient(c config) *TenantClient {
-	return &TenantClient{config: c}
-}
-
-// Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `tenant.Hooks(f(g(h())))`.
-func (c *TenantClient) Use(hooks ...Hook) {
-	c.hooks.Tenant = append(c.hooks.Tenant, hooks...)
-}
-
-// Intercept adds a list of query interceptors to the interceptors stack.
-// A call to `Intercept(f, g, h)` equals to `tenant.Intercept(f(g(h())))`.
-func (c *TenantClient) Intercept(interceptors ...Interceptor) {
-	c.inters.Tenant = append(c.inters.Tenant, interceptors...)
-}
-
-// Create returns a builder for creating a Tenant entity.
-func (c *TenantClient) Create() *TenantCreate {
-	mutation := newTenantMutation(c.config, OpCreate)
-	return &TenantCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// CreateBulk returns a builder for creating a bulk of Tenant entities.
-func (c *TenantClient) CreateBulk(builders ...*TenantCreate) *TenantCreateBulk {
-	return &TenantCreateBulk{config: c.config, builders: builders}
-}
-
-// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
-// a builder and applies setFunc on it.
-func (c *TenantClient) MapCreateBulk(slice any, setFunc func(*TenantCreate, int)) *TenantCreateBulk {
-	rv := reflect.ValueOf(slice)
-	if rv.Kind() != reflect.Slice {
-		return &TenantCreateBulk{err: fmt.Errorf("calling to TenantClient.MapCreateBulk with wrong type %T, need slice", slice)}
-	}
-	builders := make([]*TenantCreate, rv.Len())
-	for i := 0; i < rv.Len(); i++ {
-		builders[i] = c.Create()
-		setFunc(builders[i], i)
-	}
-	return &TenantCreateBulk{config: c.config, builders: builders}
-}
-
-// Update returns an update builder for Tenant.
-func (c *TenantClient) Update() *TenantUpdate {
-	mutation := newTenantMutation(c.config, OpUpdate)
-	return &TenantUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOne returns an update builder for the given entity.
-func (c *TenantClient) UpdateOne(_m *Tenant) *TenantUpdateOne {
-	mutation := newTenantMutation(c.config, OpUpdateOne, withTenant(_m))
-	return &TenantUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOneID returns an update builder for the given id.
-func (c *TenantClient) UpdateOneID(id int) *TenantUpdateOne {
-	mutation := newTenantMutation(c.config, OpUpdateOne, withTenantID(id))
-	return &TenantUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Delete returns a delete builder for Tenant.
-func (c *TenantClient) Delete() *TenantDelete {
-	mutation := newTenantMutation(c.config, OpDelete)
-	return &TenantDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// DeleteOne returns a builder for deleting the given entity.
-func (c *TenantClient) DeleteOne(_m *Tenant) *TenantDeleteOne {
-	return c.DeleteOneID(_m.ID)
-}
-
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *TenantClient) DeleteOneID(id int) *TenantDeleteOne {
-	builder := c.Delete().Where(tenant.ID(id))
-	builder.mutation.id = &id
-	builder.mutation.op = OpDeleteOne
-	return &TenantDeleteOne{builder}
-}
-
-// Query returns a query builder for Tenant.
-func (c *TenantClient) Query() *TenantQuery {
-	return &TenantQuery{
-		config: c.config,
-		ctx:    &QueryContext{Type: TypeTenant},
-		inters: c.Interceptors(),
-	}
-}
-
-// Get returns a Tenant entity by its id.
-func (c *TenantClient) Get(ctx context.Context, id int) (*Tenant, error) {
-	return c.Query().Where(tenant.ID(id)).Only(ctx)
-}
-
-// GetX is like Get, but panics if an error occurs.
-func (c *TenantClient) GetX(ctx context.Context, id int) *Tenant {
-	obj, err := c.Get(ctx, id)
-	if err != nil {
-		panic(err)
-	}
-	return obj
-}
-
-// Hooks returns the client hooks.
-func (c *TenantClient) Hooks() []Hook {
-	return c.hooks.Tenant
-}
-
-// Interceptors returns the client interceptors.
-func (c *TenantClient) Interceptors() []Interceptor {
-	return c.inters.Tenant
-}
-
-func (c *TenantClient) mutate(ctx context.Context, m *TenantMutation) (Value, error) {
-	switch m.Op() {
-	case OpCreate:
-		return (&TenantCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdate:
-		return (&TenantUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdateOne:
-		return (&TenantUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpDelete, OpDeleteOne:
-		return (&TenantDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
-	default:
-		return nil, fmt.Errorf("ent: unknown Tenant mutation op: %q", m.Op())
-	}
-}
-
-// TenantPackageClient is a client for the TenantPackage schema.
-type TenantPackageClient struct {
-	config
-}
-
-// NewTenantPackageClient returns a client for the TenantPackage from the given config.
-func NewTenantPackageClient(c config) *TenantPackageClient {
-	return &TenantPackageClient{config: c}
-}
-
-// Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `tenantpackage.Hooks(f(g(h())))`.
-func (c *TenantPackageClient) Use(hooks ...Hook) {
-	c.hooks.TenantPackage = append(c.hooks.TenantPackage, hooks...)
-}
-
-// Intercept adds a list of query interceptors to the interceptors stack.
-// A call to `Intercept(f, g, h)` equals to `tenantpackage.Intercept(f(g(h())))`.
-func (c *TenantPackageClient) Intercept(interceptors ...Interceptor) {
-	c.inters.TenantPackage = append(c.inters.TenantPackage, interceptors...)
-}
-
-// Create returns a builder for creating a TenantPackage entity.
-func (c *TenantPackageClient) Create() *TenantPackageCreate {
-	mutation := newTenantPackageMutation(c.config, OpCreate)
-	return &TenantPackageCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// CreateBulk returns a builder for creating a bulk of TenantPackage entities.
-func (c *TenantPackageClient) CreateBulk(builders ...*TenantPackageCreate) *TenantPackageCreateBulk {
-	return &TenantPackageCreateBulk{config: c.config, builders: builders}
-}
-
-// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
-// a builder and applies setFunc on it.
-func (c *TenantPackageClient) MapCreateBulk(slice any, setFunc func(*TenantPackageCreate, int)) *TenantPackageCreateBulk {
-	rv := reflect.ValueOf(slice)
-	if rv.Kind() != reflect.Slice {
-		return &TenantPackageCreateBulk{err: fmt.Errorf("calling to TenantPackageClient.MapCreateBulk with wrong type %T, need slice", slice)}
-	}
-	builders := make([]*TenantPackageCreate, rv.Len())
-	for i := 0; i < rv.Len(); i++ {
-		builders[i] = c.Create()
-		setFunc(builders[i], i)
-	}
-	return &TenantPackageCreateBulk{config: c.config, builders: builders}
-}
-
-// Update returns an update builder for TenantPackage.
-func (c *TenantPackageClient) Update() *TenantPackageUpdate {
-	mutation := newTenantPackageMutation(c.config, OpUpdate)
-	return &TenantPackageUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOne returns an update builder for the given entity.
-func (c *TenantPackageClient) UpdateOne(_m *TenantPackage) *TenantPackageUpdateOne {
-	mutation := newTenantPackageMutation(c.config, OpUpdateOne, withTenantPackage(_m))
-	return &TenantPackageUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOneID returns an update builder for the given id.
-func (c *TenantPackageClient) UpdateOneID(id int) *TenantPackageUpdateOne {
-	mutation := newTenantPackageMutation(c.config, OpUpdateOne, withTenantPackageID(id))
-	return &TenantPackageUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Delete returns a delete builder for TenantPackage.
-func (c *TenantPackageClient) Delete() *TenantPackageDelete {
-	mutation := newTenantPackageMutation(c.config, OpDelete)
-	return &TenantPackageDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// DeleteOne returns a builder for deleting the given entity.
-func (c *TenantPackageClient) DeleteOne(_m *TenantPackage) *TenantPackageDeleteOne {
-	return c.DeleteOneID(_m.ID)
-}
-
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *TenantPackageClient) DeleteOneID(id int) *TenantPackageDeleteOne {
-	builder := c.Delete().Where(tenantpackage.ID(id))
-	builder.mutation.id = &id
-	builder.mutation.op = OpDeleteOne
-	return &TenantPackageDeleteOne{builder}
-}
-
-// Query returns a query builder for TenantPackage.
-func (c *TenantPackageClient) Query() *TenantPackageQuery {
-	return &TenantPackageQuery{
-		config: c.config,
-		ctx:    &QueryContext{Type: TypeTenantPackage},
-		inters: c.Interceptors(),
-	}
-}
-
-// Get returns a TenantPackage entity by its id.
-func (c *TenantPackageClient) Get(ctx context.Context, id int) (*TenantPackage, error) {
-	return c.Query().Where(tenantpackage.ID(id)).Only(ctx)
-}
-
-// GetX is like Get, but panics if an error occurs.
-func (c *TenantPackageClient) GetX(ctx context.Context, id int) *TenantPackage {
-	obj, err := c.Get(ctx, id)
-	if err != nil {
-		panic(err)
-	}
-	return obj
-}
-
-// Hooks returns the client hooks.
-func (c *TenantPackageClient) Hooks() []Hook {
-	return c.hooks.TenantPackage
-}
-
-// Interceptors returns the client interceptors.
-func (c *TenantPackageClient) Interceptors() []Interceptor {
-	return c.inters.TenantPackage
-}
-
-func (c *TenantPackageClient) mutate(ctx context.Context, m *TenantPackageMutation) (Value, error) {
-	switch m.Op() {
-	case OpCreate:
-		return (&TenantPackageCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdate:
-		return (&TenantPackageUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdateOne:
-		return (&TenantPackageUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpDelete, OpDeleteOne:
-		return (&TenantPackageDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
-	default:
-		return nil, fmt.Errorf("ent: unknown TenantPackage mutation op: %q", m.Op())
-	}
-}
-
-// TenantPackageFeatureClient is a client for the TenantPackageFeature schema.
-type TenantPackageFeatureClient struct {
-	config
-}
-
-// NewTenantPackageFeatureClient returns a client for the TenantPackageFeature from the given config.
-func NewTenantPackageFeatureClient(c config) *TenantPackageFeatureClient {
-	return &TenantPackageFeatureClient{config: c}
-}
-
-// Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `tenantpackagefeature.Hooks(f(g(h())))`.
-func (c *TenantPackageFeatureClient) Use(hooks ...Hook) {
-	c.hooks.TenantPackageFeature = append(c.hooks.TenantPackageFeature, hooks...)
-}
-
-// Intercept adds a list of query interceptors to the interceptors stack.
-// A call to `Intercept(f, g, h)` equals to `tenantpackagefeature.Intercept(f(g(h())))`.
-func (c *TenantPackageFeatureClient) Intercept(interceptors ...Interceptor) {
-	c.inters.TenantPackageFeature = append(c.inters.TenantPackageFeature, interceptors...)
-}
-
-// Create returns a builder for creating a TenantPackageFeature entity.
-func (c *TenantPackageFeatureClient) Create() *TenantPackageFeatureCreate {
-	mutation := newTenantPackageFeatureMutation(c.config, OpCreate)
-	return &TenantPackageFeatureCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// CreateBulk returns a builder for creating a bulk of TenantPackageFeature entities.
-func (c *TenantPackageFeatureClient) CreateBulk(builders ...*TenantPackageFeatureCreate) *TenantPackageFeatureCreateBulk {
-	return &TenantPackageFeatureCreateBulk{config: c.config, builders: builders}
-}
-
-// MapCreateBulk creates a bulk creation builder from the given slice. For each item in the slice, the function creates
-// a builder and applies setFunc on it.
-func (c *TenantPackageFeatureClient) MapCreateBulk(slice any, setFunc func(*TenantPackageFeatureCreate, int)) *TenantPackageFeatureCreateBulk {
-	rv := reflect.ValueOf(slice)
-	if rv.Kind() != reflect.Slice {
-		return &TenantPackageFeatureCreateBulk{err: fmt.Errorf("calling to TenantPackageFeatureClient.MapCreateBulk with wrong type %T, need slice", slice)}
-	}
-	builders := make([]*TenantPackageFeatureCreate, rv.Len())
-	for i := 0; i < rv.Len(); i++ {
-		builders[i] = c.Create()
-		setFunc(builders[i], i)
-	}
-	return &TenantPackageFeatureCreateBulk{config: c.config, builders: builders}
-}
-
-// Update returns an update builder for TenantPackageFeature.
-func (c *TenantPackageFeatureClient) Update() *TenantPackageFeatureUpdate {
-	mutation := newTenantPackageFeatureMutation(c.config, OpUpdate)
-	return &TenantPackageFeatureUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOne returns an update builder for the given entity.
-func (c *TenantPackageFeatureClient) UpdateOne(_m *TenantPackageFeature) *TenantPackageFeatureUpdateOne {
-	mutation := newTenantPackageFeatureMutation(c.config, OpUpdateOne, withTenantPackageFeature(_m))
-	return &TenantPackageFeatureUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOneID returns an update builder for the given id.
-func (c *TenantPackageFeatureClient) UpdateOneID(id int) *TenantPackageFeatureUpdateOne {
-	mutation := newTenantPackageFeatureMutation(c.config, OpUpdateOne, withTenantPackageFeatureID(id))
-	return &TenantPackageFeatureUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Delete returns a delete builder for TenantPackageFeature.
-func (c *TenantPackageFeatureClient) Delete() *TenantPackageFeatureDelete {
-	mutation := newTenantPackageFeatureMutation(c.config, OpDelete)
-	return &TenantPackageFeatureDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// DeleteOne returns a builder for deleting the given entity.
-func (c *TenantPackageFeatureClient) DeleteOne(_m *TenantPackageFeature) *TenantPackageFeatureDeleteOne {
-	return c.DeleteOneID(_m.ID)
-}
-
-// DeleteOneID returns a builder for deleting the given entity by its id.
-func (c *TenantPackageFeatureClient) DeleteOneID(id int) *TenantPackageFeatureDeleteOne {
-	builder := c.Delete().Where(tenantpackagefeature.ID(id))
-	builder.mutation.id = &id
-	builder.mutation.op = OpDeleteOne
-	return &TenantPackageFeatureDeleteOne{builder}
-}
-
-// Query returns a query builder for TenantPackageFeature.
-func (c *TenantPackageFeatureClient) Query() *TenantPackageFeatureQuery {
-	return &TenantPackageFeatureQuery{
-		config: c.config,
-		ctx:    &QueryContext{Type: TypeTenantPackageFeature},
-		inters: c.Interceptors(),
-	}
-}
-
-// Get returns a TenantPackageFeature entity by its id.
-func (c *TenantPackageFeatureClient) Get(ctx context.Context, id int) (*TenantPackageFeature, error) {
-	return c.Query().Where(tenantpackagefeature.ID(id)).Only(ctx)
-}
-
-// GetX is like Get, but panics if an error occurs.
-func (c *TenantPackageFeatureClient) GetX(ctx context.Context, id int) *TenantPackageFeature {
-	obj, err := c.Get(ctx, id)
-	if err != nil {
-		panic(err)
-	}
-	return obj
-}
-
-// Hooks returns the client hooks.
-func (c *TenantPackageFeatureClient) Hooks() []Hook {
-	return c.hooks.TenantPackageFeature
-}
-
-// Interceptors returns the client interceptors.
-func (c *TenantPackageFeatureClient) Interceptors() []Interceptor {
-	return c.inters.TenantPackageFeature
-}
-
-func (c *TenantPackageFeatureClient) mutate(ctx context.Context, m *TenantPackageFeatureMutation) (Value, error) {
-	switch m.Op() {
-	case OpCreate:
-		return (&TenantPackageFeatureCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdate:
-		return (&TenantPackageFeatureUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpUpdateOne:
-		return (&TenantPackageFeatureUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
-	case OpDelete, OpDeleteOne:
-		return (&TenantPackageFeatureDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
-	default:
-		return nil, fmt.Errorf("ent: unknown TenantPackageFeature mutation op: %q", m.Op())
-	}
-}
-
 // UploadChunkClient is a client for the UploadChunk schema.
 type UploadChunkClient struct {
 	config
@@ -4583,17 +4160,15 @@ type (
 	hooks struct {
 		AuditLog, Captcha, Department, Dict, DictItem, FileStorageConfig, LoginAttempt,
 		LoginLog, ManagedFile, Menu, Position, Role, RoleDepartment, RoleMenu,
-		RolePermission, Session, SystemSetting, Tenant, TenantPackage,
-		TenantPackageFeature, UploadChunk, UploadSession, User, UserDepartmentScope,
-		UserGroup, UserGroupMember, UserGroupRole, UserMenu, UserPermission,
-		UserPosition, UserRole []ent.Hook
+		RolePermission, Session, SystemSetting, UploadChunk, UploadSession, User,
+		UserDepartmentScope, UserGroup, UserGroupMember, UserGroupRole, UserMenu,
+		UserPermission, UserPosition, UserRole []ent.Hook
 	}
 	inters struct {
 		AuditLog, Captcha, Department, Dict, DictItem, FileStorageConfig, LoginAttempt,
 		LoginLog, ManagedFile, Menu, Position, Role, RoleDepartment, RoleMenu,
-		RolePermission, Session, SystemSetting, Tenant, TenantPackage,
-		TenantPackageFeature, UploadChunk, UploadSession, User, UserDepartmentScope,
-		UserGroup, UserGroupMember, UserGroupRole, UserMenu, UserPermission,
-		UserPosition, UserRole []ent.Interceptor
+		RolePermission, Session, SystemSetting, UploadChunk, UploadSession, User,
+		UserDepartmentScope, UserGroup, UserGroupMember, UserGroupRole, UserMenu,
+		UserPermission, UserPosition, UserRole []ent.Interceptor
 	}
 )

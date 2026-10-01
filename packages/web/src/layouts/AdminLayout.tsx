@@ -28,14 +28,14 @@ import Watermark from '@/components/Watermark';
 import { FeedbackWidget } from '@/components/FeedbackWidget';
 import { clearEntityRelationNavigation, useEntityRelationNavigationSession } from '@/lib/entity-relation-navigation';
 // 重依赖懒加载：快捷聊天（Semi Chat 组件树）、音视频通话、聊天通知、锁屏（lunar 农历 ~300KB）均不进首屏 chunk
-const QuickChatButton = lazy(() => import('@/components/QuickChatButton'));
-const CallOverlayHost = lazy(() => import('@/webrtc/CallOverlayHost'));
-const ChatNotifierHost = lazy(() => import('@/pages/chat/ChatNotifierHost'));
-const LockScreen = lazy(() => import('@/components/LockScreen').then((m) => ({ default: m.LockScreen })));
+const QuickChatButton = /* @__PURE__ */ lazy(() => import('@/components/QuickChatButton'));
+const CallOverlayHost = /* @__PURE__ */ lazy(() => import('@/webrtc/CallOverlayHost'));
+const ChatNotifierHost = /* @__PURE__ */ lazy(() => import('@/pages/chat/ChatNotifierHost'));
+const LockScreen = /* @__PURE__ */ lazy(() => import('@/components/LockScreen').then((m) => ({ default: m.LockScreen })));
 // 公告详情弹窗拖 FileAttachment→FilePreviewModal 依赖链，改为打开时按需加载
-const AnnouncementDetailModal = lazy(() => import('@/components/AnnouncementDetailModal'));
+const AnnouncementDetailModal = /* @__PURE__ */ lazy(() => import('@/components/AnnouncementDetailModal'));
 // 偏好抽屉正文（ColorPicker / Radio / Select 等仅此处使用）首次打开时才下载
-const PreferencesSheetBody = lazy(() => import('./admin/PreferencesSheetBody'));
+const PreferencesSheetBody = /* @__PURE__ */ lazy(() => import('./admin/PreferencesSheetBody'));
 import TaskTray from '@/components/TaskTray';
 import { KeywordInput } from '@/components/search-filters';
 import { TabSwitcher, type RecentlyClosedTab } from './TabSwitcher';
@@ -76,10 +76,11 @@ import { TopBar } from './admin/TopBar';
 import { DoubleSidebar } from './admin/DoubleSidebar';
 import { SidebarNav } from './admin/SidebarNav';
 import { HeaderBreadcrumb } from './admin/HeaderBreadcrumb';
-const EntityRelationBackButton = lazy(() => import('@/components/entity-relations/EntityRelationBackButton'));
+const EntityRelationBackButton = /* @__PURE__ */ lazy(() => import('@/components/entity-relations/EntityRelationBackButton'));
 import { ShortcutsModal } from './admin/ShortcutsModal';
 import { ImportPreferencesModal, LockPasswordModal, MessageDetailModal } from './admin/LayoutModals';
 import './AdminLayout.css';
+const IS_GO_FOUNDATION = import.meta.env.VITE_GO_FOUNDATION === 'true';
 
 interface AdminLayoutProps {
   readonly user: Omit<User, 'password'>;
@@ -708,8 +709,8 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
       {preferences.topbarClock !== 'off' && (
         <TopbarClock mode={preferences.topbarClock} showDate={preferences.topbarClockShowDate ?? true} />
       )}
-      <TaskTray />
-      <AnnouncementPopover
+      {!IS_GO_FOUNDATION && <TaskTray />}
+      {!IS_GO_FOUNDATION && <AnnouncementPopover
         announcementPopVisible={announcementPopVisible}
         setAnnouncementPopVisible={setAnnouncementPopVisible}
         fetchRecentAnnouncements={fetchRecentAnnouncements}
@@ -718,8 +719,8 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
         setSelectedAnnouncement={setSelectedAnnouncement}
         announcementUnreadCount={announcementUnreadCount}
         navigate={navigate}
-      />
-      <MessagePopover
+      />}
+      {!IS_GO_FOUNDATION && <MessagePopover
         messagePopVisible={messagePopVisible}
         setMessagePopVisible={setMessagePopVisible}
         fetchInAppMessages={fetchInAppMessages}
@@ -728,7 +729,7 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
         setSelectedMessage={setSelectedMessage}
         unreadCount={unreadCount}
         navigate={navigate}
-      />
+      />}
       <ThemeModeDropdown mode={mode} handleThemeModeChange={handleThemeModeChange} />
       {/* 移动端页面入口与常用功能入口分离 */}
       <PagesDropdown
@@ -737,13 +738,13 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
         setMobilePagesVisible={setMobilePagesVisible}
         mobileQuickPagesPanel={mobileQuickPagesPanel}
       />
-      <MoreDropdown
+      {!IS_GO_FOUNDATION && <MoreDropdown
         navigate={navigate}
         announcementUnreadCount={announcementUnreadCount}
         unreadCount={unreadCount}
         mode={mode}
         handleThemeModeChange={handleThemeModeChange}
-      />
+      />}
       {(preferences.showFullscreen ?? true) && (
         <button className="admin-theme-btn admin-theme-btn--fullscreen" title={isFullscreen ? '退出全屏' : '全屏显示'} onClick={toggleFullscreen}>
           {isFullscreen ? <Shrink size={16} strokeWidth={1.5} /> : <Expand size={16} strokeWidth={1.5} />}
@@ -1129,7 +1130,7 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
       )}
 
       {/* ===== 快捷聊天浮动按钮 ===== */}
-      {quickChatEnabled && (preferences.showQuickChat ?? true) && (
+      {!IS_GO_FOUNDATION && quickChatEnabled && (preferences.showQuickChat ?? true) && (
         <Suspense fallback={null}>
           <QuickChatButton onHide={canEditPreference('showQuickChat') ? () => { setPreferences({ showQuickChat: false }); } : undefined} />
         </Suspense>
@@ -1141,14 +1142,14 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
       )}
 
       {/* ===== 音视频通话全局宿主 ===== */}
-      <Suspense fallback={null}>
+      {!IS_GO_FOUNDATION && <Suspense fallback={null}>
         <CallOverlayHost />
-      </Suspense>
+      </Suspense>}
 
       {/* ===== 全局聊天通知（桌面通知 + 提示音）===== */}
-      <Suspense fallback={null}>
+      {!IS_GO_FOUNDATION && <Suspense fallback={null}>
         <ChatNotifierHost userId={user.id} />
-      </Suspense>
+      </Suspense>}
 
       {/* ===== 消息详情 Modal ===== */}
       <MessageDetailModal selectedMessage={selectedMessage} setSelectedMessage={setSelectedMessage} />

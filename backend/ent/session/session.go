@@ -19,12 +19,20 @@ const (
 	FieldTokenHash = "token_hash"
 	// FieldCsrfHash holds the string denoting the csrf_hash field in the database.
 	FieldCsrfHash = "csrf_hash"
-	// FieldTenantViewID holds the string denoting the tenant_view_id field in the database.
-	FieldTenantViewID = "tenant_view_id"
 	// FieldExpiresAt holds the string denoting the expires_at field in the database.
 	FieldExpiresAt = "expires_at"
 	// FieldRevokedAt holds the string denoting the revoked_at field in the database.
 	FieldRevokedAt = "revoked_at"
+	// FieldIP holds the string denoting the ip field in the database.
+	FieldIP = "ip"
+	// FieldClient holds the string denoting the client field in the database.
+	FieldClient = "client"
+	// FieldBrowser holds the string denoting the browser field in the database.
+	FieldBrowser = "browser"
+	// FieldOs holds the string denoting the os field in the database.
+	FieldOs = "os"
+	// FieldLastActiveAt holds the string denoting the last_active_at field in the database.
+	FieldLastActiveAt = "last_active_at"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// Table holds the table name of the session in the database.
@@ -37,9 +45,13 @@ var Columns = []string{
 	FieldUserID,
 	FieldTokenHash,
 	FieldCsrfHash,
-	FieldTenantViewID,
 	FieldExpiresAt,
 	FieldRevokedAt,
+	FieldIP,
+	FieldClient,
+	FieldBrowser,
+	FieldOs,
+	FieldLastActiveAt,
 	FieldCreatedAt,
 }
 
@@ -54,6 +66,16 @@ func ValidColumn(column string) bool {
 }
 
 var (
+	// DefaultIP holds the default value on creation for the "ip" field.
+	DefaultIP string
+	// DefaultClient holds the default value on creation for the "client" field.
+	DefaultClient string
+	// DefaultBrowser holds the default value on creation for the "browser" field.
+	DefaultBrowser string
+	// DefaultOs holds the default value on creation for the "os" field.
+	DefaultOs string
+	// DefaultLastActiveAt holds the default value on creation for the "last_active_at" field.
+	DefaultLastActiveAt func() time.Time
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt func() time.Time
 )
@@ -81,11 +103,6 @@ func ByCsrfHash(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldCsrfHash, opts...).ToFunc()
 }
 
-// ByTenantViewID orders the results by the tenant_view_id field.
-func ByTenantViewID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldTenantViewID, opts...).ToFunc()
-}
-
 // ByExpiresAt orders the results by the expires_at field.
 func ByExpiresAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldExpiresAt, opts...).ToFunc()
@@ -94,6 +111,31 @@ func ByExpiresAt(opts ...sql.OrderTermOption) OrderOption {
 // ByRevokedAt orders the results by the revoked_at field.
 func ByRevokedAt(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRevokedAt, opts...).ToFunc()
+}
+
+// ByIP orders the results by the ip field.
+func ByIP(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldIP, opts...).ToFunc()
+}
+
+// ByClient orders the results by the client field.
+func ByClient(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldClient, opts...).ToFunc()
+}
+
+// ByBrowser orders the results by the browser field.
+func ByBrowser(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBrowser, opts...).ToFunc()
+}
+
+// ByOs orders the results by the os field.
+func ByOs(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOs, opts...).ToFunc()
+}
+
+// ByLastActiveAt orders the results by the last_active_at field.
+func ByLastActiveAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldLastActiveAt, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.

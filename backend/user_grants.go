@@ -1,6 +1,8 @@
 package zenith
 
 import (
+	"net/http"
+
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/department"
 	"github.com/fudanda/zenith-admin/backend/ent/menu"
@@ -13,7 +15,6 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/usermenu"
 	"github.com/fudanda/zenith-admin/backend/ent/userrole"
 	"github.com/gorilla/mux"
-	"net/http"
 )
 
 func (f *Framework) userGrantTarget(w http.ResponseWriter, r *http.Request) (*ent.User, int, bool) {
@@ -48,14 +49,14 @@ func (f *Framework) getUserMenus(w http.ResponseWriter, r *http.Request) {
 	for _, item := range direct {
 		directIDs = append(directIDs, item.MenuID)
 	}
-	assignments, err := f.Store.Client.UserRole.Query().Where(userrole.UserIDEQ(account.ID)).All(r.Context())
+	assignments, err := f.effectiveRoleIDs(r.Context(), account.ID)
 	if err != nil {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
 	}
 	inherited := map[int]bool{}
 	for _, assignment := range assignments {
-		row, err := f.Store.Client.Role.Query().Where(role.IDEQ(assignment.RoleID), role.StatusEQ("enabled")).Only(r.Context())
+		row, err := f.Store.Client.Role.Query().Where(role.IDEQ(assignment), role.StatusEQ("enabled")).Only(r.Context())
 		if ent.IsNotFound(err) {
 			continue
 		}
@@ -63,9 +64,7 @@ func (f *Framework) getUserMenus(w http.ResponseWriter, r *http.Request) {
 			fail(w, 503, "database_unavailable", "查询失败")
 			return
 		}
-		if (row.TenantID == nil) != (account.TenantID == nil) || row.TenantID != nil && *row.TenantID != *account.TenantID {
-			continue
-		}
+
 		links, err := f.Store.Client.RoleMenu.Query().Where(rolemenu.RoleIDEQ(row.ID)).All(r.Context())
 		if err != nil {
 			fail(w, 503, "database_unavailable", "查询失败")
@@ -107,6 +106,10 @@ func (f *Framework) assignUserMenus(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	p := fromContext(r.Context())
+	if err := f.validateGrantMenus(r.Context(), p, in.MenuIDs); err != nil {
+		fail(w, 403, "grant_denied", err.Error())
+		return
+	}
 	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		if _, err := tx.UserMenu.Delete().Where(usermenu.UserIDEQ(account.ID)).Exec(r.Context()); err != nil {
 			return err
@@ -117,9 +120,7 @@ func (f *Framework) assignUserMenus(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("assign_menus").SetResource("users").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -130,7 +131,7 @@ func (f *Framework) assignUserMenus(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f *Framework) assignUserRoles(w http.ResponseWriter, r *http.Request) {
-	account, id, ok := f.userGrantTarget(w, r)
+	_, id, ok := f.userGrantTarget(w, r)
 	if !ok {
 		return
 	}
@@ -142,24 +143,20 @@ func (f *Framework) assignUserRoles(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	p := fromContext(r.Context())
-	seen := map[int]bool{}
-	for _, roleID := range in.RoleIDs {
-		if roleID < 1 || seen[roleID] {
-			fail(w, 400, "invalid_request", "角色 ID 无效或重复")
-			return
-		}
-		seen[roleID] = true
-		row, err := f.Store.Client.Role.Query().Where(role.IDEQ(roleID), role.StatusEQ("enabled")).Only(r.Context())
-		if err != nil || (row.TenantID == nil) != (account.TenantID == nil) || row.TenantID != nil && *row.TenantID != *account.TenantID {
-			fail(w, 400, "invalid_role", "角色不属于当前租户")
-			return
-		}
-		if row.Code == "super_admin" {
-			fail(w, 403, "protected_role", "超级管理员不能通过页面分配")
-			return
-		}
+	if err := f.validateGrantRoles(r.Context(), p, in.RoleIDs); err != nil {
+		fail(w, 403, "grant_denied", err.Error())
+		return
 	}
-	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+	protected, err := f.protectedBatchUser(r, id)
+	if err != nil {
+		fail(w, 503, "database_unavailable", "授权查询失败")
+		return
+	}
+	if protected {
+		fail(w, 409, "protected_user", "不能移除系统超级管理员授权")
+		return
+	}
+	err = f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		if _, err := tx.UserRole.Delete().Where(userrole.UserIDEQ(id)).Exec(r.Context()); err != nil {
 			return err
 		}
@@ -169,9 +166,7 @@ func (f *Framework) assignUserRoles(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("assign_roles").SetResource("users").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -207,9 +202,7 @@ func (f *Framework) getUserDataPermission(w http.ResponseWriter, r *http.Request
 		if err != nil {
 			return err
 		}
-		if (row.TenantID == nil) != (account.TenantID == nil) || row.TenantID != nil && *row.TenantID != *account.TenantID {
-			return nil
-		}
+
 		*scopes = append(*scopes, row.DataScope)
 		if row.DataScope == "custom" {
 			links, err := f.Store.Client.RoleDepartment.Query().Where(roledepartment.RoleIDEQ(roleID)).All(r.Context())
@@ -248,7 +241,7 @@ func (f *Framework) getUserDataPermission(w http.ResponseWriter, r *http.Request
 			fail(w, 503, "database_unavailable", "查询失败")
 			return
 		}
-		if group.Status != "enabled" || (group.TenantID == nil) != (account.TenantID == nil) || group.TenantID != nil && *group.TenantID != *account.TenantID {
+		if group.Status != "enabled" {
 			continue
 		}
 		groups = append(groups, map[string]any{"id": group.ID, "name": group.Name})
@@ -314,7 +307,13 @@ func (f *Framework) updateUserDataPermission(w http.ResponseWriter, r *http.Requ
 		}
 		seen[deptID] = true
 		if _, err := f.Store.Client.Department.Query().Where(department.IDEQ(deptID), departmentScope(p)).Only(r.Context()); err != nil {
-			fail(w, 400, "invalid_department", "部门不属于当前租户")
+			fail(w, 400, "invalid_department", "部门不属于当前组织")
+			return
+		}
+	}
+	if in.DataScope != nil {
+		if err := f.validateGrantScope(r.Context(), p, *in.DataScope, in.DeptScopeIDs); err != nil {
+			fail(w, 403, "grant_denied", err.Error())
 			return
 		}
 	}
@@ -343,9 +342,7 @@ func (f *Framework) updateUserDataPermission(w http.ResponseWriter, r *http.Requ
 			}
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("set_data_scope").SetResource("users").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {

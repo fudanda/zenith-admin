@@ -20,20 +20,6 @@ type UserGroupCreate struct {
 	hooks    []Hook
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *UserGroupCreate) SetTenantID(v int) *UserGroupCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *UserGroupCreate) SetNillableTenantID(v *int) *UserGroupCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetName sets the "name" field.
 func (_c *UserGroupCreate) SetName(v string) *UserGroupCreate {
 	_c.mutation.SetName(v)
@@ -249,10 +235,6 @@ func (_c *UserGroupCreate) createSpec() (*UserGroup, *sqlgraph.CreateSpec) {
 		_node = &UserGroup{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(usergroup.Table, sqlgraph.NewFieldSpec(usergroup.FieldID, field.TypeInt))
 	)
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(usergroup.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
-	}
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(usergroup.FieldName, field.TypeString, value)
 		_node.Name = value

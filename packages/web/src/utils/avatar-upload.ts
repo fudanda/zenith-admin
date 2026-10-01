@@ -1,3 +1,5 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
+import { foundationProfileContract } from '@zenith/shared/foundation-transfer';
 import { fileContract } from '@zenith/shared/platform';
 import { api } from '@/lib/contract-query';
 
@@ -13,5 +15,6 @@ export async function uploadAvatarBlobToFileCenter(blob: Blob): Promise<string> 
   const formData = new FormData();
   formData.append('file', blob, 'avatar.jpg');
   // code !== 0 由 api() 抛 ApiError，调用方按场景提示；请求层静默
+  if (IS_GO_FOUNDATION) return (await api(foundationProfileContract.avatar, {body:formData}, {silent:true})).url;
   return (await api(fileContract.uploadOne, { body: formData }, { silent: true })).url;
 }

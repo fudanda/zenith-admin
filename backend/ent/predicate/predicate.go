@@ -57,15 +57,6 @@ type Session func(*sql.Selector)
 // SystemSetting is the predicate function for systemsetting builders.
 type SystemSetting func(*sql.Selector)
 
-// Tenant is the predicate function for tenant builders.
-type Tenant func(*sql.Selector)
-
-// TenantPackage is the predicate function for tenantpackage builders.
-type TenantPackage func(*sql.Selector)
-
-// TenantPackageFeature is the predicate function for tenantpackagefeature builders.
-type TenantPackageFeature func(*sql.Selector)
-
 // UploadChunk is the predicate function for uploadchunk builders.
 type UploadChunk func(*sql.Selector)
 

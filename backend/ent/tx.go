@@ -46,12 +46,6 @@ type Tx struct {
 	Session *SessionClient
 	// SystemSetting is the client for interacting with the SystemSetting builders.
 	SystemSetting *SystemSettingClient
-	// Tenant is the client for interacting with the Tenant builders.
-	Tenant *TenantClient
-	// TenantPackage is the client for interacting with the TenantPackage builders.
-	TenantPackage *TenantPackageClient
-	// TenantPackageFeature is the client for interacting with the TenantPackageFeature builders.
-	TenantPackageFeature *TenantPackageFeatureClient
 	// UploadChunk is the client for interacting with the UploadChunk builders.
 	UploadChunk *UploadChunkClient
 	// UploadSession is the client for interacting with the UploadSession builders.
@@ -222,9 +216,6 @@ func (tx *Tx) init() {
 	tx.RolePermission = NewRolePermissionClient(tx.config)
 	tx.Session = NewSessionClient(tx.config)
 	tx.SystemSetting = NewSystemSettingClient(tx.config)
-	tx.Tenant = NewTenantClient(tx.config)
-	tx.TenantPackage = NewTenantPackageClient(tx.config)
-	tx.TenantPackageFeature = NewTenantPackageFeatureClient(tx.config)
 	tx.UploadChunk = NewUploadChunkClient(tx.config)
 	tx.UploadSession = NewUploadSessionClient(tx.config)
 	tx.User = NewUserClient(tx.config)

@@ -3,49 +3,9 @@ import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { OpenAPIRegistry, OpenApiGeneratorV3 } from '@asteasolutions/zod-to-openapi';
 import * as z from 'zod';
-import { positionContract } from '../packages/shared/src/identity/contracts/positions';
-import { menuContract } from '../packages/shared/src/identity/contracts/menus';
-import { fileContract } from '../packages/shared/src/platform/contracts/files';
-import { loginLogContract } from '../packages/shared/src/identity/contracts/login-logs';
-import { departmentContract } from '../packages/shared/src/identity/contracts/departments';
-import { roleContract } from '../packages/shared/src/identity/contracts/roles';
-import { dictContract } from '../packages/shared/src/platform/contracts/dicts';
-import { operationLogContract } from '../packages/shared/src/platform/contracts/operation-logs';
-import { tenantContract } from '../packages/shared/src/identity/contracts/tenants';
-import { tenantPackageContract } from '../packages/shared/src/identity/contracts/tenant-packages';
-import { userContract } from '../packages/shared/src/identity/contracts/users';
-import type { AnyOperation } from '../packages/shared/src/core/contract';
-
-// The foundation catalog grows one verified domain at a time. An operation
-// enters this list only after its Go handler and shared schema agree.
-const selected: readonly [string, AnyOperation][] = [
-  ['positionsAll', positionContract.all],
-  ['positionsList', positionContract.list],
-  ['positionsExportCsv', positionContract.exportCsv],
-  ['loginLogsExportCsv', loginLogContract.exportCsv],
-  ['departmentsExportCsv', departmentContract.exportCsv],
-  ['rolesExportCsv', roleContract.exportCsv],
-  ['dictsExportCsv', dictContract.exportCsv],
-  ['tenantsExportCsv', tenantContract.exportCsv],
-  ['tenantPackagesRemoveBatch', tenantPackageContract.removeBatch],
-  ['tenantPackagesRemove', tenantPackageContract.remove],
-  ['usersExportCsv', userContract.exportCsv],
-  ['usersRemoveBatch', userContract.removeBatch],
-  ['usersBatchStatus', userContract.batchStatus],
-  ['operationLogsExportCsv', operationLogContract.exportCsv],
-  ['positionsDetail', positionContract.detail],
-  ['positionsCreate', positionContract.create],
-  ['positionsUpdate', positionContract.update],
-  ['positionsRemove', positionContract.remove],
-  ['menusTree', menuContract.tree],
-  ['menusFlat', menuContract.flat],
-  ['menusDetail', menuContract.detail],
-  ['menusCreate', menuContract.create],
-  ['menusUpdate', menuContract.update],
-  ['menusRemove', menuContract.remove],
-  ['filesRemoveBatch', fileContract.removeBatch],
-  ['filesBatchDownload', fileContract.batchDownload],
-];
+import { isMultipart } from '../packages/shared/src/core/contract';
+import { foundationOperations } from '../packages/shared/src/foundation-operations';
+import { foundationResponseContentTypes } from '../packages/shared/src/foundation-transfer';
 
 const registry = new OpenAPIRegistry();
 registry.registerComponent('securitySchemes', 'SessionCookie', {
@@ -61,24 +21,25 @@ const errorSchema = z.object({
   code: z.int(), message: z.string(), data: z.null(), error: z.string(),
 }).meta({ id: 'FoundationError' });
 
-const catalog = selected.map(([id, operation]) => {
+const catalog = foundationOperations.map(([id, operation]) => {
   const access = operation.access;
-  if (!access || access === 'authenticated') throw new Error(`${id}: expected a permission or platform-only access in the shared contract`);
-  const permission = 'permission' in access && typeof access.permission === 'string'
+  if (!operation.public && !access) throw new Error(`${id}: expected access in the shared contract`);
+  const anyPermissions = access && access !== 'authenticated' && 'permission' in access && Array.isArray(access.permission) ? access.permission : [];
+  const permission = operation.public ? '' : access === 'authenticated' ? 'authenticated' : access && 'permission' in access && typeof access.permission === 'string'
     ? access.permission
-    : access.platformOnly === true ? 'platform' : null;
-  if (!permission) throw new Error(`${id}: expected a permission or platform-only access in the shared contract`);
-  const path = operation.fullPath.replace(/^\/api\//, '/api/v1/');
+    : anyPermissions.length ? 'authenticated' : access && access.platformOnly === true ? 'super_admin' : null;
+  if (permission === null) throw new Error(`${id}: expected a permission or platform-only access in the shared contract`);
+  const path = operation.fullPath.startsWith('/api/v1/') ? operation.fullPath : operation.fullPath.replace(/^\/api\//, '/api/v1/');
   if (!path.startsWith('/api/v1/')) throw new Error(`${id}: invalid foundation path`);
   const write = !['get', 'head', 'options'].includes(operation.method);
   const request: Record<string, unknown> = {};
   if (operation.params) request.params = operation.params;
   if (operation.query) request.query = operation.query;
-  if (operation.body) request.body = { required: true, content: { 'application/json': { schema: operation.body } } };
-  const binaryContentType = operation.kind === 'csv' ? 'text/csv' : 'application/zip';
-  const success = operation.kind === 'file' || operation.kind === 'csv' ? 200 : operation.method === 'post' ? 201 : 200;
+  if (operation.body) request.body = { required: true, content: { [isMultipart(operation.body) ? 'multipart/form-data' : 'application/json']: { schema: operation.body } } };
+  const binaryContent = Object.fromEntries(foundationResponseContentTypes(operation).map((contentType) => [contentType, { schema: z.string().meta({ format: 'binary' }) }]));
+  const success = operation.kind === 'file' || operation.kind === 'csv' ? 200 : ['positionsCreate', 'menusCreate'].includes(id) ? 201 : 200;
   const successResponse = operation.kind === 'file' || operation.kind === 'csv'
-    ? { description: '文件下载', content: { [binaryContentType]: { schema: z.string().meta({ format: 'binary' }) } } }
+    ? { description: '文件下载', content: binaryContent }
     : { description: '成功', content: { 'application/json': { schema: z.object({ code: z.literal(0), message: z.string(), data: operation.response }) } } };
   registry.registerPath({
     method: operation.method,
@@ -86,7 +47,7 @@ const catalog = selected.map(([id, operation]) => {
     operationId: id,
     summary: operation.summary,
     tags: operation.tags,
-    security: [{ SessionCookie: [], ...(write ? { CsrfToken: [] } : {}) }],
+    security: operation.public ? [] : [{ SessionCookie: [], ...(write ? { CsrfToken: [] } : {}) }],
     ...(Object.keys(request).length ? { request } : {}),
     responses: {
       [success]: successResponse,
@@ -99,8 +60,9 @@ const catalog = selected.map(([id, operation]) => {
     },
   });
   return {
-    id, method: operation.method.toUpperCase(), path, permission,
-    platformOnly: access.platformOnly === 'multi-tenant',
+    id, method: operation.method.toUpperCase(), path, permission, anyPermissions,
+    public: operation.public,
+    superAdminOnly: access !== 'authenticated' && access?.platformOnly === true,
     audit: operation.audit ? { module: operation.audit.module ?? '岗位管理', ...operation.audit } : null,
   };
 });
@@ -110,10 +72,26 @@ const document = new OpenApiGeneratorV3(registry.definitions, { sortComponents: 
   info: { title: 'Zenith Go foundation verified operations', version: '0.1.0' },
 });
 
+// Derive the production projection from existing domain schemas. Legacy Hono
+// schemas remain available to the retained source, never to the Go wire model.
+const removed = new Set(['tenantId', 'tenantName', 'tenantCode', 'tenantViewId', 'viewingTenantId']);
+function singleOrganization(value: unknown): void {
+  if (!value || typeof value !== 'object') return;
+  if (Array.isArray(value)) { value.forEach(singleOrganization); return; }
+  const node = value as Record<string, unknown>;
+  if (node.properties && typeof node.properties === 'object') {
+    for (const key of removed) delete (node.properties as Record<string, unknown>)[key];
+  }
+  if (Array.isArray(node.required)) node.required = node.required.filter((key) => !removed.has(String(key)));
+  if (Array.isArray(node.parameters)) node.parameters = node.parameters.filter((param) => !removed.has(String((param as { name?: string }).name)));
+  Object.values(node).forEach(singleOrganization);
+}
+singleOrganization(document);
+
 const generated = new Map<string, string>([
   ['backend/internal/contracts/openapi.json', `${JSON.stringify(document, null, 2)}\n`],
   ['backend/internal/contracts/catalog.json', `${JSON.stringify({ operations: catalog }, null, 2)}\n`],
-  ['backend/internal/contracts/catalog.gen.go', `// Code generated by scripts/generate-foundation-contracts.ts; DO NOT EDIT.\npackage contracts\n\ntype Operation struct {\n\tMethod string\n\tPath string\n\tPermission string\n\tPlatformOnly bool\n\tAuditModule string\n\tAuditDescription string\n}\n\nvar Operations = map[string]Operation{\n${catalog.map((item) => `\t${JSON.stringify(item.id)}: {Method: ${JSON.stringify(item.method)}, Path: ${JSON.stringify(item.path)}, Permission: ${JSON.stringify(item.permission)}, PlatformOnly: ${item.platformOnly}, AuditModule: ${JSON.stringify(item.audit?.module ?? '')}, AuditDescription: ${JSON.stringify(item.audit?.description ?? '')}},`).join('\n')}\n}\n`],
+  ['backend/internal/contracts/catalog.gen.go', `// Code generated by scripts/generate-foundation-contracts.ts; DO NOT EDIT.\npackage contracts\n\ntype Operation struct {\n\tMethod string\n\tPath string\n\tPermission string\n\tAnyPermissions []string\n\tSuperAdminOnly bool\n\tPublic bool\n\tAuditModule string\n\tAuditDescription string\n}\n\nvar Operations = map[string]Operation{\n${catalog.map((item) => `\t${JSON.stringify(item.id)}: {Method: ${JSON.stringify(item.method)}, Path: ${JSON.stringify(item.path)}, Permission: ${JSON.stringify(item.permission)}, AnyPermissions: []string{${item.anyPermissions.map((p) => JSON.stringify(p)).join(',')}}, SuperAdminOnly: ${item.superAdminOnly}, Public: ${item.public}, AuditModule: ${JSON.stringify(item.audit?.module ?? '')}, AuditDescription: ${JSON.stringify(item.audit?.description ?? '')}},`).join('\n')}\n}\n`],
 ]);
 const goCatalog = 'backend/internal/contracts/catalog.gen.go';
 generated.set(goCatalog, execFileSync('gofmt', { input: generated.get(goCatalog), encoding: 'utf8' }));

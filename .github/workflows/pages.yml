@@ -1,24 +1,6 @@
-name: Pages (Docs + Demo)
+name: Legacy Pages (Docs + Demo)
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'docs/**'
-      - 'packages/web/**'
-      - 'packages/shared/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - '.github/workflows/pages.yml'
-  pull_request:
-    paths:
-      - 'docs/**'
-      - 'packages/web/**'
-      - 'packages/shared/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:

@@ -60,11 +60,6 @@ func StorageConfigID(v int) predicate.ManagedFile {
 	return predicate.ManagedFile(sql.FieldEQ(FieldStorageConfigID, v))
 }
 
-// TenantID applies equality check predicate on the "tenant_id" field. It's identical to TenantIDEQ.
-func TenantID(v int) predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldEQ(FieldTenantID, v))
-}
-
 // UploaderID applies equality check predicate on the "uploader_id" field. It's identical to UploaderIDEQ.
 func UploaderID(v int) predicate.ManagedFile {
 	return predicate.ManagedFile(sql.FieldEQ(FieldUploaderID, v))
@@ -158,56 +153,6 @@ func StorageConfigIDLT(v int) predicate.ManagedFile {
 // StorageConfigIDLTE applies the LTE predicate on the "storage_config_id" field.
 func StorageConfigIDLTE(v int) predicate.ManagedFile {
 	return predicate.ManagedFile(sql.FieldLTE(FieldStorageConfigID, v))
-}
-
-// TenantIDEQ applies the EQ predicate on the "tenant_id" field.
-func TenantIDEQ(v int) predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldEQ(FieldTenantID, v))
-}
-
-// TenantIDNEQ applies the NEQ predicate on the "tenant_id" field.
-func TenantIDNEQ(v int) predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldNEQ(FieldTenantID, v))
-}
-
-// TenantIDIn applies the In predicate on the "tenant_id" field.
-func TenantIDIn(vs ...int) predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldIn(FieldTenantID, vs...))
-}
-
-// TenantIDNotIn applies the NotIn predicate on the "tenant_id" field.
-func TenantIDNotIn(vs ...int) predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldNotIn(FieldTenantID, vs...))
-}
-
-// TenantIDGT applies the GT predicate on the "tenant_id" field.
-func TenantIDGT(v int) predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldGT(FieldTenantID, v))
-}
-
-// TenantIDGTE applies the GTE predicate on the "tenant_id" field.
-func TenantIDGTE(v int) predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldGTE(FieldTenantID, v))
-}
-
-// TenantIDLT applies the LT predicate on the "tenant_id" field.
-func TenantIDLT(v int) predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldLT(FieldTenantID, v))
-}
-
-// TenantIDLTE applies the LTE predicate on the "tenant_id" field.
-func TenantIDLTE(v int) predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldLTE(FieldTenantID, v))
-}
-
-// TenantIDIsNil applies the IsNil predicate on the "tenant_id" field.
-func TenantIDIsNil() predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldIsNull(FieldTenantID))
-}
-
-// TenantIDNotNil applies the NotNil predicate on the "tenant_id" field.
-func TenantIDNotNil() predicate.ManagedFile {
-	return predicate.ManagedFile(sql.FieldNotNull(FieldTenantID))
 }
 
 // UploaderIDEQ applies the EQ predicate on the "uploader_id" field.

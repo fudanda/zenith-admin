@@ -1,7 +1,6 @@
 package zenith
 
 import (
-	"errors"
 	"net/http"
 	"strings"
 	"time"
@@ -12,13 +11,6 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/userposition"
 	"github.com/gorilla/mux"
 )
-
-func userMatchesTenant(account *ent.User, tenantID *int) bool {
-	if (account.TenantID == nil) != (tenantID == nil) {
-		return false
-	}
-	return tenantID == nil || *account.TenantID == *tenantID
-}
 
 func (f *Framework) memberView(r *http.Request, account *ent.User, joinedAt time.Time) map[string]any {
 	var departmentName *string
@@ -60,9 +52,7 @@ func (f *Framework) positionMembers(w http.ResponseWriter, r *http.Request) {
 			fail(w, 503, "database_unavailable", "查询失败")
 			return
 		}
-		if !userMatchesTenant(account, p.TenantID) {
-			continue
-		}
+
 		result = append(result, f.memberView(r, account, link.CreatedAt))
 	}
 	respond(w, 200, result)
@@ -108,7 +98,7 @@ func (f *Framework) positionMemberPreview(w http.ResponseWriter, r *http.Request
 			fail(w, 503, "database_unavailable", "查询失败")
 			return
 		}
-		if !userMatchesTenant(account, p.TenantID) || keyword != "" && !strings.Contains(strings.ToLower(account.Username+" "+account.Nickname), keyword) {
+		if keyword != "" && !strings.Contains(strings.ToLower(account.Username+" "+account.Nickname), keyword) {
 			continue
 		}
 		filtered = append(filtered, f.memberView(r, account, link.CreatedAt))
@@ -139,6 +129,11 @@ func (f *Framework) setPositionMembers(w http.ResponseWriter, r *http.Request) {
 	}
 	p := fromContext(r.Context())
 	seen := map[int]bool{}
+	dataScope, err := f.userDataPredicate(r.Context(), p)
+	if err != nil {
+		fail(w, 503, "database_unavailable", "数据权限查询失败")
+		return
+	}
 	for _, userID := range input.UserIDs {
 		if userID < 1 || seen[userID] {
 			fail(w, 400, "invalid_request", "成员 ID 无效或重复")
@@ -155,15 +150,23 @@ func (f *Framework) setPositionMembers(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		for _, userID := range input.UserIDs {
-			account, err := tx.User.Get(r.Context(), userID)
+			_, err := tx.User.Get(r.Context(), userID)
 			if err != nil {
 				return err
 			}
-			if !userMatchesTenant(account, p.TenantID) {
-				return errors.New("跨租户成员")
-			}
+
 		}
-		if _, err := tx.UserPosition.Delete().Where(userposition.PositionIDEQ(id)).Exec(r.Context()); err != nil {
+		// Replacing visible members must preserve assignments outside the
+		// operator's data scope, which the original selector cannot display.
+		visible := tx.User.Query().Where(userScope(p))
+		if dataScope != nil {
+			visible = visible.Where(dataScope)
+		}
+		visibleIDs, err := visible.IDs(r.Context())
+		if err != nil {
+			return err
+		}
+		if _, err := tx.UserPosition.Delete().Where(userposition.PositionIDEQ(id), userposition.UserIDIn(visibleIDs...)).Exec(r.Context()); err != nil {
 			return err
 		}
 		for _, userID := range input.UserIDs {
@@ -171,13 +174,11 @@ func (f *Framework) setPositionMembers(w http.ResponseWriter, r *http.Request) {
 				return err
 			}
 		}
-		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+		if err := f.syncDynamicGroupsInTx(r.Context(), tx, p); err != nil {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("set_members").SetResource("positions").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if ent.IsNotFound(err) {
@@ -194,11 +195,7 @@ func (f *Framework) setPositionMembers(w http.ResponseWriter, r *http.Request) {
 func (f *Framework) allUsers(w http.ResponseWriter, r *http.Request) {
 	p := fromContext(r.Context())
 	query := f.Store.Client.User.Query().Where(user.StatusEQ("enabled"))
-	if p.TenantID == nil {
-		query = query.Where(user.TenantIDIsNil())
-	} else {
-		query = query.Where(user.TenantIDEQ(*p.TenantID))
-	}
+
 	dataScope, err := f.userDataPredicate(r.Context(), p)
 	if err != nil {
 		fail(w, 503, "database_unavailable", "数据权限查询失败")

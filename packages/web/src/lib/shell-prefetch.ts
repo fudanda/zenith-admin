@@ -6,6 +6,8 @@ import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { userMenuTreeQueryOptions } from '@/hooks/queries/menus';
 import { preferencesQueryOptions } from '@/hooks/queries/preferences';
 import { prewarmLucideIcons } from '@/utils/icons';
+import { IS_GO_FOUNDATION } from './foundation-mode';
+import { goAuthContract } from '@zenith/shared/identity';
 
 /**
  * 已登录用户冷启动的投机预取。
@@ -19,11 +21,11 @@ import { prewarmLucideIcons } from '@/utils/icons';
  * 凭证已失效时这些请求会与 /me 一样收到 401，由请求层统一处理，预取本身不额外提示。
  */
 export function prefetchAdminShell(queryClient: QueryClient): void {
-  if (typeof localStorage === 'undefined' || !localStorage.getItem(TOKEN_KEY)) return;
+  if (!IS_GO_FOUNDATION && (typeof localStorage === 'undefined' || !localStorage.getItem(TOKEN_KEY))) return;
   prewarmLucideIcons();
   void import('@/layouts/AdminLayout').catch(() => {});
   void import('@/pages/dashboard/DashboardPage').catch(() => {});
   void queryClient.prefetchQuery(userMenuTreeQueryOptions());
   void queryClient.prefetchQuery(preferencesQueryOptions());
-  void queryClient.prefetchQuery(apiQueryOptions(settingsContract.me, { staleTime: LOOKUP_STALE_TIME, requestOptions: { silent: true } }));
+  void queryClient.prefetchQuery(apiQueryOptions(IS_GO_FOUNDATION ? goAuthContract.preferencePolicy : settingsContract.me, { staleTime: LOOKUP_STALE_TIME, requestOptions: { silent: true } }));
 }

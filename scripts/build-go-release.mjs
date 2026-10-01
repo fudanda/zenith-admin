@@ -1,0 +1,10 @@
+import { spawnSync } from 'node:child_process';
+import { mkdirSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+mkdirSync(resolve(root,'backend/bin'),{recursive:true});
+const executable=process.platform==='win32'?'zenith.exe':'zenith';
+const result=spawnSync('go',['build','-trimpath','-o',resolve(root,'backend/bin',executable),'./cmd/zenith'],{cwd:resolve(root,'backend'),stdio:'inherit',env:process.env,windowsHide:true});
+if(result.error) console.error(result.error.message);
+process.exit(result.status??1);

@@ -1,6 +1,7 @@
 package zenith
 
 import (
+	"context"
 	"errors"
 	"net/http"
 	"net/url"
@@ -11,6 +12,8 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
 	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
+	"github.com/fudanda/zenith-admin/backend/ent/predicate"
+	"github.com/fudanda/zenith-admin/backend/ent/user"
 )
 
 func logBounds(q url.Values) (*time.Time, *time.Time, error) {
@@ -60,16 +63,25 @@ func validateLogFilters(q url.Values, keys ...string) error {
 	return nil
 }
 
-func (f *Framework) filteredLoginLogs(p *principal, q url.Values) (*ent.LoginLogQuery, error) {
-	if err := validateLogFilters(q, "userId", "username", "eventType", "status", "startTime", "endTime"); err != nil {
+func (f *Framework) filteredLoginLogs(ctx context.Context, p *principal, q url.Values) (*ent.LoginLogQuery, error) {
+	if err := validateLogFilters(q, "userId", "username", "eventType", "status", "startTime", "endTime", "format"); err != nil {
 		return nil, err
 	}
 	query := f.Store.Client.LoginLog.Query()
-	if p.TenantID != nil {
-		query = query.Where(loginlog.TenantIDEQ(*p.TenantID))
-	} else if !p.SuperAdmin {
-		query = query.Where(loginlog.TenantIDIsNil())
+	if !p.SuperAdmin {
+		scope, err := f.userDataPredicate(ctx, p)
+		if err != nil {
+			return nil, err
+		}
+		if scope != nil {
+			ids, err := f.Store.Client.User.Query().Where(scope).IDs(ctx)
+			if err != nil {
+				return nil, err
+			}
+			query = query.Where(loginlog.UserIDIn(ids...))
+		}
 	}
+
 	id, err := logUserID(q)
 	if err != nil {
 		return nil, err
@@ -82,8 +94,9 @@ func (f *Framework) filteredLoginLogs(p *principal, q url.Values) (*ent.LoginLog
 	}
 	if event := q.Get("eventType"); event != "" {
 		switch event {
-		case "login":
-		case "logout", "impersonate", "impersonate_end", "kicked":
+		case "login", "logout", "kicked":
+			query = query.Where(loginlog.EventTypeEQ(event))
+		case "impersonate", "impersonate_end":
 			query = query.Where(loginlog.IDEQ(0))
 		default:
 			return nil, errors.New("事件类型无效")
@@ -108,16 +121,25 @@ func (f *Framework) filteredLoginLogs(p *principal, q url.Values) (*ent.LoginLog
 	return query, nil
 }
 
-func (f *Framework) filteredAuditLogs(p *principal, q url.Values) (*ent.AuditLogQuery, error) {
-	if err := validateLogFilters(q, "userId", "module", "description", "startTime", "endTime", "resource"); err != nil {
+func (f *Framework) filteredAuditLogs(ctx context.Context, p *principal, q url.Values) (*ent.AuditLogQuery, error) {
+	if err := validateLogFilters(q, "userId", "module", "description", "startTime", "endTime", "resource", "username", "method", "path", "ip", "status", "content", "impersonated", "minDurationMs", "maxDurationMs", "format"); err != nil {
 		return nil, err
 	}
 	query := f.Store.Client.AuditLog.Query()
-	if p.TenantID != nil {
-		query = query.Where(auditlog.TenantIDEQ(*p.TenantID))
-	} else if !p.SuperAdmin {
-		query = query.Where(auditlog.TenantIDIsNil())
+	if !p.SuperAdmin {
+		scope, err := f.userDataPredicate(ctx, p)
+		if err != nil {
+			return nil, err
+		}
+		if scope != nil {
+			ids, err := f.Store.Client.User.Query().Where(scope).IDs(ctx)
+			if err != nil {
+				return nil, err
+			}
+			query = query.Where(auditlog.ActorIDIn(ids...))
+		}
 	}
+
 	id, err := logUserID(q)
 	if err != nil {
 		return nil, err
@@ -130,10 +152,57 @@ func (f *Framework) filteredAuditLogs(p *principal, q url.Values) (*ent.AuditLog
 		resource = strings.TrimSpace(q.Get("resource"))
 	}
 	if resource != "" {
-		query = query.Where(auditlog.ResourceContainsFold(resource))
+		query = query.Where(auditlog.Or(auditlog.ModuleContainsFold(resource), auditlog.ResourceContainsFold(resource)))
 	}
 	if operation := strings.TrimSpace(q.Get("description")); operation != "" {
-		query = query.Where(auditlog.OperationContainsFold(operation))
+		query = query.Where(auditlog.Or(auditlog.DescriptionContainsFold(operation), auditlog.OperationContainsFold(operation)))
+	}
+	if keyword := strings.TrimSpace(q.Get("username")); keyword != "" {
+		ids, err := f.Store.Client.User.Query().Where(user.Or(user.UsernameContainsFold(keyword), user.NicknameContainsFold(keyword))).IDs(ctx)
+		if err != nil {
+			return nil, err
+		}
+		query = query.Where(auditlog.ActorIDIn(ids...))
+	}
+	for _, filter := range []struct {
+		key       string
+		predicate func(string) predicate.AuditLog
+	}{{"method", auditlog.MethodContainsFold}, {"path", auditlog.PathContainsFold}, {"ip", auditlog.IPContainsFold}, {"content", auditlog.RequestBodyContainsFold}} {
+		if value := q.Get(filter.key); value != "" {
+			query = query.Where(filter.predicate(value))
+		}
+	}
+	if status := q.Get("status"); status != "" {
+		if status == "success" {
+			query = query.Where(auditlog.ResponseCodeLT(400))
+		} else if status == "fail" {
+			query = query.Where(auditlog.ResponseCodeGTE(400))
+		} else {
+			return nil, errors.New("结果状态无效")
+		}
+	}
+	if value := q.Get("impersonated"); value != "" && value != "false" && value != "0" {
+		if value == "true" || value == "1" {
+			query = query.Where(auditlog.IDEQ(0))
+		} else {
+			return nil, errors.New("模拟操作筛选无效")
+		}
+	}
+	for _, bound := range []struct {
+		key string
+		end bool
+	}{{"minDurationMs", false}, {"maxDurationMs", true}} {
+		if raw := q.Get(bound.key); raw != "" {
+			value, err := strconv.Atoi(raw)
+			if err != nil || value < 0 {
+				return nil, errors.New("耗时筛选无效")
+			}
+			if bound.end {
+				query = query.Where(auditlog.DurationMsLTE(value))
+			} else {
+				query = query.Where(auditlog.DurationMsGTE(value))
+			}
+		}
 	}
 	start, end, err := logBounds(q)
 	if err != nil {
@@ -163,7 +232,7 @@ func (f *Framework) listLoginLogs(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_page", err.Error())
 		return
 	}
-	query, err := f.filteredLoginLogs(fromContext(r.Context()), r.URL.Query())
+	query, err := f.filteredLoginLogs(r.Context(), fromContext(r.Context()), r.URL.Query())
 	if err != nil {
 		fail(w, 400, "invalid_filter", err.Error())
 		return
@@ -180,11 +249,12 @@ func (f *Framework) listLoginLogs(w http.ResponseWriter, r *http.Request) {
 	}
 	list := make([]any, 0, len(rows))
 	for _, row := range rows {
-		status := "fail"
-		if row.Success {
-			status = "success"
+		view, err := f.loginLogView(r.Context(), row)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "用户资料查询失败")
+			return
 		}
-		list = append(list, map[string]any{"id": row.ID, "userId": row.UserID, "username": row.Username, "ip": row.IP, "eventType": "login", "status": status, "message": row.Reason, "tenantId": row.TenantID, "createdAt": row.CreatedAt})
+		list = append(list, view)
 	}
 	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
 }
@@ -195,7 +265,7 @@ func (f *Framework) listAuditLogs(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_page", err.Error())
 		return
 	}
-	query, err := f.filteredAuditLogs(fromContext(r.Context()), r.URL.Query())
+	query, err := f.filteredAuditLogs(r.Context(), fromContext(r.Context()), r.URL.Query())
 	if err != nil {
 		fail(w, 400, "invalid_filter", err.Error())
 		return
@@ -212,13 +282,18 @@ func (f *Framework) listAuditLogs(w http.ResponseWriter, r *http.Request) {
 	}
 	list := make([]any, 0, len(rows))
 	for _, row := range rows {
-		list = append(list, map[string]any{"id": row.ID, "actorId": row.ActorID, "tenantId": row.TenantID, "operation": row.Operation, "resource": row.Resource, "resourceId": row.ResourceID, "requestId": row.RequestID, "createdAt": row.CreatedAt})
+		view, err := f.auditLogView(r.Context(), row)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "用户资料查询失败")
+			return
+		}
+		list = append(list, view)
 	}
 	respond(w, 200, map[string]any{"list": list, "total": total, "page": page, "pageSize": size})
 }
 
 func (f *Framework) exportLoginLogsCSV(w http.ResponseWriter, r *http.Request) {
-	query, err := f.filteredLoginLogs(fromContext(r.Context()), r.URL.Query())
+	query, err := f.filteredLoginLogs(r.Context(), fromContext(r.Context()), r.URL.Query())
 	if err != nil {
 		fail(w, 400, "invalid_filter", err.Error())
 		return
@@ -246,27 +321,25 @@ func (f *Framework) exportLoginLogsCSV(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f *Framework) exportAuditLogsCSV(w http.ResponseWriter, r *http.Request) {
-	query, err := f.filteredAuditLogs(fromContext(r.Context()), r.URL.Query())
+	query, err := f.filteredAuditLogs(r.Context(), fromContext(r.Context()), r.URL.Query())
 	if err != nil {
 		fail(w, 400, "invalid_filter", err.Error())
 		return
 	}
 	query.Order(ent.Desc(auditlog.FieldCreatedAt), ent.Desc(auditlog.FieldID))
-	streamCSV(w, "operation-logs.csv", []string{"ID", "操作人ID", "租户ID", "操作", "资源", "资源ID", "请求ID", "时间"}, func(offset int) ([][]string, error) {
+	streamCSV(w, "operation-logs.csv", []string{"ID", "操作人ID", "操作", "资源", "资源ID", "请求ID", "时间"}, func(offset int) ([][]string, error) {
 		rows, err := query.Clone().Offset(offset).Limit(200).All(r.Context())
 		if err != nil {
 			return nil, err
 		}
 		result := make([][]string, 0, len(rows))
 		for _, row := range rows {
-			tenant, resourceID := "", ""
-			if row.TenantID != nil {
-				tenant = strconv.Itoa(*row.TenantID)
-			}
+			resourceID := ""
+
 			if row.ResourceID != nil {
 				resourceID = strconv.Itoa(*row.ResourceID)
 			}
-			result = append(result, []string{strconv.Itoa(row.ID), strconv.Itoa(row.ActorID), tenant, row.Operation, row.Resource, resourceID, row.RequestID, row.CreatedAt.Format(time.RFC3339)})
+			result = append(result, []string{strconv.Itoa(row.ID), strconv.Itoa(row.ActorID), row.Operation, row.Resource, resourceID, row.RequestID, row.CreatedAt.Format(time.RFC3339)})
 		}
 		return result, nil
 	})

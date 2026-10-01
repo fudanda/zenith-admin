@@ -20,20 +20,6 @@ type PositionCreate struct {
 	hooks    []Hook
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *PositionCreate) SetTenantID(v int) *PositionCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *PositionCreate) SetNillableTenantID(v *int) *PositionCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetName sets the "name" field.
 func (_c *PositionCreate) SetName(v string) *PositionCreate {
 	_c.mutation.SetName(v)
@@ -225,10 +211,6 @@ func (_c *PositionCreate) createSpec() (*Position, *sqlgraph.CreateSpec) {
 		_node = &Position{config: _c.config}
 		_spec = sqlgraph.NewCreateSpec(position.Table, sqlgraph.NewFieldSpec(position.FieldID, field.TypeInt))
 	)
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(position.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
-	}
 	if value, ok := _c.mutation.Name(); ok {
 		_spec.SetField(position.FieldName, field.TypeString, value)
 		_node.Name = value

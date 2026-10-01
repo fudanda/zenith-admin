@@ -16,12 +16,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func departmentScope(p *principal) predicate.Department {
-	if p.TenantID == nil {
-		return department.TenantIDIsNil()
-	}
-	return department.TenantIDEQ(*p.TenantID)
-}
+func departmentScope(_ *principal) predicate.Department { return department.IDGT(0) }
 
 type departmentInput struct {
 	ParentID int     `json:"parentId"`
@@ -58,21 +53,28 @@ func validateDepartment(in departmentInput) error {
 }
 
 func (f *Framework) departmentView(r *http.Request, row *ent.Department) (map[string]any, error) {
-	count, err := f.Store.Client.User.Query().Where(user.DepartmentIDEQ(row.ID)).Count(r.Context())
+	count, preview, err := f.memberSummary(r.Context(), fromContext(r.Context()), f.Store.Client.User.Query().Where(user.DepartmentIDEQ(row.ID)))
 	if err != nil {
 		return nil, err
 	}
 	var leaderName *string
 	if row.LeaderID != nil {
-		leader, err := f.Store.Client.User.Get(r.Context(), *row.LeaderID)
+		leader, err := f.visibleUser(r.Context(), fromContext(r.Context()), *row.LeaderID)
 		if err == nil {
 			leaderName = &leader.Nickname
 		} else if !ent.IsNotFound(err) {
 			return nil, err
 		}
 	}
-	return map[string]any{"id": row.ID, "parentId": row.ParentID, "name": row.Name, "code": row.Code, "category": row.Category, "leaderId": row.LeaderID, "leaderName": leaderName,
-		"phone": row.Phone, "email": row.Email, "sort": row.Sort, "status": row.Status, "userCount": count, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt}, nil
+	view := map[string]any{"id": row.ID, "parentId": row.ParentID, "name": row.Name, "code": row.Code, "category": row.Category, "leaderId": row.LeaderID, "leaderName": leaderName,
+		"sort": row.Sort, "status": row.Status, "userCount": count, "userPreview": preview, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt}
+	if row.Phone != nil {
+		view["phone"] = *row.Phone
+	}
+	if row.Email != nil {
+		view["email"] = *row.Email
+	}
+	return view, nil
 }
 
 func (f *Framework) departmentRows(r *http.Request, p *principal) ([]*ent.Department, error) {
@@ -241,9 +243,9 @@ func (f *Framework) validateDepartmentRelations(r *http.Request, p *principal, i
 		current = parent.ParentID
 	}
 	if in.LeaderID != nil {
-		leader, err := f.Store.Client.User.Get(r.Context(), *in.LeaderID)
-		if err != nil || !userMatchesTenant(leader, p.TenantID) {
-			return errors.New("负责人不属于当前租户")
+		_, err := f.Store.Client.User.Get(r.Context(), *in.LeaderID)
+		if err != nil {
+			return errors.New("负责人不属于当前组织")
 		}
 	}
 	return nil
@@ -321,9 +323,7 @@ func (f *Framework) saveDepartment(w http.ResponseWriter, r *http.Request) {
 		var err error
 		if id == 0 {
 			create := tx.Department.Create().SetParentID(in.ParentID).SetName(in.Name).SetCode(in.Code).SetCategory(in.Category).SetSort(in.Sort).SetStatus(in.Status)
-			if p.TenantID != nil {
-				create.SetTenantID(*p.TenantID)
-			}
+
 			if in.LeaderID != nil {
 				create.SetLeaderID(*in.LeaderID)
 			}
@@ -356,7 +356,7 @@ func (f *Framework) saveDepartment(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return err
 		}
-		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+		if err := f.syncDynamicGroupsInTx(r.Context(), tx, p); err != nil {
 			return err
 		}
 		operation := "update"
@@ -364,9 +364,7 @@ func (f *Framework) saveDepartment(w http.ResponseWriter, r *http.Request) {
 			operation = "create"
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation(operation).SetResource("departments").SetResourceID(saved.ID)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -410,13 +408,11 @@ func (f *Framework) deleteDepartment(w http.ResponseWriter, r *http.Request) {
 		if err := tx.Department.DeleteOne(row).Exec(r.Context()); err != nil {
 			return err
 		}
-		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+		if err := f.syncDynamicGroupsInTx(r.Context(), tx, p); err != nil {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete").SetResource("departments").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if ent.IsNotFound(err) {

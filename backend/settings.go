@@ -10,22 +10,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/fudanda/zenith-admin/backend/internal/contracts"
+
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/systemsetting"
 )
 
 const mib int64 = 1 << 20
-
-// These defaults mirror packages/shared/src/settings/modules/files.ts. Only
-// the three upload-size fields are editable until MIME inspection is migrated.
-var defaultUploadTypes = []string{
-	"image/*", "video/*", "audio/*", "application/pdf", "text/plain", "text/csv", "text/vtt",
-	"application/zip", "application/x-zip-compressed",
-	"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-	"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-	"application/vnd.openxmlformats-officedocument.presentationml.presentation",
-	"application/vnd.ms-excel", "application/msword", "application/vnd.ms-powerpoint",
-}
 
 type fileSettings struct {
 	UploadValidateType bool     `json:"uploadValidateType"`
@@ -36,7 +27,15 @@ type fileSettings struct {
 }
 
 func defaultFileSettings() fileSettings {
-	return fileSettings{UploadValidateType: true, UploadAllowedTypes: slices.Clone(defaultUploadTypes), ChunkThresholdMb: 5, ChunkSizeMb: 5}
+	raw, err := json.Marshal(contracts.Settings["files"].Defaults)
+	if err != nil {
+		panic(err)
+	}
+	var settings fileSettings
+	if err = json.Unmarshal(raw, &settings); err != nil {
+		panic(err)
+	}
+	return settings
 }
 
 func mimeAllowed(mimeType string, allowed []string) bool {
@@ -108,7 +107,7 @@ func fileSettingsEnvelope(settings fileSettings, row *ent.SystemSetting) map[str
 			paths = append(paths, "chunkSizeMb")
 		}
 	}
-	return map[string]any{"module": "files", "scope": "platform", "tenantId": nil, "version": version,
+	return map[string]any{"module": "files", "scope": "platform", "version": version,
 		"effective": settings, "inherited": defaultFileSettings(), "overriddenPaths": paths, "updatedAt": updatedAt}
 }
 

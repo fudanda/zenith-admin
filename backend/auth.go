@@ -3,7 +3,6 @@ package zenith
 import (
 	"context"
 	"crypto/subtle"
-	"database/sql"
 	"encoding/base64"
 	"errors"
 	"fmt"
@@ -20,8 +19,6 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/role"
 	"github.com/fudanda/zenith-admin/backend/ent/rolemenu"
 	"github.com/fudanda/zenith-admin/backend/ent/session"
-	"github.com/fudanda/zenith-admin/backend/ent/tenant"
-	"github.com/fudanda/zenith-admin/backend/ent/tenantpackagefeature"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroupmember"
 	"github.com/fudanda/zenith-admin/backend/ent/usergrouprole"
@@ -33,10 +30,10 @@ import (
 var errUnauthenticated = errors.New("authentication required")
 
 type principal struct {
-	User       *ent.User
-	Session    *ent.Session
-	SuperAdmin bool
-	TenantID   *int
+	User                   *ent.User
+	Session                *ent.Session
+	SuperAdmin             bool
+	PasswordChangeRequired bool
 }
 type principalKey struct{}
 
@@ -70,19 +67,17 @@ func (f *Framework) principal(ctx context.Context, r *http.Request) (*principal,
 	if u.Status != "enabled" || u.PasswordUpdatedAt.After(sess.CreatedAt) {
 		return nil, errUnauthenticated
 	}
-	if u.TenantID != nil {
-		t, err := f.Store.Client.Tenant.Get(ctx, *u.TenantID)
-		if ent.IsNotFound(err) {
-			return nil, errUnauthenticated
-		}
-		if err != nil {
+
+	if time.Since(sess.LastActiveAt) > 30*time.Second {
+		if err := f.Store.Client.Session.UpdateOneID(sess.ID).SetLastActiveAt(time.Now()).Exec(ctx); err != nil {
 			return nil, err
 		}
-		if t.Status != "enabled" {
-			return nil, errUnauthenticated
-		}
 	}
-	p := &principal{User: u, Session: sess, TenantID: u.TenantID}
+	policy, err := f.securityPolicy(ctx)
+	if err != nil {
+		return nil, err
+	}
+	p := &principal{User: u, Session: sess, PasswordChangeRequired: policy.Password.ExpiryEnabled && u.PasswordUpdatedAt.AddDate(0, 0, policy.Password.ExpiryDays).Before(time.Now())}
 	roles, err := f.effectiveRoleIDs(ctx, u.ID)
 	if err != nil {
 		return nil, err
@@ -95,28 +90,15 @@ func (f *Framework) principal(ctx context.Context, r *http.Request) (*principal,
 		if err != nil {
 			return nil, err
 		}
-		if roleRow.Status == "enabled" && roleRow.Code == "super_admin" && roleRow.TenantID == nil && u.TenantID == nil {
+		if roleRow.Status == "enabled" && roleRow.Code == "super_admin" {
 			p.SuperAdmin = true
 		}
 	}
-	if p.SuperAdmin && sess.TenantViewID != nil {
-		t, err := f.Store.Client.Tenant.Query().Where(tenant.IDEQ(*sess.TenantViewID), tenant.StatusEQ("enabled")).Only(ctx)
-		if ent.IsNotFound(err) {
-			return nil, errUnauthenticated
-		}
-		if err != nil {
-			return nil, err
-		}
-		p.TenantID = &t.ID
-	}
+
 	return p, nil
 }
 
 func (f *Framework) effectiveRoleIDs(ctx context.Context, userID int) ([]int, error) {
-	account, err := f.Store.Client.User.Get(ctx, userID)
-	if err != nil {
-		return nil, err
-	}
 	assignments, err := f.Store.Client.UserRole.Query().Where(userrole.UserIDEQ(userID)).All(ctx)
 	if err != nil {
 		return nil, err
@@ -140,12 +122,7 @@ func (f *Framework) effectiveRoleIDs(ctx context.Context, userID int) ([]int, er
 		if group.Status != "enabled" {
 			continue
 		}
-		if (account.TenantID == nil) != (group.TenantID == nil) {
-			continue
-		}
-		if account.TenantID != nil && *account.TenantID != *group.TenantID {
-			continue
-		}
+
 		links, err := f.Store.Client.UserGroupRole.Query().Where(usergrouprole.GroupIDEQ(group.ID)).All(ctx)
 		if err != nil {
 			return nil, err
@@ -177,16 +154,14 @@ func (f *Framework) accessibleMenus(ctx context.Context, p *principal) ([]*ent.M
 			return nil, err
 		}
 		for _, id := range roles {
-			row, err := f.Store.Client.Role.Query().Where(role.IDEQ(id), role.StatusEQ("enabled")).Only(ctx)
+			_, err := f.Store.Client.Role.Query().Where(role.IDEQ(id), role.StatusEQ("enabled")).Only(ctx)
 			if ent.IsNotFound(err) {
 				continue
 			}
 			if err != nil {
 				return nil, err
 			}
-			if (row.TenantID == nil) != (p.User.TenantID == nil) || row.TenantID != nil && *row.TenantID != *p.User.TenantID {
-				continue
-			}
+
 			grants, err := f.Store.Client.RoleMenu.Query().Where(rolemenu.RoleIDEQ(id)).All(ctx)
 			if err != nil {
 				return nil, err
@@ -208,37 +183,7 @@ func (f *Framework) accessibleMenus(ctx context.Context, p *principal) ([]*ent.M
 	if err != nil {
 		return nil, err
 	}
-	if p.User.TenantID == nil {
-		return rows, nil
-	}
-	t, err := f.Store.Client.Tenant.Get(ctx, *p.User.TenantID)
-	if err != nil {
-		return nil, err
-	}
-	if t.PackageID == nil {
-		return rows, nil
-	}
-	pkg, err := f.Store.Client.TenantPackage.Get(ctx, *t.PackageID)
-	if err != nil {
-		return nil, err
-	}
-	features := map[string]bool{}
-	if pkg.Status == "enabled" {
-		links, err := f.Store.Client.TenantPackageFeature.Query().Where(tenantpackagefeature.PackageIDEQ(pkg.ID)).All(ctx)
-		if err != nil {
-			return nil, err
-		}
-		for _, link := range links {
-			features[link.FeatureKey] = true
-		}
-	}
-	filtered := make([]*ent.Menu, 0, len(rows))
-	for _, row := range rows {
-		if row.FeatureKey == nil || features[*row.FeatureKey] {
-			filtered = append(filtered, row)
-		}
-	}
-	return filtered, nil
+	return rows, nil
 }
 
 func (f *Framework) permissions(ctx context.Context, p *principal) ([]string, error) {
@@ -280,7 +225,17 @@ func (f *Framework) permitted(ctx context.Context, p *principal, permission stri
 
 func (f *Framework) guard(route Route) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var err error
+		r, err = withRequestMetadata(w, r, route)
+		if err != nil {
+			fail(w, 413, "invalid_request", "请求内容过大或无效")
+			return
+		}
 		if route.Public {
+			if err := validateContractRequest(r, route.OperationID); err != nil {
+				fail(w, 400, "invalid_request", err.Error())
+				return
+			}
 			route.Handler.ServeHTTP(w, r)
 			return
 		}
@@ -300,11 +255,15 @@ func (f *Framework) guard(route Route) http.Handler {
 				return
 			}
 		}
-		if (route.Permission == "platform" || route.PlatformOnly) && !p.SuperAdmin {
-			fail(w, 403, "forbidden", "需要平台管理员权限")
+		if p.PasswordChangeRequired && r.Method != http.MethodGet && route.OperationID != "authChangePassword" && route.OperationID != "authLogout" {
+			fail(w, 403, "password_expired", "密码已过期，请先在个人中心修改密码")
 			return
 		}
-		if route.Permission != "authenticated" && route.Permission != "platform" {
+		if (route.Permission == "super_admin" || route.SuperAdminOnly) && !p.SuperAdmin {
+			fail(w, 403, "forbidden", "需要系统管理员权限")
+			return
+		}
+		if route.Permission != "authenticated" && route.Permission != "super_admin" {
 			allowed, err := f.permitted(r.Context(), p, route.Permission)
 			if err != nil {
 				fail(w, 503, "database_unavailable", "授权服务不可用")
@@ -333,6 +292,10 @@ func (f *Framework) guard(route Route) http.Handler {
 				return
 			}
 		}
+		if err := validateContractRequest(r, route.OperationID); err != nil {
+			fail(w, 400, "invalid_request", err.Error())
+			return
+		}
 		route.Handler.ServeHTTP(w, r.WithContext(context.WithValue(r.Context(), principalKey{}, p)))
 	})
 }
@@ -352,30 +315,51 @@ func sameOrigin(r *http.Request) bool {
 	return u.Host == r.Host && (u.Scheme == "https" || u.Scheme == "http")
 }
 
-func (f *Framework) captcha(w http.ResponseWriter, r *http.Request) {
+func (f *Framework) createCaptcha(ctx context.Context, complexity string) (string, string, error) {
 	id, err := secret()
 	if err != nil {
-		fail(w, 500, "random_unavailable", "验证码不可用")
-		return
+		return "", "", err
 	}
 	answerSecret, err := secret()
 	if err != nil {
-		fail(w, 500, "random_unavailable", "验证码不可用")
-		return
+		return "", "", err
 	}
-	answer := strings.ToUpper(answerSecret[:6])
-	if _, err = f.Store.Client.Captcha.Create().SetPublicID(id).SetAnswerHash(digest(answer)).SetExpiresAt(time.Now().Add(5 * time.Minute)).Save(r.Context()); err != nil {
+	length := 6
+	if complexity == "low" {
+		length = 4
+	}
+	if complexity == "high" {
+		length = 8
+	}
+	answer := strings.ToUpper(answerSecret[:length])
+	if _, err = f.Store.Client.Captcha.Create().SetPublicID(id).SetAnswerHash(digest(answer)).SetExpiresAt(time.Now().Add(5 * time.Minute)).Save(ctx); err != nil {
+		return "", "", err
+	}
+	svg := fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" width="180" height="48"><rect width="180" height="48" fill="#eef2ff"/><text x="15" y="33" font-family="monospace" font-size="25" letter-spacing="4" fill="#242a50">%s</text></svg>`, html.EscapeString(answer))
+	return id, "data:image/svg+xml;base64," + base64.StdEncoding.EncodeToString([]byte(svg)), nil
+}
+func (f *Framework) captcha(w http.ResponseWriter, r *http.Request) {
+	settings, _, err := f.loadSetting(r.Context(), "auth")
+	if err != nil {
 		fail(w, 503, "database_unavailable", "验证码不可用")
 		return
 	}
-	svg := fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" width="160" height="48"><rect width="160" height="48" fill="#eef2ff"/><text x="15" y="33" font-family="monospace" font-size="25" letter-spacing="4" fill="#242a50">%s</text></svg>`, html.EscapeString(answer))
-	respond(w, 200, map[string]string{"captchaId": id, "image": "data:image/svg+xml;base64," + base64.StdEncoding.EncodeToString([]byte(svg))})
+	if settings["captchaEnabled"] != true {
+		respond(w, 200, map[string]any{"enabled": false, "captchaId": "", "image": ""})
+		return
+	}
+	id, image, err := f.createCaptcha(r.Context(), settings["captchaComplexity"].(string))
+	if err != nil {
+		fail(w, 503, "database_unavailable", "验证码不可用")
+		return
+	}
+	respond(w, 200, map[string]any{"enabled": true, "captchaId": id, "image": image})
 }
 
 type loginInput struct {
-	Username      string `json:"username"`
-	Password      string `json:"password"`
-	TenantCode    string `json:"tenantCode"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+
 	CaptchaID     string `json:"captchaId"`
 	CaptchaAnswer string `json:"captchaAnswer"`
 }
@@ -386,130 +370,87 @@ func (f *Framework) login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var in loginInput
-	if err := decode(r, &in); err != nil || in.Username == "" || in.Password == "" || in.CaptchaID == "" || in.CaptchaAnswer == "" {
+	if err := decode(r, &in); err != nil || in.Username == "" || in.Password == "" || len(in.Username) > 128 || len(in.Password) > 1024 {
 		fail(w, 400, "invalid_request", "登录参数不完整")
 		return
 	}
 	ctx := r.Context()
-	challenge, err := f.Store.Client.Captcha.Query().Where(captcha.PublicIDEQ(in.CaptchaID)).Only(ctx)
-	if ent.IsNotFound(err) {
-		fail(w, 400, "captcha_invalid", "验证码无效")
-		return
-	}
+	policy, err := f.securityPolicy(ctx)
 	if err != nil {
 		fail(w, 503, "database_unavailable", "登录服务不可用")
 		return
 	}
-	if challenge.UsedAt != nil || time.Now().After(challenge.ExpiresAt) {
-		fail(w, 400, "captcha_invalid", "验证码无效")
-		return
-	}
-	updated, err := f.Store.Client.Captcha.Update().Where(captcha.IDEQ(challenge.ID), captcha.UsedAtIsNil()).SetUsedAt(time.Now()).Save(ctx)
+	settings, _, err := f.loadSetting(ctx, "auth")
 	if err != nil {
 		fail(w, 503, "database_unavailable", "登录服务不可用")
 		return
 	}
-	if updated != 1 {
-		fail(w, 400, "captcha_invalid", "验证码已使用")
-		return
-	}
-	if subtle.ConstantTimeCompare([]byte(challenge.AnswerHash), []byte(digest(strings.ToUpper(strings.TrimSpace(in.CaptchaAnswer))))) != 1 {
-		fail(w, 400, "captcha_invalid", "验证码无效")
-		return
-	}
-	key := digest(strings.ToLower(in.TenantCode + ":" + in.Username))
-	var failures int
-	var locked *time.Time
-	err = f.Store.DB.QueryRowContext(ctx, `SELECT failures, locked_until FROM login_attempts WHERE key=$1`, key).Scan(&failures, &locked)
-	if err != nil && !errors.Is(err, sql.ErrNoRows) {
-		fail(w, 503, "database_unavailable", "登录服务不可用")
-		return
-	}
-	if locked != nil && locked.After(time.Now()) {
-		fail(w, 429, "login_locked", "登录尝试过多，请稍后再试")
-		return
-	}
-	query := f.Store.Client.User.Query().Where(user.UsernameEQ(in.Username), user.StatusEQ("enabled"))
-	if in.TenantCode == "" {
-		query = query.Where(user.TenantIDIsNil())
-	} else {
-		t, err := f.Store.Client.Tenant.Query().Where(tenant.CodeEQ(in.TenantCode), tenant.StatusEQ("enabled")).Only(ctx)
-		if err == nil {
-			query = query.Where(user.TenantIDEQ(t.ID))
-		} else if ent.IsNotFound(err) {
-			query = query.Where(user.IDEQ(-1))
-		} else {
-			fail(w, 503, "database_unavailable", "登录服务不可用")
-			return
-		}
-	}
-	u, err := query.Only(ctx)
+	account, err := f.Store.Client.User.Query().Where(user.Or(user.UsernameEQ(in.Username), user.PhoneEQ(in.Username))).Only(ctx)
 	if err != nil && !ent.IsNotFound(err) {
 		fail(w, 503, "database_unavailable", "登录服务不可用")
 		return
 	}
-	valid := err == nil && bcrypt.CompareHashAndPassword([]byte(u.PasswordHash), []byte(in.Password)) == nil
-	if !valid {
-		_, dbErr := f.Store.DB.ExecContext(ctx, `INSERT INTO login_attempts (key, failures, locked_until, updated_at) VALUES ($1,1,NULL,now()) ON CONFLICT (key) DO UPDATE SET failures=login_attempts.failures+1, locked_until=CASE WHEN login_attempts.failures+1>=5 THEN now()+interval '15 minutes' ELSE NULL END, updated_at=now()`, key)
-		if dbErr != nil {
+	name := in.Username
+	if account != nil {
+		name = account.Username
+	}
+	required, err := f.requiresChallenge(ctx, name, clientIP(r), policy)
+	if err != nil {
+		fail(w, 503, "database_unavailable", "登录服务不可用")
+		return
+	}
+	required = required || settings["captchaEnabled"] == true
+	if required && (in.CaptchaID == "" || in.CaptchaAnswer == "") {
+		id, image, err := f.createCaptcha(ctx, settings["captchaComplexity"].(string))
+		if err != nil {
+			fail(w, 503, "database_unavailable", "验证码不可用")
+			return
+		}
+		respond(w, 200, map[string]any{"captchaRequired": true, "captchaId": id, "svg": image, "message": "请输入验证码后继续登录"})
+		return
+	}
+	if required || in.CaptchaID != "" {
+		challenge, err := f.Store.Client.Captcha.Query().Where(captcha.PublicIDEQ(in.CaptchaID)).Only(ctx)
+		if ent.IsNotFound(err) {
+			fail(w, 400, "captcha_invalid", "验证码无效")
+			return
+		}
+		if err != nil {
 			fail(w, 503, "database_unavailable", "登录服务不可用")
 			return
 		}
-		log := f.Store.Client.LoginLog.Create().SetUsername(in.Username).SetSuccess(false).SetReason("invalid_credentials").SetIP(clientIP(r))
-		if u != nil {
-			log.SetUserID(u.ID)
-			if u.TenantID != nil {
-				log.SetTenantID(*u.TenantID)
-			}
+		if challenge.UsedAt != nil || time.Now().After(challenge.ExpiresAt) {
+			fail(w, 400, "captcha_invalid", "验证码无效")
+			return
 		}
-		if err := log.Exec(ctx); err != nil {
+		count, err := f.Store.Client.Captcha.Update().Where(captcha.IDEQ(challenge.ID), captcha.UsedAtIsNil()).SetUsedAt(time.Now()).Save(ctx)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "登录服务不可用")
+			return
+		}
+		if count != 1 || subtle.ConstantTimeCompare([]byte(challenge.AnswerHash), []byte(digest(strings.ToUpper(in.CaptchaAnswer)))) != 1 {
+			fail(w, 400, "captcha_invalid", "验证码错误或已使用")
+			return
+		}
+	}
+	valid := account != nil && account.Status == "enabled" && bcrypt.CompareHashAndPassword([]byte(account.PasswordHash), []byte(in.Password)) == nil
+	if !valid {
+		if err = f.recordLoginFailure(ctx, name, clientIP(r), policy); err != nil {
+			fail(w, 503, "database_unavailable", "登录服务不可用")
+			return
+		}
+		log := f.Store.Client.LoginLog.Create().SetUsername(name).SetSuccess(false).SetReason("账号或密码错误").SetIP(clientIP(r))
+		if account != nil {
+			log.SetUserID(account.ID)
+		}
+		if err = log.Exec(ctx); err != nil {
 			fail(w, 503, "database_unavailable", "登录服务不可用")
 			return
 		}
 		fail(w, 401, "invalid_credentials", "账号或密码错误")
 		return
 	}
-	token, err := secret()
-	if err != nil {
-		fail(w, 500, "random_unavailable", "登录服务不可用")
-		return
-	}
-	csrfToken := digest("zenith-csrf:" + token)
-	expires := time.Now().Add(12 * time.Hour)
-	err = f.Store.WithTx(ctx, func(tx *ent.Tx) error {
-		if old, e := r.Cookie("zenith_session"); e == nil {
-			if _, err := tx.Session.Update().Where(session.TokenHashEQ(digest(old.Value))).SetRevokedAt(time.Now()).Save(ctx); err != nil {
-				return err
-			}
-		}
-		if err := tx.Session.Create().SetUserID(u.ID).SetTokenHash(digest(token)).SetCsrfHash(digest(csrfToken)).SetExpiresAt(expires).Exec(ctx); err != nil {
-			return err
-		}
-		log := tx.LoginLog.Create().SetUsername(u.Username).SetUserID(u.ID).SetSuccess(true).SetIP(clientIP(r))
-		if u.TenantID != nil {
-			log.SetTenantID(*u.TenantID)
-		}
-		return log.Exec(ctx)
-	})
-	if err != nil {
-		fail(w, 503, "database_unavailable", "登录服务不可用")
-		return
-	}
-	_, _ = f.Store.DB.ExecContext(ctx, `DELETE FROM login_attempts WHERE key=$1`, key)
-	authenticated := r.Clone(ctx)
-	authenticated.Header.Set("Cookie", "zenith_session="+token)
-	p, err := f.principal(ctx, authenticated)
-	if err != nil {
-		fail(w, 503, "database_unavailable", "登录服务不可用")
-		return
-	}
-	permissions, err := f.permissions(ctx, p)
-	if err != nil {
-		fail(w, 503, "database_unavailable", "登录服务不可用")
-		return
-	}
-	http.SetCookie(w, &http.Cookie{Name: "zenith_session", Value: token, Path: "/", HttpOnly: true, Secure: f.config.SecureCookies, SameSite: http.SameSiteLaxMode, Expires: expires})
-	respond(w, 200, map[string]any{"user": publicUser(u), "csrfToken": csrfToken, "tenantViewId": p.TenantID, "superAdmin": p.SuperAdmin, "permissions": permissions})
+	f.issueSession(w, r, account, false)
 }
 
 func clientIP(r *http.Request) string {
@@ -521,7 +462,7 @@ func clientIP(r *http.Request) string {
 }
 
 func publicUser(u *ent.User) map[string]any {
-	return map[string]any{"id": u.ID, "username": u.Username, "nickname": u.Nickname, "tenantId": u.TenantID, "status": u.Status, "email": u.Email, "preferences": u.Preferences}
+	return map[string]any{"id": u.ID, "username": u.Username, "nickname": u.Nickname, "status": u.Status, "email": u.Email, "preferences": u.Preferences}
 }
 
 func (f *Framework) me(w http.ResponseWriter, r *http.Request) {
@@ -533,12 +474,24 @@ func (f *Framework) me(w http.ResponseWriter, r *http.Request) {
 		fail(w, 503, "database_unavailable", "权限查询失败")
 		return
 	}
-	respond(w, 200, map[string]any{"user": publicUser(p.User), "tenantViewId": p.TenantID, "superAdmin": p.SuperAdmin, "permissions": permissions, "csrfToken": csrfToken})
+	view, err := f.userView(r, p.User)
+	if err != nil {
+		fail(w, 503, "database_unavailable", "用户资料查询失败")
+		return
+	}
+
+	respond(w, 200, map[string]any{"user": view, "superAdmin": p.SuperAdmin, "permissions": permissions, "csrfToken": csrfToken})
 }
 
 func (f *Framework) logout(w http.ResponseWriter, r *http.Request) {
 	p := fromContext(r.Context())
-	if err := f.Store.Client.Session.UpdateOneID(p.Session.ID).SetRevokedAt(time.Now()).Exec(r.Context()); err != nil {
+	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
+		if err := tx.Session.UpdateOneID(p.Session.ID).SetRevokedAt(time.Now()).Exec(r.Context()); err != nil {
+			return err
+		}
+		return tx.LoginLog.Create().SetUserID(p.User.ID).SetUsername(p.User.Username).SetSuccess(true).SetEventType("logout").SetIP(clientIP(r)).Exec(r.Context())
+	})
+	if err != nil {
 		fail(w, 503, "database_unavailable", "退出失败")
 		return
 	}

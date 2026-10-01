@@ -21,43 +21,45 @@ import type { Menu, User } from '@zenith/shared/identity';
 import PageLoading from '@/components/PageLoading';
 // 布局内页面的 Suspense 边界：占位 → 内容的揭示与路由切换共用 ViewTransition（体积极小，不会拖入 AdminLayout）
 import RouteSuspense from '@/layouts/RouteSuspense';
+// Keep the build flag local so disabled lazy routes leave the module graph.
+const IS_GO_FOUNDATION = import.meta.env.VITE_GO_FOUNDATION === 'true';
 
 // AdminLayout 懒加载：后台布局静态依赖图很重（通知/文件预览/偏好面板/dnd-kit/DatePicker 等），
 // 登录页与公开页（支付链接、公开报表、OAuth 授权）不应预载它
-const AdminLayout = React.lazy(() => import('@/layouts/AdminLayout'));
+const AdminLayout = /* @__PURE__ */ React.lazy(() => import('@/layouts/AdminLayout'));
 
 // 登录页静态引入：未登录首屏只需关键路径本身，不再多一轮 chunk 下载。
 // 代价是它的静态闭包直接决定匿名首屏体积：Semi Form（含 BaseForm）会静态拖入全部字段控件（≈770 KB / 210 KB gz），
 // 因此登录页只能用 Input / Button 等轻量控件（pages/login/login-form.tsx），弹窗按需 lazy；
 // `bundle-budget.json` 的 index.html 关键路径预算守住这一点。
 import LoginPage from '@/pages/login/LoginPage';
-const ResetPasswordPage = React.lazy(() => import('@/pages/reset-password/ResetPasswordPage'));
-const DashboardPage = React.lazy(() => import('@/pages/dashboard/DashboardPage'));
+const ResetPasswordPage = /* @__PURE__ */ React.lazy(() => import('@/pages/reset-password/ResetPasswordPage'));
+const DashboardPage = /* @__PURE__ */ React.lazy(() => import('@/pages/dashboard/DashboardPage'));
 import DashboardSkeleton from '@/pages/dashboard/DashboardSkeleton';
-const ProfilePage = React.lazy(() => import('@/pages/profile/ProfilePage'));
-const AnnouncementsPage = React.lazy(() => import('@/pages/announcements/AnnouncementsPage'));
-const InboxPage = React.lazy(() => import('@/pages/inbox/InboxPage'));
-const GlobalSearchPage = React.lazy(() => import('@/pages/search/GlobalSearchPage'));
-const NotFoundPage = React.lazy(() => import('@/pages/not-found/NotFoundPage'));
-const ForbiddenPage = React.lazy(() => import('@/pages/forbidden/ForbiddenPage'));
-const OAuthCallbackPage = React.lazy(() => import('@/pages/oauth/OAuthCallbackPage'));
-const EnterpriseCallbackPage = React.lazy(() => import('@/pages/oauth/EnterpriseCallbackPage'));
-const OAuth2AuthorizePage = React.lazy(() => import('@/pages/oauth2/OAuth2AuthorizePage'));
-const EmbedPage = React.lazy(() => import('@/pages/embed/EmbedPage'));
-const PaymentLinkPublicPage = React.lazy(() => import('@/pages/payment/PaymentLinkPublicPage'));
-const PublicDashboardPage = React.lazy(() => import('@/pages/report/PublicDashboardPage'));
-const PublicAiChatPage = React.lazy(() => import('@/pages/public-ai-chat/PublicAiChatPage'));
-const PublicDriveSharePage = React.lazy(() => import('@/pages/drive/public/PublicSharePage'));
-const WorkflowDesignerPage = React.lazy(() => import('@/pages/workflow/designer/WorkflowDesignerPage'));
-const WorkflowLaunchPage = React.lazy(() => import('@/pages/workflow/launchpad/WorkflowLaunchPage'));
-const WorkflowInstancePage = React.lazy(() => import('@/pages/workflow/instances/WorkflowInstancePage'));
-const FirewallPage = React.lazy(() => import('@/pages/system/firewall/FirewallPage'));
-const NginxSitesPage = React.lazy(() => import('@/pages/system/nginx-sites/NginxSitesPage'));
-const DashboardDesignerPage = React.lazy(() => import('@/pages/report/designer/DashboardDesignerPage'));
-const PrintDesignerPage = React.lazy(() => import('@/pages/report/designer/PrintDesignerPage'));
-const DashboardViewPage = React.lazy(() => import('@/pages/report/DashboardViewPage'));
-const FillEntryPage = React.lazy(() => import('@/pages/report/FillEntryPage'));
-const OAuth2AppDetailPage = React.lazy(() => import('@/pages/open-platform/apps/OAuth2AppDetailPage'));
+const ProfilePage = /* @__PURE__ */ React.lazy(() => import('@/pages/profile/ProfilePage'));
+const AnnouncementsPage = /* @__PURE__ */ React.lazy(() => import('@/pages/announcements/AnnouncementsPage'));
+const InboxPage = /* @__PURE__ */ React.lazy(() => import('@/pages/inbox/InboxPage'));
+const GlobalSearchPage = /* @__PURE__ */ React.lazy(() => import('@/pages/search/GlobalSearchPage'));
+const NotFoundPage = /* @__PURE__ */ React.lazy(() => import('@/pages/not-found/NotFoundPage'));
+const ForbiddenPage = /* @__PURE__ */ React.lazy(() => import('@/pages/forbidden/ForbiddenPage'));
+const OAuthCallbackPage = /* @__PURE__ */ React.lazy(() => import('@/pages/oauth/OAuthCallbackPage'));
+const EnterpriseCallbackPage = /* @__PURE__ */ React.lazy(() => import('@/pages/oauth/EnterpriseCallbackPage'));
+const OAuth2AuthorizePage = /* @__PURE__ */ React.lazy(() => import('@/pages/oauth2/OAuth2AuthorizePage'));
+const EmbedPage = /* @__PURE__ */ React.lazy(() => import('@/pages/embed/EmbedPage'));
+const PaymentLinkPublicPage = /* @__PURE__ */ React.lazy(() => import('@/pages/payment/PaymentLinkPublicPage'));
+const PublicDashboardPage = /* @__PURE__ */ React.lazy(() => import('@/pages/report/PublicDashboardPage'));
+const PublicAiChatPage = /* @__PURE__ */ React.lazy(() => import('@/pages/public-ai-chat/PublicAiChatPage'));
+const PublicDriveSharePage = /* @__PURE__ */ React.lazy(() => import('@/pages/drive/public/PublicSharePage'));
+const WorkflowDesignerPage = /* @__PURE__ */ React.lazy(() => import('@/pages/workflow/designer/WorkflowDesignerPage'));
+const WorkflowLaunchPage = /* @__PURE__ */ React.lazy(() => import('@/pages/workflow/launchpad/WorkflowLaunchPage'));
+const WorkflowInstancePage = /* @__PURE__ */ React.lazy(() => import('@/pages/workflow/instances/WorkflowInstancePage'));
+const FirewallPage = /* @__PURE__ */ React.lazy(() => import('@/pages/system/firewall/FirewallPage'));
+const NginxSitesPage = /* @__PURE__ */ React.lazy(() => import('@/pages/system/nginx-sites/NginxSitesPage'));
+const DashboardDesignerPage = /* @__PURE__ */ React.lazy(() => import('@/pages/report/designer/DashboardDesignerPage'));
+const PrintDesignerPage = /* @__PURE__ */ React.lazy(() => import('@/pages/report/designer/PrintDesignerPage'));
+const DashboardViewPage = /* @__PURE__ */ React.lazy(() => import('@/pages/report/DashboardViewPage'));
+const FillEntryPage = /* @__PURE__ */ React.lazy(() => import('@/pages/report/FillEntryPage'));
+const OAuth2AppDetailPage = /* @__PURE__ */ React.lazy(() => import('@/pages/open-platform/apps/OAuth2AppDetailPage'));
 
 const routeFallback = <PageLoading inline />;
 
@@ -106,7 +108,7 @@ function RedirectFromLogin() {
   const location = useLocation();
   const { login, verifyMfaLogin, register } = useAuth();
   const params = new URLSearchParams(location.search);
-  if (params.get('add_account') === '1') {
+  if (!IS_GO_FOUNDATION && params.get('add_account') === '1') {
     return <Suspense fallback={routeFallback}><LoginPage onLogin={login} onVerifyMfa={verifyMfaLogin} onRegister={register} /></Suspense>;
   }
   const redirect = params.get('redirect');
@@ -158,7 +160,7 @@ return matched ? <ForbiddenPage /> : <NotFoundPage />;
 export function flattenMenus(menus: Menu[]): Menu[] {
   const routes: Menu[] = [];
   for (const m of menus) {
-    if (m.path && m.component && !FIXED_ROUTES.has(m.path)) {
+    if (m.path && m.component && !FIXED_ROUTES.has(m.path) && (!IS_GO_FOUNDATION || m.path !== '/')) {
       routes.push(m);
     }
     if (m.children && m.children.length > 0) {
@@ -189,7 +191,7 @@ function flattenEmbedMenus(menus: Menu[]): Menu[] {
 export function buildAllMenuPaths(menus: Menu[]): Map<string, string> {
   const map = new Map<string, string>();
   for (const m of menus) {
-    if (m.path && m.component && !FIXED_ROUTES.has(m.path)) {
+    if (m.path && m.component && !FIXED_ROUTES.has(m.path) && (!IS_GO_FOUNDATION || m.path !== '/')) {
       map.set(m.path, m.component);
     }
     if (m.children?.length) {
@@ -209,6 +211,7 @@ const EMPTY_MENUS: Menu[] = [];
 
 function AdminRouteLoader({ user, logout }: Readonly<AdminRouteLoaderProps>) {
   const { permissions } = usePermission();
+ const location=useLocation();
   const userMenusQuery = useCurrentUserMenuTree();
 
   const menus = userMenusQuery.data ?? EMPTY_MENUS;
@@ -235,8 +238,10 @@ function AdminRouteLoader({ user, logout }: Readonly<AdminRouteLoaderProps>) {
     );
   }
 
+  if (IS_GO_FOUNDATION && user.requirePasswordChange && location.pathname !== '/profile') return <Navigate to="/profile?tab=security" replace />;
   return (
     <Routes>
+{!IS_GO_FOUNDATION && <>
         <Route path="/public/payment/link/:token" element={<Suspense fallback={routeFallback}><PaymentLinkPublicPage /></Suspense>} />
         <Route path="/public/report/:token" element={<Suspense fallback={routeFallback}><PublicDashboardPage /></Suspense>} />
         <Route path="/public/ai-chat/:token" element={<Suspense fallback={routeFallback}><PublicAiChatPage /></Suspense>} />
@@ -246,12 +251,15 @@ function AdminRouteLoader({ user, logout }: Readonly<AdminRouteLoaderProps>) {
         <Route path="/enterprise/callback" element={<Suspense fallback={routeFallback}><EnterpriseCallbackPage /></Suspense>} />
         {/* 已登录用户从个人中心发起「绑定第三方账号」后回到这里，由同一回调页走 bind 分支 */}
         <Route path="/oauth/callback/:provider" element={<Suspense fallback={routeFallback}><OAuthCallbackPage /></Suspense>} />
+</>}
         {/* 已登录用户访问认证页 → 重定向，避免落入 AdminLayout catch-all 404 并作为标签页出现 */}
         <Route path="/login" element={<RedirectFromLogin />} />
         <Route path="/reset-password" element={<Navigate to="/" replace />} />
         <Route path="/" element={<Suspense fallback={<PageLoading />}><AdminLayout user={user} onLogout={logout} menus={menus} /></Suspense>}>
         {/* 固定路由 */}
         <Route index element={<HomeEntry />} />
+        {IS_GO_FOUNDATION && <Route path="profile" element={<RouteSuspense><ProfilePage user={user} /></RouteSuspense>} />}
+        {!IS_GO_FOUNDATION && <>
         <Route path="profile" element={<RouteSuspense><ProfilePage user={user} /></RouteSuspense>} />
         <Route path="announcements" element={<RouteSuspense><AnnouncementsPage /></RouteSuspense>} />
         <Route path="inbox" element={<RouteSuspense><InboxPage /></RouteSuspense>} />
@@ -272,6 +280,7 @@ function AdminRouteLoader({ user, logout }: Readonly<AdminRouteLoaderProps>) {
         <Route path="system/nginx-sites" element={permissions.includes('*') || permissions.includes('system:nginx:view') ? <RouteSuspense><NginxSitesPage /></RouteSuspense> : <RouteSuspense><ForbiddenPage /></RouteSuspense>} />
         <Route path="system/oauth2-apps/:id" element={permissions.includes('*') || permissions.includes('system:oauth2-apps:view') ? <RouteSuspense><OAuth2AppDetailPage /></RouteSuspense> : <RouteSuspense><ForbiddenPage /></RouteSuspense>} />
         <Route path="users" element={<Navigate to="/system/users" replace />} />
+        </>}
         <Route path="forbidden" element={<RouteSuspense><ForbiddenPage /></RouteSuspense>} />
 
         {/* 动态路由 */}
@@ -300,7 +309,7 @@ function AdminRouteLoader({ user, logout }: Readonly<AdminRouteLoaderProps>) {
         })}
 
         {/* 外链内嵌路由：iframe 打开外部页面 */}
-        {embedRoutes.map((m) => (
+        {!IS_GO_FOUNDATION && embedRoutes.map((m) => (
           <Route
             key={`embed-${m.id}`}
             path={`embed/${m.id}`}
@@ -409,6 +418,7 @@ export default function App() {
           <PageErrorBoundary>
             <Routes>
               <Route path="/login" element={<Suspense fallback={routeFallback}><LoginPage onLogin={login} onVerifyMfa={verifyMfaLogin} onRegister={register} /></Suspense>} />
+{!IS_GO_FOUNDATION && <>
               <Route path="/reset-password" element={<Suspense fallback={routeFallback}><ResetPasswordPage /></Suspense>} />
               <Route path="/oauth/callback/:provider" element={<Suspense fallback={routeFallback}><OAuthCallbackPage /></Suspense>} />
               <Route path="/enterprise/callback" element={<Suspense fallback={routeFallback}><EnterpriseCallbackPage /></Suspense>} />
@@ -417,6 +427,7 @@ export default function App() {
               <Route path="/public/report/:token" element={<Suspense fallback={routeFallback}><PublicDashboardPage /></Suspense>} />
               <Route path="/public/ai-chat/:token" element={<Suspense fallback={routeFallback}><PublicAiChatPage /></Suspense>} />
               <Route path="/public/drive/:token" element={<Suspense fallback={routeFallback}><PublicDriveSharePage /></Suspense>} />
+</>}
               <Route path="*" element={<RedirectToLogin />} />
             </Routes>
           </PageErrorBoundary>

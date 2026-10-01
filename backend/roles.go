@@ -17,6 +17,7 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/role"
 	"github.com/fudanda/zenith-admin/backend/ent/roledepartment"
 	"github.com/fudanda/zenith-admin/backend/ent/rolemenu"
+	"github.com/fudanda/zenith-admin/backend/ent/user"
 	"github.com/fudanda/zenith-admin/backend/ent/userrole"
 	"github.com/gorilla/mux"
 )
@@ -24,12 +25,7 @@ import (
 var roleCodePattern = regexp.MustCompile(`^[a-z_]+$`)
 var dataScopes = map[string]bool{"all": true, "custom": true, "dept_only": true, "dept": true, "self": true}
 
-func roleScope(p *principal) predicate.Role {
-	if p.TenantID == nil {
-		return role.TenantIDIsNil()
-	}
-	return role.TenantIDEQ(*p.TenantID)
-}
+func roleScope(_ *principal) predicate.Role { return role.IDGT(0) }
 
 func (f *Framework) scopedRole(r *http.Request, p *principal, id int) (*ent.Role, error) {
 	return f.Store.Client.Role.Query().Where(role.IDEQ(id), roleScope(p)).Only(r.Context())
@@ -52,12 +48,15 @@ func (f *Framework) roleView(r *http.Request, row *ent.Role) (map[string]any, er
 	for _, link := range departments {
 		deptIDs = append(deptIDs, link.DepartmentID)
 	}
-	users, err := f.Store.Client.UserRole.Query().Where(userrole.RoleIDEQ(row.ID)).Count(r.Context())
+	memberIDs, err := f.Store.Client.UserRole.Query().Where(userrole.RoleIDEQ(row.ID)).Select(userrole.FieldUserID).Ints(r.Context())
 	if err != nil {
 		return nil, err
 	}
-	return map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "description": row.Description, "status": row.Status, "dataScope": row.DataScope,
-		"tenantId": row.TenantID, "menuIds": menuIDs, "deptScopeIds": deptIDs, "userCount": users, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt}, nil
+	users, preview, err := f.memberSummary(r.Context(), fromContext(r.Context()), f.Store.Client.User.Query().Where(user.IDIn(memberIDs...)))
+	if err != nil {
+		return nil, err
+	}
+	return map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "description": row.Description, "status": row.Status, "dataScope": row.DataScope, "menuIds": menuIDs, "deptScopeIds": deptIDs, "userCount": users, "userPreview": preview, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt}, nil
 }
 
 func (f *Framework) listRoles(w http.ResponseWriter, r *http.Request) {
@@ -245,10 +244,25 @@ func (f *Framework) saveRole(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if current.Code == "super_admin" {
-			fail(w, 409, "protected_role", "不能修改平台超级管理员角色")
+			fail(w, 409, "protected_role", "不能修改系统超级管理员角色")
 			return
 		}
 		in = roleInput{Name: current.Name, Code: current.Code, Description: current.Description, Status: current.Status, DataScope: current.DataScope}
+		in.DeptScopeIDs, err = f.Store.Client.RoleDepartment.Query().Where(roledepartment.RoleIDEQ(id)).Select(roledepartment.FieldDepartmentID).Ints(r.Context())
+		if err != nil {
+			fail(w, 503, "database_unavailable", "角色范围查询失败")
+			return
+		}
+		currentMenus, err := f.Store.Client.RoleMenu.Query().Where(rolemenu.RoleIDEQ(id)).Select(rolemenu.FieldMenuID).Ints(r.Context())
+		if err != nil {
+			fail(w, 503, "database_unavailable", "角色权限查询失败")
+			return
+		}
+		if err = f.validateGrantMenus(r.Context(), p, currentMenus); err != nil {
+			fail(w, 403, "grant_denied", err.Error())
+			return
+		}
+
 	}
 	var patch map[string]json.RawMessage
 	if err := decode(r, &patch); err != nil || len(patch) == 0 {
@@ -293,18 +307,24 @@ func (f *Framework) saveRole(w http.ResponseWriter, r *http.Request) {
 		}
 		seen[departmentID] = true
 		if _, err := f.Store.Client.Department.Query().Where(department.IDEQ(departmentID), departmentScope(p)).Only(r.Context()); err != nil {
-			fail(w, 400, "invalid_department", "部门不属于当前租户")
+			fail(w, 400, "invalid_department", "部门不属于当前组织")
 			return
 		}
+	}
+	if in.Code == "super_admin" {
+		fail(w, 409, "protected_role", "不能通过页面创建系统超级管理员角色")
+		return
+	}
+	if err := f.validateGrantScope(r.Context(), p, in.DataScope, in.DeptScopeIDs); err != nil {
+		fail(w, 403, "grant_denied", err.Error())
+		return
 	}
 	var saved *ent.Role
 	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		var err error
 		if id == 0 {
 			create := tx.Role.Create().SetName(in.Name).SetCode(in.Code).SetStatus(in.Status).SetDataScope(in.DataScope)
-			if p.TenantID != nil {
-				create.SetTenantID(*p.TenantID)
-			}
+
 			if in.Description != nil {
 				create.SetDescription(*in.Description)
 			}
@@ -336,9 +356,7 @@ func (f *Framework) saveRole(w http.ResponseWriter, r *http.Request) {
 			operation = "create"
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation(operation).SetResource("roles").SetResourceID(saved.ID)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -370,7 +388,7 @@ func (f *Framework) deleteRole(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if row.Code == "super_admin" {
-		fail(w, 409, "protected_role", "不能删除平台超级管理员角色")
+		fail(w, 409, "protected_role", "不能删除系统超级管理员角色")
 		return
 	}
 	used, err := f.Store.Client.UserRole.Query().Where(userrole.RoleIDEQ(id)).Exist(r.Context())
@@ -387,9 +405,7 @@ func (f *Framework) deleteRole(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete").SetResource("roles").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -459,6 +475,20 @@ func (f *Framework) assignRoleUsers(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	if err := f.validateGrantRoles(r.Context(), p, []int{id}); err != nil {
+		fail(w, 403, "grant_denied", err.Error())
+		return
+	}
+	visible, err := f.visibleMemberQuery(r.Context(), p, f.Store.Client.User.Query())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "成员查询失败")
+		return
+	}
+	visibleIDs, err := visible.IDs(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "成员查询失败")
+		return
+	}
 	err = f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		row, err := tx.Role.Query().Where(role.IDEQ(id), roleScope(p)).Only(r.Context())
 		if err != nil {
@@ -468,15 +498,13 @@ func (f *Framework) assignRoleUsers(w http.ResponseWriter, r *http.Request) {
 			return errors.New("不能批量修改超级管理员成员")
 		}
 		for _, userID := range in.UserIDs {
-			account, err := tx.User.Get(r.Context(), userID)
+			_, err := tx.User.Get(r.Context(), userID)
 			if err != nil {
 				return err
 			}
-			if !userMatchesTenant(account, p.TenantID) {
-				return errors.New("跨租户用户")
-			}
+
 		}
-		if _, err = tx.UserRole.Delete().Where(userrole.RoleIDEQ(id)).Exec(r.Context()); err != nil {
+		if _, err = tx.UserRole.Delete().Where(userrole.RoleIDEQ(id), userrole.UserIDIn(visibleIDs...)).Exec(r.Context()); err != nil {
 			return err
 		}
 		for _, userID := range in.UserIDs {
@@ -485,9 +513,7 @@ func (f *Framework) assignRoleUsers(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("assign_users").SetResource("roles").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if ent.IsNotFound(err) {
@@ -523,6 +549,10 @@ func (f *Framework) assignRoleMenus(w http.ResponseWriter, r *http.Request) {
 		}
 		seen[menuID] = true
 	}
+	if err := f.validateGrantMenus(r.Context(), p, in.MenuIDs); err != nil {
+		fail(w, 403, "grant_denied", err.Error())
+		return
+	}
 	err = f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		row, err := tx.Role.Query().Where(role.IDEQ(id), roleScope(p)).Only(r.Context())
 		if err != nil {
@@ -545,9 +575,7 @@ func (f *Framework) assignRoleMenus(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("assign_menus").SetResource("roles").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if ent.IsNotFound(err) {

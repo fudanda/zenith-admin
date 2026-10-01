@@ -42,6 +42,20 @@ func (_u *LoginAttemptUpdate) SetNillableKey(v *string) *LoginAttemptUpdate {
 	return _u
 }
 
+// SetUsernameHash sets the "username_hash" field.
+func (_u *LoginAttemptUpdate) SetUsernameHash(v string) *LoginAttemptUpdate {
+	_u.mutation.SetUsernameHash(v)
+	return _u
+}
+
+// SetNillableUsernameHash sets the "username_hash" field if the given value is not nil.
+func (_u *LoginAttemptUpdate) SetNillableUsernameHash(v *string) *LoginAttemptUpdate {
+	if v != nil {
+		_u.SetUsernameHash(*v)
+	}
+	return _u
+}
+
 // SetFailures sets the "failures" field.
 func (_u *LoginAttemptUpdate) SetFailures(v int) *LoginAttemptUpdate {
 	_u.mutation.ResetFailures()
@@ -142,6 +156,9 @@ func (_u *LoginAttemptUpdate) sqlSave(ctx context.Context) (_node int, err error
 	if value, ok := _u.mutation.Key(); ok {
 		_spec.SetField(loginattempt.FieldKey, field.TypeString, value)
 	}
+	if value, ok := _u.mutation.UsernameHash(); ok {
+		_spec.SetField(loginattempt.FieldUsernameHash, field.TypeString, value)
+	}
 	if value, ok := _u.mutation.Failures(); ok {
 		_spec.SetField(loginattempt.FieldFailures, field.TypeInt, value)
 	}
@@ -187,6 +204,20 @@ func (_u *LoginAttemptUpdateOne) SetKey(v string) *LoginAttemptUpdateOne {
 func (_u *LoginAttemptUpdateOne) SetNillableKey(v *string) *LoginAttemptUpdateOne {
 	if v != nil {
 		_u.SetKey(*v)
+	}
+	return _u
+}
+
+// SetUsernameHash sets the "username_hash" field.
+func (_u *LoginAttemptUpdateOne) SetUsernameHash(v string) *LoginAttemptUpdateOne {
+	_u.mutation.SetUsernameHash(v)
+	return _u
+}
+
+// SetNillableUsernameHash sets the "username_hash" field if the given value is not nil.
+func (_u *LoginAttemptUpdateOne) SetNillableUsernameHash(v *string) *LoginAttemptUpdateOne {
+	if v != nil {
+		_u.SetUsernameHash(*v)
 	}
 	return _u
 }
@@ -320,6 +351,9 @@ func (_u *LoginAttemptUpdateOne) sqlSave(ctx context.Context) (_node *LoginAttem
 	}
 	if value, ok := _u.mutation.Key(); ok {
 		_spec.SetField(loginattempt.FieldKey, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.UsernameHash(); ok {
+		_spec.SetField(loginattempt.FieldUsernameHash, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Failures(); ok {
 		_spec.SetField(loginattempt.FieldFailures, field.TypeInt, value)

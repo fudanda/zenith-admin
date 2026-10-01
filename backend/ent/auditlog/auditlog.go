@@ -15,8 +15,6 @@ const (
 	FieldID = "id"
 	// FieldActorID holds the string denoting the actor_id field in the database.
 	FieldActorID = "actor_id"
-	// FieldTenantID holds the string denoting the tenant_id field in the database.
-	FieldTenantID = "tenant_id"
 	// FieldOperation holds the string denoting the operation field in the database.
 	FieldOperation = "operation"
 	// FieldResource holds the string denoting the resource field in the database.
@@ -25,6 +23,28 @@ const (
 	FieldResourceID = "resource_id"
 	// FieldRequestID holds the string denoting the request_id field in the database.
 	FieldRequestID = "request_id"
+	// FieldModule holds the string denoting the module field in the database.
+	FieldModule = "module"
+	// FieldDescription holds the string denoting the description field in the database.
+	FieldDescription = "description"
+	// FieldMethod holds the string denoting the method field in the database.
+	FieldMethod = "method"
+	// FieldPath holds the string denoting the path field in the database.
+	FieldPath = "path"
+	// FieldIP holds the string denoting the ip field in the database.
+	FieldIP = "ip"
+	// FieldUserAgent holds the string denoting the user_agent field in the database.
+	FieldUserAgent = "user_agent"
+	// FieldBrowser holds the string denoting the browser field in the database.
+	FieldBrowser = "browser"
+	// FieldOs holds the string denoting the os field in the database.
+	FieldOs = "os"
+	// FieldRequestBody holds the string denoting the request_body field in the database.
+	FieldRequestBody = "request_body"
+	// FieldDurationMs holds the string denoting the duration_ms field in the database.
+	FieldDurationMs = "duration_ms"
+	// FieldResponseCode holds the string denoting the response_code field in the database.
+	FieldResponseCode = "response_code"
 	// FieldCreatedAt holds the string denoting the created_at field in the database.
 	FieldCreatedAt = "created_at"
 	// Table holds the table name of the auditlog in the database.
@@ -35,11 +55,21 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldActorID,
-	FieldTenantID,
 	FieldOperation,
 	FieldResource,
 	FieldResourceID,
 	FieldRequestID,
+	FieldModule,
+	FieldDescription,
+	FieldMethod,
+	FieldPath,
+	FieldIP,
+	FieldUserAgent,
+	FieldBrowser,
+	FieldOs,
+	FieldRequestBody,
+	FieldDurationMs,
+	FieldResponseCode,
 	FieldCreatedAt,
 }
 
@@ -58,6 +88,26 @@ var (
 	OperationValidator func(string) error
 	// ResourceValidator is a validator for the "resource" field. It is called by the builders before save.
 	ResourceValidator func(string) error
+	// DefaultModule holds the default value on creation for the "module" field.
+	DefaultModule string
+	// DefaultDescription holds the default value on creation for the "description" field.
+	DefaultDescription string
+	// DefaultMethod holds the default value on creation for the "method" field.
+	DefaultMethod string
+	// DefaultPath holds the default value on creation for the "path" field.
+	DefaultPath string
+	// DefaultIP holds the default value on creation for the "ip" field.
+	DefaultIP string
+	// DefaultUserAgent holds the default value on creation for the "user_agent" field.
+	DefaultUserAgent string
+	// DefaultBrowser holds the default value on creation for the "browser" field.
+	DefaultBrowser string
+	// DefaultOs holds the default value on creation for the "os" field.
+	DefaultOs string
+	// DefaultDurationMs holds the default value on creation for the "duration_ms" field.
+	DefaultDurationMs int
+	// DefaultResponseCode holds the default value on creation for the "response_code" field.
+	DefaultResponseCode int
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt func() time.Time
 )
@@ -73,11 +123,6 @@ func ByID(opts ...sql.OrderTermOption) OrderOption {
 // ByActorID orders the results by the actor_id field.
 func ByActorID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldActorID, opts...).ToFunc()
-}
-
-// ByTenantID orders the results by the tenant_id field.
-func ByTenantID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldTenantID, opts...).ToFunc()
 }
 
 // ByOperation orders the results by the operation field.
@@ -98,6 +143,61 @@ func ByResourceID(opts ...sql.OrderTermOption) OrderOption {
 // ByRequestID orders the results by the request_id field.
 func ByRequestID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRequestID, opts...).ToFunc()
+}
+
+// ByModule orders the results by the module field.
+func ByModule(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldModule, opts...).ToFunc()
+}
+
+// ByDescription orders the results by the description field.
+func ByDescription(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDescription, opts...).ToFunc()
+}
+
+// ByMethod orders the results by the method field.
+func ByMethod(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldMethod, opts...).ToFunc()
+}
+
+// ByPath orders the results by the path field.
+func ByPath(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPath, opts...).ToFunc()
+}
+
+// ByIP orders the results by the ip field.
+func ByIP(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldIP, opts...).ToFunc()
+}
+
+// ByUserAgent orders the results by the user_agent field.
+func ByUserAgent(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserAgent, opts...).ToFunc()
+}
+
+// ByBrowser orders the results by the browser field.
+func ByBrowser(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBrowser, opts...).ToFunc()
+}
+
+// ByOs orders the results by the os field.
+func ByOs(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOs, opts...).ToFunc()
+}
+
+// ByRequestBody orders the results by the request_body field.
+func ByRequestBody(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldRequestBody, opts...).ToFunc()
+}
+
+// ByDurationMs orders the results by the duration_ms field.
+func ByDurationMs(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDurationMs, opts...).ToFunc()
+}
+
+// ByResponseCode orders the results by the response_code field.
+func ByResponseCode(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldResponseCode, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.

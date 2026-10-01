@@ -17,10 +17,16 @@ const (
 	FieldUserID = "user_id"
 	// FieldUsername holds the string denoting the username field in the database.
 	FieldUsername = "username"
-	// FieldTenantID holds the string denoting the tenant_id field in the database.
-	FieldTenantID = "tenant_id"
 	// FieldIP holds the string denoting the ip field in the database.
 	FieldIP = "ip"
+	// FieldEventType holds the string denoting the event_type field in the database.
+	FieldEventType = "event_type"
+	// FieldUserAgent holds the string denoting the user_agent field in the database.
+	FieldUserAgent = "user_agent"
+	// FieldBrowser holds the string denoting the browser field in the database.
+	FieldBrowser = "browser"
+	// FieldOs holds the string denoting the os field in the database.
+	FieldOs = "os"
 	// FieldSuccess holds the string denoting the success field in the database.
 	FieldSuccess = "success"
 	// FieldReason holds the string denoting the reason field in the database.
@@ -36,8 +42,11 @@ var Columns = []string{
 	FieldID,
 	FieldUserID,
 	FieldUsername,
-	FieldTenantID,
 	FieldIP,
+	FieldEventType,
+	FieldUserAgent,
+	FieldBrowser,
+	FieldOs,
 	FieldSuccess,
 	FieldReason,
 	FieldCreatedAt,
@@ -54,6 +63,14 @@ func ValidColumn(column string) bool {
 }
 
 var (
+	// DefaultEventType holds the default value on creation for the "event_type" field.
+	DefaultEventType string
+	// DefaultUserAgent holds the default value on creation for the "user_agent" field.
+	DefaultUserAgent string
+	// DefaultBrowser holds the default value on creation for the "browser" field.
+	DefaultBrowser string
+	// DefaultOs holds the default value on creation for the "os" field.
+	DefaultOs string
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt func() time.Time
 )
@@ -76,14 +93,29 @@ func ByUsername(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldUsername, opts...).ToFunc()
 }
 
-// ByTenantID orders the results by the tenant_id field.
-func ByTenantID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldTenantID, opts...).ToFunc()
-}
-
 // ByIP orders the results by the ip field.
 func ByIP(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldIP, opts...).ToFunc()
+}
+
+// ByEventType orders the results by the event_type field.
+func ByEventType(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldEventType, opts...).ToFunc()
+}
+
+// ByUserAgent orders the results by the user_agent field.
+func ByUserAgent(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUserAgent, opts...).ToFunc()
+}
+
+// ByBrowser orders the results by the browser field.
+func ByBrowser(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldBrowser, opts...).ToFunc()
+}
+
+// ByOs orders the results by the os field.
+func ByOs(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldOs, opts...).ToFunc()
 }
 
 // BySuccess orders the results by the success field.

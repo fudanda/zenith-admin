@@ -19,6 +19,8 @@ type LoginAttempt struct {
 	ID int `json:"id,omitempty"`
 	// Key holds the value of the "key" field.
 	Key string `json:"-"`
+	// UsernameHash holds the value of the "username_hash" field.
+	UsernameHash string `json:"-"`
 	// Failures holds the value of the "failures" field.
 	Failures int `json:"failures,omitempty"`
 	// LockedUntil holds the value of the "locked_until" field.
@@ -35,7 +37,7 @@ func (*LoginAttempt) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case loginattempt.FieldID, loginattempt.FieldFailures:
 			values[i] = new(sql.NullInt64)
-		case loginattempt.FieldKey:
+		case loginattempt.FieldKey, loginattempt.FieldUsernameHash:
 			values[i] = new(sql.NullString)
 		case loginattempt.FieldLockedUntil, loginattempt.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -65,6 +67,12 @@ func (_m *LoginAttempt) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field key", values[i])
 			} else if value.Valid {
 				_m.Key = value.String
+			}
+		case loginattempt.FieldUsernameHash:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field username_hash", values[i])
+			} else if value.Valid {
+				_m.UsernameHash = value.String
 			}
 		case loginattempt.FieldFailures:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -122,6 +130,8 @@ func (_m *LoginAttempt) String() string {
 	builder.WriteString("LoginAttempt(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("key=<sensitive>")
+	builder.WriteString(", ")
+	builder.WriteString("username_hash=<sensitive>")
 	builder.WriteString(", ")
 	builder.WriteString("failures=")
 	builder.WriteString(fmt.Sprintf("%v", _m.Failures))

@@ -1,6 +1,7 @@
 package zenith
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,8 +13,9 @@ import (
 
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/department"
+	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
+	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
 	"github.com/fudanda/zenith-admin/backend/ent/predicate"
-	"github.com/fudanda/zenith-admin/backend/ent/role"
 	"github.com/fudanda/zenith-admin/backend/ent/session"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
 	"github.com/fudanda/zenith-admin/backend/ent/userposition"
@@ -24,12 +26,7 @@ import (
 
 var phonePattern = regexp.MustCompile(`^1[3-9][0-9]{9}$`)
 
-func userScope(p *principal) predicate.User {
-	if p.TenantID == nil {
-		return user.TenantIDIsNil()
-	}
-	return user.TenantIDEQ(*p.TenantID)
-}
+func userScope(_ *principal) predicate.User { return user.IDGT(0) }
 
 func (f *Framework) scopedUser(r *http.Request, p *principal, id int) (*ent.User, error) {
 	return f.visibleUser(r.Context(), p, id)
@@ -45,7 +42,7 @@ func (f *Framework) userView(r *http.Request, account *ent.User) (map[string]any
 			return nil, err
 		}
 	}
-	ids, err := f.effectiveRoleIDs(r.Context(), account.ID)
+	ids, err := f.Store.Client.UserRole.Query().Where(userrole.UserIDEQ(account.ID)).Select(userrole.FieldRoleID).Ints(r.Context())
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +55,7 @@ func (f *Framework) userView(r *http.Request, account *ent.User) (map[string]any
 		if err != nil {
 			return nil, err
 		}
-		roles = append(roles, map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "dataScope": row.DataScope, "tenantId": row.TenantID, "status": row.Status, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt})
+		roles = append(roles, map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "dataScope": row.DataScope, "status": row.Status, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt})
 	}
 	links, err := f.Store.Client.UserPosition.Query().Where(userposition.UserIDEQ(account.ID)).All(r.Context())
 	if err != nil {
@@ -68,9 +65,44 @@ func (f *Framework) userView(r *http.Request, account *ent.User) (map[string]any
 	for _, link := range links {
 		positionIDs = append(positionIDs, link.PositionID)
 	}
+	positions := make([]map[string]any, 0, len(positionIDs))
+	for _, id := range positionIDs {
+		position, err := f.Store.Client.Position.Get(r.Context(), id)
+		if err != nil {
+			return nil, err
+		}
+		positions = append(positions, map[string]any{"id": position.ID, "name": position.Name, "code": position.Code, "sort": position.Sort, "status": position.Status, "createdAt": position.CreatedAt, "updatedAt": position.UpdatedAt})
+	}
+	online, err := f.Store.Client.Session.Query().Where(session.UserIDEQ(account.ID), session.RevokedAtIsNil(), session.ExpiresAtGT(time.Now())).Order(ent.Desc(session.FieldLastActiveAt)).First(r.Context())
+	if err != nil && !ent.IsNotFound(err) {
+		return nil, err
+	}
+	var lastActive *time.Time
+	if online != nil {
+		lastActive = &online.LastActiveAt
+	}
+	latest, err := f.Store.Client.LoginLog.Query().Where(loginlog.UserIDEQ(account.ID), loginlog.SuccessEQ(true)).Order(ent.Desc(loginlog.FieldCreatedAt)).First(r.Context())
+	if err != nil && !ent.IsNotFound(err) {
+		return nil, err
+	}
+	var lastLogin *time.Time
+	var loginIP *string
+	if latest != nil {
+		lastLogin = &latest.CreatedAt
+		loginIP = &latest.IP
+	}
+	defense, err := f.Store.Client.LoginAttempt.Query().Where(loginattempt.UsernameHashEQ(usernameHash(account.Username)), loginattempt.LockedUntilGT(time.Now())).First(r.Context())
+	if err != nil && !ent.IsNotFound(err) {
+		return nil, err
+	}
+	policy, err := f.securityPolicy(r.Context())
+	if err != nil {
+		return nil, err
+	}
+	expired := policy.Password.ExpiryEnabled && account.PasswordUpdatedAt.AddDate(0, 0, policy.Password.ExpiryDays).Before(time.Now())
 	return map[string]any{"id": account.ID, "username": account.Username, "nickname": account.Nickname, "email": account.Email, "phone": account.Phone, "gender": account.Gender, "birthDate": account.BirthDate,
-		"avatar": account.Avatar, "departmentId": account.DepartmentID, "departmentName": departmentName, "tenantId": account.TenantID, "positionIds": positionIDs, "roles": roles,
-		"status": account.Status, "passwordUpdatedAt": account.PasswordUpdatedAt, "createdAt": account.CreatedAt, "updatedAt": account.UpdatedAt}, nil
+		"avatar": account.Avatar, "departmentId": account.DepartmentID, "departmentName": departmentName, "positionIds": positionIDs, "positions": positions, "roles": roles, "isOnline": online != nil, "lastActiveAt": lastActive, "lastLoginAt": lastLogin, "lastLoginIp": loginIP, "loginChallengeRequired": defense != nil && defense.Failures > 0,
+		"status": account.Status, "requirePasswordChange": expired, "passwordUpdatedAt": account.PasswordUpdatedAt, "createdAt": account.CreatedAt, "updatedAt": account.UpdatedAt}, nil
 }
 
 func (f *Framework) listUsers(w http.ResponseWriter, r *http.Request) {
@@ -211,8 +243,8 @@ func validateUser(in userInput, creating bool) error {
 	if len([]rune(strings.TrimSpace(in.Nickname))) == 0 || len([]rune(in.Nickname)) > 32 {
 		return errors.New("昵称无效")
 	}
-	if creating && (len(in.Password) < 12 || len(in.Password) > 72) {
-		return errors.New("密码至少 12 位且不超过 72 位")
+	if creating && (len(in.Password) < 6 || len(in.Password) > 72) {
+		return errors.New("密码至少 6 位且不超过 72 字节")
 	}
 	if in.Status != "enabled" && in.Status != "disabled" {
 		return errors.New("状态无效")
@@ -227,8 +259,11 @@ func validateUser(in userInput, creating bool) error {
 }
 
 func (f *Framework) validateUserRelations(r *http.Request, p *principal, in userInput) error {
+	return f.validateUserRelationsContext(r.Context(), p, in)
+}
+func (f *Framework) validateUserRelationsContext(ctx context.Context, p *principal, in userInput) error {
 	if in.DepartmentID != nil {
-		if _, err := f.Store.Client.Department.Query().Where(department.IDEQ(*in.DepartmentID), departmentScope(p)).Only(r.Context()); err != nil {
+		if _, err := f.Store.Client.Department.Query().Where(department.IDEQ(*in.DepartmentID), departmentScope(p)).Only(ctx); err != nil {
 			return errors.New("部门不存在")
 		}
 	}
@@ -238,32 +273,20 @@ func (f *Framework) validateUserRelations(r *http.Request, p *principal, in user
 			return errors.New("岗位 ID 无效或重复")
 		}
 		seen[id] = true
-		if _, err := f.scopedPosition(r.Context(), p, id); err != nil {
+		if _, err := f.scopedPosition(ctx, p, id); err != nil {
 			return errors.New("岗位不存在")
 		}
 	}
-	seen = map[int]bool{}
-	for _, id := range in.RoleIDs {
-		if id < 1 || seen[id] {
-			return errors.New("角色 ID 无效或重复")
-		}
-		seen[id] = true
-		row, err := f.Store.Client.Role.Query().Where(role.IDEQ(id), role.StatusEQ("enabled")).Only(r.Context())
-		if err != nil {
-			return errors.New("角色不存在")
-		}
-		if (row.TenantID == nil) != (p.TenantID == nil) || p.TenantID != nil && *row.TenantID != *p.TenantID {
-			return errors.New("跨租户角色")
-		}
+	if err := f.validateGrantRoles(ctx, p, in.RoleIDs); err != nil {
+		return err
 	}
+
 	return nil
 }
 
 func applyUserCreate(create *ent.UserCreate, in userInput, p *principal, hash []byte) {
 	create.SetUsername(in.Username).SetNickname(in.Nickname).SetPasswordHash(string(hash)).SetStatus(in.Status)
-	if p.TenantID != nil {
-		create.SetTenantID(*p.TenantID)
-	}
+
 	if in.Email != nil {
 		create.SetEmail(*in.Email)
 	}
@@ -391,13 +414,62 @@ func (f *Framework) saveUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	if id != 0 && rolesChanged && p.SuperAdmin {
+		protected, err := f.protectedBatchUser(r, id)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "账号查询失败")
+			return
+		}
+		if protected {
+			currentIDs, err := f.Store.Client.UserRole.Query().Where(userrole.UserIDEQ(id)).Select(userrole.FieldRoleID).Ints(r.Context())
+			if err != nil {
+				fail(w, 503, "database_unavailable", "角色查询失败")
+				return
+			}
+			same := len(currentIDs) == len(in.RoleIDs)
+			set := map[int]bool{}
+			for _, value := range currentIDs {
+				set[value] = true
+			}
+			for _, value := range in.RoleIDs {
+				if !set[value] {
+					same = false
+				}
+			}
+			if same {
+				rolesChanged = false
+				in.RoleIDs = nil
+			}
+		}
+	}
 	if err := validateUser(in, id == 0); err != nil {
 		fail(w, 400, "invalid_request", err.Error())
 		return
 	}
+	if id == 0 {
+		if err := f.validatePassword(r.Context(), in.Password); err != nil {
+			fail(w, 400, "invalid_password", err.Error())
+			return
+		}
+	}
 	if err := f.validateUserRelations(r, p, in); err != nil {
 		fail(w, 400, "invalid_relation", err.Error())
 		return
+	}
+	if id != 0 {
+		protected, err := f.protectedBatchUser(r, id)
+		if err != nil {
+			fail(w, 503, "database_unavailable", "账号查询失败")
+			return
+		}
+		if protected && (!p.SuperAdmin || in.Status != "enabled" || rolesChanged) {
+			fail(w, 409, "protected_user", "不能修改系统超级管理员状态或授权")
+			return
+		}
+		if id == p.User.ID && in.Status != "enabled" {
+			fail(w, 409, "protected_user", "不能停用当前账号")
+			return
+		}
 	}
 	var hash []byte
 	if id == 0 {
@@ -412,9 +484,7 @@ func (f *Framework) saveUser(w http.ResponseWriter, r *http.Request) {
 	err := f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
 		var err error
 		if id == 0 {
-			if err := reserveTenantSeat(r.Context(), tx, p.TenantID); err != nil {
-				return err
-			}
+
 			create := tx.User.Create()
 			applyUserCreate(create, in, p, hash)
 			saved, err = create.Save(r.Context())
@@ -446,7 +516,12 @@ func (f *Framework) saveUser(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		}
-		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+		if in.Status == "disabled" {
+			if _, err := tx.Session.Update().Where(session.UserIDEQ(saved.ID), session.RevokedAtIsNil()).SetRevokedAt(time.Now()).Save(r.Context()); err != nil {
+				return err
+			}
+		}
+		if err := f.syncDynamicGroupsInTx(r.Context(), tx, p); err != nil {
 			return err
 		}
 		operation := "update"
@@ -454,15 +529,10 @@ func (f *Framework) saveUser(w http.ResponseWriter, r *http.Request) {
 			operation = "create"
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation(operation).SetResource("users").SetResourceID(saved.ID)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
-	if errors.Is(err, errTenantSeatLimit) {
-		fail(w, 409, "tenant_user_limit", err.Error())
-		return
-	}
+
 	if err != nil {
 		fail(w, 409, "user_conflict", err.Error())
 		return
@@ -484,13 +554,26 @@ func (f *Framework) resetUserPassword(w http.ResponseWriter, r *http.Request) {
 	var in struct {
 		Password string `json:"password"`
 	}
-	if err := decode(r, &in); err != nil || len(in.Password) < 12 || len(in.Password) > 72 {
-		fail(w, 400, "invalid_password", "密码至少 12 位且不超过 72 位")
+	if err := decode(r, &in); err != nil || len(in.Password) < 6 || len(in.Password) > 72 {
+		fail(w, 400, "invalid_password", "密码至少 6 位且不超过 72 字节")
+		return
+	}
+	if err := f.validatePassword(r.Context(), in.Password); err != nil {
+		fail(w, 400, "invalid_password", err.Error())
 		return
 	}
 	p := fromContext(r.Context())
 	if _, err := f.scopedUser(r, p, id); err != nil {
 		fail(w, 404, "not_found", "账号不存在")
+		return
+	}
+	protected, err := f.protectedBatchUser(r, id)
+	if err != nil {
+		fail(w, 503, "database_unavailable", "账号查询失败")
+		return
+	}
+	if protected && !p.SuperAdmin {
+		fail(w, 403, "protected_user", "不能重置系统超级管理员密码")
 		return
 	}
 	hash, err := bcrypt.GenerateFromPassword([]byte(in.Password), bcrypt.DefaultCost)
@@ -506,9 +589,7 @@ func (f *Framework) resetUserPassword(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("reset_password").SetResource("users").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -529,7 +610,7 @@ func (f *Framework) deleteUser(w http.ResponseWriter, r *http.Request) {
 		fail(w, 409, "self_delete", "不能删除当前账号")
 		return
 	}
-	target, err := f.scopedUser(r, p, id)
+	_, err = f.scopedUser(r, p, id)
 	if ent.IsNotFound(err) {
 		fail(w, 404, "not_found", "账号不存在")
 		return
@@ -545,8 +626,8 @@ func (f *Framework) deleteUser(w http.ResponseWriter, r *http.Request) {
 	}
 	for _, roleID := range ids {
 		row, err := f.Store.Client.Role.Get(r.Context(), roleID)
-		if err == nil && row.Code == "super_admin" && row.TenantID == nil && target.TenantID == nil {
-			fail(w, 409, "protected_user", "不能删除平台超级管理员")
+		if err == nil && row.Code == "super_admin" {
+			fail(w, 409, "protected_user", "不能删除系统超级管理员")
 			return
 		}
 	}
@@ -554,13 +635,11 @@ func (f *Framework) deleteUser(w http.ResponseWriter, r *http.Request) {
 		if err := tx.User.DeleteOneID(id).Exec(r.Context()); err != nil {
 			return err
 		}
-		if err := syncDynamicGroupsInTx(r.Context(), tx, p.TenantID); err != nil {
+		if err := f.syncDynamicGroupsInTx(r.Context(), tx, p); err != nil {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete").SetResource("users").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {

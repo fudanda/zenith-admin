@@ -26,20 +26,6 @@ func (_c *AuditLogCreate) SetActorID(v int) *AuditLogCreate {
 	return _c
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *AuditLogCreate) SetTenantID(v int) *AuditLogCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *AuditLogCreate) SetNillableTenantID(v *int) *AuditLogCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetOperation sets the "operation" field.
 func (_c *AuditLogCreate) SetOperation(v string) *AuditLogCreate {
 	_c.mutation.SetOperation(v)
@@ -76,6 +62,160 @@ func (_c *AuditLogCreate) SetRequestID(v string) *AuditLogCreate {
 func (_c *AuditLogCreate) SetNillableRequestID(v *string) *AuditLogCreate {
 	if v != nil {
 		_c.SetRequestID(*v)
+	}
+	return _c
+}
+
+// SetModule sets the "module" field.
+func (_c *AuditLogCreate) SetModule(v string) *AuditLogCreate {
+	_c.mutation.SetModule(v)
+	return _c
+}
+
+// SetNillableModule sets the "module" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableModule(v *string) *AuditLogCreate {
+	if v != nil {
+		_c.SetModule(*v)
+	}
+	return _c
+}
+
+// SetDescription sets the "description" field.
+func (_c *AuditLogCreate) SetDescription(v string) *AuditLogCreate {
+	_c.mutation.SetDescription(v)
+	return _c
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableDescription(v *string) *AuditLogCreate {
+	if v != nil {
+		_c.SetDescription(*v)
+	}
+	return _c
+}
+
+// SetMethod sets the "method" field.
+func (_c *AuditLogCreate) SetMethod(v string) *AuditLogCreate {
+	_c.mutation.SetMethod(v)
+	return _c
+}
+
+// SetNillableMethod sets the "method" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableMethod(v *string) *AuditLogCreate {
+	if v != nil {
+		_c.SetMethod(*v)
+	}
+	return _c
+}
+
+// SetPath sets the "path" field.
+func (_c *AuditLogCreate) SetPath(v string) *AuditLogCreate {
+	_c.mutation.SetPath(v)
+	return _c
+}
+
+// SetNillablePath sets the "path" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillablePath(v *string) *AuditLogCreate {
+	if v != nil {
+		_c.SetPath(*v)
+	}
+	return _c
+}
+
+// SetIP sets the "ip" field.
+func (_c *AuditLogCreate) SetIP(v string) *AuditLogCreate {
+	_c.mutation.SetIP(v)
+	return _c
+}
+
+// SetNillableIP sets the "ip" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableIP(v *string) *AuditLogCreate {
+	if v != nil {
+		_c.SetIP(*v)
+	}
+	return _c
+}
+
+// SetUserAgent sets the "user_agent" field.
+func (_c *AuditLogCreate) SetUserAgent(v string) *AuditLogCreate {
+	_c.mutation.SetUserAgent(v)
+	return _c
+}
+
+// SetNillableUserAgent sets the "user_agent" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableUserAgent(v *string) *AuditLogCreate {
+	if v != nil {
+		_c.SetUserAgent(*v)
+	}
+	return _c
+}
+
+// SetBrowser sets the "browser" field.
+func (_c *AuditLogCreate) SetBrowser(v string) *AuditLogCreate {
+	_c.mutation.SetBrowser(v)
+	return _c
+}
+
+// SetNillableBrowser sets the "browser" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableBrowser(v *string) *AuditLogCreate {
+	if v != nil {
+		_c.SetBrowser(*v)
+	}
+	return _c
+}
+
+// SetOs sets the "os" field.
+func (_c *AuditLogCreate) SetOs(v string) *AuditLogCreate {
+	_c.mutation.SetOs(v)
+	return _c
+}
+
+// SetNillableOs sets the "os" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableOs(v *string) *AuditLogCreate {
+	if v != nil {
+		_c.SetOs(*v)
+	}
+	return _c
+}
+
+// SetRequestBody sets the "request_body" field.
+func (_c *AuditLogCreate) SetRequestBody(v string) *AuditLogCreate {
+	_c.mutation.SetRequestBody(v)
+	return _c
+}
+
+// SetNillableRequestBody sets the "request_body" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableRequestBody(v *string) *AuditLogCreate {
+	if v != nil {
+		_c.SetRequestBody(*v)
+	}
+	return _c
+}
+
+// SetDurationMs sets the "duration_ms" field.
+func (_c *AuditLogCreate) SetDurationMs(v int) *AuditLogCreate {
+	_c.mutation.SetDurationMs(v)
+	return _c
+}
+
+// SetNillableDurationMs sets the "duration_ms" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableDurationMs(v *int) *AuditLogCreate {
+	if v != nil {
+		_c.SetDurationMs(*v)
+	}
+	return _c
+}
+
+// SetResponseCode sets the "response_code" field.
+func (_c *AuditLogCreate) SetResponseCode(v int) *AuditLogCreate {
+	_c.mutation.SetResponseCode(v)
+	return _c
+}
+
+// SetNillableResponseCode sets the "response_code" field if the given value is not nil.
+func (_c *AuditLogCreate) SetNillableResponseCode(v *int) *AuditLogCreate {
+	if v != nil {
+		_c.SetResponseCode(*v)
 	}
 	return _c
 }
@@ -129,6 +269,46 @@ func (_c *AuditLogCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *AuditLogCreate) defaults() {
+	if _, ok := _c.mutation.Module(); !ok {
+		v := auditlog.DefaultModule
+		_c.mutation.SetModule(v)
+	}
+	if _, ok := _c.mutation.Description(); !ok {
+		v := auditlog.DefaultDescription
+		_c.mutation.SetDescription(v)
+	}
+	if _, ok := _c.mutation.Method(); !ok {
+		v := auditlog.DefaultMethod
+		_c.mutation.SetMethod(v)
+	}
+	if _, ok := _c.mutation.Path(); !ok {
+		v := auditlog.DefaultPath
+		_c.mutation.SetPath(v)
+	}
+	if _, ok := _c.mutation.IP(); !ok {
+		v := auditlog.DefaultIP
+		_c.mutation.SetIP(v)
+	}
+	if _, ok := _c.mutation.UserAgent(); !ok {
+		v := auditlog.DefaultUserAgent
+		_c.mutation.SetUserAgent(v)
+	}
+	if _, ok := _c.mutation.Browser(); !ok {
+		v := auditlog.DefaultBrowser
+		_c.mutation.SetBrowser(v)
+	}
+	if _, ok := _c.mutation.Os(); !ok {
+		v := auditlog.DefaultOs
+		_c.mutation.SetOs(v)
+	}
+	if _, ok := _c.mutation.DurationMs(); !ok {
+		v := auditlog.DefaultDurationMs
+		_c.mutation.SetDurationMs(v)
+	}
+	if _, ok := _c.mutation.ResponseCode(); !ok {
+		v := auditlog.DefaultResponseCode
+		_c.mutation.SetResponseCode(v)
+	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		v := auditlog.DefaultCreatedAt()
 		_c.mutation.SetCreatedAt(v)
@@ -155,6 +335,36 @@ func (_c *AuditLogCreate) check() error {
 		if err := auditlog.ResourceValidator(v); err != nil {
 			return &ValidationError{Name: "resource", err: fmt.Errorf(`ent: validator failed for field "AuditLog.resource": %w`, err)}
 		}
+	}
+	if _, ok := _c.mutation.Module(); !ok {
+		return &ValidationError{Name: "module", err: errors.New(`ent: missing required field "AuditLog.module"`)}
+	}
+	if _, ok := _c.mutation.Description(); !ok {
+		return &ValidationError{Name: "description", err: errors.New(`ent: missing required field "AuditLog.description"`)}
+	}
+	if _, ok := _c.mutation.Method(); !ok {
+		return &ValidationError{Name: "method", err: errors.New(`ent: missing required field "AuditLog.method"`)}
+	}
+	if _, ok := _c.mutation.Path(); !ok {
+		return &ValidationError{Name: "path", err: errors.New(`ent: missing required field "AuditLog.path"`)}
+	}
+	if _, ok := _c.mutation.IP(); !ok {
+		return &ValidationError{Name: "ip", err: errors.New(`ent: missing required field "AuditLog.ip"`)}
+	}
+	if _, ok := _c.mutation.UserAgent(); !ok {
+		return &ValidationError{Name: "user_agent", err: errors.New(`ent: missing required field "AuditLog.user_agent"`)}
+	}
+	if _, ok := _c.mutation.Browser(); !ok {
+		return &ValidationError{Name: "browser", err: errors.New(`ent: missing required field "AuditLog.browser"`)}
+	}
+	if _, ok := _c.mutation.Os(); !ok {
+		return &ValidationError{Name: "os", err: errors.New(`ent: missing required field "AuditLog.os"`)}
+	}
+	if _, ok := _c.mutation.DurationMs(); !ok {
+		return &ValidationError{Name: "duration_ms", err: errors.New(`ent: missing required field "AuditLog.duration_ms"`)}
+	}
+	if _, ok := _c.mutation.ResponseCode(); !ok {
+		return &ValidationError{Name: "response_code", err: errors.New(`ent: missing required field "AuditLog.response_code"`)}
 	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "AuditLog.created_at"`)}
@@ -189,10 +399,6 @@ func (_c *AuditLogCreate) createSpec() (*AuditLog, *sqlgraph.CreateSpec) {
 		_spec.SetField(auditlog.FieldActorID, field.TypeInt, value)
 		_node.ActorID = value
 	}
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(auditlog.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
-	}
 	if value, ok := _c.mutation.Operation(); ok {
 		_spec.SetField(auditlog.FieldOperation, field.TypeString, value)
 		_node.Operation = value
@@ -208,6 +414,50 @@ func (_c *AuditLogCreate) createSpec() (*AuditLog, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.RequestID(); ok {
 		_spec.SetField(auditlog.FieldRequestID, field.TypeString, value)
 		_node.RequestID = value
+	}
+	if value, ok := _c.mutation.Module(); ok {
+		_spec.SetField(auditlog.FieldModule, field.TypeString, value)
+		_node.Module = value
+	}
+	if value, ok := _c.mutation.Description(); ok {
+		_spec.SetField(auditlog.FieldDescription, field.TypeString, value)
+		_node.Description = value
+	}
+	if value, ok := _c.mutation.Method(); ok {
+		_spec.SetField(auditlog.FieldMethod, field.TypeString, value)
+		_node.Method = value
+	}
+	if value, ok := _c.mutation.Path(); ok {
+		_spec.SetField(auditlog.FieldPath, field.TypeString, value)
+		_node.Path = value
+	}
+	if value, ok := _c.mutation.IP(); ok {
+		_spec.SetField(auditlog.FieldIP, field.TypeString, value)
+		_node.IP = value
+	}
+	if value, ok := _c.mutation.UserAgent(); ok {
+		_spec.SetField(auditlog.FieldUserAgent, field.TypeString, value)
+		_node.UserAgent = value
+	}
+	if value, ok := _c.mutation.Browser(); ok {
+		_spec.SetField(auditlog.FieldBrowser, field.TypeString, value)
+		_node.Browser = value
+	}
+	if value, ok := _c.mutation.Os(); ok {
+		_spec.SetField(auditlog.FieldOs, field.TypeString, value)
+		_node.Os = value
+	}
+	if value, ok := _c.mutation.RequestBody(); ok {
+		_spec.SetField(auditlog.FieldRequestBody, field.TypeString, value)
+		_node.RequestBody = &value
+	}
+	if value, ok := _c.mutation.DurationMs(); ok {
+		_spec.SetField(auditlog.FieldDurationMs, field.TypeInt, value)
+		_node.DurationMs = value
+	}
+	if value, ok := _c.mutation.ResponseCode(); ok {
+		_spec.SetField(auditlog.FieldResponseCode, field.TypeInt, value)
+		_node.ResponseCode = value
 	}
 	if value, ok := _c.mutation.CreatedAt(); ok {
 		_spec.SetField(auditlog.FieldCreatedAt, field.TypeTime, value)

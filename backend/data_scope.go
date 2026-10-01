@@ -2,6 +2,7 @@ package zenith
 
 import (
 	"context"
+
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/predicate"
 	"github.com/fudanda/zenith-admin/backend/ent/role"
@@ -43,9 +44,7 @@ func (f *Framework) userDataPredicate(ctx context.Context, p *principal) (predic
 		if err != nil {
 			return nil, err
 		}
-		if (row.TenantID == nil) != (p.User.TenantID == nil) || row.TenantID != nil && *row.TenantID != *p.User.TenantID {
-			continue
-		}
+
 		scopes[row.DataScope] = true
 		if row.DataScope == "custom" {
 			links, err := f.Store.Client.RoleDepartment.Query().Where(roledepartment.RoleIDEQ(id)).All(ctx)

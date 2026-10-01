@@ -213,42 +213,6 @@ func (f SystemSettingFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Valu
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.SystemSettingMutation", m)
 }
 
-// The TenantFunc type is an adapter to allow the use of ordinary
-// function as Tenant mutator.
-type TenantFunc func(context.Context, *ent.TenantMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f TenantFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.TenantMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.TenantMutation", m)
-}
-
-// The TenantPackageFunc type is an adapter to allow the use of ordinary
-// function as TenantPackage mutator.
-type TenantPackageFunc func(context.Context, *ent.TenantPackageMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f TenantPackageFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.TenantPackageMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.TenantPackageMutation", m)
-}
-
-// The TenantPackageFeatureFunc type is an adapter to allow the use of ordinary
-// function as TenantPackageFeature mutator.
-type TenantPackageFeatureFunc func(context.Context, *ent.TenantPackageFeatureMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f TenantPackageFeatureFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	if mv, ok := m.(*ent.TenantPackageFeatureMutation); ok {
-		return f(ctx, mv)
-	}
-	return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.TenantPackageFeatureMutation", m)
-}
-
 // The UploadChunkFunc type is an adapter to allow the use of ordinary
 // function as UploadChunk mutator.
 type UploadChunkFunc func(context.Context, *ent.UploadChunkMutation) (ent.Value, error)

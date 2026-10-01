@@ -1,61 +1,26 @@
 package zenith
 
-// Fixed first-release pages and operations. Seeded menu rows may be assigned
-// to tenant roles and users; unshipped domains have no entries here.
+import (
+	_ "embed"
+	"encoding/json"
+)
+
+// The build derives these entries from the original shared menu seeds.
+//
+//go:embed internal/contracts/menus.json
+var foundationMenuJSON []byte
+
 type foundationMenu struct {
-	Name, Title, Type, Path, Permission string
-	Sort                                int
+	ID, ParentID                                         int
+	Name, Title, Type, Path, Permission, Component, Icon string
+	Sort                                                 int
+	Visible                                              bool
 }
 
-var foundationMenus = []foundationMenu{
-	{Name: "home", Title: "工作台", Type: "menu", Path: "/", Sort: 10},
-	{Name: "profile", Title: "个人中心", Type: "menu", Path: "/profile", Sort: 20},
-	{Name: "positions", Title: "岗位管理", Type: "menu", Path: "/system/positions", Permission: "system:position:list", Sort: 100},
-	{Name: "departments", Title: "部门管理", Type: "menu", Path: "/system/departments", Permission: "system:department:list", Sort: 110},
-	{Name: "users", Title: "账号管理", Type: "menu", Path: "/system/users", Permission: "system:user:list", Sort: 120},
-	{Name: "roles", Title: "角色管理", Type: "menu", Path: "/system/roles", Permission: "system:role:list", Sort: 130},
-	{Name: "menus", Title: "菜单管理", Type: "menu", Path: "/system/menus", Permission: "system:menu:list", Sort: 135},
-	{Name: "user_groups", Title: "用户组管理", Type: "menu", Path: "/system/user-groups", Permission: "system:user-groups:list", Sort: 140},
-	{Name: "dicts", Title: "字典管理", Type: "menu", Path: "/system/dicts", Permission: "system:dict:list", Sort: 150},
-	{Name: "file_configs", Title: "文件存储配置", Type: "menu", Path: "/system/file-storage-configs", Permission: "system:file:config", Sort: 160},
-	{Name: "files", Title: "文件管理", Type: "menu", Path: "/system/files", Permission: "system:file:list", Sort: 170},
-	{Name: "file_settings", Title: "文件上传设置", Type: "menu", Path: "/system/settings/files", Permission: "system:setting:view", Sort: 175},
-	{Name: "login_logs", Title: "登录日志", Type: "menu", Path: "/system/login-logs", Permission: "system:log:login", Sort: 180},
-	{Name: "operation_logs", Title: "操作审计", Type: "menu", Path: "/system/operation-logs", Permission: "system:log:operation", Sort: 190},
-	{Name: "tenants", Title: "租户管理", Type: "menu", Path: "/system/tenants", Sort: 200},
-	{Name: "tenant_packages", Title: "租户套餐", Type: "menu", Path: "/system/tenant-packages", Sort: 210},
-	{Name: "position_create", Title: "新增岗位", Type: "button", Permission: "system:position:create", Sort: 301},
-	{Name: "position_update", Title: "修改岗位", Type: "button", Permission: "system:position:update", Sort: 302},
-	{Name: "position_delete", Title: "删除岗位", Type: "button", Permission: "system:position:delete", Sort: 303},
-	{Name: "department_create", Title: "新增部门", Type: "button", Permission: "system:department:create", Sort: 311},
-	{Name: "department_update", Title: "修改部门", Type: "button", Permission: "system:department:update", Sort: 312},
-	{Name: "department_delete", Title: "删除部门", Type: "button", Permission: "system:department:delete", Sort: 313},
-	{Name: "user_create", Title: "新增账号", Type: "button", Permission: "system:user:create", Sort: 321},
-	{Name: "user_update", Title: "修改账号", Type: "button", Permission: "system:user:update", Sort: 322},
-	{Name: "user_delete", Title: "删除账号", Type: "button", Permission: "system:user:delete", Sort: 323},
-	{Name: "user_assign", Title: "分配账号权限", Type: "button", Permission: "system:user:assign", Sort: 324},
-	{Name: "user_export", Title: "导出账号", Type: "button", Permission: "system:user:export", Sort: 325},
-	{Name: "role_create", Title: "新增角色", Type: "button", Permission: "system:role:create", Sort: 331},
-	{Name: "role_update", Title: "修改角色", Type: "button", Permission: "system:role:update", Sort: 332},
-	{Name: "role_delete", Title: "删除角色", Type: "button", Permission: "system:role:delete", Sort: 333},
-	{Name: "role_assign", Title: "分配角色权限", Type: "button", Permission: "system:role:assign", Sort: 334},
-	{Name: "menu_list", Title: "查看权限目录", Type: "button", Permission: "system:menu:list", Sort: 341},
-	{Name: "menu_create", Title: "新增菜单", Type: "button", Permission: "system:menu:create", Sort: 342},
-	{Name: "menu_update", Title: "修改菜单", Type: "button", Permission: "system:menu:update", Sort: 343},
-	{Name: "menu_delete", Title: "删除菜单", Type: "button", Permission: "system:menu:delete", Sort: 344},
-	{Name: "user_groups_create", Title: "新增用户组", Type: "button", Permission: "system:user-groups:create", Sort: 351},
-	{Name: "user_groups_update", Title: "修改用户组", Type: "button", Permission: "system:user-groups:update", Sort: 352},
-	{Name: "user_groups_delete", Title: "删除用户组", Type: "button", Permission: "system:user-groups:delete", Sort: 353},
-	{Name: "user_groups_assign", Title: "分配用户组成员和角色", Type: "button", Permission: "system:user-groups:assign", Sort: 354},
-	{Name: "dicts_create", Title: "新增字典", Type: "button", Permission: "system:dict:create", Sort: 361},
-	{Name: "dicts_update", Title: "修改字典", Type: "button", Permission: "system:dict:update", Sort: 362},
-	{Name: "dicts_delete", Title: "删除字典", Type: "button", Permission: "system:dict:delete", Sort: 363},
-	{Name: "dicts_item", Title: "维护字典项", Type: "button", Permission: "system:dict:item", Sort: 364},
-	{Name: "file_configs_create", Title: "新增文件存储配置", Type: "button", Permission: "system:file:config:create", Sort: 371},
-	{Name: "file_configs_update", Title: "修改文件存储配置", Type: "button", Permission: "system:file:config:update", Sort: 372},
-	{Name: "file_configs_default", Title: "设置默认文件存储", Type: "button", Permission: "system:file:config:default", Sort: 373},
-	{Name: "file_configs_delete", Title: "删除文件存储配置", Type: "button", Permission: "system:file:config:delete", Sort: 374},
-	{Name: "files_upload", Title: "上传文件", Type: "button", Permission: "system:file:upload", Sort: 381},
-	{Name: "files_delete", Title: "删除文件", Type: "button", Permission: "system:file:delete", Sort: 382},
-	{Name: "file_settings_update", Title: "更新文件上传设置", Type: "button", Permission: "system:setting:update", Sort: 383},
-}
+var foundationMenus = func() []foundationMenu {
+	var result []foundationMenu
+	if err := json.Unmarshal(foundationMenuJSON, &result); err != nil {
+		panic(err)
+	}
+	return result
+}()

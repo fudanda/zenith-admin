@@ -1,3 +1,5 @@
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
+import { goAuthContract } from '@zenith/shared/identity';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   settingsContract,
@@ -41,6 +43,7 @@ export function useSettings<M extends SettingsModuleKey>(module: M, enabled = tr
 }
 
 export function invalidateSettingsProjections(qc: QueryClient) {
+ if (IS_GO_FOUNDATION) void qc.invalidateQueries({ queryKey: contractKey(goAuthContract.preferencePolicy) });
   void qc.invalidateQueries({ queryKey: settingsKeys.me });
   void qc.invalidateQueries({ queryKey: settingsKeys.publicPrefix });
   void qc.invalidateQueries({ queryKey: settingsKeys.list });

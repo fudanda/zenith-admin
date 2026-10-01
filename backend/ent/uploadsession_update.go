@@ -49,33 +49,6 @@ func (_u *UploadSessionUpdate) AddStorageConfigID(v int) *UploadSessionUpdate {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *UploadSessionUpdate) SetTenantID(v int) *UploadSessionUpdate {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *UploadSessionUpdate) SetNillableTenantID(v *int) *UploadSessionUpdate {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *UploadSessionUpdate) AddTenantID(v int) *UploadSessionUpdate {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *UploadSessionUpdate) ClearTenantID() *UploadSessionUpdate {
-	_u.mutation.ClearTenantID()
-	return _u
-}
-
 // SetUploaderID sets the "uploader_id" field.
 func (_u *UploadSessionUpdate) SetUploaderID(v int) *UploadSessionUpdate {
 	_u.mutation.ResetUploaderID()
@@ -325,15 +298,6 @@ func (_u *UploadSessionUpdate) sqlSave(ctx context.Context) (_node int, err erro
 	if value, ok := _u.mutation.AddedStorageConfigID(); ok {
 		_spec.AddField(uploadsession.FieldStorageConfigID, field.TypeInt, value)
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(uploadsession.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(uploadsession.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(uploadsession.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.UploaderID(); ok {
 		_spec.SetField(uploadsession.FieldUploaderID, field.TypeInt, value)
 	}
@@ -420,33 +384,6 @@ func (_u *UploadSessionUpdateOne) SetNillableStorageConfigID(v *int) *UploadSess
 // AddStorageConfigID adds value to the "storage_config_id" field.
 func (_u *UploadSessionUpdateOne) AddStorageConfigID(v int) *UploadSessionUpdateOne {
 	_u.mutation.AddStorageConfigID(v)
-	return _u
-}
-
-// SetTenantID sets the "tenant_id" field.
-func (_u *UploadSessionUpdateOne) SetTenantID(v int) *UploadSessionUpdateOne {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *UploadSessionUpdateOne) SetNillableTenantID(v *int) *UploadSessionUpdateOne {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *UploadSessionUpdateOne) AddTenantID(v int) *UploadSessionUpdateOne {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *UploadSessionUpdateOne) ClearTenantID() *UploadSessionUpdateOne {
-	_u.mutation.ClearTenantID()
 	return _u
 }
 
@@ -728,15 +665,6 @@ func (_u *UploadSessionUpdateOne) sqlSave(ctx context.Context) (_node *UploadSes
 	}
 	if value, ok := _u.mutation.AddedStorageConfigID(); ok {
 		_spec.AddField(uploadsession.FieldStorageConfigID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(uploadsession.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(uploadsession.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(uploadsession.FieldTenantID, field.TypeInt)
 	}
 	if value, ok := _u.mutation.UploaderID(); ok {
 		_spec.SetField(uploadsession.FieldUploaderID, field.TypeInt, value)

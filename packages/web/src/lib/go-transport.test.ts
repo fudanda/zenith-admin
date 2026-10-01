@@ -9,6 +9,20 @@ function reply(status: number, data: unknown) {
 }
 
 describe('Go cookie and CSRF transport', () => {
+  it('sends avatar multipart bytes with Cookie and CSRF without overriding the browser boundary', async () => {
+    const send = vi.fn<typeof fetch>().mockResolvedValueOnce(reply(200, { id: 1 }));
+    const client = new GoTransport(send);
+    client.setCsrfToken('avatar-csrf');
+    const body = new FormData();
+    body.append('file', new Blob(['image'], { type: 'image/png' }), 'avatar.png');
+    await client.request('POST', '/api/v1/auth/avatar', { body });
+    const init = send.mock.calls[0][1] as RequestInit;
+    expect(init.body).toBe(body);
+    expect(init.credentials).toBe('same-origin');
+    expect(new Headers(init.headers).get('X-CSRF-Token')).toBe('avatar-csrf');
+    expect(new Headers(init.headers).has('Content-Type')).toBe(false);
+  });
+
   it('restores a cookie session and uses its CSRF token for writes', async () => {
     const send = vi.fn<typeof fetch>().mockResolvedValueOnce(reply(200, { csrfToken: 'server-csrf' })).mockResolvedValueOnce(reply(200, null));
     const client = new GoTransport(send);
@@ -51,5 +65,15 @@ describe('Go cookie and CSRF transport', () => {
     const client = new GoTransport(send);
     await expect(client.request('GET', 'https://example.test/api/v1/auth/me')).rejects.toThrow('Invalid Go API path');
     expect(send).not.toHaveBeenCalled();
+  });
+
+  it('supports original dictionary codes and streams files without accepting traversal or JSON as files', async () => {
+    const send = vi.fn<typeof fetch>().mockResolvedValueOnce(reply(200, [])).mockResolvedValueOnce(new Response('name,code', { headers: { 'Content-Type': 'text/csv' } })).mockResolvedValueOnce(reply(200, null));
+    const client = new GoTransport(send);
+    await client.request('GET', '/api/v1/dicts/code/common_status/items');
+    expect(await (await client.readBlob('/api/v1/positions/export')).text()).toBe('name,code');
+    await expect(client.readBlob('/api/v1/positions/export')).rejects.toMatchObject({ reason: 'invalid_response' });
+    await expect(client.request('GET', '/api/v1/%2e%2e/%2e%2e/admin')).rejects.toThrow('Invalid Go API path');
+    expect(send).toHaveBeenCalledTimes(3);
   });
 });

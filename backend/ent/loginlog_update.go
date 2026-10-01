@@ -69,33 +69,6 @@ func (_u *LoginLogUpdate) SetNillableUsername(v *string) *LoginLogUpdate {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *LoginLogUpdate) SetTenantID(v int) *LoginLogUpdate {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *LoginLogUpdate) SetNillableTenantID(v *int) *LoginLogUpdate {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *LoginLogUpdate) AddTenantID(v int) *LoginLogUpdate {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *LoginLogUpdate) ClearTenantID() *LoginLogUpdate {
-	_u.mutation.ClearTenantID()
-	return _u
-}
-
 // SetIP sets the "ip" field.
 func (_u *LoginLogUpdate) SetIP(v string) *LoginLogUpdate {
 	_u.mutation.SetIP(v)
@@ -113,6 +86,62 @@ func (_u *LoginLogUpdate) SetNillableIP(v *string) *LoginLogUpdate {
 // ClearIP clears the value of the "ip" field.
 func (_u *LoginLogUpdate) ClearIP() *LoginLogUpdate {
 	_u.mutation.ClearIP()
+	return _u
+}
+
+// SetEventType sets the "event_type" field.
+func (_u *LoginLogUpdate) SetEventType(v string) *LoginLogUpdate {
+	_u.mutation.SetEventType(v)
+	return _u
+}
+
+// SetNillableEventType sets the "event_type" field if the given value is not nil.
+func (_u *LoginLogUpdate) SetNillableEventType(v *string) *LoginLogUpdate {
+	if v != nil {
+		_u.SetEventType(*v)
+	}
+	return _u
+}
+
+// SetUserAgent sets the "user_agent" field.
+func (_u *LoginLogUpdate) SetUserAgent(v string) *LoginLogUpdate {
+	_u.mutation.SetUserAgent(v)
+	return _u
+}
+
+// SetNillableUserAgent sets the "user_agent" field if the given value is not nil.
+func (_u *LoginLogUpdate) SetNillableUserAgent(v *string) *LoginLogUpdate {
+	if v != nil {
+		_u.SetUserAgent(*v)
+	}
+	return _u
+}
+
+// SetBrowser sets the "browser" field.
+func (_u *LoginLogUpdate) SetBrowser(v string) *LoginLogUpdate {
+	_u.mutation.SetBrowser(v)
+	return _u
+}
+
+// SetNillableBrowser sets the "browser" field if the given value is not nil.
+func (_u *LoginLogUpdate) SetNillableBrowser(v *string) *LoginLogUpdate {
+	if v != nil {
+		_u.SetBrowser(*v)
+	}
+	return _u
+}
+
+// SetOs sets the "os" field.
+func (_u *LoginLogUpdate) SetOs(v string) *LoginLogUpdate {
+	_u.mutation.SetOs(v)
+	return _u
+}
+
+// SetNillableOs sets the "os" field if the given value is not nil.
+func (_u *LoginLogUpdate) SetNillableOs(v *string) *LoginLogUpdate {
+	if v != nil {
+		_u.SetOs(*v)
+	}
 	return _u
 }
 
@@ -217,20 +246,23 @@ func (_u *LoginLogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.Username(); ok {
 		_spec.SetField(loginlog.FieldUsername, field.TypeString, value)
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(loginlog.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(loginlog.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(loginlog.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.IP(); ok {
 		_spec.SetField(loginlog.FieldIP, field.TypeString, value)
 	}
 	if _u.mutation.IPCleared() {
 		_spec.ClearField(loginlog.FieldIP, field.TypeString)
+	}
+	if value, ok := _u.mutation.EventType(); ok {
+		_spec.SetField(loginlog.FieldEventType, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.UserAgent(); ok {
+		_spec.SetField(loginlog.FieldUserAgent, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Browser(); ok {
+		_spec.SetField(loginlog.FieldBrowser, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Os(); ok {
+		_spec.SetField(loginlog.FieldOs, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Success(); ok {
 		_spec.SetField(loginlog.FieldSuccess, field.TypeBool, value)
@@ -305,33 +337,6 @@ func (_u *LoginLogUpdateOne) SetNillableUsername(v *string) *LoginLogUpdateOne {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *LoginLogUpdateOne) SetTenantID(v int) *LoginLogUpdateOne {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *LoginLogUpdateOne) SetNillableTenantID(v *int) *LoginLogUpdateOne {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *LoginLogUpdateOne) AddTenantID(v int) *LoginLogUpdateOne {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *LoginLogUpdateOne) ClearTenantID() *LoginLogUpdateOne {
-	_u.mutation.ClearTenantID()
-	return _u
-}
-
 // SetIP sets the "ip" field.
 func (_u *LoginLogUpdateOne) SetIP(v string) *LoginLogUpdateOne {
 	_u.mutation.SetIP(v)
@@ -349,6 +354,62 @@ func (_u *LoginLogUpdateOne) SetNillableIP(v *string) *LoginLogUpdateOne {
 // ClearIP clears the value of the "ip" field.
 func (_u *LoginLogUpdateOne) ClearIP() *LoginLogUpdateOne {
 	_u.mutation.ClearIP()
+	return _u
+}
+
+// SetEventType sets the "event_type" field.
+func (_u *LoginLogUpdateOne) SetEventType(v string) *LoginLogUpdateOne {
+	_u.mutation.SetEventType(v)
+	return _u
+}
+
+// SetNillableEventType sets the "event_type" field if the given value is not nil.
+func (_u *LoginLogUpdateOne) SetNillableEventType(v *string) *LoginLogUpdateOne {
+	if v != nil {
+		_u.SetEventType(*v)
+	}
+	return _u
+}
+
+// SetUserAgent sets the "user_agent" field.
+func (_u *LoginLogUpdateOne) SetUserAgent(v string) *LoginLogUpdateOne {
+	_u.mutation.SetUserAgent(v)
+	return _u
+}
+
+// SetNillableUserAgent sets the "user_agent" field if the given value is not nil.
+func (_u *LoginLogUpdateOne) SetNillableUserAgent(v *string) *LoginLogUpdateOne {
+	if v != nil {
+		_u.SetUserAgent(*v)
+	}
+	return _u
+}
+
+// SetBrowser sets the "browser" field.
+func (_u *LoginLogUpdateOne) SetBrowser(v string) *LoginLogUpdateOne {
+	_u.mutation.SetBrowser(v)
+	return _u
+}
+
+// SetNillableBrowser sets the "browser" field if the given value is not nil.
+func (_u *LoginLogUpdateOne) SetNillableBrowser(v *string) *LoginLogUpdateOne {
+	if v != nil {
+		_u.SetBrowser(*v)
+	}
+	return _u
+}
+
+// SetOs sets the "os" field.
+func (_u *LoginLogUpdateOne) SetOs(v string) *LoginLogUpdateOne {
+	_u.mutation.SetOs(v)
+	return _u
+}
+
+// SetNillableOs sets the "os" field if the given value is not nil.
+func (_u *LoginLogUpdateOne) SetNillableOs(v *string) *LoginLogUpdateOne {
+	if v != nil {
+		_u.SetOs(*v)
+	}
 	return _u
 }
 
@@ -483,20 +544,23 @@ func (_u *LoginLogUpdateOne) sqlSave(ctx context.Context) (_node *LoginLog, err 
 	if value, ok := _u.mutation.Username(); ok {
 		_spec.SetField(loginlog.FieldUsername, field.TypeString, value)
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(loginlog.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(loginlog.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(loginlog.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.IP(); ok {
 		_spec.SetField(loginlog.FieldIP, field.TypeString, value)
 	}
 	if _u.mutation.IPCleared() {
 		_spec.ClearField(loginlog.FieldIP, field.TypeString)
+	}
+	if value, ok := _u.mutation.EventType(); ok {
+		_spec.SetField(loginlog.FieldEventType, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.UserAgent(); ok {
+		_spec.SetField(loginlog.FieldUserAgent, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Browser(); ok {
+		_spec.SetField(loginlog.FieldBrowser, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Os(); ok {
+		_spec.SetField(loginlog.FieldOs, field.TypeString, value)
 	}
 	if value, ok := _u.mutation.Success(); ok {
 		_spec.SetField(loginlog.FieldSuccess, field.TypeBool, value)

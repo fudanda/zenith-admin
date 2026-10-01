@@ -262,12 +262,12 @@ func (_q *RoleQuery) Clone() *RoleQuery {
 // Example:
 //
 //	var v []struct {
-//		TenantID int `json:"tenant_id,omitempty"`
+//		Name string `json:"name,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Role.Query().
-//		GroupBy(role.FieldTenantID).
+//		GroupBy(role.FieldName).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (_q *RoleQuery) GroupBy(field string, fields ...string) *RoleGroupBy {
@@ -285,11 +285,11 @@ func (_q *RoleQuery) GroupBy(field string, fields ...string) *RoleGroupBy {
 // Example:
 //
 //	var v []struct {
-//		TenantID int `json:"tenant_id,omitempty"`
+//		Name string `json:"name,omitempty"`
 //	}
 //
 //	client.Role.Query().
-//		Select(role.FieldTenantID).
+//		Select(role.FieldName).
 //		Scan(ctx, &v)
 func (_q *RoleQuery) Select(fields ...string) *RoleSelect {
 	_q.ctx.Fields = append(_q.ctx.Fields, fields...)

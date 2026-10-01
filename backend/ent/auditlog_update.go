@@ -49,33 +49,6 @@ func (_u *AuditLogUpdate) AddActorID(v int) *AuditLogUpdate {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *AuditLogUpdate) SetTenantID(v int) *AuditLogUpdate {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *AuditLogUpdate) SetNillableTenantID(v *int) *AuditLogUpdate {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *AuditLogUpdate) AddTenantID(v int) *AuditLogUpdate {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *AuditLogUpdate) ClearTenantID() *AuditLogUpdate {
-	_u.mutation.ClearTenantID()
-	return _u
-}
-
 // SetOperation sets the "operation" field.
 func (_u *AuditLogUpdate) SetOperation(v string) *AuditLogUpdate {
 	_u.mutation.SetOperation(v)
@@ -148,6 +121,180 @@ func (_u *AuditLogUpdate) SetNillableRequestID(v *string) *AuditLogUpdate {
 // ClearRequestID clears the value of the "request_id" field.
 func (_u *AuditLogUpdate) ClearRequestID() *AuditLogUpdate {
 	_u.mutation.ClearRequestID()
+	return _u
+}
+
+// SetModule sets the "module" field.
+func (_u *AuditLogUpdate) SetModule(v string) *AuditLogUpdate {
+	_u.mutation.SetModule(v)
+	return _u
+}
+
+// SetNillableModule sets the "module" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableModule(v *string) *AuditLogUpdate {
+	if v != nil {
+		_u.SetModule(*v)
+	}
+	return _u
+}
+
+// SetDescription sets the "description" field.
+func (_u *AuditLogUpdate) SetDescription(v string) *AuditLogUpdate {
+	_u.mutation.SetDescription(v)
+	return _u
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableDescription(v *string) *AuditLogUpdate {
+	if v != nil {
+		_u.SetDescription(*v)
+	}
+	return _u
+}
+
+// SetMethod sets the "method" field.
+func (_u *AuditLogUpdate) SetMethod(v string) *AuditLogUpdate {
+	_u.mutation.SetMethod(v)
+	return _u
+}
+
+// SetNillableMethod sets the "method" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableMethod(v *string) *AuditLogUpdate {
+	if v != nil {
+		_u.SetMethod(*v)
+	}
+	return _u
+}
+
+// SetPath sets the "path" field.
+func (_u *AuditLogUpdate) SetPath(v string) *AuditLogUpdate {
+	_u.mutation.SetPath(v)
+	return _u
+}
+
+// SetNillablePath sets the "path" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillablePath(v *string) *AuditLogUpdate {
+	if v != nil {
+		_u.SetPath(*v)
+	}
+	return _u
+}
+
+// SetIP sets the "ip" field.
+func (_u *AuditLogUpdate) SetIP(v string) *AuditLogUpdate {
+	_u.mutation.SetIP(v)
+	return _u
+}
+
+// SetNillableIP sets the "ip" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableIP(v *string) *AuditLogUpdate {
+	if v != nil {
+		_u.SetIP(*v)
+	}
+	return _u
+}
+
+// SetUserAgent sets the "user_agent" field.
+func (_u *AuditLogUpdate) SetUserAgent(v string) *AuditLogUpdate {
+	_u.mutation.SetUserAgent(v)
+	return _u
+}
+
+// SetNillableUserAgent sets the "user_agent" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableUserAgent(v *string) *AuditLogUpdate {
+	if v != nil {
+		_u.SetUserAgent(*v)
+	}
+	return _u
+}
+
+// SetBrowser sets the "browser" field.
+func (_u *AuditLogUpdate) SetBrowser(v string) *AuditLogUpdate {
+	_u.mutation.SetBrowser(v)
+	return _u
+}
+
+// SetNillableBrowser sets the "browser" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableBrowser(v *string) *AuditLogUpdate {
+	if v != nil {
+		_u.SetBrowser(*v)
+	}
+	return _u
+}
+
+// SetOs sets the "os" field.
+func (_u *AuditLogUpdate) SetOs(v string) *AuditLogUpdate {
+	_u.mutation.SetOs(v)
+	return _u
+}
+
+// SetNillableOs sets the "os" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableOs(v *string) *AuditLogUpdate {
+	if v != nil {
+		_u.SetOs(*v)
+	}
+	return _u
+}
+
+// SetRequestBody sets the "request_body" field.
+func (_u *AuditLogUpdate) SetRequestBody(v string) *AuditLogUpdate {
+	_u.mutation.SetRequestBody(v)
+	return _u
+}
+
+// SetNillableRequestBody sets the "request_body" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableRequestBody(v *string) *AuditLogUpdate {
+	if v != nil {
+		_u.SetRequestBody(*v)
+	}
+	return _u
+}
+
+// ClearRequestBody clears the value of the "request_body" field.
+func (_u *AuditLogUpdate) ClearRequestBody() *AuditLogUpdate {
+	_u.mutation.ClearRequestBody()
+	return _u
+}
+
+// SetDurationMs sets the "duration_ms" field.
+func (_u *AuditLogUpdate) SetDurationMs(v int) *AuditLogUpdate {
+	_u.mutation.ResetDurationMs()
+	_u.mutation.SetDurationMs(v)
+	return _u
+}
+
+// SetNillableDurationMs sets the "duration_ms" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableDurationMs(v *int) *AuditLogUpdate {
+	if v != nil {
+		_u.SetDurationMs(*v)
+	}
+	return _u
+}
+
+// AddDurationMs adds value to the "duration_ms" field.
+func (_u *AuditLogUpdate) AddDurationMs(v int) *AuditLogUpdate {
+	_u.mutation.AddDurationMs(v)
+	return _u
+}
+
+// SetResponseCode sets the "response_code" field.
+func (_u *AuditLogUpdate) SetResponseCode(v int) *AuditLogUpdate {
+	_u.mutation.ResetResponseCode()
+	_u.mutation.SetResponseCode(v)
+	return _u
+}
+
+// SetNillableResponseCode sets the "response_code" field if the given value is not nil.
+func (_u *AuditLogUpdate) SetNillableResponseCode(v *int) *AuditLogUpdate {
+	if v != nil {
+		_u.SetResponseCode(*v)
+	}
+	return _u
+}
+
+// AddResponseCode adds value to the "response_code" field.
+func (_u *AuditLogUpdate) AddResponseCode(v int) *AuditLogUpdate {
+	_u.mutation.AddResponseCode(v)
 	return _u
 }
 
@@ -230,15 +377,6 @@ func (_u *AuditLogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.AddedActorID(); ok {
 		_spec.AddField(auditlog.FieldActorID, field.TypeInt, value)
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(auditlog.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(auditlog.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(auditlog.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.Operation(); ok {
 		_spec.SetField(auditlog.FieldOperation, field.TypeString, value)
 	}
@@ -259,6 +397,48 @@ func (_u *AuditLogUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if _u.mutation.RequestIDCleared() {
 		_spec.ClearField(auditlog.FieldRequestID, field.TypeString)
+	}
+	if value, ok := _u.mutation.Module(); ok {
+		_spec.SetField(auditlog.FieldModule, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Description(); ok {
+		_spec.SetField(auditlog.FieldDescription, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Method(); ok {
+		_spec.SetField(auditlog.FieldMethod, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Path(); ok {
+		_spec.SetField(auditlog.FieldPath, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.IP(); ok {
+		_spec.SetField(auditlog.FieldIP, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.UserAgent(); ok {
+		_spec.SetField(auditlog.FieldUserAgent, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Browser(); ok {
+		_spec.SetField(auditlog.FieldBrowser, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Os(); ok {
+		_spec.SetField(auditlog.FieldOs, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.RequestBody(); ok {
+		_spec.SetField(auditlog.FieldRequestBody, field.TypeString, value)
+	}
+	if _u.mutation.RequestBodyCleared() {
+		_spec.ClearField(auditlog.FieldRequestBody, field.TypeString)
+	}
+	if value, ok := _u.mutation.DurationMs(); ok {
+		_spec.SetField(auditlog.FieldDurationMs, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedDurationMs(); ok {
+		_spec.AddField(auditlog.FieldDurationMs, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.ResponseCode(); ok {
+		_spec.SetField(auditlog.FieldResponseCode, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedResponseCode(); ok {
+		_spec.AddField(auditlog.FieldResponseCode, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(auditlog.FieldCreatedAt, field.TypeTime, value)
@@ -301,33 +481,6 @@ func (_u *AuditLogUpdateOne) SetNillableActorID(v *int) *AuditLogUpdateOne {
 // AddActorID adds value to the "actor_id" field.
 func (_u *AuditLogUpdateOne) AddActorID(v int) *AuditLogUpdateOne {
 	_u.mutation.AddActorID(v)
-	return _u
-}
-
-// SetTenantID sets the "tenant_id" field.
-func (_u *AuditLogUpdateOne) SetTenantID(v int) *AuditLogUpdateOne {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *AuditLogUpdateOne) SetNillableTenantID(v *int) *AuditLogUpdateOne {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *AuditLogUpdateOne) AddTenantID(v int) *AuditLogUpdateOne {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *AuditLogUpdateOne) ClearTenantID() *AuditLogUpdateOne {
-	_u.mutation.ClearTenantID()
 	return _u
 }
 
@@ -403,6 +556,180 @@ func (_u *AuditLogUpdateOne) SetNillableRequestID(v *string) *AuditLogUpdateOne 
 // ClearRequestID clears the value of the "request_id" field.
 func (_u *AuditLogUpdateOne) ClearRequestID() *AuditLogUpdateOne {
 	_u.mutation.ClearRequestID()
+	return _u
+}
+
+// SetModule sets the "module" field.
+func (_u *AuditLogUpdateOne) SetModule(v string) *AuditLogUpdateOne {
+	_u.mutation.SetModule(v)
+	return _u
+}
+
+// SetNillableModule sets the "module" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableModule(v *string) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetModule(*v)
+	}
+	return _u
+}
+
+// SetDescription sets the "description" field.
+func (_u *AuditLogUpdateOne) SetDescription(v string) *AuditLogUpdateOne {
+	_u.mutation.SetDescription(v)
+	return _u
+}
+
+// SetNillableDescription sets the "description" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableDescription(v *string) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetDescription(*v)
+	}
+	return _u
+}
+
+// SetMethod sets the "method" field.
+func (_u *AuditLogUpdateOne) SetMethod(v string) *AuditLogUpdateOne {
+	_u.mutation.SetMethod(v)
+	return _u
+}
+
+// SetNillableMethod sets the "method" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableMethod(v *string) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetMethod(*v)
+	}
+	return _u
+}
+
+// SetPath sets the "path" field.
+func (_u *AuditLogUpdateOne) SetPath(v string) *AuditLogUpdateOne {
+	_u.mutation.SetPath(v)
+	return _u
+}
+
+// SetNillablePath sets the "path" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillablePath(v *string) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetPath(*v)
+	}
+	return _u
+}
+
+// SetIP sets the "ip" field.
+func (_u *AuditLogUpdateOne) SetIP(v string) *AuditLogUpdateOne {
+	_u.mutation.SetIP(v)
+	return _u
+}
+
+// SetNillableIP sets the "ip" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableIP(v *string) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetIP(*v)
+	}
+	return _u
+}
+
+// SetUserAgent sets the "user_agent" field.
+func (_u *AuditLogUpdateOne) SetUserAgent(v string) *AuditLogUpdateOne {
+	_u.mutation.SetUserAgent(v)
+	return _u
+}
+
+// SetNillableUserAgent sets the "user_agent" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableUserAgent(v *string) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetUserAgent(*v)
+	}
+	return _u
+}
+
+// SetBrowser sets the "browser" field.
+func (_u *AuditLogUpdateOne) SetBrowser(v string) *AuditLogUpdateOne {
+	_u.mutation.SetBrowser(v)
+	return _u
+}
+
+// SetNillableBrowser sets the "browser" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableBrowser(v *string) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetBrowser(*v)
+	}
+	return _u
+}
+
+// SetOs sets the "os" field.
+func (_u *AuditLogUpdateOne) SetOs(v string) *AuditLogUpdateOne {
+	_u.mutation.SetOs(v)
+	return _u
+}
+
+// SetNillableOs sets the "os" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableOs(v *string) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetOs(*v)
+	}
+	return _u
+}
+
+// SetRequestBody sets the "request_body" field.
+func (_u *AuditLogUpdateOne) SetRequestBody(v string) *AuditLogUpdateOne {
+	_u.mutation.SetRequestBody(v)
+	return _u
+}
+
+// SetNillableRequestBody sets the "request_body" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableRequestBody(v *string) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetRequestBody(*v)
+	}
+	return _u
+}
+
+// ClearRequestBody clears the value of the "request_body" field.
+func (_u *AuditLogUpdateOne) ClearRequestBody() *AuditLogUpdateOne {
+	_u.mutation.ClearRequestBody()
+	return _u
+}
+
+// SetDurationMs sets the "duration_ms" field.
+func (_u *AuditLogUpdateOne) SetDurationMs(v int) *AuditLogUpdateOne {
+	_u.mutation.ResetDurationMs()
+	_u.mutation.SetDurationMs(v)
+	return _u
+}
+
+// SetNillableDurationMs sets the "duration_ms" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableDurationMs(v *int) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetDurationMs(*v)
+	}
+	return _u
+}
+
+// AddDurationMs adds value to the "duration_ms" field.
+func (_u *AuditLogUpdateOne) AddDurationMs(v int) *AuditLogUpdateOne {
+	_u.mutation.AddDurationMs(v)
+	return _u
+}
+
+// SetResponseCode sets the "response_code" field.
+func (_u *AuditLogUpdateOne) SetResponseCode(v int) *AuditLogUpdateOne {
+	_u.mutation.ResetResponseCode()
+	_u.mutation.SetResponseCode(v)
+	return _u
+}
+
+// SetNillableResponseCode sets the "response_code" field if the given value is not nil.
+func (_u *AuditLogUpdateOne) SetNillableResponseCode(v *int) *AuditLogUpdateOne {
+	if v != nil {
+		_u.SetResponseCode(*v)
+	}
+	return _u
+}
+
+// AddResponseCode adds value to the "response_code" field.
+func (_u *AuditLogUpdateOne) AddResponseCode(v int) *AuditLogUpdateOne {
+	_u.mutation.AddResponseCode(v)
 	return _u
 }
 
@@ -515,15 +842,6 @@ func (_u *AuditLogUpdateOne) sqlSave(ctx context.Context) (_node *AuditLog, err 
 	if value, ok := _u.mutation.AddedActorID(); ok {
 		_spec.AddField(auditlog.FieldActorID, field.TypeInt, value)
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(auditlog.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(auditlog.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(auditlog.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.Operation(); ok {
 		_spec.SetField(auditlog.FieldOperation, field.TypeString, value)
 	}
@@ -544,6 +862,48 @@ func (_u *AuditLogUpdateOne) sqlSave(ctx context.Context) (_node *AuditLog, err 
 	}
 	if _u.mutation.RequestIDCleared() {
 		_spec.ClearField(auditlog.FieldRequestID, field.TypeString)
+	}
+	if value, ok := _u.mutation.Module(); ok {
+		_spec.SetField(auditlog.FieldModule, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Description(); ok {
+		_spec.SetField(auditlog.FieldDescription, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Method(); ok {
+		_spec.SetField(auditlog.FieldMethod, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Path(); ok {
+		_spec.SetField(auditlog.FieldPath, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.IP(); ok {
+		_spec.SetField(auditlog.FieldIP, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.UserAgent(); ok {
+		_spec.SetField(auditlog.FieldUserAgent, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Browser(); ok {
+		_spec.SetField(auditlog.FieldBrowser, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Os(); ok {
+		_spec.SetField(auditlog.FieldOs, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.RequestBody(); ok {
+		_spec.SetField(auditlog.FieldRequestBody, field.TypeString, value)
+	}
+	if _u.mutation.RequestBodyCleared() {
+		_spec.ClearField(auditlog.FieldRequestBody, field.TypeString)
+	}
+	if value, ok := _u.mutation.DurationMs(); ok {
+		_spec.SetField(auditlog.FieldDurationMs, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedDurationMs(); ok {
+		_spec.AddField(auditlog.FieldDurationMs, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.ResponseCode(); ok {
+		_spec.SetField(auditlog.FieldResponseCode, field.TypeInt, value)
+	}
+	if value, ok := _u.mutation.AddedResponseCode(); ok {
+		_spec.AddField(auditlog.FieldResponseCode, field.TypeInt, value)
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(auditlog.FieldCreatedAt, field.TypeTime, value)

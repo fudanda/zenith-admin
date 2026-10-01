@@ -29,9 +29,6 @@ import (
 	"github.com/fudanda/zenith-admin/backend/ent/rolepermission"
 	"github.com/fudanda/zenith-admin/backend/ent/session"
 	"github.com/fudanda/zenith-admin/backend/ent/systemsetting"
-	"github.com/fudanda/zenith-admin/backend/ent/tenant"
-	"github.com/fudanda/zenith-admin/backend/ent/tenantpackage"
-	"github.com/fudanda/zenith-admin/backend/ent/tenantpackagefeature"
 	"github.com/fudanda/zenith-admin/backend/ent/uploadchunk"
 	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
@@ -103,37 +100,34 @@ var (
 func checkColumn(t, c string) error {
 	initCheck.Do(func() {
 		columnCheck = sql.NewColumnCheck(map[string]func(string) bool{
-			auditlog.Table:             auditlog.ValidColumn,
-			captcha.Table:              captcha.ValidColumn,
-			department.Table:           department.ValidColumn,
-			dict.Table:                 dict.ValidColumn,
-			dictitem.Table:             dictitem.ValidColumn,
-			filestorageconfig.Table:    filestorageconfig.ValidColumn,
-			loginattempt.Table:         loginattempt.ValidColumn,
-			loginlog.Table:             loginlog.ValidColumn,
-			managedfile.Table:          managedfile.ValidColumn,
-			menu.Table:                 menu.ValidColumn,
-			position.Table:             position.ValidColumn,
-			role.Table:                 role.ValidColumn,
-			roledepartment.Table:       roledepartment.ValidColumn,
-			rolemenu.Table:             rolemenu.ValidColumn,
-			rolepermission.Table:       rolepermission.ValidColumn,
-			session.Table:              session.ValidColumn,
-			systemsetting.Table:        systemsetting.ValidColumn,
-			tenant.Table:               tenant.ValidColumn,
-			tenantpackage.Table:        tenantpackage.ValidColumn,
-			tenantpackagefeature.Table: tenantpackagefeature.ValidColumn,
-			uploadchunk.Table:          uploadchunk.ValidColumn,
-			uploadsession.Table:        uploadsession.ValidColumn,
-			user.Table:                 user.ValidColumn,
-			userdepartmentscope.Table:  userdepartmentscope.ValidColumn,
-			usergroup.Table:            usergroup.ValidColumn,
-			usergroupmember.Table:      usergroupmember.ValidColumn,
-			usergrouprole.Table:        usergrouprole.ValidColumn,
-			usermenu.Table:             usermenu.ValidColumn,
-			userpermission.Table:       userpermission.ValidColumn,
-			userposition.Table:         userposition.ValidColumn,
-			userrole.Table:             userrole.ValidColumn,
+			auditlog.Table:            auditlog.ValidColumn,
+			captcha.Table:             captcha.ValidColumn,
+			department.Table:          department.ValidColumn,
+			dict.Table:                dict.ValidColumn,
+			dictitem.Table:            dictitem.ValidColumn,
+			filestorageconfig.Table:   filestorageconfig.ValidColumn,
+			loginattempt.Table:        loginattempt.ValidColumn,
+			loginlog.Table:            loginlog.ValidColumn,
+			managedfile.Table:         managedfile.ValidColumn,
+			menu.Table:                menu.ValidColumn,
+			position.Table:            position.ValidColumn,
+			role.Table:                role.ValidColumn,
+			roledepartment.Table:      roledepartment.ValidColumn,
+			rolemenu.Table:            rolemenu.ValidColumn,
+			rolepermission.Table:      rolepermission.ValidColumn,
+			session.Table:             session.ValidColumn,
+			systemsetting.Table:       systemsetting.ValidColumn,
+			uploadchunk.Table:         uploadchunk.ValidColumn,
+			uploadsession.Table:       uploadsession.ValidColumn,
+			user.Table:                user.ValidColumn,
+			userdepartmentscope.Table: userdepartmentscope.ValidColumn,
+			usergroup.Table:           usergroup.ValidColumn,
+			usergroupmember.Table:     usergroupmember.ValidColumn,
+			usergrouprole.Table:       usergrouprole.ValidColumn,
+			usermenu.Table:            usermenu.ValidColumn,
+			userpermission.Table:      userpermission.ValidColumn,
+			userposition.Table:        userposition.ValidColumn,
+			userrole.Table:            userrole.ValidColumn,
 		})
 	})
 	return columnCheck(t, c)

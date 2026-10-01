@@ -19,8 +19,6 @@ type AuditLog struct {
 	ID int `json:"id,omitempty"`
 	// ActorID holds the value of the "actor_id" field.
 	ActorID int `json:"actor_id,omitempty"`
-	// TenantID holds the value of the "tenant_id" field.
-	TenantID *int `json:"tenant_id,omitempty"`
 	// Operation holds the value of the "operation" field.
 	Operation string `json:"operation,omitempty"`
 	// Resource holds the value of the "resource" field.
@@ -29,6 +27,28 @@ type AuditLog struct {
 	ResourceID *int `json:"resource_id,omitempty"`
 	// RequestID holds the value of the "request_id" field.
 	RequestID string `json:"request_id,omitempty"`
+	// Module holds the value of the "module" field.
+	Module string `json:"module,omitempty"`
+	// Description holds the value of the "description" field.
+	Description string `json:"description,omitempty"`
+	// Method holds the value of the "method" field.
+	Method string `json:"method,omitempty"`
+	// Path holds the value of the "path" field.
+	Path string `json:"path,omitempty"`
+	// IP holds the value of the "ip" field.
+	IP string `json:"ip,omitempty"`
+	// UserAgent holds the value of the "user_agent" field.
+	UserAgent string `json:"user_agent,omitempty"`
+	// Browser holds the value of the "browser" field.
+	Browser string `json:"browser,omitempty"`
+	// Os holds the value of the "os" field.
+	Os string `json:"os,omitempty"`
+	// RequestBody holds the value of the "request_body" field.
+	RequestBody *string `json:"request_body,omitempty"`
+	// DurationMs holds the value of the "duration_ms" field.
+	DurationMs int `json:"duration_ms,omitempty"`
+	// ResponseCode holds the value of the "response_code" field.
+	ResponseCode int `json:"response_code,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt    time.Time `json:"created_at,omitempty"`
 	selectValues sql.SelectValues
@@ -39,9 +59,9 @@ func (*AuditLog) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case auditlog.FieldID, auditlog.FieldActorID, auditlog.FieldTenantID, auditlog.FieldResourceID:
+		case auditlog.FieldID, auditlog.FieldActorID, auditlog.FieldResourceID, auditlog.FieldDurationMs, auditlog.FieldResponseCode:
 			values[i] = new(sql.NullInt64)
-		case auditlog.FieldOperation, auditlog.FieldResource, auditlog.FieldRequestID:
+		case auditlog.FieldOperation, auditlog.FieldResource, auditlog.FieldRequestID, auditlog.FieldModule, auditlog.FieldDescription, auditlog.FieldMethod, auditlog.FieldPath, auditlog.FieldIP, auditlog.FieldUserAgent, auditlog.FieldBrowser, auditlog.FieldOs, auditlog.FieldRequestBody:
 			values[i] = new(sql.NullString)
 		case auditlog.FieldCreatedAt:
 			values[i] = new(sql.NullTime)
@@ -72,13 +92,6 @@ func (_m *AuditLog) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.ActorID = int(value.Int64)
 			}
-		case auditlog.FieldTenantID:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
-			} else if value.Valid {
-				_m.TenantID = new(int)
-				*_m.TenantID = int(value.Int64)
-			}
 		case auditlog.FieldOperation:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field operation", values[i])
@@ -103,6 +116,73 @@ func (_m *AuditLog) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field request_id", values[i])
 			} else if value.Valid {
 				_m.RequestID = value.String
+			}
+		case auditlog.FieldModule:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field module", values[i])
+			} else if value.Valid {
+				_m.Module = value.String
+			}
+		case auditlog.FieldDescription:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field description", values[i])
+			} else if value.Valid {
+				_m.Description = value.String
+			}
+		case auditlog.FieldMethod:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field method", values[i])
+			} else if value.Valid {
+				_m.Method = value.String
+			}
+		case auditlog.FieldPath:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field path", values[i])
+			} else if value.Valid {
+				_m.Path = value.String
+			}
+		case auditlog.FieldIP:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field ip", values[i])
+			} else if value.Valid {
+				_m.IP = value.String
+			}
+		case auditlog.FieldUserAgent:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field user_agent", values[i])
+			} else if value.Valid {
+				_m.UserAgent = value.String
+			}
+		case auditlog.FieldBrowser:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field browser", values[i])
+			} else if value.Valid {
+				_m.Browser = value.String
+			}
+		case auditlog.FieldOs:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field os", values[i])
+			} else if value.Valid {
+				_m.Os = value.String
+			}
+		case auditlog.FieldRequestBody:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field request_body", values[i])
+			} else if value.Valid {
+				_m.RequestBody = new(string)
+				*_m.RequestBody = value.String
+			}
+		case auditlog.FieldDurationMs:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field duration_ms", values[i])
+			} else if value.Valid {
+				_m.DurationMs = int(value.Int64)
+			}
+		case auditlog.FieldResponseCode:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field response_code", values[i])
+			} else if value.Valid {
+				_m.ResponseCode = int(value.Int64)
 			}
 		case auditlog.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -149,11 +229,6 @@ func (_m *AuditLog) String() string {
 	builder.WriteString("actor_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.ActorID))
 	builder.WriteString(", ")
-	if v := _m.TenantID; v != nil {
-		builder.WriteString("tenant_id=")
-		builder.WriteString(fmt.Sprintf("%v", *v))
-	}
-	builder.WriteString(", ")
 	builder.WriteString("operation=")
 	builder.WriteString(_m.Operation)
 	builder.WriteString(", ")
@@ -167,6 +242,41 @@ func (_m *AuditLog) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("request_id=")
 	builder.WriteString(_m.RequestID)
+	builder.WriteString(", ")
+	builder.WriteString("module=")
+	builder.WriteString(_m.Module)
+	builder.WriteString(", ")
+	builder.WriteString("description=")
+	builder.WriteString(_m.Description)
+	builder.WriteString(", ")
+	builder.WriteString("method=")
+	builder.WriteString(_m.Method)
+	builder.WriteString(", ")
+	builder.WriteString("path=")
+	builder.WriteString(_m.Path)
+	builder.WriteString(", ")
+	builder.WriteString("ip=")
+	builder.WriteString(_m.IP)
+	builder.WriteString(", ")
+	builder.WriteString("user_agent=")
+	builder.WriteString(_m.UserAgent)
+	builder.WriteString(", ")
+	builder.WriteString("browser=")
+	builder.WriteString(_m.Browser)
+	builder.WriteString(", ")
+	builder.WriteString("os=")
+	builder.WriteString(_m.Os)
+	builder.WriteString(", ")
+	if v := _m.RequestBody; v != nil {
+		builder.WriteString("request_body=")
+		builder.WriteString(*v)
+	}
+	builder.WriteString(", ")
+	builder.WriteString("duration_ms=")
+	builder.WriteString(fmt.Sprintf("%v", _m.DurationMs))
+	builder.WriteString(", ")
+	builder.WriteString("response_code=")
+	builder.WriteString(fmt.Sprintf("%v", _m.ResponseCode))
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
 	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))

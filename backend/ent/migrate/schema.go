@@ -12,11 +12,21 @@ var (
 	AuditLogsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "actor_id", Type: field.TypeInt},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "operation", Type: field.TypeString, Size: 100},
 		{Name: "resource", Type: field.TypeString, Size: 100},
 		{Name: "resource_id", Type: field.TypeInt, Nullable: true},
 		{Name: "request_id", Type: field.TypeString, Nullable: true},
+		{Name: "module", Type: field.TypeString, Default: ""},
+		{Name: "description", Type: field.TypeString, Default: ""},
+		{Name: "method", Type: field.TypeString, Default: ""},
+		{Name: "path", Type: field.TypeString, Default: ""},
+		{Name: "ip", Type: field.TypeString, Default: ""},
+		{Name: "user_agent", Type: field.TypeString, Default: ""},
+		{Name: "browser", Type: field.TypeString, Default: ""},
+		{Name: "os", Type: field.TypeString, Default: ""},
+		{Name: "request_body", Type: field.TypeString, Nullable: true},
+		{Name: "duration_ms", Type: field.TypeInt, Default: 0},
+		{Name: "response_code", Type: field.TypeInt, Default: 200},
 		{Name: "created_at", Type: field.TypeTime},
 	}
 	// AuditLogsTable holds the schema information for the "audit_logs" table.
@@ -26,9 +36,9 @@ var (
 		PrimaryKey: []*schema.Column{AuditLogsColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "auditlog_tenant_id_created_at",
+				Name:    "auditlog_created_at",
 				Unique:  false,
-				Columns: []*schema.Column{AuditLogsColumns[2], AuditLogsColumns[7]},
+				Columns: []*schema.Column{AuditLogsColumns[17]},
 			},
 		},
 	}
@@ -50,7 +60,6 @@ var (
 	// DepartmentsColumns holds the columns for the "departments" table.
 	DepartmentsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "parent_id", Type: field.TypeInt, Default: 0},
 		{Name: "name", Type: field.TypeString, Size: 64},
 		{Name: "code", Type: field.TypeString, Size: 64},
@@ -70,16 +79,15 @@ var (
 		PrimaryKey: []*schema.Column{DepartmentsColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "department_tenant_id_code",
+				Name:    "department_code",
 				Unique:  true,
-				Columns: []*schema.Column{DepartmentsColumns[1], DepartmentsColumns[4]},
+				Columns: []*schema.Column{DepartmentsColumns[3]},
 			},
 		},
 	}
 	// DictsColumns holds the columns for the "dicts" table.
 	DictsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "name", Type: field.TypeString, Size: 64},
 		{Name: "code", Type: field.TypeString, Size: 64},
 		{Name: "description", Type: field.TypeString, Nullable: true},
@@ -94,9 +102,9 @@ var (
 		PrimaryKey: []*schema.Column{DictsColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "dict_tenant_id_code",
+				Name:    "dict_code",
 				Unique:  true,
-				Columns: []*schema.Column{DictsColumns[1], DictsColumns[3]},
+				Columns: []*schema.Column{DictsColumns[2]},
 			},
 		},
 	}
@@ -152,6 +160,7 @@ var (
 	LoginAttemptsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "key", Type: field.TypeString, Unique: true},
+		{Name: "username_hash", Type: field.TypeString, Default: ""},
 		{Name: "failures", Type: field.TypeInt, Default: 0},
 		{Name: "locked_until", Type: field.TypeTime, Nullable: true},
 		{Name: "updated_at", Type: field.TypeTime},
@@ -167,8 +176,11 @@ var (
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "user_id", Type: field.TypeInt, Nullable: true},
 		{Name: "username", Type: field.TypeString},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "ip", Type: field.TypeString, Nullable: true},
+		{Name: "event_type", Type: field.TypeString, Default: "login"},
+		{Name: "user_agent", Type: field.TypeString, Default: ""},
+		{Name: "browser", Type: field.TypeString, Default: ""},
+		{Name: "os", Type: field.TypeString, Default: ""},
 		{Name: "success", Type: field.TypeBool},
 		{Name: "reason", Type: field.TypeString, Nullable: true},
 		{Name: "created_at", Type: field.TypeTime},
@@ -180,9 +192,9 @@ var (
 		PrimaryKey: []*schema.Column{LoginLogsColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "loginlog_tenant_id_created_at",
+				Name:    "loginlog_created_at",
 				Unique:  false,
-				Columns: []*schema.Column{LoginLogsColumns[3], LoginLogsColumns[7]},
+				Columns: []*schema.Column{LoginLogsColumns[10]},
 			},
 		},
 	}
@@ -190,7 +202,6 @@ var (
 	ManagedFilesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeUUID},
 		{Name: "storage_config_id", Type: field.TypeInt},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "uploader_id", Type: field.TypeInt},
 		{Name: "original_name", Type: field.TypeString, Size: 256},
 		{Name: "object_key", Type: field.TypeString, Size: 512},
@@ -210,9 +221,9 @@ var (
 		PrimaryKey: []*schema.Column{ManagedFilesColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "managedfile_tenant_id_created_at",
+				Name:    "managedfile_created_at",
 				Unique:  false,
-				Columns: []*schema.Column{ManagedFilesColumns[2], ManagedFilesColumns[12]},
+				Columns: []*schema.Column{ManagedFilesColumns[11]},
 			},
 			{
 				Name:    "managedfile_storage_config_id",
@@ -259,7 +270,6 @@ var (
 	// PositionsColumns holds the columns for the "positions" table.
 	PositionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "name", Type: field.TypeString, Size: 64},
 		{Name: "code", Type: field.TypeString, Size: 64},
 		{Name: "sort", Type: field.TypeInt, Default: 0},
@@ -275,16 +285,15 @@ var (
 		PrimaryKey: []*schema.Column{PositionsColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "position_tenant_id_code",
+				Name:    "position_code",
 				Unique:  true,
-				Columns: []*schema.Column{PositionsColumns[1], PositionsColumns[3]},
+				Columns: []*schema.Column{PositionsColumns[2]},
 			},
 		},
 	}
 	// RolesColumns holds the columns for the "roles" table.
 	RolesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "code", Type: field.TypeString},
 		{Name: "description", Type: field.TypeString, Nullable: true},
@@ -300,9 +309,9 @@ var (
 		PrimaryKey: []*schema.Column{RolesColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "role_tenant_id_code",
+				Name:    "role_code",
 				Unique:  true,
-				Columns: []*schema.Column{RolesColumns[1], RolesColumns[3]},
+				Columns: []*schema.Column{RolesColumns[2]},
 			},
 		},
 	}
@@ -369,9 +378,13 @@ var (
 		{Name: "user_id", Type: field.TypeInt},
 		{Name: "token_hash", Type: field.TypeString, Unique: true},
 		{Name: "csrf_hash", Type: field.TypeString},
-		{Name: "tenant_view_id", Type: field.TypeInt, Nullable: true},
 		{Name: "expires_at", Type: field.TypeTime},
 		{Name: "revoked_at", Type: field.TypeTime, Nullable: true},
+		{Name: "ip", Type: field.TypeString, Default: ""},
+		{Name: "client", Type: field.TypeString, Default: "web"},
+		{Name: "browser", Type: field.TypeString, Default: ""},
+		{Name: "os", Type: field.TypeString, Default: ""},
+		{Name: "last_active_at", Type: field.TypeTime},
 		{Name: "created_at", Type: field.TypeTime},
 	}
 	// SessionsTable holds the schema information for the "sessions" table.
@@ -388,7 +401,7 @@ var (
 			{
 				Name:    "session_expires_at",
 				Unique:  false,
-				Columns: []*schema.Column{SessionsColumns[5]},
+				Columns: []*schema.Column{SessionsColumns[4]},
 			},
 		},
 	}
@@ -405,63 +418,6 @@ var (
 		Name:       "system_settings",
 		Columns:    SystemSettingsColumns,
 		PrimaryKey: []*schema.Column{SystemSettingsColumns[0]},
-	}
-	// TenantsColumns holds the columns for the "tenants" table.
-	TenantsColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString, Size: 100},
-		{Name: "code", Type: field.TypeString, Unique: true, Size: 50},
-		{Name: "logo", Type: field.TypeString, Nullable: true},
-		{Name: "contact_name", Type: field.TypeString, Nullable: true},
-		{Name: "contact_phone", Type: field.TypeString, Nullable: true},
-		{Name: "status", Type: field.TypeString, Default: "enabled"},
-		{Name: "expire_at", Type: field.TypeTime, Nullable: true},
-		{Name: "max_users", Type: field.TypeInt, Nullable: true},
-		{Name: "package_id", Type: field.TypeInt, Nullable: true},
-		{Name: "remark", Type: field.TypeString, Nullable: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-	}
-	// TenantsTable holds the schema information for the "tenants" table.
-	TenantsTable = &schema.Table{
-		Name:       "tenants",
-		Columns:    TenantsColumns,
-		PrimaryKey: []*schema.Column{TenantsColumns[0]},
-	}
-	// TenantPackagesColumns holds the columns for the "tenant_packages" table.
-	TenantPackagesColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString, Unique: true, Size: 100},
-		{Name: "status", Type: field.TypeString, Default: "enabled"},
-		{Name: "quotas", Type: field.TypeJSON, Nullable: true},
-		{Name: "remark", Type: field.TypeString, Nullable: true},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
-	}
-	// TenantPackagesTable holds the schema information for the "tenant_packages" table.
-	TenantPackagesTable = &schema.Table{
-		Name:       "tenant_packages",
-		Columns:    TenantPackagesColumns,
-		PrimaryKey: []*schema.Column{TenantPackagesColumns[0]},
-	}
-	// TenantPackageFeaturesColumns holds the columns for the "tenant_package_features" table.
-	TenantPackageFeaturesColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "package_id", Type: field.TypeInt},
-		{Name: "feature_key", Type: field.TypeString},
-	}
-	// TenantPackageFeaturesTable holds the schema information for the "tenant_package_features" table.
-	TenantPackageFeaturesTable = &schema.Table{
-		Name:       "tenant_package_features",
-		Columns:    TenantPackageFeaturesColumns,
-		PrimaryKey: []*schema.Column{TenantPackageFeaturesColumns[0]},
-		Indexes: []*schema.Index{
-			{
-				Name:    "tenantpackagefeature_package_id_feature_key",
-				Unique:  true,
-				Columns: []*schema.Column{TenantPackageFeaturesColumns[1], TenantPackageFeaturesColumns[2]},
-			},
-		},
 	}
 	// UploadChunksColumns holds the columns for the "upload_chunks" table.
 	UploadChunksColumns = []*schema.Column{
@@ -488,7 +444,6 @@ var (
 	UploadSessionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeString, Size: 64},
 		{Name: "storage_config_id", Type: field.TypeInt},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "uploader_id", Type: field.TypeInt},
 		{Name: "file_name", Type: field.TypeString, Size: 256},
 		{Name: "file_size", Type: field.TypeInt64},
@@ -510,19 +465,18 @@ var (
 			{
 				Name:    "uploadsession_expires_at",
 				Unique:  false,
-				Columns: []*schema.Column{UploadSessionsColumns[11]},
+				Columns: []*schema.Column{UploadSessionsColumns[10]},
 			},
 			{
 				Name:    "uploadsession_uploader_id",
 				Unique:  false,
-				Columns: []*schema.Column{UploadSessionsColumns[3]},
+				Columns: []*schema.Column{UploadSessionsColumns[2]},
 			},
 		},
 	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "username", Type: field.TypeString, Size: 32},
 		{Name: "nickname", Type: field.TypeString, Size: 32},
 		{Name: "password_hash", Type: field.TypeString},
@@ -547,9 +501,9 @@ var (
 		PrimaryKey: []*schema.Column{UsersColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "user_tenant_id_username",
+				Name:    "user_username",
 				Unique:  true,
-				Columns: []*schema.Column{UsersColumns[1], UsersColumns[2]},
+				Columns: []*schema.Column{UsersColumns[1]},
 			},
 		},
 	}
@@ -575,7 +529,6 @@ var (
 	// UserGroupsColumns holds the columns for the "user_groups" table.
 	UserGroupsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "tenant_id", Type: field.TypeInt, Nullable: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "code", Type: field.TypeString},
 		{Name: "description", Type: field.TypeString, Nullable: true},
@@ -594,9 +547,9 @@ var (
 		PrimaryKey: []*schema.Column{UserGroupsColumns[0]},
 		Indexes: []*schema.Index{
 			{
-				Name:    "usergroup_tenant_id_code",
+				Name:    "usergroup_code",
 				Unique:  true,
-				Columns: []*schema.Column{UserGroupsColumns[1], UserGroupsColumns[3]},
+				Columns: []*schema.Column{UserGroupsColumns[2]},
 			},
 		},
 	}
@@ -735,9 +688,6 @@ var (
 		RolePermissionsTable,
 		SessionsTable,
 		SystemSettingsTable,
-		TenantsTable,
-		TenantPackagesTable,
-		TenantPackageFeaturesTable,
 		UploadChunksTable,
 		UploadSessionsTable,
 		UsersTable,

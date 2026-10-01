@@ -23,12 +23,20 @@ type Session struct {
 	TokenHash string `json:"-"`
 	// CsrfHash holds the value of the "csrf_hash" field.
 	CsrfHash string `json:"-"`
-	// TenantViewID holds the value of the "tenant_view_id" field.
-	TenantViewID *int `json:"tenant_view_id,omitempty"`
 	// ExpiresAt holds the value of the "expires_at" field.
 	ExpiresAt time.Time `json:"expires_at,omitempty"`
 	// RevokedAt holds the value of the "revoked_at" field.
 	RevokedAt *time.Time `json:"revoked_at,omitempty"`
+	// IP holds the value of the "ip" field.
+	IP string `json:"ip,omitempty"`
+	// Client holds the value of the "client" field.
+	Client string `json:"client,omitempty"`
+	// Browser holds the value of the "browser" field.
+	Browser string `json:"browser,omitempty"`
+	// Os holds the value of the "os" field.
+	Os string `json:"os,omitempty"`
+	// LastActiveAt holds the value of the "last_active_at" field.
+	LastActiveAt time.Time `json:"last_active_at,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt    time.Time `json:"created_at,omitempty"`
 	selectValues sql.SelectValues
@@ -39,11 +47,11 @@ func (*Session) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case session.FieldID, session.FieldUserID, session.FieldTenantViewID:
+		case session.FieldID, session.FieldUserID:
 			values[i] = new(sql.NullInt64)
-		case session.FieldTokenHash, session.FieldCsrfHash:
+		case session.FieldTokenHash, session.FieldCsrfHash, session.FieldIP, session.FieldClient, session.FieldBrowser, session.FieldOs:
 			values[i] = new(sql.NullString)
-		case session.FieldExpiresAt, session.FieldRevokedAt, session.FieldCreatedAt:
+		case session.FieldExpiresAt, session.FieldRevokedAt, session.FieldLastActiveAt, session.FieldCreatedAt:
 			values[i] = new(sql.NullTime)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -84,13 +92,6 @@ func (_m *Session) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.CsrfHash = value.String
 			}
-		case session.FieldTenantViewID:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field tenant_view_id", values[i])
-			} else if value.Valid {
-				_m.TenantViewID = new(int)
-				*_m.TenantViewID = int(value.Int64)
-			}
 		case session.FieldExpiresAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
 				return fmt.Errorf("unexpected type %T for field expires_at", values[i])
@@ -103,6 +104,36 @@ func (_m *Session) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				_m.RevokedAt = new(time.Time)
 				*_m.RevokedAt = value.Time
+			}
+		case session.FieldIP:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field ip", values[i])
+			} else if value.Valid {
+				_m.IP = value.String
+			}
+		case session.FieldClient:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field client", values[i])
+			} else if value.Valid {
+				_m.Client = value.String
+			}
+		case session.FieldBrowser:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field browser", values[i])
+			} else if value.Valid {
+				_m.Browser = value.String
+			}
+		case session.FieldOs:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field os", values[i])
+			} else if value.Valid {
+				_m.Os = value.String
+			}
+		case session.FieldLastActiveAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field last_active_at", values[i])
+			} else if value.Valid {
+				_m.LastActiveAt = value.Time
 			}
 		case session.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -153,11 +184,6 @@ func (_m *Session) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("csrf_hash=<sensitive>")
 	builder.WriteString(", ")
-	if v := _m.TenantViewID; v != nil {
-		builder.WriteString("tenant_view_id=")
-		builder.WriteString(fmt.Sprintf("%v", *v))
-	}
-	builder.WriteString(", ")
 	builder.WriteString("expires_at=")
 	builder.WriteString(_m.ExpiresAt.Format(time.ANSIC))
 	builder.WriteString(", ")
@@ -165,6 +191,21 @@ func (_m *Session) String() string {
 		builder.WriteString("revoked_at=")
 		builder.WriteString(v.Format(time.ANSIC))
 	}
+	builder.WriteString(", ")
+	builder.WriteString("ip=")
+	builder.WriteString(_m.IP)
+	builder.WriteString(", ")
+	builder.WriteString("client=")
+	builder.WriteString(_m.Client)
+	builder.WriteString(", ")
+	builder.WriteString("browser=")
+	builder.WriteString(_m.Browser)
+	builder.WriteString(", ")
+	builder.WriteString("os=")
+	builder.WriteString(_m.Os)
+	builder.WriteString(", ")
+	builder.WriteString("last_active_at=")
+	builder.WriteString(_m.LastActiveAt.Format(time.ANSIC))
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
 	builder.WriteString(_m.CreatedAt.Format(time.ANSIC))

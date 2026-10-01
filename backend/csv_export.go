@@ -48,7 +48,8 @@ func streamCSV(w http.ResponseWriter, filename string, header []string, fetch fu
 		}
 		rows, err = fetch(offset + len(rows))
 		if err != nil {
-			log.Printf("%s query: %v", filename, err)
+			exportFailed(w,err)
+ log.Printf("%s query: %v", filename, err)
 			return
 		}
 	}

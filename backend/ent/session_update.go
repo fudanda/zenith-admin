@@ -77,33 +77,6 @@ func (_u *SessionUpdate) SetNillableCsrfHash(v *string) *SessionUpdate {
 	return _u
 }
 
-// SetTenantViewID sets the "tenant_view_id" field.
-func (_u *SessionUpdate) SetTenantViewID(v int) *SessionUpdate {
-	_u.mutation.ResetTenantViewID()
-	_u.mutation.SetTenantViewID(v)
-	return _u
-}
-
-// SetNillableTenantViewID sets the "tenant_view_id" field if the given value is not nil.
-func (_u *SessionUpdate) SetNillableTenantViewID(v *int) *SessionUpdate {
-	if v != nil {
-		_u.SetTenantViewID(*v)
-	}
-	return _u
-}
-
-// AddTenantViewID adds value to the "tenant_view_id" field.
-func (_u *SessionUpdate) AddTenantViewID(v int) *SessionUpdate {
-	_u.mutation.AddTenantViewID(v)
-	return _u
-}
-
-// ClearTenantViewID clears the value of the "tenant_view_id" field.
-func (_u *SessionUpdate) ClearTenantViewID() *SessionUpdate {
-	_u.mutation.ClearTenantViewID()
-	return _u
-}
-
 // SetExpiresAt sets the "expires_at" field.
 func (_u *SessionUpdate) SetExpiresAt(v time.Time) *SessionUpdate {
 	_u.mutation.SetExpiresAt(v)
@@ -135,6 +108,76 @@ func (_u *SessionUpdate) SetNillableRevokedAt(v *time.Time) *SessionUpdate {
 // ClearRevokedAt clears the value of the "revoked_at" field.
 func (_u *SessionUpdate) ClearRevokedAt() *SessionUpdate {
 	_u.mutation.ClearRevokedAt()
+	return _u
+}
+
+// SetIP sets the "ip" field.
+func (_u *SessionUpdate) SetIP(v string) *SessionUpdate {
+	_u.mutation.SetIP(v)
+	return _u
+}
+
+// SetNillableIP sets the "ip" field if the given value is not nil.
+func (_u *SessionUpdate) SetNillableIP(v *string) *SessionUpdate {
+	if v != nil {
+		_u.SetIP(*v)
+	}
+	return _u
+}
+
+// SetClient sets the "client" field.
+func (_u *SessionUpdate) SetClient(v string) *SessionUpdate {
+	_u.mutation.SetClient(v)
+	return _u
+}
+
+// SetNillableClient sets the "client" field if the given value is not nil.
+func (_u *SessionUpdate) SetNillableClient(v *string) *SessionUpdate {
+	if v != nil {
+		_u.SetClient(*v)
+	}
+	return _u
+}
+
+// SetBrowser sets the "browser" field.
+func (_u *SessionUpdate) SetBrowser(v string) *SessionUpdate {
+	_u.mutation.SetBrowser(v)
+	return _u
+}
+
+// SetNillableBrowser sets the "browser" field if the given value is not nil.
+func (_u *SessionUpdate) SetNillableBrowser(v *string) *SessionUpdate {
+	if v != nil {
+		_u.SetBrowser(*v)
+	}
+	return _u
+}
+
+// SetOs sets the "os" field.
+func (_u *SessionUpdate) SetOs(v string) *SessionUpdate {
+	_u.mutation.SetOs(v)
+	return _u
+}
+
+// SetNillableOs sets the "os" field if the given value is not nil.
+func (_u *SessionUpdate) SetNillableOs(v *string) *SessionUpdate {
+	if v != nil {
+		_u.SetOs(*v)
+	}
+	return _u
+}
+
+// SetLastActiveAt sets the "last_active_at" field.
+func (_u *SessionUpdate) SetLastActiveAt(v time.Time) *SessionUpdate {
+	_u.mutation.SetLastActiveAt(v)
+	return _u
+}
+
+// SetNillableLastActiveAt sets the "last_active_at" field if the given value is not nil.
+func (_u *SessionUpdate) SetNillableLastActiveAt(v *time.Time) *SessionUpdate {
+	if v != nil {
+		_u.SetLastActiveAt(*v)
+	}
 	return _u
 }
 
@@ -205,15 +248,6 @@ func (_u *SessionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	if value, ok := _u.mutation.CsrfHash(); ok {
 		_spec.SetField(session.FieldCsrfHash, field.TypeString, value)
 	}
-	if value, ok := _u.mutation.TenantViewID(); ok {
-		_spec.SetField(session.FieldTenantViewID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantViewID(); ok {
-		_spec.AddField(session.FieldTenantViewID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantViewIDCleared() {
-		_spec.ClearField(session.FieldTenantViewID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.ExpiresAt(); ok {
 		_spec.SetField(session.FieldExpiresAt, field.TypeTime, value)
 	}
@@ -222,6 +256,21 @@ func (_u *SessionUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 	}
 	if _u.mutation.RevokedAtCleared() {
 		_spec.ClearField(session.FieldRevokedAt, field.TypeTime)
+	}
+	if value, ok := _u.mutation.IP(); ok {
+		_spec.SetField(session.FieldIP, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.GetClient(); ok {
+		_spec.SetField(session.FieldClient, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Browser(); ok {
+		_spec.SetField(session.FieldBrowser, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Os(); ok {
+		_spec.SetField(session.FieldOs, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.LastActiveAt(); ok {
+		_spec.SetField(session.FieldLastActiveAt, field.TypeTime, value)
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(session.FieldCreatedAt, field.TypeTime, value)
@@ -295,33 +344,6 @@ func (_u *SessionUpdateOne) SetNillableCsrfHash(v *string) *SessionUpdateOne {
 	return _u
 }
 
-// SetTenantViewID sets the "tenant_view_id" field.
-func (_u *SessionUpdateOne) SetTenantViewID(v int) *SessionUpdateOne {
-	_u.mutation.ResetTenantViewID()
-	_u.mutation.SetTenantViewID(v)
-	return _u
-}
-
-// SetNillableTenantViewID sets the "tenant_view_id" field if the given value is not nil.
-func (_u *SessionUpdateOne) SetNillableTenantViewID(v *int) *SessionUpdateOne {
-	if v != nil {
-		_u.SetTenantViewID(*v)
-	}
-	return _u
-}
-
-// AddTenantViewID adds value to the "tenant_view_id" field.
-func (_u *SessionUpdateOne) AddTenantViewID(v int) *SessionUpdateOne {
-	_u.mutation.AddTenantViewID(v)
-	return _u
-}
-
-// ClearTenantViewID clears the value of the "tenant_view_id" field.
-func (_u *SessionUpdateOne) ClearTenantViewID() *SessionUpdateOne {
-	_u.mutation.ClearTenantViewID()
-	return _u
-}
-
 // SetExpiresAt sets the "expires_at" field.
 func (_u *SessionUpdateOne) SetExpiresAt(v time.Time) *SessionUpdateOne {
 	_u.mutation.SetExpiresAt(v)
@@ -353,6 +375,76 @@ func (_u *SessionUpdateOne) SetNillableRevokedAt(v *time.Time) *SessionUpdateOne
 // ClearRevokedAt clears the value of the "revoked_at" field.
 func (_u *SessionUpdateOne) ClearRevokedAt() *SessionUpdateOne {
 	_u.mutation.ClearRevokedAt()
+	return _u
+}
+
+// SetIP sets the "ip" field.
+func (_u *SessionUpdateOne) SetIP(v string) *SessionUpdateOne {
+	_u.mutation.SetIP(v)
+	return _u
+}
+
+// SetNillableIP sets the "ip" field if the given value is not nil.
+func (_u *SessionUpdateOne) SetNillableIP(v *string) *SessionUpdateOne {
+	if v != nil {
+		_u.SetIP(*v)
+	}
+	return _u
+}
+
+// SetClient sets the "client" field.
+func (_u *SessionUpdateOne) SetClient(v string) *SessionUpdateOne {
+	_u.mutation.SetClient(v)
+	return _u
+}
+
+// SetNillableClient sets the "client" field if the given value is not nil.
+func (_u *SessionUpdateOne) SetNillableClient(v *string) *SessionUpdateOne {
+	if v != nil {
+		_u.SetClient(*v)
+	}
+	return _u
+}
+
+// SetBrowser sets the "browser" field.
+func (_u *SessionUpdateOne) SetBrowser(v string) *SessionUpdateOne {
+	_u.mutation.SetBrowser(v)
+	return _u
+}
+
+// SetNillableBrowser sets the "browser" field if the given value is not nil.
+func (_u *SessionUpdateOne) SetNillableBrowser(v *string) *SessionUpdateOne {
+	if v != nil {
+		_u.SetBrowser(*v)
+	}
+	return _u
+}
+
+// SetOs sets the "os" field.
+func (_u *SessionUpdateOne) SetOs(v string) *SessionUpdateOne {
+	_u.mutation.SetOs(v)
+	return _u
+}
+
+// SetNillableOs sets the "os" field if the given value is not nil.
+func (_u *SessionUpdateOne) SetNillableOs(v *string) *SessionUpdateOne {
+	if v != nil {
+		_u.SetOs(*v)
+	}
+	return _u
+}
+
+// SetLastActiveAt sets the "last_active_at" field.
+func (_u *SessionUpdateOne) SetLastActiveAt(v time.Time) *SessionUpdateOne {
+	_u.mutation.SetLastActiveAt(v)
+	return _u
+}
+
+// SetNillableLastActiveAt sets the "last_active_at" field if the given value is not nil.
+func (_u *SessionUpdateOne) SetNillableLastActiveAt(v *time.Time) *SessionUpdateOne {
+	if v != nil {
+		_u.SetLastActiveAt(*v)
+	}
 	return _u
 }
 
@@ -453,15 +545,6 @@ func (_u *SessionUpdateOne) sqlSave(ctx context.Context) (_node *Session, err er
 	if value, ok := _u.mutation.CsrfHash(); ok {
 		_spec.SetField(session.FieldCsrfHash, field.TypeString, value)
 	}
-	if value, ok := _u.mutation.TenantViewID(); ok {
-		_spec.SetField(session.FieldTenantViewID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantViewID(); ok {
-		_spec.AddField(session.FieldTenantViewID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantViewIDCleared() {
-		_spec.ClearField(session.FieldTenantViewID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.ExpiresAt(); ok {
 		_spec.SetField(session.FieldExpiresAt, field.TypeTime, value)
 	}
@@ -470,6 +553,21 @@ func (_u *SessionUpdateOne) sqlSave(ctx context.Context) (_node *Session, err er
 	}
 	if _u.mutation.RevokedAtCleared() {
 		_spec.ClearField(session.FieldRevokedAt, field.TypeTime)
+	}
+	if value, ok := _u.mutation.IP(); ok {
+		_spec.SetField(session.FieldIP, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.GetClient(); ok {
+		_spec.SetField(session.FieldClient, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Browser(); ok {
+		_spec.SetField(session.FieldBrowser, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.Os(); ok {
+		_spec.SetField(session.FieldOs, field.TypeString, value)
+	}
+	if value, ok := _u.mutation.LastActiveAt(); ok {
+		_spec.SetField(session.FieldLastActiveAt, field.TypeTime, value)
 	}
 	if value, ok := _u.mutation.CreatedAt(); ok {
 		_spec.SetField(session.FieldCreatedAt, field.TypeTime, value)

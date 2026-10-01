@@ -6,6 +6,7 @@
  * 身份合并 / 退出前刷写等调用在模块就绪后执行，未就绪时无事件可刷写、直接跳过。
  */
 import { config } from '@/config';
+import { IS_GO_FOUNDATION } from './foundation-mode';
 
 type TrackerModule = typeof import('@/utils/tracker');
 
@@ -22,6 +23,7 @@ export function loadTracker(): Promise<TrackerModule> {
 
 /** 空闲时初始化埋点（自动采集 / Web Vitals / API 监控），最迟 3s 内开始 */
 export function scheduleTrackerInit(): void {
+  if (IS_GO_FOUNDATION) return;
   const start = () => void loadTracker().then((t) => {
     t.configureTracker({ deploymentId: config.deploymentId });
     t.initTracker();
@@ -31,6 +33,7 @@ export function scheduleTrackerInit(): void {
 }
 
 export function trackerIdentify(userId: number | string, username?: string): void {
+  if (IS_GO_FOUNDATION) return;
   void loadTracker().then((t) => t.identify(userId, username)).catch(() => {});
 }
 

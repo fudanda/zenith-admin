@@ -21,15 +21,16 @@
  */
 import { businessFormModules } from './business-form-registry';
 import { createComponentRegistry, type ComponentModuleMap } from './component-registry';
+const IS_GO_FOUNDATION = import.meta.env.VITE_GO_FOUNDATION === 'true';
 
 // glob 相对当前文件（src/utils），故使用 ../pages
-const pageModules = import.meta.glob([
+const pageModules = (IS_GO_FOUNDATION ? import.meta.glob(['../pages/system/positions/PositionsPage.tsx', '../pages/system/departments/DepartmentsPage.tsx', '../pages/users/UsersPage.tsx', '../pages/system/menus/MenusPage.tsx', '../pages/system/roles/RolesPage.tsx', '../pages/system/user-groups/UserGroupsPage.tsx', '../pages/system/file-configs/FileStorageConfigsPage.tsx', '../pages/system/files/FilesPage.tsx', '../pages/system/dicts/DictsPage.tsx', '../pages/system/settings/SettingsPage.tsx', '../pages/system/identity-security/IdentitySecurityPage.tsx', '../pages/system/sessions/OnlineSessionsPage.tsx', '../pages/system/login-logs/LoginLogsPage.tsx', '../pages/system/operation-logs/OperationLogsPage.tsx']) : import.meta.glob([
   '../pages/**/*Page.tsx',
   '!../pages/**/*Skeleton.tsx',
   '!../pages/**/*.test.tsx',
-]) as ComponentModuleMap;
+])) as ComponentModuleMap;
 
-const registry = createComponentRegistry({ ...businessFormModules, ...pageModules });
+const registry = createComponentRegistry({ ...(IS_GO_FOUNDATION ? {} : businessFormModules), ...pageModules });
 
 /** 解析组件路径为动态 import loader；不存在时返回 null */
 export const resolvePageLoader = registry.resolveLoader;

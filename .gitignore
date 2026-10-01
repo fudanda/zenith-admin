@@ -34,3 +34,16 @@ packages/server/assets/fonts/*.subset.otf
 release_artifacts/
 
 .freebuff/
+packages/web/dist-go/
+
+!/backend/internal/dashboard/dist/
+/backend/internal/dashboard/dist/*
+!/backend/internal/dashboard/dist/README.txt
+
+/.env.go
+/backend/bin/
+
+/backend/backups/
+
+# Original preview runtime copied from the installed dependency for Go embedding.
+packages/web/public/monaco/

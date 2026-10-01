@@ -19,8 +19,6 @@ type UploadSession struct {
 	ID string `json:"id,omitempty"`
 	// StorageConfigID holds the value of the "storage_config_id" field.
 	StorageConfigID int `json:"storage_config_id,omitempty"`
-	// TenantID holds the value of the "tenant_id" field.
-	TenantID *int `json:"tenant_id,omitempty"`
 	// UploaderID holds the value of the "uploader_id" field.
 	UploaderID int `json:"uploader_id,omitempty"`
 	// FileName holds the value of the "file_name" field.
@@ -51,7 +49,7 @@ func (*UploadSession) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case uploadsession.FieldStorageConfigID, uploadsession.FieldTenantID, uploadsession.FieldUploaderID, uploadsession.FieldFileSize, uploadsession.FieldChunkSize, uploadsession.FieldTotalChunks:
+		case uploadsession.FieldStorageConfigID, uploadsession.FieldUploaderID, uploadsession.FieldFileSize, uploadsession.FieldChunkSize, uploadsession.FieldTotalChunks:
 			values[i] = new(sql.NullInt64)
 		case uploadsession.FieldID, uploadsession.FieldFileName, uploadsession.FieldMimeType, uploadsession.FieldVisibility, uploadsession.FieldStatus:
 			values[i] = new(sql.NullString)
@@ -83,13 +81,6 @@ func (_m *UploadSession) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field storage_config_id", values[i])
 			} else if value.Valid {
 				_m.StorageConfigID = int(value.Int64)
-			}
-		case uploadsession.FieldTenantID:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field tenant_id", values[i])
-			} else if value.Valid {
-				_m.TenantID = new(int)
-				*_m.TenantID = int(value.Int64)
 			}
 		case uploadsession.FieldUploaderID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -196,11 +187,6 @@ func (_m *UploadSession) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v, ", _m.ID))
 	builder.WriteString("storage_config_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.StorageConfigID))
-	builder.WriteString(", ")
-	if v := _m.TenantID; v != nil {
-		builder.WriteString("tenant_id=")
-		builder.WriteString(fmt.Sprintf("%v", *v))
-	}
 	builder.WriteString(", ")
 	builder.WriteString("uploader_id=")
 	builder.WriteString(fmt.Sprintf("%v", _m.UploaderID))

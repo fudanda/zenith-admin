@@ -25,12 +25,7 @@ const minChunkBytes int64 = 5 << 20
 const maxChunkBytes int64 = 32 << 20
 const maxChunks int64 = 10000
 
-func uploadScope(p *principal) predicate.UploadSession {
-	if p.TenantID == nil {
-		return uploadsession.TenantIDIsNil()
-	}
-	return uploadsession.TenantIDEQ(*p.TenantID)
-}
+func uploadScope(_ *principal) predicate.UploadSession { return uploadsession.IDNEQ("") }
 
 func (f *Framework) ownedUpload(ctx context.Context, p *principal, id string) (*ent.UploadSession, error) {
 	if _, err := uuid.Parse(id); err != nil {
@@ -93,16 +88,12 @@ func (f *Framework) uploadInit(w http.ResponseWriter, r *http.Request) {
 		if in.MimeType != "" {
 			create.SetMimeType(in.MimeType)
 		}
-		if p.TenantID != nil {
-			create.SetTenantID(*p.TenantID)
-		}
+
 		if err := create.Exec(r.Context()); err != nil {
 			return err
 		}
 		audit := tx.AuditLog.Create().SetActorID(p.User.ID).SetOperation("upload_init").SetResource("upload_sessions").SetRequestID(requestID(r))
-		if p.TenantID != nil {
-			audit.SetTenantID(*p.TenantID)
-		}
+
 		return audit.Exec(r.Context())
 	})
 	if err != nil {
@@ -427,9 +418,7 @@ func (f *Framework) uploadAbort(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		audit := tx.AuditLog.Create().SetActorID(p.User.ID).SetOperation("upload_abort").SetResource("upload_sessions").SetRequestID(requestID(r))
-		if p.TenantID != nil {
-			audit.SetTenantID(*p.TenantID)
-		}
+
 		return audit.Exec(r.Context())
 	})
 	if err != nil {

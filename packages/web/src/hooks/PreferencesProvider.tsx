@@ -12,21 +12,25 @@ import { settingsKeys, useMySettings } from './queries/settings';
 import { preferencesKey, usePersonalPreferences, useSavePersonalPreferences } from './queries/preferences';
 import { subscribeWsStatus, useWebSocket } from './useWebSocket';
 import { PreferencesContext, type PreferenceChangeResult } from './usePreferences';
+import { goAuthContract } from '@zenith/shared/identity';
+import { contractKey, useApiQuery } from '@/lib/contract-query';
+import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 
 export function PreferencesProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [cached] = useState(readPreferenceCache);
   const queryClient = useQueryClient();
   const personal = usePersonalPreferences();
   const settings = useMySettings();
+  const goPolicy = useApiQuery(goAuthContract.preferencePolicy, { enabled: IS_GO_FOUNDATION });
   const { mutateAsync } = useSavePersonalPreferences();
   const [draft, setDraft] = useState<PreferenceOverrides | null>(null);
   const revision = useRef(0);
-  const policy = settings.data?.ui.preferences ?? cached.policy;
+  const policy = (IS_GO_FOUNDATION ? goPolicy.data : settings.data?.ui.preferences) ?? cached.policy;
   const overrides = draft ?? personal.data?.overrides ?? cached.overrides;
   const preferences = useMemo(() => resolvePreferences(policy, overrides), [policy, overrides]);
-  const ready = personal.isFetched && settings.isFetched;
+  const ready = personal.isFetched && (IS_GO_FOUNDATION ? goPolicy.isFetched : settings.isFetched);
   // 缓存只用于渲染，策略和个人数据未成功读取时不允许写入。
-  const writable = Boolean(personal.data && settings.data);
+  const writable = Boolean(personal.data && (IS_GO_FOUNDATION ? goPolicy.data : settings.data));
   const current = useRef({ policy, overrides, writable });
   current.current = { policy, overrides, writable };
 
@@ -41,7 +45,7 @@ export function PreferencesProvider({ children }: Readonly<{ children: ReactNode
   }, [queryClient, preferences.refetchOnFocus]);
 
   const refreshPolicy = useCallback(() => {
-    void queryClient.invalidateQueries({ queryKey: settingsKeys.me });
+    void queryClient.invalidateQueries({ queryKey: IS_GO_FOUNDATION ? contractKey(goAuthContract.preferencePolicy) : settingsKeys.me });
   }, [queryClient]);
   useWebSocket((message) => { if (message.type === 'preferences:policy-updated') refreshPolicy(); });
   useEffect(() => subscribeWsStatus((connected) => { if (connected) refreshPolicy(); }), [refreshPolicy]);

@@ -15,8 +15,6 @@ const (
 	FieldID = "id"
 	// FieldStorageConfigID holds the string denoting the storage_config_id field in the database.
 	FieldStorageConfigID = "storage_config_id"
-	// FieldTenantID holds the string denoting the tenant_id field in the database.
-	FieldTenantID = "tenant_id"
 	// FieldUploaderID holds the string denoting the uploader_id field in the database.
 	FieldUploaderID = "uploader_id"
 	// FieldFileName holds the string denoting the file_name field in the database.
@@ -47,7 +45,6 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldStorageConfigID,
-	FieldTenantID,
 	FieldUploaderID,
 	FieldFileName,
 	FieldFileSize,
@@ -99,11 +96,6 @@ func ByID(opts ...sql.OrderTermOption) OrderOption {
 // ByStorageConfigID orders the results by the storage_config_id field.
 func ByStorageConfigID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldStorageConfigID, opts...).ToFunc()
-}
-
-// ByTenantID orders the results by the tenant_id field.
-func ByTenantID(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldTenantID, opts...).ToFunc()
 }
 
 // ByUploaderID orders the results by the uploader_id field.

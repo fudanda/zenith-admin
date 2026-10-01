@@ -28,33 +28,6 @@ func (_u *UserGroupUpdate) Where(ps ...predicate.UserGroup) *UserGroupUpdate {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *UserGroupUpdate) SetTenantID(v int) *UserGroupUpdate {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *UserGroupUpdate) SetNillableTenantID(v *int) *UserGroupUpdate {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *UserGroupUpdate) AddTenantID(v int) *UserGroupUpdate {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *UserGroupUpdate) ClearTenantID() *UserGroupUpdate {
-	_u.mutation.ClearTenantID()
-	return _u
-}
-
 // SetName sets the "name" field.
 func (_u *UserGroupUpdate) SetName(v string) *UserGroupUpdate {
 	_u.mutation.SetName(v)
@@ -260,15 +233,6 @@ func (_u *UserGroupUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(usergroup.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(usergroup.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(usergroup.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(usergroup.FieldName, field.TypeString, value)
 	}
@@ -332,33 +296,6 @@ type UserGroupUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *UserGroupMutation
-}
-
-// SetTenantID sets the "tenant_id" field.
-func (_u *UserGroupUpdateOne) SetTenantID(v int) *UserGroupUpdateOne {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *UserGroupUpdateOne) SetNillableTenantID(v *int) *UserGroupUpdateOne {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *UserGroupUpdateOne) AddTenantID(v int) *UserGroupUpdateOne {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *UserGroupUpdateOne) ClearTenantID() *UserGroupUpdateOne {
-	_u.mutation.ClearTenantID()
-	return _u
 }
 
 // SetName sets the "name" field.
@@ -595,15 +532,6 @@ func (_u *UserGroupUpdateOne) sqlSave(ctx context.Context) (_node *UserGroup, er
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(usergroup.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(usergroup.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(usergroup.FieldTenantID, field.TypeInt)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(usergroup.FieldName, field.TypeString, value)

@@ -28,33 +28,6 @@ func (_u *RoleUpdate) Where(ps ...predicate.Role) *RoleUpdate {
 	return _u
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_u *RoleUpdate) SetTenantID(v int) *RoleUpdate {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *RoleUpdate) SetNillableTenantID(v *int) *RoleUpdate {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *RoleUpdate) AddTenantID(v int) *RoleUpdate {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *RoleUpdate) ClearTenantID() *RoleUpdate {
-	_u.mutation.ClearTenantID()
-	return _u
-}
-
 // SetName sets the "name" field.
 func (_u *RoleUpdate) SetName(v string) *RoleUpdate {
 	_u.mutation.SetName(v)
@@ -201,15 +174,6 @@ func (_u *RoleUpdate) sqlSave(ctx context.Context) (_node int, err error) {
 			}
 		}
 	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(role.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(role.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(role.FieldTenantID, field.TypeInt)
-	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(role.FieldName, field.TypeString, value)
 	}
@@ -252,33 +216,6 @@ type RoleUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *RoleMutation
-}
-
-// SetTenantID sets the "tenant_id" field.
-func (_u *RoleUpdateOne) SetTenantID(v int) *RoleUpdateOne {
-	_u.mutation.ResetTenantID()
-	_u.mutation.SetTenantID(v)
-	return _u
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_u *RoleUpdateOne) SetNillableTenantID(v *int) *RoleUpdateOne {
-	if v != nil {
-		_u.SetTenantID(*v)
-	}
-	return _u
-}
-
-// AddTenantID adds value to the "tenant_id" field.
-func (_u *RoleUpdateOne) AddTenantID(v int) *RoleUpdateOne {
-	_u.mutation.AddTenantID(v)
-	return _u
-}
-
-// ClearTenantID clears the value of the "tenant_id" field.
-func (_u *RoleUpdateOne) ClearTenantID() *RoleUpdateOne {
-	_u.mutation.ClearTenantID()
-	return _u
 }
 
 // SetName sets the "name" field.
@@ -456,15 +393,6 @@ func (_u *RoleUpdateOne) sqlSave(ctx context.Context) (_node *Role, err error) {
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := _u.mutation.TenantID(); ok {
-		_spec.SetField(role.FieldTenantID, field.TypeInt, value)
-	}
-	if value, ok := _u.mutation.AddedTenantID(); ok {
-		_spec.AddField(role.FieldTenantID, field.TypeInt, value)
-	}
-	if _u.mutation.TenantIDCleared() {
-		_spec.ClearField(role.FieldTenantID, field.TypeInt)
 	}
 	if value, ok := _u.mutation.Name(); ok {
 		_spec.SetField(role.FieldName, field.TypeString, value)

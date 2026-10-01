@@ -1,0 +1,462 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "enableTabs": {
+      "type": "boolean"
+    },
+    "keepTabs": {
+      "type": "boolean"
+    },
+    "enablePageCache": {
+      "type": "boolean"
+    },
+    "tabsMaxCount": {
+      "type": "integer",
+      "minimum": 5,
+      "maximum": 50
+    },
+    "showTabIcon": {
+      "type": "boolean"
+    },
+    "compactTabs": {
+      "type": "boolean"
+    },
+    "autoHideTabs": {
+      "type": "boolean"
+    },
+    "tabsSize": {
+      "type": "string",
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ]
+    },
+    "tabsType": {
+      "type": "string",
+      "enum": [
+        "line",
+        "button",
+        "card",
+        "slash"
+      ]
+    },
+    "tabStyle": {
+      "type": "string",
+      "enum": [
+        "line",
+        "pill",
+        "card",
+        "chrome",
+        "minimal",
+        "segment",
+        "block",
+        "shortline",
+        "dot",
+        "topline"
+      ]
+    },
+    "navLayout": {
+      "type": "string",
+      "enum": [
+        "vertical",
+        "horizontal",
+        "mixed",
+        "double"
+      ]
+    },
+    "doubleRailStyle": {
+      "type": "string",
+      "enum": [
+        "icon",
+        "icon-text"
+      ]
+    },
+    "showBreadcrumb": {
+      "type": "boolean"
+    },
+    "breadcrumbIcon": {
+      "type": "boolean"
+    },
+    "breadcrumbShowHome": {
+      "type": "boolean"
+    },
+    "tabAnimation": {
+      "type": "string",
+      "enum": [
+        "none",
+        "fade",
+        "slide",
+        "scale"
+      ]
+    },
+    "colorMode": {
+      "type": "string",
+      "enum": [
+        "light",
+        "dark",
+        "system"
+      ]
+    },
+    "scheduledDarkMode": {
+      "type": "string",
+      "enum": [
+        "off",
+        "custom"
+      ]
+    },
+    "scheduledDarkStart": {
+      "type": "string",
+      "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+    },
+    "scheduledDarkEnd": {
+      "type": "string",
+      "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+    },
+    "themeColor": {
+      "anyOf": [
+        {
+          "enum": [
+            "blue",
+            "wechat",
+            "navy",
+            "indigo",
+            "violet",
+            "purple",
+            "cyan",
+            "peacock",
+            "green",
+            "forest",
+            "orange",
+            "rose",
+            "wine",
+            "fuchsia",
+            "teal",
+            "slate",
+            "red",
+            "pink",
+            "amber",
+            "gold",
+            "sky",
+            "coral",
+            "lime",
+            "brown",
+            "charcoal",
+            "klein",
+            "tiffany",
+            "jade",
+            "mars",
+            "bamboo",
+            "wisteria",
+            "sakura",
+            "ink",
+            "copper",
+            "plum"
+          ]
+        },
+        {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        }
+      ]
+    },
+    "sidebarDarkMode": {
+      "type": "boolean"
+    },
+    "headerDarkMode": {
+      "type": "boolean"
+    },
+    "darkSidebarTone": {
+      "type": "string",
+      "enum": [
+        "bg-1",
+        "bg-0"
+      ]
+    },
+    "darkHeaderTone": {
+      "type": "string",
+      "enum": [
+        "bg-1",
+        "bg-0"
+      ]
+    },
+    "darkContentTone": {
+      "type": "string",
+      "enum": [
+        "bg-1",
+        "bg-0"
+      ]
+    },
+    "showMenuSearch": {
+      "type": "boolean"
+    },
+    "topbarClock": {
+      "type": "string",
+      "enum": [
+        "off",
+        "12h",
+        "24h"
+      ]
+    },
+    "topbarClockShowDate": {
+      "type": "boolean"
+    },
+    "showFullscreen": {
+      "type": "boolean"
+    },
+    "showLogo": {
+      "type": "boolean"
+    },
+    "showFavorites": {
+      "type": "boolean"
+    },
+    "dynamicTitle": {
+      "type": "boolean"
+    },
+    "filesViewMode": {
+      "type": "string",
+      "enum": [
+        "list",
+        "grid"
+      ]
+    },
+    "sidebarStickyScroll": {
+      "type": "boolean"
+    },
+    "showTableColumnSettings": {
+      "type": "boolean"
+    },
+    "tableBordered": {
+      "type": "boolean"
+    },
+    "tableStriped": {
+      "type": "boolean"
+    },
+    "tableSize": {
+      "type": "string",
+      "enum": [
+        "small",
+        "default",
+        "middle"
+      ]
+    },
+    "tablePageSize": {
+      "anyOf": [
+        {
+          "type": "number",
+          "const": 10
+        },
+        {
+          "type": "number",
+          "const": 20
+        },
+        {
+          "type": "number",
+          "const": 50
+        },
+        {
+          "type": "number",
+          "const": 100
+        }
+      ]
+    },
+    "sidebarAccordion": {
+      "type": "boolean"
+    },
+    "sidebarHoverTrigger": {
+      "type": "boolean"
+    },
+    "sidebarToggleIconPosition": {
+      "type": "string",
+      "enum": [
+        "left",
+        "right"
+      ]
+    },
+    "breadcrumbClickable": {
+      "type": "boolean"
+    },
+    "breadcrumbSubMenu": {
+      "type": "boolean"
+    },
+    "openTabBehavior": {
+      "type": "string",
+      "enum": [
+        "append",
+        "insert-next"
+      ]
+    },
+    "scrollMenuIntoView": {
+      "type": "boolean"
+    },
+    "tabDoubleClickAction": {
+      "type": "string",
+      "enum": [
+        "refresh",
+        "close",
+        "none"
+      ]
+    },
+    "tabEvictPolicy": {
+      "type": "string",
+      "enum": [
+        "fifo",
+        "lru"
+      ]
+    },
+    "routeAnimation": {
+      "type": "string",
+      "enum": [
+        "none",
+        "fade",
+        "slide-up",
+        "slide-left"
+      ]
+    },
+    "grayscale": {
+      "type": "boolean"
+    },
+    "colorBlind": {
+      "type": "boolean"
+    },
+    "contentWidth": {
+      "type": "string",
+      "enum": [
+        "fluid",
+        "fixed"
+      ]
+    },
+    "sidebarWidth": {
+      "type": "integer",
+      "minimum": 160,
+      "maximum": 320
+    },
+    "borderRadius": {
+      "type": "string",
+      "enum": [
+        "none",
+        "small",
+        "medium",
+        "large"
+      ]
+    },
+    "showBackTop": {
+      "type": "boolean"
+    },
+    "showProgressBar": {
+      "type": "boolean"
+    },
+    "loadingStyle": {
+      "type": "string",
+      "enum": [
+        "flip",
+        "dots",
+        "ring",
+        "bars",
+        "spinner",
+        "bounce",
+        "ripple",
+        "progress",
+        "orbit",
+        "grid",
+        "travel",
+        "ellipsis",
+        "carousel",
+        "landing",
+        "pendulum",
+        "marquee"
+      ]
+    },
+    "enableShortcuts": {
+      "type": "boolean"
+    },
+    "syncPageStateToUrl": {
+      "type": "boolean"
+    },
+    "homePath": {
+      "type": "string",
+      "maxLength": 512,
+      "enum": [
+        "/",
+        "/system/departments",
+        "/system/positions",
+        "/system/users",
+        "/system/menus",
+        "/system/roles",
+        "/system/user-groups",
+        "/system/dicts",
+        "/system/settings",
+        "/system/identity-security",
+        "/system/file-configs",
+        "/system/files",
+        "/system/sessions",
+        "/system/login-logs",
+        "/system/operation-logs",
+        "/profile"
+      ]
+    },
+    "reduceMotion": {
+      "type": "boolean"
+    },
+    "confirmLogout": {
+      "type": "boolean"
+    },
+    "modalClickMaskToClose": {
+      "type": "boolean"
+    },
+    "showTabSwitcher": {
+      "type": "boolean"
+    },
+    "uiScale": {
+      "anyOf": [
+        {
+          "type": "number",
+          "const": 90
+        },
+        {
+          "type": "number",
+          "const": 100
+        },
+        {
+          "type": "number",
+          "const": 110
+        },
+        {
+          "type": "number",
+          "const": 120
+        }
+      ]
+    },
+    "fontFamily": {
+      "type": "string",
+      "enum": [
+        "system",
+        "inter",
+        "noto-sans-sc",
+        "mono"
+      ]
+    },
+    "timeDisplay": {
+      "type": "string",
+      "enum": [
+        "absolute",
+        "relative"
+      ]
+    },
+    "weekStart": {
+      "type": "string",
+      "enum": [
+        "monday",
+        "sunday"
+      ]
+    },
+    "refetchOnFocus": {
+      "type": "boolean"
+    },
+    "rememberListFilters": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

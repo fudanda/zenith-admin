@@ -303,10 +303,29 @@ func (f *Framework) saveMenu(w http.ResponseWriter, r *http.Request) {
 				return err
 			}
 			in = menuInputFrom(current)
+			if !p.SuperAdmin && current.Permission != nil && *current.Permission != "" {
+				allowed, err := f.permitted(r.Context(), p, *current.Permission)
+				if err != nil {
+					return err
+				}
+				if !allowed {
+					return errGrantDenied
+				}
+			}
+
 		}
 		in, err = mergeMenuInput(in, patch)
 		if err != nil {
 			return err
+		}
+		if !p.SuperAdmin && in.Permission != nil && *in.Permission != "" {
+			allowed, err := f.permitted(r.Context(), p, *in.Permission)
+			if err != nil {
+				return err
+			}
+			if !allowed {
+				return errGrantDenied
+			}
 		}
 		if err := validateMenu(in); err != nil {
 			return err
@@ -339,6 +358,10 @@ func (f *Framework) saveMenu(w http.ResponseWriter, r *http.Request) {
 	})
 	if ent.IsNotFound(err) {
 		fail(w, 404, "not_found", "菜单不存在")
+		return
+	}
+	if errors.Is(err, errGrantDenied) {
+		fail(w, 403, "grant_denied", err.Error())
 		return
 	}
 	if errors.Is(err, errInvalidMenu) {

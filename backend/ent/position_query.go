@@ -262,12 +262,12 @@ func (_q *PositionQuery) Clone() *PositionQuery {
 // Example:
 //
 //	var v []struct {
-//		TenantID int `json:"tenant_id,omitempty"`
+//		Name string `json:"name,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Position.Query().
-//		GroupBy(position.FieldTenantID).
+//		GroupBy(position.FieldName).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (_q *PositionQuery) GroupBy(field string, fields ...string) *PositionGroupBy {
@@ -285,11 +285,11 @@ func (_q *PositionQuery) GroupBy(field string, fields ...string) *PositionGroupB
 // Example:
 //
 //	var v []struct {
-//		TenantID int `json:"tenant_id,omitempty"`
+//		Name string `json:"name,omitempty"`
 //	}
 //
 //	client.Position.Query().
-//		Select(position.FieldTenantID).
+//		Select(position.FieldName).
 //		Scan(ctx, &v)
 func (_q *PositionQuery) Select(fields ...string) *PositionSelect {
 	_q.ctx.Fields = append(_q.ctx.Fields, fields...)

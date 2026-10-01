@@ -11,7 +11,7 @@ import (
 
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/predicate"
-	"github.com/fudanda/zenith-admin/backend/ent/role"
+	"github.com/fudanda/zenith-admin/backend/ent/user"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroup"
 	"github.com/fudanda/zenith-admin/backend/ent/usergroupmember"
 	"github.com/fudanda/zenith-admin/backend/ent/usergrouprole"
@@ -20,12 +20,7 @@ import (
 
 var groupCodePattern = regexp.MustCompile(`^\w+$`)
 
-func groupScope(p *principal) predicate.UserGroup {
-	if p.TenantID == nil {
-		return usergroup.TenantIDIsNil()
-	}
-	return usergroup.TenantIDEQ(*p.TenantID)
-}
+func groupScope(_ *principal) predicate.UserGroup { return usergroup.IDGT(0) }
 func (f *Framework) scopedGroup(r *http.Request, p *principal, id int) (*ent.UserGroup, error) {
 	return f.Store.Client.UserGroup.Query().Where(usergroup.IDEQ(id), groupScope(p)).Only(r.Context())
 }
@@ -41,16 +36,31 @@ func (f *Framework) groupView(r *http.Request, row *ent.UserGroup) (map[string]a
 	}
 	var ownerName *string
 	if row.OwnerID != nil {
-		owner, err := f.Store.Client.User.Get(r.Context(), *row.OwnerID)
+		owner, err := f.visibleUser(r.Context(), fromContext(r.Context()), *row.OwnerID)
 		if err == nil {
 			ownerName = &owner.Nickname
 		} else if !ent.IsNotFound(err) {
 			return nil, err
 		}
 	}
+	memberIDs := make([]int, 0, len(members))
+	for _, link := range members {
+		memberIDs = append(memberIDs, link.UserID)
+	}
+	count, preview, err := f.memberSummary(r.Context(), fromContext(r.Context()), f.Store.Client.User.Query().Where(user.IDIn(memberIDs...)))
+	if err != nil {
+		return nil, err
+	}
+	rolePreview := make([]map[string]any, 0, len(roles))
+	for _, link := range roles {
+		role, err := f.Store.Client.Role.Get(r.Context(), link.RoleID)
+		if err != nil {
+			return nil, err
+		}
+		rolePreview = append(rolePreview, map[string]any{"id": role.ID, "name": role.Name, "code": role.Code, "status": role.Status})
+	}
 	return map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "description": row.Description, "ownerId": row.OwnerID, "ownerName": ownerName,
-		"memberMode": row.MemberMode, "memberRule": row.MemberRule, "ruleSyncedAt": row.RuleSyncedAt, "memberCount": len(members), "roleCount": len(roles), "status": row.Status,
-		"tenantId": row.TenantID, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt}, nil
+		"memberMode": row.MemberMode, "memberRule": row.MemberRule, "ruleSyncedAt": row.RuleSyncedAt, "memberCount": count, "memberPreview": preview, "rolePreview": rolePreview, "roleCount": len(roles), "status": row.Status, "createdAt": row.CreatedAt, "updatedAt": row.UpdatedAt}, nil
 }
 
 func (f *Framework) listGroups(w http.ResponseWriter, r *http.Request) {
@@ -173,24 +183,7 @@ func validateGroup(in groupInput) error {
 }
 
 func (f *Framework) validateGroupRoles(r *http.Request, p *principal, ids []int) error {
-	seen := map[int]bool{}
-	for _, id := range ids {
-		if id < 1 || seen[id] {
-			return errors.New("角色 ID 无效或重复")
-		}
-		seen[id] = true
-		row, err := f.Store.Client.Role.Query().Where(role.IDEQ(id), role.StatusEQ("enabled")).Only(r.Context())
-		if err != nil {
-			return errors.New("角色不存在")
-		}
-		if (row.TenantID == nil) != (p.TenantID == nil) || row.TenantID != nil && *row.TenantID != *p.TenantID {
-			return errors.New("跨租户角色")
-		}
-		if row.Code == "super_admin" {
-			return errors.New("平台超级管理员角色不可分配给用户组")
-		}
-	}
-	return nil
+	return f.validateGrantRoles(r.Context(), p, ids)
 }
 func (f *Framework) validateGroupUsers(r *http.Request, p *principal, ids []int) error {
 	seen := map[int]bool{}
@@ -204,6 +197,14 @@ func (f *Framework) validateGroupUsers(r *http.Request, p *principal, ids []int)
 		}
 	}
 	return nil
+}
+
+func (f *Framework) validateExistingGroupGrant(r *http.Request, p *principal, id int) error {
+	ids, err := f.Store.Client.UserGroupRole.Query().Where(usergrouprole.GroupIDEQ(id)).Select(usergrouprole.FieldRoleID).Ints(r.Context())
+	if err != nil {
+		return err
+	}
+	return f.validateGrantRoles(r.Context(), p, ids)
 }
 
 func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
@@ -331,6 +332,22 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+	if id != 0 && !rolesChanged && (usersChanged || ruleChanged || in.Status == "enabled") {
+		if err := f.validateExistingGroupGrant(r, p, id); err != nil {
+			fail(w, 403, "grant_denied", err.Error())
+			return
+		}
+	}
+	visible, err := f.visibleMemberQuery(r.Context(), p, f.Store.Client.User.Query())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "成员查询失败")
+		return
+	}
+	visibleIDs, err := visible.IDs(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "成员查询失败")
+		return
+	}
 	var saved *ent.UserGroup
 	ruleData, err := ruleToMap(in.MemberRule)
 	if err != nil {
@@ -344,9 +361,7 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 			if ruleData != nil {
 				create.SetMemberRule(ruleData)
 			}
-			if p.TenantID != nil {
-				create.SetTenantID(*p.TenantID)
-			}
+
 			if in.Description != nil {
 				create.SetDescription(*in.Description)
 			}
@@ -388,7 +403,7 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		if in.MemberMode == "static" && (usersChanged || id == 0) {
-			if _, err = tx.UserGroupMember.Delete().Where(usergroupmember.GroupIDEQ(saved.ID)).Exec(r.Context()); err != nil {
+			if _, err = tx.UserGroupMember.Delete().Where(usergroupmember.GroupIDEQ(saved.ID), usergroupmember.UserIDIn(visibleIDs...)).Exec(r.Context()); err != nil {
 				return err
 			}
 			for _, userID := range in.UserIDs {
@@ -398,7 +413,7 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		if in.MemberMode == "dynamic" && (ruleChanged || id == 0) {
-			if _, _, err = syncRuleMembers(r.Context(), tx, saved, in.MemberRule); err != nil {
+			if _, _, err = f.syncRuleMembersAs(r.Context(), tx, p, saved, in.MemberRule); err != nil {
 				return err
 			}
 		}
@@ -407,9 +422,7 @@ func (f *Framework) saveGroup(w http.ResponseWriter, r *http.Request) {
 			operation = "create"
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation(operation).SetResource("user_groups").SetResourceID(saved.ID)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -449,9 +462,7 @@ func (f *Framework) deleteGroup(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("delete").SetResource("user_groups").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -529,8 +540,22 @@ func (f *Framework) setGroupMembers(w http.ResponseWriter, r *http.Request) {
 		fail(w, 400, "invalid_user", err.Error())
 		return
 	}
+	if err := f.validateExistingGroupGrant(r, p, id); err != nil {
+		fail(w, 403, "grant_denied", err.Error())
+		return
+	}
+	visible, err := f.visibleMemberQuery(r.Context(), p, f.Store.Client.User.Query())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "成员查询失败")
+		return
+	}
+	visibleIDs, err := visible.IDs(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "成员查询失败")
+		return
+	}
 	err = f.Store.WithTx(r.Context(), func(tx *ent.Tx) error {
-		if _, err := tx.UserGroupMember.Delete().Where(usergroupmember.GroupIDEQ(id)).Exec(r.Context()); err != nil {
+		if _, err := tx.UserGroupMember.Delete().Where(usergroupmember.GroupIDEQ(id), usergroupmember.UserIDIn(visibleIDs...)).Exec(r.Context()); err != nil {
 			return err
 		}
 		for _, userID := range in.UserIDs {
@@ -539,9 +564,7 @@ func (f *Framework) setGroupMembers(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("set_members").SetResource("user_groups").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {
@@ -581,9 +604,7 @@ func (f *Framework) groupRoles(w http.ResponseWriter, r *http.Request) {
 			fail(w, 503, "database_unavailable", "查询失败")
 			return
 		}
-		if (row.TenantID == nil) != (p.TenantID == nil) || row.TenantID != nil && *row.TenantID != *p.TenantID {
-			continue
-		}
+
 		list = append(list, map[string]any{"id": row.ID, "name": row.Name, "code": row.Code, "status": row.Status})
 	}
 	respond(w, 200, list)
@@ -625,9 +646,7 @@ func (f *Framework) setGroupRoles(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		log := tx.AuditLog.Create().SetActorID(p.User.ID).SetRequestID(requestID(r)).SetOperation("set_roles").SetResource("user_groups").SetResourceID(id)
-		if p.TenantID != nil {
-			log.SetTenantID(*p.TenantID)
-		}
+
 		return log.Exec(r.Context())
 	})
 	if err != nil {

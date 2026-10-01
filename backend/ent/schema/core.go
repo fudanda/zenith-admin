@@ -9,44 +9,12 @@ import (
 	"github.com/google/uuid"
 )
 
-// These tables deliberately retain Zenith's numeric identifiers and tenant semantics.
-type Tenant struct{ ent.Schema }
-
-func (Tenant) Fields() []ent.Field {
-	return []ent.Field{
-		field.String("name").MaxLen(100), field.String("code").MaxLen(50).Unique(),
-		field.String("logo").Optional().Nillable(), field.String("contact_name").Optional().Nillable(), field.String("contact_phone").Optional().Nillable(),
-		field.String("status").Default("enabled"), field.Time("expire_at").Optional().Nillable(),
-		field.Int("max_users").Optional().Nillable(), field.Int("package_id").Optional().Nillable(),
-		field.String("remark").Optional().Nillable(), field.Time("created_at").Default(time.Now),
-		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
-	}
-}
-
-type TenantPackage struct{ ent.Schema }
-
-func (TenantPackage) Fields() []ent.Field {
-	return []ent.Field{
-		field.String("name").MaxLen(100).Unique(), field.String("status").Default("enabled"),
-		field.JSON("quotas", map[string]any{}).Optional(), field.String("remark").Optional().Nillable(),
-		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
-	}
-}
-
-type TenantPackageFeature struct{ ent.Schema }
-
-func (TenantPackageFeature) Fields() []ent.Field {
-	return []ent.Field{field.Int("package_id"), field.String("feature_key")}
-}
-func (TenantPackageFeature) Indexes() []ent.Index {
-	return []ent.Index{index.Fields("package_id", "feature_key").Unique()}
-}
-
+// Fixed single-organization system entities.
 type Department struct{ ent.Schema }
 
 func (Department) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int("tenant_id").Optional().Nillable(), field.Int("parent_id").Default(0),
+		field.Int("parent_id").Default(0),
 		field.String("name").MaxLen(64), field.String("code").MaxLen(64), field.String("category").Default("department"),
 		field.Int("leader_id").Optional().Nillable(), field.String("phone").Optional().Nillable(), field.String("email").Optional().Nillable(),
 		field.Int("sort").Default(0), field.String("status").Default("enabled"),
@@ -54,7 +22,7 @@ func (Department) Fields() []ent.Field {
 	}
 }
 func (Department) Indexes() []ent.Index {
-	return []ent.Index{index.Fields("tenant_id", "code").Unique()}
+	return []ent.Index{index.Fields("code").Unique()}
 }
 
 type UserPosition struct{ ent.Schema }
@@ -70,7 +38,6 @@ type User struct{ ent.Schema }
 
 func (User) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int("tenant_id").Optional().Nillable(),
 		field.String("username").MaxLen(32), field.String("nickname").MaxLen(32),
 		field.String("password_hash").Sensitive(), field.String("status").Default("enabled"),
 		field.String("avatar").Optional().Nillable(),
@@ -83,15 +50,18 @@ func (User) Fields() []ent.Field {
 		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}
 }
-func (User) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "username").Unique()} }
+func (User) Indexes() []ent.Index { return []ent.Index{index.Fields("username").Unique()} }
 
 type Session struct{ ent.Schema }
 
 func (Session) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int("user_id"), field.String("token_hash").Unique().Sensitive(),
-		field.String("csrf_hash").Sensitive(), field.Int("tenant_view_id").Optional().Nillable(),
+		field.String("csrf_hash").Sensitive(),
 		field.Time("expires_at"), field.Time("revoked_at").Optional().Nillable(),
+		field.String("ip").Default(""), field.String("client").Default("web"),
+		field.String("browser").Default(""), field.String("os").Default(""),
+		field.Time("last_active_at").Default(time.Now),
 		field.Time("created_at").Default(time.Now),
 	}
 }
@@ -103,43 +73,45 @@ type Position struct{ ent.Schema }
 
 func (Position) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int("tenant_id").Optional().Nillable(),
 		field.String("name").MaxLen(64), field.String("code").MaxLen(64),
 		field.Int("sort").Default(0), field.String("status").Default("enabled"),
 		field.String("remark").Optional().Nillable(), field.Time("created_at").Default(time.Now),
 		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}
 }
-func (Position) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "code").Unique()} }
+func (Position) Indexes() []ent.Index { return []ent.Index{index.Fields("code").Unique()} }
 
 type AuditLog struct{ ent.Schema }
 
 func (AuditLog) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int("actor_id"), field.Int("tenant_id").Optional().Nillable(),
-		field.String("operation").MaxLen(100), field.String("resource").MaxLen(100),
+		field.Int("actor_id"), field.String("operation").MaxLen(100), field.String("resource").MaxLen(100),
 		field.Int("resource_id").Optional().Nillable(), field.String("request_id").Optional(),
+		field.String("module").Default(""), field.String("description").Default(""), field.String("method").Default(""), field.String("path").Default(""),
+		field.String("ip").Default(""), field.String("user_agent").Default(""), field.String("browser").Default(""), field.String("os").Default(""),
+		field.String("request_body").Optional().Nillable(), field.Int("duration_ms").Default(0), field.Int("response_code").Default(200),
 		field.Time("created_at").Default(time.Now),
 	}
 }
-func (AuditLog) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "created_at")} }
+func (AuditLog) Indexes() []ent.Index { return []ent.Index{index.Fields("created_at")} }
 
 type LoginLog struct{ ent.Schema }
 
 func (LoginLog) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int("user_id").Optional().Nillable(), field.String("username"),
-		field.Int("tenant_id").Optional().Nillable(), field.String("ip").Optional(),
+		field.String("ip").Optional(),
+		field.String("event_type").Default("login"), field.String("user_agent").Default(""), field.String("browser").Default(""), field.String("os").Default(""),
 		field.Bool("success"), field.String("reason").Optional(), field.Time("created_at").Default(time.Now),
 	}
 }
-func (LoginLog) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "created_at")} }
+func (LoginLog) Indexes() []ent.Index { return []ent.Index{index.Fields("created_at")} }
 
 type LoginAttempt struct{ ent.Schema }
 
 func (LoginAttempt) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("key").Unique().Sensitive(), field.Int("failures").Default(0),
+		field.String("key").Unique().Sensitive(), field.String("username_hash").Default("").Sensitive(), field.Int("failures").Default(0),
 		field.Time("locked_until").Optional().Nillable(), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}
 }
@@ -156,13 +128,13 @@ type Role struct{ ent.Schema }
 
 func (Role) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int("tenant_id").Optional().Nillable(), field.String("name"),
+		field.String("name"),
 		field.String("code"), field.String("description").Optional().Nillable(), field.String("status").Default("enabled"),
 		field.String("data_scope").Default("all"),
 		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}
 }
-func (Role) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "code").Unique()} }
+func (Role) Indexes() []ent.Index { return []ent.Index{index.Fields("code").Unique()} }
 
 type Menu struct{ ent.Schema }
 
@@ -239,14 +211,14 @@ func (UserPermission) Indexes() []ent.Index {
 type UserGroup struct{ ent.Schema }
 
 func (UserGroup) Fields() []ent.Field {
-	return []ent.Field{field.Int("tenant_id").Optional().Nillable(), field.String("name"), field.String("code"),
+	return []ent.Field{field.String("name"), field.String("code"),
 		field.String("description").Optional().Nillable(), field.Int("owner_id").Optional().Nillable(), field.String("member_mode").Default("static"),
 		field.JSON("member_rule", map[string]any{}).Optional(), field.Time("rule_synced_at").Optional().Nillable(),
 		field.String("status").Default("enabled"), field.Time("created_at").Default(time.Now),
 		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now)}
 }
 func (UserGroup) Indexes() []ent.Index {
-	return []ent.Index{index.Fields("tenant_id", "code").Unique()}
+	return []ent.Index{index.Fields("code").Unique()}
 }
 
 type UserGroupMember struct{ ent.Schema }
@@ -271,12 +243,12 @@ type Dict struct{ ent.Schema }
 
 func (Dict) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int("tenant_id").Optional().Nillable(), field.String("name").MaxLen(64), field.String("code").MaxLen(64),
+		field.String("name").MaxLen(64), field.String("code").MaxLen(64),
 		field.String("description").Optional().Nillable(), field.String("status").Default("enabled"),
 		field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}
 }
-func (Dict) Indexes() []ent.Index { return []ent.Index{index.Fields("tenant_id", "code").Unique()} }
+func (Dict) Indexes() []ent.Index { return []ent.Index{index.Fields("code").Unique()} }
 
 type DictItem struct{ ent.Schema }
 
@@ -305,8 +277,7 @@ type ManagedFile struct{ ent.Schema }
 
 func (ManagedFile) Fields() []ent.Field {
 	return []ent.Field{
-		field.UUID("id", uuid.UUID{}).Default(uuid.New), field.Int("storage_config_id"), field.Int("tenant_id").Optional().Nillable(),
-		field.Int("uploader_id"), field.String("original_name").MaxLen(256), field.String("object_key").MaxLen(512),
+		field.UUID("id", uuid.UUID{}).Default(uuid.New), field.Int("storage_config_id"), field.Int("uploader_id"), field.String("original_name").MaxLen(256), field.String("object_key").MaxLen(512),
 		field.Int64("size"), field.String("mime_type").Optional().Nillable(), field.String("extension").Optional().Nillable(),
 		field.String("visibility").Default("public"), field.String("content_hash").Optional().Nillable(),
 		field.Bool("delete_pending").Default(false),
@@ -314,14 +285,14 @@ func (ManagedFile) Fields() []ent.Field {
 	}
 }
 func (ManagedFile) Indexes() []ent.Index {
-	return []ent.Index{index.Fields("tenant_id", "created_at"), index.Fields("storage_config_id")}
+	return []ent.Index{index.Fields("created_at"), index.Fields("storage_config_id")}
 }
 
 type UploadSession struct{ ent.Schema }
 
 func (UploadSession) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("id").MaxLen(64), field.Int("storage_config_id"), field.Int("tenant_id").Optional().Nillable(), field.Int("uploader_id"),
+		field.String("id").MaxLen(64), field.Int("storage_config_id"), field.Int("uploader_id"),
 		field.String("file_name").MaxLen(256), field.Int64("file_size"), field.String("mime_type").Optional().Nillable(),
 		field.Int64("chunk_size"), field.Int("total_chunks"), field.String("visibility").Default("public"), field.String("status").Default("uploading"),
 		field.Time("expires_at"), field.Time("created_at").Default(time.Now), field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),

@@ -40,20 +40,6 @@ func (_c *LoginLogCreate) SetUsername(v string) *LoginLogCreate {
 	return _c
 }
 
-// SetTenantID sets the "tenant_id" field.
-func (_c *LoginLogCreate) SetTenantID(v int) *LoginLogCreate {
-	_c.mutation.SetTenantID(v)
-	return _c
-}
-
-// SetNillableTenantID sets the "tenant_id" field if the given value is not nil.
-func (_c *LoginLogCreate) SetNillableTenantID(v *int) *LoginLogCreate {
-	if v != nil {
-		_c.SetTenantID(*v)
-	}
-	return _c
-}
-
 // SetIP sets the "ip" field.
 func (_c *LoginLogCreate) SetIP(v string) *LoginLogCreate {
 	_c.mutation.SetIP(v)
@@ -64,6 +50,62 @@ func (_c *LoginLogCreate) SetIP(v string) *LoginLogCreate {
 func (_c *LoginLogCreate) SetNillableIP(v *string) *LoginLogCreate {
 	if v != nil {
 		_c.SetIP(*v)
+	}
+	return _c
+}
+
+// SetEventType sets the "event_type" field.
+func (_c *LoginLogCreate) SetEventType(v string) *LoginLogCreate {
+	_c.mutation.SetEventType(v)
+	return _c
+}
+
+// SetNillableEventType sets the "event_type" field if the given value is not nil.
+func (_c *LoginLogCreate) SetNillableEventType(v *string) *LoginLogCreate {
+	if v != nil {
+		_c.SetEventType(*v)
+	}
+	return _c
+}
+
+// SetUserAgent sets the "user_agent" field.
+func (_c *LoginLogCreate) SetUserAgent(v string) *LoginLogCreate {
+	_c.mutation.SetUserAgent(v)
+	return _c
+}
+
+// SetNillableUserAgent sets the "user_agent" field if the given value is not nil.
+func (_c *LoginLogCreate) SetNillableUserAgent(v *string) *LoginLogCreate {
+	if v != nil {
+		_c.SetUserAgent(*v)
+	}
+	return _c
+}
+
+// SetBrowser sets the "browser" field.
+func (_c *LoginLogCreate) SetBrowser(v string) *LoginLogCreate {
+	_c.mutation.SetBrowser(v)
+	return _c
+}
+
+// SetNillableBrowser sets the "browser" field if the given value is not nil.
+func (_c *LoginLogCreate) SetNillableBrowser(v *string) *LoginLogCreate {
+	if v != nil {
+		_c.SetBrowser(*v)
+	}
+	return _c
+}
+
+// SetOs sets the "os" field.
+func (_c *LoginLogCreate) SetOs(v string) *LoginLogCreate {
+	_c.mutation.SetOs(v)
+	return _c
+}
+
+// SetNillableOs sets the "os" field if the given value is not nil.
+func (_c *LoginLogCreate) SetNillableOs(v *string) *LoginLogCreate {
+	if v != nil {
+		_c.SetOs(*v)
 	}
 	return _c
 }
@@ -137,6 +179,22 @@ func (_c *LoginLogCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (_c *LoginLogCreate) defaults() {
+	if _, ok := _c.mutation.EventType(); !ok {
+		v := loginlog.DefaultEventType
+		_c.mutation.SetEventType(v)
+	}
+	if _, ok := _c.mutation.UserAgent(); !ok {
+		v := loginlog.DefaultUserAgent
+		_c.mutation.SetUserAgent(v)
+	}
+	if _, ok := _c.mutation.Browser(); !ok {
+		v := loginlog.DefaultBrowser
+		_c.mutation.SetBrowser(v)
+	}
+	if _, ok := _c.mutation.Os(); !ok {
+		v := loginlog.DefaultOs
+		_c.mutation.SetOs(v)
+	}
 	if _, ok := _c.mutation.CreatedAt(); !ok {
 		v := loginlog.DefaultCreatedAt()
 		_c.mutation.SetCreatedAt(v)
@@ -147,6 +205,18 @@ func (_c *LoginLogCreate) defaults() {
 func (_c *LoginLogCreate) check() error {
 	if _, ok := _c.mutation.Username(); !ok {
 		return &ValidationError{Name: "username", err: errors.New(`ent: missing required field "LoginLog.username"`)}
+	}
+	if _, ok := _c.mutation.EventType(); !ok {
+		return &ValidationError{Name: "event_type", err: errors.New(`ent: missing required field "LoginLog.event_type"`)}
+	}
+	if _, ok := _c.mutation.UserAgent(); !ok {
+		return &ValidationError{Name: "user_agent", err: errors.New(`ent: missing required field "LoginLog.user_agent"`)}
+	}
+	if _, ok := _c.mutation.Browser(); !ok {
+		return &ValidationError{Name: "browser", err: errors.New(`ent: missing required field "LoginLog.browser"`)}
+	}
+	if _, ok := _c.mutation.Os(); !ok {
+		return &ValidationError{Name: "os", err: errors.New(`ent: missing required field "LoginLog.os"`)}
 	}
 	if _, ok := _c.mutation.Success(); !ok {
 		return &ValidationError{Name: "success", err: errors.New(`ent: missing required field "LoginLog.success"`)}
@@ -188,13 +258,25 @@ func (_c *LoginLogCreate) createSpec() (*LoginLog, *sqlgraph.CreateSpec) {
 		_spec.SetField(loginlog.FieldUsername, field.TypeString, value)
 		_node.Username = value
 	}
-	if value, ok := _c.mutation.TenantID(); ok {
-		_spec.SetField(loginlog.FieldTenantID, field.TypeInt, value)
-		_node.TenantID = &value
-	}
 	if value, ok := _c.mutation.IP(); ok {
 		_spec.SetField(loginlog.FieldIP, field.TypeString, value)
 		_node.IP = value
+	}
+	if value, ok := _c.mutation.EventType(); ok {
+		_spec.SetField(loginlog.FieldEventType, field.TypeString, value)
+		_node.EventType = value
+	}
+	if value, ok := _c.mutation.UserAgent(); ok {
+		_spec.SetField(loginlog.FieldUserAgent, field.TypeString, value)
+		_node.UserAgent = value
+	}
+	if value, ok := _c.mutation.Browser(); ok {
+		_spec.SetField(loginlog.FieldBrowser, field.TypeString, value)
+		_node.Browser = value
+	}
+	if value, ok := _c.mutation.Os(); ok {
+		_spec.SetField(loginlog.FieldOs, field.TypeString, value)
+		_node.Os = value
 	}
 	if value, ok := _c.mutation.Success(); ok {
 		_spec.SetField(loginlog.FieldSuccess, field.TypeBool, value)
