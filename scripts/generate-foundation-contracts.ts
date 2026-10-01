@@ -102,7 +102,7 @@ for (const [path, content] of generated) {
   const target = resolve(path);
   if (check) {
     try {
-      if (readFileSync(target, 'utf8') !== content) drift = true;
+      if (readFileSync(target, 'utf8').replace(/\r\n/g, '\n') !== content) drift = true;
     } catch {
       drift = true;
     }

@@ -229,6 +229,56 @@ func TestSingleOrganizationAuthorization(t *testing.T) {
 	check("GET", "/api/v1/auth/me", nil, 401)
 }
 
+func TestButtonGrantsRestoreNavigationWithoutGrantingParentPermissions(t *testing.T) {
+	a := newAPIFixture(t)
+	role := a.admin("POST", "/api/v1/roles", map[string]any{"name": "navigation only", "code": "navigation_only", "dataScope": "self"})
+	rid := int(role["id"].(float64))
+	a.admin("PUT", fmt.Sprintf("/api/v1/roles/%d/menus", rid), map[string]any{"menuIds": []int{a.menuID("system:user:list"), a.menuID("system:user:update")}})
+	a.admin("POST", "/api/v1/users", map[string]any{"username": "navigation_user", "nickname": "navigation", "password": "NavigationPass123!", "roleIds": []int{rid}})
+	page, err := a.f.Store.Client.Menu.Query().Where(menu.PathEQ("/system/users")).Only(context.Background())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := a.f.Store.Client.Menu.UpdateOneID(page.ID).SetPermission("system:file:delete").Exec(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	cookie, csrf := a.login("navigation_user", "NavigationPass123!", "192.0.2.33")
+	response := a.call("GET", "/api/v1/menus/user", nil, cookie, csrf, "192.0.2.33")
+	a.expect(response, 200)
+	var tree struct {
+		Data []struct {
+			Path     string `json:"path"`
+			Children []struct {
+				Path string `json:"path"`
+			} `json:"children"`
+		} `json:"data"`
+	}
+	if err := json.Unmarshal(response.Body.Bytes(), &tree); err != nil {
+		t.Fatal(err)
+	}
+	found := false
+	for _, root := range tree.Data {
+		for _, child := range root.Children {
+			if child.Path == "/system/users" {
+				found = true
+			}
+			if child.Path == "/system/roles" {
+				t.Fatal("ungranted sibling page exposed")
+			}
+		}
+	}
+	if !found {
+		t.Fatal("granted user operations have no navigation page")
+	}
+	me := fixtureData(t, a.call("GET", "/api/v1/auth/me", nil, cookie, csrf, "192.0.2.33"))
+	for _, permission := range me["permissions"].([]any) {
+		if permission == "system:file:delete" {
+			t.Fatal("navigation ancestor implicitly granted a permission")
+		}
+	}
+	a.expect(a.call("GET", "/api/v1/files", nil, cookie, csrf, "192.0.2.33"), 403)
+}
+
 func TestPasswordLoginAndSessionPolicies(t *testing.T) {
 	a := newAPIFixture(t)
 	settings := a.admin("GET", "/api/v1/settings/identity-security", nil)

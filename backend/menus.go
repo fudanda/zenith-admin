@@ -180,9 +180,30 @@ func (f *Framework) userMenus(w http.ResponseWriter, r *http.Request) {
 		fail(w, 503, "database_unavailable", "查询失败")
 		return
 	}
-	visible := make([]*ent.Menu, 0, len(rows))
-	for _, row := range rows {
-		if row.Type != "button" && row.Visible {
+	// Button grants authorize operations; their parents provide navigation only.
+	// Do not expand accessibleMenus, which is also the source of API permissions.
+	all, err := f.Store.Client.Menu.Query().Where(menu.StatusEQ("enabled")).Order(ent.Asc(menu.FieldSort), ent.Asc(menu.FieldID)).All(r.Context())
+	if err != nil {
+		fail(w, 503, "database_unavailable", "查询失败")
+		return
+	}
+	lookup := make(map[int]*ent.Menu, len(all))
+	for _, row := range all {
+		lookup[row.ID] = row
+	}
+	selected := map[int]bool{}
+	for _, grant := range rows {
+		seen := map[int]bool{}
+		for row := grant; row != nil && !seen[row.ID]; row = lookup[row.ParentID] {
+			seen[row.ID] = true
+			if row.Type != "button" && row.Visible {
+				selected[row.ID] = true
+			}
+		}
+	}
+	visible := make([]*ent.Menu, 0, len(selected))
+	for _, row := range all {
+		if selected[row.ID] {
 			visible = append(visible, row)
 		}
 	}

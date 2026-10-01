@@ -48,3 +48,9 @@ jobs:
         working-directory: backend
       - run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" ZENITH_BROWSER_PRODUCTION=true go test -tags integration -run TestOriginalWebFoundation .
         working-directory: backend
+      - name: Verify HTTPS release restart and backup recovery
+        env:
+          ZENITH_DEPLOYMENT_BINARY: ${{ github.workspace }}/backend/bin/zenith
+          ZENITH_ACCEPTANCE_PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration -count=1 -run TestReleaseHTTPSBackupRecovery -v .
+        working-directory: backend

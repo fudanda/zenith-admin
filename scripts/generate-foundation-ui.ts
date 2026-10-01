@@ -62,6 +62,6 @@ Object.assign(outputs, { 'backend/internal/contracts/settings.json': settings })
 for (const [path, value] of Object.entries(outputs)) {
   const content = `${JSON.stringify(value, null, 2)}\n`;
   if (process.argv.includes('--check')) {
-    if (readFileSync(path, 'utf8') !== content) throw new Error(`Generated artifact drift: ${path}`);
+    if (readFileSync(path, 'utf8').replace(/\r\n/g, '\n') !== content) throw new Error(`Generated artifact drift: ${path}`);
   } else writeFileSync(path, content);
 }

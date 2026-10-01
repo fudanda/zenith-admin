@@ -136,9 +136,12 @@ export default function UsersPage() {
   const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
   const [deptTreeExpandedKeys, setDeptTreeExpandedKeys] = useState<string[]>([]);
 
-  const allRolesQuery = useAllRoles();
-  const allDepartmentsQuery = useFlatDepartments();
-  const allPositionsQuery = useAllPositions();
+  const canReadRoles = !IS_GO_FOUNDATION || hasPermission('system:role:list');
+  const canReadDepartments = !IS_GO_FOUNDATION || hasPermission('system:department:list');
+  const canReadPositions = !IS_GO_FOUNDATION || hasPermission('system:position:list');
+  const allRolesQuery = useAllRoles({ enabled: canReadRoles });
+  const allDepartmentsQuery = useFlatDepartments({ enabled: canReadDepartments });
+  const allPositionsQuery = useAllPositions({ enabled: canReadPositions });
   const mySettingsQuery = useMySettings();
   const allRoles = allRolesQuery.data ?? EMPTY_ROLES;
   const allDepartments = allDepartmentsQuery.data ?? EMPTY_DEPARTMENTS;
@@ -776,6 +779,7 @@ export default function UsersPage() {
             <Form.TreeSelect
               field="departmentId"
               label="所属部门"
+              disabled={!canReadDepartments}
               style={{ width: '100%' }}
               treeData={departmentTreeData}
               placeholder="请选择所属部门"
@@ -789,6 +793,7 @@ export default function UsersPage() {
             <Form.Select
               field="positionIds"
               label="岗位"
+              disabled={!canReadPositions}
               style={{ width: '100%' }}
               multiple
               filter
@@ -801,6 +806,7 @@ export default function UsersPage() {
             <Form.Select
               field="roleIds"
               label="角色"
+              disabled={!canReadRoles}
               style={{ width: '100%' }}
               multiple
               filter

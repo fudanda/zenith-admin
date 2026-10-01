@@ -109,6 +109,18 @@ ZENITH_BROWSER_PRODUCTION=true go test -tags integration -count=1 -run TestOrigi
 
 CI 必跑真实 PostgreSQL 集成测试、类型、lint、生成漂移、页面构建、开发及 Go 嵌入两种浏览器验收。覆盖单组织升级拒绝与回滚、并发设置、角色/直接/组继承、数据范围、会话重启和失效、登录防护、CSRF、数据库故障、文件私有访问、分片与清理、同步导入导出及原页面闭环。
 
+发布二进制验收使用 `TestReleaseHTTPSBackupRecovery`：从空库执行真实 CLI，通过本地 TLS 反向代理访问原页面，验证管理员和受限用户、Secure Cookie、服务进程重启、数据库与文件快照恢复，以及实际 PostgreSQL 中断后的 503 和恢复。TLS 代理使用临时测试证书，Node 单独信任该证书，Chromium 仅在验收上下文接受它；生产 Cookie 配置始终开启 Secure。此项不替代实际部署域名的证书配置。
+
+该测试会短暂停止 `ZENITH_ACCEPTANCE_PG_CONTAINER`，因此必须使用专用 PostgreSQL 测试容器，用户为 `zenith`，不能指向业务库容器。提供具有建库权限的 `ZENITH_TEST_DATABASE_URL`、已构建的绝对路径 `ZENITH_DEPLOYMENT_BINARY` 和 `ZENITH_BROWSER_TEST_NODE`，然后在 `backend/` 执行：
+
+```bash
+go test -tags integration -count=1 -run TestReleaseHTTPSBackupRecovery -v .
+```
+
+可选 `ZENITH_ACCEPTANCE_ARTIFACTS` 指定验收日志、截图与快照目录；默认使用测试临时目录。数据库快照包含账号和会话状态，应存入备份目录，不能提交 Git。测试创建的业务库和恢复库均自动清理。`TestGracefulReleaseShutdown` 随普通 PostgreSQL 集成测试执行，验证停止接入、拒绝新请求、等待现有请求完成、关闭模块和维护任务、关闭连接池及重复停机。
+
+当前验收记录见 [首版交付验收](./go-foundation-acceptance.md)。
+
 ## 发布包
 
 发布工作流打包 Linux amd64 和 Windows amd64 的 Go 二进制，同时附带生产环境示例、部署说明和版本化迁移。Linux 解压后先执行 `chmod +x ./zenith`，再按独立生产部署步骤设置环境变量。旧 Hono CI、Demo 和 Pages 发布流程改为手动触发，不作为基础版默认交付。

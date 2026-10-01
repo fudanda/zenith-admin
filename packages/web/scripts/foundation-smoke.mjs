@@ -4,7 +4,7 @@ import { createRequire } from 'node:module';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createServer } from 'node:net';
-import { readFile } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 
 const webRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -22,6 +22,12 @@ const vite = production ? null : spawn(process.execPath, [viteBin, ...viteArgs, 
 });
 let viteOutput=''; vite?.stdout.on('data',(chunk)=>{viteOutput+=chunk}); vite?.stderr.on('data',(chunk)=>{viteOutput+=chunk});
 let browser;
+const screenshots = process.env.ZENITH_ACCEPTANCE_SCREENSHOTS;
+async function screenshot(page, name) {
+  if (!screenshots) return;
+  await mkdir(screenshots, { recursive: true });
+  await page.screenshot({ path: resolve(screenshots, `${name}.png`), fullPage: true });
+}
 const apiRequests = [];
 const failures = [];
 const consoleMessages=[];
@@ -34,7 +40,7 @@ try {
     await new Promise((done) => setTimeout(done, 200));
   }
   browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({ acceptDownloads: true });
+  const context = await browser.newContext({ acceptDownloads: true, ignoreHTTPSErrors: process.env.ZENITH_BROWSER_HTTPS === 'true' });
   const externalRequests = [];
   await context.route('**/*', async (route) => {
     const url = new URL(route.request().url());
@@ -64,9 +70,15 @@ try {
   await page.getByText('系统用户总数', { exact: true }).waitFor();
   assert.equal(await page.getByText('公告', { exact: true }).count(), 0, 'unmigrated cards are unmounted');
   assert.ok((await context.cookies()).some((cookie) => cookie.name === 'zenith_session' && cookie.httpOnly), 'HttpOnly session');
+  if (process.env.ZENITH_BROWSER_HTTPS === 'true') {
+    const cookie = (await context.cookies()).find((cookie) => cookie.name === 'zenith_session');
+    assert.equal(cookie.secure, true, 'production HTTPS session is Secure');
+    assert.equal(cookie.sameSite, 'Lax', 'production session uses SameSite');
+  }
   assert.equal(await page.evaluate(() => Object.keys(localStorage).some((key) => /(?:^|_)token$|refresh_token/.test(key))), false, 'no browser token storage');
   await page.reload();
   await page.getByText('系统用户总数', { exact: true }).waitFor();
+  await screenshot(page, 'admin-home');
 
   assert.equal(await page.locator('#login-tenant-code').count(), 0, 'single organization has no tenant selector');
   await page.goto(`${base}/dash/system/departments`);
@@ -375,6 +387,7 @@ try {
   await page.reload();
   await page.getByRole('tab',{name:'操作记录',exact:true}).waitFor();
   assert.ok((await page.locator('body').boundingBox()).width<=390,'original narrow-screen layout');
+  await screenshot(page, 'profile-narrow');
   await page.setViewportSize({width:1280,height:720});
   await page.goto(`${base}/dash/system/positions`);
   await page.getByRole('button',{name:'新增',exact:true}).waitFor();
@@ -392,6 +405,72 @@ try {
   await page.reload();
   await page.getByRole('button', { name: '新增', exact: true }).waitFor();
   assert.equal(await page.locator('body').getAttribute('theme-mode'), 'dark', 'theme restored from PostgreSQL');
+  const restrictedFixture = await page.evaluate(async (password) => {
+    const me = await (await fetch('/api/v1/auth/me')).json();
+    const call = async (method, path, data) => {
+      const response = await fetch(`/api/v1${path}`, { method, headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': me.data.csrfToken }, body: data === undefined ? undefined : JSON.stringify(data) });
+      if (!response.ok) throw new Error(`Restricted fixture ${method} ${path}: ${response.status}`);
+      return (await response.json()).data;
+    };
+    const menus = await call('GET', '/menus/flat');
+    const role = await call('POST', '/roles', { name: '受限浏览器角色', code: 'foundation_limited', dataScope: 'self' });
+    await call('PUT', `/roles/${role.id}/menus`, { menuIds: menus.filter((menu) => ['system:user:list', 'system:user:update'].includes(menu.permission)).map((menu) => menu.id) });
+    const user = await call('POST', '/users', { username: 'foundation-limited', nickname: '受限浏览器用户', password, roleIds: [role.id] });
+    const hidden = await call('POST', '/users', { username: 'foundation-hidden', nickname: '范围外浏览器用户', password });
+    return { roleId: role.id, userId: user.id, hiddenId: hidden.id };
+  }, process.env.ZENITH_BROWSER_PASSWORD);
+  const limitedContext = await browser.newContext({ ignoreHTTPSErrors: process.env.ZENITH_BROWSER_HTTPS === 'true' });
+  const limitedPage = await limitedContext.newPage();
+  limitedPage.on('response', (response) => { const path = new URL(response.url()).pathname; if (path.startsWith('/api/')) responses.push(`LIMITED ${response.request().method()} ${response.status()} ${path}`); });
+  await limitedPage.goto(`${base}/dash/login`);
+  const limitedImage = limitedPage.getByAltText('登录验证码');
+  await limitedImage.waitFor();
+  const limitedSVG = Buffer.from((await limitedImage.getAttribute('src')).split(',')[1], 'base64').toString();
+  const limitedAnswer = limitedSVG.match(/>([A-F0-9]{4,8})<\/text>/)?.[1];
+  assert.ok(limitedAnswer, 'saved high-complexity captcha is used on the next real login');
+  await limitedPage.getByPlaceholder('请输入用户名/手机号').fill('foundation-limited');
+  await limitedPage.getByPlaceholder('请输入密码', { exact: true }).fill(process.env.ZENITH_BROWSER_PASSWORD);
+  await limitedPage.getByPlaceholder('请输入验证码').fill(limitedAnswer);
+  await limitedPage.getByRole('button', { name: '登录', exact: true }).click();
+  await limitedPage.waitForURL(/\/dash\/?$/);
+  await limitedPage.goto(`${base}/dash/system/users`);
+  const scopedData = await limitedPage.evaluate(async () => (await (await fetch('/api/v1/users')).json()).data);
+  assert.equal(scopedData.total, 1, 'self data scope excludes other accounts');
+  const limitedRow = limitedPage.getByRole('row').filter({ hasText: 'foundation-limited' });
+  await limitedRow.waitFor();
+  assert.equal(await limitedPage.getByRole('button', { name: '新增', exact: true }).count(), 0, 'create button requires create permission');
+  assert.equal(await limitedPage.getByText('角色管理', { exact: true }).count(), 0, 'unauthorized menu is absent');
+  assert.equal(responses.some((response) => /^LIMITED GET 403 \/api\/v1\/(positions\/all|departments\/flat|roles\/all|menus)$/.test(response)), false, 'page does not query unauthorized catalogs');
+  await limitedRow.getByText('编辑', { exact: true }).click();
+  await limitedPage.getByRole('button', { name: /^(confirm|确\s*定)$/ }).click({ trial: true });
+  await limitedPage.getByPlaceholder('请输入昵称').fill('受限用户已编辑');
+  const limitedSaved = limitedPage.waitForResponse((response) => new URL(response.url()).pathname === `/api/v1/users/${restrictedFixture.userId}` && response.request().method() === 'PUT');
+  await limitedPage.getByRole('button', { name: /^(confirm|确\s*定)$/ }).click();
+  assert.equal((await limitedSaved).status(), 200, 'ordinary user can edit within granted scope');
+  await limitedPage.getByRole('row').filter({ hasText: '受限用户已编辑' }).waitFor();
+  await limitedPage.locator('.semi-modal').waitFor({ state: 'hidden' });
+  await screenshot(limitedPage, 'restricted-users');
+  const denials = await limitedPage.evaluate(async ({ userId, hiddenId, roleId }) => {
+    const me = await (await fetch('/api/v1/auth/me')).json();
+    const call = async (method, path, data) => (await fetch(`/api/v1${path}`, { method, headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': me.data.csrfToken }, body: data === undefined ? undefined : JSON.stringify(data) })).status;
+    return [await call('GET', `/users/${hiddenId}`), await call('PUT', `/users/${hiddenId}`, { nickname: 'denied' }), await call('PUT', `/roles/${roleId}/menus`, { menuIds: [] }), await call('PUT', `/users/${userId}/data-permission`, { dataScope: 'all', deptScopeIds: [] }), await call('GET', '/files')];
+  }, restrictedFixture);
+  assert.deepEqual(denials, [404, 404, 403, 403, 403], 'server enforces scope and prevents privilege escalation');
+  await page.evaluate(async (roleId) => {
+    const me = await (await fetch('/api/v1/auth/me')).json();
+    const response = await fetch(`/api/v1/roles/${roleId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': me.data.csrfToken }, body: JSON.stringify({ status: 'disabled' }) });
+    if (!response.ok) throw new Error(`Role disable: ${response.status}`);
+  }, restrictedFixture.roleId);
+  assert.equal(await limitedPage.evaluate(async () => (await fetch('/api/v1/users')).status), 403, 'disabled role is effective without logout');
+  await page.evaluate(async (userId) => {
+    const me = await (await fetch('/api/v1/auth/me')).json();
+    const response = await fetch(`/api/v1/sessions/user/${userId}`, { method: 'DELETE', headers: { 'X-CSRF-Token': me.data.csrfToken } });
+    if (!response.ok) throw new Error(`Force offline: ${response.status}`);
+  }, restrictedFixture.userId);
+  assert.equal(await limitedPage.evaluate(async () => (await fetch('/api/v1/auth/me')).status), 401, 'force offline immediately invalidates ordinary session');
+  await limitedPage.reload();
+  await limitedPage.waitForURL(/\/dash\/login/);
+  await limitedContext.close();
   await page.locator('.admin-header__user').click();
   await page.getByText('退出登录', { exact: true }).click();
   await page.getByRole('button', { name: /^(confirm|确\s*定)$/ }).click();
@@ -401,13 +480,13 @@ try {
   assert.ok(apiRequests.every((path) => path.startsWith('/api/v1/')), `legacy API requests: ${apiRequests.filter((path) => !path.startsWith('/api/v1/')).join(', ')}`);
   assert.deepEqual(failures, []);
   assert.deepEqual(externalRequests, [], 'standalone dashboard and original file preview use embedded resources');
-  console.log('PASS: original login/shell, departments, positions, users, roles, groups/dynamic rules, menus, dictionaries, settings/security saves, sessions/logs, uploads/chunks/downloads/deletion, profile/avatar/personal logs/devices, narrow screen, sync XLSX import/preflight and CSV/XLSX exports, CSRF, persisted theme, logout; all API requests use /api/v1');
+  console.log('PASS: original login/shell, departments, positions, users, roles, groups/dynamic rules, menus, dictionaries, settings/security saves, sessions/logs, uploads/chunks/downloads/deletion, profile/avatar/personal logs/devices, narrow screen, sync XLSX import/preflight and CSV/XLSX exports, CSRF, persisted theme, logout; restricted real login, scoped edit, hidden buttons/menus, denied escalation, disabled role and forced offline; all API requests use /api/v1');
 } catch (err) {
-  console.error(err.message); console.error(viteOutput.slice(-5000)); console.error(consoleMessages.join("\n"));
+  console.error(err.stack); console.error(viteOutput.slice(-5000)); console.error(consoleMessages.join("\n"));
   console.error(responses.join('\n'));
   console.error(failures.join('\n'));
   if (browser) {
-    const page = browser.contexts()[0]?.pages()[0];
+    const page = browser.contexts().at(-1)?.pages().at(-1);
     if (page) console.error((await page.locator('body').innerText()).slice(-2200));
     if (page) console.error(await page.getByRole('button').evaluateAll((buttons) => buttons.map((button) => ({ text: button.textContent, label: button.getAttribute('aria-label') }))));
   }

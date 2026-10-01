@@ -6,6 +6,7 @@ import FullPageRetry from '@/components/FullPageRetry';
 import { useGlobalErrorHandler } from '@/hooks/useGlobalErrorHandler';
 import { scheduleTrackerInit, trackerIdentify, trackerPrepareLogout, trackerResetIdentity } from '@/lib/tracker-boot';
 import { prefetchAdminShell } from '@/lib/shell-prefetch';
+import { foundationPagePaths } from '@/lib/foundation-mode';
 import ElectronTitleBar from '@/components/ElectronTitleBar';
 import { usePermission } from '@/hooks/usePermission';
 import { PreferencesProvider } from '@/hooks/PreferencesProvider';
@@ -131,10 +132,10 @@ function RedirectFromLogin() {
 function NotFoundOrForbidden({ userMenuPaths }: Readonly<{ userMenuPaths: Set<string> }>) {
   const location = useLocation();
   const path = location.pathname;
-  const allMenusQuery = useMenuTree();
-  const allMenuPaths = useMemo(() => buildAllMenuPaths(allMenusQuery.data ?? []), [allMenusQuery.data]);
+  const allMenusQuery = useMenuTree({ enabled: !IS_GO_FOUNDATION });
+  const allMenuPaths = useMemo(() => IS_GO_FOUNDATION ? foundationPagePaths : buildAllMenuPaths(allMenusQuery.data ?? []), [allMenusQuery.data]);
   // 树未到达前不下结论：直接渲染 404 会对「有页面但无权限」的路径闪一下错误结论
-  if (allMenusQuery.isPending) return <PageLoading />;
+  if (!IS_GO_FOUNDATION && allMenusQuery.isPending) return <PageLoading />;
 
   // 精确匹配或前缀匹配（如 /system/users/123 匹配 /system/users）
   const segments = path.split('/').filter(Boolean);
