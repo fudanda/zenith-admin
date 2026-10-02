@@ -24,10 +24,6 @@ jobs:
       ZENITH_TEST_S3_SECRET_KEY: zenith_s3_test_only
     steps:
       - uses: actions/checkout@v4
-      - name: Export PostgreSQL service container for backup acceptance
-        env:
-          PG_CONTAINER: ${{ job.services.postgres.id }}
-        run: printf '%s\n' "ZENITH_ACCEPTANCE_PG_CONTAINER=$PG_CONTAINER" >> "$GITHUB_ENV"
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -79,6 +75,8 @@ jobs:
       - run: npx vitest run src/providers/GoAuthProvider.test.tsx src/lib/go-transport.test.ts src/lib/go-auth-api.test.ts src/lib/foundation-operations.test.ts src/lib/contract-query.test.tsx src/hooks/PreferencesProvider.test.tsx --maxWorkers=3
         working-directory: packages/web
       - run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration ./...
+        env:
+          ZENITH_ACCEPTANCE_PG_CONTAINER: ${{ job.services.postgres.id }}
         working-directory: backend
       - run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" ZENITH_BROWSER_PRODUCTION=true go test -tags integration -run TestOriginalWebFoundation .
         working-directory: backend

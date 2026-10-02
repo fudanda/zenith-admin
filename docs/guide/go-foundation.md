@@ -123,7 +123,7 @@ go test -tags integration -count=1 -v ./...
 ZENITH_BROWSER_PRODUCTION=true go test -tags integration -count=1 -run TestOriginalWebFoundation -v .
 ```
 
-修改基础版工作流后先执行 `npm run check:workflow`，使用固定版本 actionlint 校验 YAML、表达式及上下文位置。PostgreSQL 容器 ID 在步骤中读取并写入后续步骤的环境，不在任务级环境引用运行时 `job` 上下文。
+修改基础版工作流后先执行 `npm run check:workflow`，使用固定版本 actionlint 校验 YAML、表达式及上下文位置。PostgreSQL 容器 ID 只注入 PostgreSQL 集成与恢复验收步骤，不在任务级环境引用运行时 `job` 上下文，也不让 SQLite 分组启用 PostgreSQL 恢复测试。
 
 CI 必跑真实 PostgreSQL 集成测试、类型、lint、生成漂移、页面构建、开发及 Go 嵌入两种浏览器验收。覆盖单组织升级拒绝与回滚、并发设置、角色/直接/组继承、数据范围、会话重启和失效、登录防护、CSRF、数据库故障、文件私有访问、分片与清理、同步导入导出及原页面闭环。
 
