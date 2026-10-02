@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, readFileSync, writeFileSync, existsSync, lstatSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync, existsSync, lstatSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
@@ -22,7 +22,15 @@ const spec={id:'inventory',title:'物品管理',entity:'Item',fields:[{name:'nam
 writeFileSync(resolve(workspace,'inventory.json'),JSON.stringify(spec));
 if(!existsSync(resolve(project,'frontend/modules/inventory')))run([cli,'module',resolve(workspace,'inventory.json'),'--project',project],workspace);
 run([npm,'install','--ignore-scripts','--no-audit','--no-fund'],project);
-run([npm,'run','build'],project);run([npm,'run','check:contracts'],project);run([npm,'test'],project);
+run([npm,'run','build'],project);
+// Keep license bytes and use portable filenames before Go embeds the build.
+const sourceAssets=resolve(project,'node_modules/@zenith/admin/dist/assets');
+const licenses=readdirSync(sourceAssets).filter(name=>name.startsWith('LICENSE-'));
+assert.ok(licenses.length>0,'Exercise the extensionless license asset regression');
+const builtAssets=resolve(project,'dist/assets');
+const builtLicenses=readdirSync(builtAssets).filter(name=>name.startsWith('LICENSE-')&&name.endsWith('.txt'));
+for(const name of licenses)assert.ok(builtLicenses.some(built=>readFileSync(resolve(builtAssets,built)).equals(readFileSync(resolve(sourceAssets,name)))),'Rebundled license bytes must survive under a portable .txt name');
+run([npm,'run','check:contracts'],project);run([npm,'test'],project);
 if(process.env.ZENITH_TEST_DATABASE_URL?.startsWith('postgres'))run([npm,'test'],project,{ZENITH_TEST_DATABASE_URL:'sqlite:unused.db'});
 for(const name of ['shared','client','elements','admin'])assert.equal(lstatSync(resolve(project,'node_modules/@zenith',name)).isSymbolicLink(),false);
 writeFileSync(resolve(root,'backend/bin/tooling-project-path.txt'),project);
