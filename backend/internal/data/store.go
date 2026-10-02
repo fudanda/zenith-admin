@@ -16,10 +16,12 @@ import (
 // Store owns the only business connection pool. Services receive an explicit
 // Ent transaction for multi-step writes rather than creating hidden pools.
 type Store struct {
-	DB      *sql.DB
-	Client  *ent.Client
-	Dialect string
-	driver  dialect.Driver
+	DB           *sql.DB
+	Client       *ent.Client
+	Dialect      string
+	driver       dialect.Driver
+	dsn          string
+	releaseLease func() error
 }
 
 func OpenStore(ctx context.Context, dsn string) (*Store, error) {
@@ -44,10 +46,17 @@ func OpenStore(ctx context.Context, dsn string) (*Store, error) {
 	}
 	driver := entsql.OpenDB(dbDialect, db)
 	client := ent.NewClient(ent.Driver(driver))
-	return &Store{DB: db, Client: client, driver: driver, Dialect: dbDialect}, nil
+	return &Store{DB: db, Client: client, driver: driver, Dialect: dbDialect, dsn: dsn}, nil
 }
 
-func (s *Store) Close() error { return s.DB.Close() }
+func (s *Store) Close() error {
+	var leaseErr error
+	if s.releaseLease != nil {
+		leaseErr = s.releaseLease()
+		s.releaseLease = nil
+	}
+	return errors.Join(leaseErr, s.DB.Close())
+}
 
 func (s *Store) WithTx(ctx context.Context, work func(*ent.Tx) error) error {
 	tx, err := s.Client.Tx(ctx)

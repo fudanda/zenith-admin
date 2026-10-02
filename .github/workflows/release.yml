@@ -46,6 +46,8 @@ jobs:
         env:
           VITE_DEPLOYMENT_ID: release-artifact
         run: npm run build
+      - name: Package standalone frontend and project tooling
+        run: npm run pack:packages
 
       - name: Determine tag name
         id: tag
@@ -61,6 +63,10 @@ jobs:
           RELEASE_TAG: ${{ steps.tag.outputs.name }}
           CGO_ENABLED: '0'
         run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          PREFIX=github.com/fudanda/zenith-admin/backend
+          COMMIT="$(git rev-parse HEAD)"
+          BUILT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           for TARGET in linux-amd64 windows-amd64; do
             OS="${TARGET%-*}"
             ARCH="${TARGET#*-}"
@@ -68,10 +74,11 @@ jobs:
             mkdir -p "$DIR"
             EXECUTABLE=zenith
             if [ "$OS" = windows ]; then EXECUTABLE=zenith.exe; fi
-            (cd backend && GOOS="$OS" GOARCH="$ARCH" go build -trimpath -o "$DIR/$EXECUTABLE" ./cmd/zenith)
+            (cd backend && GOOS="$OS" GOARCH="$ARCH" go build -trimpath -ldflags "-X $PREFIX.Version=$VERSION -X $PREFIX.Commit=$COMMIT -X $PREFIX.BuildTime=$BUILT" -o "$DIR/$EXECUTABLE" ./cmd/zenith)
             cp .env.production.example "$DIR/env.example"
             cp docs/guide/go-foundation.md "$DIR/README.md"
             cp docs/guide/go-integrations.md "$DIR/go-integrations.md"
+            cp docs/guide/go-tooling.md "$DIR/go-tooling.md"
             cp -r backend/migrations "$DIR/migrations"
             (cd release_artifacts && zip -r "../zenith-admin-${TARGET}-${RELEASE_TAG}.zip" "zenith-admin-${TARGET}")
           done
@@ -106,3 +113,6 @@ jobs:
           files: |
             zenith-admin-linux-amd64-${{ steps.tag.outputs.name }}.zip
             zenith-admin-windows-amd64-${{ steps.tag.outputs.name }}.zip
+            release_artifacts/packages/*.tgz
+            release_artifacts/packages/index.json
+            release_artifacts/packages/scaffold.json

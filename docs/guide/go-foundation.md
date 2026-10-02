@@ -62,7 +62,7 @@ SQLite 使用纯 Go 驱动，发布包不需要 C 编译器或另一个数据库
 
 两个数据库是独立安装，切换 URL 不转换或搬迁数据。已有 PostgreSQL 管理员和业务数据保留在原库。SQLite 从 `migrations/sqlite/0010_baseline.sql` 的单组织基线开始，拒绝未标记版本的其他表及未知版本；不会执行 PostgreSQL 历史多租户迁移。已发布迁移不可改写。
 
-备份 SQLite 使用 `zenith backup-sqlite OUTPUT.db`，以 `VACUUM INTO` 捕获已提交的 WAL 数据，拒绝覆盖已有文件。数据库与文件目录一起备份时先停止应用写入，创建数据库快照，再复制文件目录。不能仅复制运行中的 `.db` 而遗漏 WAL。恢复时停止服务，使用备份数据库的新路径和匹配的文件目录，再启动对应版本。PostgreSQL 继续使用 `pg_dump` / `pg_restore`。
+统一备份、恢复、管理员重置和配置检查见 [Go 工具链](./go-tooling.md)。`zenith backup DIRECTORY` 同时保存数据库、本地/已登记 S3 文件、暂存目录和存储密钥，恢复拒绝覆盖已有目标。SQLite 使用 `VACUUM INTO` 捕获已提交 WAL；不能仅复制运行中的 `.db` 而遗漏 WAL。PostgreSQL 使用兼容版本的 `pg_dump` / `pg_restore`，Windows 可指定数据库容器。
 
 本机 HTTP 验收可显式设置 `ZENITH_INSECURE_COOKIES=true`；正式 HTTPS 配置继续使用 Secure Cookie。
 

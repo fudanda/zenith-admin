@@ -26,3 +26,4 @@ export * from './url';
 export * from './validation';
 
 export * from './signatures';
+export { contractKey } from './contract-key';

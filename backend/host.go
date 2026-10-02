@@ -20,9 +20,11 @@ import (
 // Extension declarations permit host menus and deep links only for mounted modules.
 // The host owns its business contracts, migrations and transaction boundaries.
 type ExtensionPage struct{ ID, Path, Permission string }
+type ExtensionResource struct{ Name, Permission string }
 type ExtensionDefinition struct {
 	Pages       []ExtensionPage
 	Permissions []string
+	Resources   []ExtensionResource
 }
 type DescribedModule interface {
 	Module
@@ -55,10 +57,11 @@ var ErrForbidden = errors.New("permission denied")
 type HostServices struct {
 	Positions PositionService
 	Authorize func(context.Context, string) error
+	Data      HostData
 }
 
 func (f *Framework) HostServices() HostServices {
-	return HostServices{PositionService{f}, f.authorizeHost}
+	return HostServices{Positions: PositionService{f}, Authorize: f.authorizeHost, Data: f.Store.HostData()}
 }
 func (f *Framework) authorizeHost(ctx context.Context, permission string) error {
 	p := security.FromContext(ctx)
@@ -144,6 +147,14 @@ func describeExtensions(modules []Module) (map[string]ExtensionDefinition, error
 			}
 			ids[page.ID], paths[page.Path] = true, true
 		}
+		resourceNames := map[string]bool{}
+		for _, resource := range definition.Resources {
+			prefix := "host_" + strings.ReplaceAll(module.Name(), "-", "_") + "_"
+			if !strings.HasPrefix(resource.Name, prefix) || !regexp.MustCompile(`^[a-z][a-z0-9_]{0,99}$`).MatchString(resource.Name) || !allowed[resource.Permission] || resourceNames[resource.Name] {
+				return nil, fmt.Errorf("invalid extension resource %q", resource.Name)
+			}
+			resourceNames[resource.Name] = true
+		}
 		result[module.Name()] = definition
 	}
 	return result, nil
@@ -158,6 +169,9 @@ func (f *Framework) configureExtensions(definitions map[string]ExtensionDefiniti
 	sort.Strings(names)
 	for _, name := range names {
 		definition := definitions[name]
+		for _, resource := range definition.Resources {
+			f.services.integrations.ResourcePermissions[resource.Name] = resource.Permission
+		}
 		info := integrations.ModuleInfo{ID: name, Pages: []integrations.PageInfo{}}
 		for _, permission := range definition.Permissions {
 			permissions[permission] = true

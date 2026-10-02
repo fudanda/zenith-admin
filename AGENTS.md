@@ -26,6 +26,7 @@
 | 目录 | 职责 |
 | --- | --- |
 | `backend/` | GoFr 路由与适配、认证授权、组织/账号/配置/文件/审计规则、模块生命周期、CLI |
+| `backend/cli/` | 可由独立宿主复用的运维命令；管理员恢复、配置检查与统一备份恢复 |
 | `backend/internal/app/` | 模块依赖排序、初始化/关闭、可停止的维护任务调度 |
 | `backend/internal/transport/http/` | GoFr 路由、契约校验、响应及流式文件协议；不访问数据库 |
 | `backend/internal/data/` | 唯一业务连接池、显式 Ent 事务、版本迁移和 SQLite 备份 |
@@ -40,6 +41,7 @@
 | `packages/client/` | 独立 TypeScript API 客户端、契约调用、Cookie/CSRF、错误及文件传输；不依赖 UI 或查询缓存 |
 | `packages/elements/` | 可组合的会话、登录、权限、头像与上传组件，复用 Client 或宿主会话；不依赖 Web 和全局存储 |
 | `packages/admin/` | 导出 `ZenithAdmin` 的独立管理台包、ESM/类型/样式和宿主示例；复用 Web 中的原页面与装配 |
+| `packages/create-zenith/` | 独立项目和业务模块生成器；交付已校验的包及 Go SDK 源码版本，不参与生产运行 |
 | `packages/shared/` | 领域契约、纯校验、常量、首版能力清单和种子 |
 | `packages/server/` | 保留的历史 Hono API、Drizzle、CMS、Worker 与外部集成，退出默认链路 |
 | `packages/analytics-sdk/`、`packages/electron/` | 保留的采集 SDK 和桌面容器源码，退出首版构建 |
@@ -66,6 +68,7 @@ API 统一 `/api/v1`，管理台 `/dash`。SPA 只回退已开放页面，未知
 | 内容 | 位置 |
 | --- | --- |
 | 当前运行、安装、升级、部署和验收 | [docs/guide/go-foundation.md](docs/guide/go-foundation.md) |
+| 运维 CLI、独立项目与业务模块模板 | [docs/guide/go-tooling.md](docs/guide/go-tooling.md) |
 | API Key、S3、SSE 与只读 MCP | [docs/guide/go-integrations.md](docs/guide/go-integrations.md) |
 | Go 包边界、目录重构状态和领域拆分方式 | [docs/guide/go-backend-architecture.md](docs/guide/go-backend-architecture.md) |
 | 后端及全局约束 | [.agents/skills/zenith/references/constraints.md](.agents/skills/zenith/references/constraints.md) |

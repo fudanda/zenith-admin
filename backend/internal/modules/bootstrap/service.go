@@ -6,16 +6,21 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/fudanda/zenith-admin/backend/ent"
 	"github.com/fudanda/zenith-admin/backend/ent/dict"
 	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
+	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
 	"github.com/fudanda/zenith-admin/backend/ent/menu"
 	"github.com/fudanda/zenith-admin/backend/ent/predicate"
 	"github.com/fudanda/zenith-admin/backend/ent/role"
+	"github.com/fudanda/zenith-admin/backend/ent/session"
 	"github.com/fudanda/zenith-admin/backend/ent/user"
+	"github.com/fudanda/zenith-admin/backend/ent/userrole"
 	"github.com/fudanda/zenith-admin/backend/internal/contracts"
 	"github.com/fudanda/zenith-admin/backend/internal/data"
+	"github.com/fudanda/zenith-admin/backend/internal/kernel"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -214,5 +219,53 @@ func (f *Service) InitAdmin(ctx context.Context, username, password string) erro
 			return err
 		}
 		return tx.UserRole.Create().SetUserID(u.ID).SetRoleID(r.ID).Exec(ctx)
+	})
+}
+
+// ResetAdmin is an explicit local recovery operation, never called at startup.
+// Only an enabled account holding an enabled super_admin role can be recovered.
+func (f *Service) ResetAdmin(ctx context.Context, username, password string) error {
+	if err := f.deps.ValidatePassword(ctx, password); err != nil {
+		return err
+	}
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	return f.Store.WithTx(ctx, func(tx *ent.Tx) error {
+		account, err := tx.User.Query().Where(user.UsernameEQ(username), user.StatusEQ("enabled")).Only(ctx)
+		if err != nil {
+			return errors.New("enabled administrator not found")
+		}
+		roles, err := tx.UserRole.Query().Where(userrole.UserIDEQ(account.ID)).All(ctx)
+		if err != nil {
+			return err
+		}
+		ids := make([]int, 0, len(roles))
+		for _, link := range roles {
+			ids = append(ids, link.RoleID)
+		}
+		allowed, err := tx.Role.Query().Where(role.IDIn(ids...), role.CodeEQ("super_admin"), role.StatusEQ("enabled")).Exist(ctx)
+		if err != nil {
+			return err
+		}
+		if !allowed {
+			return errors.New("account is not an enabled system super administrator")
+		}
+		now := time.Now()
+		changed, err := tx.User.Update().Where(user.IDEQ(account.ID), user.PasswordHashEQ(account.PasswordHash)).SetPasswordHash(string(hash)).SetPasswordUpdatedAt(now).Save(ctx)
+		if err != nil {
+			return err
+		}
+		if changed != 1 {
+			return errors.New("administrator changed concurrently")
+		}
+		if _, err = tx.Session.Update().Where(session.UserIDEQ(account.ID), session.RevokedAtIsNil()).SetRevokedAt(now).Save(ctx); err != nil {
+			return err
+		}
+		if _, err = tx.LoginAttempt.Delete().Where(loginattempt.UsernameHashEQ(kernel.UsernameHash(account.Username))).Exec(ctx); err != nil {
+			return err
+		}
+		return tx.AuditLog.Create().SetActorID(account.ID).SetResourceID(account.ID).SetOperation("reset_password").SetResource("users").SetModule("identity").SetDescription("Local CLI administrator recovery").SetRequestID("cli-reset-" + now.UTC().Format("20060102T150405.000000000Z")).Exec(ctx)
 	})
 }

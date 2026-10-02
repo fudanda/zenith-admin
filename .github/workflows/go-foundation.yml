@@ -22,6 +22,7 @@ jobs:
       ZENITH_TEST_S3_ENDPOINT: http://127.0.0.1:19000
       ZENITH_TEST_S3_ACCESS_KEY: zenith_test
       ZENITH_TEST_S3_SECRET_KEY: zenith_s3_test_only
+      ZENITH_ACCEPTANCE_PG_CONTAINER: ${{ job.services.postgres.id }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -51,11 +52,13 @@ jobs:
       - run: npm run lint
       - run: npm run test:shared
       - run: npm run test:client && npm run test:elements && npm run test:admin
+      - run: npm run test:tooling
       - run: go test ./...
         working-directory: backend
       - run: npm run build
       - run: npm run build:admin:example && npm run build:elements:example
       - run: npm run pack:packages && npm run test:packages:external
+      - run: npm run test:tooling:external
       - name: Use the independently installed package host for browser acceptance
         run: |
           python3 - <<'PY'
@@ -64,6 +67,8 @@ jobs:
           directory = Path('backend/bin/external-host-path.txt').read_text().strip()
           with open(os.environ['GITHUB_ENV'], 'a') as env_file:
               env_file.write('ZENITH_EXTERNAL_HOST_DIR=' + directory + '\n')
+              project = Path('backend/bin/tooling-project-path.txt').read_text().strip()
+              env_file.write('ZENITH_TOOLING_PROJECT_DIR=' + project + '\n')
           PY
       - run: npx playwright install --with-deps chromium
       - run: npx vitest run src/providers/GoAuthProvider.test.tsx src/lib/go-transport.test.ts src/lib/go-auth-api.test.ts src/lib/foundation-operations.test.ts src/lib/contract-query.test.tsx src/hooks/PreferencesProvider.test.tsx --maxWorkers=3

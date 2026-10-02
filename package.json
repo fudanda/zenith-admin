@@ -40,7 +40,7 @@
     "db:seed": "node scripts/go.mjs seed",
     "secret:generate": "npm run secret:generate -w @zenith/server --",
     "package:server": "npm run package -w @zenith/server --",
-    "test": "npm run test:go:integration && npm run test:client && npm run test:elements && npm run test:admin && npm run test:shared && npm run test:web:foundation",
+    "test": "npm run test:go:integration && npm run test:client && npm run test:elements && npm run test:admin && npm run test:shared && npm run test:tooling && npm run test:web:foundation",
     "test:shared": "npm run test -w @zenith/shared",
     "test:server": "npm run test -w @zenith/server",
     "test:web": "npm run test -w @zenith/web",
@@ -75,7 +75,14 @@
     "pack:packages": "npm run build:packages:core && npm run build:admin && node scripts/pack-packages.mjs",
     "test:packages:external": "node scripts/test-packages-external.mjs",
     "generate:host-example": "tsx scripts/generate-host-example.ts",
-    "check:host-example": "tsx scripts/generate-host-example.ts --check"
+    "check:host-example": "tsx scripts/generate-host-example.ts --check",
+    "test:tooling": "npm run test -w create-zenith",
+    "test:tooling:external": "node scripts/test-tooling-external.mjs",
+    "reset-admin": "node scripts/go.mjs reset-admin",
+    "check:go": "node scripts/go.mjs check",
+    "version:go": "node scripts/go.mjs version",
+    "backup:go": "node scripts/go.mjs backup",
+    "restore:go": "node scripts/go.mjs restore"
   },
   "devDependencies": {
     "@asteasolutions/zod-to-openapi": "^9.1.0",

@@ -232,6 +232,35 @@ func testReadOnlyMCP(t *testing.T, x *extensionFixture) {
 func TestSubscriptionChangesAndShutdown(t *testing.T) {
 	testSubscription(t, newExtensionFixture(t))
 }
+func TestHostResourceChangesRespectAPIKeyReadPermissions(t *testing.T) {
+	x := newExtensionFixture(t)
+	ctx := context.Background()
+	x.f.services.integrations.ResourcePermissions["host_inventory_items"] = "system:position:list"
+	allowed, err := x.f.services.integrations.Authenticate(ctx, x.key(t, "system:position:list"), true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	denied, err := x.f.services.integrations.Authenticate(ctx, x.key(t, "system:role:list"), true)
+	if err != nil {
+		t.Fatal(err)
+	}
+	row, err := x.f.Store.Client.AuditLog.Create().SetActorID(allowed.User.ID).SetOperation("create").SetResource("host_inventory_items").SetModule("inventory").Save(ctx)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, item := range []struct {
+		principal *kernel.Principal
+		want      int
+	}{{allowed, 1}, {denied, 0}} {
+		cursor, resources, err := x.f.services.integrations.Changes(ctx, item.principal, row.ID-1)
+		if err != nil || cursor != row.ID || len(resources) != item.want {
+			t.Fatalf("host event permission: %d %v %v", cursor, resources, err)
+		}
+		if item.want == 1 && resources[0] != "host_inventory_items" {
+			t.Fatal(resources)
+		}
+	}
+}
 func testSubscription(t *testing.T, x *extensionFixture) {
 	key := x.key(t, "system:position:list")
 	server := httptest.NewServer(x.f.Handler())

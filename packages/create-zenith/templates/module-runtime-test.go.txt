@@ -1,0 +1,79 @@
+package module
+
+import (
+ "bytes"
+ "context"
+ "encoding/base64"
+ "encoding/json"
+ "fmt"
+ "net/http"
+ "net/http/cookiejar"
+ "net/http/httptest"
+ "net/url"
+ "os"
+ "path/filepath"
+ "regexp"
+ "strings"
+ "testing"
+ "time"
+ zenith "github.com/fudanda/zenith-admin/backend"
+ "github.com/fudanda/zenith-admin/backend/ent/user"
+ "github.com/fudanda/zenith-admin/backend/ent/userrole"
+ "github.com/fudanda/zenith-admin/backend/ent/menu"
+ "github.com/fudanda/zenith-admin/backend/ent/auditlog"
+ "github.com/fudanda/zenith-admin/backend/ent/usermenu"
+)
+
+func TestGeneratedHTTPPermissionsScopeValidationAndAudit(t *testing.T) {
+ ctx:=context.Background();dsn:="sqlite:"+filepath.Join(t.TempDir(),"http.db")
+ if value:=os.Getenv("ZENITH_TEST_DATABASE_URL");strings.HasPrefix(value,"postgres") {
+  admin,err:=zenith.OpenStore(ctx,value);if err!=nil{t.Fatal(err)}
+  schema:=fmt.Sprintf("zenith_generated_%d",time.Now().UnixNano());if _,err=admin.DB.ExecContext(ctx,"CREATE SCHEMA "+schema);err!=nil{t.Fatal(err)}
+  t.Cleanup(func(){admin.DB.ExecContext(context.Background(),"DROP SCHEMA "+schema+" CASCADE");admin.Close()})
+  parsed,_:=url.Parse(value);query:=parsed.Query();query.Set("search_path",schema);parsed.RawQuery=query.Encode();dsn=parsed.String()
+ }
+ store,err:=zenith.OpenStore(ctx,dsn);if err!=nil{t.Fatal(err)};defer store.Close()
+ if err=store.Migrate(ctx);err!=nil{t.Fatal(err)};if err=store.Seed(ctx);err!=nil{t.Fatal(err)}
+ module:=&Module{};if err=module.Migrate(ctx,store);err!=nil{t.Fatal(err)};if err=module.Seed(ctx,store);err!=nil{t.Fatal(err)};if err=module.Seed(ctx,store);err!=nil{t.Fatal(err)}
+ password:="Generated!9123-test";for _,name:=range []string{"admin","owner","other"}{if err=store.InitAdmin(ctx,name,password);err!=nil{t.Fatal(err)}}
+ for _,name:=range []string{"owner","other"} {
+  account,err:=store.Client.User.Query().Where(user.UsernameEQ(name)).Only(ctx);if err!=nil{t.Fatal(err)}
+  if _,err=store.Client.UserRole.Delete().Where(userrole.UserIDEQ(account.ID)).Exec(ctx);err!=nil{t.Fatal(err)}
+  rows,err:=store.Client.Menu.Query().Where(menu.PermissionHasPrefix("host:__MODULE__:" )).All(ctx);if err!=nil{t.Fatal(err)}
+  for _,row:=range rows{if err=store.Client.UserMenu.Create().SetUserID(account.ID).SetMenuID(row.ID).Exec(ctx);err!=nil{t.Fatal(err)}}
+ }
+ framework,err:=zenith.New(ctx,zenith.Config{DSN:dsn,Modules:[]zenith.Module{module}});if err!=nil{t.Fatal(err)}
+ server:=httptest.NewServer(framework.Handler());defer server.Close();defer framework.Shutdown(ctx)
+ call:=func(client *http.Client,method,path string,body any,csrf string)(int,map[string]any){
+  raw,_:=json.Marshal(body);r,_:=http.NewRequest(method,server.URL+path,bytes.NewReader(raw));r.Header.Set("Content-Type","application/json");r.Header.Set("Origin",server.URL);if csrf!=""{r.Header.Set("X-CSRF-Token",csrf)}
+  response,err:=client.Do(r);if err!=nil{t.Fatal(err)};defer response.Body.Close();payload:=map[string]any{};json.NewDecoder(response.Body).Decode(&payload);return response.StatusCode,payload
+ }
+ login:=func(name string)(*http.Client,string){jar,_:=cookiejar.New(nil);client:=&http.Client{Jar:jar};status,payload:=call(client,"GET","/api/v1/auth/captcha",nil,"");if status!=200{t.Fatal(status)}
+  data:=payload["data"].(map[string]any);image:=data["image"].(string);svg,_:=base64.StdEncoding.DecodeString(strings.SplitN(image,",",2)[1]);answer:=regexp.MustCompile(`>([A-F0-9]{6})</text>`).FindSubmatch(svg)
+  status,payload=call(client,"POST","/api/v1/auth/login",map[string]any{"username":name,"password":password,"captchaId":data["captchaId"],"captchaAnswer":string(answer[1])},"");if status!=200{t.Fatal("login",status,payload["message"])};return client,payload["data"].(map[string]any)["csrfToken"].(string)
+ }
+ admin,adminCSRF:=login("admin");owner,csrf:=login("owner");other,otherCSRF:=login("other");base:="/api/v1/extensions/__MODULE__/records"
+ if status,_:=call(http.DefaultClient,"GET",base,nil,"");status!=401{t.Fatal("anonymous",status)}
+ if status,_:=call(owner,"POST",base,__INPUT__,"");status!=403{t.Fatal("CSRF",status)}
+ if status,_:=call(owner,"GET",base+"?page=0",nil,"");status!=400{t.Fatal("pagination",status)}
+ status,payload:=call(owner,"POST",base,__INPUT__,csrf);if status!=201{t.Fatal("create",status,payload["message"])}
+ for field,want:=range __INPUT__{if payload["data"].(map[string]any)[field]!=want{t.Fatal("field value changed in response",field,payload["data"].(map[string]any)[field],want)}}
+ id:=int(payload["data"].(map[string]any)["id"].(float64));detail:=fmt.Sprintf("%s/%d",base,id)
+ if status,payload=call(admin,"GET",detail,nil,"");status!=200{t.Fatal("super administrator read",status)}
+ __SCOPE_ASSERTIONS__
+ for _,body:=range []any{map[string]any{},map[string]any{"unknown":true},map[string]any{__REQUIRED_FIELD__:nil}} {if status,_=call(owner,"PUT",detail,body,csrf);status!=400{t.Fatal("patch validation",status)}}
+ if status,payload=call(owner,"PUT",detail,map[string]any{__PATCH_FIELD__:__PATCH_VALUE__},csrf);status!=200{t.Fatal("partial update",status,payload["message"])}
+ if status,payload=call(owner,"GET",detail,nil,"");status!=200||payload["data"].(map[string]any)[__UNCHANGED_FIELD__]!=__UNCHANGED_VALUE__{t.Fatal("omitted field changed",payload)}
+ __NULLABLE_ASSERTIONS__
+ __UNIQUE_ASSERTIONS__
+ count,err:=store.Client.AuditLog.Query().Where(auditlog.ModuleEQ("__MODULE__"),auditlog.OperationEQ("create")).Count(ctx);if err!=nil||count!=1{t.Fatal("transaction audit",count,err)}
+ account,err:=store.Client.User.Query().Where(user.UsernameEQ("owner")).Only(ctx);if err!=nil{t.Fatal(err)};button,err:=store.Client.Menu.Query().Where(menu.PermissionEQ("host:__MODULE__:remove")).Only(ctx);if err!=nil{t.Fatal(err)}
+ if _,err=store.Client.UserMenu.Delete().Where(usermenu.UserIDEQ(account.ID),usermenu.MenuIDEQ(button.ID)).Exec(ctx);err!=nil{t.Fatal(err)}
+ if status,_=call(owner,"DELETE",detail,nil,csrf);status!=403{t.Fatal("permission revocation",status)}
+ var before int;if err=store.DB.QueryRowContext(ctx,"SELECT count(*) FROM __TABLE__").Scan(&before);err!=nil{t.Fatal(err)}
+ // A failed mandatory audit must roll back the business write.
+ if _,err=store.DB.ExecContext(ctx,"DROP TABLE audit_logs");err!=nil{t.Fatal(err)}
+ if status,_=call(owner,"POST",base,__SECOND_INPUT__,csrf);status!=503{t.Fatal("audit failure",status)}
+ var after int;if err=store.DB.QueryRowContext(ctx,"SELECT count(*) FROM __TABLE__").Scan(&after);err!=nil||after!=before{t.Fatal("business write survived failed audit",before,after,err)}
+ _=adminCSRF;_=otherCSRF
+}

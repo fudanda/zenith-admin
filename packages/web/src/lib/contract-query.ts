@@ -12,6 +12,7 @@ import {
 import {
   fillPath,
   resourceKeyOf,
+  contractKey,
   type AnyOperation,
   type ApiResponse,
   type BodyOf,
@@ -152,11 +153,7 @@ function splitArgs<Op extends AnyOperation>(op: Op, args: unknown[]): [InputOf<O
  * 传部分输入（如只有 `params`）得到该输入子集的前缀，覆盖该输入下全部 query / body 变体。
  * 业务请求头不参与 key：它们不是资源身份的一部分。
  */
-export function contractKey<Op extends AnyOperation>(op: Op, input?: Partial<InputOf<Op>>): readonly unknown[] {
-  if (input === undefined) return [resourceKeyOf(op.basePath), op.name];
-  const { headers: _headers, ...identity } = input as LooseInput & object;
-  return [resourceKeyOf(op.basePath), op.name, identity];
-}
+export { contractKey } from '@zenith/shared/core';
 
 type ApiQueryExtraOptions<Op extends AnyOperation, TData = OutputOf<Op>> = Omit<
   UseQueryOptions<OutputOf<Op>, Error, TData, readonly unknown[]>,

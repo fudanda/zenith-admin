@@ -25,11 +25,12 @@ type Dependencies struct {
 	Tools           []Tool
 }
 type Service struct {
-	Modules []ModuleInfo
-	store   *data.Store
-	deps    Dependencies
-	stop    chan struct{}
-	once    sync.Once
+	Modules             []ModuleInfo
+	ResourcePermissions map[string]string
+	store               *data.Store
+	deps                Dependencies
+	stop                chan struct{}
+	once                sync.Once
 }
 
 type PageInfo struct {
@@ -45,7 +46,7 @@ type ModuleInfo struct {
 func (s *Service) ModuleCatalog() []ModuleInfo { return s.Modules }
 
 func NewService(store *data.Store, deps Dependencies) *Service {
-	return &Service{store: store, deps: deps, stop: make(chan struct{}), Modules: []ModuleInfo{}}
+	return &Service{store: store, deps: deps, stop: make(chan struct{}), Modules: []ModuleInfo{}, ResourcePermissions: map[string]string{}}
 }
 func (s *Service) Close()                   { s.once.Do(func() { close(s.stop) }) }
 func (s *Service) Stopped() <-chan struct{} { return s.stop }
@@ -107,6 +108,9 @@ func (s *Service) Changes(ctx context.Context, p *kernel.Principal, cursor int) 
 		return latest.ID, []string{"*"}, nil
 	}
 	permissions := map[string]string{"positions": "system:position:list", "departments": "system:department:list", "users": "system:user:list", "roles": "system:role:list", "user_groups": "system:user-groups:list", "menus": "system:menu:list", "dicts": "system:dict:list", "dict_items": "system:dict:list", "files": "system:file:list", "settings": "system:settings:list", "sessions": "system:session:list"}
+	for resource, permission := range s.ResourcePermissions {
+		permissions[resource] = permission
+	}
 	set := map[string]bool{}
 	for _, row := range rows {
 		cursor = row.ID

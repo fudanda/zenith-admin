@@ -25,3 +25,7 @@ func (s *Store) Seed(ctx context.Context) error {
 func (s *Store) InitAdmin(ctx context.Context, username, password string) error {
 	return assembleServices(s, configuredFileStorage(Config{})).bootstrap.InitAdmin(ctx, username, password)
 }
+
+func (s *Store) ResetAdmin(ctx context.Context, username, password string) error {
+	return assembleServices(s, configuredFileStorage(Config{})).bootstrap.ResetAdmin(ctx, username, password)
+}

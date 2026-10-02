@@ -22,3 +22,4 @@ for (const name of ['shared', 'client', 'elements', 'admin']) {
 }
 writeFileSync(resolve(directory, 'index.json'), JSON.stringify({ createdAt: new Date().toISOString(), packages }, null, 2));
 console.log(JSON.stringify({ directory, packages }, null, 2));
+execFileSync(process.execPath, [resolve(root, 'scripts/build-create-package.mjs')], { cwd: root, stdio: 'inherit' });

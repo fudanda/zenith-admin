@@ -56,7 +56,7 @@ npm run test:admin
 
 `dist/` 包含 `index.js`、`index.d.ts`、`types.d.ts`、`styles.css`、懒加载 `chunks/`、`assets/`、`file-viewer/` 与 `public/`。React、React DOM、React Query、client 和 elements 为外部依赖，Admin 与宿主 Elements 共用同一会话上下文；不引用 Web 源码、`@` 别名、历史 Server 或 Node API。原页面的首版构建守卫继续执行。
 
-根目录 `npm run pack:packages` 交付四个编译后的 tarball；`npm run test:packages:external` 在仓库外执行真实安装、类型、构建和 Node 导入。宿主模块配置、Go API、权限及完整示例见 [宿主接入说明](../../docs/guide/go-host-integration.md)。
+根目录 `npm run pack:packages` 交付四个编译后的 tarball，并附带 `create-zenith` 独立项目/模块生成器；`npm run test:packages:external` 在仓库外执行真实安装、类型、构建和 Node 导入。宿主模块配置、Go API、权限及完整示例见 [宿主接入说明](../../docs/guide/go-host-integration.md)，完整项目生成与运维见 [Go 工具链](../../docs/guide/go-tooling.md)。
 
 宿主通过 Vite 等工具消费本包时，显式导入 `styles.css`，把 `dist/public/` 的内容复制到 `assetBasePath` 对应的公开目录，并保留 `dist/file-viewer/` 下的本地预览 worker/WASM。JS 中引用的 `assets/` 由宿主打包器处理。如果直接提供 ESM 文件，应完整保留 `dist/` 目录结构；这时省略 `assetBasePath` 会使用模块旁的 `public/`，并由宿主解析上述 peer dependencies。
 

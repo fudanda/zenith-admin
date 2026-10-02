@@ -1,0 +1,32 @@
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, readFileSync, writeFileSync } from 'node:fs';
+import { resolve, relative, isAbsolute } from 'node:path';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+const root=resolve(import.meta.dirname,'..');
+const runtime=resolve(root,'packages/create-zenith/.runtime');
+const rel=relative(resolve(root,'packages/create-zenith'),runtime);
+if(isAbsolute(rel)||rel.startsWith('..')||rel!=='.runtime')throw new Error('Invalid generated runtime target');
+rmSync(runtime,{recursive:true,force:true});mkdirSync(runtime,{recursive:true});
+cpSync(resolve(root,'backend'),resolve(runtime,'backend'),{recursive:true,filter:source=>{
+ const path=relative(resolve(root,'backend'),source).replaceAll('\\','/');
+ if(/^(bin|data|backups|examples)(\/|$)/.test(path)||path.includes('/dist/')||path==='internal/dashboard/dist')return false;
+ return !path.endsWith('_test.go')&&!/\.(db|exe|log|dump)$/.test(path);
+}});
+mkdirSync(resolve(runtime,'backend/internal/dashboard/dist'),{recursive:true});
+cpSync(resolve(root,'backend/internal/dashboard/dist/README.txt'),resolve(runtime,'backend/internal/dashboard/dist/README.txt'));
+cpSync(resolve(root,'LICENSE'),resolve(runtime,'backend/LICENSE'));
+const sdkFiles=[];
+function listSDK(directory){for(const item of readdirSync(directory,{withFileTypes:true})){const path=resolve(directory,item.name);if(item.isDirectory())listSDK(path);else sdkFiles.push({path:relative(resolve(runtime,'backend'),path).replaceAll('\\','/'),sha256:createHash('sha256').update(readFileSync(path)).digest('hex')});}}
+listSDK(resolve(runtime,'backend'));sdkFiles.sort((a,b)=>a.path.localeCompare(b.path));
+const sdk={version:JSON.parse(readFileSync(resolve(root,'package.json'),'utf8')).version,commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim()+(execFileSync('git',['status','--porcelain'],{cwd:root,encoding:'utf8'}).trim()?'-dirty':''),sha256:createHash('sha256').update(JSON.stringify(sdkFiles)).digest('hex'),files:sdkFiles};
+writeFileSync(resolve(runtime,'sdk.json'),JSON.stringify(sdk,null,2)+'\n');
+mkdirSync(resolve(runtime,'npm'),{recursive:true});
+const artifacts=resolve(root,'release_artifacts/packages');
+const manifest=JSON.parse(readFileSync(resolve(artifacts,'index.json'),'utf8'));
+for(const pkg of manifest.packages)cpSync(resolve(artifacts,pkg.filename),resolve(runtime,'npm',pkg.filename));
+cpSync(resolve(artifacts,'index.json'),resolve(runtime,'npm/index.json'));
+const [packed]=JSON.parse(execFileSync(process.execPath,[process.env.npm_execpath,'pack','--json','--ignore-scripts','--pack-destination',artifacts],{cwd:resolve(root,'packages/create-zenith'),encoding:'utf8'}));
+if(packed.files.some(file=>/(?:^|\/)\.env(?:\.|$)|\.test\.|_test\.go$/.test(file.path)))throw new Error('Private/test files in scaffold delivery');
+const bytes=readFileSync(resolve(artifacts,packed.filename));
+writeFileSync(resolve(artifacts,'scaffold.json'),JSON.stringify({name:packed.name,version:packed.version,filename:packed.filename,sha256:createHash('sha256').update(bytes).digest('hex')},null,2)+'\n');
+console.log(`Standalone scaffold delivered: ${packed.filename}`);

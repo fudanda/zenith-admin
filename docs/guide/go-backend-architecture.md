@@ -61,6 +61,10 @@ HTTP → 认证/授权/契约校验 → 领域 Handler → 领域 Service
 - 文件服务负责元数据、权限、字节持久化及清理；HTTP 层负责 multipart 和大小限制。返回的文件及 ZIP 源在发送完成后关闭，服务返回时不会提前关闭内容流。
 - 连接池、SQLite 参数、版本 SQL和备份属于 `data`。SQL 内容不改写，`serve` 不自动迁移。CLI 初始化通过 `bootstrap` 服务执行，不设置固定管理员密码。
 
+`backend/cli` 提供宿主可复用的命令装配；`internal/operations` 负责离线数据库、文件和密钥备份恢复，复用数据层维护锁。宿主业务通过 `HostServices.Data` 借用唯一连接池，`HostData.Write` 把其 Ent 写入和系统审计放进同一 SQL 事务；Ent 的内部更新事务作用域借用外层事务，不独立提交或关闭连接池。
+
+宿主实体位于生成项目自己的 Ent schema，不加入 Zenith 固定系统模型。宿主迁移由显式 CLI 执行，并按模块记录不可变摘要；启动检查模块版本。扩展声明的资源读取权限同时用于 SSE 提示过滤，事件只要求重新查询，不返回业务记录。完整入口见 [Go 工具链](./go-tooling.md)。
+
 ## 模块与进程生命周期
 
 每个 HTTP 领域拥有 `module.go`、`handler.go` 和业务服务，按生成契约注册操作。`foundation-core` 及集中 `registerCore` 已移除。宿主模块继续通过 `Config.Modules` 注入，初始化前检查重名、缺失依赖和循环，初始化后检查全部首版操作的注册覆盖。

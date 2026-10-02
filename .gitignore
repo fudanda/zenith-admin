@@ -51,6 +51,7 @@ packages/web/dist-go/
 
 /backend/backups/
 /backend/data/
+/packages/create-zenith/.runtime/
 *.db
 *.db-wal
 *.db-shm

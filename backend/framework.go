@@ -68,6 +68,10 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 		return nil, fmt.Errorf("database migration required: run zenith migrate (expected version %d)", foundationSchemaVersion)
 	}
 	idle := make(chan struct{})
+	if err = store.AcquireLease(ctx, false); err != nil {
+		store.Close()
+		return nil, err
+	}
 	close(idle)
 	audit.InstallMetadataHooks(store.Store)
 	key, keyErr := storage.SecretKey(config.StorageEncryptionKey)
