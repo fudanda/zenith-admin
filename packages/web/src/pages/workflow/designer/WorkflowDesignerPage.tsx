@@ -11,9 +11,7 @@ import { WORKFLOW_FORM_TYPES, WORKFLOW_FORM_TYPE_LABELS, generateWorkflowPrintCo
 import { useSaveReportPrintTemplate } from '@/hooks/queries/report-print';
 import { downloadBlob } from '@/utils/download';
 import { hasBusinessFormComponent } from '@/utils/business-form-registry';
-
 import WorkflowVersionsSheet from '../components/WorkflowVersionsSheet';
-
 import type { FlowNode, FlowBranch, FlowNodeType, FlowProcess, BranchNodeType, ConditionGroup } from './types';
 import {
   createDefaultProcess,
@@ -45,7 +43,8 @@ import NodeConfigDrawer from './components/NodeConfigDrawer';
 import ConditionEditor from './components/ConditionEditor';
 import RouteBranchEditor, { type RouteBranchEditorUpdates } from './components/RouteBranchEditor';
 import FormSelectorPanel from './components/FormSelectorPanel';
-import CustomFormConfigPanel, { validateCustomFormVariables } from './components/CustomFormConfigPanel';
+import CustomFormConfigPanel from './components/CustomFormConfigPanel';
+import { validateCustomFormVariables } from './components/custom-form-variables';
 import FormPreview from './components/FormPreview';
 import WorkflowFormRenderer from './components/WorkflowFormRenderer';
 import BasicInfoPanel from './components/BasicInfoPanel';

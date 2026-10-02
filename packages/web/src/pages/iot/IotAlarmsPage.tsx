@@ -28,7 +28,8 @@ import {
 import type {
   CreateIotAlarmRuleInput, CreateIotMaintenanceWindowInput, IotAlarm, IotAlarmRule, IotMaintenanceWindow,
 } from '@zenith/shared/iot';
-import { IotDeviceSelectField, IotProductSelectField, useIotGroupOptions, useIotProductOptions } from './components/IotSelectors';
+import { IotDeviceSelectField, IotProductSelectField } from './components/IotSelectors';
+import { useIotGroupOptions, useIotProductOptions } from './components/iot-options';
 import { IotEventSelectField, IotPropertyConditionFields } from './components/ThingModelFields';
 import { formatIotDateTime, parseIotDetailId } from './iot-form-utils';
 import JsonBlock from '@/components/JsonBlock';

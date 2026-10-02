@@ -18,7 +18,8 @@ import { FormStatusRadioGroup } from '@/components/FormStatusRadioGroup';
 import { abortSubmit } from '@/lib/abort-submit';
 import { iotDeviceContract, type CreateIotDeviceGroupInput, type CreateIotDeviceInput, type IotDevice, type IotDeviceGroup, type IotMetricValue } from '@zenith/shared/iot';
 import { IOT_NODE_TYPE_OPTIONS } from '@zenith/shared/iot';
-import { IotProductSelectField, useIotGroupOptions, useIotProductOptions } from './components/IotSelectors';
+import { IotProductSelectField } from './components/IotSelectors';
+import { useIotGroupOptions, useIotProductOptions } from './components/iot-options';
 import { parseIotDetailId, parseJsonObjectInput } from './iot-form-utils';
 import {
   useDeleteIotDevices,

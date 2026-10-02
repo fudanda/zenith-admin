@@ -18,7 +18,7 @@ import {
 } from '@/components/charts';
 import dayjs from 'dayjs';
 import { useLoginLogStats } from '@/hooks/queries/login-logs';
-import { buildUserChartLabels } from '@/components/UserDisplay';
+import { buildUserChartLabels } from '@/utils/user-labels';
 import { ChartPanel, LogStatsScaffold, WEEKDAY_LABELS, calcSuccessRate, calcSuccessRateDelta, deltaOf, weekdayBuckets } from '@/components/logs/LogStatsScaffold';
 import { shortDate } from '@/utils/date';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';

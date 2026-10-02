@@ -5,7 +5,7 @@
 import type { CSSProperties } from 'react';
 import type { AnalyticsDeviceType } from '@zenith/shared/analytics';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
-import { BEHAVIOR_DAYS_OPTIONS } from './behavior-days-context';
+import { BEHAVIOR_DAYS_OPTIONS } from './behavior-days';
 
 export function msToReadable(ms: number | null): string {
   if (ms == null) return EMPTY_PLACEHOLDER;

@@ -28,7 +28,8 @@ import {
   IOT_OTA_TASK_STATUS_LABELS, IOT_OTA_TASK_STATUS_OPTIONS,
 } from '@zenith/shared/iot';
 import type { IotFirmware, IotOtaTask, IotOtaTaskDevice, UpdateIotFirmwareInput } from '@zenith/shared/iot';
-import { IotProductSelectField, useIotDeviceOptions, useIotGroupOptions, useIotProductOptions } from './components/IotSelectors';
+import { IotProductSelectField } from './components/IotSelectors';
+import { useIotDeviceOptions, useIotGroupOptions, useIotProductOptions } from './components/iot-options';
 import {
   iotFirmwareKeys, iotOtaTaskKeys, useCancelIotOtaTask, useCreateIotOtaTask, useDeleteIotFirmwares,
   useReleaseNextIotOtaBatch, useResumeIotOtaTask,
@@ -553,7 +554,6 @@ export default function IotOtaPage() {
     setFirmwareId(p.firmwareId ? parse(p.firmwareId) : null);
   }, { getNextParams: (p) => ({ tab: p.firmwareId ? 'firmwares' : 'tasks' }) });
   const openTask = (task: IotOtaTask | null) => { setDeepTaskId(null); setDetailTask(task); };
-
 
   return (
     <div className="page-container page-tabs-page">

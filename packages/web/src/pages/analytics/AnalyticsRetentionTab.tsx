@@ -4,7 +4,8 @@ import { Card, Empty, Select, Typography } from '@douyinfe/semi-ui';
 import { useAnalyticsRetention } from '@/hooks/queries/analytics';
 import type { AnalyticsComparison, AnalyticsRetentionMode, AnalyticsRetentionPeriodType } from '@zenith/shared/analytics';
 import { ANALYTICS_RETENTION_MODE_OPTIONS, ANALYTICS_RETENTION_PERIOD_LIMITS, ANALYTICS_RETENTION_PERIOD_TYPE_OPTIONS, ANALYTICS_RETENTION_PERIOD_UNIT_LABELS } from '@zenith/shared/analytics';
-import { ComparisonPicker, DrillUsersSheet, isComparisonReady, useDrillSheet } from './AnalyticsComparison';
+import { ComparisonPicker, DrillUsersSheet } from './AnalyticsComparison';
+import { isComparisonReady, useDrillSheet } from './analytics-comparison';
 import { numberText, sectionStyle } from './analytics-format';
 import { ChartPlaceholder, SectionHeader } from './analytics-shared';
 

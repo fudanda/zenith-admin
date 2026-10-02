@@ -46,7 +46,7 @@ export function useMediaLibrary({
       setMediaPage(p);
       setMediaHasMore(rawCount >= 30);
     }
-  }, []);
+  }, [setMediaHasMore, setMediaItems, setMediaLoading, setMediaPage]);
 
   useEffect(() => {
     if (!showMediaPanel || !activeConvId) return;

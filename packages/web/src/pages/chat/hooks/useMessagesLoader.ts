@@ -51,7 +51,7 @@ export function useMessagesLoader({
       return newMsgs;
     }
     return null;
-  }, []);
+  }, [setContextMode, setFirstItemIndex, setHasMore, setLoadingMsgs, setMessages, setOldestMsgId, setPendingNewMsgCount]);
 
   return { fetchMessages };
 }

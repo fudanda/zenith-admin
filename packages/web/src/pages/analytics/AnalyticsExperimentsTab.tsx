@@ -1,4 +1,4 @@
-
+import { toApiDateTime } from './analytics-experiment-values';
 import { useEffect, useMemo, useState } from 'react';
 import { compactParams } from '@/lib/query';
 import { useListSearch } from '@/hooks/useListSearch';
@@ -11,7 +11,7 @@ import { AppModal } from '@/components/AppModal';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { analyticsKeys, useAnalyticsEventMeta, useCreateExperiment, useDeleteExperiment, useExperimentAction, useExperimentReport, useExperiments, useUpdateExperiment } from '@/hooks/queries/analytics';
-import { formatDateTime, formatDateTimeForApi } from '@/utils/date';
+import { formatDateTime } from '@/utils/date';
 import { CreateButton } from '@/components/toolbar-controls';
 import { KeywordInput, StatusSelect } from '@/components/search-filters';
 import { useEditModal } from '@/hooks/useEditModal';
@@ -71,17 +71,6 @@ type ExperimentFormValues = {
   startAt?: Date | string | null;
   endAt?: Date | string | null;
 };
-
-/**
- * 表单时间值 → 接口的 `YYYY-MM-DD HH:mm:ss`；留空表示不限，需明确传 null。
- *
- * 导出供单测：漏掉 `instanceof Date` 分支不会报错，Date 会被 JSON 序列化成带 `Z` 的
- * ISO 串，后端按本地时区解析后产生数小时偏移——构建、类型检查、页面渲染全都正常。
- */
-export function toApiDateTime(value: Date | string | null | undefined): string | null {
-  if (value instanceof Date) return formatDateTimeForApi(value);
-  return trimToNull(value);
-}
 
 function windowText(record: AnalyticsExperiment) {
   if (!record.startAt && !record.endAt) return '手动控制';

@@ -59,7 +59,7 @@ export function useChatWebSocket({
       ...prev,
       [conversationId]: members.slice(0, 9).map((m) => ({ id: m.id, nickname: m.nickname, avatar: m.avatar })),
     }));
-  }, []);
+  }, [setGroupAvatarMap]);
 
   const handleWsMessage = useCallback((wsMsg: WsMessage) => {
     if (wsMsg.type === 'channel:message') {
@@ -213,7 +213,7 @@ export function useChatWebSocket({
       setOnlineUserIds(applyPresenceToOnlineIds(wsMsg.payload));
       setLastSeenMap(applyPresenceToLastSeen(wsMsg.payload));
     }
-  }, [activeChannelId, activeConvId, appendMessageOnce, applyMessageUpdate, conversations, currentUserId, fetchConversations, queryClient, refreshGroupAvatarMembers]);
+  }, [activeChannelId, activeConvId, appendMessageOnce, applyMessageUpdate, conversations, currentUserId, fetchConversations, isAtBottomRef, queryClient, refreshGroupAvatarMembers, setActiveConvId, setChannels, setConversations, setLastSeenMap, setMediaItems, setMessages, setOnlineUserIds, setPendingNewMsgCount, setReadStates, setTypingUsers, virtuosoRef]);
 
   const handleAtBottomStateChange = useCallback((atBottom: boolean) => {
     isAtBottomRef.current = atBottom;
@@ -226,7 +226,7 @@ export function useChatWebSocket({
     if (pendingNewMsgCount > 0) setPendingNewMsgCount(0);
     api(chatContract.markRead, { params: { id: activeConvId } }, { silent: true }).catch(() => {});
     setConversations(markConversationReadById(activeConvId));
-  }, [activeConvId, contextMode, pendingNewMsgCount, restoreLatestMessages]);
+  }, [activeConvId, contextMode, isAtBottomRef, pendingNewMsgCount, restoreLatestMessages, setConversations, setPendingNewMsgCount]);
 
   const handleStartReached = useCallback(() => {
     if (!hasMore || loadingMsgs || !activeConvId) return;
@@ -266,7 +266,7 @@ export function useChatWebSocket({
 
       Toast.success('实时连接已恢复，已同步最新消息');
     })();
-  }, [activeConvId, contextMode, fetchConversations, fetchMessages, wsConnected]);
+  }, [activeConvId, contextMode, fetchConversations, fetchMessages, isAtBottomRef, setConversations, virtuosoRef, wsConnected, wsDisconnectedSinceReadyRef, wsHasConnectedRef]);
 
   return { refreshGroupAvatarMembers, handleAtBottomStateChange, handleStartReached, wsConnected };
 }

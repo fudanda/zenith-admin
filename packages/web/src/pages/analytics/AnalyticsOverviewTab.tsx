@@ -6,7 +6,7 @@ import { LineChart, chartOptions, makeLineSpec, useChartPalette, StatCard, StatG
 import { DateRangeFilter } from '@/components/search-filters';
 import { formatDateRangeValuesForApi } from '@/utils/date';
 import { useAnalyticsOverview, useAnalyticsTrends } from '@/hooks/queries/analytics';
-import { useBehaviorDays } from './behavior-days-context';
+import { useBehaviorDays } from './behavior-days';
 import { ACCENT_COLORS, DAYS_OPTIONS, msToReadable, numberText, percentText, sectionStyle, type ChartRow } from './analytics-format';
 import { ChartPlaceholder, DeltaText, SectionHeader } from './analytics-shared';
 

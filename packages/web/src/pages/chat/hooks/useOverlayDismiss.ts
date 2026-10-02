@@ -27,7 +27,7 @@ export function useOverlayDismiss({
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
-  }, [emojiVisible]);
+  }, [emojiContainerRef, emojiPickerRef, emojiVisible, setEmojiVisible]);
 
   // 点击 reaction picker 外部时关闭
   useEffect(() => {
@@ -39,13 +39,13 @@ export function useOverlayDismiss({
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
-  }, [reactionPickerVisible]);
+  }, [reactionPickerRef, reactionPickerVisible, setReactionPickerVisible]);
 
   useEffect(() => {
     pendingImagesRef.current = pendingImages;
-  }, [pendingImages]);
+  }, [pendingImages, pendingImagesRef]);
 
   useEffect(() => () => {
     pendingImagesRef.current.forEach((item) => URL.revokeObjectURL(item.previewUrl));
-  }, []);
+  }, [pendingImagesRef]);
 }

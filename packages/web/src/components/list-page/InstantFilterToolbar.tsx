@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { SearchToolbar } from '@/components/SearchToolbar';
 import { RefreshButton, ResetButton } from '@/components/toolbar-controls';
-import { SlotProbe, useRenderedSlot } from '@/components/rendered-slot';
+import { SlotProbe } from '@/components/rendered-slot';
+import { useRenderedSlot } from '@/hooks/useRenderedSlot';
 
 export interface InstantFilterToolbarProps {
   /** 主区控件（关键字输入 / 主机或站点等作用域切换），桌面与移动端主区都展示 */

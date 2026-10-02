@@ -1,5 +1,4 @@
 import { createPreferencesContext } from '@/test-utils/preferences';
-
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { desktopToolbar } from '@/test-utils/toolbar';
@@ -43,8 +42,8 @@ vi.mock('@/hooks/queries/analytics', () => ({
   useExperimentAction: () => ({ mutate: vi.fn(), isPending: false }),
   useExperimentReport: () => ({ data: { experimentId: 1, expKey: 'homepage_banner', metricEventName: 'order_submit', variants: [] }, isFetching: false, refetch: vi.fn() }),
 }));
-
-import AnalyticsExperimentsTab, { toApiDateTime } from './AnalyticsExperimentsTab';
+import AnalyticsExperimentsTab from './AnalyticsExperimentsTab';
+import { toApiDateTime } from './analytics-experiment-values';
 
 function renderWithPreferences() {
   return render(

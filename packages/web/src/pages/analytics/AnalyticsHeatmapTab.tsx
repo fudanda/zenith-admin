@@ -10,7 +10,7 @@ import { useAnalyticsHeatmap, useAnalyticsHeatmapPages } from '@/hooks/queries/a
 import type { AnalyticsEventSource, HeatmapData, HeatmapElementItem, HeatmapPageListItem, HeatmapRageClickItem } from '@zenith/shared/analytics';
 import { ANALYTICS_DEVICE_TYPE_OPTIONS, ANALYTICS_EVENT_SOURCE_OPTIONS } from '@zenith/shared/analytics';
 import { FilterSelect } from '@/components/search-filters';
-import { useBehaviorDays } from './behavior-days-context';
+import { useBehaviorDays } from './behavior-days';
 import { DAYS_OPTIONS, elementDisplayName, numberText, sectionStyle, type DeviceFilter } from './analytics-format';
 import { ChartPlaceholder, SectionHeader } from './analytics-shared';
 

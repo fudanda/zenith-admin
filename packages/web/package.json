@@ -23,7 +23,7 @@
     "icons:iconify": "node scripts/gen-iconify-assets.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint src && stylelint \"src/**/*.css\"",
+    "lint": "eslint src --max-warnings 0 && stylelint \"src/**/*.css\"",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:fix": "eslint src --fix && stylelint \"src/**/*.css\" --fix",
     "test:foundation": "vitest run src/admin/ZenithAdmin.test.tsx src/admin/runtime.test.ts src/utils/storage.test.ts src/providers/GoAuthProvider.test.tsx src/lib/go-transport.test.ts src/lib/go-auth-api.test.ts src/lib/foundation-operations.test.ts src/lib/contract-query.test.tsx src/hooks/PreferencesProvider.test.tsx --maxWorkers=3"

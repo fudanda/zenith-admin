@@ -52,12 +52,13 @@ export default function CmsEditorialTasks({ siteId, initialTaskId, onTaskOpened 
   const navigate = useNavigate();
   const { hasPermission } = usePermission();
   const editor = useCmsTaskEditor(siteId);
+  const { openEdit } = editor;
   const selected = useCmsEditorialTaskDetail(initialTaskId, !!initialTaskId && hasPermission('cms:editorial-task:manage'));
   const opened = useRef<number | undefined>(undefined);
   useEffect(() => {
     if (!initialTaskId) { opened.current = undefined; return; }
-    if (selected.data && selected.data.siteId === siteId && selected.data.id !== opened.current) { opened.current = selected.data.id; editor.openEdit(selected.data); onTaskOpened?.(); }
-  }, [initialTaskId, selected.data, siteId, editor.openEdit, onTaskOpened]);
+    if (selected.data && selected.data.siteId === siteId && selected.data.id !== opened.current) { opened.current = selected.data.id; openEdit(selected.data); onTaskOpened?.(); }
+  }, [initialTaskId, selected.data, siteId, openEdit, onTaskOpened]);
   const page = useListPage({ op: cmsOperationsContract.tasks, useList: useCmsEditorialTasks, params: { siteId }, resetKey: siteId, table: { empty: '暂无编辑事项' } });
   return <>
     {selected.isError ? <Banner type="warning" description={selected.error.message} /> : null}

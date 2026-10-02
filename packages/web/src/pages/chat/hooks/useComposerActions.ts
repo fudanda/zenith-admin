@@ -145,7 +145,7 @@ export function useComposerActions({
         if (failedItems.length > 0) Toast.error(`有 ${failedItems.join('、')}发送失败`);
       });
     }
-  }, [activeConvId, appendMessageOnce, fetchLinkPreview, input, pendingFiles, pendingImages, replyTo, saveDraft, selectedMentions, sendFileMessage, sendImageFile, sending, setUploadingItems]);
+  }, [activeConvId, appendMessageOnce, fetchLinkPreview, input, pendingFiles, pendingImages, replyTo, saveDraft, selectedMentions, sendFileMessage, sendImageFile, sending, setDraftsMap, setFailedMessages, setInput, setPendingFiles, setPendingImages, setReplyTo, setSelectedMentions, setSending, setUploadingItems]);
 
   const handleSelectImages = useCallback((files: File[]) => {
     const validFiles = files.filter((file) => file.type.startsWith('image/'));
@@ -158,7 +158,7 @@ export function useComposerActions({
     }));
 
     setPendingImages((prev) => [...prev, ...added]);
-  }, []);
+  }, [setPendingImages]);
 
   const handleSelectFile = useCallback((files: File[]) => {
     const nonImageFiles = files.filter((file) => !file.type.startsWith('image/'));
@@ -176,7 +176,7 @@ export function useComposerActions({
       }));
       setPendingFiles((prev) => [...prev, ...added]);
     }
-  }, []);
+  }, [setPendingFiles]);
 
   const handleRemovePendingImage = useCallback((id: string) => {
     setPendingImages((prev) => {
@@ -184,11 +184,11 @@ export function useComposerActions({
       if (target) URL.revokeObjectURL(target.previewUrl);
       return prev.filter((item) => item.id !== id);
     });
-  }, []);
+  }, [setPendingImages]);
 
   const handleRemovePendingFile = useCallback((id: string) => {
     setPendingFiles((prev) => prev.filter((item) => item.id !== id));
-  }, []);
+  }, [setPendingFiles]);
 
   const handleInputPaste = useCallback((e: React.ClipboardEvent<HTMLTextAreaElement>) => {
     const items = Array.from(e.clipboardData.items ?? []);
@@ -209,7 +209,7 @@ export function useComposerActions({
     setTimeout(() => {
       setHighlightedMessageId((curr) => (curr === id ? null : curr));
     }, 1200);
-  }, []);
+  }, [setHighlightedMessageId]);
 
   const scrollToMessage = useCallback(async (id: number) => {
     // 优先查看消息是否在当前加载的 messages 中
@@ -248,7 +248,7 @@ export function useComposerActions({
         triggerHighlight(anchorId);
       }
     }, 80);
-  }, [activeConvId, firstItemIndex, messages, triggerHighlight]);
+  }, [activeConvId, firstItemIndex, messages, setContextMode, setFirstItemIndex, setHasMore, setMessages, setOldestMsgId, triggerHighlight, virtuosoRef]);
 
   const getReplyMessage = useCallback((id: number) => messages.find((m) => m.id === id), [messages]);
 
@@ -272,7 +272,7 @@ export function useComposerActions({
       inputRef.current?.setSelectionRange(nextPos, nextPos);
       inputRef.current?.focus();
     });
-  }, [activeGroupMembers, currentUserId, mentionState]);
+  }, [activeGroupMembers, currentUserId, inputRef, mentionState, setInput, setMentionClosed, setSelectedMentions]);
 
   const applyMessageUpdate = useCallback((updated: ChatMessage) => {
     // 收藏是按人隔离的视角标记：WS 广播（编辑等）载荷不携带 isFavorited，
@@ -296,7 +296,7 @@ export function useComposerActions({
       return next;
     });
     setConversations((prev) => prev.map((conv) => conv.lastMessage?.id === updated.id ? { ...conv, lastMessage: updated } : conv));
-  }, []);
+  }, [setConversations, setFavoriteMessages, setMessages, setPinnedMessages]);
 
   return {
     handleSend, handleSelectImages, handleSelectFile, handleRemovePendingImage, handleRemovePendingFile, handleInputPaste,

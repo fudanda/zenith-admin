@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { SearchToolbar } from '@/components/SearchToolbar';
 import { ResetButton, SearchButton } from '@/components/toolbar-controls';
-import { SlotProbe, useRenderedSlot } from '@/components/rendered-slot';
+import { SlotProbe } from '@/components/rendered-slot';
+import { useRenderedSlot } from '@/hooks/useRenderedSlot';
 import { deriveFilterControls, type FilterOverrides, type FilterPageLike, type FilterSpec } from './ContractFilters';
 
 interface ListSearchToolbarBaseProps {

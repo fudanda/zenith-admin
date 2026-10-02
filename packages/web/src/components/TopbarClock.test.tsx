@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatTopbarClock } from './TopbarClock';
+import { formatTopbarClock } from '../utils/topbar-clock';
 
 describe('formatTopbarClock', () => {
   it('24 小时制带日期', () => {

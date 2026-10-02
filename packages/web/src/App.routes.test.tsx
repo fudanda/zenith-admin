@@ -10,7 +10,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Menu } from '@zenith/shared/identity';
-import { FIXED_ROUTES, flattenMenus, buildAllMenuPaths } from './App';
+import { FIXED_ROUTES, flattenMenus, buildAllMenuPaths } from './lib/menu-routes';
 
 const SSL_PATH = '/system/ssl-certificates';
 

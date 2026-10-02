@@ -5,7 +5,8 @@ import { CMS_RESOURCE_URI_PREFIX, isValidCmsAssetUrl, type CmsResource, type Cms
 import { ImageUploadField } from '@/components/ImageUploadField';
 import { usePermission } from '@/hooks/usePermission';
 import { useCmsResourceSelection, useRememberCmsResourceSelection, useUploadCmsResource } from '@/hooks/queries/cms-resources';
-import { CMS_ASSET_LABELS, CmsResourcePicker, CmsResourcePreview } from './CmsResourcePicker';
+import { CmsResourcePicker, CmsResourcePreview } from './CmsResourcePicker';
+import { CMS_ASSET_LABELS } from './cms-resource-options';
 import CmsMediaProcessingSheet from './CmsMediaProcessingSheet';
 import { cmsResourceMediaSummary } from './cms-media';
 import './cms-assets.css';

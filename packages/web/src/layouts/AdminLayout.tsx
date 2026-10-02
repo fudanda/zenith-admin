@@ -391,7 +391,7 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
       const validSet = new Set([...ancestors, target]);
       setOpenKeys(next.filter((k) => validSet.has(k)));
     },
-    [openKeys, preferences.sidebarAccordion, navItems],
+    [preferences.sidebarAccordion, navItems, setOpenKeys, openKeys],
   );
 
   const { resolveTitle, resolveIcon } = useMenuMaps(menuTree);
@@ -420,7 +420,7 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
     document.title = isDynamic && pageTitle !== location.pathname
       ? `${pageTitle} - ${appTitle}`
       : appTitle;
-  }, [location.pathname, resolveTitle, preferences.dynamicTitle]);
+  }, [location.pathname, resolveTitle, preferences.dynamicTitle, appTitle]);
 
   // Sync current route to tabs
   useEffect(() => {
@@ -950,7 +950,6 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
           )
         )}
 
-
         {/* Main area */}
         <div className="admin-main">
           {(preferences.showProgressBar ?? true) && <NProgress />}
@@ -1170,7 +1169,6 @@ export default function AdminLayout({ user, onLogout, menus: menuTree }: AdminLa
       )}
     </div>
   );
-
 
   if (!watermarkConfig.enabled) return adminLayoutEl;
   return (

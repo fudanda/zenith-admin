@@ -14,7 +14,8 @@ import { deleteAction, ListSearchToolbar } from '@/components/list-page';
 import { copyTextWithToast } from '@/utils/clipboard';
 import { iotIngestContract, iotWhitelistContract } from '@zenith/shared/iot';
 import type { CreateIotWhitelistInput, IotWhitelistEntry } from '@zenith/shared/iot';
-import { IotProductSelectField, useIotProductOptions } from './components/IotSelectors';
+import { IotProductSelectField } from './components/IotSelectors';
+import { useIotProductOptions } from './components/iot-options';
 import {
   useDeleteIotWhitelistEntry,
   useDisableIotRegistration,

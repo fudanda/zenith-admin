@@ -1,3 +1,4 @@
+import { CMS_ASSET_LABELS, cmsResourceAccept } from './cms-resource-options';
 import { useEffect, useState } from 'react';
 import { Button, Checkbox, Empty, Pagination, Space, Spin, Toast, Upload } from '@douyinfe/semi-ui';
 import { FileText, UploadCloud } from 'lucide-react';
@@ -13,9 +14,6 @@ import { useFilterQuery } from '@/hooks/useFilterQuery';
 import { cmsResourceKeys, useCmsResourceList, useUploadCmsResource } from '@/hooks/queries/cms-resources';
 import { cmsResourceMediaSummary, cmsResourceThumbnail } from './cms-media';
 import './cms-assets.css';
-
-export const CMS_ASSET_LABELS: Record<CmsResourceType, string> = { image: '图片', audio: '音频', video: '视频', document: '文档', other: '文件' };
-export const cmsResourceAccept = (type?: CmsResourceType) => type === 'image' || type === 'audio' || type === 'video' ? `${type}/*` : undefined;
 
 export function CmsResourcePreview({ resource, onDuration }: Readonly<{ resource: Pick<CmsResource, 'type' | 'url' | 'thumbUrl' | 'name' | 'media'>; onDuration?: (seconds: number) => void }>) {
   if (resource.type === 'image') return <img className="cms-asset-preview__image" src={cmsResourceThumbnail(resource) ?? resource.url} alt={resource.name} loading="lazy" style={resource.media ? { objectPosition: `${resource.media.focalPoint.x * 100}% ${resource.media.focalPoint.y * 100}%` } : undefined} />;

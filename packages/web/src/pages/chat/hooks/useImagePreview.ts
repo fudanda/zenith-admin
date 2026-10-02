@@ -18,7 +18,7 @@ export function useImagePreview({
   const cleanupPreviewBlobs = useCallback(() => {
     previewBlobUrlsRef.current.forEach((u) => { if (u) URL.revokeObjectURL(u); });
     previewBlobUrlsRef.current = [];
-  }, []);
+  }, [previewBlobUrlsRef]);
 
   const openImagePreview = useCallback(async (clickedMsg: ChatMessage, allImgs: ChatMessage[]) => {
     const session = ++previewSessionRef.current;
@@ -56,7 +56,7 @@ export function useImagePreview({
         } catch { /* skip failed */ }
       }
     } catch { Toast.error('图片加载失败'); }
-  }, [cleanupPreviewBlobs]);
+  }, [cleanupPreviewBlobs, previewBlobUrlsRef, previewSessionRef, setPreviewCurrentIndex, setPreviewSrcList, setPreviewVisible]);
 
   return { cleanupPreviewBlobs, openImagePreview };
 }

@@ -68,7 +68,7 @@ export function useMessageActions({
     setInput(draft.content);
     setSelectedMentions(draft.mentions ?? []);
     requestAnimationFrame(() => inputRef.current?.focus());
-  }, [recalledDrafts]);
+  }, [inputRef, recalledDrafts, setInput, setSelectedMentions]);
 
   const handleToggleSelectMessage = useCallback((msg: ChatMessage) => {
     if (msg.isRecalled || msg.type === 'system') return;
@@ -76,25 +76,25 @@ export function useMessageActions({
     setSelectedMessageIds((prev) =>
       prev.includes(msg.id) ? prev.filter((id) => id !== msg.id) : [...prev, msg.id],
     );
-  }, []);
+  }, [setMultiSelectMode, setSelectedMessageIds]);
 
   const handleExitMultiSelect = useCallback(() => {
     setMultiSelectMode(false);
     setSelectedMessageIds([]);
-  }, []);
+  }, [setMultiSelectMode, setSelectedMessageIds]);
 
   const handleForwardSingle = useCallback((msg: ChatMessage) => {
     setForwardingMode('individual');
     setForwardingMessageIds([msg.id]);
     setForwardModalVisible(true);
-  }, []);
+  }, [setForwardModalVisible, setForwardingMessageIds, setForwardingMode]);
 
   const handleForwardSelected = useCallback((mode: 'merge' | 'individual') => {
     if (selectedMessageIds.length === 0) return;
     setForwardingMode(mode);
     setForwardingMessageIds([...selectedMessageIds]);
     setForwardModalVisible(true);
-  }, [selectedMessageIds]);
+  }, [selectedMessageIds, setForwardModalVisible, setForwardingMessageIds, setForwardingMode]);
 
   const handleForwardConfirm = useCallback(async (targetIds: number[]) => {
     setForwardModalVisible(false);
@@ -108,7 +108,7 @@ export function useMessageActions({
       // request 层已提示
     }
     setForwardingMessageIds([]);
-  }, [forwardingMessageIds, forwardingMode, handleExitMultiSelect]);
+  }, [forwardingMessageIds, forwardingMode, handleExitMultiSelect, setForwardModalVisible, setForwardingMessageIds]);
 
   const handleFavoriteSelected = useCallback(async () => {
     if (selectedMessageIds.length === 0) return;
@@ -130,7 +130,7 @@ export function useMessageActions({
     setForwardViewItems(items);
     setForwardViewTitle(title);
     setForwardViewVisible(true);
-  }, []);
+  }, [setForwardViewItems, setForwardViewTitle, setForwardViewVisible]);
 
   const handleDeleteSingle = useCallback(async (msg: ChatMessage) => {
     try {
@@ -141,7 +141,7 @@ export function useMessageActions({
     setMessages(removeMessageById(msg.id));
     setMediaItems(removeMessageById(msg.id));
     Toast.success('已删除');
-  }, []);
+  }, [setMediaItems, setMessages]);
 
   const handleDeleteSelected = useCallback(async () => {
     if (selectedMessageIds.length === 0) return;
@@ -162,20 +162,20 @@ export function useMessageActions({
         handleExitMultiSelect();
       },
     });
-  }, [selectedMessageIds, handleExitMultiSelect]);
+  }, [selectedMessageIds, setMessages, setMediaItems, handleExitMultiSelect]);
 
   const handleReaction = useCallback((messageId: number, emoji: string) => {
     void api(chatContract.toggleReaction, { params: { id: messageId }, body: { emoji } })
       .then((reactions) => setMessages(setMessageReactions(messageId, reactions)))
       .catch(() => undefined);
-  }, []);
+  }, [setMessages]);
 
   const handlePickReactionEmoji = useCallback((messageId: number, e: React.MouseEvent) => {
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
     setReactionTargetMsgId(messageId);
     setReactionPickerAnchor({ top: rect.top, right: window.innerWidth - rect.right });
     setReactionPickerVisible(true);
-  }, []);
+  }, [setReactionPickerAnchor, setReactionPickerVisible, setReactionTargetMsgId]);
 
   const handleCreateVote = useCallback(async (voteData: ChatVoteData, question: string) => {
     if (!activeConvId) return;
@@ -186,7 +186,7 @@ export function useMessageActions({
     if (!sent) return;
     appendMessageOnce(sent);
     setShowVoteModal(false);
-  }, [activeConvId, appendMessageOnce]);
+  }, [activeConvId, appendMessageOnce, setShowVoteModal]);
 
   const handleVoteMessage = useCallback(async (msg: ChatMessage, optionIds: string[]) => {
     const updated = await api(chatContract.vote, { params: { id: msg.id }, body: { optionIds } }).catch(() => null);
@@ -215,7 +215,7 @@ export function useMessageActions({
       }));
     }
     await api(chatContract.recallMessage, { params: { id: msg.id } }).catch(() => null);
-  }, []);
+  }, [setRecalledDrafts]);
 
   return {
     handleToggleFavorite, handleTogglePinMessage, handleEditRecalled, handleToggleSelectMessage, handleExitMultiSelect, handleForwardSingle,

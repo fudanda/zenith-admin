@@ -69,7 +69,7 @@ export function useSendMedia({
     }).catch(() => null);
     if (msg) appendMessageOnce(msg);
     setEmojiVisible(false);
-  }, [activeConvId, appendMessageOnce]);
+  }, [activeConvId, appendMessageOnce, setEmojiVisible]);
 
   // 图片消息 → 收藏为自定义表情
   const handleSaveAsEmoji = useCallback((msg: ChatMessage) => {

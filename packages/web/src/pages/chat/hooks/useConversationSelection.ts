@@ -106,7 +106,7 @@ export function useConversationSelection({
     await api(chatContract.markRead, { params: { id: conv.id } }, { silent: true }).catch(() => null);
     setConversations((prev) => prev.map((c) => c.id === conv.id ? { ...c, unreadCount: 0, hasMentionUnread: false } : c));
     setTimeout(() => virtuosoRef.current?.scrollToIndex({ index: 'LAST', behavior: 'smooth' }), 100);
-  }, [activeConvId, currentUserId, fetchMessages, input, loadDraft, onConvChange, saveDraft]);
+  }, [activeConvId, currentUserId, fetchMessages, input, loadDraft, onConvChange, saveDraft, setActiveChannelId, setActiveConvId, setAnnouncementHistoryVisible, setContextMode, setConversations, setInput, setLeftPaneMode, setMediaHasMore, setMediaItems, setMediaPage, setMsgSearch, setPendingFiles, setPendingImages, setReplyTo, setSearchDatePreset, setSearchHasSearched, setSearchPage, setSearchResults, setSearchSenderId, setSearchTimeRange, setSearchTotal, setSearchTypeFilters, setSelectedMentions, setShowMediaPanel, setShowMembers, setShowSearchPanel, setUnreadDivider, virtuosoRef]);
 
   const handleNewDirectChat = useCallback(async (user: ChatUser) => {
     setShowNewChat(false);
@@ -115,13 +115,13 @@ export function useConversationSelection({
       await fetchConversations();
       await handleSelectConv(conv);
     }
-  }, [fetchConversations, handleSelectConv]);
+  }, [fetchConversations, handleSelectConv, setShowNewChat]);
 
   const handleGroupCreated = useCallback(async (conv: ChatConversation) => {
     setShowNewChat(false);
     await fetchConversations();
     await handleSelectConv(conv);
-  }, [fetchConversations, handleSelectConv]);
+  }, [fetchConversations, handleSelectConv, setShowNewChat]);
 
   const appendMessageOnce = useCallback((message: ChatMessage) => {
     setMessages((prev) => (prev.some((item) => item.id === message.id) ? prev : [...prev, message]));
@@ -132,7 +132,7 @@ export function useConversationSelection({
       (type === 'file' && message.type === 'file') ||
       (type === 'link' && message.type === 'text' && (message.extra?.linkPreview || /https?:\/\//i.test(message.content)));
     if (isMediaMatch) setMediaItems((prev) => (prev.some((m) => m.id === message.id) ? prev : [message, ...prev]));
-  }, []);
+  }, [activeConvIdRef, mediaTypeRef, setMediaItems, setMessages, showMediaPanelRef]);
 
   return { handleSelectConv, handleNewDirectChat, handleGroupCreated, appendMessageOnce };
 }

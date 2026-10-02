@@ -256,24 +256,26 @@ export default function AiProviderFormModal(props: AiProviderFormModalProps) {
     },
   });
 
+  const { close: closeSystem, openCreate: createSystem, openEdit: editSystem } = systemModal;
+  const { close: closeUser, openCreate: createUser, openEdit: editUser } = userModal;
   useEffect(() => {
     if (!visible) {
-      systemModal.close();
-      userModal.close();
+      closeSystem();
+      closeUser();
       return;
     }
     if (isUser) {
-      if (existingUserConfig) userModal.openEdit(existingUserConfig);
-      else userModal.openCreate();
+      if (existingUserConfig) editUser(existingUserConfig);
+      else createUser();
       setProviderId(existingUserConfig?.providerId ?? AI_CUSTOM_PROVIDER_ID);
     } else if (editTarget) {
-      systemModal.openEdit(editTarget);
+      editSystem(editTarget);
       setProviderId(editTarget.providerId);
     } else {
-      systemModal.openCreate();
+      createSystem();
       setProviderId(AI_CUSTOM_PROVIDER_ID);
     }
-  }, [visible, isUser, existingUserConfig, editTarget, systemModal.openCreate, systemModal.openEdit, systemModal.close, userModal.openCreate, userModal.openEdit, userModal.close]);
+  }, [visible, isUser, existingUserConfig, editTarget, createSystem, editSystem, closeSystem, createUser, editUser, closeUser]);
 
   const activeModal = isUser ? userModal : systemModal;
   const isEditing = activeModal.isEdit;

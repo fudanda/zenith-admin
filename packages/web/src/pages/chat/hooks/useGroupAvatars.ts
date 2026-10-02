@@ -39,5 +39,5 @@ export function useGroupAvatars({
     return () => {
       cancelled = true;
     };
-  }, [conversations, groupAvatarMap, refreshGroupAvatarMembers]);
+  }, [conversations, groupAvatarMap, refreshGroupAvatarMembers, setGroupAvatarMap]);
 }

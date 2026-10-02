@@ -22,7 +22,8 @@ import {
   IOT_SCHEDULE_TYPE_LABELS, IOT_SCHEDULE_TYPE_OPTIONS,
 } from '@zenith/shared/iot';
 import type { CreateIotScheduleInput, IotSchedule, IotScheduleRun } from '@zenith/shared/iot';
-import { IotDeviceSelectField, IotProductSelectField, useIotGroupOptions } from './components/IotSelectors';
+import { IotDeviceSelectField, IotProductSelectField } from './components/IotSelectors';
+import { useIotGroupOptions } from './components/iot-options';
 import { IotServiceSelectField } from './components/ThingModelFields';
 import { formatIotDateTime, jsonObjectToText, parseJsonObjectInput, toFiveFieldCron, toSixFieldCron } from './iot-form-utils';
 import {

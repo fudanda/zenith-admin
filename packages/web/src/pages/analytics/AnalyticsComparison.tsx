@@ -4,7 +4,7 @@
  * 漏斗与留存共用：两处各写一份的话，「维度拆分 / 群组对比互斥」这条规则
  * 很容易在其中一处被写成可同时选择，产生后端根本不支持的请求。
  */
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Empty, Select, SideSheet, Space, Tag, Typography } from '@douyinfe/semi-ui';
 import type { AnalyticsComparison, AnalyticsBreakdownDimension, AnalyticsDrillContext } from '@zenith/shared/analytics';
 import {
@@ -76,11 +76,6 @@ export function ComparisonPicker({ value, onChange }: ComparisonPickerProps) {
   );
 }
 
-/** 分群对比至少要选一个分群，否则请求体过不了 schema 校验 */
-export function isComparisonReady(comparison: AnalyticsComparison): boolean {
-  return comparison.type !== 'segments' || comparison.segmentIds.length > 0;
-}
-
 export interface DrillUsersSheetProps {
   /** 为 null 时抽屉关闭；非空即打开并发起查询 */
   context: AnalyticsDrillContext | null;
@@ -139,20 +134,4 @@ export function DrillUsersSheet({ context, title, description, onClose }: DrillU
       )}
     </SideSheet>
   );
-}
-
-/** 下钻抽屉的开合状态，供漏斗/留存复用 */
-export function useDrillSheet() {
-  const [context, setContext] = useState<AnalyticsDrillContext | null>(null);
-  const [meta, setMeta] = useState<{ title: string; description?: string }>({ title: '' });
-  return {
-    context,
-    title: meta.title,
-    description: meta.description,
-    open: (next: AnalyticsDrillContext, title: string, description?: string) => {
-      setMeta({ title, description });
-      setContext(next);
-    },
-    close: () => setContext(null),
-  };
 }

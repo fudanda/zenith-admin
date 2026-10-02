@@ -1,9 +1,10 @@
+import { goSessionKey } from '../lib/go-session';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { hashKey, useQuery, useQueryClient } from '@tanstack/react-query';
 import { goAuthContract, type GoSession } from '@zenith/shared/identity';
 import { AuthContext, type AuthContextValue } from '@/hooks/useAuth';
 import { PermissionContext } from '@/hooks/usePermission';
-import { apiRaw, contractKey } from '@/lib/contract-query';
+import { apiRaw } from '@/lib/contract-query';
 import { ApiError } from '@/lib/query';
 import { loginGo, logoutGo } from '@/lib/go-auth-api';
 import { GO_SESSION_INVALIDATED, goApiClient } from '@/lib/go-api-client';
@@ -15,8 +16,6 @@ import type { Client, ApiEnvelope } from '@zenith/client';
 import { useAdminOptions } from '@/admin/runtime';
 import { useAuth } from '@/hooks/useAuth';
 import PageLoading from '@/components/PageLoading';
-
-export const goSessionKey = contractKey(goAuthContract.me);
 const unsupported = async (): Promise<never> => { throw new Error('此功能尚未迁移到 Go'); };
 
 function OwnedGoAuthProvider({ children }: Readonly<{ children: ReactNode }>) {

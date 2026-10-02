@@ -1,3 +1,4 @@
+import { cmsModelFieldOptions } from './cms-model-field-options';
 /**
  * CMS 内容模型字段 → 动态表单控件（内容编辑页与站点扩展字段共用）。
  * 值写入 `extend.{name}`；公共 props（label 后缀、labelWidth、rules、初值）由调用方决定，
@@ -12,14 +13,6 @@ import CmsContentReferenceInput from './CmsContentReferenceInput';
 const RichTextEditor = lazy(() => import('@/components/RichTextEditor'));
 const FormRichText = withField((props: { value?: string; onChange?: (value: string) => void; placeholder?: string }) => <Suspense fallback={<Spin />}><RichTextEditor {...props} height={220} /></Suspense>);
 const FormContentReference = withField(CmsContentReferenceInput);
-
-/**
- * 字段可选项：优先用服务端解析后的 resolvedOptions（字典来源已展开），
- * 回落 options 兼容尚未返回 resolvedOptions 的旧接口响应。
- */
-export function cmsModelFieldOptions(field: CmsModelField): { label: string; value: string }[] {
-  return field.resolvedOptions ?? field.options ?? [];
-}
 
 export interface CmsModelFieldCommonProps {
   field: string;

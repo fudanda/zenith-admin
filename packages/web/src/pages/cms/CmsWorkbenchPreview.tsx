@@ -46,7 +46,7 @@ export default function CmsWorkbenchPreview({ visible, onClose, siteId, initialP
     setMode(initialMode); setPath(initialPath); setResult(undefined);
     void load(initialMode, initialPath);
   }, [visible, siteId, releaseId, initialMode, initialPath, selectionKey, load]);
-  const nonce = useMemo(() => crypto.randomUUID(), [result]);
+  const nonce = useMemo(() => result ? crypto.randomUUID() : '', [result]);
   const document = useMemo(() => {
     if (!result) return '';
     const policy = `default-src 'none'; img-src http: https: data: blob:; media-src http: https: blob:; font-src http: https: data:; style-src 'unsafe-inline'; script-src 'nonce-${nonce}'; connect-src 'none'; form-action 'none'; base-uri 'none'`;

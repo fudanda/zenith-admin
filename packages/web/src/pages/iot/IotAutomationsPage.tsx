@@ -25,7 +25,8 @@ import {
   IOT_COMPARE_OP_LABELS,
 } from '@zenith/shared/iot';
 import type { CreateIotAutomationInput, IotAutomation, IotAutomationAction, IotAutomationRun } from '@zenith/shared/iot';
-import { IotDeviceSelectField, IotProductSelectField, useIotDeviceOptions, useIotGroupOptions } from './components/IotSelectors';
+import { IotDeviceSelectField, IotProductSelectField } from './components/IotSelectors';
+import { useIotDeviceOptions, useIotGroupOptions } from './components/iot-options';
 import { IotSuccessTag } from './components/IotStatus';
 import { IotEventSelectField, IotPropertyConditionFields, useIotThingModelSelects } from './components/ThingModelFields';
 import { jsonObjectToText, parseJsonObjectInput } from './iot-form-utils';

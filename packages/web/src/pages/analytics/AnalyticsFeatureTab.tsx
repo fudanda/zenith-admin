@@ -8,7 +8,7 @@ import { usePagination } from '@/hooks/usePagination';
 import { useAnalyticsFeatureStats } from '@/hooks/queries/analytics';
 import { renderEllipsis } from '@/utils/table-columns';
 import type { FeatureStats } from '@zenith/shared/analytics';
-import { useBehaviorDays } from './behavior-days-context';
+import { useBehaviorDays } from './behavior-days';
 import { CHART_TOP_N, DAYS_OPTIONS, elementDisplayName, numberText, sectionStyle } from './analytics-format';
 import { ChartPlaceholder, SectionHeader } from './analytics-shared';
 

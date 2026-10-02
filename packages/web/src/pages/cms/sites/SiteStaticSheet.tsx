@@ -13,7 +13,7 @@ import { useCmsSiteEffectiveConfig, useCmsStaticBuild } from '@/hooks/queries/cm
 import { CMS_STATIC_MODE_LABELS } from '@zenith/shared/cms';
 import type { CmsSite } from '@zenith/shared/cms';
 import type { AsyncTask } from '@zenith/shared/tasks';
-import { cmsPreviewUrl } from '../CmsSiteSelect';
+import { cmsPreviewUrl } from '../cms-preview-url';
 
 /** 站点静态化面板（SideSheet 打开时才挂载，任务列表轮询随关闭停止） */
 function SiteStaticPanel({ site, canBuild }: { site: CmsSite; canBuild: boolean }) {

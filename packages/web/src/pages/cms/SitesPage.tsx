@@ -31,7 +31,7 @@ import { useSubmitCmsSiteGroupPublish } from '@/hooks/queries/cms-stage3';
 import { CMS_STATIC_MODE_LABELS } from '@zenith/shared/cms';
 import { enumValueOf, USER_STATUSES } from '@zenith/shared/core';
 import type { CmsSite } from '@zenith/shared/cms';
-import { cmsPreviewUrl } from './CmsSiteSelect';
+import { cmsPreviewUrl } from './cms-preview-url';
 import SiteEditSheet from './sites/SiteEditSheet';
 import SiteUsersModal from './sites/SiteUsersModal';
 import SiteOpenGrantsModal from './sites/SiteOpenGrantsModal';

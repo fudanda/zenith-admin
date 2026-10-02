@@ -7,8 +7,9 @@ import { BarChart, chartOptions, makeBarSpec, useChartPalette } from '@/componen
 import { useAnalyzeFunnel, useSavedFunnelReports, useSaveFunnelReport, useDeleteFunnelReport } from '@/hooks/queries/analytics';
 import type { AnalyticsComparison, AnalyticsSavedReport, AnalyticsSegmentPropertyFilter } from '@zenith/shared/analytics';
 import { ANALYTICS_SEGMENT_COMPARE_OP_OPTIONS } from '@zenith/shared/analytics';
-import { ComparisonPicker, DrillUsersSheet, isComparisonReady, useDrillSheet } from './AnalyticsComparison';
-import { useBehaviorDays } from './behavior-days-context';
+import { ComparisonPicker, DrillUsersSheet } from './AnalyticsComparison';
+import { isComparisonReady, useDrillSheet } from './analytics-comparison';
+import { useBehaviorDays } from './behavior-days';
 import { confirmAndDelete } from '@/components/list-page';
 import { DAYS_OPTIONS, chartColor, msToReadable, numberText, percentText, sectionStyle } from './analytics-format';
 import { ChartPlaceholder, SectionHeader } from './analytics-shared';

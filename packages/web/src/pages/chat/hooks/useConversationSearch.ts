@@ -56,7 +56,7 @@ export function useConversationSearch({
     setSearchPage(1);
     setSearchHasSearched(false);
     setShowSearchPanel(false);
-  }, []);
+  }, [setMsgSearch, setSearchDatePreset, setSearchHasSearched, setSearchPage, setSearchResults, setSearchSenderId, setSearchTimeRange, setSearchTotal, setSearchTypeFilters, setShowSearchPanel]);
 
   const applyDatePreset = useCallback((preset: SearchDatePreset) => {
     if (!preset) {
@@ -77,7 +77,7 @@ export function useConversationSearch({
     }
     setSearchDatePreset(preset);
     setSearchTimeRange([start, now]);
-  }, []);
+  }, [setSearchDatePreset, setSearchTimeRange]);
 
   const senderOptions = useMemo(() => {
     const optionMap = new Map<number, { value: number; label: string }>();
@@ -107,7 +107,7 @@ export function useConversationSearch({
       const members = await api(chatContract.groupMembers, { params: { id: activeConvId } }, { silent: true }).catch(() => null);
       if (members) setSearchMembers(members);
     })();
-  }, [activeConv?.type, activeConvId, showSearchPanel]);
+  }, [activeConv?.type, activeConvId, setSearchMembers, showSearchPanel]);
 
   const executeSearch = useCallback(async (targetPage = 1) => {
     if (!activeConvId) return;
@@ -153,7 +153,7 @@ export function useConversationSearch({
     setSearchHasSearched(false);
     setShowSearchPanel(false);
     Toast.info('服务端搜索暂不可用，已保留本地模糊过滤');
-  }, [activeConvId, msgSearch, searchResults, searchSenderId, searchTimeRange, searchTypeFilters]);
+  }, [activeConvId, msgSearch, searchResults, searchSenderId, searchTimeRange, searchTypeFilters, setSearchHasSearched, setSearchLoading, setSearchPage, setSearchResults, setSearchTotal, setShowMembers, setShowSearchPanel]);
 
   const jumpToSearchResult = useCallback(async (item: ChatMessageSearchItem) => {
     if (!activeConvId) return;
@@ -172,7 +172,7 @@ export function useConversationSearch({
     setOldestMsgId(context.list[0]?.id ?? null);
     setContextMode({ anchorMessageId: context.anchorMessageId, keyword: msgSearch.trim() || item.snippet });
     setTimeout(() => scrollToMessage(context.anchorMessageId), 80);
-  }, [activeConvId, msgSearch, scrollToMessage]);
+  }, [activeConvId, msgSearch, scrollToMessage, setContextMode, setHasMore, setMessages, setOldestMsgId]);
 
   return { resetSearchFilters, applyDatePreset, senderOptions, executeSearch, jumpToSearchResult };
 }

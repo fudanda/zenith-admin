@@ -3,7 +3,8 @@ import { Button, Dropdown, SideSheet, Space } from '@douyinfe/semi-ui';
 import { Filter, MoreHorizontal } from 'lucide-react';
 import { ResetButton, SearchButton } from '@/components/toolbar-controls';
 import { ToolbarSlotContext } from '@/components/toolbar-slot-context';
-import { SlotProbe, useRenderedSlot } from '@/components/rendered-slot';
+import { SlotProbe } from '@/components/rendered-slot';
+import { useRenderedSlot } from '../hooks/useRenderedSlot';
 
 interface SearchToolbarProps {
   /** 工具栏内容（搜索输入框、下拉筛选、按钮等），自动用 `<Space wrap>` 包裹 */

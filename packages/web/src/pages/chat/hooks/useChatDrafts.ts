@@ -26,7 +26,7 @@ export function useChatDrafts({
         return next;
       });
     } catch { /* ignore */ }
-  }, []);
+  }, [setDraftsMap]);
 
   const loadDraft = useCallback((convId: number): string => {
     try {

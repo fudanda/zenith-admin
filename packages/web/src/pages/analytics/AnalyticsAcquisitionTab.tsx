@@ -16,7 +16,7 @@ import {
 import { BarChart, chartOptions, makeBarSpec, useChartPalette } from '@/components/charts';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { useAnalyticsAcquisition, useAnalyticsEventMeta } from '@/hooks/queries/analytics';
-import { BEHAVIOR_DAYS_OPTIONS, useBehaviorDays } from './behavior-days-context';
+import { BEHAVIOR_DAYS_OPTIONS, useBehaviorDays } from './behavior-days';
 
 const DAYS_OPTIONS = BEHAVIOR_DAYS_OPTIONS;
 
@@ -34,7 +34,7 @@ export default function AnalyticsAcquisitionTab() {
 
   const query = useAnalyticsAcquisition({ days, dimension, model, conversionEvent, limit: 20 });
   const data = query.data ?? null;
-  const rows = data?.rows ?? [];
+  const rows = useMemo(() => data?.rows ?? [], [data?.rows]);
 
   const eventMetaQuery = useAnalyticsEventMeta({ page: 1, pageSize: 200 });
   const eventOptions = useMemo(

@@ -7,6 +7,7 @@ import {
 import { Spin, Table, Tag, Typography } from '@douyinfe/semi-ui';
 import { ThemedReactFlow } from '@/components/ThemedReactFlow';
 import { useGraphSelectionHighlight } from '@/hooks/useGraphSelectionHighlight';
+import { useEventCallback } from '@/hooks/useEventCallback';
 import { EMPTY_PLACEHOLDER, dateTimeColumn } from '@/utils/table-columns';
 import { formatSecondsHuman } from '@/utils/format';
 import {
@@ -170,14 +171,18 @@ function WsTopologyGraph({ metrics, nodeRates, onSelectUser, onInspectTopic, onS
     [topology],
   );
 
+  // Read the latest nodes when fitting; rate-only polling must keep the user's viewport.
+  const fitTopology = useEventCallback(() => {
+    const targets = fitNodeTargets;
+    if (targets.length === 0) return;
+    updateNodeInternals(targets.map(({ id }) => id));
+    void fitView({ nodes: targets, padding: 0.2, maxZoom: 1, duration: 200 });
+  });
   useEffect(() => {
-    if (!ready || !nodesInitialized || fitNodeTargets.length === 0) return;
-    const raf = requestAnimationFrame(() => {
-      updateNodeInternals(fitNodeTargets.map(({ id }) => id));
-      void fitView({ nodes: fitNodeTargets, padding: 0.2, maxZoom: 1, duration: 200 });
-    });
+    if (!ready || !nodesInitialized) return;
+    const raf = requestAnimationFrame(fitTopology);
     return () => cancelAnimationFrame(raf);
-  }, [fitView, nodesInitialized, ready, topologyStructureKey, updateNodeInternals]);
+  }, [fitTopology, nodesInitialized, ready, topologyStructureKey]);
 
   const { nodes, edges, onNodesChange, onEdgesChange, handleNodeClick, handlePaneClick } = useGraphSelectionHighlight<WsTopoNodeData>(
     laidOutNodes,

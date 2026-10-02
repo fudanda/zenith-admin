@@ -44,12 +44,12 @@ export function useConversationExtras({
     const list = await api(chatContract.pinnedMessages, { params: { id: convId } }, { silent: true }).catch(() => null);
     if (convId !== activeConvIdRef.current) return;
     if (list) setPinnedMessages(list);
-  }, []);
+  }, [setPinnedMessages]);
 
   const fetchFavoriteMessages = useCallback(async () => {
     const page = await api(chatContract.globalFavoriteMessages, { query: { page: 1, pageSize: 100 } }, { silent: true }).catch(() => null);
     if (page) setFavoriteMessages(page.list);
-  }, []);
+  }, [setFavoriteMessages]);
 
   // 群公告历史是抽屉打开时才需要的非实时数据，交给 Query 持有：
   // 删除后由 mutation 失效，无需在页面里手工维护数组
@@ -103,13 +103,13 @@ export function useConversationExtras({
       el.style.background = 'var(--semi-color-primary-light-hover)';
       setTimeout(() => { el.style.background = ''; }, 1200);
     }, 80);
-  }, []);
+  }, [setActiveConvId, setContextMode, setHasMore, setLeftPaneMode, setMessages, setOldestMsgId]);
 
   const fetchReadStates = useCallback(async (convId: number) => {
     const states = await api(chatContract.readStates, { params: { id: convId } }, { silent: true }).catch(() => null);
     if (convId !== activeConvIdRef.current) return;
     if (states) setReadStates(states);
-  }, []);
+  }, [setReadStates]);
 
   const fetchPresence = useCallback(async (userIds: number[]) => {
     const ids = [...new Set(userIds)].filter((id) => id > 0);
@@ -118,7 +118,7 @@ export function useConversationExtras({
     if (!presence) return;
     setOnlineUserIds(applyPresenceToOnlineIds(presence));
     setLastSeenMap(applyPresenceToLastSeen(presence));
-  }, []);
+  }, [setLastSeenMap, setOnlineUserIds]);
 
   useEffect(() => {
     if (!activeConvId) {
@@ -128,7 +128,7 @@ export function useConversationExtras({
     }
     void fetchPinnedMessages(activeConvId);
     void fetchReadStates(activeConvId);
-  }, [activeConvId, fetchPinnedMessages, fetchReadStates]);
+  }, [activeConvId, fetchPinnedMessages, fetchReadStates, setPinnedMessages, setReadStates]);
 
   // 拉取相关用户在线状态：单聊对方 + 当前群成员
   useEffect(() => {

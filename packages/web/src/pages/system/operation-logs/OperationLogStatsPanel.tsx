@@ -24,7 +24,7 @@ import {
 } from '@/components/charts';
 import { useOperationLogStats } from '@/hooks/queries/operation-logs';
 import { ModuleOperationPie } from '@/components/logs/ModuleOperationPie';
-import { buildUserChartLabels, formatUserLabel } from '@/components/UserDisplay';
+import { buildUserChartLabels, formatUserLabel } from '@/utils/user-labels';
 import { LogStatsScaffold, calcSuccessRate, calcSuccessRateDelta, deltaOf, weekdayBuckets } from '@/components/logs/LogStatsScaffold';
 import { shortDate } from '@/utils/date';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';

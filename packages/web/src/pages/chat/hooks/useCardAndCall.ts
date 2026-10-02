@@ -17,7 +17,7 @@ export function useCardAndCall({
 }) {
   const handleOpenWorkflowFromCard = useCallback((instanceId: number, taskId: number | null) => {
     setCardSheet({ instanceId, taskId, action: null });
-  }, []);
+  }, [setCardSheet]);
 
   const handleCardAction = useCallback((msg: ChatMessage, action: ChatCardAction) => {
     const instanceId = msg.extra?.card?.instanceId ?? null;
@@ -29,7 +29,7 @@ export function useCardAndCall({
       if (isRootRelativePath(action.url)) navigate(action.url);
       else openExternalUrl(action.url);
     }
-  }, [navigate]);
+  }, [navigate, setCardSheet]);
 
   // ── 音视频通话 ──
   const handleStartCall = useCallback((callType: 'audio' | 'video') => {

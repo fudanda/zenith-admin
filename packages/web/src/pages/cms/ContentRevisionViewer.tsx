@@ -5,7 +5,7 @@ import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_TYPE_LABELS, type CmsContent, ty
 import { formatBytes } from '@zenith/shared/core';
 import { formatDateTime } from '@/utils/date';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
-import { cmsModelFieldOptions } from './model-field-renderer';
+import { cmsModelFieldOptions } from './cms-model-field-options';
 import './ContentRevisionViewer.css';
 
 /**

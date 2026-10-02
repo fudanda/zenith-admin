@@ -3,7 +3,8 @@ import { Button, Divider, Tag, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { RotateCcw } from 'lucide-react';
 import type { PreferencePath } from '@zenith/shared/preferences';
 import { usePreferences } from '@/hooks/usePreferences';
-import { SlotProbe, useRenderedSlot } from '@/components/rendered-slot';
+import { SlotProbe } from '@/components/rendered-slot';
+import { useRenderedSlot } from '@/hooks/useRenderedSlot';
 import '../preferences/preference-control.css';
 
 const { Text, Title } = Typography;

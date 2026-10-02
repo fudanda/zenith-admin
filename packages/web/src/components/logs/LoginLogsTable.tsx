@@ -7,7 +7,8 @@ import { LOGIN_EVENT_TYPE_LABELS, type LoginEventType, type LoginLog } from '@ze
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { formatDateTime } from '@/utils/date';
 import { dateTimeColumn, renderEllipsis } from '@/utils/table-columns';
-import { UserDisplayCell, formatUserLabel } from '@/components/UserDisplay';
+import { UserDisplayCell } from '@/components/UserDisplay';
+import { formatUserLabel } from '@/utils/user-labels';
 
 interface LoginLogsTableProps {
   readonly dataSource: LoginLog[];

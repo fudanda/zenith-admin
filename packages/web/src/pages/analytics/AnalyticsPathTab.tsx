@@ -12,7 +12,7 @@ import type { PathLink } from '@zenith/shared/analytics';
 import { ANALYTICS_PATH_EXIT_PAGE } from '@zenith/shared/analytics';
 import { SearchButton } from '@/components/toolbar-controls';
 import { KeywordInput } from '@/components/search-filters';
-import { useBehaviorDays } from './behavior-days-context';
+import { useBehaviorDays } from './behavior-days';
 import { DAYS_OPTIONS, chartColor, getRouteSegments, numberText, sectionStyle } from './analytics-format';
 import { ChartPlaceholder, SectionHeader } from './analytics-shared';
 

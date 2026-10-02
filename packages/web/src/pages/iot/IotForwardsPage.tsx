@@ -21,7 +21,7 @@ import {
   IOT_FORWARD_SOURCES, IOT_FORWARD_SOURCE_LABELS, IOT_FORWARD_SOURCE_OPTIONS, IOT_FORWARD_STATUSES, IOT_FORWARD_STATUS_OPTIONS,
 } from '@zenith/shared/iot';
 import type { CreateIotForwardRuleInput, IotForwardLog, IotForwardRule } from '@zenith/shared/iot';
-import { useIotGroupOptions, useIotProductOptions } from './components/IotSelectors';
+import { useIotGroupOptions, useIotProductOptions } from './components/iot-options';
 import { IotSuccessTag } from './components/IotStatus';
 import { jsonObjectToText, parseJsonObjectInput } from './iot-form-utils';
 import {

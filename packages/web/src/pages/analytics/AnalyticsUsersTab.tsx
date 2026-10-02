@@ -8,7 +8,7 @@ import { dateTimeColumn } from '@/utils/table-columns';
 import { usePagination } from '@/hooks/usePagination';
 import { useAnalyticsUserStats, useAnalyticsUserTimeline } from '@/hooks/queries/analytics';
 import type { AnalyticsUserStats } from '@zenith/shared/analytics';
-import { useBehaviorDays } from './behavior-days-context';
+import { useBehaviorDays } from './behavior-days';
 import { DAYS_OPTIONS, msToReadable, numberText, sectionStyle } from './analytics-format';
 import { SectionHeader } from './analytics-shared';
 

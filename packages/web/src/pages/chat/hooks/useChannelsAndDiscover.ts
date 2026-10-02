@@ -28,14 +28,14 @@ export function useChannelsAndDiscover({
     const list = await api(chatContract.conversations, { silent: true }).catch(() => null);
     setLoadingConvs(false);
     if (list) setConversations(list);
-  }, []);
+  }, [setConversations, setLoadingConvs]);
 
   useEffect(() => { void fetchConversations(); }, [fetchConversations]);
 
   const fetchChannels = useCallback(async () => {
     const list = await api(channelContract.mine, { silent: true }).catch(() => null);
     if (list) setChannels(list);
-  }, []);
+  }, [setChannels]);
 
   useEffect(() => { void fetchChannels(); }, [fetchChannels]);
 
@@ -53,12 +53,12 @@ export function useChannelsAndDiscover({
         }
       },
     });
-  }, [fetchChannels]);
+  }, [fetchChannels, setActiveChannelId]);
 
   const openDiscover = useCallback(() => {
     setDiscoverKeyword('');
     setDiscoverVisible(true);
-  }, []);
+  }, [setDiscoverKeyword, setDiscoverVisible]);
 
   const discoverableChannelsQuery = useDiscoverableChannels(
     { keyword: debouncedDiscoverKeyword || undefined },

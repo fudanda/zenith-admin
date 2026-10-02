@@ -29,7 +29,7 @@ import {
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_TYPE_LABELS, CMS_CONTENT_TYPES, CMS_TITLE_STYLE_COLORS, CMS_RESOURCE_URI_PREFIX } from '@zenith/shared/cms';
 import type { CmsContent, CmsPreviewLink, CmsModelField, CmsEditLock, CmsTextCheckResult, CmsContentType, CmsAlbumImage, CmsContentAttachment, CmsResource } from '@zenith/shared/cms';
-import { useCmsLinkPicker } from './CmsLinkInput';
+import { useCmsLinkPicker } from './cms-link-picker';
 import { formatBytes } from '@zenith/shared/core';
 import { channelsToSelectTree } from './channel-tree';
 import { CmsModelFieldControl } from './model-field-renderer';
