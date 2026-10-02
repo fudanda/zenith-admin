@@ -123,6 +123,8 @@ go test -tags integration -count=1 -v ./...
 ZENITH_BROWSER_PRODUCTION=true go test -tags integration -count=1 -run TestOriginalWebFoundation -v .
 ```
 
+修改基础版工作流后先执行 `npm run check:workflow`，使用固定版本 actionlint 校验 YAML、表达式及上下文位置。PostgreSQL 容器 ID 在步骤中读取并写入后续步骤的环境，不在任务级环境引用运行时 `job` 上下文。
+
 CI 必跑真实 PostgreSQL 集成测试、类型、lint、生成漂移、页面构建、开发及 Go 嵌入两种浏览器验收。覆盖单组织升级拒绝与回滚、并发设置、角色/直接/组继承、数据范围、会话重启和失效、登录防护、CSRF、数据库故障、文件私有访问、分片与清理、同步导入导出及原页面闭环。
 
 CI 同时以 `ZENITH_TEST_DATABASE_URL=sqlite:./data/test.db` 运行真实 SQLite 集成和 Go 内嵌原页面验收。每项测试使用独立临时数据库文件；PostgreSQL 历史迁移测试仅在 PostgreSQL 分组执行。SQLite 基线、拒绝未知结构、各连接外键、唯一约束、事务回滚、并发迁移/登录失败、时区及维护清理、WAL 快照恢复由常规 Go 测试覆盖。`ZENITH_BROWSER_TEST_NODE` 与 `ZENITH_BROWSER_PRODUCTION=true` 的配置与 PostgreSQL 一致。

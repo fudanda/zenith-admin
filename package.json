@@ -61,6 +61,7 @@
     "check:types": "npm run build:packages:core && npm run build:elements && node --max-old-space-size=8192 node_modules/typescript/bin/tsc6 -b packages/shared packages/client packages/elements packages/web packages/admin",
     "test:client": "npm run test -w @zenith/client",
     "check:boundaries": "node scripts/check-client-boundaries.mjs && node scripts/check-admin-boundaries.mjs && node scripts/check-elements-boundaries.mjs",
+    "check:workflow": "go run github.com/rhysd/actionlint/cmd/actionlint@v1.7.12 -shellcheck= -pyflakes= .github/workflows/go-foundation.yml",
     "build:admin": "npm run build:elements && npm run build -w @zenith/admin",
     "build:admin:example": "npm run build:example -w @zenith/admin",
     "test:admin": "npm run test -w @zenith/admin",

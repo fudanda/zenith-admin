@@ -22,9 +22,12 @@ jobs:
       ZENITH_TEST_S3_ENDPOINT: http://127.0.0.1:19000
       ZENITH_TEST_S3_ACCESS_KEY: zenith_test
       ZENITH_TEST_S3_SECRET_KEY: zenith_s3_test_only
-      ZENITH_ACCEPTANCE_PG_CONTAINER: ${{ job.services.postgres.id }}
     steps:
       - uses: actions/checkout@v4
+      - name: Export PostgreSQL service container for backup acceptance
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: printf '%s\n' "ZENITH_ACCEPTANCE_PG_CONTAINER=$PG_CONTAINER" >> "$GITHUB_ENV"
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -33,6 +36,8 @@ jobs:
         with:
           go-version-file: backend/go.mod
           cache-dependency-path: backend/go.sum
+      - name: Validate foundation workflow
+        run: npm run check:workflow
       - run: npm ci
       - name: Start isolated S3-compatible storage
         run: |
