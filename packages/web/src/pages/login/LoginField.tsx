@@ -1,2 +1,2 @@
-export { LoginField, LoginFormError } from '@zenith/elements';
-export type { LoginFieldProps } from '@zenith/elements';
+export { LoginField, LoginFormError } from '@arcbase/elements';
+export type { LoginFieldProps } from '@arcbase/elements';

@@ -15,7 +15,7 @@ import {
   reportPrintContract,
   reportPublicContract,
   reportSubscriptionContract,
-} from '@zenith/shared/report';
+} from '@arcbase/shared/report';
 import {
   mockReportDatasources, mockReportDatasets, mockReportDashboards, mockReportCategories,
   mockReportAlerts, mockReportPrintTemplates, mockReportSubscriptions, mockReportComments,
@@ -42,7 +42,7 @@ import type {
   ReportPrintResolvedSubreport,
   ReportPrintTemplate,
   ReportPublicDashboard,
-} from '@zenith/shared/report';
+} from '@arcbase/shared/report';
 import { mockResource } from '@/mocks/utils/resource';
 
 function applyDatasetQuery(data: ReturnType<typeof getMockDatasetData>, query?: Pick<ReportDatasetQueryOptions, 'limit' | 'page' | 'pageSize' | 'sortField' | 'sortOrder'>) {

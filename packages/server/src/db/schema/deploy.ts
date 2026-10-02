@@ -18,8 +18,8 @@ import {
   DEPLOY_RUN_STATUSES,
   DEPLOY_STEPS,
   DEPLOY_STRATEGIES,
-} from '@zenith/shared/ops';
-import type { DeployHealthCheck, DeployRunSnapshot, DeployScripts } from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
+import type { DeployHealthCheck, DeployRunSnapshot, DeployScripts } from '@arcbase/shared/ops';
 import { timestampColumns, idColumn, remarkColumn } from './common';
 import { auditColumns } from './core';
 import { appArtifacts, appReleases, clientApps } from './app-releases';

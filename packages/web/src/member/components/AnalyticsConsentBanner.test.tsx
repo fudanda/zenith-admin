@@ -10,7 +10,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MEMBER_ANALYTICS_CONSENT_KEY, MEMBER_ANALYTICS_CONSENT_VERSION } from '@zenith/shared/member';
+import { MEMBER_ANALYTICS_CONSENT_KEY, MEMBER_ANALYTICS_CONSENT_VERSION } from '@arcbase/shared/member';
 import { AnalyticsConsentBanner } from './AnalyticsConsentBanner';
 import { hasMemberAnalyticsConsent } from '../hooks/useAnalyticsConsent';
 

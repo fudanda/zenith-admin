@@ -1,6 +1,6 @@
-import { workflowEventSubscriptionContract } from '@zenith/shared/workflow';
-import type { WorkflowEventDelivery, WorkflowEventSubscription } from '@zenith/shared/workflow';
-import { maskSecret as maskSecretValue } from '@zenith/shared/core';
+import { workflowEventSubscriptionContract } from '@arcbase/shared/workflow';
+import type { WorkflowEventDelivery, WorkflowEventSubscription } from '@arcbase/shared/workflow';
+import { maskSecret as maskSecretValue } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, fail } from '@/mocks/utils/handlers';
 import { mockWorkflowDefinitions } from '@/mocks/data/workflow';
@@ -23,7 +23,7 @@ const mockSubscriptions: StoredSubscription[] = [
     secret: 'leave-secret-demo',
     secretMasked: 'leav****demo',
     signMode: 'hmacSha256',
-    headers: { 'X-Source': 'zenith-demo' },
+    headers: { 'X-Source': 'arcbase-demo' },
     connectorId: null,
     enabled: true,
     tenantId: 1,
@@ -65,7 +65,7 @@ const mockDeliveries: WorkflowEventDelivery[] = [
     attempt: 1,
     status: 'success',
     requestUrl: 'https://example.com/workflow/webhook',
-    requestHeaders: { 'X-Source': 'zenith-demo' },
+    requestHeaders: { 'X-Source': 'arcbase-demo' },
     responseStatus: 200,
     responseBody: '{"ok":true}',
     errorMessage: null,
@@ -101,7 +101,7 @@ const mockDeliveries: WorkflowEventDelivery[] = [
   },
 ];
 
-/** 与服务端一致：订阅密钥保留头尾 4 位（`@zenith/shared/core` 默认口径） */
+/** 与服务端一致：订阅密钥保留头尾 4 位（`@arcbase/shared/core` 默认口径） */
 function maskSecret(secret: string | null | undefined): string | null {
   return secret ? maskSecretValue(secret) : null;
 }

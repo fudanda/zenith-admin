@@ -11,9 +11,9 @@
  */
 import { sendWsMessage } from '@/hooks/useWebSocket';
 import { api } from '@/lib/contract-query';
-import { chatContract } from '@zenith/shared/chat';
-import type { RtcPeerInfo, RtcCallType, RtcInvitePayload, RtcIceCandidateInit } from '@zenith/shared/chat';
-import type { WsMessage } from '@zenith/shared/platform';
+import { chatContract } from '@arcbase/shared/chat';
+import type { RtcPeerInfo, RtcCallType, RtcInvitePayload, RtcIceCandidateInit } from '@arcbase/shared/chat';
+import type { WsMessage } from '@arcbase/shared/platform';
 
 export type CallPhase = 'idle' | 'outgoing' | 'incoming' | 'connected';
 

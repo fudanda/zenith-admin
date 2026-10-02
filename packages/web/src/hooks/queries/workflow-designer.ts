@@ -1,9 +1,9 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { useQuery } from '@tanstack/react-query';
-import type { BodyOf, InputOf } from '@zenith/shared/core';
-import { dictContract } from '@zenith/shared/platform';
-import { decisionFlowContract, decisionTableContract, ruleScorecardContract } from '@zenith/shared/rules';
-import type { WorkflowFlowData, WorkflowSimulationDecision } from '@zenith/shared/workflow';
+import type { BodyOf, InputOf } from '@arcbase/shared/core';
+import { dictContract } from '@arcbase/shared/platform';
+import { decisionFlowContract, decisionTableContract, ruleScorecardContract } from '@arcbase/shared/rules';
+import type { WorkflowFlowData, WorkflowSimulationDecision } from '@arcbase/shared/workflow';
 import {
   workflowConnectorContract,
   workflowDataSourceContract,
@@ -11,7 +11,7 @@ import {
   workflowFormContract,
   workflowInstanceContract,
   workflowSimulationCaseContract,
-} from '@zenith/shared/workflow';
+} from '@arcbase/shared/workflow';
 import { api, contractKey, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { positionKeys, useAllPositions } from './positions';

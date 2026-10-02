@@ -4,7 +4,7 @@
  */
 import type { SQL } from 'drizzle-orm';
 import type { PgColumn, PgTable } from 'drizzle-orm/pg-core';
-import { COMMON_STATUS_LABELS } from '@zenith/shared/core';
+import { COMMON_STATUS_LABELS } from '@arcbase/shared/core';
 import { db } from '../../db';
 import { currentUser } from '../context';
 import { tenantCondition } from '../tenant';

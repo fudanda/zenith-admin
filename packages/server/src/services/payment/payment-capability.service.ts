@@ -1,6 +1,6 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { asc } from 'drizzle-orm';
-import { PAYMENT_PROVIDER_OPERATIONS as SHARED_PAYMENT_PROVIDER_OPERATIONS, type PaymentCapabilitiesResponse, type PaymentConfigCapabilities, type PaymentEffectiveCapability, type PaymentMethod, paymentCapabilityContract } from '@zenith/shared/payment';
+import { PAYMENT_PROVIDER_OPERATIONS as SHARED_PAYMENT_PROVIDER_OPERATIONS, type PaymentCapabilitiesResponse, type PaymentConfigCapabilities, type PaymentEffectiveCapability, type PaymentMethod, paymentCapabilityContract } from '@arcbase/shared/payment';
 import { db } from '../../db';
 import { paymentChannelConfigs, paymentMethodConfigs, type PaymentChannelConfigRow, type PaymentMethodConfigRow } from '../../db/schema';
 import { config } from '../../config';

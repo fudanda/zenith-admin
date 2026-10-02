@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { workflowTriggerExecutionContract } from '@zenith/shared/workflow';
+import type { QueryOf } from '@arcbase/shared/core';
+import { workflowTriggerExecutionContract } from '@arcbase/shared/workflow';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export type WorkflowTriggerExecutionListParams = QueryOf<typeof workflowTriggerExecutionContract.list>;

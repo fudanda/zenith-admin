@@ -2,7 +2,7 @@
  * 短链管理
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { shortLinkContract } from '@zenith/shared/short-link';
+import { shortLinkContract } from '@arcbase/shared/short-link';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody, errBody } from '../../lib/openapi-schemas';
 import {

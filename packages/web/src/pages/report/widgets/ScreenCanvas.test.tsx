@@ -1,7 +1,7 @@
 import React from 'react';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { ReportDashboardConfig, ReportGridItem, ReportWidget } from '@zenith/shared/report';
+import type { ReportDashboardConfig, ReportGridItem, ReportWidget } from '@arcbase/shared/report';
 import { ScreenCanvas } from './ScreenCanvas';
 
 vi.mock('react-grid-layout/legacy', () => {

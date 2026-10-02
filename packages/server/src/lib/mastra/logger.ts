@@ -5,7 +5,7 @@ import type { LoggerAdapterContext } from '@mastra/core/logger';
 /**
  * Mastra → 系统 pino 主日志的适配器(官方 AdaptableLogger 规范,@mastra/core ≥1.63):
  *
- * - 原生输出:全部转发系统 logger 的 child({ name: 'zenith-ai' }),统一获得
+ * - 原生输出:全部转发系统 logger 的 child({ name: 'arcbase-ai' }),统一获得
  *   文件轮转(pino-roll)、NDJSON/pretty 控制台、log-metrics 告警计数与 reqId mixin;
  * - trace 关联:correlation 开启(默认)时把 Mastra AI trace 的 trace_id/span_id
  *   注入记录。per-call 字段覆盖 mixin 同名键 —— AI 链路内 Mastra 值优先于 OTel,
@@ -32,13 +32,13 @@ function toMergeObject(args: unknown[]): Record<string, unknown> {
   return merge;
 }
 
-export class ZenithMastraLogger extends MastraLogger {
+export class ArcBaseMastraLogger extends MastraLogger {
   #ctx?: LoggerAdapterContext;
   /** Mastra 日志的原生落点:系统主 logger 的领域子 logger */
-  readonly #pino = systemLogger.child({ name: 'zenith-ai' });
+  readonly #pino = systemLogger.child({ name: 'arcbase-ai' });
 
   constructor() {
-    super({ name: 'zenith-ai' });
+    super({ name: 'arcbase-ai' });
   }
 
   /** 官方适配器钩子:Mastra 初始化时注入观测上下文(correlation/export 开关与 sink) */

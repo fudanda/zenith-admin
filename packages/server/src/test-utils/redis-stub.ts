@@ -19,7 +19,7 @@ import { vi } from 'vitest';
  * 使「两个隔离加载的 ws-manager 模块实例 + 各自的 redis 替身」能像两个进程一样互相收到信封。
  * 挂在 globalThis 上是因为 vi.resetModules() 会重新执行本模块，模块级单例会被切断。
  */
-const BROKER_KEY = '__zenithRedisStubBroker__';
+const BROKER_KEY = '__arcbaseRedisStubBroker__';
 type Broker = EventEmitter;
 function getBroker(): Broker {
   const g = globalThis as unknown as Record<string, Broker | undefined>;

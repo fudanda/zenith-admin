@@ -13,8 +13,8 @@ import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { analyticsKeys, useAnalyticsEventMeta, useAnalyticsEventQuery, useAnalyticsSegments } from '@/hooks/queries/analytics';
 import { useListSearch } from '@/hooks/useListSearch';
 import { compactParams } from '@/lib/query';
-import type { AnalyticsDeviceType, AnalyticsEnvironment, AnalyticsEventQueryGroupByField, AnalyticsEventQueryInput, AnalyticsEventQueryMetric, AnalyticsEventQueryRow, AnalyticsEventSource, AnalyticsSegmentPropertyFilter } from '@zenith/shared/analytics';
-import { ANALYTICS_DEVICE_TYPE_OPTIONS, ANALYTICS_ENVIRONMENT_OPTIONS, ANALYTICS_EVENT_QUERY_GROUP_BY_LABELS, ANALYTICS_EVENT_QUERY_GROUP_BY_OPTIONS, ANALYTICS_EVENT_QUERY_METRIC_OPTIONS, ANALYTICS_EVENT_SOURCE_OPTIONS, ANALYTICS_SEGMENT_COMPARE_OP_OPTIONS, analyticsMetricRequiresProperty } from '@zenith/shared/analytics';
+import type { AnalyticsDeviceType, AnalyticsEnvironment, AnalyticsEventQueryGroupByField, AnalyticsEventQueryInput, AnalyticsEventQueryMetric, AnalyticsEventQueryRow, AnalyticsEventSource, AnalyticsSegmentPropertyFilter } from '@arcbase/shared/analytics';
+import { ANALYTICS_DEVICE_TYPE_OPTIONS, ANALYTICS_ENVIRONMENT_OPTIONS, ANALYTICS_EVENT_QUERY_GROUP_BY_LABELS, ANALYTICS_EVENT_QUERY_GROUP_BY_OPTIONS, ANALYTICS_EVENT_QUERY_METRIC_OPTIONS, ANALYTICS_EVENT_SOURCE_OPTIONS, ANALYTICS_SEGMENT_COMPARE_OP_OPTIONS, analyticsMetricRequiresProperty } from '@arcbase/shared/analytics';
 import { ResetButton, SearchButton } from '@/components/toolbar-controls';
 import { DateRangeFilter, FilterSelect } from '@/components/search-filters';
 

@@ -4,8 +4,8 @@
  * 任何控制台错误、未捕获异常或页面级错误边界即失败。堵住「构建 exit 0、页面白屏」这一类
  * 分包 / 模块求值顺序问题（跨 chunk 环 TDZ、CJS 全局顺序等构建期无法发现的故障）。
  *
- *   npm run build:demo -w @zenith/web && npm run smoke -w @zenith/web           # Demo 模式（MSW，无需后端）
- *   npm run smoke -w @zenith/web -- --url http://localhost:4173 --no-serve      # 已有 preview 服务
+ *   npm run build:demo -w @arcbase/web && npm run smoke -w @arcbase/web           # Demo 模式（MSW，无需后端）
+ *   npm run smoke -w @arcbase/web -- --url http://localhost:4173 --no-serve      # 已有 preview 服务
  *
  * 默认自行拉起 `vite preview`（端口 4180），检查后关闭。Demo 模式下 MSW 在首个请求前需要注册 Service
  * Worker，页面就绪判定以登录表单 / 侧栏 / 仪表盘等业务节点出现为准。

@@ -1,4 +1,4 @@
-import type { ChatConversation, ChatGroupMember, ChatMessage } from '@zenith/shared/chat';
+import type { ChatConversation, ChatGroupMember, ChatMessage } from '@arcbase/shared/chat';
 
 // Demo 会话与消息数据，基于 mock 用户 id=1（admin）和 id=2（张三）
 

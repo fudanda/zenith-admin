@@ -1,4 +1,4 @@
-import { mpJsSdkContract } from '@zenith/shared/mp';
+import { mpJsSdkContract } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 
 export const mpJsSdkHandlers = [

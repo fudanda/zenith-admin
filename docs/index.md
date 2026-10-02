@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Zenith Admin
+title: ArcBase
 titleTemplate: false
 markdownStyles: false
 ---

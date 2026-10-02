@@ -1,6 +1,6 @@
 import { Select } from '@douyinfe/semi-ui';
 import { MessageCircle } from 'lucide-react';
-import type { MpAccount } from '@zenith/shared/mp';
+import type { MpAccount } from '@arcbase/shared/mp';
 
 interface Props {
   accounts: MpAccount[];

@@ -1,5 +1,5 @@
 import { Tag } from '@douyinfe/semi-ui';
-import type { SendSource, SendStatus } from '@zenith/shared/messaging';
+import type { SendSource, SendStatus } from '@arcbase/shared/messaging';
 import { FilterSelect, StatusSelect } from '@/components/search-filters';
 import { SEND_LOG_STATUS_OPTIONS as STATUS_OPTIONS, SEND_SOURCE_OPTIONS as SOURCE_OPTIONS } from './send-log-constants';
 

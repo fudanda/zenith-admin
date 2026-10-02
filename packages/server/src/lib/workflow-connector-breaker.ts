@@ -11,7 +11,7 @@
 import redis from './redis';
 import { config } from '../config';
 import logger from './logger';
-import type { WorkflowConnectorBreakerState } from '@zenith/shared/workflow';
+import type { WorkflowConnectorBreakerState } from '@arcbase/shared/workflow';
 
 const PREFIX = `${config.redis.keyPrefix}wfconn:`;
 const openKey = (id: number) => `${PREFIX}open:${id}`;       // 存在=熔断打开，TTL=cooldownSec

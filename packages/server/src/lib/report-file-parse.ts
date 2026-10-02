@@ -5,7 +5,7 @@
  */
 import { createRequire } from 'node:module';
 import { HTTPException } from 'hono/http-exception';
-import type { ReportDataResult } from '@zenith/shared/report';
+import type { ReportDataResult } from '@arcbase/shared/report';
 
 // 惰性加载：exceljs 模块图大（实测 ~2.4s），仅在解析上传文件时加载
 const require = createRequire(import.meta.url);

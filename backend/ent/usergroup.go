@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/usergroup"
+	"github.com/fudanda/arcbase/backend/ent/usergroup"
 )
 
 // UserGroup is the model entity for the UserGroup schema.

@@ -1,5 +1,5 @@
 import { pgTable, varchar, timestamp, integer, text, jsonb, index } from 'drizzle-orm/pg-core';
-import type { LicenseFeatureKey, LicensePayload } from '@zenith/shared/licensing';
+import type { LicenseFeatureKey, LicensePayload } from '@arcbase/shared/licensing';
 import { idColumn } from './common';
 
 // ─── 部署安装身份 ─────────────────────────────────────────────────────────────

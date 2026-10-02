@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDebouncedCallback } from '@tanstack/react-pacer';
 import { Form } from '@douyinfe/semi-ui';
-import type { MemberOption } from '@zenith/shared/member';
+import type { MemberOption } from '@arcbase/shared/member';
 import { useMemberOptions } from '@/hooks/queries/members-lookup';
 
 interface MemberSelectProps {

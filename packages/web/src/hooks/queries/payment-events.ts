@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { paymentOpsContract } from '@zenith/shared/payment';
+import type { QueryOf } from '@arcbase/shared/core';
+import { paymentOpsContract } from '@arcbase/shared/payment';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type PaymentEventListParams = NonNullable<QueryOf<typeof paymentOpsContract.events>>;

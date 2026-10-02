@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { reportMetaContract } from '@zenith/shared/report';
+import { reportMetaContract } from '@arcbase/shared/report';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import { listMetaTables, listMetaColumns } from '../../lib/report-schema-meta';

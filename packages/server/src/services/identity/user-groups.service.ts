@@ -5,9 +5,9 @@ import { buildWhere, keywordCondition, withPagination } from '../../lib/where-he
 import { db } from '../../db';
 import { userGroups, userGroupMembers, userGroupRoles, users, departments, roles } from '../../db/schema';
 import { HTTPException } from 'hono/http-exception';
-import type { UserGroupMemberMode, UserGroupMemberRule, userGroupContract } from '@zenith/shared/identity';
-import { validateUserGroupRulePresence } from '@zenith/shared/identity';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { UserGroupMemberMode, UserGroupMemberRule, userGroupContract } from '@arcbase/shared/identity';
+import { validateUserGroupRulePresence } from '@arcbase/shared/identity';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { currentUser } from '../../lib/context';
 import { tenantCondition, getCreateTenantId } from '../../lib/tenant';
 import { clearUserPermissionCache } from '../../lib/permissions';

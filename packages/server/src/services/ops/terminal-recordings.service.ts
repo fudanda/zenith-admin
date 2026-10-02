@@ -1,7 +1,7 @@
 import { eq, desc, asc, gte, lt, inArray, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { terminalRecordingContract } from '@zenith/shared/ops';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { terminalRecordingContract } from '@arcbase/shared/ops';
 import { db } from '../../db';
 import { terminalRecordings, users, type RecordingEvent } from '../../db/schema';
 import { formatDateTime, formatTimestamps } from '../../lib/datetime';

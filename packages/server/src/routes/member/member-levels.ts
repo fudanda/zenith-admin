@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { memberLevelContract } from '@zenith/shared/member';
+import { memberLevelContract } from '@arcbase/shared/member';
 import { validationHook } from '../../lib/openapi-schemas';
 import {
   listLevels,

@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
-import { channelCsContract } from '@zenith/shared/messaging';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
+import { channelCsContract } from '@arcbase/shared/messaging';
 import { contractKey, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 
 export type ChannelConversationParams = NonNullable<QueryOf<typeof channelCsContract.conversations>>;

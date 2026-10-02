@@ -1,6 +1,6 @@
 import { eq, desc, inArray, sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { apiScopeContract, apiScopeSchema } from '@zenith/shared/open-platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { apiScopeContract, apiScopeSchema } from '@arcbase/shared/open-platform';
 import { buildListResult } from '../../lib/list-query';
 import { db } from '../../db';
 import { apiScopes, oauth2Clients } from '../../db/schema';

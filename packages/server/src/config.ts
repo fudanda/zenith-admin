@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import path from 'node:path';
 import * as z from 'zod';
-import { PROCESS_ROLES, type ProcessRole } from '@zenith/shared/platform';
+import { PROCESS_ROLES, type ProcessRole } from '@arcbase/shared/platform';
 import { collectRuntimeSecretErrors, isDevelopmentEnv, resolveRuntimeSecrets, RUNTIME_SECRETS_HINT } from './lib/secrets';
 
 // ─── HTTP Log Types ──────────────────────────────────────────────────────────────────────────────
@@ -25,7 +25,7 @@ const envSchema = z.object({
    * 非开发环境必须显式设置，由 assertRuntimeRoles() 在启动时校验——避免某个副本静默以全量模式运行、
    * 在 api 集群里偷偷执行后台作业。取值非法直接终止（CLI 同样受此约束，拼写错误立即暴露）。
    */
-  ZENITH_ROLES: z.string().default(''),
+  ARCBASE_ROLES: z.string().default(''),
   /** worker 角色的健康 / 指标端口（`/health`、`/ready`、`/metrics`）；纯 worker 进程不监听业务端口 */
   WORKER_HEALTH_PORT: z.coerce.number().int().positive().default(3301),
   /**
@@ -53,7 +53,7 @@ const envSchema = z.object({
   PUBLIC_BASE_URL: z.string().default('http://localhost:3300'),
   /** 管理后台 / 会员前台的前端基地址，用于邮件与推送里的页面深链（密码重置、报表推送）；同源部署时与 PUBLIC_BASE_URL 相同 */
   FRONTEND_BASE_URL: z.string().default('http://localhost:5373'),
-  DATABASE_URL: z.string().min(1).default('postgresql://postgres:postgres@localhost:5432/zenith_admin'),
+  DATABASE_URL: z.string().min(1).default('postgresql://postgres:postgres@localhost:5432/arcbase_admin'),
   CORS_ORIGIN: z.string().default('*'),
   /**
    * 业务连接池上限（postgres-js `max`）。HTTP、WebSocket、任务 worker、事件订阅、指标采样与 CMS SSR 同进程共用这一个池，
@@ -107,7 +107,7 @@ const envSchema = z.object({
   REDIS_PORT: z.coerce.number().int().positive().default(6379),
   REDIS_PASSWORD: z.string().optional(),
   REDIS_DB: z.coerce.number().int().min(0).default(0),
-  REDIS_KEY_PREFIX: z.string().default('zenith:'),
+  REDIS_KEY_PREFIX: z.string().default('arcbase:'),
   OPEN_RATE_LIMIT_FAIL_CLOSED: envBool(true),
   OPEN_WEBHOOK_AUTO_DISABLE_FAILURES: z.coerce.number().int().min(1).max(100).default(5),
   OPEN_SECRET_ROTATION_GRACE_HOURS: z.coerce.number().int().min(1).max(720).default(24),
@@ -164,7 +164,7 @@ const envSchema = z.object({
   HTTP_LOG_OUTGOING_METHOD_HEAD: httpLogLevelEnum.optional(),
   // OpenTelemetry
   OTEL_ENABLED: z.string().optional(),
-  OTEL_SERVICE_NAME: z.string().default('zenith-admin-server'),
+  OTEL_SERVICE_NAME: z.string().default('arcbase-server'),
   OTEL_SERVICE_VERSION: z.string().optional(),
   OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: z.string().optional(),
   OTEL_EXPORTER_OTLP_ENDPOINT: z.string().optional(),
@@ -233,7 +233,7 @@ export interface ProcessRolesConfig {
   api: boolean;
   /** 执行任务中心、系统周期任务、业务 cron 与后台作业 */
   worker: boolean;
-  /** 是否由 ZENITH_ROLES 显式指定（非开发环境必须显式） */
+  /** 是否由 ARCBASE_ROLES 显式指定（非开发环境必须显式） */
   explicit: boolean;
   /** 规范化后的角色列表（按 PROCESS_ROLES 顺序），用于心跳、日志与指标标签 */
   list: ProcessRole[];
@@ -256,35 +256,35 @@ function parseProcessRoles(raw: string): ProcessRolesConfig {
   if (tokens.length === 0) return build(PROCESS_ROLES, false);
   if (tokens.includes('all')) {
     if (tokens.length > 1) {
-      console.error(`❌ ZENITH_ROLES: "all" 不能与其他角色同时出现（当前值 "${raw}"）`);
+      console.error(`❌ ARCBASE_ROLES: "all" 不能与其他角色同时出现（当前值 "${raw}"）`);
       process.exit(1);
     }
     return build(PROCESS_ROLES, true);
   }
   const invalid = tokens.filter((t) => !(PROCESS_ROLES as readonly string[]).includes(t));
   if (invalid.length > 0) {
-    console.error(`❌ ZENITH_ROLES: 未知角色 ${invalid.map((t) => `"${t}"`).join('、')}；可选 ${PROCESS_ROLES.join(' / ')} 或 all`);
+    console.error(`❌ ARCBASE_ROLES: 未知角色 ${invalid.map((t) => `"${t}"`).join('、')}；可选 ${PROCESS_ROLES.join(' / ')} 或 all`);
     process.exit(1);
   }
   return build(tokens as ProcessRole[], true);
 }
 
-const processRoles = parseProcessRoles(env.ZENITH_ROLES);
+const processRoles = parseProcessRoles(env.ARCBASE_ROLES);
 
 /**
- * 服务进程（index.ts）启动时调用：非开发环境未显式设置 ZENITH_ROLES 直接终止。
+ * 服务进程（index.ts）启动时调用：非开发环境未显式设置 ARCBASE_ROLES 直接终止。
  * 与 assertRuntimeSecrets 同理，CLI（migrate / seed / 脚本）不调用本函数。
  */
 export function assertRuntimeRoles(log: { warn(msg: string): void; error(msg: string): void }): void {
   if (!processRoles.explicit && !isDevelopmentEnv(process.env.NODE_ENV)) {
     log.error(
-      '❌ 未设置 ZENITH_ROLES，拒绝启动：生产部署必须显式声明进程角色（api / worker / all），'
-      + '否则 api 集群中的每个副本都会执行后台作业。单机全量部署请设置 ZENITH_ROLES=all。',
+      '❌ 未设置 ARCBASE_ROLES，拒绝启动：生产部署必须显式声明进程角色（api / worker / all），'
+      + '否则 api 集群中的每个副本都会执行后台作业。单机全量部署请设置 ARCBASE_ROLES=all。',
     );
     process.exit(1);
   }
   if (!processRoles.explicit) {
-    log.warn('⚠ 未设置 ZENITH_ROLES，按全部角色（api + worker）运行，仅限本地开发');
+    log.warn('⚠ 未设置 ARCBASE_ROLES，按全部角色（api + worker）运行，仅限本地开发');
   }
 }
 
@@ -315,7 +315,7 @@ function buildMethodOverrides(prefix: 'HTTP_LOG_INCOMING_METHOD' | 'HTTP_LOG_OUT
 
 export const config = {
   port: env.PORT,
-  /** 进程角色（见 ZENITH_ROLES）；决定本进程是否监听业务端口、是否执行 pg-boss 作业 */
+  /** 进程角色（见 ARCBASE_ROLES）；决定本进程是否监听业务端口、是否执行 pg-boss 作业 */
   roles: processRoles,
   /** worker 角色的健康 / 指标端口 */
   workerHealthPort: env.WORKER_HEALTH_PORT,

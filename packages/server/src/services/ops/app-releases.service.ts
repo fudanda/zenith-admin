@@ -10,9 +10,9 @@
 import { createHash } from 'node:crypto';
 import { HTTPException } from 'hono/http-exception';
 import { and, asc, desc, eq, gte, inArray, sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { clientAppSchema, appArtifactSchema, appReleaseSchema, type AppArch, type AppArtifactKind, type AppPlatform, type AppPublicReleaseInfo, type AppReleaseChannel, type AppReleaseStats, type AppUpdateCheckResult, type CheckAppUpdateQuery, type CreateAppReleaseInput, type CreateClientAppInput, type CreateExternalArtifactInput, type InitAppArtifactUploadInput, type ReportAppReleaseEventInput, type UpdateAppReleaseInput, type UpdateClientAppInput } from '@zenith/shared/ops';
-import { appReleaseContract, clientAppContract, APP_ARCHES, APP_FILE_ARTIFACT_KINDS, APP_PLATFORMS } from '@zenith/shared/ops';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { clientAppSchema, appArtifactSchema, appReleaseSchema, type AppArch, type AppArtifactKind, type AppPlatform, type AppPublicReleaseInfo, type AppReleaseChannel, type AppReleaseStats, type AppUpdateCheckResult, type CheckAppUpdateQuery, type CreateAppReleaseInput, type CreateClientAppInput, type CreateExternalArtifactInput, type InitAppArtifactUploadInput, type ReportAppReleaseEventInput, type UpdateAppReleaseInput, type UpdateClientAppInput } from '@arcbase/shared/ops';
+import { appReleaseContract, clientAppContract, APP_ARCHES, APP_FILE_ARTIFACT_KINDS, APP_PLATFORMS } from '@arcbase/shared/ops';
 import * as z from 'zod';
 import { db } from '../../db';
 import {

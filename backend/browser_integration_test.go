@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -17,13 +17,13 @@ import (
 // The browser uses original packages/web components and a real Go/DB fixture.
 // This optional browser runner is separate from mandatory DB integration tests.
 func TestOriginalWebFoundation(t *testing.T) {
-	node := os.Getenv("ZENITH_BROWSER_TEST_NODE")
+	node := os.Getenv("ARCBASE_BROWSER_TEST_NODE")
 	if node == "" {
-		t.Skip("set ZENITH_BROWSER_TEST_NODE to run the real browser acceptance test")
+		t.Skip("set ARCBASE_BROWSER_TEST_NODE to run the real browser acceptance test")
 	}
-	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	dsn := os.Getenv("ARCBASE_TEST_DATABASE_URL")
 	if dsn == "" {
-		t.Fatal("ZENITH_TEST_DATABASE_URL is required")
+		t.Fatal("ARCBASE_TEST_DATABASE_URL is required")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
@@ -74,7 +74,7 @@ func TestOriginalWebFoundation(t *testing.T) {
 		t.Fatal(err)
 	}
 	cmd := exec.CommandContext(ctx, node, script)
-	cmd.Env = append(os.Environ(), "ZENITH_BROWSER_API_URL="+server.URL, "ZENITH_BROWSER_USERNAME="+username, "ZENITH_BROWSER_PASSWORD="+password, "ZENITH_BROWSER_STORAGE="+t.TempDir(), "ZENITH_BROWSER_IMPORT_FILE="+importPath, "ZENITH_BROWSER_AVATAR_FILE="+avatarPath)
+	cmd.Env = append(os.Environ(), "ARCBASE_BROWSER_API_URL="+server.URL, "ARCBASE_BROWSER_USERNAME="+username, "ARCBASE_BROWSER_PASSWORD="+password, "ARCBASE_BROWSER_STORAGE="+t.TempDir(), "ARCBASE_BROWSER_IMPORT_FILE="+importPath, "ARCBASE_BROWSER_AVATAR_FILE="+avatarPath)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		t.Fatalf("original Web browser acceptance: %v\n%s", err, output)

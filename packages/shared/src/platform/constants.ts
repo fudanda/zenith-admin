@@ -5,10 +5,10 @@ import type { FileObjectAcl } from './types';
 
 /**
  * WebSocket 鉴权子协议名。浏览器 WebSocket 无法自定义请求头，access token 经
- * `Sec-WebSocket-Protocol: zenith-auth, <token>` 头传递（服务端只回显 zenith-auth），
+ * `Sec-WebSocket-Protocol: arcbase-auth, <token>` 头传递（服务端只回显 arcbase-auth），
  * 不再放进 URL 查询串，避免落入代理 / 访问日志。
  */
-export const WS_AUTH_SUBPROTOCOL = 'zenith-auth';
+export const WS_AUTH_SUBPROTOCOL = 'arcbase-auth';
 
 /** 构造浏览器 WebSocket 构造函数的 protocols 参数 */
 export function wsAuthProtocols(accessToken: string): string[] {
@@ -369,7 +369,7 @@ export function schedulerWarningLabel(type: string): string {
 // ─── 服务进程角色 ─────────────────────────────────────────────────────────────
 
 /**
- * 服务进程角色（`ZENITH_ROLES` 环境变量，逗号分隔；`all` = 全部）：
+ * 服务进程角色（`ARCBASE_ROLES` 环境变量，逗号分隔；`all` = 全部）：
  * - `api`：HTTP / WebSocket / IoT 接入、CMS SSR、终端会话；只向 pg-boss 投递作业，不执行
  * - `worker`：任务中心、系统周期任务、业务定时任务与后台作业的执行方
  * 一个进程可同时承担多个角色（单机部署 / 本地开发）。
@@ -405,7 +405,7 @@ export const SYSTEM_SCHEDULER_ALERT_FILTERS = ['all', 'alerted', 'unacked'] as c
 
 export type SystemSchedulerAlertFilter = (typeof SYSTEM_SCHEDULER_ALERT_FILTERS)[number];
 
-/** 内置「Zenith 助手」系统号 code（全局唯一、内置不可删、全员订阅） */
+/** 内置「ArcBase 助手」系统号 code（全局唯一、内置不可删、全员订阅） */
 export const SYSTEM_CHANNEL_CODE = 'system-assistant';
 
 /** 地区层级（省 / 地 / 县三级） */

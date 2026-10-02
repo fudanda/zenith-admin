@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Banner, Button, Col, Empty, Form, Modal, Row, Tag, Toast } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ReportApprovalStatus, ReportPublishApproval, ReportResourceTransfer, ReportResourceType, ReportTransferStatus } from '@zenith/shared/report';
+import type { ReportApprovalStatus, ReportPublishApproval, ReportResourceTransfer, ReportResourceType, ReportTransferStatus } from '@arcbase/shared/report';
 import { Plus } from 'lucide-react';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { listTableProps } from '@/components/list-page';

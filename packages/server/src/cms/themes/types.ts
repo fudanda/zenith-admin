@@ -1,5 +1,5 @@
 import type { ComponentType, ReactNode } from 'react';
-import type { CmsContentAttachment, CmsFormField, CmsInteractionQuestionType, CmsSearchResult, CmsThemeSettingField, CmsTitleStyle, CmsResolvedWidget, CmsWidgetRendererKey, CmsWidgetType, CmsWidgetSlotKey } from '@zenith/shared/cms';
+import type { CmsContentAttachment, CmsFormField, CmsInteractionQuestionType, CmsSearchResult, CmsThemeSettingField, CmsTitleStyle, CmsResolvedWidget, CmsWidgetRendererKey, CmsWidgetType, CmsWidgetSlotKey } from '@arcbase/shared/cms';
 import type { CmsWidgetRendererDefinition } from './widgets';
 
 /** 渲染上下文：站点信息 */
@@ -202,7 +202,7 @@ export interface CmsBaseContext {
   searchUrl: string;
   /** 行为统计（站点开启后注入采集脚本）；detail 页附 contentId 供浏览计数 beacon */
   analytics: { siteKey: string; contentId?: number; releaseId?: number; deploymentId?: number } | null;
-  telemetry?: { contextToken: string; config: import('@zenith/shared/cms').CmsTelemetryConfig } | null;
+  telemetry?: { contextToken: string; config: import('@arcbase/shared/cms').CmsTelemetryConfig } | null;
   /** 多语言站点关联（P5）：hreflang alternate + 语言切换；空数组 = 未配置 */
   langAlternates: { language: string; name: string; url: string; current: boolean }[];
   /** 搭建页受众渲染上下文；仅 dynamic=true 时使用 Bearer 可选会员身份二次渲染。 */

@@ -1,5 +1,5 @@
 import { Descriptions, Empty, Typography } from '@douyinfe/semi-ui';
-import type { BizLeave } from '@zenith/shared/biz';
+import type { BizLeave } from '@arcbase/shared/biz';
 import { useDictItems } from '@/hooks/useDictItems';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 

@@ -1,7 +1,7 @@
 import { invalidateCmsPublishingViews } from './cms-stage3';
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { cmsWidgetContract, type CmsWidgetRendererKey, type CmsWidgetType } from '@zenith/shared/cms';
+import type { QueryOf } from '@arcbase/shared/core';
+import { cmsWidgetContract, type CmsWidgetRendererKey, type CmsWidgetType } from '@arcbase/shared/cms';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

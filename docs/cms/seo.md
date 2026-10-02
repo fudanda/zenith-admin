@@ -69,6 +69,6 @@ SEO 标题/关键词/描述按 **内容 → 栏目 → 站点** 三级向上回�
 }
 ```
 
-投递请求头携带 `X-Zenith-Event` / `X-Zenith-Event-Id` / `X-Zenith-Delivery-Id` / `X-Zenith-Attempt`；配置签名密钥后附加 `X-Zenith-Signature: t={unix},v1={HMAC-SHA256(secret, "{t}.{body}")}`，接收方验签防伪造。
+投递请求头携带 `X-ArcBase-Event` / `X-ArcBase-Event-Id` / `X-ArcBase-Delivery-Id` / `X-ArcBase-Attempt`；配置签名密钥后附加 `X-ArcBase-Signature: t={unix},v1={HMAC-SHA256(secret, "{t}.{body}")}`，接收方验签防伪造。
 
 事件在**业务事务内**先落任务中心 outbox（`cms-webhook-emit`），worker 再发射到事件总线并持久化投递记录；成功登记并提交事务后，worker 崩溃或投递失败可由 pending 恢复扫描与退避重试处理。若 outbox 登记本身失败，业务事务仍会提交并只记录错误日志，调用方应通过监控发现该类丢失。可靠性机制与面向开放应用的事件订阅详见 [开放能力（Headless API）](./open-api#webhook-事件外推)。

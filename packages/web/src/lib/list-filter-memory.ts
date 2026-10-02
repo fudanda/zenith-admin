@@ -7,7 +7,7 @@ import type { QueryKey } from '@tanstack/react-query';
  * 恢复上次**已提交**的筛选条件；关闭浏览器即清，不跨登录保留。
  * 只存条件不存页码——回到列表页从第 1 页看起更符合预期。
  */
-const PREFIX = 'zenith:list-filters:';
+const PREFIX = 'arcbase:list-filters:';
 const DATE_MARK = '__date';
 
 function storageKey(listKey: QueryKey): string {

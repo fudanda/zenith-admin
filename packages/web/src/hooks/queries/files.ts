@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { useMutation, useQueryClient, type QueryClient } from '@tanstack/react-query';
-import type { OutputOf, QueryOf } from '@zenith/shared/core';
-import { fileContract, UPLOAD_CHUNK_MIN_BYTES, type FileAccessPurpose, type FileAccessUrl } from '@zenith/shared/platform';
+import type { OutputOf, QueryOf } from '@arcbase/shared/core';
+import { fileContract, UPLOAD_CHUNK_MIN_BYTES, type FileAccessPurpose, type FileAccessUrl } from '@arcbase/shared/platform';
 import { api, contractKey, createResourceQueries, urlOf, useApiQuery } from '@/lib/contract-query';
 import { unwrap } from '@/lib/query';
 import { request } from '@/utils/request';

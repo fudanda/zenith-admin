@@ -1,5 +1,5 @@
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
-import { foundationSettingSchemas } from '@zenith/shared/settings/foundation';
+import { foundationSettingSchemas } from '@arcbase/shared/settings/foundation';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Banner, Button, Empty, Spin, Tag, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
@@ -12,8 +12,8 @@ import {
   type SettingsModuleKey,
   type SettingsModuleMeta,
   type UiSettings,
-} from '@zenith/shared/settings';
-import { getPreferenceValue, preferenceDefinitions } from '@zenith/shared/preferences';
+} from '@arcbase/shared/settings';
+import { getPreferenceValue, preferenceDefinitions } from '@arcbase/shared/preferences';
 import { MasterDetailLayout } from '@/components/MasterDetailLayout';
 import { NavListItem, NavListPanel } from '@/components/NavListPanel';
 import { SchemaForm } from '@/components/settings/SchemaForm';

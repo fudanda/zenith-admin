@@ -10,18 +10,18 @@
 - `useAuth()` 暴露：`user`、`permissions`、`status`、`loading`、`refreshing`、`error`、`parkedAccounts`、`canAddAccount`、`login`、`verifyMfaLogin`、`register`、`logout`、`refresh`、`updateUser`、`switchAccount`、`removeAccount`、`logoutAllAccounts`
 - **状态机**：`anonymous`（本地无 access token）→ `checking`（有 access token，正在确认会话）→ `authenticated`；会话查询失败但不是 401 时进入 `unavailable`，凭证保留，`App.tsx` 渲染 `FullPageRetry`
 
-后台登录态使用 `@zenith/shared/core` 中的本地存储 key：
+后台登录态使用 `@arcbase/shared/core` 中的本地存储 key：
 
 | 常量 | Key | 说明 |
 | --- | --- | --- |
-| `TOKEN_KEY` | `zenith_token` | 当前活跃账号的 Access Token |
-| `REFRESH_TOKEN_KEY` | `zenith_refresh_token` | 当前活跃账号的 Refresh Token |
-| `ACCOUNTS_STORE_KEY` | `zenith_accounts` | 停靠账号列表，只保存资料快照与 refreshToken |
-| `ACCOUNT_SWITCH_BROADCAST_KEY` | `zenith_account_switch` | 跨标签页账号切换广播 |
-| `PREFERENCES_KEY` | `zenith_preferences` | 当前账号的偏好缓存 |
-| `TABS_STORAGE_KEY` | `zenith_tabs` | 当前账号的多标签页缓存 |
+| `TOKEN_KEY` | `arcbase_token` | 当前活跃账号的 Access Token |
+| `REFRESH_TOKEN_KEY` | `arcbase_refresh_token` | 当前活跃账号的 Refresh Token |
+| `ACCOUNTS_STORE_KEY` | `arcbase_accounts` | 停靠账号列表，只保存资料快照与 refreshToken |
+| `ACCOUNT_SWITCH_BROADCAST_KEY` | `arcbase_account_switch` | 跨标签页账号切换广播 |
+| `PREFERENCES_KEY` | `arcbase_preferences` | 当前账号的偏好缓存 |
+| `TABS_STORAGE_KEY` | `arcbase_tabs` | 当前账号的多标签页缓存 |
 
-`AuthProvider` 还维护 `zenith_device_id`（随机 UUID），登录时随 `deviceInfo` 上报，用于可信设备识别。
+`AuthProvider` 还维护 `arcbase_device_id`（随机 UUID），登录时随 `deviceInfo` 上报，用于可信设备识别。
 
 ## 多账号切换
 
@@ -49,7 +49,7 @@ interface StoredAccount {
 
 - 点击「添加其他账号」跳转 `/login?add_account=1`；该模式保留当前登录态，登录、MFA 验证或注册成功后把原账号停靠，写入新账号凭证并整页重载
 - 切换停靠账号时先快照当前账号的用户资料与 refreshToken，再把目标账号从停靠区取出，写入目标 refreshToken 与换发得到的 access token
-- 切换、添加成功后调用 `broadcastSwitchAndReload()`：写入 `zenith_account_switch` 广播其他标签页，本标签页跳到应用首页并重载；其他标签页监听到广播后整页重载，避免旧内存态发新账号请求
+- 切换、添加成功后调用 `broadcastSwitchAndReload()`：写入 `arcbase_account_switch` 广播其他标签页，本标签页跳到应用首页并重载；其他标签页监听到广播后整页重载，避免旧内存态发新账号请求
 - `ACCOUNTS_STORE_KEY` 变化时同步账号切换器列表；`TOKEN_KEY` 变化时同步登录/退出状态
 - 退出当前账号时若存在停靠账号，自动切到最近使用的账号；退出停靠账号或退出全部账号时使用 `POST /api/auth/logout-by-refresh` 按 refreshToken 注销服务端会话
 
@@ -61,15 +61,15 @@ interface StoredAccount {
 
 | 实例 | 文件 | token key | 401 刷新接口 | 凭证失效后 |
 | --- | --- | --- | --- | --- |
-| `request`（后台 admin） | `utils/request.ts` | `zenith_token` / `zenith_refresh_token` | `POST /api/auth/refresh` | 派发 `auth:invalidated`，由 `AuthProvider` 切回匿名态 |
-| `memberRequest`（会员前台） | `member/utils/member-request.ts` | `zenith_member_token` / `zenith_member_refresh_token` | `POST /api/member/auth/refresh` | 跳转 `/member.html#/login` |
-| `approvalRequest`（移动审批轻页） | `approval/lib/approval-request.ts` | `zenith_token` / `zenith_refresh_token` | `POST /api/auth/refresh` | 跳转 `/approval.html#/login`；退出只清 access token |
+| `request`（后台 admin） | `utils/request.ts` | `arcbase_token` / `arcbase_refresh_token` | `POST /api/auth/refresh` | 派发 `auth:invalidated`，由 `AuthProvider` 切回匿名态 |
+| `memberRequest`（会员前台） | `member/utils/member-request.ts` | `arcbase_member_token` / `arcbase_member_refresh_token` | `POST /api/member/auth/refresh` | 跳转 `/member.html#/login` |
+| `approvalRequest`（移动审批轻页） | `approval/lib/approval-request.ts` | `arcbase_token` / `arcbase_refresh_token` | `POST /api/auth/refresh` | 跳转 `/approval.html#/login`；退出只清 access token |
 
 `HttpClient` 统一实现：
 
 - 自动附加 `Authorization`；非 `FormData` 请求自动设置 `Content-Type: application/json`
 - Access Token 过期时用 Refresh Token 换取新 access token 并重试原请求；并发请求共享同一个刷新 Promise
-- 刷新失败或重试仍 401 时清除配置的本地凭证，写入 `zenith_auth_invalidated_reason`，再执行宿主回调或整页跳转
+- 刷新失败或重试仍 401 时清除配置的本地凭证，写入 `arcbase_auth_invalidated_reason`，再执行宿主回调或整页跳转
 - `silent` 由调用方接管错误提示；`skipAuth` 让 401 直接返回响应体，不触发刷新与退出
 - 429 读取 `Retry-After` 并返回 `retryAfterSeconds`
 - 后台端 503 维护模式派发 `maintenance:enabled`，`App.tsx` 失效维护状态查询并展示 `MaintenanceOverlay`
@@ -120,7 +120,7 @@ interface StoredAccount {
 
 ### 共享类型
 
-接口类型、实体定义和校验 schema 尽量复用 `@zenith/shared`（按域子路径导入），避免前后端各写一套。
+接口类型、实体定义和校验 schema 尽量复用 `@arcbase/shared`（按域子路径导入），避免前后端各写一套。
 
 ## 开发环境代理配置
 
@@ -150,7 +150,7 @@ server: {
 
 ## 开发建议
 
-- 新增接口前先确认 `@zenith/shared` 是否已有类型、常量或校验 schema
+- 新增接口前先确认 `@arcbase/shared` 是否已有类型、常量或校验 schema
 - 后台、会员端、移动审批端不要混用请求实例或 token key
 - 登录态、权限码、菜单树都按服务端状态处理，账号切换和退出必须清理身份相关缓存
 - 页面数据获取遵循[数据获取与服务端状态](/frontend/data-fetching)中的域 hooks 模式

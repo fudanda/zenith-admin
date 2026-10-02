@@ -6,7 +6,7 @@ import { pipeline } from 'node:stream/promises';
 import path from 'node:path';
 import { and, asc, eq, gte, inArray, lt, notExists, or } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { countUploadChunks, expectedUploadChunkSize, resolveUploadChunkSize, UPLOAD_CHUNK_MAX_BYTES, UPLOAD_MAX_CHUNKS, type InitChunkUploadInput } from '@zenith/shared/platform';
+import { countUploadChunks, expectedUploadChunkSize, resolveUploadChunkSize, UPLOAD_CHUNK_MAX_BYTES, UPLOAD_MAX_CHUNKS, type InitChunkUploadInput } from '@arcbase/shared/platform';
 import { db } from '../../db';
 import { uploadSessions, uploadChunks, managedFiles, fileStorageConfigs, type FileStorageConfigRow, type UploadSessionRow } from '../../db/schema';
 import { buildUploadObjectKey, uploadObjectByConfig, extractBucketName, getMultipartDriver, mapObjectAclError, resolveObjectAcl, readStoredFile, deleteObjectByConfig } from '../../lib/file-storage';

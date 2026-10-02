@@ -102,7 +102,7 @@ func init() {
 				compiler := jsonschema.NewCompiler()
 				compiler.UseRegexpEngine(contractRegexp)
 				compiler.AssertFormat()
-				uri := "urn:zenith:request:" + id + ":" + name
+				uri := "urn:arcbase:request:" + id + ":" + name
 				if err := compiler.AddResource(uri, root); err != nil {
 					panic(err)
 				}

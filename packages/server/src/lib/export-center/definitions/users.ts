@@ -1,4 +1,4 @@
-import { enumValueOf, USER_STATUSES } from '@zenith/shared/core';
+import { enumValueOf, USER_STATUSES } from '@arcbase/shared/core';
 import { db } from '../../../db';
 import { users } from '../../../db/schema';
 import type { JwtPayload } from '../../../middleware/auth';

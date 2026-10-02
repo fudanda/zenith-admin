@@ -10,7 +10,7 @@ import { currentUser } from '../../lib/context';
 import { tenantCondition, getCreateTenantId } from '../../lib/tenant';
 import { formatTimestamps } from '../../lib/datetime';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
-import type { WorkflowSimulationCase, WorkflowSimulationDecision, SaveWorkflowSimulationCaseInput } from '@zenith/shared/workflow';
+import type { WorkflowSimulationCase, WorkflowSimulationDecision, SaveWorkflowSimulationCaseInput } from '@arcbase/shared/workflow';
 import { requireRow } from '../../lib/db-assert';
 import { buildWhere } from '../../lib/where-helpers';
 

@@ -1,7 +1,7 @@
 import { useId, useState } from 'react';
 import { Button, Empty, Input, List, Select, Space, Spin, TextArea, Toast, Typography } from '@douyinfe/semi-ui';
 import { Plus } from 'lucide-react';
-import { MANUAL_RELATION_OPTIONS, SEARCH_TYPE_ENTITY_TYPES, supportsEntityRelations, type CanonicalEntityRef, type ManualRelationType } from '@zenith/shared/platform';
+import { MANUAL_RELATION_OPTIONS, SEARCH_TYPE_ENTITY_TYPES, supportsEntityRelations, type CanonicalEntityRef, type ManualRelationType } from '@arcbase/shared/platform';
 import { AppModal } from '@/components/AppModal';
 import { useGlobalSearch } from '@/hooks/queries/global-search';
 import { useLinkEntity } from '@/hooks/queries/entity-relations';

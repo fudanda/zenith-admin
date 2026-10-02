@@ -1,4 +1,4 @@
-import type { TimelineEvent } from '@zenith/shared/core';
+import type { TimelineEvent } from '@arcbase/shared/core';
 
 export const mockIotBusinessEvents: TimelineEvent[] = [];
 let observer: ((event: TimelineEvent) => void) | undefined;

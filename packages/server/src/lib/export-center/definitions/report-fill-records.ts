@@ -1,5 +1,5 @@
 import { listAdminReportFillRecords } from '../../../services/report/report-fill-record.service';
-import type { ReportFillRecordStatus } from '@zenith/shared/report';
+import type { ReportFillRecordStatus } from '@arcbase/shared/report';
 import { defineExport } from '../registry';
 
 interface ReportFillRecordsExportQuery extends Record<string, unknown> {

@@ -8,7 +8,7 @@ import {
   openGatewayContract,
   openSignatureContract,
   ratePlanContract,
-} from '@zenith/shared/open-platform';
+} from '@arcbase/shared/open-platform';
 import { defineRouteDomain } from '../_kit';
 import apiScopesRoutes from './api-scopes';
 import appWebhooksRoutes from './app-webhooks';

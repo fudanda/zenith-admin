@@ -2,7 +2,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { readFile } from 'node:fs/promises';
 import { isAbsolute } from 'node:path';
-import { CMS_MEDIA_VARIANT_WIDTHS } from '@zenith/shared/cms';
+import { CMS_MEDIA_VARIANT_WIDTHS } from '@arcbase/shared/cms';
 import { sharp } from '../../lib/sharp-loader';
 import { IMAGE_MAX_INPUT_PIXELS } from './cms-image.service';
 import { TaskNonRetryableError } from '../../lib/task-center/types';

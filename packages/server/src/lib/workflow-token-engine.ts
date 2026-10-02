@@ -13,8 +13,8 @@
  * finished, rejected }，由 service 层落库（见 workflow-instances.service.ts）。
  */
 import { randomUUID } from 'node:crypto';
-import type { WorkflowFlowData, WorkflowStarterContext } from '@zenith/shared/workflow';
-import { isGatedTrigger } from '@zenith/shared/workflow';
+import type { WorkflowFlowData, WorkflowStarterContext } from '@arcbase/shared/workflow';
+import { isGatedTrigger } from '@arcbase/shared/workflow';
 import {
   buildAdjacency,
   edgeMatchesCondition,

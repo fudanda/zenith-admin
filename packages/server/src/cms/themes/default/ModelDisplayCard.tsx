@@ -1,4 +1,4 @@
-import { CMS_MODEL_DISPLAY_LABELS, CMS_MODEL_DISPLAY_ROLES, cmsModelDisplayFor, isDirectCmsHref, validateCmsModelDisplay } from '@zenith/shared/cms';
+import { CMS_MODEL_DISPLAY_LABELS, CMS_MODEL_DISPLAY_ROLES, cmsModelDisplayFor, isDirectCmsHref, validateCmsModelDisplay } from '@arcbase/shared/cms';
 import type { CmsDetailContext } from '../types';
 
 function assetUrl(value: unknown): string | null {

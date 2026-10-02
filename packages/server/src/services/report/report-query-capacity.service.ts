@@ -1,5 +1,5 @@
-import { reportQueryCapacityContract, reportQueryQuotaSchema, reportQueryCostLogSchema } from '@zenith/shared/report';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { reportQueryCapacityContract, reportQueryQuotaSchema, reportQueryCostLogSchema } from '@arcbase/shared/report';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { exactTenantCondition } from '../../lib/tenant';
 import { requireRow } from '../../lib/db-assert';
 import { listRows } from '../../lib/list-query';
@@ -7,7 +7,7 @@ import { randomUUID } from 'node:crypto';
 import dayjs from 'dayjs';
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, gte, isNull, lte, or, sql } from 'drizzle-orm';
-import type { CreateReportQueryQuotaInput, ReportQueryCostLog, ReportQueryQuota, ReportQueryQuotaUsage, UpdateReportQueryQuotaInput } from '@zenith/shared/report';
+import type { CreateReportQueryQuotaInput, ReportQueryCostLog, ReportQueryQuota, ReportQueryQuotaUsage, UpdateReportQueryQuotaInput } from '@arcbase/shared/report';
 import { config } from '../../config';
 import { db } from '../../db';
 import { reportQueryCostLogs, reportQueryQuotas, users } from '../../db/schema';

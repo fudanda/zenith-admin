@@ -1,7 +1,7 @@
 import { Empty, Spin } from '@douyinfe/semi-ui';
 import type { WorkflowBusinessFormProps } from '@/components/workflow/BusinessFormHost';
 import { useCmsContentApprovalDetail } from '@/hooks/queries/cms';
-import type { CmsContent } from '@zenith/shared/cms';
+import type { CmsContent } from '@arcbase/shared/cms';
 import { ContentRevisionViewer } from './ContentRevisionViewer';
 
 /** 审批接口按 instanceId 返回送审时冻结的完整修订。 */

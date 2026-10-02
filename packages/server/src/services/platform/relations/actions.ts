@@ -1,5 +1,5 @@
 import { and, eq, inArray } from 'drizzle-orm';
-import type { CanonicalEntityType, EntityRelationItem } from '@zenith/shared/platform';
+import type { CanonicalEntityType, EntityRelationItem } from '@arcbase/shared/platform';
 import { asyncTasks, iotAlarms, iotDevices, paymentRefunds, workflowInstances, workflowTasks } from '../../../db/schema';
 import { hasPermission } from '../../../lib/context';
 import { exactTenantCondition } from '../../../lib/tenant';

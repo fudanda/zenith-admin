@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { reportDatasetContract } from '@zenith/shared/report';
+import { reportDatasetContract } from '@arcbase/shared/report';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, errBody, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import {

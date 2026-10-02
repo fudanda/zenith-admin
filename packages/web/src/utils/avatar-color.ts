@@ -1,1 +1,1 @@
-export { getAvatarColor } from '@zenith/elements';
+export { getAvatarColor } from '@arcbase/elements';

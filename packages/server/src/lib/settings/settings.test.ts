@@ -15,7 +15,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { HTTPException } from 'hono/http-exception';
 import type { JwtPayload } from '../../middleware/auth';
-import { SETTINGS_MODULES } from '@zenith/shared/settings';
+import { SETTINGS_MODULES } from '@arcbase/shared/settings';
 
 // vi.mock 工厂会被提升到文件顶部，工厂内引用的状态必须经 vi.hoisted 声明
 const { dbState, configState, ctx, logger } = vi.hoisted(() => ({

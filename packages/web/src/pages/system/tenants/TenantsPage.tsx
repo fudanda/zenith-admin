@@ -1,7 +1,7 @@
 import { FormPasswordInput } from '@/components/PasswordInput';
 import { useRef, useState } from 'react';
 import { Button, Modal, Form, Row, Col, Spin, SideSheet, Descriptions, Tag, Divider } from '@douyinfe/semi-ui';
-import { tenantContract, type CreateTenantInput, type Tenant } from '@zenith/shared/identity';
+import { tenantContract, type CreateTenantInput, type Tenant } from '@arcbase/shared/identity';
 import ExportButton from '@/components/ExportButton';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { formatDateTimeForApi } from '@/utils/date';

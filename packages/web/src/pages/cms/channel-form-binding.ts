@@ -1,4 +1,4 @@
-import type { CmsChannel } from '@zenith/shared/cms';
+import type { CmsChannel } from '@arcbase/shared/cms';
 
 export function channelBoundFormCode(channel: Pick<CmsChannel, 'settings'> | null): string | undefined {
   const value = channel?.settings.formCode;

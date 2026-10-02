@@ -6,9 +6,9 @@
  * - 远程配置（开关/采样/黑名单/DNT）
  */
 import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
-import { ANALYTICS_CONFIG_VERSION_KEY, ANALYTICS_EXPERIMENT_EXPOSURE_EVENT, ANALYTICS_RAGE_CLICK_EVENT } from '@zenith/shared/analytics';
-import { TOKEN_KEY, randomUUID } from '@zenith/shared/core';
-import type { TrackEventInput, AnalyticsPublicConfig, AnalyticsExperimentAssignment, UserBehaviorEventType } from '@zenith/shared/analytics';
+import { ANALYTICS_CONFIG_VERSION_KEY, ANALYTICS_EXPERIMENT_EXPOSURE_EVENT, ANALYTICS_RAGE_CLICK_EVENT } from '@arcbase/shared/analytics';
+import { TOKEN_KEY, randomUUID } from '@arcbase/shared/core';
+import type { TrackEventInput, AnalyticsPublicConfig, AnalyticsExperimentAssignment, UserBehaviorEventType } from '@arcbase/shared/analytics';
 import { addBreadcrumb } from './breadcrumbs';
 import { configureErrorReporting, configureErrorReporterRuntime, reportError } from './error-reporter';
 import { analyticsRequestHeaders } from './http';
@@ -21,13 +21,13 @@ const MAX_BUFFER_SIZE = 50;
 const PRE_BUFFER_MAX = 100;
 const UNLOAD_CHUNK_SIZE = 20; // 卸载兜底分片大小，规避 sendBeacon/keepalive 64KB body 上限
 const SLOW_API_MS = 2000;
-const SESSION_KEY = 'zenith_tracker_sid';
-const SESSION_TS_KEY = 'zenith_tracker_sid_ts';
-const SAMPLED_KEY = 'zenith_tracker_sampled';
-const ANON_KEY = 'zenith_anon_id';
-const QUEUE_KEY = 'zenith_tracker_queue';
-const EXP_ASSIGNMENTS_KEY = 'zenith_tracker_exp_assignments';
-const EXPOSURE_SESSION_KEY = 'zenith_tracker_exp_exposure';
+const SESSION_KEY = 'arcbase_tracker_sid';
+const SESSION_TS_KEY = 'arcbase_tracker_sid_ts';
+const SAMPLED_KEY = 'arcbase_tracker_sampled';
+const ANON_KEY = 'arcbase_anon_id';
+const QUEUE_KEY = 'arcbase_tracker_queue';
+const EXP_ASSIGNMENTS_KEY = 'arcbase_tracker_exp_assignments';
+const EXPOSURE_SESSION_KEY = 'arcbase_tracker_exp_exposure';
 const EXP_ASSIGNMENTS_TTL_MS = 5 * 60_000;
 const DEFAULT_SESSION_IDLE_MINUTES = 30;
 const WHITE_SCREEN_CHECK_DELAY_MS = 6000;

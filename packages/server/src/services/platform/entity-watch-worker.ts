@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { and, asc, eq, exists, gt, isNull, lt, lte, or, sql } from 'drizzle-orm';
-import { ENTITY_TIMELINE_EVENT_LABELS, isWatchableDomainEvent } from '@zenith/shared/platform';
+import { ENTITY_TIMELINE_EVENT_LABELS, isWatchableDomainEvent } from '@arcbase/shared/platform';
 import { db } from '../../db';
 import type { DbTransaction } from '../../db/types';
 import { domainEvents, domainEventSubjects, entityWatches, entityWatchEvents } from '../../db/schema';

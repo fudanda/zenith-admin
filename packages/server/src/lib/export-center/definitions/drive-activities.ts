@@ -1,6 +1,6 @@
-import { DRIVE_ACTIVITY_ACTION_LABELS, DRIVE_ACTIVITY_ACTIONS, type DriveActivity, type DriveActivityAction } from '@zenith/shared/drive';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { driveAdminContract } from '@zenith/shared/drive';
+import { DRIVE_ACTIVITY_ACTION_LABELS, DRIVE_ACTIVITY_ACTIONS, type DriveActivity, type DriveActivityAction } from '@arcbase/shared/drive';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { driveAdminContract } from '@arcbase/shared/drive';
 import { listDriveActivitiesForAdmin } from '../../../services/drive/drive-activity.service';
 import { asPositiveInt, asString } from '../query-normalize';
 import { defineExport } from '../registry';

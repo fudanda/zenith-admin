@@ -8,7 +8,7 @@ import type {
   CronJobStatsPerJob,
   CronJobTopError,
   CronJobUpcomingRun,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import {
   CRON_HEALTH_RULES,
   CRON_ALERT_TYPE_LABELS,
@@ -19,7 +19,7 @@ import {
   isCronNearTimeout,
   isCronSlowTail,
   toMinuteCron,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import { mockCronJobs } from '@/mocks/data/system';
 import { mockCronJobLogs, type MockCronJobLog } from '@/mocks/data/cron-job-logs';
 import { mockDateTime, mockDateTimeOffset } from '@/mocks/utils/date';

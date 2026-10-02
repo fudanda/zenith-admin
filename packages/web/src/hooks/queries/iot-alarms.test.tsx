@@ -1,7 +1,7 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { iotAlarmContract } from '@zenith/shared/iot';
-import { entityRelationsContract, entityTimelineContract } from '@zenith/shared/platform';
+import { iotAlarmContract } from '@arcbase/shared/iot';
+import { entityRelationsContract, entityTimelineContract } from '@arcbase/shared/platform';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
 import { urlOf } from '@/lib/contract-query';
 

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { paymentRiskRuleContract } from '@zenith/shared/payment';
+import { paymentRiskRuleContract } from '@arcbase/shared/payment';
 import { validationHook } from '../../lib/openapi-schemas';
 import { paymentRiskRuleService } from '../../services/payment/payment-risk.service';
 import { mountCrud } from '../_crud';

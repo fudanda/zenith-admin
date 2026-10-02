@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Form, Space, Typography } from '@douyinfe/semi-ui';
 import { Tags } from 'lucide-react';
-import { tagContract, type CreateTagInput, type Tag } from '@zenith/shared/platform';
+import { tagContract, type CreateTagInput, type Tag } from '@arcbase/shared/platform';
 import { usePermission } from '@/hooks/usePermission';
 import { useDictItems } from '@/hooks/useDictItems';
 import { useEditModal } from '@/hooks/useEditModal';

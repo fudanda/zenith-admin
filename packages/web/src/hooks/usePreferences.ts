@@ -1,18 +1,18 @@
 import { useContext, createContext } from 'react';
-import type { PreferenceOverrides, PreferencePath, PreferencePolicy, UserPreferences } from '@zenith/shared/preferences';
+import type { PreferenceOverrides, PreferencePath, PreferencePolicy, UserPreferences } from '@arcbase/shared/preferences';
 export {
   defaultPreferences, LOADING_STYLES, LOADING_STYLE_OPTIONS, isLoadingStyle,
   UI_SCALES, UI_SCALE_OPTIONS, FONT_FAMILIES, FONT_FAMILY_OPTIONS, TIME_DISPLAYS, WEEK_STARTS,
   DARK_SURFACE_TONES, DARK_SURFACE_TONE_OPTIONS, TOPBAR_CLOCK_MODES, SCHEDULED_DARK_MODES,
   isScheduleTime, isScheduledDarkNow, msUntilScheduleBoundary,
-} from '@zenith/shared/preferences';
+} from '@arcbase/shared/preferences';
 export type {
   NavLayout, TabAnimation, TabStyle, TabSize, TabType, TableSizePreference, RouteAnimation,
   SidebarToggleIconPosition, BorderRadiusPreference, LoadingStyle, UiScale, FontFamilyPreference,
   TimeDisplay, DesktopNotificationContent, WeekStart, DarkSurfaceTone, TopbarClockMode, DoubleRailStyle,
   ScheduledDarkMode, TerminalFavorite, TerminalTabPosition, TerminalPreferences, UserPreferences,
-} from '@zenith/shared/preferences';
-export { sanitizePreferenceOverrides as sanitizeImportedPreferences } from '@zenith/shared/preferences';
+} from '@arcbase/shared/preferences';
+export { sanitizePreferenceOverrides as sanitizeImportedPreferences } from '@arcbase/shared/preferences';
 
 export interface PreferenceChangeResult {
   applied: number;

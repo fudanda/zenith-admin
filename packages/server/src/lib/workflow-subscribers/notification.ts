@@ -18,11 +18,11 @@ import { eq } from 'drizzle-orm';
 import type {
   NotificationChannelOptions,
   NotificationChannelPolicy,
-} from '@zenith/shared/messaging';
-import type { WorkflowNotifyChannels } from '@zenith/shared/workflow';
+} from '@arcbase/shared/messaging';
+import type { WorkflowNotifyChannels } from '@arcbase/shared/workflow';
 import { db } from '../../db';
 import { workflowInstances } from '../../db/schema';
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';
 import { notify } from '../../services/messaging/notification-outbox.service';
 import { workflowEventBus } from '../workflow-event-bus';
 import logger from '../logger';

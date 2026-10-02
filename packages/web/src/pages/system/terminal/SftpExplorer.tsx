@@ -27,7 +27,7 @@ import {
   type FsDialogState,
   type FsTreeNode,
 } from './fileTree';
-import type { SftpFileEntry } from '@zenith/shared/ops';
+import type { SftpFileEntry } from '@arcbase/shared/ops';
 import {
   fetchSftpDir,
   sftpDownloadUrl,

@@ -61,7 +61,7 @@ export const saveEmailConfigSchema = z.object({
   smtpPort: z.number().int().min(1).max(65535).default(465),
   smtpUser: z.string().min(1, 'SMTP 用户名不能为空').max(128).optional(),
   smtpPassword: z.string().max(256).optional(),
-  fromName: z.string().max(64).default('Zenith Admin'),
+  fromName: z.string().max(64).default('ArcBase'),
   fromEmail: z.string().max(128).optional(),
   encryption: z.enum(EMAIL_ENCRYPTIONS).default('ssl'),
   status: entityStatusSchema.default('enabled'),
@@ -423,7 +423,7 @@ export type UpdatePushConfigInput = z.infer<typeof updatePushConfigSchema>;
 /** 测试发送:直发 registrationId,不依赖设备登记 */
 export const testPushSendSchema = z.object({
   registrationId: z.string().min(1, 'RegistrationID 不能为空').max(128),
-  title: z.string().max(200).default('Zenith 推送测试'),
+  title: z.string().max(200).default('ArcBase 推送测试'),
   content: z.string().max(1000).default('这是一条测试推送,收到说明通道配置正确'),
 });
 

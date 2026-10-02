@@ -1,5 +1,5 @@
-import { CmsTracker, type CmsTrackerConfig } from '@zenith/analytics-sdk/cms-tracker';
-import type { CmsAttributionContext } from '@zenith/shared/cms';
+import { CmsTracker, type CmsTrackerConfig } from '@arcbase/analytics-sdk/cms-tracker';
+import type { CmsAttributionContext } from '@arcbase/shared/cms';
 import { readMeta } from './shared/meta';
 
 const trackers = new WeakMap<Document, CmsTracker>();

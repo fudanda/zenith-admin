@@ -12,7 +12,7 @@
  * />
  */
 import type { ReactNode } from 'react';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 import { Button } from '@douyinfe/semi-ui';
 import { Ban, CircleCheck, Plus, RotateCcw, Search, Trash2 } from 'lucide-react';
 import { usePermission } from '@/hooks/usePermission';

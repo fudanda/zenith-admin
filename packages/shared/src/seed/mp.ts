@@ -6,8 +6,8 @@ import { SEED_DATE } from './_base';
 
 // ─── 公众号账号（示例占位，需填实际凭证后启用）──────────────────────────────────
 export const SEED_MP_ACCOUNTS: MpAccount[] = [
-  { id: 1, name: '示例服务号', account: 'gh_demo_service', appId: 'wxdemoservice0001', appSecret: 'DemoAppSecretReplaceMe', token: 'zenithdemotoken', encodingAesKey: null, encryptMode: 'plaintext', type: 'service', qrCodeUrl: null, isDefault: true,  autoCreateMember: false, contentCheckEnabled: false, status: 'disabled', remark: '初始占位配置，需填实际 AppSecret 后启用', createdAt: SEED_DATE, updatedAt: SEED_DATE },
-  { id: 2, name: '示例测试号', account: null,              appId: 'wxdemotest00000001', appSecret: 'DemoTestSecret',        token: 'zenithtesttoken', encodingAesKey: null, encryptMode: 'plaintext', type: 'test',    qrCodeUrl: null, isDefault: false, autoCreateMember: false, contentCheckEnabled: false, status: 'disabled', remark: '微信测试号占位',                createdAt: SEED_DATE, updatedAt: SEED_DATE },
+  { id: 1, name: '示例服务号', account: 'gh_demo_service', appId: 'wxdemoservice0001', appSecret: 'DemoAppSecretReplaceMe', token: 'arcbasedemotoken', encodingAesKey: null, encryptMode: 'plaintext', type: 'service', qrCodeUrl: null, isDefault: true,  autoCreateMember: false, contentCheckEnabled: false, status: 'disabled', remark: '初始占位配置，需填实际 AppSecret 后启用', createdAt: SEED_DATE, updatedAt: SEED_DATE },
+  { id: 2, name: '示例测试号', account: null,              appId: 'wxdemotest00000001', appSecret: 'DemoTestSecret',        token: 'arcbasetesttoken', encodingAesKey: null, encryptMode: 'plaintext', type: 'test',    qrCodeUrl: null, isDefault: false, autoCreateMember: false, contentCheckEnabled: false, status: 'disabled', remark: '微信测试号占位',                createdAt: SEED_DATE, updatedAt: SEED_DATE },
 ];
 
 // ─── 公众号标签（示例）────────────────────────────────────────────────────────
@@ -34,7 +34,7 @@ export const SEED_MP_MESSAGES: MpMessage[] = [
 
 // ─── 公众号自动回复（示例）──────────────────────────────────────────────────────
 export const SEED_MP_AUTO_REPLIES: MpAutoReply[] = [
-  { id: 1, accountId: 1, replyType: 'subscribe', keyword: null,     matchType: 'contain', contentType: 'text', content: '欢迎关注 Zenith 公众号！回复「会员」了解会员权益。', mediaId: null, newsArticles: null, transferToKf: false, status: 'enabled', sort: 0, createdAt: SEED_DATE, updatedAt: SEED_DATE },
+  { id: 1, accountId: 1, replyType: 'subscribe', keyword: null,     matchType: 'contain', contentType: 'text', content: '欢迎关注 ArcBase 公众号！回复「会员」了解会员权益。', mediaId: null, newsArticles: null, transferToKf: false, status: 'enabled', sort: 0, createdAt: SEED_DATE, updatedAt: SEED_DATE },
   { id: 2, accountId: 1, replyType: 'keyword',   keyword: '会员',   matchType: 'contain', contentType: 'text', content: '点击底部菜单「会员中心」即可开通会员～',           mediaId: null, newsArticles: null, transferToKf: false, status: 'enabled', sort: 1, createdAt: SEED_DATE, updatedAt: SEED_DATE },
   { id: 3, accountId: 1, replyType: 'keyword',   keyword: '优惠券', matchType: 'contain', contentType: 'news', content: null, mediaId: null, newsArticles: [{ title: '最新优惠券领取攻略', description: '点击查看本月可领取的优惠券与使用规则', picUrl: 'https://mmbiz.qpic.cn/demo/coupon.png', url: 'https://example.com/coupons' }], transferToKf: false, status: 'enabled', sort: 2, createdAt: SEED_DATE, updatedAt: SEED_DATE },
   { id: 4, accountId: 1, replyType: 'keyword',   keyword: '人工',   matchType: 'contain', contentType: 'text', content: '正在为您转接人工客服，请稍候～',                     mediaId: null, newsArticles: null, transferToKf: true,  status: 'enabled', sort: 3, createdAt: SEED_DATE, updatedAt: SEED_DATE },
@@ -81,7 +81,7 @@ export const SEED_MP_MESSAGE_TEMPLATES: MpMessageTemplate[] = [
 
 // ─── 公众号群发消息（示例）────────────────────────────────────────────────────
 export const SEED_MP_BROADCASTS: MpBroadcast[] = [
-  { id: 1, accountId: 1, msgType: 'text', target: 'all', tagId: null, content: '【Zenith 周报】本周上新会员权益，点击菜单「会员中心」查看详情～', mediaId: null, status: 'draft', wechatMsgId: null, scheduledAt: null, errorMsg: null, sentAt: null, createdAt: SEED_DATE, updatedAt: SEED_DATE },
+  { id: 1, accountId: 1, msgType: 'text', target: 'all', tagId: null, content: '【ArcBase 周报】本周上新会员权益，点击菜单「会员中心」查看详情～', mediaId: null, status: 'draft', wechatMsgId: null, scheduledAt: null, errorMsg: null, sentAt: null, createdAt: SEED_DATE, updatedAt: SEED_DATE },
   { id: 2, accountId: 1, msgType: 'text', target: 'tag', tagId: 1, content: '尊敬的星标用户，您有一张专属优惠券待领取！', mediaId: null, status: 'draft', wechatMsgId: null, scheduledAt: null, errorMsg: null, sentAt: null, createdAt: SEED_DATE, updatedAt: SEED_DATE },
 ];
 
@@ -93,7 +93,7 @@ export const SEED_MP_QRCODES: MpQrcode[] = [
 
 // ─── 公众号多客服账号（示例）───────────────────────────────────────────────────
 export const SEED_MP_KF_ACCOUNTS: MpKfAccount[] = [
-  { id: 1, accountId: 1, kfAccount: 'kf2001@gh_demo_service', nickname: '客服小柒', avatar: null, kfId: '1001', inviteStatus: 'bound', inviteWx: 'zenith_cs_01', status: 'enabled', createdAt: SEED_DATE, updatedAt: SEED_DATE },
+  { id: 1, accountId: 1, kfAccount: 'kf2001@gh_demo_service', nickname: '客服小柒', avatar: null, kfId: '1001', inviteStatus: 'bound', inviteWx: 'arcbase_cs_01', status: 'enabled', createdAt: SEED_DATE, updatedAt: SEED_DATE },
   { id: 2, accountId: 1, kfAccount: 'kf2002@gh_demo_service', nickname: '客服小满', avatar: null, kfId: '1002', inviteStatus: 'inviting', inviteWx: null, status: 'enabled', createdAt: SEED_DATE, updatedAt: SEED_DATE },
 ];
 

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { tagContract } from '@zenith/shared/platform';
+import { tagContract } from '@arcbase/shared/platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { listTagGroups, tagService } from '../../services/platform/tags.service';

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Banner, Button, Form, SideSheet, Space, Spin, Tag, Toast, Typography, useFormApi, useFormState } from '@douyinfe/semi-ui';
-import type { BodyOf } from '@zenith/shared/core';
-import { cmsResourceContract, type CmsResource } from '@zenith/shared/cms';
+import type { BodyOf } from '@arcbase/shared/core';
+import { cmsResourceContract, type CmsResource } from '@arcbase/shared/cms';
 import { useCmsMedia, useCmsMediaTask, useProcessCmsMedia } from '@/hooks/queries/cms-resources';
 import { useAsyncTaskAction } from '@/hooks/queries/async-tasks';
 import { usePermission } from '@/hooks/usePermission';

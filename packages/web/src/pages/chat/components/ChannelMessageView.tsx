@@ -10,10 +10,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button, Dropdown, Empty, Rating, Spin, TextArea, Toast, Typography } from '@douyinfe/semi-ui';
 import { ArrowLeft, BadgeCheck, ChevronUp, ExternalLink, Send, Star } from 'lucide-react';
-import type { ChatMessage, ChatCardAction } from '@zenith/shared/chat';
-import { channelContract } from '@zenith/shared/messaging';
-import type { Channel, ChannelMenu, ChannelMessage } from '@zenith/shared/messaging';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { ChatMessage, ChatCardAction } from '@arcbase/shared/chat';
+import { channelContract } from '@arcbase/shared/messaging';
+import type { Channel, ChannelMenu, ChannelMessage } from '@arcbase/shared/messaging';
+import type { WsMessage } from '@arcbase/shared/platform';
 import { api } from '@/lib/contract-query';
 import { useWebSocket } from '@/hooks/useWebSocket';
 import { UserAvatar } from '@/components/UserAvatar';

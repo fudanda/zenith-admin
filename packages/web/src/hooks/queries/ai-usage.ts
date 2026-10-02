@@ -1,7 +1,7 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import { aiUsageContract } from '@zenith/shared/ai';
-import type { AiUsageByModel, AiUsageByUser, AiUsageOverview, AiUsageStats, AiUsageTrend } from '@zenith/shared/ai';
-import type { QueryOf } from '@zenith/shared/core';
+import { aiUsageContract } from '@arcbase/shared/ai';
+import type { AiUsageByModel, AiUsageByUser, AiUsageOverview, AiUsageStats, AiUsageTrend } from '@arcbase/shared/ai';
+import type { QueryOf } from '@arcbase/shared/core';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export type AiUsageStatsParams = NonNullable<QueryOf<typeof aiUsageContract.stats>>;

@@ -1,5 +1,5 @@
-import { paymentSettlementContract, paymentSettlementBatchSchema } from '@zenith/shared/payment';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { paymentSettlementContract, paymentSettlementBatchSchema } from '@arcbase/shared/payment';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 支付结算批次 Service。
  * 按渠道 + 账期聚合成功订单生成结算批次（净额 = 收款 - 手续费 - 退款 - 分账），
@@ -19,7 +19,7 @@ import { formatDate, formatDateTime, parseDateRangeEnd, parseDateRangeStart } fr
 import { isPgUniqueViolation, rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { postSystemJournalWithin } from './payment-journal.service';
 import logger from '../../lib/logger';
-import type { PaymentSettlementBatch, PaymentSettlementItem, PaymentSettlementStatus } from '@zenith/shared/payment';
+import type { PaymentSettlementBatch, PaymentSettlementItem, PaymentSettlementStatus } from '@arcbase/shared/payment';
 import { pickEntity } from '../../lib/entity-map';
 
 // Only provider-derived and explicitly approved reconciliation movements are

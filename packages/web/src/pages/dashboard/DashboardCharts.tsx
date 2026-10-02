@@ -19,7 +19,7 @@ import {
   useChartPalette,
 } from '@/components/charts';
 import { ModuleOperationPie } from '@/components/logs/ModuleOperationPie';
-import type { DashboardCharts } from '@zenith/shared/analytics';
+import type { DashboardCharts } from '@arcbase/shared/analytics';
 import { shortDate } from '@/utils/date';
 import { LOGIN_TREND_SERIES, loginLogsDrillUrl, operationLogsDrillUrl } from './dashboard-drilldown';
 

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import type { AnyOperation } from '@zenith/shared/core';
-import { workflowDefinitionContract, workflowInstanceContract, workflowTaskContract, workflowTemplateContract, type WorkflowTask } from '@zenith/shared/workflow';
+import type { AnyOperation } from '@arcbase/shared/core';
+import { workflowDefinitionContract, workflowInstanceContract, workflowTaskContract, workflowTemplateContract, type WorkflowTask } from '@arcbase/shared/workflow';
 import { mockWorkflowDefinitions, mockWorkflowInstances, mockWorkflowTasks } from './data/workflow';
 import { mockWorkflowForms } from './data/workflow-forms';
 import { workflowHandlers } from './handlers/workflow';

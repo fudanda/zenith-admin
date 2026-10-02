@@ -86,7 +86,7 @@ export class PageErrorBoundary extends React.Component<Props, State> {
     const { error, componentStack } = this.state;
     if (!error) return;
     const report = [
-      `[Zenith Admin 页面错误报告]`,
+      `[ArcBase 页面错误报告]`,
       `时间: ${formatDateTime(new Date())}`,
       `页面: ${globalThis.location.href}`,
       `浏览器: ${navigator.userAgent}`,

@@ -1,8 +1,8 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, gt, inArray, isNull, or, sql, type SQL } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { DriveRecentItem, DriveSearchItem, DriveSharedItem, DriveSubjectType } from '@zenith/shared/drive';
-import { driveNodeContract } from '@zenith/shared/drive';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { DriveRecentItem, DriveSearchItem, DriveSharedItem, DriveSubjectType } from '@arcbase/shared/drive';
+import { driveNodeContract } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveNodePermissions, driveNodes, driveNodeStars, driveNodeTags, driveNodeTexts, driveRecentAccess, driveSpaces, type DriveNodeRow } from '../../db/schema';
 import { currentUser, currentUserId } from '../../lib/context';

@@ -1,4 +1,4 @@
-import { apiCatalogContract, permissionMatrixContract } from '@zenith/shared/identity';
+import { apiCatalogContract, permissionMatrixContract } from '@arcbase/shared/identity';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

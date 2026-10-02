@@ -15,7 +15,7 @@ import {
   smsConfigContract,
   smsSendLogContract,
   smsTemplateContract,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import { defineRouteDomain } from '../_kit';
 import announcementsRoutes from './announcements';
 import channelsRoutes from './channels';

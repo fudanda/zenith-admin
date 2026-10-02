@@ -1,8 +1,8 @@
 import { HTTPException } from 'hono/http-exception';
 import { asc, eq, inArray, sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { wikiSpaceSchema, type CreateWikiSpaceInput, type SaveWikiSpaceMembersInput, type UpdateWikiSpaceInput, type WikiSpaceMemberRole } from '@zenith/shared/wiki';
-import { wikiSpaceContract } from '@zenith/shared/wiki';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { wikiSpaceSchema, type CreateWikiSpaceInput, type SaveWikiSpaceMembersInput, type UpdateWikiSpaceInput, type WikiSpaceMemberRole } from '@arcbase/shared/wiki';
+import { wikiSpaceContract } from '@arcbase/shared/wiki';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import { users, wikiDocs, wikiSpaceMembers, wikiSpaces, type WikiSpaceRow } from '../../db/schema';

@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { cmsStatContract, cmsStatMetricsSchema, cmsTelemetryAdminContract, cmsStatRate, type CmsStatMetrics, type CmsStatReportRow, type CmsStatScope } from '@zenith/shared/cms';
-import type { QueryOf } from '@zenith/shared/core';
+import { cmsStatContract, cmsStatMetricsSchema, cmsTelemetryAdminContract, cmsStatRate, type CmsStatMetrics, type CmsStatReportRow, type CmsStatScope } from '@arcbase/shared/cms';
+import type { QueryOf } from '@arcbase/shared/core';
 import { mock } from '../utils/contract';
 import { matchesFilter } from '../utils/filter';
 import { requireItem } from '../utils/crud';

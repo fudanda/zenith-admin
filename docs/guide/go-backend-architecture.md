@@ -10,7 +10,7 @@ backend/
 ├── services.go              # 领域服务及跨域端口装配
 ├── modules.go               # 内置模块装配与宿主扩展
 ├── store.go                 # OpenStore / Seed / InitAdmin 的公开入口
-├── cmd/zenith/              # serve / migrate / seed / init-admin / backup-sqlite
+├── cmd/arcbase/              # serve / migrate / seed / init-admin / backup-sqlite
 ├── internal/
 │   ├── app/                 # 模块生命周期、维护任务调度
 │   ├── transport/http/      # GoFr、Cookie/CSRF、契约校验、解码、响应与流
@@ -63,7 +63,7 @@ HTTP → 认证/授权/契约校验 → 领域 Handler → 领域 Service
 
 `backend/cli` 提供宿主可复用的命令装配；`internal/operations` 负责离线数据库、文件和密钥备份恢复，复用数据层维护锁。宿主业务通过 `HostServices.Data` 借用唯一连接池，`HostData.Write` 把其 Ent 写入和系统审计放进同一 SQL 事务；Ent 的内部更新事务作用域借用外层事务，不独立提交或关闭连接池。
 
-宿主实体位于生成项目自己的 Ent schema，不加入 Zenith 固定系统模型。宿主迁移由显式 CLI 执行，并按模块记录不可变摘要；启动检查模块版本。扩展声明的资源读取权限同时用于 SSE 提示过滤，事件只要求重新查询，不返回业务记录。完整入口见 [Go 工具链](./go-tooling.md)。
+宿主实体位于生成项目自己的 Ent schema，不加入 ArcBase 固定系统模型。宿主迁移由显式 CLI 执行，并按模块记录不可变摘要；启动检查模块版本。扩展声明的资源读取权限同时用于 SSE 提示过滤，事件只要求重新查询，不返回业务记录。完整入口见 [Go 工具链](./go-tooling.md)。
 
 ## 模块与进程生命周期
 
@@ -77,12 +77,12 @@ HTTP → 认证/授权/契约校验 → 领域 Handler → 领域 Service
 
 `go test ./...` 检查包依赖、模块失败清理、首版契约注册和根包边界，并包含不经过 HTTP 的真实 SQLite 服务测试，覆盖岗位、部门事务与审计回滚、设置版本冲突、密码会话失效及文件/ZIP 流的生命周期。
 
-带 `integration` 标签的验收使用真实 PostgreSQL / SQLite，覆盖原页面、权限、会话、文件、导入导出、嵌入部署、数据库故障及优雅停机。前端页面继续位于 `packages/web`；独立 `packages/client` 负责 API 契约调用及 Cookie/CSRF、JSON、上传和下载传输，Web 保留会话状态、缓存及 UI 提示。使用方式见 [客户端说明](../../packages/client/README.md)。
+带 `integration` 标签的验收使用真实 PostgreSQL / SQLite，覆盖原页面、权限、会话、文件、导入导出、嵌入部署、数据库故障及优雅停机。前端页面继续位于 `packages/web`；独立 `packages/client` 负责 API 契约调用及 Cookie/CSRF、JSON、上传和下载传输，Web 保留会话状态、缓存及 UI 提示。使用方式见 [客户端说明](./go-host-integration.md)。
 
-`packages/admin` 导出 `ZenithAdmin`，复用 Web 的原应用装配，并提供独立 ESM、类型、样式和最小宿主。依赖方向为 `shared → client → elements → web → admin`；原项目通过 Web 内的同一个组件启动，避免包循环。组件拥有专用缓存、Cookie 会话恢复、路径配置和请求/监听的生命周期，不改变 Go 业务边界。资源部署与使用示例见 [管理台包说明](../../packages/admin/README.md)；`TestEmbeddedAdminHost` 从构建后的公开包验证 `/console` 深链接与真实 Go 数据操作。
+`packages/admin` 导出 `ArcBaseAdmin`，复用 Web 的原应用装配，并提供独立 ESM、类型、样式和最小宿主。依赖方向为 `shared → client → elements → web → admin`；原项目通过 Web 内的同一个组件启动，避免包循环。组件拥有专用缓存、Cookie 会话恢复、路径配置和请求/监听的生命周期，不改变 Go 业务边界。资源部署与使用示例见 [管理台包说明](./go-host-integration.md)；`TestEmbeddedAdminHost` 从构建后的公开包验证 `/console` 深链接与真实 Go 数据操作。
 
-`packages/elements` 提供可组合的 Provider、登录表单、权限/会话边界、原头像和文件选择/上传组件；不依赖 Web、Router 或全局凭据存储。管理台通过受控会话桥接复用现有 GoAuthProvider，也允许宿主提供 Cookie 会话适配器。`ZenithAdmin` 的品牌、默认主题、语言及外部导航配置都保持原页面与 Go 授权边界，说明见 [组件包](../../packages/elements/README.md)。
+`packages/elements` 提供可组合的 Provider、登录表单、权限/会话边界、原头像和文件选择/上传组件；不依赖 Web、Router 或全局凭据存储。管理台通过受控会话桥接复用现有 GoAuthProvider，也允许宿主提供 Cookie 会话适配器。`ArcBaseAdmin` 的品牌、默认主题、语言及外部导航配置都保持原页面与 Go 授权边界，说明见 [组件包](./go-host-integration.md)。
 
 集成扩展使用 shared 操作清单声明 API Key 可访问范围。Cookie 写请求继续校验 CSRF，Key 同时受密钥范围与实时账号权限限制。SSE 只发送审计游标与资源重查提示，每次轮询重新校验认证；MCP 使用标准 Streamable HTTP，只注册当前身份可调用的读取工具。S3 失败补偿记录独立于数据库配置，保存原目标与加密凭据，维护任务在重启后继续处理。详见 [集成扩展](./go-integrations.md)。
 
-宿主业务通过公开模块生命周期、`BindServices`、`Extension` 和 `RegisterHostContract` 接入；前端 `ZenithAdmin.modules` 与 Go 模块能力清单匹配，复用原导航和会话。构建后的四个包支持仓库外 tarball 安装。使用方法和真实岗位链路验收见 [宿主接入](./go-host-integration.md)。
+宿主业务通过公开模块生命周期、`BindServices`、`Extension` 和 `RegisterHostContract` 接入；前端 `ArcBaseAdmin.modules` 与 Go 模块能力清单匹配，复用原导航和会话。构建后的四个包支持仓库外 tarball 安装。使用方法和真实岗位链路验收见 [宿主接入](./go-host-integration.md)。

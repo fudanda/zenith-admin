@@ -13,7 +13,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import { partialMatchKey, type QueryKey } from '@tanstack/react-query';
-import type { DriveNode, DriveNodeDetail, DriveNodeListResult, DriveTag } from '@zenith/shared/drive';
+import type { DriveNode, DriveNodeDetail, DriveNodeListResult, DriveTag } from '@arcbase/shared/drive';
 import {
   ApiRecorder,
   createRequestMock,

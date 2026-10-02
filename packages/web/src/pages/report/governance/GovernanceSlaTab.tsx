@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Banner, Col, Empty, Form, Modal, Row, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ReportSlaRule, ReportSlaType, ReportSlaViolation, ReportSlaViolationStatus } from '@zenith/shared/report';
+import type { ReportSlaRule, ReportSlaType, ReportSlaViolation, ReportSlaViolationStatus } from '@arcbase/shared/report';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { confirmAndDelete, listTableProps } from '@/components/list-page';
 import { CronBuilderPopover } from '@/components/CronBuilderPopover';

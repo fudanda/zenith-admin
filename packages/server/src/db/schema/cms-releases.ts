@@ -1,6 +1,6 @@
 import { boolean, index, integer, jsonb, pgEnum, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
-import { CMS_DEPLOYMENT_STATUSES, CMS_RELEASE_STATUSES } from '@zenith/shared/cms';
-import type { CmsRelease, CmsConfigurationSnapshot, CmsDeploymentBuildPlan, CmsDeploymentBuildMetrics } from '@zenith/shared/cms';
+import { CMS_DEPLOYMENT_STATUSES, CMS_RELEASE_STATUSES } from '@arcbase/shared/cms';
+import type { CmsRelease, CmsConfigurationSnapshot, CmsDeploymentBuildPlan, CmsDeploymentBuildMetrics } from '@arcbase/shared/cms';
 import { idColumn, timestampColumns } from './common';
 import { auditColumns } from './core';
 import { cmsContents, cmsSites } from './cms';

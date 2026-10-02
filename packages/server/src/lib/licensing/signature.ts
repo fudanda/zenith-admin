@@ -7,7 +7,7 @@ import {
   licensePayloadSchema,
   type LicenseEnvelope,
   type LicensePayload,
-} from '@zenith/shared/licensing';
+} from '@arcbase/shared/licensing';
 import { resolveIssuerPublicKey } from './keys';
 
 export type VerifyResult =

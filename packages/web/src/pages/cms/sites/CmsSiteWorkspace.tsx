@@ -2,7 +2,7 @@ import { Banner, Button, Card, Space, Tag, Typography } from '@douyinfe/semi-ui'
 import { useNavigate } from 'react-router-dom';
 import { useCmsSiteDetail, useCmsChannelTree, useCmsPageList } from '@/hooks/queries/cms';
 import { usePermission } from '@/hooks/usePermission';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 import CmsConfigurationNotice from '../CmsConfigurationNotice';
 import CmsWorkbenchPreview from '../CmsWorkbenchPreview';
 import { useState } from 'react';

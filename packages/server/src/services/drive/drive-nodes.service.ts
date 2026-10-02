@@ -1,6 +1,6 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, asc, desc, eq, inArray, isNotNull, isNull, lt, sql, type SQL } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import {
   DRIVE_SYNC_COPY_MAX_NODES,
   driveNodeContract,
@@ -15,7 +15,7 @@ import {
   type DriveRole,
   type DriveTag,
   type MoveDriveNodesInput,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import {

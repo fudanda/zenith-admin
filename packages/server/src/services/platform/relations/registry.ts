@@ -1,7 +1,7 @@
 import { HTTPException } from 'hono/http-exception';
-import { entityRelationPageSchema, entityRelationsResponseSchema, entityRelationsContract, explainEntityRelation, type CanonicalEntityType, type EntityRelationsResponse, type EntityRelationPage } from '@zenith/shared/platform';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { isLicenseFeatureKey } from '@zenith/shared/licensing';
+import { entityRelationPageSchema, entityRelationsResponseSchema, entityRelationsContract, explainEntityRelation, type CanonicalEntityType, type EntityRelationsResponse, type EntityRelationPage } from '@arcbase/shared/platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { isLicenseFeatureKey } from '@arcbase/shared/licensing';
 import { hasPermission, runWithCurrentUser } from '../../../lib/context';
 import { isFeatureEnabled } from '../../../lib/licensing';
 import type { EntityAnchorResolver, RelationAccessContext, RelationProvider, VisibleEntityAnchor } from './types';

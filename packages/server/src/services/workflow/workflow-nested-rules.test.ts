@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { evalWorkflowFieldRuleGroup, collectWorkflowRuleConditions, isWorkflowRuleGroup } from '@zenith/shared/workflow';
-import type { WorkflowFieldVisibilityRuleGroup } from '@zenith/shared/workflow';
+import { evalWorkflowFieldRuleGroup, collectWorkflowRuleConditions, isWorkflowRuleGroup } from '@arcbase/shared/workflow';
+import type { WorkflowFieldVisibilityRuleGroup } from '@arcbase/shared/workflow';
 
 describe('嵌套条件组求值（F07）', () => {
   const group: WorkflowFieldVisibilityRuleGroup = {

@@ -20,14 +20,14 @@ import {
   CHANNEL_CONVERSATION_STATUS_LABELS,
   CHANNEL_AUTO_REPLY_MATCH_LABELS,
   CHANNEL_MESSAGE_TYPE_LABELS,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import type {
   ChannelDashboard,
   ChannelDashboardTopReply,
   ChannelDashboardChannelRank,
   ChannelMessageType,
   ChannelAutoReplyMatchType,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import './ChannelDashboardPage.css';
 import { useChannelDashboard } from '@/hooks/queries/channel-dashboard';
 import { shortDate } from '@/utils/date';

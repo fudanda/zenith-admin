@@ -4,7 +4,7 @@
  * 与 ChannelContentEditor.tsx（字段组件）配套；拆开是为了组件文件只导出组件，
  * 满足 Fast Refresh 约束。群发与自动回复共用，避免两处校验漂移。
  */
-import type { ChannelMessageType } from '@zenith/shared/messaging';
+import type { ChannelMessageType } from '@arcbase/shared/messaging';
 
 /** 三种消息类型的内容值合集；未用到的字段保持空串 */
 export interface ChannelContentValue {

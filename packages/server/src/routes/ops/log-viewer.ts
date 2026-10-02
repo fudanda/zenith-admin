@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { stream } from 'hono/streaming';
 import { HTTPException } from 'hono/http-exception';
-import { logViewerContract } from '@zenith/shared/ops';
+import { logViewerContract } from '@arcbase/shared/ops';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

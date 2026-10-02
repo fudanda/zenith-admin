@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { workflowDelegationContract } from '@zenith/shared/workflow';
+import type { QueryOf } from '@arcbase/shared/core';
+import { workflowDelegationContract } from '@arcbase/shared/workflow';
 import { createResourceQueries } from '@/lib/contract-query';
 
 export type WorkflowDelegationListParams = QueryOf<typeof workflowDelegationContract.list>;

@@ -17,7 +17,7 @@ import {
   StatGrid,
 } from '@/components/charts';
 import { Users, UserPlus, CalendarPlus, Activity, Coins, Wallet, CalendarCheck, Ticket } from 'lucide-react';
-import type { MemberStatsOverview } from '@zenith/shared/member';
+import type { MemberStatsOverview } from '@arcbase/shared/member';
 import { useMemberStatsCharts, useMemberStatsOverview } from '@/hooks/queries/member-admin';
 import { shortDate } from '@/utils/date';
 

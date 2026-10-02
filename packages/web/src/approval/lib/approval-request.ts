@@ -1,5 +1,5 @@
-import { TOKEN_KEY, REFRESH_TOKEN_KEY } from '@zenith/shared/core';
-import { authContract } from '@zenith/shared/identity';
+import { TOKEN_KEY, REFRESH_TOKEN_KEY } from '@arcbase/shared/core';
+import { authContract } from '@arcbase/shared/identity';
 import { config } from '@/config';
 import { HttpClient, type HttpRequestOptions } from '@/utils/http-client';
 

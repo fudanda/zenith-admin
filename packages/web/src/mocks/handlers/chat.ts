@@ -1,8 +1,8 @@
-import { chatContract } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
 import type {
   ChatConversation, ChatCustomEmoji, ChatGroupInvite, ChatGroupJoinRequest, ChatGroupMember,
   ChatMessage, ChatQuickReply, ChatReadState, ChatReplySnapshot, ChatScheduledMessage,
-} from '@zenith/shared/chat';
+} from '@arcbase/shared/chat';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest, forbidden, notFound } from '@/mocks/utils/handlers';

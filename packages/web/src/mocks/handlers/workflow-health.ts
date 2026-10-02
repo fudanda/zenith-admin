@@ -1,4 +1,4 @@
-import { summarizeWorkflowHealth, workflowHealthContract, type WorkflowHealthIssue } from '@zenith/shared/workflow';
+import { summarizeWorkflowHealth, workflowHealthContract, type WorkflowHealthIssue } from '@arcbase/shared/workflow';
 import { mock } from '@/mocks/utils/contract';
 import { mockWorkflowInstances, mockWorkflowTasks } from '@/mocks/data/workflow';
 import { mockDateTime } from '@/mocks/utils/date';

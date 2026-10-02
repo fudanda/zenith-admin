@@ -1,6 +1,6 @@
 import { and, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { isWatchableEntityType, type CanonicalEntityRef } from '@zenith/shared/platform';
+import { isWatchableEntityType, type CanonicalEntityRef } from '@arcbase/shared/platform';
 import { db } from '../../db';
 import { entityWatches } from '../../db/schema';
 import { currentUser, runWithCurrentUser } from '../../lib/context';

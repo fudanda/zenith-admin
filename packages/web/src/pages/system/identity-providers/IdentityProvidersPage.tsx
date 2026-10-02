@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Col, Form, Modal, Row, SideSheet, Table, Tag, Toast } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { IdentityProviderType, TenantIdentityProvider } from '@zenith/shared/identity';
-import { IDENTITY_PROVIDER_STATUSES, IDENTITY_PROVIDER_TYPES, SUPER_ADMIN_CODE, identityProviderContract } from '@zenith/shared/identity';
-import { enumValueOf, type BodyOf } from '@zenith/shared/core';
+import type { IdentityProviderType, TenantIdentityProvider } from '@arcbase/shared/identity';
+import { IDENTITY_PROVIDER_STATUSES, IDENTITY_PROVIDER_TYPES, SUPER_ADMIN_CODE, identityProviderContract } from '@arcbase/shared/identity';
+import { enumValueOf, type BodyOf } from '@arcbase/shared/core';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createdAtColumn, renderEllipsis } from '@/utils/table-columns';
 import { useAllRoles } from '@/hooks/queries/roles';
@@ -394,7 +394,7 @@ export default function IdentityProvidersPage() {
             <>
               <Form.Input field="issuer" label="IdP Issuer" placeholder="https://idp.example.com/saml/metadata" />
               <Form.Input field="samlSsoUrl" label="SSO URL" placeholder="https://idp.example.com/sso" rules={[{ required: providerType === 'saml', message: '请输入 SSO URL' }]} />
-              <Form.Input field="samlEntityId" label="SP Entity ID" placeholder="https://zenith.example.com/saml/sp" />
+              <Form.Input field="samlEntityId" label="SP Entity ID" placeholder="https://arcbase.example.com/saml/sp" />
               <Form.TextArea field="samlCertificate" label="证书" placeholder="-----BEGIN CERTIFICATE-----" rows={4} />
             </>
           )}

@@ -1,5 +1,5 @@
-import { AI_CUSTOM_PROVIDER_ID } from '@zenith/shared/ai';
-import type { AiModelSettings, AiModelFallbackRef } from '@zenith/shared/ai';
+import { AI_CUSTOM_PROVIDER_ID } from '@arcbase/shared/ai';
+import type { AiModelSettings, AiModelFallbackRef } from '@arcbase/shared/ai';
 import type { OpenAICompatibleConfig } from '@mastra/core/llm';
 import type { ModelWithRetries } from '@mastra/core/agent';
 

@@ -1,5 +1,5 @@
 {
-  "name": "@zenith/client",
+  "name": "@arcbase/client",
   "version": "2.58.0",
   "private": true,
   "type": "module",
@@ -21,7 +21,7 @@
     "lint": "eslint src --max-warnings 0"
   },
   "dependencies": {
-    "@zenith/shared": "^2.58.0"
+    "@arcbase/shared": "^2.58.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

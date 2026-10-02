@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { workflowQuickPhraseContract } from '@zenith/shared/workflow';
+import { workflowQuickPhraseContract } from '@arcbase/shared/workflow';
 import { validationHook } from '../../lib/openapi-schemas';
 import {
   listMyQuickPhrases,

@@ -1,5 +1,5 @@
-import type { CmsStatMetrics } from '@zenith/shared/cms';
-import { ANALYTICS_DEVICE_TYPE_LABELS, type AnalyticsDeviceType } from '@zenith/shared/analytics';
+import type { CmsStatMetrics } from '@arcbase/shared/cms';
+import { ANALYTICS_DEVICE_TYPE_LABELS, type AnalyticsDeviceType } from '@arcbase/shared/analytics';
 import type { CmsStatsReportQuery } from '@/hooks/queries/cms-stats';
 import dayjs from 'dayjs';
 

@@ -1,6 +1,6 @@
 import { count, desc, and, or, gte, lt, lte, sql, eq, inArray, isNotNull, isNull } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { operationLogContract } from '@zenith/shared/platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { operationLogContract } from '@arcbase/shared/platform';
 import { buildWhere, dateRangeConditions, keywordCondition, withPagination } from '../../lib/where-helpers';
 import { db } from '../../db';
 import { operationLogs } from '../../db/schema';

@@ -1,7 +1,7 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, inArray, or, sql, type SQL } from 'drizzle-orm';
-import { formatBytes } from '@zenith/shared/core';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import type {
   CreateDriveLegalHoldInput,
   CreateDriveQuotaRequestInput,
@@ -10,8 +10,8 @@ import type {
   DriveQuotaRequest,
   DriveSpace,
   ReleaseDriveLegalHoldInput,
-} from '@zenith/shared/drive';
-import { driveAdminContract } from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
+import { driveAdminContract } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import {

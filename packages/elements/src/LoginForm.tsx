@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useId, useRef, useState, type SubmitEvent } from 'react';
 import Button from '@douyinfe/semi-ui/lib/es/button';
-import { call, type ApiEnvelope } from '@zenith/client';
-import { goAuthContract, type GoSession } from '@zenith/shared/identity';
+import { call, type ApiEnvelope } from '@arcbase/client';
+import { goAuthContract, type GoSession } from '@arcbase/shared/identity';
 import { LoginField, LoginFormError } from './LoginField';
 import { useLoginForm } from './login-form';
-import { useSession, useZenith } from './provider';
+import { useSession, useArcBase } from './provider';
 import type { LoginResult } from './session';
 
 export function LoginForm({ onSuccess, className }: { onSuccess?: (session: GoSession) => void; className?: string }) {
-  const { client, locale, routes, navigate } = useZenith();
+  const { client, locale, routes, navigate } = useArcBase();
   const session = useSession();
   const english = locale === 'en-US';
   const uid = useId();
@@ -62,10 +62,10 @@ export function LoginForm({ onSuccess, className }: { onSuccess?: (session: GoSe
     finally { if (!lifetime.current?.signal.aborted) setLoading(false); }
   };
   return (
-    <form className={`zenith-elements-form ${className ?? ''}`} onSubmit={event => { void submit(event); }} noValidate>
+    <form className={`arcbase-elements-form ${className ?? ''}`} onSubmit={event => { void submit(event); }} noValidate>
       <LoginField {...form.field('username')} id={`${uid}-username`} label={english ? 'Username' : '用户名'} autoComplete="username" size="large" />
       <LoginField {...form.field('password')} id={`${uid}-password`} label={english ? 'Password' : '密码'} mode="password" autoComplete="current-password" size="large" />
-      {captcha?.enabled && <div className="zenith-elements-captcha">
+      {captcha?.enabled && <div className="arcbase-elements-captcha">
         <LoginField {...form.field('captchaAnswer')} id={`${uid}-captcha`} label={english ? 'Captcha' : '验证码'} autoComplete="one-time-code" size="large" />
         <button type="button" onClick={() => { void refreshCaptcha(); }} aria-label={english ? 'Refresh captcha' : '刷新验证码'}><img src={captcha.image} alt={english ? 'Login captcha' : '登录验证码'} width={160} height={48} /></button>
       </div>}

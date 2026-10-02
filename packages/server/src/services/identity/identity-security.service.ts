@@ -10,9 +10,9 @@ import { lookupIpLocation } from '../../lib/ip-location';
 import { decryptSecret, encryptSecret, SecretDecryptError } from '../../lib/secret-crypto';
 import { getSettings } from '../../lib/settings';
 import { buildTotpUri, generateTotpSecret, verifyTotp } from '../../lib/totp';
-import type { IdentitySecuritySettings } from '@zenith/shared/settings';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { identitySecurityContract, SessionClientKind } from '@zenith/shared/identity';
+import type { IdentitySecuritySettings } from '@arcbase/shared/settings';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { identitySecurityContract, SessionClientKind } from '@arcbase/shared/identity';
 import { tenantCondition } from '../../lib/tenant';
 import { buildWhere, keywordCondition, withPagination } from '../../lib/where-helpers';
 import { buildListResult } from '../../lib/list-query';
@@ -87,7 +87,7 @@ export async function beginTotpSetup() {
   return {
     factorId: row.id,
     secret,
-    otpauthUrl: buildTotpUri({ issuer: 'Zenith Admin', accountName, secret }),
+    otpauthUrl: buildTotpUri({ issuer: 'ArcBase', accountName, secret }),
   };
 }
 

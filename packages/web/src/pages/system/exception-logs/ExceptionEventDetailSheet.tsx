@@ -1,6 +1,6 @@
 import { Button, Descriptions, Empty, SideSheet, Space, Typography } from '@douyinfe/semi-ui';
-import type { ErrorEvent } from '@zenith/shared/analytics';
-import { ANALYTICS_ENVIRONMENT_LABELS } from '@zenith/shared/analytics';
+import type { ErrorEvent } from '@arcbase/shared/analytics';
+import { ANALYTICS_ENVIRONMENT_LABELS } from '@arcbase/shared/analytics';
 import { useNavigate } from 'react-router-dom';
 import { CodeBlock, ErrorLevelTag, ErrorTypeIcon, ErrorTypeTag, safeJson } from '@/components/error-tracking';
 import { usePermission } from '@/hooks/usePermission';

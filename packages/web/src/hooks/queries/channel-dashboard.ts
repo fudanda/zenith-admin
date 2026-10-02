@@ -1,4 +1,4 @@
-import { channelDashboardContract } from '@zenith/shared/messaging';
+import { channelDashboardContract } from '@arcbase/shared/messaging';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export const channelDashboardKeys = {

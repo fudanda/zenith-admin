@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress'
 
-declare const __ZN_VERSION__: string
+declare const __ARCBASE_VERSION__: string
 
-const version = __ZN_VERSION__
-const demoUrl = 'https://iwangbowen.github.io/zenith-admin/demo/'
+const version = __ARCBASE_VERSION__
+const deploymentUrl = withBase('/guide/go-foundation')
 </script>
 
 <template>
@@ -14,11 +14,11 @@ const demoUrl = 'https://iwangbowen.github.io/zenith-admin/demo/'
     </a>
     <h1 class="hero__title">一套底座，覆盖后台<br />全部高频场景</h1>
     <p class="hero__lead">
-      Hono + React 19 + Drizzle ORM 构建的模块化全栈后台。权限、审批、报表、支付、AI 与运维默认就位，业务团队只需专注差异化。
+      GoFr + Ent 构建的单组织后台，支持 PostgreSQL 与 SQLite。保留原 React 管理台，提供账号、组织、权限、配置、文件和审计能力。
     </p>
     <div class="hero__actions">
-      <a class="zn-btn zn-btn--primary" :href="withBase('/guide/getting-started')">快速开始 →</a>
-      <a class="zn-btn zn-btn--ghost" :href="demoUrl" target="_blank" rel="noreferrer">在线演示</a>
+      <a class="zn-btn zn-btn--primary" :href="withBase('/guide/go-foundation')">快速开始 →</a>
+      <a class="zn-btn zn-btn--ghost" :href="deploymentUrl">部署指南</a>
     </div>
   </header>
 </template>

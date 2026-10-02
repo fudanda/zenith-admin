@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
-import { workflowFormContract } from '@zenith/shared/workflow';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
+import { workflowFormContract } from '@arcbase/shared/workflow';
 import { contractKey, createResourceQueries, useApiMutation, useSaveMutation } from '@/lib/contract-query';
 
 export type WorkflowFormListParams = QueryOf<typeof workflowFormContract.list>;

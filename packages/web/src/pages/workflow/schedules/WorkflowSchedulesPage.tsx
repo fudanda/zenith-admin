@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Form, Space, Tag, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { workflowScheduleContract, type WorkflowSchedule } from '@zenith/shared/workflow';
+import { workflowScheduleContract, type WorkflowSchedule } from '@arcbase/shared/workflow';
 import DateTimeText from '@/components/DateTimeText';
 import { CronBuilderPopover } from '@/components/CronBuilderPopover';
 import ConfigurableTable from '@/components/ConfigurableTable';

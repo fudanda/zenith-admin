@@ -6,7 +6,7 @@ import {
   preferenceDefinitions,
   readUserPreferencesDocument,
   type UserPreferencesDocument,
-} from '@zenith/shared/preferences';
+} from '@arcbase/shared/preferences';
 import { db } from '../../db';
 import { users } from '../../db/schema';
 import { currentUser } from '../../lib/context';

@@ -2,7 +2,7 @@
  * 数据库管理（DB Inspector）服务层。
  *
  * 安全策略：
- *  1. 所有用户提交的 SQL 都在 BEGIN; SET LOCAL TRANSACTION READ ONLY; SET LOCAL ROLE zenith_readonly;
+ *  1. 所有用户提交的 SQL 都在 BEGIN; SET LOCAL TRANSACTION READ ONLY; SET LOCAL ROLE arcbase_readonly;
  *     ... ROLLBACK; 中执行：只读事务由 PostgreSQL 原生拒绝写操作，最小权限角色拒绝
  *     pg_read_file / COPY TO PROGRAM / lo_export 等服务器端函数（见 lib/db-readonly-role.ts）。
  *  2. 提交前经 assertConsoleReadOnlySql 白名单（语句首关键字）+ 危险函数黑名单校验，
@@ -13,8 +13,8 @@
  *  6. 路由层通过 guard({ permission: 'system:db-admin:*' }) 双层鉴权。
  */
 import { sql, desc, eq, and, type SQL } from 'drizzle-orm';
-import { isPlainObject, type QueryOutputOf } from '@zenith/shared/core';
-import { dbAdminContract, dbQueryFavoriteSchema } from '@zenith/shared/ops';
+import { isPlainObject, type QueryOutputOf } from '@arcbase/shared/core';
+import { dbAdminContract, dbQueryFavoriteSchema } from '@arcbase/shared/ops';
 import { keywordCondition } from '../../lib/where-helpers';
 import { HTTPException } from 'hono/http-exception';
 import { db, pgClient } from '../../db';

@@ -2,15 +2,15 @@
   <div class="za term">
     <div class="bar">
       <i></i><i></i><i></i>
-      <span>zenith@prod-01 — ssh</span>
+      <span>arcbase@prod-01 — ssh</span>
       <em><b class="za-blink"></b>REC</em>
     </div>
     <div class="bd">
-      <div class="ln"><span class="p">➜</span><span class="c">zenith</span>ssh prod-01</div>
+      <div class="ln"><span class="p">➜</span><span class="c">arcbase</span>ssh prod-01</div>
       <div class="ln d">connected · 12ms · 终端录屏中</div>
       <div class="ln"><span class="p">➜</span>docker ps</div>
       <div class="tbl">
-        <span><i class="ok"></i>zenith-server</span><span class="d">up 12d</span>
+        <span><i class="ok"></i>arcbase-server</span><span class="d">up 12d</span>
         <span><i class="ok"></i>postgres:17</span><span class="d">up 12d</span>
         <span><i class="wn"></i>redis:7</span><span class="w">restarting</span>
       </div>

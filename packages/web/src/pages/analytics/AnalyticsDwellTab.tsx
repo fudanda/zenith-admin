@@ -8,7 +8,7 @@ import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { renderEllipsis } from '@/utils/table-columns';
 import { usePagination } from '@/hooks/usePagination';
 import { useAnalyticsPageStats } from '@/hooks/queries/analytics';
-import type { PageStats } from '@zenith/shared/analytics';
+import type { PageStats } from '@arcbase/shared/analytics';
 import { useBehaviorDays } from './behavior-days';
 import { CHART_TOP_N, DAYS_OPTIONS, getRouteSegments, msToReadable, numberText, sectionStyle } from './analytics-format';
 import { ChartPlaceholder, SectionHeader } from './analytics-shared';

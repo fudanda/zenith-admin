@@ -1,17 +1,17 @@
 import { currentMockSession, isMockPlatformAdmin } from '@/mocks/utils/auth';
 import dayjs from 'dayjs';
 import { recordMockIotEvent } from '@/mocks/data/entity-watch-events';
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import type {
   IotAlarmRule, IotAutomation, IotDevice, IotDeviceShadow, IotFirmware, IotForwardRule,
   IotMaintenanceWindow, IotOtaTask, IotProduct, IotProductEvent, IotProductProperty, IotProductService, IotSchedule,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import {
   iotAlarmContract, iotAlarmRuleContract, iotAutomationContract, iotBatchContract, iotDashboardContract,
   iotDeviceContract, iotDeviceGroupContract, iotFirmwareContract, iotForwardRuleContract, iotMaintenanceWindowContract,
   iotOtaTaskContract, iotProductContract, iotScheduleContract, iotWhitelistContract,
-} from '@zenith/shared/iot';
-import type { AsyncTask } from '@zenith/shared/tasks';
+} from '@arcbase/shared/iot';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, removeItem, requireItem, updateItem } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

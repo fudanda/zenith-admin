@@ -10,8 +10,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
-	"github.com/fudanda/zenith-admin/backend/ent/rolemenu"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/rolemenu"
 )
 
 // RoleMenuUpdate is the builder for updating RoleMenu entities.

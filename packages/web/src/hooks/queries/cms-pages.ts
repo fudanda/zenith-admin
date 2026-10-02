@@ -1,7 +1,7 @@
 import { invalidateCmsPublishingViews } from './cms-stage3';
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { cmsPageContract } from '@zenith/shared/cms';
+import type { QueryOf } from '@arcbase/shared/core';
+import { cmsPageContract } from '@arcbase/shared/cms';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type CmsPageListParams = NonNullable<QueryOf<typeof cmsPageContract.list>>;

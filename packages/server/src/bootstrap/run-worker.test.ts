@@ -66,10 +66,10 @@ describe('createWorkerApp', () => {
     const metrics = await app.request('/metrics');
     expect(metrics.status).toBe(200);
     const body = await metrics.text();
-    expect(body).toContain('zenith_ws_fanout_published_total');
+    expect(body).toContain('arcbase_ws_fanout_published_total');
     // 队列积压与 worker 数是 worker 扩缩容 / 告警的信号，抓取时异步取数
-    expect(body).toContain('zenith_pgboss_queue_jobs{queue="async-tasks",state="ready",process_role="worker"} 5');
-    expect(body).toContain('zenith_scheduler_worker_nodes{process_role="worker"} 1');
+    expect(body).toContain('arcbase_pgboss_queue_jobs{queue="async-tasks",state="ready",process_role="worker"} 5');
+    expect(body).toContain('arcbase_scheduler_worker_nodes{process_role="worker"} 1');
 
     const business = await app.request('/api/auth/me');
     expect(business.status).toBe(404);

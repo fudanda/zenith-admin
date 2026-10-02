@@ -11,8 +11,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/loginlog"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
 )
 
 // LoginLogUpdate is the builder for updating LoginLog entities.

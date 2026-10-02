@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { HttpHandler } from 'msw';
-import { entityRelationsContract, entityRelationsResponseSchema, entityRelationPageSchema, entityTimelineContract, entityTimelineResponseSchema, type CanonicalEntityType } from '@zenith/shared/platform';
-import { paymentReconContract } from '@zenith/shared/payment';
-import { notificationPolicyContract } from '@zenith/shared/messaging';
+import { entityRelationsContract, entityRelationsResponseSchema, entityRelationPageSchema, entityTimelineContract, entityTimelineResponseSchema, type CanonicalEntityType } from '@arcbase/shared/platform';
+import { paymentReconContract } from '@arcbase/shared/payment';
+import { notificationPolicyContract } from '@arcbase/shared/messaging';
 import { urlOf } from '@/lib/contract-query';
 import { entityRelationsHandlers, entityTimelineHandlers } from './handlers/entity-relations';
 import { mockPaymentRefunds } from './data/payment';

@@ -4,7 +4,7 @@
  * 服务端应用 order-svc（见 shared seed 的 SEED_DEMO_SERVICE_APPS）在两个环境上的部署目标、历史 run、
  * 逐行日志与主机上的 release 目录。主机取自 ops-hosts mock（1 生产应用节点 / 2 测试节点）。
  */
-import type { DeployRelease, DeployRun, DeployRunHost, DeployRunLog, DeployTarget } from '@zenith/shared/ops';
+import type { DeployRelease, DeployRun, DeployRunHost, DeployRunLog, DeployTarget } from '@arcbase/shared/ops';
 import { mockDateTimeOffset } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

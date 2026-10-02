@@ -3,7 +3,7 @@ import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { eq, sql } from 'drizzle-orm';
 import { afterAll, describe, expect, it } from 'vitest';
-import { renderCmsWorkbenchPreviewSchema } from '@zenith/shared/cms';
+import { renderCmsWorkbenchPreviewSchema } from '@arcbase/shared/cms';
 import * as schema from '../../db/schema';
 import { withDbExecutor } from '../../db';
 import { runWithCurrentUser } from '../../lib/context';
@@ -18,7 +18,7 @@ afterAll(async () => { await client?.end(); });
 describe.skipIf(!connection)('CMS workbench PostgreSQL isolation', () => {
   it('renders saved drafts without changing public data, revisions, counters or schemas; rejects a stale preview context', async () => {
     const url = new URL(connection!);
-    if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) || url.pathname !== '/zenith_review') throw new Error('Requires a migrated disposable local zenith_review database');
+    if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) || url.pathname !== '/arcbase_review') throw new Error('Requires a migrated disposable local arcbase_review database');
     const testDb = drizzle(client!, { schema, casing: 'snake_case' });
     const rollback = new Error('rollback preview fixtures');
     try {

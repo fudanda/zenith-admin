@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -6,13 +6,13 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/position"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/ent/userposition"
-	"github.com/fudanda/zenith-admin/backend/internal/modules/organization/positions"
-	"github.com/fudanda/zenith-admin/backend/internal/security"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/position"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/ent/userposition"
+	"github.com/fudanda/arcbase/backend/internal/modules/organization/positions"
+	"github.com/fudanda/arcbase/backend/internal/security"
 )
 
 type positionServiceAccess struct {

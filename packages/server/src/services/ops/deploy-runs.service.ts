@@ -5,7 +5,7 @@
  */
 import { HTTPException } from 'hono/http-exception';
 import { asc, desc, eq, gt, isNull, or } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import {
   deployRunHostSchema,
   deployRunLogSchema,
@@ -14,7 +14,7 @@ import {
   type DeployRunHost,
   type DeployRunLog,
   type deployRunContract,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { db } from '../../db';
 import {
   appArtifacts,

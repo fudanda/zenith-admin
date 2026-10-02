@@ -1,6 +1,6 @@
 import { check, integer, index, pgEnum, pgTable, primaryKey, smallint, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
-import { LOGIN_EVENT_TYPES } from '@zenith/shared/identity';
+import { LOGIN_EVENT_TYPES } from '@arcbase/shared/identity';
 import { tenantIdColumn } from './core';
 import { idColumn } from './common';
 import { entitySubjectRoleEnum } from './entity-relations';

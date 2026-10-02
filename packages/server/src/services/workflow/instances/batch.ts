@@ -1,10 +1,10 @@
-import type { SignatureInput } from '@zenith/shared/core';
+import type { SignatureInput } from '@arcbase/shared/core';
 // ─── 批量审批与跨实例批量操作（拆分自 workflow-instances.service.ts）───
 import { eq, and, inArray } from 'drizzle-orm';
 import { db } from '../../../db';
 import { workflowInstances, workflowTasks } from '../../../db/schema';
-import type { WorkflowFlowData, WorkflowBatchActionResult } from '@zenith/shared/workflow';
-import { findNextApproverSelectNodes } from '@zenith/shared/workflow';
+import type { WorkflowFlowData, WorkflowBatchActionResult } from '@arcbase/shared/workflow';
+import { findNextApproverSelectNodes } from '@arcbase/shared/workflow';
 import { HTTPException } from 'hono/http-exception';
 import { currentUser } from '../../../lib/context';
 import { urgeInstance } from './cc-urge';
@@ -136,8 +136,8 @@ export async function batchRejectTasks(taskIds: number[], comment: string): Prom
   );
 }
 
-export async function batchWithdrawInstances(instanceIds: number[], _comment?: string): Promise<import('@zenith/shared').WorkflowInstanceBatchActionResult[]> {
-  const results: import('@zenith/shared').WorkflowInstanceBatchActionResult[] = [];
+export async function batchWithdrawInstances(instanceIds: number[], _comment?: string): Promise<import('@arcbase/shared').WorkflowInstanceBatchActionResult[]> {
+  const results: import('@arcbase/shared').WorkflowInstanceBatchActionResult[] = [];
   for (const instanceId of instanceIds) {
     try {
       await withdrawInstance(instanceId);
@@ -149,8 +149,8 @@ export async function batchWithdrawInstances(instanceIds: number[], _comment?: s
   return results;
 }
 
-export async function batchUrgeInstances(instanceIds: number[], message?: string): Promise<import('@zenith/shared').WorkflowInstanceBatchActionResult[]> {
-  const results: import('@zenith/shared').WorkflowInstanceBatchActionResult[] = [];
+export async function batchUrgeInstances(instanceIds: number[], message?: string): Promise<import('@arcbase/shared').WorkflowInstanceBatchActionResult[]> {
+  const results: import('@arcbase/shared').WorkflowInstanceBatchActionResult[] = [];
   for (const instanceId of instanceIds) {
     try {
       const r = await urgeInstance(instanceId, message);

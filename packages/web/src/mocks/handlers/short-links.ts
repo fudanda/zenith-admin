@@ -1,6 +1,6 @@
-import { channelAnalysisContract, shortLinkContract } from '@zenith/shared/short-link';
-import type { ChannelAnalysisResult, ShortLink, ShortLinkStats } from '@zenith/shared/short-link';
-import { CHANNEL_ANALYSIS_UNSET, SHORT_LINK_CODE_ALPHABET, SHORT_LINK_CODE_LENGTH } from '@zenith/shared/short-link';
+import { channelAnalysisContract, shortLinkContract } from '@arcbase/shared/short-link';
+import type { ChannelAnalysisResult, ShortLink, ShortLinkStats } from '@arcbase/shared/short-link';
+import { CHANNEL_ANALYSIS_UNSET, SHORT_LINK_CODE_ALPHABET, SHORT_LINK_CODE_LENGTH } from '@arcbase/shared/short-link';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest } from '@/mocks/utils/handlers';
 import { mockShortLinks, getNextShortLinkId } from '../data/short-links';

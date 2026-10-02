@@ -1,10 +1,10 @@
-import { iotDeviceContract, iotDeviceLogSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotDeviceContract, iotDeviceLogSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 设备日志通道：设备上报运行日志（追加型，保留策略裁剪）。
  */
 import { desc, eq } from 'drizzle-orm';
-import type { IotLogIngestInput } from '@zenith/shared/iot';
+import type { IotLogIngestInput } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import { iotDeviceLogs, type IotDeviceLogRow, type IotDeviceRow } from '../../db/schema';
 import { parseDateTimeInput } from '../../lib/datetime';

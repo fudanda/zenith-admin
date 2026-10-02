@@ -18,14 +18,14 @@ import (
 	"time"
 	"unicode/utf16"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/captcha"
-	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
-	"github.com/fudanda/zenith-admin/backend/ent/session"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/captcha"
+	"github.com/fudanda/arcbase/backend/ent/loginattempt"
+	"github.com/fudanda/arcbase/backend/ent/session"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -428,7 +428,7 @@ func (f *Service) Login(ctx context.Context, inArgs kernel.Input) (kernel.Outcom
 
 func (f *Service) Me(ctx context.Context, inArgs kernel.Input) (kernel.Outcome, error) {
 	p := kernel.FromContext(ctx)
-	csrfToken := kernel.Digest("zenith-csrf:" + inArgs.SessionToken)
+	csrfToken := kernel.Digest("arcbase-csrf:" + inArgs.SessionToken)
 	permissions, err := f.deps.Permissions(ctx, p)
 	if err != nil {
 		return kernel.Outcome{}, kernel.Fail(503, "database_unavailable", "权限查询失败")
@@ -738,7 +738,7 @@ func (f *Service) IssueSession(ctx context.Context, inArgs kernel.Input, account
 	if err != nil {
 		return kernel.Outcome{}, kernel.Fail(500, "random_unavailable", "登录服务不可用")
 	}
-	csrfToken := kernel.Digest("zenith-csrf:" + token)
+	csrfToken := kernel.Digest("arcbase-csrf:" + token)
 	expires := time.Now().Add(12 * time.Hour)
 	var conflicts []*ent.Session
 	err = f.Store.WithTx(ctx, func(tx *ent.Tx) error {

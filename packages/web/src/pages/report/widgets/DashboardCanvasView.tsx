@@ -3,7 +3,7 @@
  */
 import type { CSSProperties } from 'react';
 import { Empty } from '@douyinfe/semi-ui';
-import type { ReportCanvasItem, ReportDashboardConfig, ReportDatasetQueryOptions, ReportGridItem, ReportWidget } from '@zenith/shared/report';
+import type { ReportCanvasItem, ReportDashboardConfig, ReportDatasetQueryOptions, ReportGridItem, ReportWidget } from '@arcbase/shared/report';
 import { ScreenCanvas, type WidgetState } from './ScreenCanvas';
 import { screenAspectRatio } from './dashboard-runtime';
 

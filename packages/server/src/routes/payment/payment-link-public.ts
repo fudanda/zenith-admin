@@ -6,7 +6,7 @@
  * - 恢复收银台会话
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { paymentLinkPublicContract } from '@zenith/shared/payment';
+import { paymentLinkPublicContract } from '@arcbase/shared/payment';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getPublicLink, payByLink } from '../../services/payment/payment-link.service';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Form, Tag, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import {
   DB_BACKUP_STATUS_LABELS,
   DB_BACKUP_STATUS_OPTIONS,
@@ -12,7 +12,7 @@ import {
   type DbBackupCreated,
   type DbBackupStatus,
   type DbBackupType,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { deleteAction, ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

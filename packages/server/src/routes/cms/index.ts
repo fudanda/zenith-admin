@@ -30,7 +30,7 @@ import {
   cmsUploadContract,
   cmsWidgetContract,
   publicCmsContract,
-} from '@zenith/shared/cms';
+} from '@arcbase/shared/cms';
 import { defineRouteDomain } from '../_kit';
 import cmsAdsRoutes from './ads';
 import cmsChannelsRoutes from './channels';

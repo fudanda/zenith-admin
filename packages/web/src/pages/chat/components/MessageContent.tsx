@@ -1,13 +1,13 @@
 import { Typography, List, Button } from '@douyinfe/semi-ui';
 import { getFileTypeIcon, canPreviewFile } from '@/utils/file-utils';
 import { getMessageExtra, renderTextWithMentions } from '../utils';
-import type { ChatMessage, ChatMessageExtra, ChatCardAction } from '@zenith/shared/chat';
+import type { ChatMessage, ChatMessageExtra, ChatCardAction } from '@arcbase/shared/chat';
 import { VoiceMessage } from './VoiceMessage';
 import { VideoMessage } from './VideoMessage';
 import { CardMessage } from './CardMessage';
 import { DataBar } from '@/components/data-viz/DataBar';
 import { safeHttpUrl, safeLinkUrl } from '@/utils/safe-url';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 const { Text } = Typography;
 

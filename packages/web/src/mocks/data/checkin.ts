@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import type { CheckinRule, CheckinSettings, CheckinMilestone, MemberMilestoneStatus, MemberCheckin, MemberCheckinStatus } from '@zenith/shared/member';
+import type { CheckinRule, CheckinSettings, CheckinMilestone, MemberMilestoneStatus, MemberCheckin, MemberCheckinStatus } from '@arcbase/shared/member';
 import { mockDateTime, mockDate } from '../utils/date';
 
 export const mockCheckinRules: CheckinRule[] = [

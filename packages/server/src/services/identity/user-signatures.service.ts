@@ -1,8 +1,8 @@
 import { eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { SignatureInput, SignaturePolicy, SignatureSnapshot } from '@zenith/shared/core';
-import { SIGNATURE_MAX_IMAGE_BYTES, signatureInputSchema } from '@zenith/shared/core';
-import type { MySignature } from '@zenith/shared/identity';
+import type { SignatureInput, SignaturePolicy, SignatureSnapshot } from '@arcbase/shared/core';
+import { SIGNATURE_MAX_IMAGE_BYTES, signatureInputSchema } from '@arcbase/shared/core';
+import type { MySignature } from '@arcbase/shared/identity';
 import { db } from '../../db';
 import { userSignatures, users, tenants, type UserSignatureRow } from '../../db/schema';
 import { currentUser, currentUserOrNull } from '../../lib/context';

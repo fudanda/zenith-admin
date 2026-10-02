@@ -6,8 +6,8 @@ import { cmsModelFieldOptions } from './cms-model-field-options';
  */
 import { lazy, Suspense, type ReactNode } from 'react';
 import { ArrayField, Button, Form, Space, Spin, useFormState, withField } from '@douyinfe/semi-ui';
-import type { CmsModelField } from '@zenith/shared/cms';
-import { getByPath } from '@zenith/shared/core';
+import type { CmsModelField } from '@arcbase/shared/cms';
+import { getByPath } from '@arcbase/shared/core';
 import CmsContentReferenceInput from './CmsContentReferenceInput';
 
 const RichTextEditor = lazy(() => import('@/components/RichTextEditor'));

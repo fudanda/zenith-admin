@@ -2,7 +2,7 @@
  * 会员数据看板统计服务（只读聚合）。
  * 概览卡片 + 图表（注册趋势 / 等级分布 / 积分收支 / 签到人数）。
  */
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import { count, sql, and, gte, lt, eq, isNull } from 'drizzle-orm';
 import { db } from '../../db';
 import {

@@ -11,7 +11,7 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../../db';
 import { workflowInstances } from '../../db/schema';
-import type { ChatCard } from '@zenith/shared/chat';
+import type { ChatCard } from '@arcbase/shared/chat';
 import { workflowEventBus } from '../workflow-event-bus';
 import {
   getSystemChannelId, publishTargeted, markChannelTaskCardsDone,

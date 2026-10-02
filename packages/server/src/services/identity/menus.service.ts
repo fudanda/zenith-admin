@@ -2,14 +2,14 @@ import { requireRow } from '../../lib/db-assert';
 import { eq, and, ne, asc, inArray, countDistinct } from 'drizzle-orm';
 import { db } from '../../db';
 import { menus, roleMenus, userMenus, roles } from '../../db/schema';
-import type { Menu } from '@zenith/shared/identity';
+import type { Menu } from '@arcbase/shared/identity';
 import { HTTPException } from 'hono/http-exception';
 import { currentUser } from '../../lib/context';
 import { getEffectiveTenantId } from '../../lib/tenant';
 import { getTenantPackageFeatureSet } from '../../lib/tenant-package';
 import { isSuperAdmin, getUserMenuIds } from '../../lib/permissions';
 import { formatTimestamps } from '../../lib/datetime';
-import { buildTree } from '@zenith/shared/core';
+import { buildTree } from '@arcbase/shared/core';
 
 // ─── 数据映射 ─────────────────────────────────────────────────────────────────
 

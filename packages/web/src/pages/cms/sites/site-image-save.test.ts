@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { CmsSite, CreateCmsSiteInput } from '@zenith/shared/cms';
+import type { CmsSite, CreateCmsSiteInput } from '@arcbase/shared/cms';
 import { applyPreparedSiteImageUrls, saveSiteWithPreparedImages, type PreparedSiteImage } from './site-image-save';
 
 const site = { id: 19, name: '有名称的测试站点', code: 'prepared-site', settings: {} } as CmsSite;

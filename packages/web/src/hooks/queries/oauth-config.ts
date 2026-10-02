@@ -1,4 +1,4 @@
-import { oauthConfigContract } from '@zenith/shared/identity';
+import { oauthConfigContract } from '@arcbase/shared/identity';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 /** 本域只有一份不分页的配置列表（无 detail 操作），写操作后列表即唯一需要刷新的面 */

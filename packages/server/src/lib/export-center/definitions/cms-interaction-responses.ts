@@ -1,7 +1,7 @@
 import { db } from '../../../db';
 import { cmsInteractionQuestions, cmsInteractionResponses, cmsInteractions } from '../../../db/schema';
-import { enumValueOf } from '@zenith/shared/core';
-import { CMS_INTERACTION_KIND_LABELS, CMS_INTERACTION_KINDS } from '@zenith/shared/cms';
+import { enumValueOf } from '@arcbase/shared/core';
+import { CMS_INTERACTION_KIND_LABELS, CMS_INTERACTION_KINDS } from '@arcbase/shared/cms';
 import {
   buildCmsInteractionResponseWhere,
   streamCmsInteractionResponses,

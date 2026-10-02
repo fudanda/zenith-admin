@@ -8,7 +8,7 @@ import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { AppModal } from '@/components/AppModal';
 import { overflowTagColumn } from '@/utils/table-columns';
-import type { DbAdminObjects } from '@zenith/shared/ops';
+import type { DbAdminObjects } from '@arcbase/shared/ops';
 import { useDbAdminObjects } from '@/hooks/queries/db-admin';
 
 const { Text } = Typography;

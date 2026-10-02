@@ -21,7 +21,7 @@ const post = vi.fn();
 
 vi.mock('@/utils/request', () => ({ request: { get: (...a: unknown[]) => get(...a), post: (...a: unknown[]) => post(...a) } }));
 
-import { analyticsContract } from '@zenith/shared/analytics';
+import { analyticsContract } from '@arcbase/shared/analytics';
 import { analyticsKeys, useAnalyticsRetention, useAnalyticsAcquisition, useAnalyticsDrillUsers, useAnalyticsEventQuery, useAnalyzeFunnel } from './analytics';
 
 const wrapper = () => createWrapper(createTestQueryClient());

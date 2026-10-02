@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/hook"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/hook"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 )
 
 func InstallMetadataHooks(s *data.Store) {

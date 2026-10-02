@@ -1,5 +1,5 @@
-import type { RuleDecisionFlow, RuleFlowStep, RuleFlowStepTrace, RuleList, RuleListItem, RuleScorecard, RuleScorecardEvaluateResult, RuleUsageItem } from '@zenith/shared/rules';
-import { decisionFlowContract, ruleListContract, ruleScorecardContract } from '@zenith/shared/rules';
+import type { RuleDecisionFlow, RuleFlowStep, RuleFlowStepTrace, RuleList, RuleListItem, RuleScorecard, RuleScorecardEvaluateResult, RuleUsageItem } from '@arcbase/shared/rules';
+import { decisionFlowContract, ruleListContract, ruleScorecardContract } from '@arcbase/shared/rules';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem, updateItem } from '@/mocks/utils/crud';
 import { badRequest, notFound, conflict } from '@/mocks/utils/handlers';

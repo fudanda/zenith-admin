@@ -5,7 +5,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { Input } from '@douyinfe/semi-ui';
 import { Search } from 'lucide-react';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { usePinyinReady } from '@/hooks/usePinyinReady';
 import { textMatches } from '@/utils/pinyin';
 import { FORM_FIELD_TYPES } from '../form-types';

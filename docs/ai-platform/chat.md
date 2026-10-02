@@ -1,6 +1,6 @@
 # 智能对话
 
-前端页面菜单路径为 `/ai/chat`，是 AI 能力的核心入口。对话由内置 Mastra Agent `zenith-chat` 承载，模型、提示词、工具与记忆按请求动态注入。
+前端页面菜单路径为 `/ai/chat`，是 AI 能力的核心入口。对话由内置 Mastra Agent `arcbase-chat` 承载，模型、提示词、工具与记忆按请求动态注入。
 
 ---
 

@@ -56,7 +56,7 @@ VITE_DEPLOYMENT_ID=project-b
 Web 适配层必须向 SDK 注入同一个 deployment ID。SDK 的 session、实验、回放和离线队列 key 使用：
 
 ```text
-zenith:{deploymentId}:analytics:{key}:{appId}
+arcbase:{deploymentId}:analytics:{key}:{appId}
 ```
 
 `appId=admin/member` 仍表示入口类型，不能用来替代 deployment ID。

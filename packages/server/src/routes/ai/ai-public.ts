@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { aiPublicContract } from '@zenith/shared/ai';
+import { aiPublicContract } from '@arcbase/shared/ai';
 import { namedRateLimit } from '../../middleware/rate-limit';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

@@ -8,7 +8,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import type { ExportJob } from '@zenith/shared/tasks';
+import type { ExportJob } from '@arcbase/shared/tasks';
 import {
   ApiRecorder,
   createRequestMock,

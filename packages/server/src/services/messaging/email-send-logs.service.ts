@@ -11,8 +11,8 @@ import { currentUser } from '../../lib/context';
 import { sendMail } from '../../lib/email';
 import { renderTemplate } from '../../lib/sms-sender';
 import { ensureEmailTemplateExists } from './email-templates.service';
-import type { SendEmailInput, SendSource, emailSendLogContract } from '@zenith/shared/messaging';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { SendEmailInput, SendSource, emailSendLogContract } from '@arcbase/shared/messaging';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 
 export type EmailSendLogListFilter = Omit<QueryOutputOf<typeof emailSendLogContract.list>, 'page' | 'pageSize'>;
 

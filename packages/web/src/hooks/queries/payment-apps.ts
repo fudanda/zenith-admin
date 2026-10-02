@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { paymentAppContract } from '@zenith/shared/payment';
+import type { QueryOf } from '@arcbase/shared/core';
+import { paymentAppContract } from '@arcbase/shared/payment';
 import { createResourceQueries } from '@/lib/contract-query';
 
 export type PaymentAppListParams = NonNullable<QueryOf<typeof paymentAppContract.list>>;

@@ -1,10 +1,10 @@
 # 运维 CLI、独立项目与业务模块模板
 
-三个入口复用当前单组织 Go 基础版和原 `ZenithAdmin`。当前管理台仍在 `packages/web`；生成业务页面挂在宿主扩展菜单，原页面、布局和权限抽屉保留。
+三个入口复用当前单组织 Go 基础版和原 `ArcBaseAdmin`。当前管理台仍在 `packages/web`；生成业务页面挂在宿主扩展菜单，原页面、布局和权限抽屉保留。
 
 ## 运维命令
 
-构建后直接使用 `backend/bin/zenith.exe`（Linux 为 `zenith`）。二进制读取环境变量；仓库开发命令由 `scripts/go.mjs` 加载 `.env.go`。
+构建后直接使用 `backend/bin/arcbase.exe`（Linux 为 `arcbase`）。二进制读取环境变量；仓库开发命令由 `scripts/go.mjs` 加载 `.env.go`。
 
 ```powershell
 npm run version:go
@@ -31,7 +31,7 @@ npm run backup:go -- backend/backups/snapshot --pg-container MY_POSTGRES_CONTAIN
 备份目录包含数据库快照、所有已配置本地目录、已登记 S3 对象、上传暂存目录、存储加密密钥及 SHA-256 清单。数据库版本不匹配、已登记文件丢失或内容不匹配时失败。输出目录必须全新；完整备份完成后才重命名到目标目录。PostgreSQL 原生工具必须与服务器版本兼容；密码通过环境或容器标准输入传输。备份针对完整数据库，不接受自定义 `search_path`。
 
 ```powershell
-# 先将 ZENITH_DATABASE_URL 指向新空 PostgreSQL 数据库或全新 SQLite 文件。
+# 先将 ARCBASE_DATABASE_URL 指向新空 PostgreSQL 数据库或全新 SQLite 文件。
 npm run restore:go -- backend/backups/snapshot --files-root D:/recovery/files --env-file D:/recovery/restored.env
 # S3 对象恢复到新的本地目录，需明确选择：
 npm run restore:go -- backend/backups/snapshot --files-root D:/recovery/files --env-file D:/recovery/restored.env --s3-to-local --pg-container MY_POSTGRES_CONTAINER
@@ -39,14 +39,14 @@ npm run restore:go -- backend/backups/snapshot --files-root D:/recovery/files --
 
 恢复先验证清单，拒绝覆盖数据库、文件目录和环境文件。原 S3 Bucket 不改动。S3 上传分片缓存随文件恢复，原远端补偿记录保留在新暂存目录 `.source-s3-journal`，供人工恢复，不在本地克隆中执行。恢复后的文件配置指向新目录，管理员密码摘要和业务数据保留；使用 `restored.env` 的数据库、目录和密钥启动。目标数据库与备份必须为同一种方言，切换数据库连接不会搬迁数据。备份含真实凭据和会话摘要，应按私密数据保存。
 
-`zenith verify-backup DIRECTORY` 可独立校验备份。`backup-sqlite` 保留为仅数据库快照命令；完整恢复应使用上述统一备份。
+`arcbase verify-backup DIRECTORY` 可独立校验备份。`backup-sqlite` 保留为仅数据库快照命令；完整恢复应使用上述统一备份。
 
 ## 创建独立项目
 
-执行 `npm run pack:packages`，交付目录 `release_artifacts/packages/` 新增 `create-zenith-2.58.0.tgz` 和 `scaffold.json`。当前交付为本地 tarball，没有发布 npm Registry。
+执行 `npm run pack:packages`，交付目录 `release_artifacts/packages/` 新增 `create-arcbase-2.58.0.tgz` 和 `scaffold.json`。当前交付为本地 tarball，没有发布 npm Registry。
 
 ```powershell
-npx --package ./release_artifacts/packages/create-zenith-2.58.0.tgz create-zenith D:/projects/my-admin --database sqlite --brand "业务管理台"
+npx --package ./release_artifacts/packages/create-arcbase-2.58.0.tgz create-arcbase D:/projects/my-admin --database sqlite --brand "业务管理台"
 cd D:/projects/my-admin
 npm install
 npm run build
@@ -58,15 +58,15 @@ npm start
 
 PostgreSQL 选择 `--database postgres`，初始化前修改新项目 `.env`。生成器只创建新目录，不执行安装、数据库写入或固定密码初始化。
 
-新项目携带四个 npm 包 tarball、带校验清单的 Go SDK 源码和自身 `go.mod`，不指向 Zenith 仓库或 workspace。`vendor/zenith-sdk.json` 和项目清单记录版本、提交及源码摘要。开发/构建需要 Node 24 和 Go；构建后的 Go 二进制内嵌管理台，生产不需要 Node。
+新项目携带四个 npm 包 tarball、带校验清单的 Go SDK 源码和自身 `go.mod`，不指向 ArcBase 仓库或 workspace。`vendor/arcbase-sdk.json` 和项目清单记录版本、提交及源码摘要。开发/构建需要 Node 24 和 Go；构建后的 Go 二进制内嵌管理台，生产不需要 Node。
 
 ## 生成业务模块
 
-模块字段由 JSON 显式描述，模板不会猜测业务模型。示例见 [create-zenith README](../../packages/create-zenith/README.md)。
+模块字段由 JSON 显式描述，模板不会猜测业务模型。示例见 `packages/create-arcbase/README.md`。
 
 ```powershell
 # 安装工具 tarball 后：
-create-zenith module inventory.json --project D:/projects/my-admin
+create-arcbase module inventory.json --project D:/projects/my-admin
 cd D:/projects/my-admin
 npm run build
 npm run db:migrate
@@ -84,6 +84,6 @@ npm test
 
 ## 验证
 
-`npm run test:tooling` 验证字段与路径约束、生成结果及覆盖保护。`npm run test:tooling:external` 在仓库外安装工具和四个 tarball，生成独立项目与模块，执行 Ent/DTO 生成、类型检查、生产构建、契约漂移检查、真实 SQLite CRUD/权限/审计回滚测试。设置 `ZENITH_TEST_DATABASE_URL` 后，相同生成测试也验证 PostgreSQL。
+`npm run test:tooling` 验证字段与路径约束、生成结果及覆盖保护。`npm run test:tooling:external` 在仓库外安装工具和四个 tarball，生成独立项目与模块，执行 Ent/DTO 生成、类型检查、生产构建、契约漂移检查、真实 SQLite CRUD/权限/审计回滚测试。设置 `ARCBASE_TEST_DATABASE_URL` 后，相同生成测试也验证 PostgreSQL。
 
 Go 集成测试新增 `TestRealDatabaseAndS3BackupRestore` 和 `TestGeneratedStandaloneBinaryBrowser`。后者使用生成项目的实际二进制，覆盖原登录、CRUD、筛选、刷新、实时更新、窄屏和静态深链接；CI 对 PostgreSQL 和 SQLite 均执行。测试数据库和 S3 Bucket 均独立创建，不使用现有业务库。

@@ -1,4 +1,4 @@
-import type { UserGroup } from '@zenith/shared/identity';
+import type { UserGroup } from '@arcbase/shared/identity';
 
 interface MockUserGroup extends UserGroup {
   memberIds: number[];

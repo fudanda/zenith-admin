@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
-import { SIGNATURE_MAX_WIDTH } from '@zenith/shared/core';
+import { SIGNATURE_MAX_WIDTH } from '@arcbase/shared/core';
 import { normalizeSignatureImage } from './signature-image';
 
 const url = (buffer: Buffer) => 'data:image/png;base64,' + buffer.toString('base64');

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { entityTimelineContract } from '@zenith/shared/platform';
+import { entityTimelineContract } from '@arcbase/shared/platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { currentUser } from '../../lib/context';

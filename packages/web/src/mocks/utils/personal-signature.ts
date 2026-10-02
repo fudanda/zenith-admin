@@ -1,5 +1,5 @@
-import { signatureInputSchema, type SignatureInput, type SignaturePolicy, type SignatureSnapshot } from '@zenith/shared/core';
-import type { MySignature } from '@zenith/shared/identity';
+import { signatureInputSchema, type SignatureInput, type SignaturePolicy, type SignatureSnapshot } from '@arcbase/shared/core';
+import type { MySignature } from '@arcbase/shared/identity';
 import { currentMockSession } from './auth';
 import { MockHttpError } from './contract';
 import { badRequest, conflict, forbidden, unauthorized } from './handlers';

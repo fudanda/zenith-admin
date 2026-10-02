@@ -1,5 +1,5 @@
-import { inAppMessageContract } from '@zenith/shared/messaging';
-import type { InAppMessage } from '@zenith/shared/messaging';
+import { inAppMessageContract } from '@arcbase/shared/messaging';
+import type { InAppMessage } from '@arcbase/shared/messaging';
 import { mock } from '@/mocks/utils/contract';
 import { mockInAppMessages, getNextInAppMessageId } from '@/mocks/data/in-app-messages';
 import { mockInAppTemplates } from '@/mocks/data/in-app-templates';

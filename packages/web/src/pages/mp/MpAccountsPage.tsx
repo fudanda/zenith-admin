@@ -2,7 +2,7 @@ import { FormPasswordInput } from '@/components/PasswordInput';
 import { useState } from 'react';
 import { ListSearchToolbar, useCrudOperationColumn } from '@/components/list-page';
 import { Banner, Col, Form, Row, Switch, Tag, Toast, Typography } from '@douyinfe/semi-ui';
-import { MP_ACCOUNT_TYPE_LABELS, MP_ACCOUNT_TYPE_OPTIONS, MP_ENCRYPT_MODE_LABELS, MP_ENCRYPT_MODE_OPTIONS, type CreateMpAccountInput, type MpAccount, type MpAccountType, mpAccountContract } from '@zenith/shared/mp';
+import { MP_ACCOUNT_TYPE_LABELS, MP_ACCOUNT_TYPE_OPTIONS, MP_ENCRYPT_MODE_LABELS, MP_ENCRYPT_MODE_OPTIONS, type CreateMpAccountInput, type MpAccount, type MpAccountType, mpAccountContract } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import { useDictItems } from '@/hooks/useDictItems';
 import { useEditModal } from '@/hooks/useEditModal';

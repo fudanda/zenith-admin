@@ -9,7 +9,7 @@ import type {
   OpenPaymentIntentCreated,
   OpenPaymentRefund,
   PaymentMethod,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { db } from '../../db';
 import { exactTenantCondition } from '../../lib/tenant';
 import { requireRow } from '../../lib/db-assert';

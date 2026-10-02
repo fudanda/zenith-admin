@@ -1,4 +1,4 @@
-import { chatWebhookPublicContract, type ChatWebhook } from '@zenith/shared/chat';
+import { chatWebhookPublicContract, type ChatWebhook } from '@arcbase/shared/chat';
 import { urlOf } from '@/lib/contract-query';
 import { mockDateTime } from '@/mocks/utils/date';
 

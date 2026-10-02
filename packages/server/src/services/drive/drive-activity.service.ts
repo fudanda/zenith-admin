@@ -1,8 +1,8 @@
 import { and, desc, eq, gte, inArray, sql, type SQL } from 'drizzle-orm';
 import { tryGetContext } from 'hono/context-storage';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { driveActivitySchema, type DriveActivity, type DriveActivityAction, type DriveNodeType } from '@zenith/shared/drive';
-import { driveAdminContract } from '@zenith/shared/drive';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { driveActivitySchema, type DriveActivity, type DriveActivityAction, type DriveNodeType } from '@arcbase/shared/drive';
+import { driveAdminContract } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import { driveActivities, driveRecentAccess, driveSpaces, type DriveActivityRow } from '../../db/schema';

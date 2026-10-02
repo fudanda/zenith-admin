@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { CmsResource } from '@zenith/shared/cms';
+import type { CmsResource } from '@arcbase/shared/cms';
 const state = vi.hoisted(() => ({ batches: [] as unknown[][] }));
 vi.mock('../../db', () => ({ db: { select: () => ({ from: () => ({ where: () => ({ orderBy: async () => state.batches.shift() ?? [] }) }) }) } }));
 vi.mock('../../lib/task-center', () => ({ enqueueAsyncTask: vi.fn(), persistAsyncTask: vi.fn() }));

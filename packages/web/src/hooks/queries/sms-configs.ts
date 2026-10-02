@@ -1,4 +1,4 @@
-import { smsConfigContract } from '@zenith/shared/messaging';
+import { smsConfigContract } from '@arcbase/shared/messaging';
 import { createResourceQueries, useApiMutation } from '@/lib/contract-query';
 
 export const {

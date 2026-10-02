@@ -11,7 +11,7 @@
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
-import { MEMBER_TOKEN_KEY, MEMBER_REFRESH_TOKEN_KEY } from '@zenith/shared/core';
+import { MEMBER_TOKEN_KEY, MEMBER_REFRESH_TOKEN_KEY } from '@arcbase/shared/core';
 import { MemberAuthProvider, useMemberAuth } from './useMemberAuth';
 
 const callOrder: string[] = [];

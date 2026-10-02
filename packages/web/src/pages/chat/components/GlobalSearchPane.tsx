@@ -1,7 +1,7 @@
 import { Button, Empty, Input, Spin, Typography, List as SemiList } from '@douyinfe/semi-ui';
 import { Search } from 'lucide-react';
-import { chatContract } from '@zenith/shared/chat';
-import type { ChatMessageSearchItem } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
+import type { ChatMessageSearchItem } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import { formatConvTime } from '@/utils/date';
 import type { Setter } from '../types';

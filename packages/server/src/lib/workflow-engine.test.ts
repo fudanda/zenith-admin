@@ -8,8 +8,8 @@ import {
   resolveRuntimeApproveMethod,
   normalizeFlowData,
 } from './workflow-engine';
-import type { WorkflowFlowData } from '@zenith/shared/workflow';
-import { WORKFLOW_SCHEMA_VERSION } from '@zenith/shared/workflow';
+import type { WorkflowFlowData } from '@arcbase/shared/workflow';
+import { WORKFLOW_SCHEMA_VERSION } from '@arcbase/shared/workflow';
 
 // 说明：DAG 推进（advanceFlow/getInitialTasks）已被显式执行 Token 引擎取代，
 // fork/join/网关/自动节点/回边等推进语义的回归测试见 workflow-token-engine.test.ts。

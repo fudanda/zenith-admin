@@ -1,6 +1,6 @@
-import { importJobContract, IMPORT_TASK_TYPE, IMPORT_PREVIEW_TASK_TYPE } from '@zenith/shared/tasks';
-import { CMS_CONTENT_IMPORT_COLUMNS } from '@zenith/shared/cms';
-import type { ImportEntityMeta } from '@zenith/shared/tasks';
+import { importJobContract, IMPORT_TASK_TYPE, IMPORT_PREVIEW_TASK_TYPE } from '@arcbase/shared/tasks';
+import { CMS_CONTENT_IMPORT_COLUMNS } from '@arcbase/shared/cms';
+import type { ImportEntityMeta } from '@arcbase/shared/tasks';
 import { mock } from '@/mocks/utils/contract';
 import { createImmediateMockTask } from './async-tasks';
 

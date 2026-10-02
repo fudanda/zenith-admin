@@ -1,6 +1,6 @@
 import { QueryClient } from '@tanstack/react-query';
 
-export { ApiError, unwrap, toQueryString } from '@zenith/client';
+export { ApiError, unwrap, toQueryString } from '@arcbase/client';
 
 /** 从对象类型中剔除「未填」形态（`undefined` / `null` / 空串），键全部变为可选 */
 export type CompactParams<T> = { [K in keyof T]?: Exclude<T[K], null | undefined | ''> };

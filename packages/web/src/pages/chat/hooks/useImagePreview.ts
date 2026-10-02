@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
 import { fetchManagedFileBlob } from '@/utils/file-utils';
 import { createDisplayableImageUrl } from '@/utils/image-decode';
-import type { ChatMessage } from '@zenith/shared/chat';
+import type { ChatMessage } from '@arcbase/shared/chat';
 import type { Setter } from '../types';
 
 /** 图片点击预览：blob 会话式加载 + 预览列表填充（自 ChatPage 原样搬移） */

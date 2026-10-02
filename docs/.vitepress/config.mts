@@ -19,14 +19,14 @@ if (isGitHubPagesBuild) {
 
 export default withMermaid(defineConfig({
   lang: 'zh-CN',
-  title: 'Zenith Admin',
-  description: 'Zenith Admin 文档站：项目介绍、快速开始、开发说明与更新记录。',
+  title: 'ArcBase',
+  description: 'ArcBase 文档站：项目介绍、快速开始、开发说明与更新记录。',
   base,
   cleanUrls: true,
   lastUpdated: true,
   vite: {
     define: {
-      __ZN_VERSION__: JSON.stringify(rootPkg.version),
+      __ARCBASE_VERSION__: JSON.stringify(rootPkg.version),
     },
     optimizeDeps: {
       // mermaid 由 vitepress-plugin-mermaid 在 node_modules 内部引入，Vite 不会自动发现；
@@ -35,7 +35,7 @@ export default withMermaid(defineConfig({
     },
   },
   themeConfig: {
-    siteTitle: 'Zenith Admin',
+    siteTitle: 'ArcBase',
     logo: '/favicon.svg',
     lastUpdated: {
       text: '最后更新于',
@@ -51,7 +51,7 @@ export default withMermaid(defineConfig({
     },
     nav: [
       { text: '首页', link: '/' },
-      { text: '快速开始', link: '/guide/getting-started' },
+      { text: '快速开始', link: '/guide/go-foundation' },
       { text: '产品', link: '/product/overview' },
       {
         text: '开发',
@@ -102,15 +102,27 @@ export default withMermaid(defineConfig({
       provider: 'local',
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/iwangbowen/zenith-admin' },
+      { icon: 'github', link: 'https://github.com/fudanda/zenith-admin' },
     ],
     footer: {
       message: 'Built with VitePress for local documentation preview.',
-      copyright: 'Copyright © 2026 Zenith Admin',
+      copyright: 'Copyright © 2026 ArcBase',
     },
     sidebar: [
       {
-        text: '开始使用',
+        text: 'ArcBase 单组织版',
+        collapsed: false,
+        items: [
+          { text: '安装、升级与部署', link: '/guide/go-foundation' },
+          { text: 'Go 后端架构', link: '/guide/go-backend-architecture' },
+          { text: '独立包与宿主接入', link: '/guide/go-host-integration' },
+          { text: '运维与项目生成器', link: '/guide/go-tooling' },
+          { text: '集成能力', link: '/guide/go-integrations' },
+          { text: '更名与升级兼容', link: '/guide/arcbase-branding' },
+        ],
+      },
+      {
+        text: '历史链路指南',
         collapsed: false,
         items: [
           { text: '快速开始', link: '/guide/getting-started' },
@@ -429,7 +441,7 @@ export default withMermaid(defineConfig({
         items: [
           { text: '概览', link: '/ai/' },
           { text: 'AGENTS.md', link: '/ai/agents' },
-          { text: 'Zenith Skill', link: '/ai/skills' },
+          { text: 'ArcBase Skill', link: '/ai/skills' },
         ],
       },
       {

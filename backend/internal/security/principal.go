@@ -3,7 +3,7 @@ package security
 
 import (
 	"context"
-	"github.com/fudanda/zenith-admin/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent"
 )
 
 type Principal struct {

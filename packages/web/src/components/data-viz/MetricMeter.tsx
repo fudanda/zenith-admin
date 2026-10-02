@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { clamp } from '@zenith/shared/core';
+import { clamp } from '@arcbase/shared/core';
 import './bars.css';
 
 export type MetricMeterTone = 'primary' | 'success' | 'warning' | 'danger' | 'neutral';

@@ -8,8 +8,8 @@ import { Button, Col, Form, Modal, Row, SideSheet, Switch, Tag, Toast, Typograph
 
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { RotateCcw } from 'lucide-react';
-import { WORKFLOW_EVENT_DELIVERY_STATUS_LABELS, WORKFLOW_EVENT_TYPE_LABELS, WORKFLOW_EVENT_TYPE_OPTIONS, type CreateWorkflowEventSubscriptionInput, type WorkflowDefinition, type WorkflowEventDelivery, type WorkflowEventDeliveryStatus, type WorkflowEventSubscription, type WorkflowEventType, workflowEventSubscriptionContract } from '@zenith/shared/workflow';
-import { isPlainObject } from '@zenith/shared/core';
+import { WORKFLOW_EVENT_DELIVERY_STATUS_LABELS, WORKFLOW_EVENT_TYPE_LABELS, WORKFLOW_EVENT_TYPE_OPTIONS, type CreateWorkflowEventSubscriptionInput, type WorkflowDefinition, type WorkflowEventDelivery, type WorkflowEventDeliveryStatus, type WorkflowEventSubscription, type WorkflowEventType, workflowEventSubscriptionContract } from '@arcbase/shared/workflow';
+import { isPlainObject } from '@arcbase/shared/core';
 import { formatDateTimeRangeValuesForApi } from '@/utils/date';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';
@@ -87,7 +87,7 @@ export default function WorkflowEventSubscriptionsPage() {
           content: (
             <div style={{ fontSize: 13, lineHeight: 2 }}>
               <div>请求地址：{result.requestUrl}</div>
-              <div>样例事件：{result.eventType}（X-Zenith-Test: 1）</div>
+              <div>样例事件：{result.eventType}（X-ArcBase-Test: 1）</div>
               <div>HTTP 状态：{result.httpStatus ?? EMPTY_PLACEHOLDER} · 耗时 {result.durationMs}ms</div>
               {result.error && <div style={{ color: 'var(--semi-color-danger)' }}>错误：{result.error}</div>}
               {result.responseSnippet && (
@@ -402,7 +402,7 @@ export default function WorkflowEventSubscriptionsPage() {
               field="headers"
               label="自定义请求头"
               autosize={{ minRows: 2, maxRows: 6 }}
-              placeholder={'{\n  "X-Source": "zenith"\n}'}
+              placeholder={'{\n  "X-Source": "arcbase"\n}'}
               helpText="JSON 对象格式，可留空"
             />
           </Col>

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { workflowHealthContract } from '@zenith/shared/workflow';
+import { workflowHealthContract } from '@arcbase/shared/workflow';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getWorkflowHealthSummary } from '../../services/workflow/workflow-health.service';

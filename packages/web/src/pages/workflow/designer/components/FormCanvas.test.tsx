@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import FormCanvas from './FormCanvas';
 
 const rowField: WorkflowFormField = {

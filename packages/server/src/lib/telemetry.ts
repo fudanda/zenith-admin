@@ -23,9 +23,9 @@ export const initTelemetry = async (): Promise<boolean> => {
     ]);
     // 进程角色进 resource：api / worker 拆分部署后同一 service 的 span 可按角色区分。
     // 走 SDK 自带的 env 资源探测（OTEL_RESOURCE_ATTRIBUTES），不直接依赖 @opentelemetry/resources
-    const roleAttribute = `zenith.process.role=${config.roles.label}`;
+    const roleAttribute = `arcbase.process.role=${config.roles.label}`;
     const existingAttributes = process.env.OTEL_RESOURCE_ATTRIBUTES?.trim();
-    if (!existingAttributes?.includes('zenith.process.role=')) {
+    if (!existingAttributes?.includes('arcbase.process.role=')) {
       process.env.OTEL_RESOURCE_ATTRIBUTES = existingAttributes ? `${existingAttributes},${roleAttribute}` : roleAttribute;
     }
     telemetrySdk = new NodeSDK({

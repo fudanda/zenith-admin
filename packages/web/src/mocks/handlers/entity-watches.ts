@@ -1,5 +1,5 @@
-import { canonicalEntityRefSchema, entityWatchContract, ENTITY_TIMELINE_EVENT_LABELS, getDomainEventDefinition, isWatchableDomainEvent, isWatchableEntityType, watchedEntityDetailRoute, type CanonicalEntityRef } from '@zenith/shared/platform';
-import { permissionList } from '@zenith/shared/core';
+import { canonicalEntityRefSchema, entityWatchContract, ENTITY_TIMELINE_EVENT_LABELS, getDomainEventDefinition, isWatchableDomainEvent, isWatchableEntityType, watchedEntityDetailRoute, type CanonicalEntityRef } from '@arcbase/shared/platform';
+import { permissionList } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { currentMockSession, mockUserPermissions, type MockSession } from '@/mocks/utils/auth';
 import { forbidden, notFound, unauthorized, badRequest } from '@/mocks/utils/handlers';

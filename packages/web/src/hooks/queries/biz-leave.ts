@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { bizLeaveContract, type BizLeave } from '@zenith/shared/biz';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
+import { bizLeaveContract, type BizLeave } from '@arcbase/shared/biz';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateAfterInstanceChange } from './workflow-instances';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';

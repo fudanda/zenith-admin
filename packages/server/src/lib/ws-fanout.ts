@@ -14,7 +14,7 @@
  * 为什么不用 PG NOTIFY：载荷上限 8000 字节（聊天消息可超），且推送流量不应压在数据库上。
  */
 import type Redis from 'ioredis';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { WsMessage } from '@arcbase/shared/platform';
 import type { WsNodeStats } from './ws-manager';
 import { config } from '../config';
 import logger from './logger';

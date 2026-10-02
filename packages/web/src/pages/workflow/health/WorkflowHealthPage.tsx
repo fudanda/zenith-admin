@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Modal, Select, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { WORKFLOW_HEALTH_ISSUE_TYPE_LABELS, WORKFLOW_HEALTH_ISSUE_TYPE_OPTIONS, workflowTaskContract, type WorkflowHealthIssue, type WorkflowHealthSummary } from '@zenith/shared/workflow';
+import { WORKFLOW_HEALTH_ISSUE_TYPE_LABELS, WORKFLOW_HEALTH_ISSUE_TYPE_OPTIONS, workflowTaskContract, type WorkflowHealthIssue, type WorkflowHealthSummary } from '@arcbase/shared/workflow';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import WorkflowInstanceCell from '@/components/workflow/WorkflowInstanceCell';

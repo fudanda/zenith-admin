@@ -4,14 +4,14 @@
 
 ## 连接认证
 
-浏览器 WebSocket 无法自定义请求头，access token 经子协议头传递（`@zenith/shared/platform` 的 `wsAuthProtocols(token)` 生成），**不再放进 URL 查询串**，避免落入代理 / 访问日志：
+浏览器 WebSocket 无法自定义请求头，access token 经子协议头传递（`@arcbase/shared/platform` 的 `wsAuthProtocols(token)` 生成），**不再放进 URL 查询串**，避免落入代理 / 访问日志：
 
 ```text
 GET /api/ws
-Sec-WebSocket-Protocol: zenith-auth, eyJ...
+Sec-WebSocket-Protocol: arcbase-auth, eyJ...
 ```
 
-服务端只回显 `zenith-auth`（`WebSocketServer.handleProtocols`），绝不把 token 写回握手响应；`?token=` 查询串已不再接受。升级鉴权（`lib/ws-auth.ts`）与 HTTP `authMiddleware` 同一口径：拒绝会员 / refresh token、实时校验用户与租户状态（`checkAdminJwtSubject`）、检查吊销黑名单；三个 WebSocket 端点（`/api/ws`、`/api/ws/terminal`、`/api/ws/terminal-monitor`）共用。
+服务端只回显 `arcbase-auth`（`WebSocketServer.handleProtocols`），绝不把 token 写回握手响应；`?token=` 查询串已不再接受。升级鉴权（`lib/ws-auth.ts`）与 HTTP `authMiddleware` 同一口径：拒绝会员 / refresh token、实时校验用户与租户状态（`checkAdminJwtSubject`）、检查吊销黑名单；三个 WebSocket 端点（`/api/ws`、`/api/ws/terminal`、`/api/ws/terminal-monitor`）共用。
 
 认证失败关闭连接：`4001 Unauthorized`。Redis 检查异常时 fail-open。连接成功后按用户维度建立本地连接集合，并通过 Redis pub/sub 在 api 进程之间扇出；worker 产生的任务进度、站内信、工作流事件与 IoT 送达帧也经同一链路到达持有浏览器或设备连接的节点。扇出语义为 at-most-once，Redis 不可用时实时增量可能丢弃，客户端重连后应回源补齐。
 
@@ -30,12 +30,12 @@ Sec-WebSocket-Protocol: zenith-auth, eyJ...
 
 | 类型 | payload | 说明 |
 | --- | --- | --- |
-| `announcement:new` | `Announcement`（`@zenith/shared/messaging`） | 新公告。壳层把它作为未读头插进「最近公告」缓存并未读 +1；`updated` / `deleted` / `read` / `read-all` 同样按 id 局部更新缓存，均不触发请求 |
+| `announcement:new` | `Announcement`（`@arcbase/shared/messaging`） | 新公告。壳层把它作为未读头插进「最近公告」缓存并未读 +1；`updated` / `deleted` / `read` / `read-all` 同样按 id 局部更新缓存，均不触发请求 |
 | `announcement:updated` | `Announcement` | 公告更新 |
 | `announcement:deleted` | `{ id: number }` | 公告删除 |
 | `announcement:read` | `{ id: number }` | 公告已读 |
 | `announcement:read-all` | `{}` | 公告全部已读 |
-| `in-app-message:new` | `InAppMessage`（`@zenith/shared/messaging`） | 新站内信。载荷即收件人自己的真实行（`id` / `createdAt` 来自 `insert … returning`），客户端直接写入铃铛缓存并未读 +1，不回源；群发按收件人各推一份（`scheduleSendPerUser`，跨进程仍是一封 `perUser` 信封）。断线重连后客户端一次性重拉铃铛列表 / 未读数 / 最近公告 |
+| `in-app-message:new` | `InAppMessage`（`@arcbase/shared/messaging`） | 新站内信。载荷即收件人自己的真实行（`id` / `createdAt` 来自 `insert … returning`），客户端直接写入铃铛缓存并未读 +1，不回源；群发按收件人各推一份（`scheduleSendPerUser`，跨进程仍是一封 `perUser` 信封）。断线重连后客户端一次性重拉铃铛列表 / 未读数 / 最近公告 |
 | `in-app-message:read` | `{ id: number }` | 站内信已读 |
 | `in-app-message:read-all` | `{}` | 站内信全部已读 |
 | `in-app-message:deleted` | `{ id: number }` | 站内信删除 |
@@ -53,8 +53,8 @@ Sec-WebSocket-Protocol: zenith-auth, eyJ...
 | `chat:reaction` | `unknown` | 表情回应 |
 | `chat:edit` | `unknown` | 编辑消息 |
 | `chat:vote-update` | `unknown` | 投票更新 |
-| `chat:presence` | `ChatPresence[]`（`@zenith/shared/chat`） | 在线状态变更；服务端按 1 秒窗口合并后批量推送。在线判定是集群合并视图：用户在任一 api 进程有连接即在线，各进程经扇出交换本地增量与 30 秒全量快照，远端镜像 90 秒无刷新视为该进程离线 |
-| `channel:message` | `ChannelMessage`（`@zenith/shared/messaging`） | 频道消息 |
+| `chat:presence` | `ChatPresence[]`（`@arcbase/shared/chat`） | 在线状态变更；服务端按 1 秒窗口合并后批量推送。在线判定是集群合并视图：用户在任一 api 进程有连接即在线，各进程经扇出交换本地增量与 30 秒全量快照，远端镜像 90 秒无刷新视为该进程离线 |
+| `channel:message` | `ChannelMessage`（`@arcbase/shared/messaging`） | 频道消息 |
 | `channel:message-retract` | `unknown` | 频道消息撤回 |
 | `channel:cs-message` | `unknown` | 客服消息 |
 | `rtc:invite` | `unknown` | 音视频邀请 |

@@ -6,11 +6,11 @@
  */
 import { useMemo } from 'react';
 import { Empty, Select, SideSheet, Space, Tag, Typography } from '@douyinfe/semi-ui';
-import type { AnalyticsComparison, AnalyticsBreakdownDimension, AnalyticsDrillContext } from '@zenith/shared/analytics';
+import type { AnalyticsComparison, AnalyticsBreakdownDimension, AnalyticsDrillContext } from '@arcbase/shared/analytics';
 import {
   ANALYTICS_BREAKDOWN_DIMENSION_OPTIONS,
   ANALYTICS_COMPARE_MAX_SEGMENTS,
-} from '@zenith/shared/analytics';
+} from '@arcbase/shared/analytics';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { listTableProps } from '@/components/list-page';
 import { useAnalyticsDrillUsers, useAnalyticsSegments } from '@/hooks/queries/analytics';

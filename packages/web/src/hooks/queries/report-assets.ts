@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
-import { reportAssetContract, type ReportResourceType } from '@zenith/shared/report';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
+import { reportAssetContract, type ReportResourceType } from '@arcbase/shared/report';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type ReportAssetCatalogParams = NonNullable<QueryOf<typeof reportAssetContract.catalog>>;

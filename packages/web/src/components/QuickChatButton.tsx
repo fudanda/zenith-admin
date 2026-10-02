@@ -2,7 +2,7 @@ import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { FloatButton, Spin } from '@douyinfe/semi-ui';
 import { MessageCircle, X } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { WsMessage } from '@arcbase/shared/platform';
 import { useAuth } from '@/hooks/useAuth';
 import { useConversations } from '@/hooks/queries/chat';
 import { useWebSocket, useWsConnected } from '@/hooks/useWebSocket';

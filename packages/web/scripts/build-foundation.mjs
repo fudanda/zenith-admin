@@ -5,7 +5,7 @@ import { dirname, resolve, relative, isAbsolute } from 'node:path';
 
 const vite = resolve(dirname(createRequire(import.meta.url).resolve('vite/package.json')), 'bin/vite.js');
 const result = spawnSync(process.execPath, [vite, 'build', '--mode', 'go-foundation', '--outDir', 'dist-go'], {
-  stdio: 'inherit', env: { ...process.env, ZENITH_WEB_ENTRY: 'main' },
+  stdio: 'inherit', env: { ...process.env, ARCBASE_WEB_ENTRY: 'main' },
 });
 if (result.status !== 0) process.exit(result.status ?? 1);
 const repo = resolve(process.cwd(), '../..');

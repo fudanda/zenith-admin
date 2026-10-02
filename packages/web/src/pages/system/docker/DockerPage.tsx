@@ -54,7 +54,7 @@ import type {
   DockerPortBinding,
   DockerPruneResult,
   DockerVolume,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { CreateButton } from '@/components/toolbar-controls';
 import { KeywordInput } from '@/components/search-filters';
 import { confirmDanger } from '@/utils/confirm';
@@ -62,7 +62,7 @@ import { dateTimeColumn, EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { groupContainersByCompose } from './docker-grouping';
 
 import { useUrlTabState } from '@/hooks/useUrlTabState';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 // ─── Prune（清理）辅助 ──────────────────────────────────────────────────────────
 function runPrune(variables: DockerPruneVariables, title: string, content: string, prune: (variables: DockerPruneVariables) => Promise<DockerPruneResult>): void {
   confirmAndDelete({

@@ -1,6 +1,6 @@
 import type { SQL } from 'drizzle-orm';
 import type { PgColumn, PgTable } from 'drizzle-orm/pg-core';
-import type { PaginatedResponse } from '@zenith/shared/core';
+import type { PaginatedResponse } from '@arcbase/shared/core';
 import { db } from '../db';
 import { withPagination } from './where-helpers';
 

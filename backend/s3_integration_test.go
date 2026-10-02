@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"bytes"
@@ -24,8 +24,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	sdk "github.com/aws/aws-sdk-go-v2/service/s3"
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/managedfile"
 	"github.com/google/uuid"
 )
 
@@ -46,28 +46,28 @@ func (x *extensionFixture) multipart(t *testing.T, path, name string, contents [
 	}
 	part.Write(contents)
 	writer.Close()
-	request := httptest.NewRequest("POST", "http://zenith.test"+path, &body)
+	request := httptest.NewRequest("POST", "http://arcbase.test"+path, &body)
 	request.Header.Set("Content-Type", writer.FormDataContentType())
 	request.Header.Set("X-CSRF-Token", x.csrf)
-	request.AddCookie(&http.Cookie{Name: "zenith_session", Value: x.token})
+	request.AddCookie(&http.Cookie{Name: "arcbase_session", Value: x.token})
 	response := httptest.NewRecorder()
 	x.f.Handler().ServeHTTP(response, request)
 	return response
 }
 func TestS3RealStorage(t *testing.T) {
-	endpoint := os.Getenv("ZENITH_TEST_S3_ENDPOINT")
+	endpoint := os.Getenv("ARCBASE_TEST_S3_ENDPOINT")
 	if endpoint == "" {
-		t.Fatal("ZENITH_TEST_S3_ENDPOINT required; start isolated MinIO for integration acceptance")
+		t.Fatal("ARCBASE_TEST_S3_ENDPOINT required; start isolated MinIO for integration acceptance")
 	}
-	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	dsn := os.Getenv("ARCBASE_TEST_DATABASE_URL")
 	if dsn == "" {
-		t.Fatal("ZENITH_TEST_DATABASE_URL required")
+		t.Fatal("ARCBASE_TEST_DATABASE_URL required")
 	}
 	dsn = isolatedTestDSN(t, dsn)
 	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
-	bucket := "zenith-test-" + uuid.NewString()
-	access, secret := os.Getenv("ZENITH_TEST_S3_ACCESS_KEY"), os.Getenv("ZENITH_TEST_S3_SECRET_KEY")
+	bucket := "arcbase-test-" + uuid.NewString()
+	access, secret := os.Getenv("ARCBASE_TEST_S3_ACCESS_KEY"), os.Getenv("ARCBASE_TEST_S3_SECRET_KEY")
 	if access == "" || secret == "" {
 		t.Fatal("S3 test credentials required")
 	}
@@ -110,15 +110,15 @@ func TestS3RealStorage(t *testing.T) {
 	if !strings.Contains(file["objectKey"].(string), "acceptance/objects/") {
 		t.Fatal("prefix not used")
 	}
-	request := httptest.NewRequest("GET", "http://zenith.test"+fileURL, nil)
-	request.AddCookie(&http.Cookie{Name: "zenith_session", Value: x.token})
+	request := httptest.NewRequest("GET", "http://arcbase.test"+fileURL, nil)
+	request.AddCookie(&http.Cookie{Name: "arcbase_session", Value: x.token})
 	request.Header.Set("Range", "bytes=3-7")
 	response := httptest.NewRecorder()
 	x.f.Handler().ServeHTTP(response, request)
 	if response.Code != 206 || !bytes.Equal(response.Body.Bytes(), content[3:8]) {
 		t.Fatal("ranged read", response.Code, response.Body.String())
 	}
-	request = httptest.NewRequest("GET", "http://zenith.test"+fileURL, nil)
+	request = httptest.NewRequest("GET", "http://arcbase.test"+fileURL, nil)
 	response = httptest.NewRecorder()
 	x.f.Handler().ServeHTTP(response, request)
 	if response.Code != 401 {
@@ -133,7 +133,7 @@ func TestS3RealStorage(t *testing.T) {
 		t.Fatal("granted key download failed", allowed.Code)
 	}
 	public := extensionData(t, x.multipart(t, "/api/v1/files/upload-one", "public.txt", []byte("public S3"), nil))
-	request = httptest.NewRequest("GET", "http://zenith.test"+public["url"].(string), nil)
+	request = httptest.NewRequest("GET", "http://arcbase.test"+public["url"].(string), nil)
 	response = httptest.NewRecorder()
 	x.f.Handler().ServeHTTP(response, request)
 	if response.Code != 200 || response.Body.String() != "public S3" {

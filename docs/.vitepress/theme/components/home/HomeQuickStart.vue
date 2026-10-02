@@ -8,7 +8,7 @@ import { withBase } from 'vitepress'
       <span class="zn-eyebrow">快速开始</span>
       <h2 class="zn-h2">三步启动完整开发环境</h2>
       <p class="zn-sub">
-        PostgreSQL + Redis 就绪后（也可用 <code>docker-compose.dev.yml</code> 一键拉起），克隆、初始化、启动。Server 与 Web 同时拉起。
+        准备 Node.js 24 与 Go，选择 PostgreSQL 或 SQLite，再安装、初始化、启动。
       </p>
     </div>
     <div class="steps">
@@ -16,26 +16,26 @@ import { withBase } from 'vitepress'
         <span class="step__n">1</span>
         <h3>克隆并安装</h3>
         <p>npm monorepo，一次安装全部工作区依赖。</p>
-        <pre>git clone https://github.com/iwangbowen/zenith-admin
-cd zenith-admin &amp;&amp; npm install</pre>
+        <pre>npm install</pre>
       </div>
       <div class="step">
         <span class="step__n">2</span>
         <h3>配置并初始化数据库</h3>
-        <p>复制环境变量模板，执行迁移并写入菜单、角色与演示数据。</p>
-        <pre>cp packages/server/.env.example packages/server/.env
+        <p>复制环境变量模板，执行迁移并写入基础菜单、角色与配置。</p>
+        <pre>cp .env.go.example .env.go
 npm run db:migrate &amp;&amp; npm run db:seed</pre>
       </div>
       <div class="step">
         <span class="step__n">3</span>
         <h3>启动</h3>
-        <p>同时启动 Hono API 与 React 前端，默认管理员 admin / 123456。</p>
-        <pre>npm run dev
-<span class="d"># API :3300 · Web :5373 · Swagger /api/docs</span></pre>
+        <p>显式创建管理员，同时启动 Go API 与原 React 管理台。</p>
+        <pre>npm run init-admin -- admin
+npm run dev
+<span class="d"># API :8080/api/v1 · Web :5373/dash/</span></pre>
       </div>
     </div>
     <p class="qs__more">
-      更多细节见 <a :href="withBase('/guide/getting-started')">快速开始</a>、<a :href="withBase('/guide/docker')">Docker 部署</a> 与 <a :href="withBase('/guide/demo-mode')">Demo 演示模式</a>。
+      更多细节见 <a :href="withBase('/guide/go-foundation')">快速开始</a>、<a :href="withBase('/guide/go-tooling')">项目生成器</a> 与 <a :href="withBase('/guide/arcbase-branding')">更名与升级兼容</a>。
     </p>
   </section>
 </template>

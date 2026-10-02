@@ -13,7 +13,7 @@ import {
   useCmsChannelTree, useCmsCollectRules, useSaveCmsCollectRule, useDeleteCmsCollectRules,
   useRunCmsCollectRule, useCmsCollectItems, cmsCollectKeys,
 } from '@/hooks/queries/cms';
-import type { CmsCollectRule, CmsCollectItem } from '@zenith/shared/cms';
+import type { CmsCollectRule, CmsCollectItem } from '@arcbase/shared/cms';
 import { CmsSiteSelect } from './CmsSiteSelect';
 import { CreateButton } from '@/components/toolbar-controls';
 import { KeywordInput } from '@/components/search-filters';

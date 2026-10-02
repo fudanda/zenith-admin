@@ -18,16 +18,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/filestorageconfig"
-	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
-	"github.com/fudanda/zenith-admin/backend/ent/uploadchunk"
-	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/storage"
-	"github.com/fudanda/zenith-admin/backend/internal/validation"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/filestorageconfig"
+	"github.com/fudanda/arcbase/backend/ent/managedfile"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/uploadchunk"
+	"github.com/fudanda/arcbase/backend/ent/uploadsession"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/storage"
+	"github.com/fudanda/arcbase/backend/internal/validation"
 	"github.com/google/uuid"
 )
 
@@ -109,7 +109,7 @@ func checkWritableDirectory(path string) error {
 	if err := os.MkdirAll(path, 0700); err != nil {
 		return err
 	}
-	file, err := os.CreateTemp(path, ".zenith-check-")
+	file, err := os.CreateTemp(path, ".arcbase-check-")
 	if err != nil {
 		return err
 	}
@@ -1314,7 +1314,7 @@ func (f *Service) DownloadFilesBatch(ctx context.Context, inArgs kernel.Input) (
 		sources = append(sources, source{file: file, name: name})
 	}
 	handedOff = true
-	return kernel.Outcome{Status: 200, Filename: "zenith-files.zip", ContentType: "application/zip", Write: func(writer io.Writer) error {
+	return kernel.Outcome{Status: 200, Filename: "arcbase-files.zip", ContentType: "application/zip", Write: func(writer io.Writer) error {
 		defer func() {
 			for _, item := range sources {
 				item.file.Close()

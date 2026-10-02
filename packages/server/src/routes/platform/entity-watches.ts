@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { entityWatchContract } from '@zenith/shared/platform';
+import { entityWatchContract } from '@arcbase/shared/platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { changeEntityWatch, getEntityWatchState } from '../../services/platform/entity-watches.service';

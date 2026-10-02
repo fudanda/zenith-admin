@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { memberCheckinContract } from '@zenith/shared/member';
+import { memberCheckinContract } from '@arcbase/shared/member';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getCheckinCalendar, listMemberCheckins } from '../../services/member/member-checkin.service';

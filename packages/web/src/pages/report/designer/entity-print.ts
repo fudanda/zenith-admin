@@ -2,9 +2,9 @@
  * 打印设计器「实体模板」（sourceType=entity）的纯逻辑：字段目录、数据集键集合、生成版式 → Univer 种子。
  * 只依赖 shared，便于单测；PrintDesignerPage 负责状态与渲染。
  */
-import type { ReportPrintContent, ReportPrintEntityKind, ReportPrintSheet } from '@zenith/shared/report';
-import type { WorkflowFormField, WorkflowPrintDatasetDescriptor } from '@zenith/shared/workflow';
-import { describeWorkflowPrintDatasets, generateWorkflowPrintContent, workflowPrintPageConfig } from '@zenith/shared/workflow';
+import type { ReportPrintContent, ReportPrintEntityKind, ReportPrintSheet } from '@arcbase/shared/report';
+import type { WorkflowFormField, WorkflowPrintDatasetDescriptor } from '@arcbase/shared/workflow';
+import { describeWorkflowPrintDatasets, generateWorkflowPrintContent, workflowPrintPageConfig } from '@arcbase/shared/workflow';
 
 export interface EntityPrintCatalog {
   kind: ReportPrintEntityKind;

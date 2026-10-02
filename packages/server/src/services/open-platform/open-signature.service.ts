@@ -1,8 +1,8 @@
 import { HTTPException } from 'hono/http-exception';
 import { requireRow } from '../../lib/db-assert';
 import { eq } from 'drizzle-orm';
-import { OPEN_SIGNATURE_ALGORITHM_DOC } from '@zenith/shared/open-platform';
-import type { OpenSignatureVerifyInput } from '@zenith/shared/open-platform';
+import { OPEN_SIGNATURE_ALGORITHM_DOC } from '@arcbase/shared/open-platform';
+import type { OpenSignatureVerifyInput } from '@arcbase/shared/open-platform';
 import { getAppSigningSecret } from './oauth2-clients.service';
 import { signRequest, timingSafeEqualHex } from '../../lib/open-signature';
 import { db } from '../../db';

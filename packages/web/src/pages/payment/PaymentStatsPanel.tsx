@@ -13,8 +13,8 @@ import {
   StatCard,
   StatGrid,
 } from '@/components/charts';
-import { PAYMENT_CHANNEL_LABELS, PAYMENT_METHOD_LABELS, PAYMENT_ORDER_STATUS_LABELS } from '@zenith/shared/payment';
-import type { PaymentChannel, PaymentMethod, PaymentOrderStatus } from '@zenith/shared/payment';
+import { PAYMENT_CHANNEL_LABELS, PAYMENT_METHOD_LABELS, PAYMENT_ORDER_STATUS_LABELS } from '@arcbase/shared/payment';
+import type { PaymentChannel, PaymentMethod, PaymentOrderStatus } from '@arcbase/shared/payment';
 import { usePaymentStats, usePaymentTrend } from '@/hooks/queries/payment-stats';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 

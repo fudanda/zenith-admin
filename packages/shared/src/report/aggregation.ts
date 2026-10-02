@@ -46,7 +46,7 @@ export function aggregateReportRows(
   }
 }
 
-/** 预警阈值判定；实现见 `@zenith/shared/core` 的 `compareNumber()` */
+/** 预警阈值判定；实现见 `@arcbase/shared/core` 的 `compareNumber()` */
 export function compare(value: number, op: ReportAlertOp, threshold: number): boolean {
   return compareNumber(value, op, threshold);
 }

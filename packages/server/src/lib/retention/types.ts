@@ -1,4 +1,4 @@
-import type { RetentionMode } from '@zenith/shared/ops';
+import type { RetentionMode } from '@arcbase/shared/ops';
 
 /** 逐租户保留天数解析结果：key 为 tenant_id（null 表示平台级数据） */
 export type TenantRetentionDays = Map<number | null, number>;

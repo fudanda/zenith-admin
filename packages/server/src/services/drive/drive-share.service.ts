@@ -3,7 +3,7 @@ import { HTTPException } from 'hono/http-exception';
 import { tryGetContext } from 'hono/context-storage';
 import { and, asc, desc, eq, gt, inArray, isNull, lt, or, sql, type SQL } from 'drizzle-orm';
 import type { PgUpdateSetSource } from 'drizzle-orm/pg-core';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import {
   DRIVE_SHARE_SESSION_TTL_SECONDS,
   driveAdminContract,
@@ -25,7 +25,7 @@ import {
   type DriveShareKind,
   type SaveFromDriveShareInput,
   type UpdateDriveShareLinkInput,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveCollectSubmissions, driveNodes, driveShareAccessLogs, driveShareLinks, driveSpaces, shortLinks, type DriveNodeRow, type DriveShareLinkRow } from '../../db/schema';
 import { config } from '../../config';

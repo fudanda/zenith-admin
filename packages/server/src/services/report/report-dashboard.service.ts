@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 报表仪表盘 Service
  * - draft = 当前设计草稿
@@ -49,7 +49,7 @@ import {
   validateReportResourcePlacement,
 } from './report-resource.service';
 import type { ReportDashboardRow } from '../../db/schema';
-import { computeWidgetParams, reportDashboardContract, type CreateReportDashboardInput, type ReportCanvasItem, type ReportDashboard, type ReportDashboardConfig, type ReportDashboardSnapshot, type ReportDatasetQueryOptions, type ReportFilter, type ReportGridItem, type ReportLookupOption, type ReportMetricEvaluation, type ReportWidget, type ReportWidgetDataResult, type UpdateReportDashboardInput } from '@zenith/shared/report';
+import { computeWidgetParams, reportDashboardContract, type CreateReportDashboardInput, type ReportCanvasItem, type ReportDashboard, type ReportDashboardConfig, type ReportDashboardSnapshot, type ReportDatasetQueryOptions, type ReportFilter, type ReportGridItem, type ReportLookupOption, type ReportMetricEvaluation, type ReportWidget, type ReportWidgetDataResult, type UpdateReportDashboardInput } from '@arcbase/shared/report';
 
 type DashboardRowExt = ReportDashboardRow & {
   category?: { name: string } | null;

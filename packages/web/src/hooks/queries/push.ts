@@ -4,8 +4,8 @@
  * key 结构：push-configs 与 push-send-logs 两个独立命名空间；
  * 测试发送会产生发送记录 → 连带失效记录域（通常另页未挂载，失效零成本）。
  */
-import type { QueryOf } from '@zenith/shared/core';
-import { pushConfigContract, pushSendLogContract } from '@zenith/shared/messaging';
+import type { QueryOf } from '@arcbase/shared/core';
+import { pushConfigContract, pushSendLogContract } from '@arcbase/shared/messaging';
 import { createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const {

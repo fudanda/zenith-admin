@@ -10,7 +10,7 @@
  * 底层通用实现见 redis-session-store.ts。
  */
 import crypto from 'node:crypto';
-import type { SessionRevokeReason } from '@zenith/shared/identity';
+import type { SessionRevokeReason } from '@arcbase/shared/identity';
 import { config } from '../config';
 import { getSettings } from './settings';
 import { createRedisSessionStore } from './redis-session-store';

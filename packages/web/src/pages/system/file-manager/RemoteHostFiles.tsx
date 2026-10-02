@@ -18,9 +18,9 @@ import {
   hostFileDownloadUrl,
 } from '@/hooks/queries/terminal-files';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
-import type { SftpFileEntry } from '@zenith/shared/ops';
+import type { SftpFileEntry } from '@arcbase/shared/ops';
 import { permStringToOctal } from './fs-utils';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 const { Text } = Typography;
 

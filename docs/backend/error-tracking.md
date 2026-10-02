@@ -4,7 +4,7 @@
 分组承载处理状态、级别、指派、备注、告警规则与数据保留。「数据分析 → 错误监控」看浏览器端（`source = web_admin / web_member`），
 「系统设置 → 系统监控 → 异常日志」看服务端（`source = server`）。没有新表：接口需要什么、谁抛了什么，都落在同一处。
 
-实现位于 `packages/server/src/lib/error-tracking/`，页面契约为 `@zenith/shared/platform` 的 `exceptionLogContract`（`/api/exception-logs`）。
+实现位于 `packages/server/src/lib/error-tracking/`，页面契约为 `@arcbase/shared/platform` 的 `exceptionLogContract`（`/api/exception-logs`）。
 
 ## 采集点
 

@@ -6,8 +6,8 @@ import { batchIterable } from '../../excel-export';
 import { defineExport } from '../registry';
 import { RETENTION_7_DAYS } from '../presets';
 import type { ExportColumn } from '../types';
-import type { PointTxType } from '@zenith/shared/member';
-import { POINT_TX_TYPE_LABELS } from '@zenith/shared/member';
+import type { PointTxType } from '@arcbase/shared/member';
+import { POINT_TX_TYPE_LABELS } from '@arcbase/shared/member';
 
 const TYPE_LABELS: Record<string, string> = POINT_TX_TYPE_LABELS;
 

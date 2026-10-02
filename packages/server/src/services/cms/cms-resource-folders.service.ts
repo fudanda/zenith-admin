@@ -5,10 +5,10 @@ import { db } from '../../db';
 import { cmsResourceFolders, cmsResources } from '../../db/schema';
 import type { CmsResourceFolderRow } from '../../db/schema';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
-import { cmsResourceFolderFieldsSchema, type CmsResourceFolder, type CreateCmsResourceFolderInput, type UpdateCmsResourceFolderInput } from '@zenith/shared/cms';
+import { cmsResourceFolderFieldsSchema, type CmsResourceFolder, type CreateCmsResourceFolderInput, type UpdateCmsResourceFolderInput } from '@arcbase/shared/cms';
 import { pickEntity } from '../../lib/entity-map';
 import { assertSiteAccess, ensureCmsSiteExists } from './cms-sites.service';
-import { buildTree } from '@zenith/shared/core';
+import { buildTree } from '@arcbase/shared/core';
 
 export function mapCmsResourceFolder(row: CmsResourceFolderRow, resourceCount = 0): CmsResourceFolder {
   return pickEntity(cmsResourceFolderFieldsSchema, row, { resourceCount });

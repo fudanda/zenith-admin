@@ -1,6 +1,6 @@
 import { Col, Form, Row } from '@douyinfe/semi-ui';
-import { SMS_PROVIDER_OPTIONS, smsTemplateContract } from '@zenith/shared/messaging';
-import type { CreateSmsTemplateInput, SmsTemplate } from '@zenith/shared/messaging';
+import { SMS_PROVIDER_OPTIONS, smsTemplateContract } from '@arcbase/shared/messaging';
+import type { CreateSmsTemplateInput, SmsTemplate } from '@arcbase/shared/messaging';
 import { usePermission } from '@/hooks/usePermission';
 import { useDictItems } from '@/hooks/useDictItems';
 import { useEditModal } from '@/hooks/useEditModal';

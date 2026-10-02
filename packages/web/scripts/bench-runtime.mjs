@@ -3,7 +3,7 @@
  * 运行时首屏基准：用系统 Chrome（Playwright channel=chrome，无需下载浏览器）访问已构建并由
  * `vite preview` 托管的站点，记录两条冷缓存链路的请求数 / 传输字节 / 时序，取多次中位数。
  *
- *   npm run preview -w @zenith/web            # 另一终端：托管 dist（/api 代理到 3300）
+ *   npm run preview -w @arcbase/web            # 另一终端：托管 dist（/api 代理到 3300）
  *   node scripts/bench-runtime.mjs --url http://localhost:4173 --api http://localhost:3300 \
  *        --user admin --password 123456 --runs 3 --latency 50 --json out.json
  *
@@ -21,8 +21,8 @@ const apiUrl = (args.api ?? 'http://localhost:3300').replace(/\/$/, '');
 const runs = Number(args.runs ?? 3);
 const latencyMs = Number(args.latency ?? 0);
 const downloadMbps = Number(args.download ?? 0);
-const TOKEN_KEY = 'zenith_token';
-const REFRESH_TOKEN_KEY = 'zenith_refresh_token';
+const TOKEN_KEY = 'arcbase_token';
+const REFRESH_TOKEN_KEY = 'arcbase_refresh_token';
 
 const loginRes = await fetch(`${apiUrl}/api/auth/login`, {
   method: 'POST',

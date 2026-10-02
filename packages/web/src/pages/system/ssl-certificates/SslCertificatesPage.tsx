@@ -9,8 +9,8 @@ import {
   type SslCertDownloadKind,
   type SslCertificate,
   sslCertificateContract,
-} from '@zenith/shared/ops';
-import type { UploadCertSchemaInput } from '@zenith/shared/platform';
+} from '@arcbase/shared/ops';
+import type { UploadCertSchemaInput } from '@arcbase/shared/platform';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { deleteAction, ListSearchToolbar } from '@/components/list-page';

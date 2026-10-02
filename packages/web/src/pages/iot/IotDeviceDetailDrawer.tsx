@@ -17,16 +17,16 @@ import { usePagination } from '@/hooks/usePagination';
 import { EMPTY_PLACEHOLDER, dateTimeColumn } from '@/utils/table-columns';
 import { confirmDanger } from '@/utils/confirm';
 import { abortSubmit } from '@/lib/abort-submit';
-import { enumValueOf } from '@zenith/shared/core';
+import { enumValueOf } from '@arcbase/shared/core';
 import {
   IOT_ACCESS_MODE_LABELS, IOT_COMMAND_STATUS_LABELS, IOT_DEVICE_EVENT_KINDS, IOT_DEVICE_EVENT_KIND_LABELS,
   IOT_DEVICE_EVENT_KIND_OPTIONS, IOT_EVENT_LEVELS, IOT_EVENT_LEVEL_LABELS, IOT_EVENT_LEVEL_OPTIONS,
   IOT_LOG_LEVELS, IOT_LOG_LEVEL_LABELS, IOT_LOG_LEVEL_OPTIONS, IOT_PROPERTY_TYPE_LABELS, iotIngestContract,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import type {
   IotCommand, IotDevice, IotDeviceEvent, IotDeviceLog, IotDeviceShadow, IotMetricValue, IotParamDef,
   IotProductProperty, IotProductService,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import {
   iotDeviceEventKeys, iotShadowKeys, iotTelemetryKeys,
   useClearIotDesired, useIotCommands, useIotDeviceEvents, useIotDeviceLogs, useIotDeviceShadow,

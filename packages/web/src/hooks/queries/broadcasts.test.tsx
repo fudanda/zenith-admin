@@ -7,7 +7,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import type { BroadcastCampaign } from '@zenith/shared/messaging';
+import type { BroadcastCampaign } from '@arcbase/shared/messaging';
 import {
   ApiRecorder,
   createRequestMock,

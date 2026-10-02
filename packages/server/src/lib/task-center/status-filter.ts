@@ -4,7 +4,7 @@ import {
   ASYNC_TASK_STATUSES,
   ASYNC_TASK_TERMINAL_STATUSES,
   type AsyncTaskStatus,
-} from '@zenith/shared/tasks';
+} from '@arcbase/shared/tasks';
 import { asyncTasks } from '../../db/schema';
 
 /** 列表筛选里的任务状态取值：具体状态，或 `active`（pending / running）、`terminal`（success / failed / cancelled）分组 */

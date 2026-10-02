@@ -2,7 +2,7 @@
  * CMS 正文辅助（纯函数，无 DB / 无外部依赖）：
  * 供内容保存管线提取封面首图，以及给主题渲染准备附件展示数据。
  */
-import type { CmsContentAttachment } from '@zenith/shared/cms';
+import type { CmsContentAttachment } from '@arcbase/shared/cms';
 
 /** 提取正文 HTML 中第一张图片地址；无图返回 null */
 export function extractFirstImage(body: string | null | undefined): string | null {

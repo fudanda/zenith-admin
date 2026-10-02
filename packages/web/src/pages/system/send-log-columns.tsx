@@ -1,6 +1,6 @@
 /** 发送日志（邮件 / 短信）表格共用列 */
 import type { ColumnProps, Data } from '@douyinfe/semi-ui/lib/es/table';
-import type { SendStatus } from '@zenith/shared/messaging';
+import type { SendStatus } from '@arcbase/shared/messaging';
 import { EMPTY_PLACEHOLDER, renderEllipsis } from '@/utils/table-columns';
 import { SEND_SOURCE_OPTIONS as SOURCE_OPTIONS } from './send-log-constants';
 import { SendStatusTag } from './send-log-ui';

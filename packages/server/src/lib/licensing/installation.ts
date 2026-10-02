@@ -22,7 +22,7 @@ export async function ensureInstallation(): Promise<{ installationId: string; cr
   }
 
   const created = await db.transaction(async (tx) => {
-    await tx.execute(sql`SELECT pg_advisory_xact_lock(hashtext('zenith:system_installation'))`);
+    await tx.execute(sql`SELECT pg_advisory_xact_lock(hashtext('arcbase:system_installation'))`);
     const rows = await tx.select().from(systemInstallations).orderBy(systemInstallations.id).limit(1);
     if (rows.length > 0) return rows[0];
     const [inserted] = await tx

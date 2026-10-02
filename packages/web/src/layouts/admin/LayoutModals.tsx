@@ -1,7 +1,7 @@
 import { PasswordInput } from '@/components/PasswordInput';
 import { TextArea, Toast, Typography } from '@douyinfe/semi-ui';
 import { AppModal } from '@/components/AppModal';
-import type { InAppMessage } from '@zenith/shared/messaging';
+import type { InAppMessage } from '@arcbase/shared/messaging';
 import type { UserPreferences } from '@/hooks/usePreferences';
 import DateTimeText from '@/components/DateTimeText';
 

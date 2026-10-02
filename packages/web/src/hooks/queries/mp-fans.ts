@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { mpFanContract } from '@zenith/shared/mp';
+import type { QueryOf } from '@arcbase/shared/core';
+import { mpFanContract } from '@arcbase/shared/mp';
 import { createResourceQueries, useApiMutation } from '@/lib/contract-query';
 
 export type MpFanListParams = QueryOf<typeof mpFanContract.list>;

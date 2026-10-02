@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { MP_MATERIAL_TYPES, mpMaterialContract, type MpMaterialType } from '@zenith/shared/mp';
+import { MP_MATERIAL_TYPES, mpMaterialContract, type MpMaterialType } from '@arcbase/shared/mp';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

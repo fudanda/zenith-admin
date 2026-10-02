@@ -1,7 +1,7 @@
-import { SECRET_PLACEHOLDER } from '@zenith/shared/core';
+import { SECRET_PLACEHOLDER } from '@arcbase/shared/core';
 import { decryptField, encryptField } from '../../lib/encryption';
 
-/** 报表凭据的展示 / 「未修改」哨兵：`@zenith/shared/core` 的统一占位 */
+/** 报表凭据的展示 / 「未修改」哨兵：`@arcbase/shared/core` 的统一占位 */
 export const REPORT_SECRET_MASK = SECRET_PLACEHOLDER;
 
 export function isSensitiveReportHeader(name: string): boolean {

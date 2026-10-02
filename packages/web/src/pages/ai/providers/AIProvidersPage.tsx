@@ -8,8 +8,8 @@ import { usePinyinReady } from '@/hooks/usePinyinReady';
 import { textMatches } from '@/utils/pinyin';
 import { usePermission } from '@/hooks/usePermission';
 import { useTreeExpansion, type TreeRowKey } from '@/hooks/useTreeExpansion';
-import type { AiProviderConfig } from '@zenith/shared/ai';
-import { AI_COMMON_PROVIDERS } from '@zenith/shared/ai';
+import type { AiProviderConfig } from '@arcbase/shared/ai';
+import { AI_COMMON_PROVIDERS } from '@arcbase/shared/ai';
 import AiProviderFormModal from '../components/AiProviderFormModal';
 import {
   aiProviderKeys,

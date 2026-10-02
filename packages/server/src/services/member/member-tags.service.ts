@@ -9,7 +9,7 @@ import type { MemberTagRow } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';
 import { requireFirstRow } from '../../lib/db-assert';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
-import { memberTagSchema } from '@zenith/shared/member';
+import { memberTagSchema } from '@arcbase/shared/member';
 import { pickEntity } from '../../lib/entity-map';
 
 export interface SaveMemberTagInput {

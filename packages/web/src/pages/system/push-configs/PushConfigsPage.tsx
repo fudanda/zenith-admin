@@ -14,7 +14,7 @@ import { PUSH_PROVIDER_LABELS,
   type CreatePushConfigInput,
   type PushConfig,
   type PushProvider,
-  type TestPushSendInput, pushConfigContract } from '@zenith/shared/messaging';
+  type TestPushSendInput, pushConfigContract } from '@arcbase/shared/messaging';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { deleteAction, ListSearchToolbar, useStatusToggle } from '@/components/list-page';
@@ -74,7 +74,7 @@ function TestSendModal({ config, onClose }: { config: PushConfig | null; onClose
         labelPosition="left"
         labelWidth={110}
         allowEmpty
-        initValues={{ title: 'Zenith 推送测试', content: '这是一条测试推送,收到说明通道配置正确' }}
+        initValues={{ title: 'ArcBase 推送测试', content: '这是一条测试推送,收到说明通道配置正确' }}
       >
         <Form.Input field="registrationId" label="RegistrationID" placeholder="目标设备的推送注册标识"
           rules={[{ required: true, message: 'RegistrationID 不能为空' }]} />

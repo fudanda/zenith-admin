@@ -1,4 +1,4 @@
-import type { Region } from '@zenith/shared/platform';
+import type { Region } from '@arcbase/shared/platform';
 import provincesJson from 'china-division/dist/provinces.json';
 import citiesJson from 'china-division/dist/cities.json';
 import areasJson from 'china-division/dist/areas.json';

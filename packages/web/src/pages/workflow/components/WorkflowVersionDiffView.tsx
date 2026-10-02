@@ -1,5 +1,5 @@
 import { Typography, Tag, Space, Empty } from '@douyinfe/semi-ui';
-import type { WorkflowVersionDiff, WorkflowVersionNodeChange, WorkflowVersionEdgeChange } from '@zenith/shared/workflow';
+import type { WorkflowVersionDiff, WorkflowVersionNodeChange, WorkflowVersionEdgeChange } from '@arcbase/shared/workflow';
 import { WORKFLOW_DIFF_KIND_META as KIND_META } from '../constants';
 
 function NodeChangeRow({ change }: Readonly<{ change: WorkflowVersionNodeChange }>) {

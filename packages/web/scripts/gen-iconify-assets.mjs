@@ -2,8 +2,8 @@
 /**
  * 把源码里引用的 Iconify 图标静态化为仓库内资产（替代 @iconify/react 运行时从公网 API 拉取图标数据）：
  *
- *   npm run icons:iconify -w @zenith/web            # 重新生成
- *   npm run icons:iconify -w @zenith/web -- --check # 只校验，生成物过期则 exit 1（CI / 守卫测试同一口径）
+ *   npm run icons:iconify -w @arcbase/web            # 重新生成
+ *   npm run icons:iconify -w @arcbase/web -- --check # 只校验，生成物过期则 exit 1（CI / 守卫测试同一口径）
  *
  * 产出：
  * - src/assets/file-icons/<name>.svg           彩色文件类型图标（vscode-icons，含文件夹 -opened 变体），<img> 按需加载
@@ -57,7 +57,7 @@ if (checkOnly) {
   }
   for (const [file] of changed) console.error(`✖ 过期 / 缺失：${path.relative(webRoot, file)}`);
   for (const file of stale) console.error(`✖ 多余：${path.relative(webRoot, file)}`);
-  console.error('  运行 `npm run icons:iconify -w @zenith/web` 重新生成。');
+  console.error('  运行 `npm run icons:iconify -w @arcbase/web` 重新生成。');
   process.exit(1);
 }
 

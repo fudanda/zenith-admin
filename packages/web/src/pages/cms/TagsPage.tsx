@@ -7,7 +7,7 @@ import { EMPTY_PLACEHOLDER, createdAtColumn } from '@/utils/table-columns';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
 import { useCmsTagList, useSaveCmsTag, useDeleteCmsTags } from '@/hooks/queries/cms';
-import { cmsTagContract, type CmsTag, type CreateCmsTagInput } from '@zenith/shared/cms';
+import { cmsTagContract, type CmsTag, type CreateCmsTagInput } from '@arcbase/shared/cms';
 import { CmsSiteSelect } from './CmsSiteSelect';
 import { CreateButton } from '@/components/toolbar-controls';
 import { deleteAction, ListSearchToolbar } from '@/components/list-page';

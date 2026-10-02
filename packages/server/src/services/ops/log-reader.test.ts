@@ -5,7 +5,7 @@ import * as zlib from 'node:zlib';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { TailRingBuffer, collectTailLines, createLineSplitter, readTailLinesStream, splitLogLines, watchTail } from './log-reader';
 
-const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'zenith-logreader-'));
+const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'arcbase-logreader-'));
 const plainFile = path.join(tmpRoot, 'app.log');
 const gzFile = path.join(tmpRoot, 'app.1.log.gz');
 

@@ -1,6 +1,6 @@
 import { desc, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { WorkflowBusinessContext, WorkflowBusinessPreview, WorkflowFlowData } from '@zenith/shared/workflow';
+import type { WorkflowBusinessContext, WorkflowBusinessPreview, WorkflowFlowData } from '@arcbase/shared/workflow';
 import { db } from '../../db';
 import { workflowDefinitions, workflowInstances } from '../../db/schema';
 import { currentUser } from '../../lib/context';

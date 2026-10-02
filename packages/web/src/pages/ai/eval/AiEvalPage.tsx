@@ -30,8 +30,8 @@ import {
 } from '@/hooks/queries/ai-eval';
 import { useMyAiAgents, useBuiltinAiAgents } from '@/hooks/queries/ai-agents';
 import { usePermission } from '@/hooks/usePermission';
-import type { AiEvalDataset, AiEvalExperiment, AiEvalExperimentResult, AiEvalScorerId } from '@zenith/shared/ai';
-import { AI_EVAL_SCORERS } from '@zenith/shared/ai';
+import type { AiEvalDataset, AiEvalExperiment, AiEvalExperimentResult, AiEvalScorerId } from '@arcbase/shared/ai';
+import { AI_EVAL_SCORERS } from '@arcbase/shared/ai';
 import { CreateButton } from '@/components/toolbar-controls';
 import { confirmDelete } from '@/utils/confirm';
 import { dateTimeColumn, EMPTY_PLACEHOLDER, overflowTagColumn, renderEllipsis } from '@/utils/table-columns';
@@ -144,7 +144,7 @@ function DatasetDetail({ dataset, canManage }: { dataset: AiEvalDataset; canMana
 
   /** 评测目标 = 注册进 Mastra 的 agent:系统对话 + 内置编程式 + 我的智能体(agent-{id}) */
   const targetOptions = useMemo(() => {
-    const opts = [{ value: 'zenith-chat', label: '系统对话智能体（zenith-chat）' }];
+    const opts = [{ value: 'arcbase-chat', label: '系统对话智能体（arcbase-chat）' }];
     for (const b of builtinQuery.data ?? []) {
       opts.push({ value: b.agentId, label: `${b.name}（内置 ${b.agentId}）` });
     }
@@ -341,7 +341,7 @@ function DatasetDetail({ dataset, canManage }: { dataset: AiEvalDataset; canMana
         footer={null}
       >
         <Form<{ name?: string; targetId: string; scorers: AiEvalScorerId[] }>
-          initValues={{ targetId: 'zenith-chat', scorers: ['ground-truth'] }}
+          initValues={{ targetId: 'arcbase-chat', scorers: ['ground-truth'] }}
           labelPosition="left"
           labelWidth={80}
           onSubmit={async (values) => {

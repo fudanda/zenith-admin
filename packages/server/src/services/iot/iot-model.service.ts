@@ -10,7 +10,7 @@ import {
   iotProductEventSchema, iotProductServiceSchema,
   type CreateIotEventInput, type CreateIotPropertyInput, type CreateIotServiceInput, type ImportIotTslInput, type IotProductEvent, type IotProductService,
   type UpdateIotEventInput, type UpdateIotPropertyInput, type UpdateIotServiceInput,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import { pickEntity } from '../../lib/entity-map';
 import { db } from '../../db';
 import {

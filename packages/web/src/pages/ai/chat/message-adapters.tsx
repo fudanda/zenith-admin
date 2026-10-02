@@ -1,6 +1,6 @@
 import type { Message as AIChatMessage } from '@douyinfe/semi-ui/lib/es/aiChatDialogue';
-import type { AiMessage } from '@zenith/shared/ai';
-import { fileContract } from '@zenith/shared/platform';
+import type { AiMessage } from '@arcbase/shared/ai';
+import { fileContract } from '@arcbase/shared/platform';
 import { config } from '@/config';
 import { urlOf } from '@/lib/contract-query';
 

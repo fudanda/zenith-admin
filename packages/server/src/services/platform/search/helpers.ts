@@ -1,4 +1,4 @@
-import { globalSearchRoutePrefixes, type GlobalSearchResult } from '@zenith/shared/platform';
+import { globalSearchRoutePrefixes, type GlobalSearchResult } from '@arcbase/shared/platform';
 
 export function result(input: GlobalSearchResult): GlobalSearchResult {
   return {

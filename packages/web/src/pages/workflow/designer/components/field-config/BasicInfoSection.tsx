@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Button, Input, InputNumber, Switch, Typography, Tooltip, Dropdown, TextArea, Toast } from '@douyinfe/semi-ui';
 import { Wand2 } from 'lucide-react';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { FIELD_KEY_PATTERN, DYNAMIC_DEFAULT_TOKENS, slugifyToKey, uniqueKey, formulaError } from './helpers';
 import type { FieldTypeFlags } from './field-type-flags';
 

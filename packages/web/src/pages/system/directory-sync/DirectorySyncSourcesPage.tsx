@@ -22,8 +22,8 @@ import {
 } from '@/hooks/queries/directory-sync';
 import { useIdentityProviderList } from '@/hooks/queries/identity-providers';
 import { useAllRoles } from '@/hooks/queries/roles';
-import { directorySyncSourceContract, type DirectorySyncSource } from '@zenith/shared/identity';
-import { type BodyOf } from '@zenith/shared/core';
+import { directorySyncSourceContract, type DirectorySyncSource } from '@arcbase/shared/identity';
+import { type BodyOf } from '@arcbase/shared/core';
 import {
   SUPER_ADMIN_CODE,
   DIRECTORY_SYNC_SOURCE_TYPES, DIRECTORY_SYNC_SOURCE_TYPE_LABELS,
@@ -32,7 +32,7 @@ import {
   DIRECTORY_SYNC_RUN_STATUS_LABELS,
   DIRECTORY_SYNC_CALLBACK_TYPES, DIRECTORY_SYNC_MAPPABLE_SOURCE_FIELDS,
   DIRECTORY_SYNC_SOURCE_FIELD_LABELS, DIRECTORY_SYNC_FIELD_IGNORE,
-} from '@zenith/shared/identity';
+} from '@arcbase/shared/identity';
 import { DIRECTORY_SYNC_RUN_STATUS_TAG_COLOR } from './directory-sync-tag-colors';
 import { useListPage } from '@/hooks/useListPage';
 import { EditFormSheet } from '@/components/EditFormModal';

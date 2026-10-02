@@ -1,4 +1,4 @@
-import { fillPath } from '@zenith/shared/core';
+import { fillPath } from '@arcbase/shared/core';
 import {
   driveNodeContract,
   type DriveAccessRequest,
@@ -13,8 +13,8 @@ import {
   type DriveSpace,
   type DriveSpaceMember,
   type DriveTag,
-} from '@zenith/shared/drive';
-import { driveSettingsSchema, type DriveSettings } from '@zenith/shared/settings';
+} from '@arcbase/shared/drive';
+import { driveSettingsSchema, type DriveSettings } from '@arcbase/shared/settings';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

@@ -1,5 +1,5 @@
 import { and, eq, inArray, sql } from 'drizzle-orm';
-import { mpMaterialContract, mpMaterialSchema, type MpMaterialType } from '@zenith/shared/mp';
+import { mpMaterialContract, mpMaterialSchema, type MpMaterialType } from '@arcbase/shared/mp';
 import { db } from '../../db';
 import { mpMaterials } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';

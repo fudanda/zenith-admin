@@ -1,5 +1,5 @@
-import { emailConfigContract } from '@zenith/shared/messaging';
-import type { EmailConfig } from '@zenith/shared/messaging';
+import { emailConfigContract } from '@arcbase/shared/messaging';
+import type { EmailConfig } from '@arcbase/shared/messaging';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest } from '@/mocks/utils/handlers';
 import { mockEmailConfig } from '@/mocks/data/email-config';

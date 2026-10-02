@@ -1,4 +1,4 @@
-import { dictContract, type Dict, type DictItem } from '@zenith/shared/platform';
+import { dictContract, type Dict, type DictItem } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, updateItem, removeByIds } from '@/mocks/utils/crud';
 import { notFound } from '@/mocks/utils/handlers';

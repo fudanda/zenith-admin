@@ -31,7 +31,7 @@ import {
   terminalFileContract,
   terminalRecordingContract,
   terminalSessionContract,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { defineRouteDomain } from '../_kit';
 import {
   appArtifactsRouter,

@@ -9,7 +9,7 @@ import { confirmAndDelete, deleteAction } from './deleteAction';
 import { listTableProps } from './listTableProps';
 import { CreateButton } from '@/components/toolbar-controls';
 import { PermissionContext } from '@/hooks/usePermission';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 
 // Modal.confirm 依赖 createRoot 命令式渲染，jsdom 下改为记录配置、由测试手动触发 onOk
 const confirmCalls = vi.hoisted(() => [] as ModalReactProps[]);

@@ -6,8 +6,8 @@
 import { useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Button, Col, Collapse, Row, Steps, Tabs } from '@douyinfe/semi-ui';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
-import { isWorkflowFieldVisible as isFieldVisible } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
+import { isWorkflowFieldVisible as isFieldVisible } from '@arcbase/shared/workflow';
 import { ValuesContext } from './contexts';
 import { colSpanOf, getColumnKey } from './field-utils';
 

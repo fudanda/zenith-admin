@@ -17,8 +17,8 @@ import {
 import { currentUser } from '../../lib/context';
 import { HTTPException } from 'hono/http-exception';
 
-import { isSafeOAuthRedirectUri } from '@zenith/shared/identity';
-import { OAUTH2_TOKEN_EXPIRY } from '@zenith/shared/open-platform';
+import { isSafeOAuthRedirectUri } from '@arcbase/shared/identity';
+import { OAUTH2_TOKEN_EXPIRY } from '@arcbase/shared/open-platform';
 import type { DbExecutor, DbTransaction } from '../../db/types';
 import { config } from '../../config';
 import { OAuth2Error } from '../../lib/oauth2-error';

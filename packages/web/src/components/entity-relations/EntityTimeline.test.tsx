@@ -3,7 +3,7 @@ import { createPreferencesContext } from '@/test-utils/preferences';
 import { describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { entityTimelineContract } from '@zenith/shared/platform';
+import { entityTimelineContract } from '@arcbase/shared/platform';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
 import { urlOf } from '@/lib/contract-query';
 import { EntityNavigationContext } from './entity-navigation';

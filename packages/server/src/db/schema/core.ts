@@ -1,6 +1,6 @@
 import { pgTable, varchar, timestamp, pgEnum, integer, boolean, primaryKey, unique, index, text, jsonb, type AnyPgColumn } from 'drizzle-orm/pg-core';
-import type { TenantPackageQuotas } from '@zenith/shared/licensing';
-import type { UserGroupMemberRule } from '@zenith/shared/identity';
+import type { TenantPackageQuotas } from '@arcbase/shared/licensing';
+import type { UserGroupMemberRule } from '@arcbase/shared/identity';
 import { timestampColumns, idColumn, statusColumn, sortColumn, remarkColumn } from './common';
 
 export const menuTypeEnum = pgEnum('menu_type', ['directory', 'menu', 'button']);

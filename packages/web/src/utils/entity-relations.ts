@@ -1,6 +1,6 @@
-import { ENTITY_TIMELINE_EVENT_LABELS } from '@zenith/shared/platform';
-import type { CanonicalEntityType, EntityRelationKind } from '@zenith/shared/platform';
-import type { TimelineEvent } from '@zenith/shared/core';
+import { ENTITY_TIMELINE_EVENT_LABELS } from '@arcbase/shared/platform';
+import type { CanonicalEntityType, EntityRelationKind } from '@arcbase/shared/platform';
+import type { TimelineEvent } from '@arcbase/shared/core';
 
 const ENTITY_LABELS: Record<CanonicalEntityType, string> = {
   'identity.user': '用户', 'member.member': '会员', 'payment.order': '支付订单', 'payment.refund': '退款',
@@ -59,7 +59,7 @@ export function entityRelationKindLabel(kind: EntityRelationKind): string {
 }
 
 /** The same safe detail routes are used by business notifications. */
-export { canonicalEntityDetailRoute as entityDetailRoute } from '@zenith/shared/platform';
+export { canonicalEntityDetailRoute as entityDetailRoute } from '@arcbase/shared/platform';
 
 const EVENT_LABELS = ENTITY_TIMELINE_EVENT_LABELS;
 

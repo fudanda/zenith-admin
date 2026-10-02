@@ -1,6 +1,6 @@
 import { Button, Descriptions, SideSheet, Tag, Typography } from '@douyinfe/semi-ui';
 import { ExternalLink } from 'lucide-react';
-import { SECURITY_SCHEME_LABELS } from '@zenith/shared/permission-catalog-core';
+import { SECURITY_SCHEME_LABELS } from '@arcbase/shared/permission-catalog-core';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { MethodTag, type PermissionLabels } from './ApiCatalogTable';
 import { describeAccess, type CatalogRow } from './catalog-model';

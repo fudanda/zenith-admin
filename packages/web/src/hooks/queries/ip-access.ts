@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { ipAccessLogContract } from '@zenith/shared/platform';
+import type { QueryOf } from '@arcbase/shared/core';
+import { ipAccessLogContract } from '@arcbase/shared/platform';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export type IpAccessLogListParams = NonNullable<QueryOf<typeof ipAccessLogContract.list>>;

@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { Button, Col, Form, Row } from '@douyinfe/semi-ui';
 import { ChevronsUpDown, ChevronsDownUp } from 'lucide-react';
-import { DEPARTMENT_CATEGORIES, type Department } from '@zenith/shared/identity';
-import { enumValueOf } from '@zenith/shared/core';
+import { DEPARTMENT_CATEGORIES, type Department } from '@arcbase/shared/identity';
+import { enumValueOf } from '@arcbase/shared/core';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import DictTag from '@/components/DictTag';
 import { useDictItems } from '@/hooks/useDictItems';

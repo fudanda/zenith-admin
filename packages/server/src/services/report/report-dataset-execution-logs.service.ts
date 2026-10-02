@@ -3,8 +3,8 @@
  * 对外统一经 report-dataset.service.ts facade 暴露。
  */
 import dayjs from 'dayjs';
-import { reportExecutionContract } from '@zenith/shared/report';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { reportExecutionContract } from '@arcbase/shared/report';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { and, desc, eq, gte, lte, sql } from 'drizzle-orm';
 import { db, readSnapshot } from '../../db';
 import { reportDatasetExecutionLogs, reportDatasets, reportDatasources, users } from '../../db/schema';
@@ -15,7 +15,7 @@ import {
   getReportQueryCostTrend,
 } from './report-query-capacity.service';
 import { getReportRuntimeGovernance } from './report-dataset-shared';
-import type { ReportDatasetExecutionLog, ReportExecutionStats } from '@zenith/shared/report';
+import type { ReportDatasetExecutionLog, ReportExecutionStats } from '@arcbase/shared/report';
 import { buildWhere, dateRangeConditions, withPagination } from '../../lib/where-helpers';
 import { buildListResult } from '../../lib/list-query';
 

@@ -1,8 +1,8 @@
 import { desc, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { CreateDbBackupInput } from '@zenith/shared/ops';
-import { dbAdminContract } from '@zenith/shared/ops';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { CreateDbBackupInput } from '@arcbase/shared/ops';
+import { dbAdminContract } from '@arcbase/shared/ops';
 import { db } from '../../db';
 import { dbBackups, managedFiles } from '../../db/schema';
 import { createDrizzleExportBackup, createPgDumpBackup } from '../../lib/db-backup';

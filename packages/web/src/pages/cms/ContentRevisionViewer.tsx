@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import { Descriptions, Image, Space, Tag, Typography } from '@douyinfe/semi-ui';
 import DOMPurify from 'dompurify';
-import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_TYPE_LABELS, type CmsContent, type CmsModelField } from '@zenith/shared/cms';
-import { formatBytes } from '@zenith/shared/core';
+import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_TYPE_LABELS, type CmsContent, type CmsModelField } from '@arcbase/shared/cms';
+import { formatBytes } from '@arcbase/shared/core';
 import { formatDateTime } from '@/utils/date';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { cmsModelFieldOptions } from './cms-model-field-options';

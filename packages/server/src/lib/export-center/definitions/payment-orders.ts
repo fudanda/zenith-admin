@@ -2,7 +2,7 @@ import { desc } from 'drizzle-orm';
 import { db } from '../../../db';
 import { paymentOrders } from '../../../db/schema';
 import { buildOrdersWhere, type PaymentOrderListFilter } from '../../../services/payment/payment.service';
-import { PAYMENT_CHANNEL_LABELS, PAYMENT_METHOD_LABELS, PAYMENT_ORDER_STATUS_LABELS } from '@zenith/shared/payment';
+import { PAYMENT_CHANNEL_LABELS, PAYMENT_METHOD_LABELS, PAYMENT_ORDER_STATUS_LABELS } from '@arcbase/shared/payment';
 import { defineExport } from '../registry';
 import { RETENTION_7_DAYS } from '../presets';
 import type { ExportColumn } from '../types';

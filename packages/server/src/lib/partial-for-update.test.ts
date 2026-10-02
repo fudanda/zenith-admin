@@ -5,7 +5,7 @@
  */
 import { describe, expect, it } from 'vitest';
 import * as z from 'zod';
-import { partialForUpdate } from '@zenith/shared/core';
+import { partialForUpdate } from '@arcbase/shared/core';
 
 const createSchema = z.object({
   title: z.string().min(1),

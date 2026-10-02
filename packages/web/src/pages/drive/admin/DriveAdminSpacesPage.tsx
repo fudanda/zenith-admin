@@ -4,11 +4,11 @@ import { Button, Checkbox, Form, Input, InputNumber, Select, Skeleton, Space, Ta
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { useNavigate } from 'react-router-dom';
 import { Building2, Files, HardDrive, Link2, RefreshCcw, Search, Upload } from 'lucide-react';
-import { COMMON_STATUS_OPTIONS, formatBytes } from '@zenith/shared/core';
+import { COMMON_STATUS_OPTIONS, formatBytes } from '@arcbase/shared/core';
 import {
   DRIVE_ROLE_OPTIONS, DRIVE_SPACE_TYPE_OPTIONS, DRIVE_HANDOFF_MODE_OPTIONS, handoffDriveSpaceSchema, isOrphanedDriveSpace,
   type HandoffDriveSpaceInput, type AdminUpdateDriveSpaceInput, type CreateDepartmentDriveSpaceInput, type DriveRole, type DriveSpace, type DriveSpaceType,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import DepartmentSelect from '@/components/DepartmentSelect';

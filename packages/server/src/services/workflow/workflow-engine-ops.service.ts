@@ -9,7 +9,7 @@ import { db } from '../../db';
 import { workflowEngineHealthSnapshots } from '../../db/schema';
 import { formatDateTime } from '../../lib/datetime';
 import logger from '../../lib/logger';
-import type { WorkflowEngineActionFilter, WorkflowEngineActionKey, WorkflowEngineActionPreview, WorkflowEngineActionResult, WorkflowEngineComponentStatus, WorkflowEngineHealthHistory, WorkflowEngineHealthPoint, WorkflowJobType } from '@zenith/shared/workflow';
+import type { WorkflowEngineActionFilter, WorkflowEngineActionKey, WorkflowEngineActionPreview, WorkflowEngineActionResult, WorkflowEngineComponentStatus, WorkflowEngineHealthHistory, WorkflowEngineHealthPoint, WorkflowJobType } from '@arcbase/shared/workflow';
 import { getWorkflowEngineIntrospection, getWorkflowEngineThresholds, severityFromHealth } from './workflow-engine-introspection.service';
 
 function backlogOf(queues: Array<{ ready: number; running: number; delayed: number; failed: number }>): number {

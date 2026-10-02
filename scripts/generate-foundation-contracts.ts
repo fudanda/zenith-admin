@@ -11,7 +11,7 @@ import { permitsApiKeyOperation, apiKeyScopeFor } from '../packages/shared/src/i
 const registry = new OpenAPIRegistry();
 registry.registerComponent('securitySchemes', 'ApiKey', { type: 'http', scheme: 'bearer', description: '受限的个人 API Key；不支持会话、安全策略或授权管理。' });
 registry.registerComponent('securitySchemes', 'SessionCookie', {
-  type: 'apiKey', in: 'cookie', name: 'zenith_session',
+  type: 'apiKey', in: 'cookie', name: 'arcbase_session',
   description: '管理员 HttpOnly 服务端会话；浏览器自动发送。',
 });
 registry.registerComponent('securitySchemes', 'CsrfToken', {
@@ -73,7 +73,7 @@ const catalog = foundationOperations.map(([id, operation]) => {
 
 const document = new OpenApiGeneratorV3(registry.definitions, { sortComponents: 'alphabetically' }).generateDocument({
   openapi: '3.0.3',
-  info: { title: 'Zenith Go foundation verified operations', version: '0.1.0' },
+  info: { title: 'ArcBase Go foundation verified operations', version: '0.1.0' },
 });
 
 // Derive the production projection from existing domain schemas. Legacy Hono

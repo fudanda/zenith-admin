@@ -13,9 +13,9 @@ import {
   usePaymentFeeRuleList,
   useSavePaymentFeeRule,
 } from '@/hooks/queries/payment-fee';
-import { enumValueOf, USER_STATUSES } from '@zenith/shared/core';
-import { PAYMENT_CASHIER_METHODS, PAYMENT_CHANNELS, PAYMENT_METHOD_LABELS, PAYMENT_CHANNEL_OPTIONS, PAYMENT_METHOD_OPTIONS } from '@zenith/shared/payment';
-import type { CreatePaymentFeeRuleInput, PaymentChannel, PaymentFeeRule, PaymentMethod } from '@zenith/shared/payment';
+import { enumValueOf, USER_STATUSES } from '@arcbase/shared/core';
+import { PAYMENT_CASHIER_METHODS, PAYMENT_CHANNELS, PAYMENT_METHOD_LABELS, PAYMENT_CHANNEL_OPTIONS, PAYMENT_METHOD_OPTIONS } from '@arcbase/shared/payment';
+import type { CreatePaymentFeeRuleInput, PaymentChannel, PaymentFeeRule, PaymentMethod } from '@arcbase/shared/payment';
 import { useDictItems } from '@/hooks/useDictItems';
 import { useListSearch } from '@/hooks/useListSearch';
 import { CreateButton } from '@/components/toolbar-controls';

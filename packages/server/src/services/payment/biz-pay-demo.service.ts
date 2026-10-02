@@ -1,5 +1,5 @@
-import { bizPayDemoContract, bizPayDemoSchema } from '@zenith/shared/biz';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { bizPayDemoContract, bizPayDemoSchema } from '@arcbase/shared/biz';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 业务接入示例：支付接入 Service
  *
@@ -18,9 +18,9 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  */
 import { and, desc, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { BizPayDemo } from '@zenith/shared/biz';
-import { BIZ_PAY_DEMO_STATUSES } from '@zenith/shared/biz';
-import type { PaymentMethod, PaymentCashierMethod, CreatePaymentResult } from '@zenith/shared/payment';
+import type { BizPayDemo } from '@arcbase/shared/biz';
+import { BIZ_PAY_DEMO_STATUSES } from '@arcbase/shared/biz';
+import type { PaymentMethod, PaymentCashierMethod, CreatePaymentResult } from '@arcbase/shared/payment';
 import { db } from '../../db';
 import { listRows } from '../../lib/list-query';
 import { bizPayDemos, paymentOrders, type BizPayDemoRow } from '../../db/schema';

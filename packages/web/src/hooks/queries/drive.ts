@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { keepPreviousData, useMutation, useQuery, useQueryClient, type QueryClient } from '@tanstack/react-query';
-import type { InputOf, OutputOf, QueryOf } from '@zenith/shared/core';
+import type { InputOf, OutputOf, QueryOf } from '@arcbase/shared/core';
 import {
   DRIVE_PRESENCE_HEARTBEAT_SECONDS,
   driveAccessRequestContract,
@@ -12,7 +12,7 @@ import {
   driveSpaceContract,
   driveTagContract,
   type DriveNode,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { api, contractKey, createResourceQueries, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME, unwrap } from '@/lib/query';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';

@@ -5,8 +5,8 @@ import { Form, Button, Typography, Toast, Tag, Space, Spin, Avatar, Modal, Tabs,
 import { UserRound, Shield, Monitor, List, Key, LogOut, Plus, Copy, CheckCircle, Smartphone, ShieldCheck, BellRing, PenTool } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
-import { OAUTH_PROVIDERS, OAUTH_PROVIDER_LABELS, SESSION_CLIENT_KIND_LABELS } from '@zenith/shared/identity';
-import type { User as UserType, OAuthProviderType, UserSession, UserApiTokenCreated, MfaFactor, TotpSetupResult } from '@zenith/shared/identity';
+import { OAUTH_PROVIDERS, OAUTH_PROVIDER_LABELS, SESSION_CLIENT_KIND_LABELS } from '@arcbase/shared/identity';
+import type { User as UserType, OAuthProviderType, UserSession, UserApiTokenCreated, MfaFactor, TotpSetupResult } from '@arcbase/shared/identity';
 import { AppModal } from '@/components/AppModal';
 import { AvatarSelectModal } from '@/components/AvatarSelectModal';
 import { uploadAvatarBlobToFileCenter } from '@/utils/avatar-upload';
@@ -15,8 +15,8 @@ import { OAuthProviderIcon } from '@/components/OAuthProviderIcon';
 import { SessionClientIcon } from '@/components/SessionClientTag';
 import { formatDateForApi, formatDateTime, formatDateTimeForApi } from '@/utils/date';
 import DateTimeText from '@/components/DateTimeText';
-import type { PasswordRules as PasswordPolicy, SessionConcurrencyPolicy } from '@zenith/shared/settings';
-import { formatSessionPolicyHint } from '@zenith/shared/settings';
+import type { PasswordRules as PasswordPolicy, SessionConcurrencyPolicy } from '@arcbase/shared/settings';
+import { formatSessionPolicyHint } from '@arcbase/shared/settings';
 import { useMySettings } from '@/hooks/queries/settings';
 import { PasswordStrengthMeter } from '@/components/PasswordStrengthMeter';
 import ConfigurableTable from '@/components/ConfigurableTable';
@@ -47,7 +47,7 @@ import {
 } from '@/hooks/queries/profile';
 import { useMyOAuth2Grants, useRevokeMyOAuth2Grant } from '@/hooks/queries/oauth2-apps';
 import { useOAuthProviders } from '@/hooks/queries/auth-public';
-import type { OAuth2MyGrant } from '@zenith/shared/open-platform';
+import type { OAuth2MyGrant } from '@arcbase/shared/open-platform';
 import './ProfilePage.css';
 import { createdAtColumn, dateTimeColumn, overflowTagColumn } from '../../utils/table-columns';
 import { abortSubmit } from '@/lib/abort-submit';

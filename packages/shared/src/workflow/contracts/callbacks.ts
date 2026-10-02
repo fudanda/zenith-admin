@@ -31,7 +31,7 @@ export const workflowExternalCallbackContract = defineContract('/api/public/work
     response: workflowExternalCallbackResultSchema,
     public: true,
     summary: '外部审批回调（公开，无需登录）',
-    description: '节点 externalApproval.signMode=hmacSha256 时须携带 X-Zenith-Signature: t={ts},v1={hex}（基于原始请求体）；回调 ID 在路由处理内校验。',
+    description: '节点 externalApproval.signMode=hmacSha256 时须携带 X-ArcBase-Signature: t={ts},v1={hex}（基于原始请求体）；回调 ID 在路由处理内校验。',
   }),
 }, { tags: ['WorkflowExternalCallback'] });
 
@@ -42,6 +42,6 @@ export const workflowTriggerCallbackContract = defineContract('/api/public/workf
     response: workflowTriggerCallbackResultSchema,
     public: true,
     summary: '触发器回调（公开，无需登录）',
-    description: '节点 triggerConfig.callbackSignMode=hmacSha256（默认）时须携带 X-Zenith-Signature: t={ts},v1={hex}（基于原始请求体）；命中后推进等待中的 trigger 节点。',
+    description: '节点 triggerConfig.callbackSignMode=hmacSha256（默认）时须携带 X-ArcBase-Signature: t={ts},v1={hex}（基于原始请求体）；命中后推进等待中的 trigger 节点。',
   }),
 }, { tags: ['WorkflowTriggerCallback'] });

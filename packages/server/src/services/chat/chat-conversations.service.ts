@@ -10,7 +10,7 @@ import { currentUser } from '../../lib/context';
 import { requireRow } from '../../lib/db-assert';
 import { formatDateTime, formatNullableDateTime, formatTimestamps } from '../../lib/datetime';
 import { HTTPException } from 'hono/http-exception';
-import type { ChatConversation, ChatReadState } from '@zenith/shared/chat';
+import type { ChatConversation, ChatReadState } from '@arcbase/shared/chat';
 import { notHiddenFor, rowSender, mapChatMessage, ensureConversationMember, getUserNickname, requireGroupMember } from './chat-shared';
 import { appendSystemMessage } from './chat-messages.service';
 

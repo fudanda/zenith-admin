@@ -5,7 +5,7 @@ import { type CSSProperties, useEffect, useMemo, useRef, useState } from 'react'
 import { Banner, Button, Input, Select, SideSheet, Space, Switch, Tag, TextArea, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form';
 import { AlertTriangle, Bookmark, Bug, CheckCircle2, ChevronLeft, ChevronRight, CircleDashed, Clock, FastForward, GitCompare, Keyboard, ListChecks, Minus, PanelRightClose, Pause, Play, Plus, RotateCcw, RotateCw, Save, Send, SlidersHorizontal, Trash2, Wand2, XCircle } from 'lucide-react';
-import type { WorkflowFlowData, WorkflowFormField, WorkflowSimulationCase, WorkflowSimulationDecision, WorkflowSimulationHealthIssue, WorkflowSimulationResult } from '@zenith/shared/workflow';
+import type { WorkflowFlowData, WorkflowFormField, WorkflowSimulationCase, WorkflowSimulationDecision, WorkflowSimulationHealthIssue, WorkflowSimulationResult } from '@arcbase/shared/workflow';
 import { formatDateForApi } from '@/utils/date';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import AppModal from '@/components/AppModal';

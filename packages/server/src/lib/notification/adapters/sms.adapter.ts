@@ -5,7 +5,7 @@
  * 这种情况按「不可达」处理并留痕，而不是抛错让整条事件失败。
  */
 import { eq } from 'drizzle-orm';
-import type { NotificationRecipient } from '@zenith/shared/messaging';
+import type { NotificationRecipient } from '@arcbase/shared/messaging';
 import { db } from '../../../db';
 import { members, smsSendLogs, smsTemplates, users } from '../../../db/schema';
 import { findDefaultSmsConfig } from '../../../services/messaging/sms-configs.service';

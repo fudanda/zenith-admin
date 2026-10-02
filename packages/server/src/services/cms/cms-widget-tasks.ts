@@ -1,10 +1,10 @@
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { createHash } from 'node:crypto';
 import { setTimeout as delay } from 'node:timers/promises';
 import { and, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CmsWidgetSourceType } from '@zenith/shared/cms';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import type { CmsWidgetSourceType } from '@arcbase/shared/cms';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import { db } from '../../db';
 import { cmsWidgetRefs, cmsWidgets } from '../../db/schema';
 import logger from '../../lib/logger';
@@ -30,7 +30,7 @@ import {
 } from './cms-widgets.service';
 import { resolveEffectiveCmsSiteRow } from './cms-site-inheritance.service';
 import { invalidateCmsSiteCaches } from './cms-cache.service';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 
 const SYSTEM_USER = { userId: 1, username: 'admin', roles: ['super_admin'], tenantId: null };
 export async function refreshCmsWidgetTargets(

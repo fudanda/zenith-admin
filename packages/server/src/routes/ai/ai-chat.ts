@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { streamSSE } from 'hono/streaming';
-import { aiConversationContract } from '@zenith/shared/ai';
+import { aiConversationContract } from '@arcbase/shared/ai';
 import { namedRateLimit } from '../../middleware/rate-limit';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, errBody, jsonContent, validationHook } from '../../lib/openapi-schemas';

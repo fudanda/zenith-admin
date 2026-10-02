@@ -1,4 +1,4 @@
-import type { SettingsOf } from '@zenith/shared/settings';
+import type { SettingsOf } from '@arcbase/shared/settings';
 import redis from './redis';
 
 /**

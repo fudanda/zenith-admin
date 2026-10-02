@@ -2,7 +2,7 @@
  * 流程节点列表 —— 线性化展示流程中所有节点，并叠加运行态（状态 + 处理人 + 时间）。
  */
 import { List, Tag, Typography } from '@douyinfe/semi-ui';
-import type { WorkflowTask } from '@zenith/shared/workflow';
+import type { WorkflowTask } from '@arcbase/shared/workflow';
 import type { FlowNode, FlowProcess } from '@/pages/workflow/designer/types';
 import { ADDABLE_NODE_TYPES } from '@/pages/workflow/designer/constants';
 import { UserAvatar } from '@/components/UserAvatar';

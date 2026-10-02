@@ -1,6 +1,6 @@
 import { Button, Form } from '@douyinfe/semi-ui';
 import { Plus } from 'lucide-react';
-import type { EmailSendLog, SendEmailInput, SendSource, SendStatus } from '@zenith/shared/messaging';
+import type { EmailSendLog, SendEmailInput, SendSource, SendStatus } from '@arcbase/shared/messaging';
 import { usePermission } from '@/hooks/usePermission';
 import ExportButton from '@/components/ExportButton';
 import ConfigurableTable from '@/components/ConfigurableTable';

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { cronJobContract } from '@zenith/shared/platform';
+import { cronJobContract } from '@arcbase/shared/platform';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { validateCronExpression, getRegisteredHandlers } from '../../lib/pg-boss-scheduler';
 import { defineContractRoute } from '../../lib/contract-route';

@@ -36,7 +36,7 @@ import { captureRequestException } from './lib/error-tracking/reporter';
 import { CONTRACT_SECURITY_SCHEMES } from './lib/contract-route';
 import { OAuth2Error, oauth2ErrorBody } from './lib/oauth2-error';
 import { SessionRevokedException, sessionRevokedBody } from './lib/session-liveness';
-import { registerZenithMetrics } from './lib/prometheus-metrics';
+import { registerArcBaseMetrics } from './lib/prometheus-metrics';
 import { httpMetricsMiddleware } from './middleware/http-metrics';
 import { httpLoggerMiddleware } from './middleware/http-logger';
 import { ipAccessMiddleware } from './middleware/ip-access';
@@ -61,7 +61,7 @@ export function createApp() {
   const promRegistry = new Registry();
   const { printMetrics, registerMetrics } = prometheus({ collectDefaultMetrics: true, registry: promRegistry });
   // 业务/系统指标（CPU/内存/HTTP/WS/DB/Redis 等）注册到同一 Registry，由 GET /metrics 统一输出
-  registerZenithMetrics(promRegistry);
+  registerArcBaseMetrics(promRegistry);
 
   app.use('*', registerMetrics);
   // 监控页指标采集（自带的轻量收集器，独立于 Prometheus）
@@ -267,10 +267,10 @@ export function createApp() {
   const openApiDocConfig = {
     openapi: '3.1.0',
     info: {
-      title: 'Zenith Admin API',
+      title: 'ArcBase API',
       version: process.env.npm_package_version || '0.7.0',
       description:
-        'Zenith Admin 后台管理系统 REST API 文档。\n\n' +
+        'ArcBase 后台管理系统 REST API 文档。\n\n' +
         '认证方式：Bearer Token（在 Authorize 中填入登录返回的 `accessToken`）。\n\n' +
         '所有接口的成功响应格式为 `{ code: 0, message: "success", data: T }`，' +
         '失败时 `code` 为非零值。',

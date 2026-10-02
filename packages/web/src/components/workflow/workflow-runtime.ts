@@ -2,8 +2,8 @@
  * 流程实例运行态聚合工具 —— 由 tasks 计算每个节点的状态与处理人。
  * 供「流程图」「节点列表」共用。
  */
-import type { WorkflowTask } from '@zenith/shared/workflow';
-import { WORKFLOW_INSTANCE_STATUS_LABELS, WORKFLOW_TASK_STATUS_LABELS } from '@zenith/shared/workflow';
+import type { WorkflowTask } from '@arcbase/shared/workflow';
+import { WORKFLOW_INSTANCE_STATUS_LABELS, WORKFLOW_TASK_STATUS_LABELS } from '@arcbase/shared/workflow';
 import type { FlowNode, FlowProcess, NodeRuntimeInfo } from '@/pages/workflow/designer/types';
 
 /** 线性化后的审批节点简要信息（用于展示流程全部节点，含未到达节点） */
@@ -18,7 +18,7 @@ const APPROVAL_NODE_TYPES = new Set(['approver', 'handler', 'cc']);
 /** 流程实例状态标签颜色（Semi Tag color 子集） */
 export type InstanceStatusTagColor = 'amber' | 'blue' | 'green' | 'grey' | 'orange' | 'purple' | 'red';
 
-/** 流程实例状态 → 标签文案与颜色（我的申请 / 我处理的 / 抄送我的 / 流程监控 / 移动审批共用；文案统一来自 @zenith/shared） */
+/** 流程实例状态 → 标签文案与颜色（我的申请 / 我处理的 / 抄送我的 / 流程监控 / 移动审批共用；文案统一来自 @arcbase/shared） */
 export const INSTANCE_STATUS_MAP: Record<string, { text: string; color: InstanceStatusTagColor }> = {
   draft: { text: WORKFLOW_INSTANCE_STATUS_LABELS.draft, color: 'grey' },
   running: { text: WORKFLOW_INSTANCE_STATUS_LABELS.running, color: 'blue' },

@@ -1,4 +1,4 @@
-import { emailConfigContract } from '@zenith/shared/messaging';
+import { emailConfigContract } from '@arcbase/shared/messaging';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const emailConfigKeys = {

@@ -26,9 +26,9 @@ import {
   useReversePaymentSharingOrder,
   useSavePaymentSharingReceiver,
 } from '@/hooks/queries/payment-sharing';
-import { enumValueOf } from '@zenith/shared/core';
-import { PAYMENT_SHARING_RECEIVER_TYPE_LABELS, PAYMENT_SHARING_ORDER_STATUS_LABELS, PAYMENT_SHARING_ORDER_STATUSES, PAYMENT_SHARING_REVERSAL_STATUS_LABELS, PAYMENT_SHARING_REVERSAL_STATUSES, PAYMENT_SHARING_RECEIVER_TYPE_OPTIONS, PAYMENT_SHARING_ORDER_STATUS_OPTIONS, PAYMENT_SHARING_REVERSAL_STATUS_OPTIONS } from '@zenith/shared/payment';
-import type { CreatePaymentSharingReceiverInput, DispatchPaymentSharingInput, PaymentSharingOrder, PaymentSharingOrderStatus, PaymentSharingReceiver, PaymentSharingReceiverType, PaymentSharingReversal, PaymentSharingReversalStatus } from '@zenith/shared/payment';
+import { enumValueOf } from '@arcbase/shared/core';
+import { PAYMENT_SHARING_RECEIVER_TYPE_LABELS, PAYMENT_SHARING_ORDER_STATUS_LABELS, PAYMENT_SHARING_ORDER_STATUSES, PAYMENT_SHARING_REVERSAL_STATUS_LABELS, PAYMENT_SHARING_REVERSAL_STATUSES, PAYMENT_SHARING_RECEIVER_TYPE_OPTIONS, PAYMENT_SHARING_ORDER_STATUS_OPTIONS, PAYMENT_SHARING_REVERSAL_STATUS_OPTIONS } from '@arcbase/shared/payment';
+import type { CreatePaymentSharingReceiverInput, DispatchPaymentSharingInput, PaymentSharingOrder, PaymentSharingOrderStatus, PaymentSharingReceiver, PaymentSharingReceiverType, PaymentSharingReversal, PaymentSharingReversalStatus } from '@arcbase/shared/payment';
 import { useDictItems } from '@/hooks/useDictItems';
 import { CreateButton } from '@/components/toolbar-controls';
 import { KeywordInput, StatusSelect } from '@/components/search-filters';

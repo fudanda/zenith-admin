@@ -7,7 +7,7 @@
  *   供后续步骤的 condition / 输入表达式引用，实现表间串联；
  * - 决策表解析通过注入的 resolver 完成（运行时=发布快照，测试=编辑态回退），引擎本身无 DB 依赖。
  */
-import type { RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleHitPolicy, RuleDecisionTableSettings, RuleFlowStep, RuleFlowEvaluateResult, RuleFlowStepTrace } from '@zenith/shared/rules';
+import type { RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleHitPolicy, RuleDecisionTableSettings, RuleFlowStep, RuleFlowEvaluateResult, RuleFlowStepTrace } from '@arcbase/shared/rules';
 import { evaluateDecisionTable } from './rules-engine';
 import { evaluateExpression } from './workflow-expression';
 

@@ -2,7 +2,7 @@ import { and, eq, sql } from 'drizzle-orm';
 import { exactTenantCondition } from '../../lib/tenant';
 import { analyticsUserProfiles } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';
-import type { AnalyticsIdentityType } from '@zenith/shared/analytics';
+import type { AnalyticsIdentityType } from '@arcbase/shared/analytics';
 
 /**
  * 行为中心：用户画像 upsert 的通用输入行。

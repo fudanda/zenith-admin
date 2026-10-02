@@ -16,7 +16,7 @@
  */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { PaymentEvent } from '../../lib/payment-event-bus';
-import type { WorkflowEvent } from '@zenith/shared/workflow';
+import type { WorkflowEvent } from '@arcbase/shared/workflow';
 
 const { paymentOnAny, workflowOnAny, trackServerEvent } = vi.hoisted(() => ({
   paymentOnAny: vi.fn(),

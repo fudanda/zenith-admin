@@ -8,7 +8,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import type { ShortLink, ShortLinkStats } from '@zenith/shared/short-link';
+import type { ShortLink, ShortLinkStats } from '@arcbase/shared/short-link';
 import {
   ApiRecorder,
   createRequestMock,

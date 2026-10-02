@@ -1,5 +1,5 @@
-import type { CmsContent, CmsContentVersion } from '@zenith/shared/cms';
-import { cmsEditorialStatusAfterPublication } from '@zenith/shared/cms';
+import type { CmsContent, CmsContentVersion } from '@arcbase/shared/cms';
+import { cmsEditorialStatusAfterPublication } from '@arcbase/shared/cms';
 import { mockCmsContents, mockCmsContentVersions, mockCmsModels, mockCmsTags, mockCmsChannels, mockCmsResources } from '../data/cms';
 import { MockHttpError } from './contract';
 import { conflict, locked, notFound } from './handlers';

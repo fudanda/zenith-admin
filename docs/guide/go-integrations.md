@@ -1,38 +1,38 @@
 # 集成扩展
 
-原页面继续留在 `packages/web`。可组合组件见 [elements](../../packages/elements/README.md)，管理台品牌、主题、语言和宿主导航见 [admin](../../packages/admin/README.md)。此文说明新增的真实 Go 接口；生产不需要 Node、Redis 或 Worker。
+原页面继续留在 `packages/web`。可组合组件、管理台品牌、主题、语言和宿主导航见 [宿主接入说明](./go-host-integration.md)。包源码的详细使用说明位于 `packages/elements/README.md` 与 `packages/admin/README.md`。此文说明新增的真实 Go 接口；生产不需要 Node、Redis 或 Worker。
 
 ## 升级与配置
 
 执行 `npm run db:migrate`，再构建和启动。版本 11 在 PostgreSQL 与 SQLite 新增 API Key、审计关联与 S3 配置字段，保留原账号、密码摘要、权限和业务数据；已发布 SQL 不改写。服务不会自动迁移。
 
-本地存储可继续直接使用。启用 S3 前配置 `ZENITH_STORAGE_KEY` 为 64 位十六进制随机字符串，重启服务。生成示例：
+本地存储可继续直接使用。启用 S3 前配置 `ARCBASE_STORAGE_KEY` 为 64 位十六进制随机字符串，重启服务。生成示例：
 
 ```powershell
 $bytes = New-Object byte[] 32
 $rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
 try { $rng.GetBytes($bytes) } finally { $rng.Dispose() }
-$env:ZENITH_STORAGE_KEY = [BitConverter]::ToString($bytes).Replace('-','').ToLowerInvariant()
-$env:ZENITH_FILE_STAGING_PATH = 'D:/zenith-data/uploads'
+$env:ARCBASE_STORAGE_KEY = [BitConverter]::ToString($bytes).Replace('-','').ToLowerInvariant()
+$env:ARCBASE_FILE_STAGING_PATH = 'D:/arcbase-data/uploads'
 ```
 
 密钥需持久保存，并与数据库、文件及暂存目录分别备份；重启时使用相同值。更换或丢失密钥会使已有 S3 凭据及失败清理记录无法解密。Go 宿主使用 `Config.StorageEncryptionKey` 和 `Config.FileStagingPath`，CLI 使用上述环境变量。
 
 ## API Key
 
-在原个人中心的 **API Token** 页签创建、查看及撤销。创建时选择现有权限代码，可设置有效期；完整 `zen_...` 密钥仅返回一次，数据库保存摘要。每个用户最多 20 个有效密钥。禁止通配授权，密钥也不能创建其他密钥。
+在原个人中心的 **API Token** 页签创建、查看及撤销。创建时选择现有权限代码，可设置有效期；完整 `arc_...` 密钥仅返回一次，数据库保存摘要。每个用户最多 20 个有效密钥。禁止通配授权，密钥也不能创建其他密钥。
 
 Cookie 登录后可用 `GET /api/v1/api-tokens/permissions` 获取本人可授予的权限；创建、列表及撤销路径为 `/api/v1/api-tokens` 和 `/api/v1/api-tokens/{id}`。这些管理操作只接受 Cookie 会话及 CSRF。
 
 脚本或服务使用受限 Bearer 密钥：
 
 ```ts
-import { Client, call } from '@zenith/client';
-import { positionContract } from '@zenith/shared/identity';
+import { Client, call } from '@arcbase/client';
+import { positionContract } from '@arcbase/shared/identity';
 
 const client = new Client({
   baseURL: 'https://admin.example.com',
-  apiKey: process.env.ZENITH_API_KEY!,
+  apiKey: process.env.ARCBASE_API_KEY!,
 });
 const page = await call(client, positionContract.list, {
   query: { page: 1, pageSize: 20 },
@@ -58,7 +58,7 @@ Secret Key 使用 AES-GCM 加密保存，接口不返回明文；编辑时留空
 `GET /api/v1/events` 提供 SSE；支持 Cookie 或受限 API Key。事件只包含审计游标与资源名称，不发送实体数据、字段值或用户信息。收到事件后重新发起正常查询，服务端照常授权。
 
 ```ts
-import { subscribe } from '@zenith/client';
+import { subscribe } from '@arcbase/client';
 
 const subscription = subscribe(client, {
   onChange: ({ resources }) => refreshAuthorizedQueries(resources),
@@ -74,7 +74,7 @@ await subscription.done;
 
 ## 只读 MCP
 
-地址 `https://HOST/api/v1/mcp`，使用标准 MCP Streamable HTTP（无状态、JSON 响应）。外部工具携带 `Authorization: Bearer zen_...`；浏览器 Cookie 请求仍要求 CSRF 与同源检查。GET/DELETE 返回 405，本端点不提供独立 SSE 会话。
+地址 `https://HOST/api/v1/mcp`，使用标准 MCP Streamable HTTP（无状态、JSON 响应）。外部工具携带 `Authorization: Bearer arc_...`；浏览器 Cookie 请求仍要求 CSRF 与同源检查。GET/DELETE 返回 405，本端点不提供独立 SSE 会话。
 
 当前读取工具：
 
@@ -93,14 +93,14 @@ await subscription.done;
 
 集成测试要求隔离测试数据库及真实 S3 兼容服务；未提供环境时失败，不使用 Mock 代替。CI 启动独立 PostgreSQL 与 MinIO，也运行 SQLite 分组。
 
-MinIO 社区版镜像已撤下，CI 从固定官方源码提交 `01ce918d8279a20e4706b96a64396146894adee4` 构建测试服务，避免依赖不可获取的镜像或可变镜像来源。该服务只用于隔离验收，不随 Zenith 生产服务发布。
+MinIO 社区版镜像已撤下，CI 从固定官方源码提交 `01ce918d8279a20e4706b96a64396146894adee4` 构建测试服务，避免依赖不可获取的镜像或可变镜像来源。该服务只用于隔离验收，不随 ArcBase 生产服务发布。
 
 ```powershell
-$env:ZENITH_TEST_DATABASE_URL='sqlite:./bin/integrations-test.db'
-$env:ZENITH_TEST_S3_ENDPOINT='http://127.0.0.1:19000'
-$env:ZENITH_TEST_S3_ACCESS_KEY='TEST_ACCESS_KEY'
-$env:ZENITH_TEST_S3_SECRET_KEY='TEST_SECRET_KEY'
+$env:ARCBASE_TEST_DATABASE_URL='sqlite:./bin/integrations-test.db'
+$env:ARCBASE_TEST_S3_ENDPOINT='http://127.0.0.1:19000'
+$env:ARCBASE_TEST_S3_ACCESS_KEY='TEST_ACCESS_KEY'
+$env:ARCBASE_TEST_S3_SECRET_KEY='TEST_SECRET_KEY'
 npm test
 ```
 
-`TestS3RealStorage` 验证真实对象读写、范围下载、私有授权、分片、失败补偿、重启与删除重试。API Key 测试验证范围、撤销和账号权限变化；MCP 使用官方 Go 客户端初始化、列出并调用工具；SSE 验证变更及优雅停机。`TestIntegrationOriginalPages` 使用真实浏览器验证原个人中心、S3 表单、上传与两个页面间的自动刷新，需要已构建 Web 和 `ZENITH_BROWSER_TEST_NODE`。
+`TestS3RealStorage` 验证真实对象读写、范围下载、私有授权、分片、失败补偿、重启与删除重试。API Key 测试验证范围、撤销和账号权限变化；MCP 使用官方 Go 客户端初始化、列出并调用工具；SSE 验证变更及优雅停机。`TestIntegrationOriginalPages` 使用真实浏览器验证原个人中心、S3 表单、上传与两个页面间的自动刷新，需要已构建 Web 和 `ARCBASE_BROWSER_TEST_NODE`。

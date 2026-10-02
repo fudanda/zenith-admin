@@ -5,8 +5,8 @@ import ConfigurableTable from '@/components/ConfigurableTable';
 import { listTableProps } from '@/components/list-page';
 import { usePagination } from '@/hooks/usePagination';
 import { useMarketingParticipations } from '@/hooks/queries/marketing-campaigns';
-import { MARKETING_GRANT_STATUS_LABELS } from '@zenith/shared/marketing';
-import type { MarketingCampaign, MarketingParticipation } from '@zenith/shared/marketing';
+import { MARKETING_GRANT_STATUS_LABELS } from '@arcbase/shared/marketing';
+import type { MarketingCampaign, MarketingParticipation } from '@arcbase/shared/marketing';
 import { dateTimeColumn, renderEllipsis, EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 
 interface MarketingRecordsDrawerProps {

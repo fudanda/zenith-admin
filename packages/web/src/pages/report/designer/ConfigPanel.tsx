@@ -1,8 +1,8 @@
 import { Select, Input, InputNumber, Switch, Typography, Button, Space, TextArea } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
-import { BASIC_COMPARISON_OPERATOR_SYMBOLS } from '@zenith/shared/core';
-import { REPORT_AGGREGATE_OPTIONS } from '@zenith/shared/report';
-import type { ReportWidget, ReportWidgetOptions, ReportFilter, ReportDatasetParam, ReportConditionalFormat, ReportMetricLookupOption } from '@zenith/shared/report';
+import { BASIC_COMPARISON_OPERATOR_SYMBOLS } from '@arcbase/shared/core';
+import { REPORT_AGGREGATE_OPTIONS } from '@arcbase/shared/report';
+import type { ReportWidget, ReportWidgetOptions, ReportFilter, ReportDatasetParam, ReportConditionalFormat, ReportMetricLookupOption } from '@arcbase/shared/report';
 import { FilterSelect } from '@/components/search-filters';
 
 type FieldOption = { value: string; label: string };

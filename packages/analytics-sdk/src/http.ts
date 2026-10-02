@@ -1,4 +1,4 @@
-import { ANALYTICS_SITE_KEY_HEADER } from '@zenith/shared/analytics';
+import { ANALYTICS_SITE_KEY_HEADER } from '@arcbase/shared/analytics';
 
 export function analyticsRequestHeaders(input: {
   token: string | null;

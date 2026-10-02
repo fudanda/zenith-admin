@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/apikey"
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/apikey"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 )
 
 func (f *Service) KeyPermissions(ctx context.Context, in kernel.Input) (kernel.Outcome, error) {
@@ -92,7 +92,7 @@ func (f *Service) CreateKey(ctx context.Context, in kernel.Input) (kernel.Outcom
 	if err != nil {
 		return kernel.Outcome{}, err
 	}
-	token := "zen_" + secret
+	token := "arc_" + secret
 	p := kernel.FromContext(ctx)
 	var row *ent.APIKey
 	err = f.Store.WithTx(ctx, func(tx *ent.Tx) error {
@@ -146,7 +146,7 @@ func (f *Service) RevalidateKey(ctx context.Context, token string) (*kernel.Prin
 	return f.authenticateKey(ctx, token, false)
 }
 func (f *Service) authenticateKey(ctx context.Context, token string, record bool) (*kernel.Principal, error) {
-	if len(token) != 68 || !strings.HasPrefix(token, "zen_") {
+	if len(token) != 68 || (!strings.HasPrefix(token, "arc_") && !strings.HasPrefix(token, "zen_")) {
 		return nil, kernel.ErrUnauthenticated
 	}
 	row, err := f.Store.Client.APIKey.Query().Where(apikey.TokenHashEQ(kernel.Digest(token))).Only(ctx)

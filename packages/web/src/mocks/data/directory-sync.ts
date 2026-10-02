@@ -1,5 +1,5 @@
-import { SEED_DIRECTORY_SYNC_SOURCES } from '@zenith/shared/seed';
-import type { DirectorySyncConflict, DirectorySyncRun, DirectorySyncRunItem, DirectorySyncSource } from '@zenith/shared/identity';
+import { SEED_DIRECTORY_SYNC_SOURCES } from '@arcbase/shared/seed';
+import type { DirectorySyncConflict, DirectorySyncRun, DirectorySyncRunItem, DirectorySyncSource } from '@arcbase/shared/identity';
 import { mockDateTime, mockDateTimeOffset } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

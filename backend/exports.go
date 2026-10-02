@@ -1,9 +1,9 @@
-package zenith
+package arcbase
 
 import (
 	"context"
 
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 )
 
 func (s *services) export(ctx context.Context, entity string, input kernel.Input) (kernel.Outcome, error) {

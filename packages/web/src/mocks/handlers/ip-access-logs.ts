@@ -1,4 +1,4 @@
-import { ipAccessLogContract } from '@zenith/shared/platform';
+import { ipAccessLogContract } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { mockIpAccessLogs } from '@/mocks/data/logs';
 

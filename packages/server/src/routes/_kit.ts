@@ -20,7 +20,7 @@
  *    挂载在表里无法区分。约束 1 只能靠人工保证，调整顺序时请自行核对匹配结果。
  */
 import type { Hono } from 'hono';
-import type { LicenseFeatureKey } from '@zenith/shared/licensing';
+import type { LicenseFeatureKey } from '@arcbase/shared/licensing';
 
 /**
  * 可挂载的子路由器。

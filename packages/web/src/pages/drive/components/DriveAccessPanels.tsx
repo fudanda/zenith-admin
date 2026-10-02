@@ -11,7 +11,7 @@ import {
   type DriveAccessRequest,
   type DriveAccessRequestStatus,
   type DriveRole,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { AppModal } from '@/components/AppModal';
 import { UserAvatar } from '@/components/UserAvatar';
 import { ApiError } from '@/lib/query';

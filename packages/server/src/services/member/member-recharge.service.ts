@@ -1,5 +1,5 @@
-import { memberRechargeContract } from '@zenith/shared/member';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { memberRechargeContract } from '@arcbase/shared/member';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 会员充值记录服务：基于支付订单（bizType=member_recharge）。
  * 充值订单由 member-wallet.service 下单，bizId = String(memberId)。
@@ -13,7 +13,7 @@ import { formatDateTime, formatNullableDateTime } from '../../lib/datetime';
 import { currentUserOrNull } from '../../lib/context';
 import { tenantCondition } from '../../lib/tenant';
 import { WALLET_RECHARGE_BIZ_TYPE } from './member-wallet.service';
-import type { PaymentChannel, PaymentOrderStatus } from '@zenith/shared/payment';
+import type { PaymentChannel, PaymentOrderStatus } from '@arcbase/shared/payment';
 
 export type MemberRechargeQuery = QueryOutputOf<typeof memberRechargeContract.list>;
 export type MemberRechargeFilter = Omit<MemberRechargeQuery, 'page' | 'pageSize'>;

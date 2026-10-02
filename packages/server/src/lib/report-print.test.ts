@@ -1,11 +1,11 @@
 /**
- * 报表打印填充引擎单测（@zenith/shared 纯函数，无 DB 依赖）。
+ * 报表打印填充引擎单测（@arcbase/shared 纯函数，无 DB 依赖）。
  * 覆盖：#{标量} / ${明细带纵向扩展} / ${SUM 聚合} / 混合文本、
  *      空数据保留单行空带、合并单元格（非带区整体下移 / 带内随数据克隆）、页眉页脚占位符。
  */
 import { describe, it, expect } from 'vitest';
-import { renderPrintContent, resolvePrintBandText } from '@zenith/shared/report';
-import type { ReportPrintContent, ReportPrintCrosstabConfig, ReportPrintGrid } from '@zenith/shared/report';
+import { renderPrintContent, resolvePrintBandText } from '@arcbase/shared/report';
+import type { ReportPrintContent, ReportPrintCrosstabConfig, ReportPrintGrid } from '@arcbase/shared/report';
 
 const cellAt = (g: ReportPrintGrid, r: number, c: number) => g.cells.find((x) => x.row === r && x.col === c)?.v;
 

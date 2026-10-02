@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { exceptionLogContract } from '@zenith/shared/platform';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { exceptionLogContract } from '@arcbase/shared/platform';
 import { contractKey, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 
 export type ExceptionGroupParams = NonNullable<QueryOf<typeof exceptionLogContract.groups>>;

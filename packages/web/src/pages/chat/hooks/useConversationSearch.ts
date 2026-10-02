@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
-import { chatContract } from '@zenith/shared/chat';
-import type { ChatConversation, ChatMessage, ChatMessageContext, ChatMessageSearchItem, ChatGroupMember } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
+import type { ChatConversation, ChatMessage, ChatMessageContext, ChatMessageSearchItem, ChatGroupMember } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import { formatDateTimeRangeValuesForApi } from '@/utils/date';
 import type { SearchDatePreset, Setter } from '../types';

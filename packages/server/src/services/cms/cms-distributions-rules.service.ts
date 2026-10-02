@@ -1,5 +1,5 @@
 import { requireRow } from '../../lib/db-assert';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { buildListResult } from '../../lib/list-query';
 import {
   desc,
@@ -9,8 +9,8 @@ import {
   type SQL,
 } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { createCmsDistributionRuleSchema, cmsDistributionContract } from '@zenith/shared/cms';
-import type { CmsDistributionFilters, CmsDistributionMode, CreateCmsDistributionRuleInput, UpdateCmsDistributionRuleInput } from '@zenith/shared/cms';
+import { createCmsDistributionRuleSchema, cmsDistributionContract } from '@arcbase/shared/cms';
+import type { CmsDistributionFilters, CmsDistributionMode, CreateCmsDistributionRuleInput, UpdateCmsDistributionRuleInput } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import {
   cmsContents,

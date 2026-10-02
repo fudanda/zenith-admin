@@ -1,5 +1,5 @@
-import { openIotContract } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { openIotContract } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 开放 API 服务（开放平台网关侧）。
  *

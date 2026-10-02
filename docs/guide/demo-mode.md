@@ -24,7 +24,7 @@ packages/web/src/mocks/handlers 匹配路径
 npm run dev:demo
 ```
 
-该脚本等价于 `npm run dev:demo -w @zenith/web`，底层执行 `vite --mode demo`，读取 `packages/web/.env.demo`。
+该脚本等价于 `npm run dev:demo -w @arcbase/web`，底层执行 `vite --mode demo`，读取 `packages/web/.env.demo`。
 
 默认登录账号：`admin` / `123456`。
 
@@ -34,7 +34,7 @@ npm run dev:demo
 npm run build:demo
 ```
 
-根脚本先构建 `@zenith/shared`，再执行 `@zenith/web` 的 `build:demo`（`tsc -b && vite build --mode demo`）。产物输出到 `packages/web/dist/`。
+根脚本先构建 `@arcbase/shared`，再执行 `@arcbase/web` 的 `build:demo`（`tsc -b && vite build --mode demo`）。产物输出到 `packages/web/dist/`。
 
 GitHub Pages 工作流会在构建文档后执行 Demo 构建，并把 `packages/web/dist` 复制到 `docs/.vitepress/dist/demo`。
 

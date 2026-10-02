@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { asyncTaskContract } from '@zenith/shared/tasks';
+import { asyncTaskContract } from '@arcbase/shared/tasks';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

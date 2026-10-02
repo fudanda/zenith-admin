@@ -1,11 +1,11 @@
 // Identity-scoped keys and cursor accumulation require the underlying query hooks.
 // eslint-disable-next-line no-restricted-imports
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { entityRelationsContract, type CanonicalEntityType, type EntityRelationFilters } from '@zenith/shared/platform';
+import { entityRelationsContract, type CanonicalEntityType, type EntityRelationFilters } from '@arcbase/shared/platform';
 import { api, apiQueryOptions, contractKey, useApiMutation } from '@/lib/contract-query';
 import { useAuth } from '@/hooks/useAuth';
 import { ENTITY_RELATION_QUERY_META, ENTITY_RELATION_REFRESH_OPTIONS, invalidateEntityRelations } from '@/lib/entity-relation-cache';
-import { workflowAttachmentContract } from '@zenith/shared/workflow';
+import { workflowAttachmentContract } from '@arcbase/shared/workflow';
 
 export { invalidateEntityRelations } from '@/lib/entity-relation-cache';
 

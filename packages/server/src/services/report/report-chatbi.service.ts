@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { requireRow } from '../../lib/db-assert';
 import { listRows } from '../../lib/list-query';
 import { randomUUID } from 'node:crypto';
@@ -41,8 +41,8 @@ import {
   assertReportSqlTableAllowlist,
   extractReportSqlTableReferences,
 } from '../../lib/report-sql-safety';
-import { reportChatbiContract, isExternalDbType, isSqlLikeType } from '@zenith/shared/report';
-import type { CreateReportChatbiMessageInput, CreateReportChatbiSessionInput, ReportChatbiChartSuggestion, ReportChatbiContextSnapshot, ReportChatbiMessage, ReportChatbiSession, ReportDataResult, ReportExternalDbConfig, ReportMetaColumn, ReportSqlDatasetContent, ReportWidgetType, SaveReportChatbiMessageAssetInput, UpdateReportChatbiSessionInput } from '@zenith/shared/report';
+import { reportChatbiContract, isExternalDbType, isSqlLikeType } from '@arcbase/shared/report';
+import type { CreateReportChatbiMessageInput, CreateReportChatbiSessionInput, ReportChatbiChartSuggestion, ReportChatbiContextSnapshot, ReportChatbiMessage, ReportChatbiSession, ReportDataResult, ReportExternalDbConfig, ReportMetaColumn, ReportSqlDatasetContent, ReportWidgetType, SaveReportChatbiMessageAssetInput, UpdateReportChatbiSessionInput } from '@arcbase/shared/report';
 
 const CHATBI_HISTORY_COUNT = 12;
 const CHATBI_HISTORY_TOKENS = 6000;

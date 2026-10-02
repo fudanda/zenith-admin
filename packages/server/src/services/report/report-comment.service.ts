@@ -1,5 +1,5 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { reportDashboardOpsContract } from '@zenith/shared/report';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { reportDashboardOpsContract } from '@arcbase/shared/report';
 import { requireRow } from '../../lib/db-assert';
 import { buildListResult } from '../../lib/list-query';
 import { pageOffset } from '../../lib/pagination';
@@ -13,7 +13,7 @@ import { currentTenantId, currentUser, hasPermission } from '../../lib/context';
 import { notify } from '../messaging/notification-outbox.service';
 import { ensureDashboardExists } from './report-dashboard.service';
 import type { ReportDashboardCommentRow, ReportDashboardRow } from '../../db/schema';
-import type { CreateReportCommentInput, ReportDashboardComment } from '@zenith/shared/report';
+import type { CreateReportCommentInput, ReportDashboardComment } from '@arcbase/shared/report';
 
 type UpdateReportCommentInput = { content: string };
 type ResolveReportCommentInput = { resolved: boolean };

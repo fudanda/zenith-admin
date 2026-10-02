@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { directorySyncContract, directorySyncSourceContract, type DirectorySyncRun } from '@zenith/shared/identity';
+import type { QueryOf } from '@arcbase/shared/core';
+import { directorySyncContract, directorySyncSourceContract, type DirectorySyncRun } from '@arcbase/shared/identity';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery, type PageOf } from '@/lib/contract-query';
 
 // ─── 同步源（标准 CRUD）────────────────────────────────────────────────────────

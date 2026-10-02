@@ -6,8 +6,8 @@ import { execFileSync } from 'node:child_process';
 const root = resolve(import.meta.dirname, '..');
 const artifacts = resolve(root, 'release_artifacts/packages');
 const manifest = JSON.parse(readFileSync(resolve(artifacts, 'index.json'), 'utf8'));
-const host = process.env.ZENITH_PACKAGE_HOST_DIR ?? mkdtempSync(resolve(tmpdir(), 'zenith-independent-host-'));
-if (process.env.ZENITH_PACKAGE_HOST_DIR && !realpathSync(host).startsWith(realpathSync(tmpdir()) + '/zenith-independent-host-') && !realpathSync(host).startsWith(realpathSync(tmpdir()) + '\\zenith-independent-host-')) throw new Error('Reuse only an acceptance directory under the OS temp directory');
+const host = process.env.ARCBASE_PACKAGE_HOST_DIR ?? mkdtempSync(resolve(tmpdir(), 'arcbase-independent-host-'));
+if (process.env.ARCBASE_PACKAGE_HOST_DIR && !realpathSync(host).startsWith(realpathSync(tmpdir()) + '/arcbase-independent-host-') && !realpathSync(host).startsWith(realpathSync(tmpdir()) + '\\arcbase-independent-host-')) throw new Error('Reuse only an acceptance directory under the OS temp directory');
 const hostRelative = relative(root, host);
 if (!hostRelative.startsWith('..') && !isAbsolute(hostRelative)) throw new Error('Host acceptance must run outside this repository');
 cpSync(resolve(root, 'examples/host-application'), host, { recursive: true });
@@ -21,7 +21,7 @@ for (const pkg of manifest.packages) {
 }
 execFileSync(process.execPath, [npm, 'run', 'build'], { cwd: host, stdio: 'inherit', timeout: 300000 });
 // Import the compiled SDK in plain Node, without tsx or TypeScript loaders.
-execFileSync(process.execPath, ['--input-type=module', '-e', 'import { Client } from "@zenith/client"; import { positionContract } from "@zenith/shared/identity"; if (!new Client() || !positionContract.list) throw new Error("Package import failed");'], { cwd: host, stdio: 'inherit' });
+execFileSync(process.execPath, ['--input-type=module', '-e', 'import { Client } from "@arcbase/client"; import { positionContract } from "@arcbase/shared/identity"; if (!new Client() || !positionContract.list) throw new Error("Package import failed");'], { cwd: host, stdio: 'inherit' });
 writeFileSync(resolve(root, 'backend/bin/external-host-path.txt'), host);
 writeFileSync(resolve(artifacts, 'external-acceptance.json'), JSON.stringify({ host, installedWithoutWorkspaceLinks: true, typecheck: true, productionBuild: true, compiledNodeImport: true }, null, 2));
 console.log(`Independent host installed and built: ${host}`);

@@ -1,7 +1,7 @@
 // ─── 跨字段比较校验规则编辑器（拆分自 FieldConfigPanel.tsx）───
 import { Button, Input, Select, Typography } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
-import type { WorkflowFormField, WorkflowFormFieldCompareRule } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormFieldCompareRule } from '@arcbase/shared/workflow';
 import { COMPARE_OPERATOR_OPTIONS } from '../../form-types';
 
 // ─── 跨字段比较校验编辑器 ────────────────────────────────────────────

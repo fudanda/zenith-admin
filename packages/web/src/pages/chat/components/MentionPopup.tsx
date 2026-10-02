@@ -1,6 +1,6 @@
 import { Typography } from '@douyinfe/semi-ui';
 import { UserAvatar } from '@/components/UserAvatar';
-import type { ChatGroupMember } from '@zenith/shared/chat';
+import type { ChatGroupMember } from '@arcbase/shared/chat';
 import type { Setter } from '../types';
 
 const { Text } = Typography;

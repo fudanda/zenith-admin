@@ -1,7 +1,7 @@
 import { keepPreviousData, useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { memberCmsContract, type CreateCmsContributionInput } from '@zenith/shared/cms';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { memberAuthContract, memberRenewalContract, memberSelfContract } from '@zenith/shared/member';
+import { memberCmsContract, type CreateCmsContributionInput } from '@arcbase/shared/cms';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { memberAuthContract, memberRenewalContract, memberSelfContract } from '@arcbase/shared/member';
 import { api, apiQueryOptions, contractKey, useApiMutation, type ApiCallOptions } from '@/lib/contract-query';
 import { unwrap } from '@/lib/query';
 import { memberRequest } from '../utils/member-request';

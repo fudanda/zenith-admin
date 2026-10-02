@@ -19,15 +19,15 @@ import { useListDeepLink } from '@/hooks/useListDeepLink';
 import { useDictItems } from '@/hooks/useDictItems';
 import { deleteAction, ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { FormStatusRadioGroup } from '@/components/FormStatusRadioGroup';
-import { USER_STATUSES, enumValueOf } from '@zenith/shared/core';
+import { USER_STATUSES, enumValueOf } from '@arcbase/shared/core';
 import {
   IOT_ALARM_LEVELS, IOT_ALARM_LEVEL_LABELS, IOT_ALARM_LEVEL_OPTIONS, IOT_ALARM_RULE_TYPES, IOT_ALARM_RULE_TYPE_LABELS,
   IOT_ALARM_RULE_TYPE_OPTIONS, IOT_ALARM_STATUSES, IOT_ALARM_STATUS_LABELS, IOT_ALARM_STATUS_OPTIONS,
   IOT_COMPARE_OP_LABELS,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import type {
   CreateIotAlarmRuleInput, CreateIotMaintenanceWindowInput, IotAlarm, IotAlarmRule, IotMaintenanceWindow,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import { IotDeviceSelectField, IotProductSelectField } from './components/IotSelectors';
 import { useIotGroupOptions, useIotProductOptions } from './components/iot-options';
 import { IotEventSelectField, IotPropertyConditionFields } from './components/ThingModelFields';

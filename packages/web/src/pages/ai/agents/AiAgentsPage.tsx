@@ -11,7 +11,7 @@ import {
 import { useAvailableAiTools } from '@/hooks/queries/ai-tools';
 import { useAvailableKnowledgeBases } from '@/hooks/queries/ai-extras';
 import { useAiChatModels } from '@/hooks/queries/ai-providers';
-import type { AiAgent, AiBuiltinAgent, CreateAiAgentInput } from '@zenith/shared/ai';
+import type { AiAgent, AiBuiltinAgent, CreateAiAgentInput } from '@arcbase/shared/ai';
 import { CreateButton } from '@/components/toolbar-controls';
 import { useEditModal } from '@/hooks/useEditModal';
 

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Checkbox, Dropdown, Spin, Tooltip } from '@douyinfe/semi-ui';
-import type { ManagedFile } from '@zenith/shared/platform';
+import type { ManagedFile } from '@arcbase/shared/platform';
 import { getFileTypeIcon, canPreviewFile } from '@/utils/file-utils';
 import { confirmAndDelete } from '@/components/list-page';
 import { CursorContextDropdown } from '@/components/CursorContextDropdown';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import '../FilesPage.css';
 
 export interface FileGridCardProps {

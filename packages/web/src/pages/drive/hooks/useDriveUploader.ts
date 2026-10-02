@@ -8,7 +8,7 @@ import {
   driveNodeContract,
   type DriveNode,
   type DriveUploadConflictPolicy,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { request } from '@/utils/request';
 import { api, urlOf } from '@/lib/contract-query';
 import { unwrap } from '@/lib/query';

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { workflowDelegationContract } from '@zenith/shared/workflow';
+import { workflowDelegationContract } from '@arcbase/shared/workflow';
 import { validationHook } from '../../lib/openapi-schemas';
 import {
   listWorkflowDelegations,

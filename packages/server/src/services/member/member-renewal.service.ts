@@ -23,9 +23,9 @@ import {
   type SignContractResult,
 } from '../payment/payment-contract.service';
 import { ensureMemberExists } from './member-auth.service';
-import type { MemberRenewalInfo, MemberSignRenewalInput, MemberVipRenewal } from '@zenith/shared/member';
-import type { PaymentDeductPlan } from '@zenith/shared/payment';
-import { MEMBER_RENEWAL_BIZ_TYPE } from '@zenith/shared/member';
+import type { MemberRenewalInfo, MemberSignRenewalInput, MemberVipRenewal } from '@arcbase/shared/member';
+import type { PaymentDeductPlan } from '@arcbase/shared/payment';
+import { MEMBER_RENEWAL_BIZ_TYPE } from '@arcbase/shared/member';
 import { allDeductPlans } from '../payment/payment-contract.service';
 
 async function ensureMemberPaymentApplication(applicationId: number, tenantId: number | null) {

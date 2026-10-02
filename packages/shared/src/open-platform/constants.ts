@@ -218,7 +218,7 @@ export const OPEN_WEBHOOK_EVENT_LABELS: Record<string, string> = {
 };
 
 /** Webhook 投递签名请求头 */
-export const OPEN_WEBHOOK_SIGNATURE_HEADER = 'X-Zenith-Signature';
+export const OPEN_WEBHOOK_SIGNATURE_HEADER = 'X-ArcBase-Signature';
 
 /** 阶梯重试间隔（分钟） */
 export const OPEN_WEBHOOK_RETRY_STAGES_MINUTES = [1, 5, 30, 180, 720] as const;

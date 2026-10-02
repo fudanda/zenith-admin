@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { mpMessageContract } from '@zenith/shared/mp';
+import { mpMessageContract } from '@arcbase/shared/mp';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { listMessages, listConversations, sendCustomMessage } from '../../services/mp/mp-message.service';

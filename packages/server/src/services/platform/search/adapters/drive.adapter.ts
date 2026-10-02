@@ -1,4 +1,4 @@
-import { driveRoleAtLeast } from '@zenith/shared/drive';
+import { driveRoleAtLeast } from '@arcbase/shared/drive';
 import { hasPermission } from '../../../../lib/context';
 import { searchDriveNodes } from '../../../drive/drive-views.service';
 import type { GlobalSearchAdapter } from '../types';

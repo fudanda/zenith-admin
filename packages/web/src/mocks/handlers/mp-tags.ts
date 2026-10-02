@@ -1,4 +1,4 @@
-import { mpTagContract, type MpTag } from '@zenith/shared/mp';
+import { mpTagContract, type MpTag } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { removeItem, requireItem } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';

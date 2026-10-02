@@ -1,5 +1,5 @@
-import type { RuleCaseResult, RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleDecisionTable, RuleFieldType, RuleHitPolicy, ParsedRuleCell } from '@zenith/shared/rules';
-import { parseRuleCell, matchParsedRuleCell, validateRuleCell, describeParsedRuleCell, isWildcardRuleCell, normalizeRuleValue } from '@zenith/shared/rules';
+import type { RuleCaseResult, RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleDecisionTable, RuleFieldType, RuleHitPolicy, ParsedRuleCell } from '@arcbase/shared/rules';
+import { parseRuleCell, matchParsedRuleCell, validateRuleCell, describeParsedRuleCell, isWildcardRuleCell, normalizeRuleValue } from '@arcbase/shared/rules';
 
 export interface RuleInspectionIssue {
   severity: 'error' | 'warning';

@@ -1,4 +1,4 @@
-import { portContract, type PortEntry } from '@zenith/shared/ops';
+import { portContract, type PortEntry } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { removeWhere } from '@/mocks/utils/array';
 

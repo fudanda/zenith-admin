@@ -1,5 +1,5 @@
 import { resolveTaskActionLabel } from '@/utils/workflow-task-action-label';
-import { workflowAttachmentContract } from '@zenith/shared/workflow';
+import { workflowAttachmentContract } from '@arcbase/shared/workflow';
 import { urlOf } from '@/lib/contract-query';
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
@@ -19,12 +19,12 @@ import {
 } from '@douyinfe/semi-ui';
 import { ChevronDown } from 'lucide-react';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
-import type { WorkflowActionButtonConfig, WorkflowActionButtonKey, WorkflowDefinition, WorkflowFieldPermission, WorkflowInstance, WorkflowTask } from '@zenith/shared/workflow';
-import { hasEditableFieldPermission, WORKFLOW_RETURN_TO_INITIATOR_KEY } from '@zenith/shared/workflow';
+import type { WorkflowActionButtonConfig, WorkflowActionButtonKey, WorkflowDefinition, WorkflowFieldPermission, WorkflowInstance, WorkflowTask } from '@arcbase/shared/workflow';
+import { hasEditableFieldPermission, WORKFLOW_RETURN_TO_INITIATOR_KEY } from '@arcbase/shared/workflow';
 import { resolveRejectTargetHint } from '@/utils/workflow-reject';
 import { resolveWorkflowDetailDefinition } from '@/utils/workflow-snapshot';
 import { useQuickPhrases } from '@/hooks/useQuickPhrases';
-import type { SignatureInput } from '@zenith/shared/core';
+import type { SignatureInput } from '@arcbase/shared/core';
 import FileAttachment from '@/components/FileAttachment';
 import { workflowFileToAttachment, type WorkflowUploadedFile } from '@/components/FileAttachment/utils';
 import WorkflowInstanceDetailPanel, { WorkflowDetailSkeleton } from '@/components/workflow/WorkflowInstanceDetailPanel';

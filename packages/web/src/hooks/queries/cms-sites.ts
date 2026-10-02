@@ -1,5 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
 import {
   cmsAdContract,
   cmsChannelContract,
@@ -15,7 +15,7 @@ import {
   cmsWidgetContract,
   CMS_TEMPLATE_RESOLUTION_SOURCE_LABELS,
   type CmsThemeTemplateManifest,
-} from '@zenith/shared/cms';
+} from '@arcbase/shared/cms';
 import { contractKey, createResourceQueries, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { cmsLinkWordKeys, cmsRedirectKeys } from './cms-seo';

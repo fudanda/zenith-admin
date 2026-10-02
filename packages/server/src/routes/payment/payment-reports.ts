@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { paymentReportContract } from '@zenith/shared/payment';
+import { paymentReportContract } from '@arcbase/shared/payment';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getReportSummary } from '../../services/payment/payment-report.service';

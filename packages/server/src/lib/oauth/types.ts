@@ -1,4 +1,4 @@
-import type { OAuthProviderType } from '@zenith/shared/identity';
+import type { OAuthProviderType } from '@arcbase/shared/identity';
 
 export interface OAuthUserInfo {
   openId: string;

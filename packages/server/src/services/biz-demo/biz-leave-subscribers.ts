@@ -5,7 +5,7 @@
  * 事件处理在请求上下文之外异步触发，审计 Proxy 会自动跳过 createdBy/updatedBy 注入。
  */
 import { eq } from 'drizzle-orm';
-import type { BizLeaveStatus } from '@zenith/shared/biz';
+import type { BizLeaveStatus } from '@arcbase/shared/biz';
 import { db } from '../../db';
 import { bizLeaves } from '../../db/schema';
 import logger from '../../lib/logger';

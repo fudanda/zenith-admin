@@ -1,5 +1,5 @@
 import { and, eq, gte, inArray, lte, sql } from 'drizzle-orm';
-import { DRIVE_ACTIVITY_OPEN_EVENT, type DriveActivityAction } from '@zenith/shared/drive';
+import { DRIVE_ACTIVITY_OPEN_EVENT, type DriveActivityAction } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { appWebhookSubscriptions, driveActivities, driveNodes, driveShareLinks, driveSpaces } from '../../db/schema';
 import { formatDateTime } from '../../lib/datetime';

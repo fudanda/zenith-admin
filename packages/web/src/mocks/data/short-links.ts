@@ -1,5 +1,5 @@
-import { SEED_SHORT_LINKS } from '@zenith/shared/seed';
-import type { ShortLink } from '@zenith/shared/short-link';
+import { SEED_SHORT_LINKS } from '@arcbase/shared/seed';
+import type { ShortLink } from '@arcbase/shared/short-link';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockShortLinks: ShortLink[] = SEED_SHORT_LINKS.map((link, idx) => ({

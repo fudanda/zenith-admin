@@ -1,7 +1,7 @@
 import type { SurveyContainer } from './api';
 import type { FormState } from './form';
 
-const DRAFT_PREFIX = 'zenith:cms-interaction-draft:';
+const DRAFT_PREFIX = 'arcbase:cms-interaction-draft:';
 
 interface Draft {
   page?: number;

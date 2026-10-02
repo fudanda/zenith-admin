@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import { emailTemplateContract, emailTemplateSchema } from '@zenith/shared/messaging';
+import { emailTemplateContract, emailTemplateSchema } from '@arcbase/shared/messaging';
 import { db } from '../../db';
 import { emailTemplates } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';

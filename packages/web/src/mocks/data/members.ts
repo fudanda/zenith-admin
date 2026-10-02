@@ -1,5 +1,5 @@
 import { mockDateTime, mockDateOffset } from '../utils/date';
-import { SEED_MEMBER_LEVELS, SEED_MEMBER_TAGS, SEED_COUPONS } from '@zenith/shared/seed';
+import { SEED_MEMBER_LEVELS, SEED_MEMBER_TAGS, SEED_COUPONS } from '@arcbase/shared/seed';
 import type {
   Coupon,
   Member,
@@ -18,7 +18,7 @@ import type {
   MemberTagBrief,
   MemberWallet,
   MemberWalletTransaction,
-} from '@zenith/shared/member';
+} from '@arcbase/shared/member';
 
 const now = mockDateTime();
 
@@ -189,7 +189,7 @@ export const mockMemberNotifications: MemberNotification[] = [
 ];
 
 export const mockInviteSummary: MemberInviteSummary = {
-  inviteCode: 'ZENITH88',
+  inviteCode: 'ARCBASE88',
   invitedCount: 2,
   totalRewardPoints: 100,
   recentInvitees: [

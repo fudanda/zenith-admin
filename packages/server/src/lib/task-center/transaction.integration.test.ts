@@ -9,7 +9,7 @@ import type { JwtPayload } from '../../middleware/auth';
 const testDatabaseUrl = process.env.TEST_DATABASE_URL;
 const integration = testDatabaseUrl ? describe : describe.skip;
 
-// Requires a migrated, disposable local zenith_review database. The ordinary
+// Requires a migrated, disposable local arcbase_review database. The ordinary
 // DATABASE_URL is never used, and all persistent fixtures are uniquely scoped.
 integration('task-center real PostgreSQL transaction ownership', () => {
   const taskType = `integration-tx-${randomUUID()}`;
@@ -24,8 +24,8 @@ integration('task-center real PostgreSQL transaction ownership', () => {
 
   beforeAll(async () => {
     const url = new URL(testDatabaseUrl!);
-    if (!['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname) || url.pathname !== '/zenith_review') {
-      throw new Error('TEST_DATABASE_URL must target a disposable local zenith_review database');
+    if (!['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname) || url.pathname !== '/arcbase_review') {
+      throw new Error('TEST_DATABASE_URL must target a disposable local arcbase_review database');
     }
     vi.stubEnv('DATABASE_URL', testDatabaseUrl!);
     vi.stubEnv('DATABASE_MAX_CONNECTIONS', '1');

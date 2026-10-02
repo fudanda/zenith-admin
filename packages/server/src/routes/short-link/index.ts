@@ -1,4 +1,4 @@
-import { channelAnalysisContract, shortLinkContract } from '@zenith/shared/short-link';
+import { channelAnalysisContract, shortLinkContract } from '@arcbase/shared/short-link';
 import { defineRouteDomain } from '../_kit';
 import shortLinksRoutes from './short-links';
 import redirectRoutes from './redirect';

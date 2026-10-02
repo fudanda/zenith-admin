@@ -1,4 +1,4 @@
-import type { Menu } from '@zenith/shared/identity';
+import type { Menu } from '@arcbase/shared/identity';
 
 const IS_GO_FOUNDATION = import.meta.env.VITE_GO_FOUNDATION === 'true';
 /** 固定路由路径，不通过菜单动态加载（导出供路由策略回归测试使用） */

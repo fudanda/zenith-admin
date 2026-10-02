@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { deleteAction, ListSearchToolbar } from '@/components/list-page';
 import { Button, Form, Input, Modal, Select, Tag, Toast, Upload, Typography } from '@douyinfe/semi-ui';
 import { RefreshCw, UploadCloud } from 'lucide-react';
-import { MP_MATERIAL_TYPE_LABELS, MP_MATERIAL_TYPE_OPTIONS, mpMaterialContract } from '@zenith/shared/mp';
-import type { CreateMpMaterialInput, MpMaterial, MpMaterialType } from '@zenith/shared/mp';
+import { MP_MATERIAL_TYPE_LABELS, MP_MATERIAL_TYPE_OPTIONS, mpMaterialContract } from '@arcbase/shared/mp';
+import type { CreateMpMaterialInput, MpMaterial, MpMaterialType } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
 import ConfigurableTable from '@/components/ConfigurableTable';
@@ -21,7 +21,7 @@ import {
 } from '@/hooks/queries/mp-materials';
 import { CreateButton } from '@/components/toolbar-controls';
 import { abortSubmit } from '@/lib/abort-submit';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import { useListPage } from '@/hooks/useListPage';
 import { EditFormModal } from '@/components/EditFormModal';
 

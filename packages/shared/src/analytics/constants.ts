@@ -11,7 +11,7 @@ export const ANALYTICS_CONTEXT_MAX_BYTES = 32 * 1024;
 export const ANALYTICS_BREADCRUMB_DATA_MAX_BYTES = 4 * 1024;
 
 /** 埋点配置版本号存储 key（localStorage），跨标签页广播采集配置已更新，触发其他标签重新拉取 */
-export const ANALYTICS_CONFIG_VERSION_KEY = 'zenith_analytics_config_version';
+export const ANALYTICS_CONFIG_VERSION_KEY = 'arcbase_analytics_config_version';
 
 export const ANALYTICS_SITE_KEY_HEADER = 'X-Analytics-Site-Key';
 

@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto';
 import { resolveSafeOutboundHost } from './outbound-url';
 import { normalizeReadonlyReportSql } from './report-sql-safety';
 import { isSensitiveTable, SENSITIVE_COLUMN_RE } from './report-schema-meta';
-import type { ReportDatasourceType, ReportExternalDbConfig, ReportDataResult, ReportDatasetQueryOptions, ReportMetaColumn } from '@zenith/shared/report';
+import type { ReportDatasourceType, ReportExternalDbConfig, ReportDataResult, ReportDatasetQueryOptions, ReportMetaColumn } from '@arcbase/shared/report';
 
 // 惰性加载：mysql2/mssql 驱动模块图大（mssql 实测 ~3.8s），仅在首次连接对应外部库时加载
 const require = createRequire(import.meta.url);

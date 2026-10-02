@@ -10,7 +10,7 @@ import { overflowTagColumn } from '@/utils/table-columns';
 import {
   OPEN_APP_ENVIRONMENT_LABELS, OPEN_APP_REVIEW_STATUS_LABELS,
   type OAuth2Client, type OpenAppEnvironment, type OpenAppReviewStatus,
-} from '@zenith/shared/open-platform';
+} from '@arcbase/shared/open-platform';
 
 export const OPEN_APP_ENVIRONMENT_TAG_COLOR: Record<OpenAppEnvironment, TagColor> = { production: 'blue', sandbox: 'orange' };
 export const OPEN_APP_REVIEW_STATUS_TAG_COLOR: Record<OpenAppReviewStatus, TagColor> = {

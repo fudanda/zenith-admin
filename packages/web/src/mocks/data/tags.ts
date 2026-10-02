@@ -1,5 +1,5 @@
-import { SEED_TAGS } from '@zenith/shared/seed';
-import type { Tag } from '@zenith/shared/platform';
+import { SEED_TAGS } from '@arcbase/shared/seed';
+import type { Tag } from '@arcbase/shared/platform';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockTags: Tag[] = [...SEED_TAGS];

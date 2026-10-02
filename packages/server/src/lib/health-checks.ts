@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import type { HealthCheckResult, HealthStatus } from '@zenith/shared/platform';
+import type { HealthCheckResult, HealthStatus } from '@arcbase/shared/platform';
 import { db } from '../db';
 import { invalidationBusState } from './invalidation-bus';
 import redis from './redis';

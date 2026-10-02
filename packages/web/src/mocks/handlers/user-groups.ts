@@ -1,4 +1,4 @@
-import { userGroupContract, type UserGroup, type UserGroupMemberRule } from '@zenith/shared/identity';
+import { userGroupContract, type UserGroup, type UserGroupMemberRule } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest, conflict } from '@/mocks/utils/handlers';

@@ -1,6 +1,6 @@
-import { aiChatModelContract, aiProviderContract, AI_COMMON_PROVIDERS, AI_CUSTOM_PROVIDER_ID } from '@zenith/shared/ai';
-import type { AiProviderCatalogEntry, AiProviderConfig } from '@zenith/shared/ai';
-import { maskSecret, SECRET_PLACEHOLDER } from '@zenith/shared/core';
+import { aiChatModelContract, aiProviderContract, AI_COMMON_PROVIDERS, AI_CUSTOM_PROVIDER_ID } from '@arcbase/shared/ai';
+import type { AiProviderCatalogEntry, AiProviderConfig } from '@arcbase/shared/ai';
+import { maskSecret, SECRET_PLACEHOLDER } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { notFound } from '@/mocks/utils/handlers';

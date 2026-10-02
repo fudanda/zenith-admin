@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent"
 )
 
 // The APIKeyFunc type is an adapter to allow the use of ordinary

@@ -1,5 +1,5 @@
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { CanonicalEntityType } from '@zenith/shared/platform/entity-catalog';
+import type { CanonicalEntityType } from '@arcbase/shared/platform/entity-catalog';
 import EntityRelationButton from './EntityRelationButton';
 
 /**

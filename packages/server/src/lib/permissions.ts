@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import type { DbExecutor } from '../db/types';
-import { SUPER_ADMIN_CODE } from '@zenith/shared/identity';
+import { SUPER_ADMIN_CODE } from '@arcbase/shared/identity';
 import { db } from '../db';
 import { users } from '../db/schema';
 import { getTenantPackageFeatureSet } from './tenant-package';

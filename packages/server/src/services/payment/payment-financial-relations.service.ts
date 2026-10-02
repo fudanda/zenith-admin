@@ -1,8 +1,8 @@
 import { and, desc, eq, exists, inArray, isNotNull, isNull, lt, or, sql, type AnyColumn } from 'drizzle-orm';
 import { alias } from 'drizzle-orm/pg-core';
-import type { EntityRef, Permission } from '@zenith/shared/core';
-import { PAYMENT_RECON_CASE_TYPE_LABELS, type PaymentReconCaseType } from '@zenith/shared/payment';
-import { entityRelationRecordFilters, type CanonicalEntityType, type EntityRelationItem, type EntityRelationPage } from '@zenith/shared/platform';
+import type { EntityRef, Permission } from '@arcbase/shared/core';
+import { PAYMENT_RECON_CASE_TYPE_LABELS, type PaymentReconCaseType } from '@arcbase/shared/payment';
+import { entityRelationRecordFilters, type CanonicalEntityType, type EntityRelationItem, type EntityRelationPage } from '@arcbase/shared/platform';
 import {
   paymentOrders as orders, paymentRefunds as refunds, paymentJournals as journals, paymentJournalLines as journalLines,
   paymentReconCases as cases, paymentReconAdjustments as adjustments, paymentChannelConfigs as configs,

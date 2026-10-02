@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useReducer } from 'react';
 import type { CellPos, SelectionAction, SelectionSnapshot, SelectionState } from './types';
-import { clamp } from '@zenith/shared/core';
+import { clamp } from '@arcbase/shared/core';
 
 export const EMPTY_SELECTION: SelectionState = {
   anchor: null,

@@ -1,5 +1,5 @@
-import { SEED_REPORT_ASSET_TEMPLATES, SEED_REPORT_DQ_RULES, SEED_REPORT_ENVIRONMENTS, SEED_REPORT_FILL_TEMPLATES, SEED_REPORT_FOLDERS, SEED_REPORT_METRICS, SEED_REPORT_QUERY_QUOTAS, SEED_REPORT_SLA_RULES } from '@zenith/shared/seed';
-import type { ReportAssetTemplate, ReportChatbiMessage, ReportChatbiSession, ReportDeprecationNotice, ReportDqAnomaly, ReportDqRule, ReportDqRun, ReportDqScore, ReportEnvironment, ReportEnvironmentPromotion, ReportFillRecord, ReportFillTemplate, ReportFolder, ReportMaterializationSnapshot, ReportMetric, ReportPublishApproval, ReportQueryCostLog, ReportQueryQuota, ReportResourceAcl, ReportResourceTransfer, ReportSlaRule, ReportSlaViolation } from '@zenith/shared/report';
+import { SEED_REPORT_ASSET_TEMPLATES, SEED_REPORT_DQ_RULES, SEED_REPORT_ENVIRONMENTS, SEED_REPORT_FILL_TEMPLATES, SEED_REPORT_FOLDERS, SEED_REPORT_METRICS, SEED_REPORT_QUERY_QUOTAS, SEED_REPORT_SLA_RULES } from '@arcbase/shared/seed';
+import type { ReportAssetTemplate, ReportChatbiMessage, ReportChatbiSession, ReportDeprecationNotice, ReportDqAnomaly, ReportDqRule, ReportDqRun, ReportDqScore, ReportEnvironment, ReportEnvironmentPromotion, ReportFillRecord, ReportFillTemplate, ReportFolder, ReportMaterializationSnapshot, ReportMetric, ReportPublishApproval, ReportQueryCostLog, ReportQueryQuota, ReportResourceAcl, ReportResourceTransfer, ReportSlaRule, ReportSlaViolation } from '@arcbase/shared/report';
 import { mockDateTime, mockDateTimeOffset } from '@/mocks/utils/date';
 
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;

@@ -1,4 +1,4 @@
-import { smsTemplateContract } from '@zenith/shared/messaging';
+import { smsTemplateContract } from '@arcbase/shared/messaging';
 import { createResourceQueries } from '@/lib/contract-query';
 
 export const {

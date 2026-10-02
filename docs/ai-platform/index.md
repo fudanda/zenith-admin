@@ -1,6 +1,6 @@
 # AI 能力
 
-Zenith Admin 的 AI 域基于 **[Mastra](https://mastra.ai/) 框架**构建：模型接入、上下文记忆、RAG 检索、智能体与评测均由 Mastra 运行时承载，业务数据落主库，Mastra 运行数据落同库独立 `mastra` schema。官方 **Mastra Studio** 可直接对接本系统作为调试与观测界面。
+ArcBase 的 AI 域基于 **[Mastra](https://mastra.ai/) 框架**构建：模型接入、上下文记忆、RAG 检索、智能体与评测均由 Mastra 运行时承载，业务数据落主库，Mastra 运行数据落同库独立 `mastra` schema。官方 **Mastra Studio** 可直接对接本系统作为调试与观测界面。
 
 > AI 对话需要至少一个启用的系统服务商配置；未指定时使用系统默认配置。用户也可维护个人 AI 配置（与系统配置同构），在聊天中作为私有模型使用。
 
@@ -27,7 +27,7 @@ Zenith Admin 的 AI 域基于 **[Mastra](https://mastra.ai/) 框架**构建：�
 ## 架构总览
 
 ```text
-前端聊天页 ──POST /api/ai/…/chat──▶ 路由层 ──▶ zenith-chat (Mastra Agent)
+前端聊天页 ──POST /api/ai/…/chat──▶ 路由层 ──▶ arcbase-chat (Mastra Agent)
                                               │  requestContext 动态注入:
                                               │  模型链 / 提示词 / 工具 / Memory
                                               ├─▶ 模型链(主模型 + fallbacks 逐级降级)
@@ -37,7 +37,7 @@ Zenith Admin 的 AI 域基于 **[Mastra](https://mastra.ai/) 框架**构建：�
 Mastra Studio ──/api/mastra/*(标准 API)──▶ agents / datasets / experiments / traces
 ```
 
-- **`zenith-chat`**：系统内置对话 Agent，模型、提示词、工具经 requestContext 按请求动态注入。
+- **`arcbase-chat`**：系统内置对话 Agent，模型、提示词、工具经 requestContext 按请求动态注入。
 - **`agent-{id}`**：业务自定义智能体，CRUD 时同步注册到 Mastra 注册表，可作评测目标、可在 Studio 调试。
 - **存储**：`PostgresStoreVNext` + `PgVector` 使用独立连接池，数据落 `mastra` schema。
 

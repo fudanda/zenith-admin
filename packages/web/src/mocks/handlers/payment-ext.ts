@@ -14,7 +14,7 @@ import {
   type PaymentStatement,
   type PaymentStatementEntry,
   type PaymentStatementPeriod,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { PAYMENT_MOCK_SEED_TIME, mockPaymentOrders, mockPaymentRefunds } from '@/mocks/data/payment';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';

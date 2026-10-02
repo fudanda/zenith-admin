@@ -6,9 +6,9 @@ import { Client, InvalidCredentialsError, type Entry } from 'ldapts';
 import { SAML, ValidateInResponseTo, type CacheItem, type CacheProvider, type Profile } from '@node-saml/node-saml';
 import { and, desc, eq, ne } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CreateTenantIdentityProviderInput, IdentityProviderConnectionTestResult, IdentityProviderAttributeMapping, IdentityProviderSyncResult, IdentityProviderType, LdapDirectoryUser, UpdateTenantIdentityProviderInput, identityProviderContract } from '@zenith/shared/identity';
-import { SECRET_PLACEHOLDER, trimTrailingSlash } from '@zenith/shared/core';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { CreateTenantIdentityProviderInput, IdentityProviderConnectionTestResult, IdentityProviderAttributeMapping, IdentityProviderSyncResult, IdentityProviderType, LdapDirectoryUser, UpdateTenantIdentityProviderInput, identityProviderContract } from '@arcbase/shared/identity';
+import { SECRET_PLACEHOLDER, trimTrailingSlash } from '@arcbase/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { config } from '../../config';
 import { db } from '../../db';
 import { identityProviderSyncLogs, tenantIdentityProviders, tenants, userIdentityAccounts, userRoles, users, type UserRow } from '../../db/schema';
@@ -26,7 +26,7 @@ import { isSourceChallenged, clearLoginAttempts, recordLoginFailure } from '../.
 import { completeLoginWithMfa, recordLoginLog, type DeviceInfo } from './auth.service';
 import { assertDefaultRolesGrantable, resolveGrantableDefaultRoleIds, userHasPlatformSuperRole } from './role-grant';
 
-/** 凭据字段的展示 / 「未修改」哨兵：`@zenith/shared/core` 的统一占位 */
+/** 凭据字段的展示 / 「未修改」哨兵：`@arcbase/shared/core` 的统一占位 */
 const SECRET_MASK = SECRET_PLACEHOLDER;
 const OIDC_STATE_TTL = 5 * 60;
 const OIDC_STATE_PREFIX = `${config.redis.keyPrefix}idp-oidc-state:`;

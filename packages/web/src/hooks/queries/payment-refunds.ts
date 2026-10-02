@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { paymentRefundContract } from '@zenith/shared/payment';
+import type { QueryOf } from '@arcbase/shared/core';
+import { paymentRefundContract } from '@arcbase/shared/payment';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';
 

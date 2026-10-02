@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck -- Demo fixtures intentionally omit production-only credential metadata in some legacy scenarios.
-import { memberRenewalContract } from '@zenith/shared/member';
+import { memberRenewalContract } from '@arcbase/shared/member';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { mockDeductPlans, mockPaymentContracts, mockVipRenewals, getNextContractId, getNextPlanId } from '@/mocks/data/payment-contracts';
 import { mockDateTime } from '@/mocks/utils/date';
 import { notFound, badRequest } from '@/mocks/utils/handlers';
-import { PAYMENT_METHOD_CHANNEL, paymentDeductPlanContract, paymentSigningContract } from '@zenith/shared/payment';
-import type { MemberVipRenewal } from '@zenith/shared/member';
-import type { PaymentContract, PaymentContractDeductOutcome, PaymentDeductMethod, PaymentDeductPeriod, PaymentDeductPlan } from '@zenith/shared/payment';
+import { PAYMENT_METHOD_CHANNEL, paymentDeductPlanContract, paymentSigningContract } from '@arcbase/shared/payment';
+import type { MemberVipRenewal } from '@arcbase/shared/member';
+import type { PaymentContract, PaymentContractDeductOutcome, PaymentDeductMethod, PaymentDeductPeriod, PaymentDeductPlan } from '@arcbase/shared/payment';
 import dayjs from 'dayjs';
 import { filterByKeyword, includesKeyword, matchesFilter } from '@/mocks/utils/filter';
 

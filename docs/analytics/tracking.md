@@ -1,12 +1,12 @@
 # 埋点采集 SDK
 
-埋点 SDK 位于独立 workspace 包 `packages/analytics-sdk`（`@zenith/analytics-sdk`）。管理后台在 `App` 中调用 `initTracker()`，会员端入口在完成运行时配置后调用 `initTracker()`，用于启动自动采集、远程配置、错误上报联动与离线重试。
+埋点 SDK 位于独立 workspace 包 `packages/analytics-sdk`（`@arcbase/analytics-sdk`）。管理后台在 `App` 中调用 `initTracker()`，会员端入口在完成运行时配置后调用 `initTracker()`，用于启动自动采集、远程配置、错误上报联动与离线重试。
 
 ## SDK 独立包
 
-`@zenith/analytics-sdk` 承载框架无关的 tracker、error-reporter 与 breadcrumbs 核心逻辑；`packages/web/src/utils/tracker.ts`、`error-reporter.ts`、`breadcrumbs.ts` 保留 Web 运行时默认值注入与 re-export，业务侧统一从 `@/utils/tracker`、`@/utils/error-reporter`、`@/utils/breadcrumbs` 导入。
+`@arcbase/analytics-sdk` 承载框架无关的 tracker、error-reporter 与 breadcrumbs 核心逻辑；`packages/web/src/utils/tracker.ts`、`error-reporter.ts`、`breadcrumbs.ts` 保留 Web 运行时默认值注入与 re-export，业务侧统一从 `@/utils/tracker`、`@/utils/error-reporter`、`@/utils/breadcrumbs` 导入。
 
-SDK 不直接读取 Vite 环境变量。Web 适配层在初始化时注入 `apiBase`（默认 `VITE_API_BASE_URL || '/api'`）、`sdkVersion`（`VITE_APP_VERSION || '0.0.0'`）、`environment` 与构建级 `deploymentId`（来自 `VITE_DEPLOYMENT_ID`）；会员端通过 `configureTracker()` 覆盖 `tokenKey/source/appId/rootSelector/consentProvider` 等运行时参数。SDK 的 localStorage/sessionStorage key 均按 `zenith:{deploymentId}:analytics:{key}:{appId}` 隔离，`appId` 继续表示 admin/member 入口，不替代 deployment ID。
+SDK 不直接读取 Vite 环境变量。Web 适配层在初始化时注入 `apiBase`（默认 `VITE_API_BASE_URL || '/api'`）、`sdkVersion`（`VITE_APP_VERSION || '0.0.0'`）、`environment` 与构建级 `deploymentId`（来自 `VITE_DEPLOYMENT_ID`）；会员端通过 `configureTracker()` 覆盖 `tokenKey/source/appId/rootSelector/consentProvider` 等运行时参数。SDK 的 localStorage/sessionStorage key 均按 `arcbase:{deploymentId}:analytics:{key}:{appId}` 隔离，`appId` 继续表示 admin/member 入口，不替代 deployment ID。
 
 ## 自动采集（零代码）
 
@@ -41,7 +41,7 @@ SDK 不直接读取 Vite 环境变量。Web 适配层在初始化时注入 `apiB
 
 ## 公开 API 与手动埋点
 
-SDK 从 `@zenith/analytics-sdk` 导出 tracker、error-reporter 与 breadcrumbs API；Web 侧适配层从同名路径 re-export。常用公开 API 如下：
+SDK 从 `@arcbase/analytics-sdk` 导出 tracker、error-reporter 与 breadcrumbs API；Web 侧适配层从同名路径 re-export。常用公开 API 如下：
 
 | API | 说明 |
 |-----|------|
@@ -145,7 +145,7 @@ SDK 启动时拉取 `GET /api/analytics/config`（匿名可带 `X-Analytics-Site
 
 SDK 内置轻量实验客户端：
 
-- `fetchExperimentAssignments()`：调用公开端点 `GET /api/analytics/experiments/assignments`（匿名可带 `?distinctId=`，同样拒绝伪造 `u:` / `m:` 前缀）获取运行中实验的分流结果，localStorage 缓存 5 分钟（`zenith_tracker_exp_assignments`）。
+- `fetchExperimentAssignments()`：调用公开端点 `GET /api/analytics/experiments/assignments`（匿名可带 `?distinctId=`，同样拒绝伪造 `u:` / `m:` 前缀）获取运行中实验的分流结果，localStorage 缓存 5 分钟（`arcbase_tracker_exp_assignments`）。
 - `getVariant(expKey)`：返回命中的变体 key（未命中参与流量时为 `null`），命中时自动上报 `$experiment_exposure` 曝光事件；同一会话内同一 `expKey + variantKey` 只上报一次（sessionStorage 去重）。
 
 实验配置、分流算法与报告口径见 [行为分析 · A/B 实验](./behavior#a-b-实验最小闭环)。

@@ -1,8 +1,8 @@
 import { SideSheet, Tag, Descriptions, Divider, Table, Spin, Avatar, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { useNavigate } from 'react-router-dom';
-import type { MemberPointTransaction, MemberWalletTransaction, MemberLoginLog } from '@zenith/shared/member';
-import { MEMBER_STATUS_LABELS, POINT_TX_TYPE_LABELS, WALLET_TX_TYPE_LABELS } from '@zenith/shared/member';
+import type { MemberPointTransaction, MemberWalletTransaction, MemberLoginLog } from '@arcbase/shared/member';
+import { MEMBER_STATUS_LABELS, POINT_TX_TYPE_LABELS, WALLET_TX_TYPE_LABELS } from '@arcbase/shared/member';
 import { useMemberOverview } from '@/hooks/queries/member-admin';
 import { StatCard, StatGrid } from '@/components/charts/StatCard';
 import { dateTimeColumn } from '@/utils/table-columns';

@@ -1,5 +1,5 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { globalSearchContract } from '@zenith/shared/platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { globalSearchContract } from '@arcbase/shared/platform';
 import { runGlobalSearch } from './registry';
 
 export async function searchGlobal(query: QueryOutputOf<typeof globalSearchContract.search>) {

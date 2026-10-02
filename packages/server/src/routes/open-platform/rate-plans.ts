@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { ratePlanContract } from '@zenith/shared/open-platform';
+import { ratePlanContract } from '@arcbase/shared/open-platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import {

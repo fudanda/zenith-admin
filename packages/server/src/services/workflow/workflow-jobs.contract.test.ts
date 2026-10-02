@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
-import { workflowJobChainSchema, workflowJobDetailSchema, type WorkflowJob, type WorkflowJobExecution } from '@zenith/shared/workflow';
+import { workflowJobChainSchema, workflowJobDetailSchema, type WorkflowJob, type WorkflowJobExecution } from '@arcbase/shared/workflow';
 
 const { select, drain } = vi.hoisted(() => ({ select: vi.fn(), drain: vi.fn() }));
 vi.mock('../../db', () => ({ db: { select } }));

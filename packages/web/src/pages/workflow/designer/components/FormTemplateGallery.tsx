@@ -3,7 +3,7 @@
  */
 import { useState } from 'react';
 import { Button, Modal, Tag, Typography } from '@douyinfe/semi-ui';
-import type { WorkflowFormField, WorkflowFormSettings } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormSettings } from '@arcbase/shared/workflow';
 import { FORM_TEMPLATES, type FormTemplate } from '../form-templates';
 import { flattenAllFields } from '../form-tree';
 import WorkflowFormRenderer from './WorkflowFormRenderer';

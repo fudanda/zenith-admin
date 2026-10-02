@@ -1,4 +1,4 @@
-import type { ReportResourceType } from '@zenith/shared/report';
+import type { ReportResourceType } from '@arcbase/shared/report';
 import { db } from '../../db';
 import { reportAssetUsageLogs } from '../../db/schema';
 import { currentUserOrNull } from '../../lib/context';

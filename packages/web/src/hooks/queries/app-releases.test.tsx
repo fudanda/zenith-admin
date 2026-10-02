@@ -10,7 +10,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import type { AppRelease, ClientApp } from '@zenith/shared/ops';
+import type { AppRelease, ClientApp } from '@arcbase/shared/ops';
 import {
   ApiRecorder,
   createRequestMock,
@@ -43,13 +43,13 @@ import {
 } from './app-releases';
 
 const APP: ClientApp = {
-  id: 1, appKey: 'zenith-desktop', name: 'Zenith 桌面端', description: null, kind: 'client',
+  id: 1, appKey: 'arcbase-desktop', name: 'ArcBase 桌面端', description: null, kind: 'client',
   status: 'enabled', releaseCount: 1, latestVersion: '1.85.0',
   createdAt: '2026-07-31 10:00:00', updatedAt: '2026-07-31 10:00:00',
 };
 
 const RELEASE: AppRelease = {
-  id: 1, appId: 1, appKey: 'zenith-desktop', appName: 'Zenith 桌面端',
+  id: 1, appId: 1, appKey: 'arcbase-desktop', appName: 'ArcBase 桌面端',
   channel: 'stable', version: '1.85.0', notes: null, status: 'draft',
   mandatory: false, minVersion: null, rolloutPercent: 100, publishedAt: null,
   artifactCount: 1, artifacts: [],

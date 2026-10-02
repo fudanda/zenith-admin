@@ -3,7 +3,7 @@
  * 落库复用 admin-members.service.createMember（等级兜底、积分/钱包账户初始化、唯一冲突翻译）。
  */
 import { isNull } from 'drizzle-orm';
-import { MEMBER_STATUS_LABELS, type MemberStatus } from '@zenith/shared/member';
+import { MEMBER_STATUS_LABELS, type MemberStatus } from '@arcbase/shared/member';
 import { db } from '../../../db';
 import { memberLevels, members } from '../../../db/schema';
 import { createMember } from '../../../services/member/admin-members.service';

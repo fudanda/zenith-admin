@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Input, Button, Switch, DatePicker, Toast, Typography } from '@douyinfe/semi-ui';
 import AppModal from '@/components/AppModal';
 import { Plus, Trash2 } from 'lucide-react';
-import type { ChatVoteData, ChatVoteOption } from '@zenith/shared/chat';
+import type { ChatVoteData, ChatVoteOption } from '@arcbase/shared/chat';
 import { formatDateTimeForApi } from '@/utils/date';
 import ModalFooter from '@/components/ModalFooter';
 

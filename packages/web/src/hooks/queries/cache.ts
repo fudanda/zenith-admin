@@ -1,5 +1,5 @@
-import { resourceKeyOf } from '@zenith/shared/core';
-import { cacheContract } from '@zenith/shared/platform';
+import { resourceKeyOf } from '@arcbase/shared/core';
+import { cacheContract } from '@arcbase/shared/platform';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const cacheKeys = {

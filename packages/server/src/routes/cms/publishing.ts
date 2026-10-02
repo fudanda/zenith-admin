@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { cmsPublishingContract } from '@zenith/shared/cms';
+import { cmsPublishingContract } from '@arcbase/shared/cms';
 import { idempotencyGuard } from '../../middleware/idempotency';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

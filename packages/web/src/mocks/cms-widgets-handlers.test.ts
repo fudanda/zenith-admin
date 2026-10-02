@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import type { CmsWidget, CmsWidgetPreview, CmsWidgetSlot, CmsWidgetSourceReference } from '@zenith/shared/cms';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import type { CmsWidget, CmsWidgetPreview, CmsWidgetSlot, CmsWidgetSourceReference } from '@arcbase/shared/cms';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import { mockCmsWidgetRefs, mockCmsWidgets } from '@/mocks/data/cms';
 import { cmsWidgetsHandlers } from '@/mocks/handlers/cms-widgets';
 

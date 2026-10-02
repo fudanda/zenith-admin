@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /** 支付预授权：应用/商户精确作用域、CAS 状态机与 unknown 查单恢复。 */
 import { and, desc, eq, inArray, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
@@ -14,13 +14,13 @@ import logger from '../../lib/logger';
 import { pageOffset } from '../../lib/pagination';
 import { requireTenantScopeId, tenantCondition, exactTenantCondition } from '../../lib/tenant';
 import { buildWhere, dateRangeConditions, keywordCondition } from '../../lib/where-helpers';
-import { PAYMENT_METHOD_CHANNEL, paymentPreauthContract, paymentPreauthSchema } from '@zenith/shared/payment';
+import { PAYMENT_METHOD_CHANNEL, paymentPreauthContract, paymentPreauthSchema } from '@arcbase/shared/payment';
 import type {
   CapturePaymentPreauthInput,
   CreatePaymentPreauthInput,
   PaymentPreauth,
   PaymentPreauthStatus,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { resolveApplicationChannelConfig } from './payment-apps.service';
 import { assertEffectivePaymentOperation } from './payment-capability-evaluator';
 import { postSystemJournalWithin } from './payment-journal.service';

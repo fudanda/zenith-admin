@@ -1,6 +1,6 @@
 import { and, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { validateCmsStructuredFields, type CmsContentRevisionSnapshot } from '@zenith/shared/cms';
+import { validateCmsStructuredFields, type CmsContentRevisionSnapshot } from '@arcbase/shared/cms';
 import { cmsModelVersions, cmsAssetVersions, cmsAssetRights, cmsModelUniqueValues } from '../../db/schema/cms-design';
 import { cmsModels, cmsContents } from '../../db/schema/cms';
 import type { DbExecutor } from '../../db/types';

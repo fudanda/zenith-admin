@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi, expectTypeOf } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import * as z from 'zod';
-import { defineContract, fileField, idParam, multipart, op, paginated, paginationQuery, batchIdsBody } from '@zenith/shared/core';
+import { defineContract, fileField, idParam, multipart, op, paginated, paginationQuery, batchIdsBody } from '@arcbase/shared/core';
 import {
   ApiRecorder,
   type RecordedCall,

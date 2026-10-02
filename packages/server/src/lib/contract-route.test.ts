@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import * as z from 'zod';
-import { defineContract, fileField, idParam, multipart, op, paginated, paginationQuery } from '@zenith/shared/core';
+import { defineContract, fileField, idParam, multipart, op, paginated, paginationQuery } from '@arcbase/shared/core';
 
 // 本测试只验证契约 → 路由的校验 / 包络 / 文档映射；登录令牌门禁由 contract-route-access.test 覆盖，这里放行
 vi.mock('../middleware/auth', () => ({ authMiddleware: async (_c: unknown, next: () => Promise<void>) => next() }));

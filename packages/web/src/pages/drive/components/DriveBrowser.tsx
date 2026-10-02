@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState, type DragEvent } fro
 import { Breadcrumb, Button, Dropdown, Empty, Form, Progress, Space, Tag, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { ChevronDown, Copy, Download, FolderPlus, LayoutGrid, List as ListIcon, Lock, MoveRight, Star, Trash2, Upload } from 'lucide-react';
-import { formatBytes } from '@zenith/shared/core';
-import { DRIVE_NODE_SORT_FIELD_OPTIONS, DRIVE_ROLE_LABELS, type DriveNode, type DriveNodeListResult, type DriveNodeSortField } from '@zenith/shared/drive';
+import { formatBytes } from '@arcbase/shared/core';
+import { DRIVE_NODE_SORT_FIELD_OPTIONS, DRIVE_ROLE_LABELS, type DriveNode, type DriveNodeListResult, type DriveNodeSortField } from '@arcbase/shared/drive';
 import { EditFormModal } from '@/components/EditFormModal';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { ListPagination } from '@/components/ListPagination';

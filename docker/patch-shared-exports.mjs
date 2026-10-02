@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 生产化 @zenith/shared 的 package.json:把 exports/main/types 从 TS 源码指向编译产物。
+ * 生产化 @arcbase/shared 的 package.json:把 exports/main/types 从 TS 源码指向编译产物。
  *
  * 源码 exports 指向 ./src/*.ts(供 tsx dev / Vite 直接消费);纯 Node 运行 dist 时
  * 无法执行 TS,需要把每个入口机械改写为 ./dist/*.js(目录型域入口如

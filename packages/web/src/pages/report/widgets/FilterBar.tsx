@@ -5,7 +5,7 @@ import { Check, Filter, RotateCcw } from 'lucide-react';
 import { formatDateForApi } from '@/utils/date';
 import { DATE_RANGE_FILTER_WIDTH, DateRangeFilter } from '@/components/search-filters';
 import { useReportFilterDynamicOptions } from '@/hooks/queries/report-designer';
-import type { ReportFilter } from '@zenith/shared/report';
+import type { ReportFilter } from '@arcbase/shared/report';
 
 export interface FilterBarProps {
   filters: ReportFilter[];

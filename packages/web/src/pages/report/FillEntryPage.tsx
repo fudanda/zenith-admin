@@ -4,8 +4,8 @@ import { Banner, Button, Descriptions, Space, Tag, Toast, Typography } from '@do
 import PageLoading from '@/components/PageLoading';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import { ArrowLeft, Save, Send } from 'lucide-react';
-import { REPORT_FILL_RECORD_STATUS_LABELS } from '@zenith/shared/report';
-import type { ReportFillRecord, ReportFillTemplate } from '@zenith/shared/report';
+import { REPORT_FILL_RECORD_STATUS_LABELS } from '@arcbase/shared/report';
+import type { ReportFillRecord, ReportFillTemplate } from '@arcbase/shared/report';
 import WorkflowFormRenderer from '@/pages/workflow/designer/components/WorkflowFormRenderer';
 import { usePermission } from '@/hooks/usePermission';
 import {

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { taskDemoContract } from '@zenith/shared/tasks';
+import { taskDemoContract } from '@arcbase/shared/tasks';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { setTimeout as sleep } from 'node:timers/promises';

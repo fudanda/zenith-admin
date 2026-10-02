@@ -1,5 +1,5 @@
 import { eq, inArray } from 'drizzle-orm';
-import { OAUTH_PROVIDERS, type OAuthProviderType } from '@zenith/shared/identity';
+import { OAUTH_PROVIDERS, type OAuthProviderType } from '@arcbase/shared/identity';
 import type { OAuthProvider, OAuthProviderConfig } from './types';
 import { GitHubProvider } from './github';
 import { DingTalkProvider } from './dingtalk';

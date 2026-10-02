@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { fillPath, type AnyOperation, type ApiResponse, type InputOf, type OutputOf } from '@zenith/shared/core';
-import { workflowEngineContract, workflowInstanceContract, workflowInstanceOpsContract, workflowJobDetailSchema, workflowJobSummaryItemSchema, type WorkflowJob } from '@zenith/shared/workflow';
+import { fillPath, type AnyOperation, type ApiResponse, type InputOf, type OutputOf } from '@arcbase/shared/core';
+import { workflowEngineContract, workflowInstanceContract, workflowInstanceOpsContract, workflowJobDetailSchema, workflowJobSummaryItemSchema, type WorkflowJob } from '@arcbase/shared/workflow';
 import { mockWorkflowJobs, mockWorkflowJobExecutions } from './data/workflow-jobs';
 import { mockWorkflowInstances } from './data/workflow';
 import { workflowHandlers } from './handlers/workflow';

@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import { Button, Card, Empty, List, Space, Spin, Toast, Typography } from '@douyinfe/semi-ui';
 import { useNavigate } from 'react-router-dom';
 import { ExternalLink, Send } from 'lucide-react';
-import type { WorkflowDefinition } from '@zenith/shared/workflow';
+import type { WorkflowDefinition } from '@arcbase/shared/workflow';
 import { ListSearchToolbar } from '@/components/list-page';
 import { KeywordInput } from '@/components/search-filters';
 import WorkflowLaunchForm, { type WorkflowLaunchFormHandle } from '@/components/workflow/WorkflowLaunchForm';

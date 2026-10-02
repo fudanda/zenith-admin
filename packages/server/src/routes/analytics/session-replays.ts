@@ -1,6 +1,6 @@
 import { OpenAPIHono, z } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { ANALYTICS_SITE_KEY_HEADER, replaySegmentUploadMetaSchema, sessionReplayContract } from '@zenith/shared/analytics';
+import { ANALYTICS_SITE_KEY_HEADER, replaySegmentUploadMetaSchema, sessionReplayContract } from '@arcbase/shared/analytics';
 import { optionalAuthMiddleware } from '../../middleware/optional-auth';
 import { namedRateLimit } from '../../middleware/rate-limit';
 import { defineContractRoute } from '../../lib/contract-route';

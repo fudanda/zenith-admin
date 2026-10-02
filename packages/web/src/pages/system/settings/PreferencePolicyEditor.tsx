@@ -1,7 +1,7 @@
 import { Fragment, useMemo, type ReactNode } from 'react';
 import { Banner, Button, Checkbox, ColorPicker, Empty, Input, InputNumber, Select, Space, Switch, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { RotateCcw } from 'lucide-react';
-import { terminalFileContract } from '@zenith/shared/ops';
+import { terminalFileContract } from '@arcbase/shared/ops';
 import {
   canOverridePreference,
   defaultPreferences,
@@ -16,7 +16,7 @@ import {
   type PreferenceGroup,
   type PreferencePath,
   type PreferencePolicy,
-} from '@zenith/shared/preferences';
+} from '@arcbase/shared/preferences';
 import { InstantFilterToolbar } from '@/components/list-page/InstantFilterToolbar';
 import { FilterSelect, KeywordInput } from '@/components/search-filters';
 import { SettingDivider, SettingRow, SettingSection } from '@/components/settings/SettingRow';

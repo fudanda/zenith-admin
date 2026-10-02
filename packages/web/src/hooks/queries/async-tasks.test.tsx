@@ -10,7 +10,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import { asyncTaskContract, IMPORT_TASK_TYPES } from '@zenith/shared/tasks';
+import { asyncTaskContract, IMPORT_TASK_TYPES } from '@arcbase/shared/tasks';
 import {
   ApiRecorder,
   createRequestMock,

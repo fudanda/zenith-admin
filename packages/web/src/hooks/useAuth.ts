@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
-import type { ApiResponse } from '@zenith/shared/core';
-import type { ImpersonationStartResult, User, LoginResponse, LoginResult, GoSession } from '@zenith/shared/identity';
+import type { ApiResponse } from '@arcbase/shared/core';
+import type { ImpersonationStartResult, User, LoginResponse, LoginResult, GoSession } from '@arcbase/shared/identity';
 import type { StoredAccount } from '@/lib/account-store';
 import type { ImpersonationMarker } from '@/lib/impersonation-store';
 

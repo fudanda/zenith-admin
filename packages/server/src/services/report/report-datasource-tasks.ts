@@ -1,4 +1,4 @@
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import { db } from '../../db';

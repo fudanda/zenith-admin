@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { driveAccessRequestContract } from '@zenith/shared/drive';
+import { driveAccessRequestContract } from '@arcbase/shared/drive';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

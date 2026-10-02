@@ -6,7 +6,7 @@
  */
 import { eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { RetentionPolicy, RetentionPreview, UpdateRetentionPolicyInput } from '@zenith/shared/ops';
+import type { RetentionPolicy, RetentionPreview, UpdateRetentionPolicyInput } from '@arcbase/shared/ops';
 import { db } from '../../db';
 import { retentionPolicies } from '../../db/schema';
 import { findPolicy, listRetentionPolicies, previewPolicy, runPolicy } from '../../lib/retention';

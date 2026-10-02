@@ -15,11 +15,11 @@ import {
   channels, channelMessages, channelSubscriptions, channelMessageTargets, users, userRoles,
   type ChannelRow, type ChannelMessageRow,
 } from '../../db/schema';
-import type { ChatCard, ChatMessageExtra } from '@zenith/shared/chat';
-import type { PaginatedResponse, QueryOutputOf } from '@zenith/shared/core';
-import { channelContract, channelMessageContract, type Channel, type ChannelAdmin, type ChannelMessage, type ChannelMessageType, type ChannelSubscriber, type CreateChannelInput, type UpdateChannelInput, type ChannelPublishAudienceInput } from '@zenith/shared/messaging';
-import type { PublishChannelInput } from '@zenith/shared/mp';
-import { SYSTEM_CHANNEL_CODE } from '@zenith/shared/platform';
+import type { ChatCard, ChatMessageExtra } from '@arcbase/shared/chat';
+import type { PaginatedResponse, QueryOutputOf } from '@arcbase/shared/core';
+import { channelContract, channelMessageContract, type Channel, type ChannelAdmin, type ChannelMessage, type ChannelMessageType, type ChannelSubscriber, type CreateChannelInput, type UpdateChannelInput, type ChannelPublishAudienceInput } from '@arcbase/shared/messaging';
+import type { PublishChannelInput } from '@arcbase/shared/mp';
+import { SYSTEM_CHANNEL_CODE } from '@arcbase/shared/platform';
 import { HTTPException } from 'hono/http-exception';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { requireRow } from '../../lib/db-assert';
@@ -89,7 +89,7 @@ function visibleMessageWhere(channelId: number, userId: number) {
 // ─── 系统号定位 ──────────────────────────────────────────────────────────────
 let cachedSystemChannelId: number | null = null;
 
-/** 内置「Zenith 助手」系统号 ID（种子写入，缓存命中后不再查库） */
+/** 内置「ArcBase 助手」系统号 ID（种子写入，缓存命中后不再查库） */
 export async function getSystemChannelId(): Promise<number | null> {
   if (cachedSystemChannelId != null) return cachedSystemChannelId;
   const ch = await db.query.channels.findFirst({

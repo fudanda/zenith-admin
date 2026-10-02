@@ -1,5 +1,5 @@
 import { Progress, Space, Tag, Typography } from '@douyinfe/semi-ui';
-import type { CmsDeployment } from '@zenith/shared/cms';
+import type { CmsDeployment } from '@arcbase/shared/cms';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@douyinfe/semi-ui';
 

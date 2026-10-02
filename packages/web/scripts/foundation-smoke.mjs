@@ -13,16 +13,16 @@ const port = await new Promise((done) => {
   const server = createServer();
   server.listen(0, '127.0.0.1', () => { const port = server.address().port; server.close(() => done(port)); });
 });
-const production = process.env.ZENITH_BROWSER_PRODUCTION === 'true';
-const base = production ? process.env.ZENITH_BROWSER_API_URL : `http://127.0.0.1:${port}`;
+const production = process.env.ARCBASE_BROWSER_PRODUCTION === 'true';
+const base = production ? process.env.ARCBASE_BROWSER_API_URL : `http://127.0.0.1:${port}`;
 const viteArgs = production ? ['preview', '--outDir', 'dist-go', '--port', String(port)] : [];
 const vite = production ? null : spawn(process.execPath, [viteBin, ...viteArgs, '--mode', 'go-foundation', '--host', '127.0.0.1', '--strictPort'], {
   cwd: webRoot, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'],
-  env: { ...process.env, VITE_PORT: String(port), VITE_API_PROXY_TARGET: process.env.ZENITH_BROWSER_API_URL },
+  env: { ...process.env, VITE_PORT: String(port), VITE_API_PROXY_TARGET: process.env.ARCBASE_BROWSER_API_URL },
 });
 let viteOutput=''; vite?.stdout.on('data',(chunk)=>{viteOutput+=chunk}); vite?.stderr.on('data',(chunk)=>{viteOutput+=chunk});
 let browser;
-const screenshots = process.env.ZENITH_ACCEPTANCE_SCREENSHOTS;
+const screenshots = process.env.ARCBASE_ACCEPTANCE_SCREENSHOTS;
 async function screenshot(page, name) {
   if (!screenshots) return;
   await mkdir(screenshots, { recursive: true });
@@ -40,7 +40,7 @@ try {
     await new Promise((done) => setTimeout(done, 200));
   }
   browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({ acceptDownloads: true, ignoreHTTPSErrors: process.env.ZENITH_BROWSER_HTTPS === 'true' });
+  const context = await browser.newContext({ acceptDownloads: true, ignoreHTTPSErrors: process.env.ARCBASE_BROWSER_HTTPS === 'true' });
   const externalRequests = [];
   await context.route('**/*', async (route) => {
     const url = new URL(route.request().url());
@@ -59,19 +59,20 @@ try {
   await page.goto(`${base}/dash/login`);
   const image = page.getByAltText('登录验证码');
   await image.waitFor();
+  assert.ok((await page.title()).includes('ArcBase'), 'original login exposes the ArcBase brand');
   const svg = Buffer.from((await image.getAttribute('src')).split(',')[1], 'base64').toString();
   const answer = svg.match(/>([A-F0-9]{6})<\/text>/)?.[1];
   assert.ok(answer, 'real Go captcha image');
-  await page.getByPlaceholder('请输入用户名/手机号').fill(process.env.ZENITH_BROWSER_USERNAME);
-  await page.getByPlaceholder('请输入密码', { exact: true }).fill(process.env.ZENITH_BROWSER_PASSWORD);
+  await page.getByPlaceholder('请输入用户名/手机号').fill(process.env.ARCBASE_BROWSER_USERNAME);
+  await page.getByPlaceholder('请输入密码', { exact: true }).fill(process.env.ARCBASE_BROWSER_PASSWORD);
   await page.getByPlaceholder('请输入验证码').fill(answer);
   await page.getByRole('button', { name: '登录', exact: true }).click();
   await page.waitForURL(/\/dash\/?$/);
   await page.getByText('系统用户总数', { exact: true }).waitFor();
   assert.equal(await page.getByText('公告', { exact: true }).count(), 0, 'unmigrated cards are unmounted');
-  assert.ok((await context.cookies()).some((cookie) => cookie.name === 'zenith_session' && cookie.httpOnly), 'HttpOnly session');
-  if (process.env.ZENITH_BROWSER_HTTPS === 'true') {
-    const cookie = (await context.cookies()).find((cookie) => cookie.name === 'zenith_session');
+  assert.ok((await context.cookies()).some((cookie) => cookie.name === 'arcbase_session' && cookie.httpOnly), 'HttpOnly session');
+  if (process.env.ARCBASE_BROWSER_HTTPS === 'true') {
+    const cookie = (await context.cookies()).find((cookie) => cookie.name === 'arcbase_session');
     assert.equal(cookie.secure, true, 'production HTTPS session is Secure');
     assert.equal(cookie.sameSite, 'Lax', 'production session uses SameSite');
   }
@@ -121,7 +122,7 @@ try {
   await edited.waitFor();
   await edited.getByText('成员', { exact: true }).click();
   await page.locator('.semi-transfer-left .semi-checkbox').last().click();
-  await page.locator('.semi-transfer-right').getByText(process.env.ZENITH_BROWSER_USERNAME, { exact: true }).waitFor();
+  await page.locator('.semi-transfer-right').getByText(process.env.ARCBASE_BROWSER_USERNAME, { exact: true }).waitFor();
   await page.getByRole('button', { name: '保存', exact: true }).click();
 
   const downloadPromise = page.waitForEvent('download');
@@ -173,12 +174,12 @@ try {
   await page.getByRole('menuitem',{name:'下载导入模板',exact:true}).waitFor({state:'hidden'});
   await page.getByRole('button',{name:/^导入/}).click();
   await page.getByText('预检文件（仅校验不落库）',{exact:true}).click();
-  await page.locator('input[accept=".xlsx"]').setInputFiles(process.env.ZENITH_BROWSER_IMPORT_FILE);
+  await page.locator('input[accept=".xlsx"]').setInputFiles(process.env.ARCBASE_BROWSER_IMPORT_FILE);
   await page.getByText('预检通过，未写入',{exact:true}).waitFor();
   await page.getByRole('button',{name:'完成',exact:true}).click();
   await page.getByRole('button',{name:/^导入/}).click();
   await page.getByText('上传文件导入',{exact:true}).click();
-  await page.locator('input[accept=".xlsx"]').setInputFiles(process.env.ZENITH_BROWSER_IMPORT_FILE);
+  await page.locator('input[accept=".xlsx"]').setInputFiles(process.env.ARCBASE_BROWSER_IMPORT_FILE);
   await page.getByText('已创建',{exact:true}).waitFor();
   await page.getByRole('button',{name:'完成',exact:true}).click();
   await page.getByRole('row').filter({hasText:'浏览器导入用户'}).waitFor();
@@ -307,9 +308,9 @@ try {
   await page.reload();
   await page.locator('.semi-select').getByText('高（干扰强、识别难度高）',{exact:true}).waitFor();
   await page.goto(`${base}/dash/system/sessions`);
-  await page.getByRole('row').filter({hasText:process.env.ZENITH_BROWSER_USERNAME}).waitFor();
+  await page.getByRole('row').filter({hasText:process.env.ARCBASE_BROWSER_USERNAME}).waitFor();
   await page.goto(`${base}/dash/system/login-logs`);
-  await page.getByRole('row').filter({hasText:process.env.ZENITH_BROWSER_USERNAME}).waitFor();
+  await page.getByRole('row').filter({hasText:process.env.ARCBASE_BROWSER_USERNAME}).waitFor();
   const loginStats=page.waitForResponse(res=>new URL(res.url()).pathname==='/api/v1/login-logs/stats');
   await page.getByRole('tab',{name:'统计分析',exact:true}).click();
   assert.equal((await loginStats).status(),200);
@@ -321,7 +322,7 @@ try {
   await page.goto(`${base}/dash/system/file-configs`);
   await page.getByRole('button',{name:'新增',exact:true}).click();
   await page.getByPlaceholder('请输入配置名称').fill('浏览器本地文件');
-  await page.getByPlaceholder('例如 storage/local 或 D:/uploads').fill(process.env.ZENITH_BROWSER_STORAGE);
+  await page.getByPlaceholder('例如 storage/local 或 D:/uploads').fill(process.env.ARCBASE_BROWSER_STORAGE);
   await page.getByRole('switch').click();
   const testStorage=page.waitForResponse(res=>new URL(res.url()).pathname==='/api/v1/file-storage-configs/test');
   await page.getByRole('button',{name:'测试连接',exact:true}).click();
@@ -367,7 +368,7 @@ try {
   await page.reload();
   assert.equal(await page.getByPlaceholder('请输入昵称').inputValue(),'浏览器管理员');
   await page.getByRole('button',{name:'更换头像',exact:true}).last().click();
-  await page.locator('input[type=file]').setInputFiles(process.env.ZENITH_BROWSER_AVATAR_FILE);
+  await page.locator('input[type=file]').setInputFiles(process.env.ARCBASE_BROWSER_AVATAR_FILE);
   const avatarUploaded=page.waitForResponse(res=>new URL(res.url()).pathname==='/api/v1/auth/avatar' && res.request().method()==='POST');
   const avatarSaved=page.waitForResponse(res=>new URL(res.url()).pathname==='/api/v1/auth/profile' && res.request().method()==='PUT');
   await page.getByRole('button',{name:'确认并上传',exact:true}).click();
@@ -420,8 +421,8 @@ try {
     const user = await call('POST', '/users', { username: 'foundation-limited', nickname: '受限浏览器用户', password, roleIds: [role.id] });
     const hidden = await call('POST', '/users', { username: 'foundation-hidden', nickname: '范围外浏览器用户', password });
     return { roleId: role.id, userId: user.id, hiddenId: hidden.id };
-  }, process.env.ZENITH_BROWSER_PASSWORD);
-  const limitedContext = await browser.newContext({ ignoreHTTPSErrors: process.env.ZENITH_BROWSER_HTTPS === 'true' });
+  }, process.env.ARCBASE_BROWSER_PASSWORD);
+  const limitedContext = await browser.newContext({ ignoreHTTPSErrors: process.env.ARCBASE_BROWSER_HTTPS === 'true' });
   const limitedPage = await limitedContext.newPage();
   limitedPage.on('response', (response) => { const path = new URL(response.url()).pathname; if (path.startsWith('/api/')) responses.push(`LIMITED ${response.request().method()} ${response.status()} ${path}`); });
   await limitedPage.goto(`${base}/dash/login`);
@@ -431,7 +432,7 @@ try {
   const limitedAnswer = limitedSVG.match(/>([A-F0-9]{4,8})<\/text>/)?.[1];
   assert.ok(limitedAnswer, 'saved high-complexity captcha is used on the next real login');
   await limitedPage.getByPlaceholder('请输入用户名/手机号').fill('foundation-limited');
-  await limitedPage.getByPlaceholder('请输入密码', { exact: true }).fill(process.env.ZENITH_BROWSER_PASSWORD);
+  await limitedPage.getByPlaceholder('请输入密码', { exact: true }).fill(process.env.ARCBASE_BROWSER_PASSWORD);
   await limitedPage.getByPlaceholder('请输入验证码').fill(limitedAnswer);
   await limitedPage.getByRole('button', { name: '登录', exact: true }).click();
   await limitedPage.waitForURL(/\/dash\/?$/);

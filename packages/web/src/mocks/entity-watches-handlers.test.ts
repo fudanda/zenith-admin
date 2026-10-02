@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { HttpHandler } from 'msw';
-import { entityWatchContract } from '@zenith/shared/platform';
+import { entityWatchContract } from '@arcbase/shared/platform';
 import { urlOf } from '@/lib/contract-query';
 import { entityWatchesHandlers } from './handlers/entity-watches';
 import { publishMockWatchEvent } from './data/entity-watch-events';

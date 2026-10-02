@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { useQuery } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { workflowConnectorContract } from '@zenith/shared/workflow';
+import type { QueryOf } from '@arcbase/shared/core';
+import { workflowConnectorContract } from '@arcbase/shared/workflow';
 import { api, contractKey, createResourceQueries, useApiMutation } from '@/lib/contract-query';
 
 export type WorkflowConnectorListParams = QueryOf<typeof workflowConnectorContract.list>;

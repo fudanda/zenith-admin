@@ -1,8 +1,8 @@
 import { and, eq } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { PAYMENT_CHANNEL_LABELS } from '@zenith/shared/payment';
-import type { PaymentChannel } from '@zenith/shared/payment';
+import { PAYMENT_CHANNEL_LABELS } from '@arcbase/shared/payment';
+import type { PaymentChannel } from '@arcbase/shared/payment';
 import { db } from '../../db';
 import { requireRow } from '../../lib/db-assert';
 import { paymentChannelConfigs } from '../../db/schema';

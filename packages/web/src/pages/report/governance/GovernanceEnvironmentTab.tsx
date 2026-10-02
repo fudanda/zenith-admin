@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Banner, Button, Col, Empty, Form, Row, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ReportEnvironment, ReportEnvironmentPromotion, ReportPromotionStatus, ReportResourceType } from '@zenith/shared/report';
-import { REPORT_PROMOTION_STATUS_LABELS } from '@zenith/shared/report';
+import type { ReportEnvironment, ReportEnvironmentPromotion, ReportPromotionStatus, ReportResourceType } from '@arcbase/shared/report';
+import { REPORT_PROMOTION_STATUS_LABELS } from '@arcbase/shared/report';
 import { Rocket } from 'lucide-react';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { confirmAndDelete, listTableProps } from '@/components/list-page';

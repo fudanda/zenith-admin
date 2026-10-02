@@ -1,4 +1,4 @@
-import { authContract } from '@zenith/shared/identity';
+import { authContract } from '@arcbase/shared/identity';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody } from '../../lib/openapi-schemas';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { reportDeliveryRunContract } from '@zenith/shared/report';
+import { reportDeliveryRunContract } from '@arcbase/shared/report';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import { acknowledgeAlertDeliveryRun, listAccessibleDeliveryRuns } from '../../services/report/report-delivery.service';

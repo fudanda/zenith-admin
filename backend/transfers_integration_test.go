@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"bytes"
@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/internal/modules/transfers"
+	"github.com/fudanda/arcbase/backend/ent/auditlog"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/internal/modules/transfers"
 	"github.com/xuri/excelize/v2"
 )
 

@@ -8,15 +8,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/position"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/ent/userposition"
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/security"
-	"github.com/fudanda/zenith-admin/backend/internal/validation"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/position"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/ent/userposition"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/security"
+	"github.com/fudanda/arcbase/backend/internal/validation"
 )
 
 // Access is supplied by application assembly. No organization service imports

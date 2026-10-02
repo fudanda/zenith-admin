@@ -1,4 +1,4 @@
-import { mpSecurityContract } from '@zenith/shared/mp';
+import { mpSecurityContract } from '@arcbase/shared/mp';
 import { useApiMutation } from '@/lib/contract-query';
 
 /** 内容安全校验是只读探测，不涉及缓存 */

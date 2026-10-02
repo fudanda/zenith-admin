@@ -9,7 +9,7 @@ import {
   terminalFileContract,
   terminalRecordingContract,
   type FsEntry,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { forbidden, notFound } from '@/mocks/utils/handlers';
 function demoErr() {

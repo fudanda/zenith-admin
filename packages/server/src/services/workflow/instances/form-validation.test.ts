@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { collectWorkflowFormValidationErrors, collectMissingRequiredFields } from '@zenith/shared/workflow';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import { collectWorkflowFormValidationErrors, collectMissingRequiredFields } from '@arcbase/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 
 const f = (partial: Partial<WorkflowFormField> & { key: string; type: WorkflowFormField['type'] }): WorkflowFormField =>
   ({ label: partial.key, ...partial }) as WorkflowFormField;

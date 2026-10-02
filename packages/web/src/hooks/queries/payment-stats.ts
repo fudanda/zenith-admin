@@ -1,4 +1,4 @@
-import { paymentStatsContract } from '@zenith/shared/payment';
+import { paymentStatsContract } from '@arcbase/shared/payment';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export const paymentStatsKeys = {

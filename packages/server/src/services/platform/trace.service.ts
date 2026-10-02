@@ -9,9 +9,9 @@
  *   task         ← async_tasks.trace_id
  */
 import { and, count, desc, eq, gte, inArray, isNotNull } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { TraceFailureEntry, TraceListEntry, TraceNodeKind, TraceNodeStatus, TraceTimeline, TraceTimelineNode } from '@zenith/shared/platform';
-import { traceContract } from '@zenith/shared/platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { TraceFailureEntry, TraceListEntry, TraceNodeKind, TraceNodeStatus, TraceTimeline, TraceTimelineNode } from '@arcbase/shared/platform';
+import { traceContract } from '@arcbase/shared/platform';
 import { db } from '../../db';
 import {
   asyncTasks, notificationDispatches, notificationOutbox, operationLogs, workflowJobs,

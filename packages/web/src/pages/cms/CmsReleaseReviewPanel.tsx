@@ -1,8 +1,8 @@
 import { Banner, Button, Collapsible, Empty, Space, Tag, Typography } from '@douyinfe/semi-ui';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CMS_RELEASE_CHANGE_LABELS, CMS_RELEASE_CHANGE_OPERATIONS, cmsReleaseFieldLabel } from '@zenith/shared/cms';
-import { ASYNC_TASK_STATUS_LABELS } from '@zenith/shared/tasks';
+import { CMS_RELEASE_CHANGE_LABELS, CMS_RELEASE_CHANGE_OPERATIONS, cmsReleaseFieldLabel } from '@arcbase/shared/cms';
+import { ASYNC_TASK_STATUS_LABELS } from '@arcbase/shared/tasks';
 import { useCmsReleaseReview, useRecreateCmsRelease } from '@/hooks/queries/cms-workbench';
 import { usePermission } from '@/hooks/usePermission';
 import { confirmDanger } from '@/utils/confirm';

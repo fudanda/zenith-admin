@@ -27,7 +27,7 @@ import {
 } from '@/pages/report/widgets/dashboard-runtime';
 import { DashboardCanvasView } from '@/pages/report/widgets/DashboardCanvasView';
 import { useIsMobile } from '@/hooks/useMediaQuery';
-import type { ReportEmbedDrilldownPayload, ReportEmbedFilterChangePayload, ReportEmbedFilterValue, ReportEmbedFilterValues, ReportEmbedState, ReportEmbedWidgetClickPayload, ReportWidget } from '@zenith/shared/report';
+import type { ReportEmbedDrilldownPayload, ReportEmbedFilterChangePayload, ReportEmbedFilterValue, ReportEmbedFilterValues, ReportEmbedState, ReportEmbedWidgetClickPayload, ReportWidget } from '@arcbase/shared/report';
 import { useReportDashboardWidgetData } from '@/hooks/queries/report-dashboards';
 import { useReportEmbedDashboard, useReportEmbedData } from '@/hooks/queries/reports-embed';
 import {

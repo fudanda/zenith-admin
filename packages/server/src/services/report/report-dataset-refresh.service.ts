@@ -51,8 +51,8 @@ import {
   toExecutionError,
 } from './report-dataset-shared';
 import { runReportData } from './report-dataset-execution.service';
-import { isSqlLikeType } from '@zenith/shared/report';
-import type { ReportDataResult, ReportField, ReportDatasetContent, ReportDatasetParam, ReportDatasourceConfig, ReportComputedField, ReportDatasetMaterialize, ReportRowRule, ReportSqlDatasetContent } from '@zenith/shared/report';
+import { isSqlLikeType } from '@arcbase/shared/report';
+import type { ReportDataResult, ReportField, ReportDatasetContent, ReportDatasetParam, ReportDatasourceConfig, ReportComputedField, ReportDatasetMaterialize, ReportRowRule, ReportSqlDatasetContent } from '@arcbase/shared/report';
 
 // ─── 物化快照（定时刷新 + 手动刷新）────────────────────────────────────────────
 

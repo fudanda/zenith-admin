@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { createHash } from 'node:crypto';
 import { and, eq, isNull } from 'drizzle-orm';
-import type { CmsPublishSubmitInput } from '@zenith/shared/cms';
-import type { AsyncTask } from '@zenith/shared/tasks';
-import { CMS_PUBLISH_TARGET_TYPE_LABELS } from '@zenith/shared/cms';
+import type { CmsPublishSubmitInput } from '@arcbase/shared/cms';
+import type { AsyncTask } from '@arcbase/shared/tasks';
+import { CMS_PUBLISH_TARGET_TYPE_LABELS } from '@arcbase/shared/cms';
 import { asyncTasks, cmsSites, cmsSiteGenerations } from '../../db/schema';
 import { formatDateTime } from '../../lib/datetime';
 import { currentUserOrNull, runWithCurrentUser } from '../../lib/context';

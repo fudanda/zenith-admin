@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Input, Tabs, TabPane, Toast, Typography } from '@douyinfe/semi-ui';
 import { UserSearchList } from './UserSearchList';
 import { OrgTreePicker } from './OrgTreePicker';
-import type { ChatConversation } from '@zenith/shared/chat';
+import type { ChatConversation } from '@arcbase/shared/chat';
 import type { ChatUser } from '../types';
 import { useCreateChatGroup } from '@/hooks/queries/chat';
 

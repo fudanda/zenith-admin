@@ -1,8 +1,8 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, isNull, sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { CreateWikiCommentInput, WikiCommentStatus } from '@zenith/shared/wiki';
-import { wikiCommentContract, wikiCommentFieldsSchema } from '@zenith/shared/wiki';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { CreateWikiCommentInput, WikiCommentStatus } from '@arcbase/shared/wiki';
+import { wikiCommentContract, wikiCommentFieldsSchema } from '@arcbase/shared/wiki';
 import { pickEntity } from '../../lib/entity-map';
 import { db } from '../../db';
 import { users, wikiComments, wikiDocs, type WikiCommentRow } from '../../db/schema';

@@ -3,6 +3,8 @@ package cli
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"os"
 	"path/filepath"
@@ -10,22 +12,22 @@ import (
 	"testing"
 	"time"
 
-	zenith "github.com/fudanda/zenith-admin/backend"
-	"github.com/fudanda/zenith-admin/backend/ent/session"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/internal/operations"
+	arcbase "github.com/fudanda/arcbase/backend"
+	"github.com/fudanda/arcbase/backend/ent/session"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/internal/operations"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func call(t *testing.T, config zenith.Config, args []string, input string) (string, error) {
+func call(t *testing.T, config arcbase.Config, args []string, input string) (string, error) {
 	t.Helper()
 	var output bytes.Buffer
 	err := Run(context.Background(), Options{Args: args, Input: strings.NewReader(input), Output: &output, ErrorOutput: &output, Config: config})
 	return output.String(), err
 }
-func fixture(t *testing.T) zenith.Config {
+func fixture(t *testing.T) arcbase.Config {
 	t.Helper()
-	config := zenith.Config{DSN: "sqlite:" + filepath.Join(t.TempDir(), "data.db")}
+	config := arcbase.Config{DSN: "sqlite:" + filepath.Join(t.TempDir(), "data.db")}
 	for _, command := range []string{"migrate", "seed"} {
 		if _, err := call(t, config, []string{command}, ""); err != nil {
 			t.Fatal(err)
@@ -35,7 +37,7 @@ func fixture(t *testing.T) zenith.Config {
 }
 
 func TestVersionAndConfigurationDoNotExposeSecrets(t *testing.T) {
-	output, err := call(t, zenith.Config{}, []string{"version"}, "")
+	output, err := call(t, arcbase.Config{}, []string{"version"}, "")
 	if err != nil || !strings.Contains(output, "schemaVersion") {
 		t.Fatal(output, err)
 	}
@@ -55,7 +57,7 @@ func TestAdminRecoveryPolicyRevocationAuditAndCredentialFile(t *testing.T) {
 	if _, err := call(t, config, []string{"init-admin", "admin"}, old+"\n"); err != nil {
 		t.Fatal(err)
 	}
-	store, err := zenith.OpenStore(context.Background(), config.DSN)
+	store, err := arcbase.OpenStore(context.Background(), config.DSN)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -88,7 +90,7 @@ func TestAdminRecoveryPolicyRevocationAuditAndCredentialFile(t *testing.T) {
 	if !strings.Contains(string(raw), "OTHER=keep") {
 		t.Fatal("other environment setting lost")
 	}
-	line := strings.Split(strings.Split(string(raw), "ZENITH_ADMIN_PASSWORD=")[1], "\n")[0]
+	line := strings.Split(strings.Split(string(raw), "ARCBASE_ADMIN_PASSWORD=")[1], "\n")[0]
 	var password string
 	if err = json.Unmarshal([]byte(line), &password); err != nil {
 		t.Fatal(err)
@@ -119,7 +121,7 @@ func TestAdminRecoveryPolicyRevocationAuditAndCredentialFile(t *testing.T) {
 func TestOfflineBackupRestoreChecksumsAndServiceLease(t *testing.T) {
 	config := fixture(t)
 	ctx := context.Background()
-	store, err := zenith.OpenStore(ctx, config.DSN)
+	store, err := arcbase.OpenStore(ctx, config.DSN)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -135,7 +137,7 @@ func TestOfflineBackupRestoreChecksumsAndServiceLease(t *testing.T) {
 	config.FileStagingPath = t.TempDir()
 	config.StorageEncryptionKey = strings.Repeat("a", 64)
 	backup := filepath.Join(t.TempDir(), "snapshot")
-	app, err := zenith.New(ctx, config)
+	app, err := arcbase.New(ctx, config)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -149,11 +151,45 @@ func TestOfflineBackupRestoreChecksumsAndServiceLease(t *testing.T) {
 	if _, err = operations.Verify(backup); err != nil {
 		t.Fatal(err)
 	}
-	target := zenith.Config{DSN: "sqlite:" + filepath.Join(t.TempDir(), "restored.db")}
+	// Model an existing Zenith backup, including its original key label and
+	// inventory checksum. Restore must preserve the key and produce new names.
+	secretPath := filepath.Join(backup, "secrets.env")
+	legacySecrets := []byte("ZENITH_STORAGE_KEY=" + config.StorageEncryptionKey + "\n")
+	if err = os.WriteFile(secretPath, legacySecrets, 0600); err != nil {
+		t.Fatal(err)
+	}
+	manifestPath := filepath.Join(backup, "manifest.json")
+	manifestBytes, err := os.ReadFile(manifestPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var manifest operations.Manifest
+	if err = json.Unmarshal(manifestBytes, &manifest); err != nil {
+		t.Fatal(err)
+	}
+	checksum := sha256.Sum256(legacySecrets)
+	for i := range manifest.Files {
+		if manifest.Files[i].Path == "secrets.env" {
+			manifest.Files[i].SHA256 = hex.EncodeToString(checksum[:])
+			manifest.Files[i].Size = int64(len(legacySecrets))
+		}
+	}
+	manifestBytes, err = json.Marshal(manifest)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err = os.WriteFile(manifestPath, manifestBytes, 0600); err != nil {
+		t.Fatal(err)
+	}
+	target := arcbase.Config{DSN: "sqlite:" + filepath.Join(t.TempDir(), "restored.db")}
 	files := filepath.Join(t.TempDir(), "files")
 	env := filepath.Join(t.TempDir(), "restored.env")
 	if _, err = call(t, target, []string{"restore", backup, "--files-root", files, "--env-file", env}, ""); err != nil {
 		t.Fatal(err)
+	}
+	configuration, err := os.ReadFile(env)
+	if err != nil || !strings.Contains(string(configuration), "ARCBASE_STORAGE_KEY="+config.StorageEncryptionKey) || strings.Contains(string(configuration), "ZENITH_") {
+		t.Fatal("legacy backup key lost", err)
 	}
 	raw, err := os.ReadFile(filepath.Join(files, "storage-1", "original.txt"))
 	if err != nil || string(raw) != "real-file-bytes" {

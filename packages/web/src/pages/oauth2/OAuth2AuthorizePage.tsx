@@ -9,10 +9,10 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Spin, Card, Avatar, Tag, Button, Space, Typography, Divider, Toast } from '@douyinfe/semi-ui';
 import { ShieldCheck, X } from 'lucide-react';
-import { TOKEN_KEY } from '@zenith/shared/core';
-import { isSafeOAuthRedirectUri } from '@zenith/shared/identity';
-import { oauth2AuthContract } from '@zenith/shared/open-platform';
-import type { OAuth2AuthorizeInfo } from '@zenith/shared/open-platform';
+import { TOKEN_KEY } from '@arcbase/shared/core';
+import { isSafeOAuthRedirectUri } from '@arcbase/shared/identity';
+import { oauth2AuthContract } from '@arcbase/shared/open-platform';
+import type { OAuth2AuthorizeInfo } from '@arcbase/shared/open-platform';
 import { api } from '@/lib/contract-query';
 
 const { Title, Text, Paragraph } = Typography;

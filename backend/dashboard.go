@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"io/fs"
@@ -6,8 +6,8 @@ import (
 	"path"
 	"strings"
 
-	"github.com/fudanda/zenith-admin/backend/internal/dashboard"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/dashboard"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 )
 
 func dashboardHandler(api http.Handler, assets fs.FS, extraPages ...string) http.Handler {

@@ -4,7 +4,7 @@ import type {
   CmsDetailContext, CmsPageContext, CmsSearchContext, CmsNotFoundContext,
   CmsTagPageContext, CmsNavItem, CmsTheme, CmsCustomPageContext,
 } from '../types';
-import { CMS_WIDGET_RENDERER_KEYS } from '@zenith/shared/cms';
+import { CMS_WIDGET_RENDERER_KEYS } from '@arcbase/shared/cms';
 import { renderCmsWidgetHtml } from '../widgets';
 import { Breadcrumbs, FrontForm, Pagination, SeoHead, SinglePageArticle, TagLinks, SearchResultLink, SearchResultList } from '../_shared';
 

@@ -1,5 +1,5 @@
-import type { MpConditionalMenu } from '@zenith/shared/mp';
-import { SEED_MP_CONDITIONAL_MENUS } from '@zenith/shared/seed';
+import type { MpConditionalMenu } from '@arcbase/shared/mp';
+import { SEED_MP_CONDITIONAL_MENUS } from '@arcbase/shared/seed';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

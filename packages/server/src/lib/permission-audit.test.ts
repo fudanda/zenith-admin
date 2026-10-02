@@ -10,9 +10,9 @@
  * 再在契约操作的 `access` 中引用。
  */
 import { describe, it, expect } from 'vitest';
-import { accessPermissions } from '@zenith/shared/core';
-import { listAllOperations } from '@zenith/shared/contracts';
-import { SEED_MENUS } from '@zenith/shared/seed';
+import { accessPermissions } from '@arcbase/shared/core';
+import { listAllOperations } from '@arcbase/shared/contracts';
+import { SEED_MENUS } from '@arcbase/shared/seed';
 
 describe('权限清单对账（契约 access ↔ SEED_MENUS）', () => {
   it('契约 access 引用的每个权限码都必须在 seed 菜单中声明', () => {

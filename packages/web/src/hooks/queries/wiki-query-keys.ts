@@ -1,5 +1,5 @@
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { wikiGovernanceContract, wikiStatsContract, type WikiGovernanceKind } from '@zenith/shared/wiki';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { wikiGovernanceContract, wikiStatsContract, type WikiGovernanceKind } from '@arcbase/shared/wiki';
 import { contractKey } from '@/lib/contract-query';
 
 /**

@@ -3,7 +3,7 @@ import { Button, Form, Typography, Banner, Tag, Card, Space, Spin } from '@douyi
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import { RefreshCw, KeyRound } from 'lucide-react';
 import { usePermission } from '@/hooks/usePermission';
-import { openGatewayContract } from '@zenith/shared/open-platform';
+import { openGatewayContract } from '@arcbase/shared/open-platform';
 import { urlOf } from '@/lib/contract-query';
 import { useSignatureAlgorithm, useVerifySignature, type SignatureVerifyValues } from '@/hooks/queries/open-platform';
 

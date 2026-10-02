@@ -14,8 +14,8 @@ import {
   useDeleteAnalyticsEventOverride,
   useSaveAnalyticsEventOverride,
 } from '@/hooks/queries/analytics';
-import type { AnalyticsEventOverride, AnalyticsQualityDaily, AnalyticsQualityIssueType } from '@zenith/shared/analytics';
-import { ANALYTICS_EVENT_OVERRIDE_STATUS_OPTIONS, ANALYTICS_QUALITY_ISSUE_TYPE_LABELS, ANALYTICS_QUALITY_ISSUE_TYPE_OPTIONS } from '@zenith/shared/analytics';
+import type { AnalyticsEventOverride, AnalyticsQualityDaily, AnalyticsQualityIssueType } from '@arcbase/shared/analytics';
+import { ANALYTICS_EVENT_OVERRIDE_STATUS_OPTIONS, ANALYTICS_QUALITY_ISSUE_TYPE_LABELS, ANALYTICS_QUALITY_ISSUE_TYPE_OPTIONS } from '@arcbase/shared/analytics';
 import { CreateButton } from '@/components/toolbar-controls';
 import { FilterSelect, KeywordInput, StatusSelect } from '@/components/search-filters';
 import { StatCard, StatGrid } from '@/components/charts/StatCard';

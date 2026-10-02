@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import type { Context } from 'hono';
-import { CMS_PREVIEW_PREFIX } from '@zenith/shared/cms';
+import { CMS_PREVIEW_PREFIX } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import redis from '../../lib/redis';
 import { config } from '../../config';

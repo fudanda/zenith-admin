@@ -6,10 +6,10 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	"github.com/fudanda/zenith-admin/backend/internal/security"
-	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
-	"github.com/fudanda/zenith-admin/backend/internal/validation"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/security"
+	httptransport "github.com/fudanda/arcbase/backend/internal/transport/http"
+	"github.com/fudanda/arcbase/backend/internal/validation"
 	"github.com/gorilla/mux"
 )
 

@@ -5,7 +5,7 @@
  * 失去契约约束的改动都会在这里变红。不参与构建产物，也不在 vitest 中运行。
  */
 import * as z from 'zod';
-import { defineContract, idParam, op, paginated, paginationQuery } from '@zenith/shared/core';
+import { defineContract, idParam, op, paginated, paginationQuery } from '@arcbase/shared/core';
 import { defineContractRoute } from './contract-route';
 import { conflictResponse, okBody } from './openapi-schemas';
 import { authMiddleware } from '../middleware/auth';

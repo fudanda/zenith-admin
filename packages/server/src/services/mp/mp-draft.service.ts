@@ -1,5 +1,5 @@
 import { desc, eq } from 'drizzle-orm';
-import { mpDraftContract, mpDraftSchema, type MpArticle } from '@zenith/shared/mp';
+import { mpDraftContract, mpDraftSchema, type MpArticle } from '@arcbase/shared/mp';
 import { db } from '../../db';
 import { mpDrafts, type MpDraftRow } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';

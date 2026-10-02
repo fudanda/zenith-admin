@@ -1,5 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query';
-import { firewallContract } from '@zenith/shared/ops';
+import { firewallContract } from '@arcbase/shared/ops';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { hostQueryOf } from './ops-hosts';
 

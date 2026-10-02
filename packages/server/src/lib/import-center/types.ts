@@ -8,8 +8,8 @@
  * 执行载体是任务中心（taskType 'data-import'），零独立存储：
  * 进度/重试/取消/行级 items/幂等/链路追踪全部复用。
  */
-import type { ImportColumnMeta } from '@zenith/shared/tasks';
-import type { Permission } from '@zenith/shared/core';
+import type { ImportColumnMeta } from '@arcbase/shared/tasks';
+import type { Permission } from '@arcbase/shared/core';
 
 export interface ImportDefinition<TRow = unknown, TPrepared = unknown> {
   /** 实体标识，如 'member.members'（提交与模板下载的路径参数） */
@@ -48,7 +48,7 @@ export interface ImportDefinition<TRow = unknown, TPrepared = unknown> {
   finalize?(prepared: TPrepared, stats: { succeeded: number; failed: number }): Promise<void>;
 }
 
-export { IMPORT_TASK_TYPE, IMPORT_PREVIEW_TASK_TYPE } from '@zenith/shared/tasks';
+export { IMPORT_TASK_TYPE, IMPORT_PREVIEW_TASK_TYPE } from '@arcbase/shared/tasks';
 
 export const DEFAULT_MAX_ROWS = 10_000;
 

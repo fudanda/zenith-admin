@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -6,23 +6,23 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	audit "github.com/fudanda/zenith-admin/backend/internal/modules/audit"
-	authorization "github.com/fudanda/zenith-admin/backend/internal/modules/authorization"
-	bootstrap "github.com/fudanda/zenith-admin/backend/internal/modules/bootstrap"
-	configuration "github.com/fudanda/zenith-admin/backend/internal/modules/configuration"
-	files "github.com/fudanda/zenith-admin/backend/internal/modules/files"
-	identity "github.com/fudanda/zenith-admin/backend/internal/modules/identity"
-	integrations "github.com/fudanda/zenith-admin/backend/internal/modules/integrations"
-	organization "github.com/fudanda/zenith-admin/backend/internal/modules/organization"
-	positions "github.com/fudanda/zenith-admin/backend/internal/modules/organization/positions"
-	relations "github.com/fudanda/zenith-admin/backend/internal/modules/relations"
-	system "github.com/fudanda/zenith-admin/backend/internal/modules/system"
-	transfers "github.com/fudanda/zenith-admin/backend/internal/modules/transfers"
-	usergroups "github.com/fudanda/zenith-admin/backend/internal/modules/usergroups"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	audit "github.com/fudanda/arcbase/backend/internal/modules/audit"
+	authorization "github.com/fudanda/arcbase/backend/internal/modules/authorization"
+	bootstrap "github.com/fudanda/arcbase/backend/internal/modules/bootstrap"
+	configuration "github.com/fudanda/arcbase/backend/internal/modules/configuration"
+	files "github.com/fudanda/arcbase/backend/internal/modules/files"
+	identity "github.com/fudanda/arcbase/backend/internal/modules/identity"
+	integrations "github.com/fudanda/arcbase/backend/internal/modules/integrations"
+	organization "github.com/fudanda/arcbase/backend/internal/modules/organization"
+	positions "github.com/fudanda/arcbase/backend/internal/modules/organization/positions"
+	relations "github.com/fudanda/arcbase/backend/internal/modules/relations"
+	system "github.com/fudanda/arcbase/backend/internal/modules/system"
+	transfers "github.com/fudanda/arcbase/backend/internal/modules/transfers"
+	usergroups "github.com/fudanda/arcbase/backend/internal/modules/usergroups"
 )
 
 type services struct {

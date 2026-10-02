@@ -2,7 +2,7 @@
  * 决策表求值引擎（规则中心）。
  *
  * 纯函数、只读、无副作用：给定输入 scope，按命中策略匹配规则行，输出结果。
- * 单元格匹配使用 `@zenith/shared` 的 rule-cell DSL（与前端体检/MSW mock 同源）；
+ * 单元格匹配使用 `@arcbase/shared` 的 rule-cell DSL（与前端体检/MSW mock 同源）；
  * 输入列取值与「=表达式」输出复用 `workflow-expression` 安全表达式引擎，不引入新的 RCE 面。
  *
  * 输出单元格语义（then[key]）：
@@ -13,8 +13,8 @@
  *   - collectAggregate  → collect 策略聚合方式（list/sum/min/max/count/distinct）
  *   - fallbackToDefaults → 未命中时回退输出列默认值（matched 仍为 false，usedFallback=true）
  */
-import type { RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleHitPolicy, RuleEvaluateResult, RuleDecisionTableSettings } from '@zenith/shared/rules';
-import { matchDecisionRows, resolveDecisionHits } from '@zenith/shared/rules';
+import type { RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleHitPolicy, RuleEvaluateResult, RuleDecisionTableSettings } from '@arcbase/shared/rules';
+import { matchDecisionRows, resolveDecisionHits } from '@arcbase/shared/rules';
 import { evaluateExpression } from './workflow-expression';
 
 interface DecisionTableLike {
@@ -56,7 +56,7 @@ function buildOutputs(row: RuleDecisionRow, outputs: RuleDecisionOutput[], scope
 
 /**
  * 对决策表求值；scope 为输入上下文（input.expr 的取值环境，如 { form, starter }）。
- * 行匹配与 hit-policy 装配在 `@zenith/shared/rules`（与 Mock 同源），这里只提供表达式求值。
+ * 行匹配与 hit-policy 装配在 `@arcbase/shared/rules`（与 Mock 同源），这里只提供表达式求值。
  */
 export function evaluateDecisionTable(table: DecisionTableLike, scope: Record<string, unknown>): RuleEvaluateResult {
   const colValues = table.inputs.map((col) => evaluateExpression(col.expr, scope));

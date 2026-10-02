@@ -10,10 +10,10 @@
  * 失败静默不阻断 ingest。异常事件本身可再被事件类告警规则 / 场景联动消费。
  */
 import { and, eq, gte, inArray, sql } from 'drizzle-orm';
-import type { IotMetricValue } from '@zenith/shared/iot';
+import type { IotMetricValue } from '@arcbase/shared/iot';
 import {
   IOT_ANOMALY_BASELINE_DAYS, IOT_ANOMALY_DEBOUNCE_SECONDS, IOT_ANOMALY_MIN_SAMPLES, IOT_ANOMALY_SIGMA,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import { db } from '../../db';
 import {
   iotDeviceEvents, iotDevices, iotProductProperties, iotTelemetryHourly, type IotDeviceRow,

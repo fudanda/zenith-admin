@@ -22,9 +22,9 @@ import {
   useRejectPaymentRiskReview,
   useSavePaymentRiskRule,
 } from '@/hooks/queries/payment-risk';
-import { enumValueOf, USER_STATUSES } from '@zenith/shared/core';
-import { PAYMENT_CHANNEL_LABELS, PAYMENT_RISK_ACTIONS, PAYMENT_RISK_DIMENSION_LABELS, PAYMENT_RISK_HIT_QUERY_DIMENSIONS, PAYMENT_RISK_REVIEW_STATUS_LABELS, PAYMENT_RISK_REVIEW_STATUSES, PAYMENT_RISK_SCOPE_LABELS, PAYMENT_RISK_SCOPES, PAYMENT_CHANNEL_OPTIONS, PAYMENT_RISK_SCOPE_OPTIONS, PAYMENT_RISK_ACTION_OPTIONS, PAYMENT_RISK_DIMENSION_OPTIONS, PAYMENT_RISK_REVIEW_STATUS_OPTIONS } from '@zenith/shared/payment';
-import type { CreatePaymentRiskRuleInput, PaymentChannel, PaymentRiskAction, PaymentRiskDimension, PaymentRiskHit, PaymentRiskReview, PaymentRiskReviewStatus, PaymentRiskRule, PaymentRiskScope } from '@zenith/shared/payment';
+import { enumValueOf, USER_STATUSES } from '@arcbase/shared/core';
+import { PAYMENT_CHANNEL_LABELS, PAYMENT_RISK_ACTIONS, PAYMENT_RISK_DIMENSION_LABELS, PAYMENT_RISK_HIT_QUERY_DIMENSIONS, PAYMENT_RISK_REVIEW_STATUS_LABELS, PAYMENT_RISK_REVIEW_STATUSES, PAYMENT_RISK_SCOPE_LABELS, PAYMENT_RISK_SCOPES, PAYMENT_CHANNEL_OPTIONS, PAYMENT_RISK_SCOPE_OPTIONS, PAYMENT_RISK_ACTION_OPTIONS, PAYMENT_RISK_DIMENSION_OPTIONS, PAYMENT_RISK_REVIEW_STATUS_OPTIONS } from '@arcbase/shared/payment';
+import type { CreatePaymentRiskRuleInput, PaymentChannel, PaymentRiskAction, PaymentRiskDimension, PaymentRiskHit, PaymentRiskReview, PaymentRiskReviewStatus, PaymentRiskRule, PaymentRiskScope } from '@arcbase/shared/payment';
 import { useDictItems } from '@/hooks/useDictItems';
 import { useRuleListList } from '@/hooks/queries/rules';
 import { useListSearch } from '@/hooks/useListSearch';

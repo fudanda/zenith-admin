@@ -1,5 +1,5 @@
-import { workflowFormContract } from '@zenith/shared/workflow';
-import type { WorkflowForm } from '@zenith/shared/workflow';
+import { workflowFormContract } from '@arcbase/shared/workflow';
+import type { WorkflowForm } from '@arcbase/shared/workflow';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest, conflict } from '@/mocks/utils/handlers';

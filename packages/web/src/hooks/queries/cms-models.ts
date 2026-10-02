@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
-import { cmsModelContract } from '@zenith/shared/cms';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
+import { cmsModelContract } from '@arcbase/shared/cms';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { cmsChannelKeys } from './cms-channels';

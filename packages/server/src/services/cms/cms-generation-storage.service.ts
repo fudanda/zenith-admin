@@ -8,7 +8,7 @@ import { cmsDeployments, cmsSiteGenerations, type CmsDeploymentSnapshot } from '
 import { cmsGenerationContext, withCmsGenerationContext } from './cms-generation-context';
 import { CMS_STATIC_ROOT, isStrictlyWithin } from './cms-static-path';
 import { canonicalCmsJson } from './cms-content-revisions.service';
-import type { CmsConfigurationSnapshot } from '@zenith/shared/cms';
+import type { CmsConfigurationSnapshot } from '@arcbase/shared/cms';
 import { CMS_PUBLIC_SITE_SETTINGS, CMS_CONFIGURATION_TABLES } from './cms-public-settings';
 import { cmsBuildArtifactFile } from './cms-release-build-artifacts';
 

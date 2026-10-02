@@ -11,7 +11,7 @@
  *
  * 本文件不依赖数据库，便于单测；DB 相关编排见 services/cms/cms-resource-refs.service.ts。
  */
-import { CMS_RESOURCE_URI_PREFIX } from '@zenith/shared/cms';
+import { CMS_RESOURCE_URI_PREFIX } from '@arcbase/shared/cms';
 
 /** 匹配内嵌句柄（正文 HTML / JSON 字符串内均适用） */
 const RESOURCE_URI_RE = /cms-res:\/\/(\d+)/g;

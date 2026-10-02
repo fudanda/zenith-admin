@@ -23,7 +23,7 @@ import {
 const api = new ApiRecorder();
 vi.mock('@/utils/request', () => ({ request: createRequestMock(() => api) }));
 
-import { cmsSiteContract } from '@zenith/shared/cms';
+import { cmsSiteContract } from '@arcbase/shared/cms';
 import { contractKey } from '@/lib/contract-query';
 import { cmsSiteKeys, useAllCmsSites, useCmsThemeTemplates, useEnableSiteAnalytics, useSetCmsSiteUsers } from './cms';
 import {

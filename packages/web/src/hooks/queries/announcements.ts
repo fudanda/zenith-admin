@@ -1,10 +1,10 @@
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';
 import { useMemo } from 'react';
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { userContract } from '@zenith/shared/identity';
-import { announcementContract } from '@zenith/shared/messaging';
-import type { Announcement, AnnouncementDetail, MyAnnouncement } from '@zenith/shared/messaging';
+import type { QueryOf } from '@arcbase/shared/core';
+import { userContract } from '@arcbase/shared/identity';
+import { announcementContract } from '@arcbase/shared/messaging';
+import type { Announcement, AnnouncementDetail, MyAnnouncement } from '@arcbase/shared/messaging';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { useAllRoles } from './roles';

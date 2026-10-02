@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { keepPreviousData, useQueryClient, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { paymentChannelAccountContract, paymentReconContract } from '@zenith/shared/payment';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { paymentChannelAccountContract, paymentReconContract } from '@arcbase/shared/payment';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { paymentJournalKeys, paymentLedgerAccountKeys } from './payment-journals';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';

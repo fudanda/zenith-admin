@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/department"
+	"github.com/fudanda/arcbase/backend/ent/department"
 )
 
 // DepartmentCreate is the builder for creating a Department entity.

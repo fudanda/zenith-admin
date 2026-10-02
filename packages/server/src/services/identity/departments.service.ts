@@ -8,12 +8,12 @@ import { currentUser } from '../../lib/context';
 import { tenantCondition, getCreateTenantId } from '../../lib/tenant';
 import { formatTimestamps } from '../../lib/datetime';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
-import type { Department, createDepartmentSchema, updateDepartmentSchema } from '@zenith/shared/identity';
-import { departmentContract } from '@zenith/shared/identity';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { Department, createDepartmentSchema, updateDepartmentSchema } from '@arcbase/shared/identity';
+import { departmentContract } from '@arcbase/shared/identity';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import type * as z from 'zod';
 import { getScopeMemberSummaries } from './user-scope.service';
-import { buildTree } from '@zenith/shared/core';
+import { buildTree } from '@arcbase/shared/core';
 import { emitIdentityRemoval } from '../../lib/identity-lifecycle';
 import { resolveUserNames } from '../../lib/user-nicknames';
 

@@ -1,5 +1,5 @@
 import { requireRow } from '../../lib/db-assert';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { listRows } from '../../lib/list-query';
 import {
   and,
@@ -10,8 +10,8 @@ import {
   sql,
   } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { createCmsInteractionSchema, CMS_INTERACTION_CHOICE_QUESTION_TYPES, CMS_INTERACTION_MATRIX_SEPARATOR, CMS_INTERACTION_NPS_MAX, CMS_INTERACTION_OTHER_PREFIX, CMS_INTERACTION_OTHER_VALUE, cmsInteractionContract, cmsInteractionSchema } from '@zenith/shared/cms';
-import type { CmsInteractionPublicStats, CreateCmsInteractionInput, SubmitCmsInteractionInput, UpdateCmsInteractionInput } from '@zenith/shared/cms';
+import { createCmsInteractionSchema, CMS_INTERACTION_CHOICE_QUESTION_TYPES, CMS_INTERACTION_MATRIX_SEPARATOR, CMS_INTERACTION_NPS_MAX, CMS_INTERACTION_OTHER_PREFIX, CMS_INTERACTION_OTHER_VALUE, cmsInteractionContract, cmsInteractionSchema } from '@arcbase/shared/cms';
+import type { CmsInteractionPublicStats, CreateCmsInteractionInput, SubmitCmsInteractionInput, UpdateCmsInteractionInput } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import {
   cmsInteractionAnswers,

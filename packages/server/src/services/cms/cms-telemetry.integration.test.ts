@@ -3,7 +3,7 @@ import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { eq } from 'drizzle-orm';
 import { afterAll, describe, expect, it } from 'vitest';
-import type { CmsTelemetryEvent, CmsTelemetryPageContext } from '@zenith/shared/cms';
+import type { CmsTelemetryEvent, CmsTelemetryPageContext } from '@arcbase/shared/cms';
 import * as schema from '../../db/schema';
 import { withDbExecutor } from '../../db';
 import { collectCmsTelemetry } from './cms-telemetry.service';
@@ -16,7 +16,7 @@ afterAll(async () => { await client?.end(); });
 describe.skipIf(!connection)('CMS signed telemetry collector PostgreSQL', () => {
   it('deduplicates delivery atomically with the content counter and fences public ingestion', async () => {
     const url = new URL(connection!);
-    if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) || url.pathname !== '/zenith_review') throw new Error('Requires disposable local zenith_review database');
+    if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) || url.pathname !== '/arcbase_review') throw new Error('Requires disposable local arcbase_review database');
     const review = drizzle(client!, { schema, casing: 'snake_case' });
     const rollback = new Error('rollback telemetry collector fixture');
     try {

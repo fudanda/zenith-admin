@@ -1,10 +1,14 @@
 import { config } from '@/config';
 
-const STORAGE_PREFIX = 'zenith:';
+const STORAGE_PREFIX = 'arcbase:';
+const LEGACY_STORAGE_PREFIX = 'zenith:';
 
 /** Stable browser-storage namespace for this deployed derived project. */
 export function scopedStorageKey(key: string): string {
   if (key.startsWith(`${STORAGE_PREFIX}${config.deploymentId}:`)) return key;
+  if (key.startsWith(`${LEGACY_STORAGE_PREFIX}${config.deploymentId}:`)) {
+    return `${STORAGE_PREFIX}${key.slice(LEGACY_STORAGE_PREFIX.length)}`;
+  }
   return `${STORAGE_PREFIX}${config.deploymentId}:${key}`;
 }
 
@@ -18,6 +22,17 @@ function isScopedKey(key: string): boolean {
  * makes clear() safe: it cannot delete another derived project's data.
  */
 function createScopedStorage(source: Storage): Storage {
+  // Upgrade only this deployment. Existing ArcBase values win; write before
+  // removing the legacy value so quota failures cannot discard preferences.
+  const legacyPrefix = `${LEGACY_STORAGE_PREFIX}${config.deploymentId}:`;
+  const legacyKeys = Array.from({ length: source.length }, (_, index) => source.key(index))
+    .filter((key): key is string => key !== null && key.startsWith(legacyPrefix));
+  for (const key of legacyKeys) {
+    const target = scopedStorageKey(key);
+    const value = source.getItem(key);
+    if (source.getItem(target) === null && value !== null) source.setItem(target, value);
+    source.removeItem(key);
+  }
   const scoped = (key: string) => scopedStorageKey(String(key));
   const ownKeys = () => {
     const keys: string[] = [];

@@ -2,8 +2,8 @@
  * 聊天卡片渠道适配器（经系统号定向消息推送）。
  */
 import { eq } from 'drizzle-orm';
-import type { ChatCard } from '@zenith/shared/chat';
-import type { NotificationRecipient } from '@zenith/shared/messaging';
+import type { ChatCard } from '@arcbase/shared/chat';
+import type { NotificationRecipient } from '@arcbase/shared/messaging';
 import { db } from '../../../db';
 import { users } from '../../../db/schema';
 import { notifyUserWithCard } from '../../../services/chat/chat-notify.service';

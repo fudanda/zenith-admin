@@ -16,7 +16,7 @@ describe('admin paths', () => {
   it('normalizes local route basenames and independently hosted static assets', () => {
     expect(normalizeAdminBasePath('/console/')).toBe('/console');
     expect(normalizeAdminBasePath('/')).toBe('/');
-    expect(normalizeAssetBasePath('https://static.example/zenith')).toBe('https://static.example/zenith/');
+    expect(normalizeAssetBasePath('https://static.example/arcbase')).toBe('https://static.example/arcbase/');
   });
   it('rejects external routes, traversal, ambiguous slashes and unsafe asset URLs', () => {
     for (const path of ['https://example.com', '//evil', '/dash/../', '/dash?x=1', '/dash//x', '/%2f']) expect(() => normalizeAdminBasePath(path)).toThrow();

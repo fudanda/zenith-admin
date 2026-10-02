@@ -3,7 +3,7 @@
  * 签名策略与审批意见分开配置。
  */
 import { Checkbox, Select, Typography } from '@douyinfe/semi-ui';
-import { WORKFLOW_SIGNATURE_POLICY_OPTIONS } from '@zenith/shared/workflow';
+import { WORKFLOW_SIGNATURE_POLICY_OPTIONS } from '@arcbase/shared/workflow';
 import type { OperationPermission } from '../../types';
 
 /** 操作权限分组定义 */

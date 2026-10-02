@@ -6,7 +6,7 @@ import {
   SEED_IOT_PRODUCT_EVENTS, SEED_IOT_PRODUCT_PROPERTIES,
   SEED_IOT_PRODUCT_SERVICES, SEED_IOT_PRODUCTS,
   SEED_IOT_SCHEDULE_RUNS, SEED_IOT_SCHEDULES, SEED_IOT_WHITELIST,
-} from '@zenith/shared/seed';
+} from '@arcbase/shared/seed';
 import type {
   IotAlarm, IotAlarmRule, IotAutomation, IotAutomationRun, IotCommand, IotDevice, IotDeviceEvent, IotDeviceGroup,
   IotDeviceLog, IotDeviceShadow, IotFirmware, IotForwardLog, IotForwardRule, IotMaintenanceWindow,
@@ -14,7 +14,7 @@ import type {
   IotProduct, IotProductEvent,
   IotProductProperty, IotProductService, IotSchedule, IotScheduleRun,
   IotTelemetryAggPoint, IotTelemetryPoint, IotWhitelistEntry,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

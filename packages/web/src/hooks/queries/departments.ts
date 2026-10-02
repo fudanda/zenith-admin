@@ -1,6 +1,6 @@
 import type { TreeNodeData } from '@douyinfe/semi-ui/lib/es/tree';
-import { buildTree, mapTree, type BodyOf, type QueryOf } from '@zenith/shared/core';
-import { departmentContract, type Department } from '@zenith/shared/identity';
+import { buildTree, mapTree, type BodyOf, type QueryOf } from '@arcbase/shared/core';
+import { departmentContract, type Department } from '@arcbase/shared/identity';
 import { contractKey, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

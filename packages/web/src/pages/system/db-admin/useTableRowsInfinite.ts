@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { dbAdminContract, type DbAdminTableRows as TableRowsResponse } from '@zenith/shared/ops';
+import { dbAdminContract, type DbAdminTableRows as TableRowsResponse } from '@arcbase/shared/ops';
 import { api } from '@/lib/contract-query';
 
 const PAGE_SIZE = 200;

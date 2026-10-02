@@ -1,5 +1,5 @@
-import { bizLeaveContract } from '@zenith/shared/biz';
-import type { BizLeave } from '@zenith/shared/biz';
+import { bizLeaveContract } from '@arcbase/shared/biz';
+import type { BizLeave } from '@arcbase/shared/biz';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';

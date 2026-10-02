@@ -1,10 +1,10 @@
 import { cmsContentWorkingCopies } from '../../db/schema/cms-revisions';
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { eq, asc, and, inArray, isNull, isNotNull } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import { pinyin } from 'pinyin-pro';
-import { cmsChannelContract, cmsChannelFieldsSchema } from '@zenith/shared/cms';
+import { cmsChannelContract, cmsChannelFieldsSchema } from '@arcbase/shared/cms';
 import { pickEntity } from '../../lib/entity-map';
 import { db } from '../../db';
 import { cmsChannels, cmsContents, cmsModels, cmsCollectRules, cmsChannelUsers, cmsPages, users } from '../../db/schema';
@@ -13,7 +13,7 @@ import type { DbExecutor } from '../../db/types';
 import { buildWhere } from '../../lib/where-helpers';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { currentCmsOpenApiAccess, currentUser } from '../../lib/context';
-import type { CreateCmsChannelInput, UpdateCmsChannelInput, CmsChannel } from '@zenith/shared/cms';
+import type { CreateCmsChannelInput, UpdateCmsChannelInput, CmsChannel } from '@arcbase/shared/cms';
 import { ensureCmsLinkTargetExists, isCmsLinkToChannel } from './cms-link.service';
 import { assertChannelTemplatesBySite } from './cms-template-refs.service';
 import {
@@ -28,7 +28,7 @@ import { assertCmsWidgetChannelVisibilityMutable, assertCmsWidgetSourcesMutable 
 import { submitCmsWidgetChannelRefreshSideEffect } from './cms-widget-tasks';
 import { sanitizeCmsHtml } from './cms-html-sanitizer';
 import { resolveEffectivelyEnabledChannelIds } from './cms-channel-visibility.service';
-import { buildTree } from '@zenith/shared/core';
+import { buildTree } from '@arcbase/shared/core';
 
 // ─── 数据映射 ─────────────────────────────────────────────────────────────────
 export function mapCmsChannel(row: CmsChannelRow, modelName?: string | null): CmsChannel {

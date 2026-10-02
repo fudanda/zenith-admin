@@ -1,4 +1,4 @@
-const RECENT_KEY = 'zenith_approval_recent_defs';
+const RECENT_KEY = 'arcbase_approval_recent_defs';
 const RECENT_MAX = 5;
 
 /** 最近发起的流程定义 ID（localStorage，最新在前） */

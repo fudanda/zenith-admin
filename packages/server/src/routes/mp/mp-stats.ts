@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { mpStatsContract } from '@zenith/shared/mp';
+import { mpStatsContract } from '@arcbase/shared/mp';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getMpStats, getMpDatacube } from '../../services/mp/mp-stats.service';

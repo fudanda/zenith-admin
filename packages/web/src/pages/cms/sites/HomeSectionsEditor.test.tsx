@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import type { CmsHomeSection } from '@zenith/shared/cms';
+import type { CmsHomeSection } from '@arcbase/shared/cms';
 import HomeSectionsEditor from './HomeSectionsEditor';
 
 vi.mock('@/hooks/queries/cms-channels', () => ({ useCmsChannelTree: () => ({ data: [], isFetching: false, isError: false }) }));

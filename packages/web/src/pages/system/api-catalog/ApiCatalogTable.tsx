@@ -2,7 +2,7 @@ import { memo, useCallback, useMemo, type ReactNode } from 'react';
 import { Tag, Tooltip, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { PaginationProps } from '@douyinfe/semi-ui/lib/es/pagination';
-import { SECURITY_SCHEME_LABELS, type OperationVerdict } from '@zenith/shared/permission-catalog-core';
+import { SECURITY_SCHEME_LABELS, type OperationVerdict } from '@arcbase/shared/permission-catalog-core';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import OverflowTagList from '@/components/OverflowTagList';
 import { ListSearchToolbar } from '@/components/list-page';

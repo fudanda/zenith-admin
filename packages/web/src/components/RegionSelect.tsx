@@ -1,6 +1,6 @@
 import { Cascader } from '@douyinfe/semi-ui';
 import type { CSSProperties } from 'react';
-import type { Region } from '@zenith/shared/platform';
+import type { Region } from '@arcbase/shared/platform';
 import { useRegionLookupTree } from '@/hooks/queries/regions';
 
 interface CascaderItem {

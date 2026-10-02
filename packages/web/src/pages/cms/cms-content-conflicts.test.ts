@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { CmsModelField } from '@zenith/shared/cms';
+import type { CmsModelField } from '@arcbase/shared/cms';
 import { mockCmsModels } from '@/mocks/data/cms';
 import { buildCmsContentConflictRows, cmsConflictValueText } from './cms-content-conflicts';
 

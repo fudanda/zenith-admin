@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { emailTemplateContract } from '@zenith/shared/messaging';
+import { emailTemplateContract } from '@arcbase/shared/messaging';
 import { validationHook } from '../../lib/openapi-schemas';
 import { emailTemplateService } from '../../services/messaging/email-templates.service';
 import { mountCrud } from '../_crud';

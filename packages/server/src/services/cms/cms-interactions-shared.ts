@@ -1,8 +1,8 @@
 import { requireFirstRow } from '../../lib/db-assert';
 import { eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { CMS_INTERACTION_OTHER_PREFIX, CMS_INTERACTION_OTHER_VALUE } from '@zenith/shared/cms';
-import type { CmsInteractionRepeatPolicy } from '@zenith/shared/cms';
+import { CMS_INTERACTION_OTHER_PREFIX, CMS_INTERACTION_OTHER_VALUE } from '@arcbase/shared/cms';
+import type { CmsInteractionRepeatPolicy } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsInteractions } from '../../db/schema';
 import type { CmsInteractionRow } from '../../db/schema';

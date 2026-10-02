@@ -2,7 +2,7 @@
  * 链路追踪查看器
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { traceContract } from '@zenith/shared/platform';
+import { traceContract } from '@arcbase/shared/platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getTraceTimeline, listRecentTraces, listRecentTraceFailures } from '../../services/platform/trace.service';

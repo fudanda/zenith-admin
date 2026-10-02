@@ -4,7 +4,7 @@
  * 使用 Iconify vscode-icons 图标集的图标 id，视觉风格与 VS Code material-icon-theme 高度一致。
  * 图标本体不再由运行时从公网 Iconify API 拉取：`scripts/gen-iconify-assets.mjs` 在构建期扫描这里的字面量，
  * 从 @iconify-json/vscode-icons 抽成 `assets/file-icons/*.svg`（文件夹图标连同 `-opened` 展开态），
- * 由 `components/FileTypeIcon` 按需渲染；新增映射后运行 `npm run icons:iconify -w @zenith/web`。
+ * 由 `components/FileTypeIcon` 按需渲染；新增映射后运行 `npm run icons:iconify -w @arcbase/web`。
  */
 
 /** 文件扩展名 → iconify 图标 ID */

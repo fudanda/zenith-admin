@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent"
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
@@ -26,7 +26,7 @@ type Store struct {
 
 func OpenStore(ctx context.Context, dsn string) (*Store, error) {
 	if dsn == "" {
-		return nil, errors.New("ZENITH_DATABASE_URL is required")
+		return nil, errors.New("ARCBASE_DATABASE_URL is required")
 	}
 	db, dbDialect, err := openDatabase(dsn)
 	if err != nil {

@@ -12,7 +12,7 @@
 import { eq, sql } from 'drizzle-orm';
 import { db } from '../../db';
 import { analyticsEventMeta, analyticsEventOverrides, analyticsEventQualityDaily } from '../../db/schema';
-import type { AnalyticsEventMetaStatus, AnalyticsEventPropertyDef, AnalyticsEventPropertyType, AnalyticsQualityIssueType, TrackEventInput } from '@zenith/shared/analytics';
+import type { AnalyticsEventMetaStatus, AnalyticsEventPropertyDef, AnalyticsEventPropertyType, AnalyticsQualityIssueType, TrackEventInput } from '@arcbase/shared/analytics';
 import { formatDate } from '../../lib/datetime';
 
 const CACHE_TTL_MS = 60_000;

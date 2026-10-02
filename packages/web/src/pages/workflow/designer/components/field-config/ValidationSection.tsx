@@ -1,6 +1,6 @@
 // ─── 校验规则设置（长度/范围/正则/唯一/跨字段比较/校验公式，拆分自 FieldConfigPanel.tsx）───
 import { Input, InputNumber, Switch, Typography, TextArea } from '@douyinfe/semi-ui';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { regexError, formulaError } from './helpers';
 import type { FieldTypeFlags } from './field-type-flags';
 import { CompareRulesEditor } from './CompareRulesEditor';

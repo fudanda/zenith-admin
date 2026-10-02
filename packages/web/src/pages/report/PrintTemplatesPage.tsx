@@ -20,9 +20,9 @@ import {
   useSaveReportPrintTemplate,
 } from '@/hooks/queries/report-print';
 import PrintPreviewModal from './PrintPreviewModal';
-import { REPORT_PRINT_ENTITY_KIND_LABELS, reportPrintContract } from '@zenith/shared/report';
-import type { CreateReportPrintTemplateInput, ReportPrintRenderResult, ReportPrintSourceType, ReportPrintTemplate, UpdateReportPrintTemplateInput } from '@zenith/shared/report';
-import type { ExportJobFormat } from '@zenith/shared/tasks';
+import { REPORT_PRINT_ENTITY_KIND_LABELS, reportPrintContract } from '@arcbase/shared/report';
+import type { CreateReportPrintTemplateInput, ReportPrintRenderResult, ReportPrintSourceType, ReportPrintTemplate, UpdateReportPrintTemplateInput } from '@arcbase/shared/report';
+import type { ExportJobFormat } from '@arcbase/shared/tasks';
 import { useDictItems } from '@/hooks/useDictItems';
 import { ReportFolderFilter, ReportOwnerFilter } from './report-filters';
 import { ReportOwnerFolderFields } from './report-form-fields';

@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { reportAlertContract, reportDeliveryRunContract } from '@zenith/shared/report';
+import type { QueryOf } from '@arcbase/shared/core';
+import { reportAlertContract, reportDeliveryRunContract } from '@arcbase/shared/report';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type ReportAlertListParams = NonNullable<QueryOf<typeof reportAlertContract.list>>;

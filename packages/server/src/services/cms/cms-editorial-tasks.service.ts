@@ -1,8 +1,8 @@
 import { and, desc, eq, isNull, or, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import type * as z from 'zod';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { cmsContentContract, cmsEditorialTaskSchema, cmsOperationsContract, createCmsEditorialTaskSchema, updateCmsEditorialTaskSchema } from '@zenith/shared/cms';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { cmsContentContract, cmsEditorialTaskSchema, cmsOperationsContract, createCmsEditorialTaskSchema, updateCmsEditorialTaskSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsContents, cmsContentWorkingCopies, cmsEditorialTasks, userEvents, users } from '../../db/schema';
 import { pickEntity } from '../../lib/entity-map';

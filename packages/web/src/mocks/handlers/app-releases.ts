@@ -4,7 +4,7 @@
  * 覆盖管理侧全部端点：应用 / 版本 / 制品 CRUD、发布状态机、灰度调整与看板统计。
  * 看板统计由确定性伪随机数生成（同一应用同一天数结果恒定），不重复维护静态数组。
  */
-import { enumValueOf } from '@zenith/shared/core';
+import { enumValueOf } from '@arcbase/shared/core';
 import {
   APP_ARCHES,
   APP_FILE_ARTIFACT_KINDS,
@@ -17,7 +17,7 @@ import {
   type AppRelease,
   type AppReleaseStats,
   type ClientApp,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

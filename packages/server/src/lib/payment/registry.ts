@@ -6,7 +6,7 @@
  */
 import { HTTPException } from 'hono/http-exception';
 import { requireRow } from '../db-assert';
-import type { PaymentChannel, PaymentMethod } from '@zenith/shared/payment';
+import type { PaymentChannel, PaymentMethod } from '@arcbase/shared/payment';
 import type {
   PaymentChannelAdapter,
   PaymentProviderCapability,

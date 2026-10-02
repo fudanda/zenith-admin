@@ -1,6 +1,6 @@
 import { pgTable, pgEnum, integer, varchar, text, jsonb, timestamp, uniqueIndex, index } from 'drizzle-orm/pg-core';
-import { CMS_EDITORIAL_TASK_SOURCES, CMS_EDITORIAL_TASK_STATUSES, CMS_FEEDBACK_STATUSES } from '@zenith/shared/cms';
-import type { WorkflowInstanceStatus } from '@zenith/shared/workflow';
+import { CMS_EDITORIAL_TASK_SOURCES, CMS_EDITORIAL_TASK_STATUSES, CMS_FEEDBACK_STATUSES } from '@arcbase/shared/cms';
+import type { WorkflowInstanceStatus } from '@arcbase/shared/workflow';
 import { idColumn, timestampColumns } from './common';
 import { auditColumns, users } from './core';
 import { cmsContents, cmsForms, cmsFormSubmissions, cmsSites } from './cms';

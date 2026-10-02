@@ -1,5 +1,5 @@
-import { resourceKeyOf } from '@zenith/shared/core';
-import { traceContract, type TraceNodeKind } from '@zenith/shared/platform';
+import { resourceKeyOf } from '@arcbase/shared/core';
+import { traceContract, type TraceNodeKind } from '@arcbase/shared/platform';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export const traceKeys = {

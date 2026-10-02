@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { positionContract } from '@zenith/shared/identity';
+import { positionContract } from '@arcbase/shared/identity';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody, csvStreamBody } from '../../lib/openapi-schemas';

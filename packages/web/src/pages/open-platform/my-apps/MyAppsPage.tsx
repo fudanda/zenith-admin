@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Banner, Button, Checkbox, Col, Form, Modal, Row, SideSheet, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Activity } from 'lucide-react';
-import { enumValueOf } from '@zenith/shared/core';
-import { OAUTH2_GRANT_TYPE_LABELS, OAUTH2_GRANT_TYPES, OPEN_APP_ENVIRONMENT_OPTIONS, developerAppContract } from '@zenith/shared/open-platform';
-import type { OAuth2Client, OAuth2GrantType } from '@zenith/shared/open-platform';
+import { enumValueOf } from '@arcbase/shared/core';
+import { OAUTH2_GRANT_TYPE_LABELS, OAUTH2_GRANT_TYPES, OPEN_APP_ENVIRONMENT_OPTIONS, developerAppContract } from '@arcbase/shared/open-platform';
+import type { OAuth2Client, OAuth2GrantType } from '@arcbase/shared/open-platform';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { useOAuth2ApiScopes } from '@/hooks/queries/oauth2-apps';
 import {

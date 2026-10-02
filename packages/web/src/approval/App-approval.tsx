@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { HashRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Spin } from '@douyinfe/semi-ui';
-import { TOKEN_KEY } from '@zenith/shared/core';
+import { TOKEN_KEY } from '@arcbase/shared/core';
 import { approvalQueryClient } from './lib/query-client';
 
 // 页面级懒加载：入口只带路由壳，TaskDetail/LaunchForm 携带的全能表单渲染器

@@ -1,6 +1,6 @@
 import { asc, eq, sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { wikiTagContract, wikiTagSchema } from '@zenith/shared/wiki';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { wikiTagContract, wikiTagSchema } from '@arcbase/shared/wiki';
 import { db } from '../../db';
 import { wikiDocTags, wikiTags, type WikiTagRow } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';

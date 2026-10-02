@@ -1,5 +1,5 @@
-import { apiScopeContract } from '@zenith/shared/open-platform';
-import type { ApiScope } from '@zenith/shared/open-platform';
+import { apiScopeContract } from '@arcbase/shared/open-platform';
+import type { ApiScope } from '@arcbase/shared/open-platform';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, nextIdFrom } from '@/mocks/utils/handlers';
 import { mockApiScopes } from '@/mocks/data/api-scopes';

@@ -4,8 +4,8 @@ import { Button, Card, Descriptions, Empty, Skeleton, TabPane, Tabs, Tag, Toast,
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { ArrowLeft } from 'lucide-react';
 import dayjs from 'dayjs';
-import type { AppWebhookSubscription, OAuth2Token, OAuth2UserGrant } from '@zenith/shared/open-platform';
-import { OPEN_APP_ENVIRONMENT_LABELS, OPEN_APP_REVIEW_STATUS_LABELS } from '@zenith/shared/open-platform';
+import type { AppWebhookSubscription, OAuth2Token, OAuth2UserGrant } from '@arcbase/shared/open-platform';
+import { OPEN_APP_ENVIRONMENT_LABELS, OPEN_APP_REVIEW_STATUS_LABELS } from '@arcbase/shared/open-platform';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { listTableProps } from '@/components/list-page';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

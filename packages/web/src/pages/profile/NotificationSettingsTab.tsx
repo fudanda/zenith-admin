@@ -8,7 +8,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Banner, Button, Collapse, Form, Select, Spin, Switch, Tag, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { BellRing, Lock, Volume2 } from 'lucide-react';
-import { enumValueOf } from '@zenith/shared/core';
+import { enumValueOf } from '@arcbase/shared/core';
 import {
   NOTIFICATION_CHANNEL_LABELS,
   NOTIFICATION_DIGEST_MODE_OPTIONS,
@@ -16,7 +16,7 @@ import {
   type NotificationChannel,
   type NotificationMatrixEvent,
   type SaveNotificationSettingsInput,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import { FormTimezoneSelect } from '@/components/FormTimezoneSelect';
 import { PreferenceControl } from '@/components/settings/SettingRow';
 import {

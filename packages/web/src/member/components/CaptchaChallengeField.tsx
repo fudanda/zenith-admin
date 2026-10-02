@@ -1,5 +1,5 @@
 import { Input } from '@douyinfe/semi-ui';
-import type { LoginCaptchaChallenge } from '@zenith/shared/identity';
+import type { LoginCaptchaChallenge } from '@arcbase/shared/identity';
 
 interface CaptchaChallengeFieldProps {
   challenge: LoginCaptchaChallenge;

@@ -1,4 +1,4 @@
-import { normalizeWorkflowFormSnapshot, type WorkflowCustomFormConfig, type WorkflowDefinition, type WorkflowDefinitionSnapshot, type WorkflowFlowData, type WorkflowFormField, type WorkflowFormSettings, type WorkflowFormType, type WorkflowInstance } from '@zenith/shared/workflow';
+import { normalizeWorkflowFormSnapshot, type WorkflowCustomFormConfig, type WorkflowDefinition, type WorkflowDefinitionSnapshot, type WorkflowFlowData, type WorkflowFormField, type WorkflowFormSettings, type WorkflowFormType, type WorkflowInstance } from '@arcbase/shared/workflow';
 
 export { normalizeWorkflowFormSnapshot };
 

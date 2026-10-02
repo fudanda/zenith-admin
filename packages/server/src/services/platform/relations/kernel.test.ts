@@ -3,8 +3,8 @@ import { PgDialect } from 'drizzle-orm/pg-core';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { HTTPException } from 'hono/http-exception';
 import type { SQL } from 'drizzle-orm';
-import type { EntityRef } from '@zenith/shared/core';
-import type { CanonicalEntityRef } from '@zenith/shared/platform';
+import type { EntityRef } from '@arcbase/shared/core';
+import type { CanonicalEntityRef } from '@arcbase/shared/platform';
 import type { JwtPayload } from '../../../middleware/auth';
 import type { EntityAnchorResolver, RelationAccessContext, RelationProvider, VisibleEntityAnchor } from './types';
 

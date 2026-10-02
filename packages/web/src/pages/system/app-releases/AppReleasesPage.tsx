@@ -48,8 +48,8 @@ import {
   type CreateAppReleaseInput,
   type CreateClientAppInput,
   publicAppReleaseContract,
-} from '@zenith/shared/ops';
-import { enumValueOf } from '@zenith/shared/core';
+} from '@arcbase/shared/ops';
+import { enumValueOf } from '@arcbase/shared/core';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import AppModal from '@/components/AppModal';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
@@ -98,7 +98,7 @@ import {
   useUnbindDevicePush,
   useUploadAppArtifact,
 } from '@/hooks/queries/app-releases';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import { urlOf } from '@/lib/contract-query';
 import { shortDate } from '@/utils/date';
 import { useFilterQuery } from '@/hooks/useFilterQuery';
@@ -193,7 +193,7 @@ function AppsManageModal({ visible, onClose }: { visible: boolean; onClose: () =
         <ConfigurableTable
           columnSettingsKey="client-apps"
           columns={columns}
-          {...listTableProps(listQuery, { empty: '暂无应用，先创建一个（如 zenith-desktop）' })}
+          {...listTableProps(listQuery, { empty: '暂无应用，先创建一个（如 arcbase-desktop）' })}
         />
       </Modal>
 
@@ -201,7 +201,7 @@ function AppsManageModal({ visible, onClose }: { visible: boolean; onClose: () =
         <Form.Input
           field="appKey"
           label="应用标识"
-          placeholder="如 zenith-desktop（客户端用它检查更新，创建后不可修改）"
+          placeholder="如 arcbase-desktop（客户端用它检查更新，创建后不可修改）"
           disabled={modal.isEdit}
           rules={[
             { required: true, message: '应用标识不能为空' },

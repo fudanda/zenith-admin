@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
-import type { SignatureInput, SignatureSnapshot } from '@zenith/shared/core';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
+import type { SignatureInput, SignatureSnapshot } from '@arcbase/shared/core';
 import WorkflowFormRenderer from './WorkflowFormRenderer';
 
 const IMAGE = 'data:image/png;base64,c2lnbmF0dXJl';

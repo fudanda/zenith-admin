@@ -1,6 +1,6 @@
 import { Col, Form, Row } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { wikiTemplateContract, type CreateWikiTemplateInput, type WikiTemplate } from '@zenith/shared/wiki';
+import { wikiTemplateContract, type CreateWikiTemplateInput, type WikiTemplate } from '@arcbase/shared/wiki';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { deleteAction, ListSearchToolbar, useStatusToggle } from '@/components/list-page';

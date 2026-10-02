@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ErrorEvent, ErrorLevel, ServerErrorType } from '@zenith/shared/analytics';
-import { ERROR_LEVEL_OPTIONS, SERVER_ERROR_TYPE_OPTIONS } from '@zenith/shared/analytics';
+import type { ErrorEvent, ErrorLevel, ServerErrorType } from '@arcbase/shared/analytics';
+import { ERROR_LEVEL_OPTIONS, SERVER_ERROR_TYPE_OPTIONS } from '@arcbase/shared/analytics';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { ErrorLevelTag, ErrorTypeTag } from '@/components/error-tracking';
 import { ListSearchToolbar, listTableProps } from '@/components/list-page';

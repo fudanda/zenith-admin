@@ -1,4 +1,4 @@
-import { IMPERSONATION_STORE_KEY } from '@zenith/shared/core';
+import { IMPERSONATION_STORE_KEY } from '@arcbase/shared/core';
 
 /**
  * 模拟登录的本地标记（localStorage，本模块是唯一读写方）。

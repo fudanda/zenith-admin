@@ -4,7 +4,7 @@
  * CRUD + 执行记录查询；触发评估在设备接入热路径（见 iot-automations.service）。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { iotAutomationContract } from '@zenith/shared/iot';
+import { iotAutomationContract } from '@arcbase/shared/iot';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import {

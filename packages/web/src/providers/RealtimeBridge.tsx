@@ -1,12 +1,12 @@
 import { useEffect, type ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { subscribe } from '@zenith/client';
-import { useZenith, useSession } from '@zenith/elements';
+import { subscribe } from '@arcbase/client';
+import { useArcBase, useSession } from '@arcbase/elements';
 import { useAdminOptions } from '@/admin/runtime';
 
 /** A stream only invalidates cache; refreshed queries retain their server scope. */
 export function RealtimeBridge({ children }: { children: ReactNode }) {
-  const { client } = useZenith();
+  const { client } = useArcBase();
   const { session, status, refresh } = useSession();
   const queries = useQueryClient();
   const { authSession } = useAdminOptions();

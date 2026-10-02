@@ -4,8 +4,8 @@ import { randomUUID } from 'node:crypto';
 import {
   ASYNC_TASK_ACTIVE_STATUSES as UNFINISHED_STATUSES,
   ASYNC_TASK_TERMINAL_STATUSES as TERMINAL_STATUSES,
-} from '@zenith/shared/tasks';
-import type { SubjectRef } from '@zenith/shared/core';
+} from '@arcbase/shared/tasks';
+import type { SubjectRef } from '@arcbase/shared/core';
 import { requireRow } from '../db-assert';
 import { db, withoutDbExecutor } from '../../db';
 import { asyncTaskItems, asyncTaskSubjects, asyncTasks, asyncTaskTypeConfigs, users } from '../../db/schema';
@@ -37,7 +37,7 @@ import { getTaskHandler } from './registry';
 import { ensureTaskTypeConfig, getTaskTypePolicy } from './config';
 import { pushTaskProgress } from './map';
 import { normalizeAuditSubjects } from '../audit-subject';
-import { isCanonicalEntityType } from '@zenith/shared/platform';
+import { isCanonicalEntityType } from '@arcbase/shared/platform';
 import { recordDomainEvent } from '../../services/platform/relations/events.service';
 import { completeAsyncTasks } from './terminal-events';
 

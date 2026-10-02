@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { TaskHandlerRegistration } from '../task-center/types';
-import { IMPORT_PREVIEW_TASK_TYPE, IMPORT_TASK_TYPE } from '@zenith/shared/tasks';
+import { IMPORT_PREVIEW_TASK_TYPE, IMPORT_TASK_TYPE } from '@arcbase/shared/tasks';
 
 const mocks = vi.hoisted(() => ({ register: vi.fn(), insert: vi.fn(), finalize: vi.fn() }));
 vi.mock('../task-center', () => ({ registerTaskHandler: mocks.register }));

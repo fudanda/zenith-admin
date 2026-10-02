@@ -8,7 +8,7 @@ import {
   REFRESH_TOKEN_KEY,
   TABS_STORAGE_KEY,
   TOKEN_KEY,
-} from '@zenith/shared/core';
+} from '@arcbase/shared/core';
 import { createTestQueryClient } from '@/test-utils/query-harness';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { ADMIN_AUTH_INVALIDATED_EVENT, request } from '@/utils/request';

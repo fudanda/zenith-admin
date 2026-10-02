@@ -10,8 +10,8 @@ import { operationLogKeys, useCleanOperationLogs, useOperationLogList } from '@/
 import { useListSearch } from '@/hooks/useListSearch';
 import { useListDeepLink } from '@/hooks/useListDeepLink';
 import { DateRangeFilter, FilterSelect, KeywordInput, NumberFilter, StatusSelect } from '@/components/search-filters';
-import { enumValueOf } from '@zenith/shared/core';
-import { OPERATION_LOG_RESULT_OPTIONS, OPERATION_LOG_RESULTS } from '@zenith/shared/platform';
+import { enumValueOf } from '@arcbase/shared/core';
+import { OPERATION_LOG_RESULT_OPTIONS, OPERATION_LOG_RESULTS } from '@arcbase/shared/platform';
 
 const METHOD_OPTIONS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].map((value) => ({ value, label: value }));
 /** 模拟登录筛选：与契约 `impersonated` 的 queryBool 文案一致（该页为映射模式，控件手写） */

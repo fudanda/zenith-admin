@@ -1,9 +1,9 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { createHash, randomUUID } from 'node:crypto';
 import { and, desc, eq, gt, inArray, isNull, or, sql } from 'drizzle-orm';
 import type { SQL } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { PAYMENT_LEDGER_STANDARD_ACCOUNTS, type SystemPaymentJournalInput, type CreatePaymentFundReservationInput, type CreatePaymentLedgerAccountInput, type PaymentActiveReservationAmount, type PaymentFundReservation, type PaymentJournal, type PaymentJournalLine, type PaymentLedgerAccount, type PaymentLedgerAccountCode, type PostPaymentJournalInput, type TransitionPaymentFundReservationInput, paymentJournalContract } from '@zenith/shared/payment';
+import { PAYMENT_LEDGER_STANDARD_ACCOUNTS, type SystemPaymentJournalInput, type CreatePaymentFundReservationInput, type CreatePaymentLedgerAccountInput, type PaymentActiveReservationAmount, type PaymentFundReservation, type PaymentJournal, type PaymentJournalLine, type PaymentLedgerAccount, type PaymentLedgerAccountCode, type PostPaymentJournalInput, type TransitionPaymentFundReservationInput, paymentJournalContract } from '@arcbase/shared/payment';
 import { db } from '../../db';
 import { buildListResult, listRows } from '../../lib/list-query';
 import { paymentApps, paymentChannelConfigs, paymentFundReservations, paymentJournalLines, paymentJournals, paymentLedgerAccounts, type PaymentFundReservationRow, type PaymentJournalRow, type PaymentLedgerAccountRow } from '../../db/schema';

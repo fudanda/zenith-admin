@@ -7,7 +7,7 @@ import { HTTPException } from 'hono/http-exception';
 import { normalizeDatasourceConfig, resolveApiHeaders, mapDatasource } from './report-datasource.service';
 import { decryptField } from '../../lib/encryption';
 import type { ReportDatasourceRow } from '../../db/schema';
-import type { ReportApiDatasourceConfig, ReportExternalDbConfig } from '@zenith/shared/report';
+import type { ReportApiDatasourceConfig, ReportExternalDbConfig } from '@arcbase/shared/report';
 
 const rowOf = (over: Partial<ReportDatasourceRow>): ReportDatasourceRow => ({
   id: 1, name: 'ds', type: 'api', config: {}, status: 'enabled', remark: null,

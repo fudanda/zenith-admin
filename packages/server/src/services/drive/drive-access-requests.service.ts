@@ -1,6 +1,6 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, inArray, isNull, sql, type SQL } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import {
   driveAccessRequestContract,
   driveRoleAtLeast,
@@ -8,7 +8,7 @@ import {
   type DecideDriveAccessRequestInput,
   type DriveAccessRequest,
   type DriveAccessTarget,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { db } from '../../db';
 import {
   departments, driveAccessRequests, driveNodePermissions, driveNodes, driveSpaceMembers, driveSpaces,

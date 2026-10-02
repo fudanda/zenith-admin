@@ -114,7 +114,7 @@ export function expandPermissionButtons(pages: Menu[], registry: Readonly<Record
 /**
  * 按功能目录的 menuRoots 为整棵子树派生 featureKey。
  * featureKey 为 null 的菜单属于核心能力（不可关闭）；分片文件无需逐行标注，
- * 目录（@zenith/shared/licensing 的 LICENSE_FEATURE_CATALOG）是唯一事实源。
+ * 目录（@arcbase/shared/licensing 的 LICENSE_FEATURE_CATALOG）是唯一事实源。
  */
 function applyMenuFeatureKeys(menus: Menu[]): Menu[] {
   const childrenByParent = new Map<number, Menu[]>();

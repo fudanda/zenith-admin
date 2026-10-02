@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { mpDraftContract } from '@zenith/shared/mp';
+import type { QueryOf } from '@arcbase/shared/core';
+import { mpDraftContract } from '@arcbase/shared/mp';
 import { createResourceQueries, useApiMutation } from '@/lib/contract-query';
 
 export type MpDraftListParams = QueryOf<typeof mpDraftContract.list>;

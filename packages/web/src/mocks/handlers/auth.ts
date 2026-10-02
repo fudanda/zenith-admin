@@ -1,5 +1,5 @@
-import { authContract, type MfaFactor, type TotpSetupResult, type UserSession } from '@zenith/shared/identity';
-import { canOverridePreference, getPreferenceValue, preferenceDefinitions, type UserPreferencesDocument } from '@zenith/shared/preferences';
+import { authContract, type MfaFactor, type TotpSetupResult, type UserSession } from '@arcbase/shared/identity';
+import { canOverridePreference, getPreferenceValue, preferenceDefinitions, type UserPreferencesDocument } from '@arcbase/shared/preferences';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest, unauthorized, forbidden, notFound, nextIdFrom } from '@/mocks/utils/handlers';
@@ -279,7 +279,7 @@ export const authHandlers = [
     const result: TotpSetupResult = {
       factorId: nextIdFrom(mockMfaFactors),
       secret: 'JBSWY3DPEHPK3PXP',
-      otpauthUrl: 'otpauth://totp/Zenith%20Admin:admin?secret=JBSWY3DPEHPK3PXP&issuer=Zenith%20Admin',
+      otpauthUrl: 'otpauth://totp/ArcBase%20Admin:admin?secret=JBSWY3DPEHPK3PXP&issuer=ArcBase%20Admin',
     };
     mockMfaFactors.unshift({
       id: result.factorId,

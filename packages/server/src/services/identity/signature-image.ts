@@ -1,5 +1,5 @@
 import { HTTPException } from 'hono/http-exception';
-import { SIGNATURE_MAX_HEIGHT, SIGNATURE_MAX_IMAGE_BYTES, SIGNATURE_MAX_WIDTH, signatureDataUrlSchema } from '@zenith/shared/core';
+import { SIGNATURE_MAX_HEIGHT, SIGNATURE_MAX_IMAGE_BYTES, SIGNATURE_MAX_WIDTH, signatureDataUrlSchema } from '@arcbase/shared/core';
 
 /** 将输入规整为不含元数据的单帧 PNG，限制解码体积并拒绝空白画布。 */
 export async function normalizeSignatureImage(dataUrl: string): Promise<{ buffer: Buffer; dataUrl: string }> {

@@ -1,5 +1,5 @@
-import type { Menu } from '@zenith/shared/identity';
-import { SEED_MENUS } from '@zenith/shared/seed';
+import type { Menu } from '@arcbase/shared/identity';
+import { SEED_MENUS } from '@arcbase/shared/seed';
 
 export const mockMenus: Menu[] = SEED_MENUS.map((m) => ({ ...m }));
 

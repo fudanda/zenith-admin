@@ -12,17 +12,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/department"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
-	"github.com/fudanda/zenith-admin/backend/ent/role"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/ent/usergroup"
-	"github.com/fudanda/zenith-admin/backend/ent/usergroupmember"
-	"github.com/fudanda/zenith-admin/backend/ent/usergrouprole"
-	"github.com/fudanda/zenith-admin/backend/ent/userposition"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/department"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/role"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/ent/usergroup"
+	"github.com/fudanda/arcbase/backend/ent/usergroupmember"
+	"github.com/fudanda/arcbase/backend/ent/usergrouprole"
+	"github.com/fudanda/arcbase/backend/ent/userposition"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 )
 
 type Dependencies struct {

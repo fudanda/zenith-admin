@@ -1,7 +1,7 @@
 /**
  * 站点树纯函数工具（从 SitesPage 抽出，便于单测）。
  */
-import type { CmsSite, CmsSiteInheritableField } from '@zenith/shared/cms';
+import type { CmsSite, CmsSiteInheritableField } from '@arcbase/shared/cms';
 
 /**
  * 在扁平站点列表中收集 rootId 的全部后代 id（含自身）。

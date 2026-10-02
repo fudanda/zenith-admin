@@ -15,13 +15,13 @@ import {
   useDisableFirewall,
   useEnableFirewall,
 } from '@/hooks/queries/firewall';
-import type { AddFirewallRuleInput, FirewallRule } from '@zenith/shared/ops';
+import type { AddFirewallRuleInput, FirewallRule } from '@arcbase/shared/ops';
 import {
   FIREWALL_DIRECTION_LABELS,
   FIREWALL_PROTOCOL_LABELS,
   FIREWALL_RULE_TYPE_LABELS,
   FIREWALL_TYPE_LABELS,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { CreateButton } from '@/components/toolbar-controls';
 import { KeywordInput } from '@/components/search-filters';
 import { HostSelector } from '@/components/HostSelector';

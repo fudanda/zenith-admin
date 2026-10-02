@@ -1,8 +1,8 @@
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { FileTypeIcon } from '@/components/FileTypeIcon';
-import { escapeRegExp } from '@zenith/shared/core';
-import { drivePublicShareContract } from '@zenith/shared/drive';
-import { fileContract } from '@zenith/shared/platform';
+import { escapeRegExp } from '@arcbase/shared/core';
+import { drivePublicShareContract } from '@arcbase/shared/drive';
+import { fileContract } from '@arcbase/shared/platform';
 import { config } from '@/config';
 import { getFileIcon } from '@/utils/fileIcons';
 import { resolveFileMimeType } from '@/utils/file-mime';

@@ -1,4 +1,4 @@
-import type { WorkflowCustomFormVariable } from '@zenith/shared/workflow';
+import type { WorkflowCustomFormVariable } from '@arcbase/shared/workflow';
 
 /** 变量 key 规范：字母/下划线开头，仅字母数字下划线（与表单字段 key、表达式 form.* 引用一致） */
 export const CUSTOM_FORM_VARIABLE_KEY_PATTERN = /^[A-Za-z_$][\w$]*$/;

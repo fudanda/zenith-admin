@@ -1,5 +1,5 @@
-import { randomUUID } from '@zenith/shared/core';
-import type { CmsAttributionContext, CmsTelemetryConfig, CmsTelemetryEvent } from '@zenith/shared/cms';
+import { randomUUID } from '@arcbase/shared/core';
+import type { CmsAttributionContext, CmsTelemetryConfig, CmsTelemetryEvent } from '@arcbase/shared/cms';
 import { CMS_SESSION_IDLE_MS, CmsIdentity, cmsReferrer, cmsStoragePrefix, isCmsUuid, readCmsUtm, type CmsSession } from './cms-identity';
 import { CmsTransport, type CmsDeliveryStatus } from './cms-transport';
 import { CmsDomTracker } from './cms-tracker-dom';

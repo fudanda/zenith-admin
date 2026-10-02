@@ -3,9 +3,9 @@
  *
  * 应用自身通常以库 owner 甚至 superuser 连接；READ ONLY 事务只挡 DML，挡不住
  * `COPY ... TO PROGRAM`、`pg_read_file`、`lo_export` 这类服务器端文件 / 程序函数，也挡不住
- * `set_config('role', ...)`。迁移 0007 创建 NOLOGIN 角色 zenith_readonly（仅 SELECT，无
+ * `set_config('role', ...)`。迁移 0007 创建 NOLOGIN 角色 arcbase_readonly（仅 SELECT，无
  * pg_read_server_files / pg_execute_server_program 等特权）并把应用用户加入其中；执行用户 SQL 的
- * 事务里先 `SET LOCAL ROLE zenith_readonly`，让 PostgreSQL 自己拒绝越权，白名单 / 黑名单只是第一道闸。
+ * 事务里先 `SET LOCAL ROLE arcbase_readonly`，让 PostgreSQL 自己拒绝越权，白名单 / 黑名单只是第一道闸。
  *
  * 角色不可用（迁移未跑、应用用户无 CREATEROLE 导致创建被跳过）时降级为只用白名单 + READ ONLY，
  * 并在首次探测时打 warn，不阻断数据库管理页可用性。
@@ -14,7 +14,7 @@ import { sql } from 'drizzle-orm';
 import { db } from '../db';
 import logger from './logger';
 
-export const DB_READONLY_ROLE = 'zenith_readonly';
+export const DB_READONLY_ROLE = 'arcbase_readonly';
 
 const SYSTEM_SCHEMAS_SQL = `('pg_catalog', 'information_schema', 'pg_toast')`;
 
@@ -90,7 +90,7 @@ export interface ReadonlyTransactionGuardOptions {
 }
 
 /**
- * 在已开启的事务内应用用户 SQL 执行护栏：READ ONLY + 超时 + SET LOCAL ROLE zenith_readonly。
+ * 在已开启的事务内应用用户 SQL 执行护栏：READ ONLY + 超时 + SET LOCAL ROLE arcbase_readonly。
  * 调用方传入「执行一条原始 SQL」的函数，兼容 drizzle 事务（tx.execute(sql.raw(...))）与
  * postgres-js 事务（tx.unsafe(...)）。SET LOCAL 随事务结束自动还原，不污染连接池。
  */

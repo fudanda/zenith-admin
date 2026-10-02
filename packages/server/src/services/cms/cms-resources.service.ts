@@ -1,9 +1,9 @@
 import { requireRow } from '../../lib/db-assert';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { buildListResult } from '../../lib/list-query';
 import { eq, and, desc, gt, inArray, isNull, notInArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsResourceContract, cmsResourceSchema } from '@zenith/shared/cms';
+import { cmsResourceContract, cmsResourceSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsResources, cmsResourceFolders, cmsResourceRefs } from '../../db/schema';
 import { cmsAssetVersions } from '../../db/schema/cms-design';
@@ -13,7 +13,7 @@ import { buildWhere, withPagination, keywordCondition } from '../../lib/where-he
 import { uploadManagedFile, deleteManagedFile, readFileContent } from '../files/files.service';
 import { processCmsImageUpload } from './cms-image.service';
 import { assertSiteAccess } from './cms-sites.service';
-import type { CmsResourceType, CmsResourceReference, UpdateCmsResourceInput, CropCmsResourceInput } from '@zenith/shared/cms';
+import type { CmsResourceType, CmsResourceReference, UpdateCmsResourceInput, CropCmsResourceInput } from '@arcbase/shared/cms';
 import { assertCompleteCmsBatch } from './cms-access';
 import { ensureCmsSiteExists } from './cms-sites.service';
 import { assertAllCmsSiteChannelsAccess } from './cms-channels.service';

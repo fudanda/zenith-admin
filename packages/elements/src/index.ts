@@ -1,8 +1,8 @@
 import './styles.css';
-export { ZenithProvider, useZenith, useSession } from './provider';
-export type { ZenithProviderProps, ZenithLocale, ZenithTheme, ZenithBrand } from './provider';
+export { ArcBaseProvider, useArcBase, useSession } from './provider';
+export type { ArcBaseProviderProps, ArcBaseLocale, ArcBaseTheme, ArcBaseBrand } from './provider';
 export { createCookieSession } from './session';
-export type { ZenithSessionAdapter, ZenithSessionValue, SessionSnapshot, SessionStatus, LoginInput, LoginResult } from './session';
+export type { ArcBaseSessionAdapter, ArcBaseSessionValue, SessionSnapshot, SessionStatus, LoginInput, LoginResult } from './session';
 export { PermissionGuard, SessionBoundary, usePermission } from './permissions';
 export { UserAvatar } from './UserAvatar';
 export type { UserAvatarProps } from './UserAvatar';

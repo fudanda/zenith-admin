@@ -1,4 +1,4 @@
-import { workflowAttachmentContract } from '@zenith/shared/workflow';
+import { workflowAttachmentContract } from '@arcbase/shared/workflow';
 import { urlOf } from '@/lib/contract-query';
 /**
  * 通用流程实例详情面板
@@ -13,8 +13,8 @@ import {
 } from '@douyinfe/semi-ui';
 import { CornerUpLeft, Reply, Send, ShieldCheck, Undo2, X } from 'lucide-react';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
-import type { WorkflowDefinition, WorkflowFieldPermission, WorkflowInstance, WorkflowComment, WorkflowTask, WorkflowTaskConsult } from '@zenith/shared/workflow';
-import { applyFieldPermissionsToFields, WORKFLOW_TASK_STATUS_LABELS, workflowInstanceContract, workflowTaskContract } from '@zenith/shared/workflow';
+import type { WorkflowDefinition, WorkflowFieldPermission, WorkflowInstance, WorkflowComment, WorkflowTask, WorkflowTaskConsult } from '@arcbase/shared/workflow';
+import { applyFieldPermissionsToFields, WORKFLOW_TASK_STATUS_LABELS, workflowInstanceContract, workflowTaskContract } from '@arcbase/shared/workflow';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { contractKey, useApiMutation } from '@/lib/contract-query';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';

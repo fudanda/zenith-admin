@@ -1,14 +1,14 @@
-import { fileContract, managedFileSchema } from '@zenith/shared/platform';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { fileContract, managedFileSchema } from '@arcbase/shared/platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { buildListResult } from '../../lib/list-query';
 import { requireRow } from '../../lib/db-assert';
 import { managedFiles, fileStorageConfigs } from '../../db/schema';
 import type { FileStorageConfigRow } from '../../db/schema';
-import type { FileVisibility } from '@zenith/shared/platform';
+import type { FileVisibility } from '@arcbase/shared/platform';
 import { buildManagedFileProxyUrl, buildPublicFileUrl, deleteStoredFile, readStoredFile, resolveFileAccessUrl, resolveObjectAcl, uploadFileByConfig } from '../../lib/file-storage';
 import { formatDateTime } from '../../lib/datetime';
 import { getSettings } from '../../lib/settings';
-import type { FilesSettings } from '@zenith/shared/settings';
+import type { FilesSettings } from '@arcbase/shared/settings';
 
 export function mapManagedFile(row: typeof managedFiles.$inferSelect, config?: FileStorageConfigRow) {
   return pickEntity(managedFileSchema, row, {

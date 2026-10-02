@@ -5,7 +5,7 @@ import { usePermission } from '@/hooks/usePermission';
 import { CmsAssetField } from './CmsAssetField';
 import { cmsMediaDurationFromMetadata, isExternalCmsMediaUrl } from './cms-media';
 import './cms-assets.css';
-import type { CmsResource } from '@zenith/shared/cms';
+import type { CmsResource } from '@arcbase/shared/cms';
 
 const FormAsset = withField(CmsAssetField);
 

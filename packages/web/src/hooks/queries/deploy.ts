@@ -1,10 +1,10 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { InputOf, QueryOf } from '@zenith/shared/core';
+import type { InputOf, QueryOf } from '@arcbase/shared/core';
 import {
   deployReleaseContract,
   deployRunContract,
   deployTargetContract,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { contractKey, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 
 export type DeployTargetListParams = NonNullable<QueryOf<typeof deployTargetContract.list>>;

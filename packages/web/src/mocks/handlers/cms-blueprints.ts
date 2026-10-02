@@ -1,4 +1,4 @@
-import { buildCmsSiteBlueprint, CMS_SITE_BLUEPRINTS, cmsSiteContract, cmsSiteSchema, cmsChannelSchema, cmsModelSchema, cmsModelFieldViewSchema, cmsPageSchema, cmsWidgetSchema, cmsWidgetRefSchema, cmsFormSchema, cmsResourceFolderSchema, remapCmsSiteComposition, createCmsFormSchema } from '@zenith/shared/cms';
+import { buildCmsSiteBlueprint, CMS_SITE_BLUEPRINTS, cmsSiteContract, cmsSiteSchema, cmsChannelSchema, cmsModelSchema, cmsModelFieldViewSchema, cmsPageSchema, cmsWidgetSchema, cmsWidgetRefSchema, cmsFormSchema, cmsResourceFolderSchema, remapCmsSiteComposition, createCmsFormSchema } from '@arcbase/shared/cms';
 import { mock } from '../utils/contract';
 import { mockDateTime } from '../utils/date';
 import * as data from '../data/cms';

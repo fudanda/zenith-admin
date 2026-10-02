@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import type { PaginatedResponse } from '@zenith/shared/core';
-import type { ReportChatbiMessage, ReportChatbiSession, ReportFillRecord, ReportFillTemplate, ReportMetric, ReportQueryQuotaUsage, ReportResourceAcl } from '@zenith/shared/report';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import type { PaginatedResponse } from '@arcbase/shared/core';
+import type { ReportChatbiMessage, ReportChatbiSession, ReportFillRecord, ReportFillTemplate, ReportMetric, ReportQueryQuotaUsage, ReportResourceAcl } from '@arcbase/shared/report';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import { asyncTasksHandlers } from '@/mocks/handlers/async-tasks';
 import { reportChatbiHandlers } from '@/mocks/handlers/report-chatbi';
 import { reportFillHandlers } from '@/mocks/handlers/report-fill';

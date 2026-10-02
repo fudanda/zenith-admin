@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { reportChatbiContract } from '@zenith/shared/report';
+import { reportChatbiContract } from '@arcbase/shared/report';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { namedRateLimit } from '../../middleware/rate-limit';

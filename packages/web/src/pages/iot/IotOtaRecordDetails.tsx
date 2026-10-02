@@ -1,6 +1,6 @@
 import { Descriptions, Progress, SideSheet, Spin, Typography } from '@douyinfe/semi-ui';
-import { IOT_OTA_DEVICE_STATUS_LABELS } from '@zenith/shared/iot';
-import { formatBytes } from '@zenith/shared/core';
+import { IOT_OTA_DEVICE_STATUS_LABELS } from '@arcbase/shared/iot';
+import { formatBytes } from '@arcbase/shared/core';
 import { EntityContextView } from '@/components/entity-relations/EntityRelationButton';
 import DateTimeText from '@/components/DateTimeText';
 import { useIotFirmwareDetail, useIotOtaDeviceDetail } from '@/hooks/queries/iot-ota';

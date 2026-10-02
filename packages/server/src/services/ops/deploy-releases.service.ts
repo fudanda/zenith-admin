@@ -4,8 +4,8 @@
  * 写入由部署流水线（登记 / 切换 current / 裁剪）与对账负责；这里是「发布备份」页的列表投影。
  */
 import { asc, desc, eq, isNull } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { deployReleaseSchema, type DeployRelease, type deployReleaseContract } from '@zenith/shared/ops';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { deployReleaseSchema, type DeployRelease, type deployReleaseContract } from '@arcbase/shared/ops';
 import { db } from '../../db';
 import { clientApps, deployReleases, deployTargets, opsHosts, type DeployReleaseRow } from '../../db/schema';
 import { pickEntity } from '../../lib/entity-map';

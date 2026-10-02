@@ -7,9 +7,9 @@ import { currentUser } from '../../lib/context';
 import { formatDateTime, formatTimestamps } from '../../lib/datetime';
 import { buildWhere, keywordCondition, withPagination } from '../../lib/where-helpers';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { aiPromptTemplateContract } from '@zenith/shared/ai';
-import type { AiPromptScope, CreateAiPromptTemplateInput, UpdateAiPromptTemplateInput } from '@zenith/shared/ai';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { aiPromptTemplateContract } from '@arcbase/shared/ai';
+import type { AiPromptScope, CreateAiPromptTemplateInput, UpdateAiPromptTemplateInput } from '@arcbase/shared/ai';
 
 function mapTemplate(row: typeof aiPromptTemplates.$inferSelect) {
   return {

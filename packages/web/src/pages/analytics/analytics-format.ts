@@ -3,7 +3,7 @@
  * 不含 React 组件（组件在 analytics-shared.tsx），便于被表格列 render 与图表 spec 直接复用。
  */
 import type { CSSProperties } from 'react';
-import type { AnalyticsDeviceType } from '@zenith/shared/analytics';
+import type { AnalyticsDeviceType } from '@arcbase/shared/analytics';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { BEHAVIOR_DAYS_OPTIONS } from './behavior-days';
 

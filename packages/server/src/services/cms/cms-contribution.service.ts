@@ -1,7 +1,7 @@
 import { assertCmsContentVersion, cmsRevisionToContentRow, initializeCmsContentWorkingCopy, requireCmsWorkingCopy, writeCmsSystemWorkingCopy } from './cms-content-revisions.service';
-import type { CmsEditorialStatus } from '@zenith/shared/cms';
-import { memberCmsContract } from '@zenith/shared/cms';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { CmsEditorialStatus } from '@arcbase/shared/cms';
+import { memberCmsContract } from '@arcbase/shared/cms';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 会员投稿（前台 C 端）：会员在 member SPA 提交内容 → 进入 CMS 审核（简单/工作流按站点配置）。
  * 全部按 currentMemberId() 过滤防越权；发布仍走后台既有审核/发布管道。

@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Empty, Feedback, Radio, RadioGroup, Rating, TextArea, Typography } from '@douyinfe/semi-ui';
-import { startManualReplay } from '@zenith/analytics-sdk';
+import { startManualReplay } from '@arcbase/analytics-sdk';
 import { useSubmitFeedback } from '@/hooks/queries/user-feedbacks';
-import type { UserFeedbackCategory } from '@zenith/shared/platform';
-import { USER_FEEDBACK_CATEGORY_LABELS } from '@zenith/shared/platform';
+import type { UserFeedbackCategory } from '@arcbase/shared/platform';
+import { USER_FEEDBACK_CATEGORY_LABELS } from '@arcbase/shared/platform';
 import { emptyIllustration } from '@/components/EmptyIllustration';
 
 const CATEGORY_OPTIONS: Array<{ value: UserFeedbackCategory; label: string }> =

@@ -1,7 +1,7 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, eq, gt, inArray, isNull, or, sql, type SQL } from 'drizzle-orm';
 import type { PgColumn } from 'drizzle-orm/pg-core';
-import { DRIVE_SUBJECT_TYPES, driveRoleAtLeast, type DriveRole, type DriveSubjectType } from '@zenith/shared/drive';
+import { DRIVE_SUBJECT_TYPES, driveRoleAtLeast, type DriveRole, type DriveSubjectType } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import {

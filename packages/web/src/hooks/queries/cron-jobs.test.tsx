@@ -12,7 +12,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import type { CronJob } from '@zenith/shared/platform';
+import type { CronJob } from '@arcbase/shared/platform';
 import {
   ApiRecorder,
   createRequestMock,

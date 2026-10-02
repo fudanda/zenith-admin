@@ -1,6 +1,6 @@
 import { Button, Form, Toast } from '@douyinfe/semi-ui';
 import { RefreshCw } from 'lucide-react';
-import { mpTagContract, type CreateMpTagInput, type MpTag } from '@zenith/shared/mp';
+import { mpTagContract, type CreateMpTagInput, type MpTag } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
 import ConfigurableTable from '@/components/ConfigurableTable';

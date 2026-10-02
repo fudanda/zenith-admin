@@ -9,8 +9,8 @@ import { ShareModal, VersionModal } from './components/DashboardOpsModals';
 import { createdAtColumn, EMPTY_PLACEHOLDER, enabledStatusColumn, renderEllipsis } from '@/utils/table-columns';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
-import { enumValueOf, USER_STATUSES } from '@zenith/shared/core';
-import type { ReportDashboard, ReportWidget } from '@zenith/shared/report';
+import { enumValueOf, USER_STATUSES } from '@arcbase/shared/core';
+import type { ReportDashboard, ReportWidget } from '@arcbase/shared/report';
 import { useQueryClient } from '@tanstack/react-query';
 import {
   reportDashboardKeys,

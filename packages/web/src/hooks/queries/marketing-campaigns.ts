@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { marketingCampaignContract, type MarketingCampaign } from '@zenith/shared/marketing';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { marketingCampaignContract, type MarketingCampaign } from '@arcbase/shared/marketing';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const {

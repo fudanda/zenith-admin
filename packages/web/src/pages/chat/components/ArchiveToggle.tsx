@@ -1,6 +1,6 @@
 import { Badge, Typography } from '@douyinfe/semi-ui';
 import { Archive, ArrowLeft, ChevronRight } from 'lucide-react';
-import type { ChatConversation } from '@zenith/shared/chat';
+import type { ChatConversation } from '@arcbase/shared/chat';
 import type { Setter } from '../types';
 
 const { Text } = Typography;

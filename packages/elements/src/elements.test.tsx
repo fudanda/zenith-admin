@@ -1,31 +1,31 @@
 import { StrictMode } from 'react';
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { Client } from '@zenith/client';
-import { goSessionSchema } from '@zenith/shared/identity';
-import { ZenithProvider } from './provider';
+import { Client } from '@arcbase/client';
+import { goSessionSchema } from '@arcbase/shared/identity';
+import { ArcBaseProvider } from './provider';
 import { PermissionGuard, SessionBoundary } from './permissions';
 import { LoginForm } from './LoginForm';
 import { FilePicker, FileUploader, type UploadItem } from './files';
-import type { ZenithSessionValue } from './session';
+import type { ArcBaseSessionValue } from './session';
 
 const sessionData = goSessionSchema.parse({ user: { id: 1, username: 'admin', nickname: '管理员', status: 'enabled', email: null, roles: [], passwordUpdatedAt: '2026-09-30T00:00:00Z', createdAt: '2026-09-30T00:00:00Z', updatedAt: '2026-09-30T00:00:00Z' }, permissions: ['system:user:list'], csrfToken: 'test-csrf', superAdmin: false });
-const controlled: ZenithSessionValue = { status: 'authenticated', session: sessionData, error: null, refreshing: false, login: vi.fn(), logout: vi.fn(), refresh: vi.fn(), resolveSessionConflict: vi.fn(), updateUser: vi.fn() };
+const controlled: ArcBaseSessionValue = { status: 'authenticated', session: sessionData, error: null, refreshing: false, login: vi.fn(), logout: vi.fn(), refresh: vi.fn(), resolveSessionConflict: vi.fn(), updateUser: vi.fn() };
 afterEach(cleanup);
 describe('independent elements', () => {
   it('uses a controlled session without additional auth requests and fails closed for anonymous permissions', () => {
     const send = vi.fn<typeof fetch>(); const client = new Client({ transport: send });
     const content = <SessionBoundary unauthenticated="sign-in"><PermissionGuard permission="system:user:list"><span>allowed</span></PermissionGuard><PermissionGuard permission="system:user:delete" fallback={<span>denied</span>}>secret</PermissionGuard></SessionBoundary>;
-    const view = render(<ZenithProvider client={client} session={controlled}>{content}</ZenithProvider>);
+    const view = render(<ArcBaseProvider client={client} session={controlled}>{content}</ArcBaseProvider>);
     expect(screen.getByText('allowed')).toBeTruthy(); expect(screen.getByText('denied')).toBeTruthy(); expect(send).not.toHaveBeenCalled();
-    view.rerender(<ZenithProvider client={client} session={{ ...controlled, status: 'anonymous' }}>{content}</ZenithProvider>);
+    view.rerender(<ArcBaseProvider client={client} session={{ ...controlled, status: 'anonymous' }}>{content}</ArcBaseProvider>);
     expect(screen.queryByText('allowed')).toBeNull(); expect(screen.getByText('sign-in')).toBeTruthy();
   });
   it('keeps the login form in its own locale and shows server failures instead of false success', async () => {
     const send = vi.fn<typeof fetch>().mockImplementation(async () => new Response(JSON.stringify({ code: 0, message: 'ok', data: { enabled: false, captchaId: '', image: '' } })));
     const login = vi.fn().mockResolvedValue({ code: 401, message: 'Incorrect password', data: null, retryAfterSeconds: 30 });
     const success = vi.fn();
-    render(<ZenithProvider client={new Client({ transport: send })} session={{ ...controlled, status: 'anonymous', session: null, login }} locale="en-US"><LoginForm onSuccess={success} /></ZenithProvider>);
+    render(<ArcBaseProvider client={new Client({ transport: send })} session={{ ...controlled, status: 'anonymous', session: null, login }} locale="en-US"><LoginForm onSuccess={success} /></ArcBaseProvider>);
     fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'admin' } });
     fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'incorrect' } });
     await waitFor(() => expect((screen.getByRole('button', { name: 'Sign in' }) as HTMLButtonElement).disabled).toBe(false));
@@ -47,9 +47,9 @@ describe('independent elements', () => {
   it('preserves entered credentials when the host changes the locale', async () => {
     const client = new Client({ transport: async () => new Response(JSON.stringify({ code: 0, message: 'ok', data: { enabled: false, captchaId: '', image: '' } })) });
     const anonymous = { ...controlled, status: 'anonymous' as const, session: null };
-    const view = render(<ZenithProvider client={client} session={anonymous} locale="en-US"><LoginForm /></ZenithProvider>);
+    const view = render(<ArcBaseProvider client={client} session={anonymous} locale="en-US"><LoginForm /></ArcBaseProvider>);
     fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'retained-user' } });
-    view.rerender(<ZenithProvider client={client} session={anonymous} locale="zh-CN"><LoginForm /></ZenithProvider>);
+    view.rerender(<ArcBaseProvider client={client} session={anonymous} locale="zh-CN"><LoginForm /></ArcBaseProvider>);
     expect((screen.getByLabelText('用户名') as HTMLInputElement).value).toBe('retained-user');
     await waitFor(() => expect((screen.getByRole('button', { name: '登录' }) as HTMLButtonElement).disabled).toBe(false));
     expect((screen.getByLabelText('用户名') as HTMLInputElement).value).toBe('retained-user');
@@ -59,7 +59,7 @@ describe('independent elements', () => {
     const upload = vi.fn((_file: File, options: { signal: AbortSignal }) => new Promise<never>(finish => attempts.push({ signal: options.signal, finish })));
     let items: readonly UploadItem[] = [];
     const success = vi.fn();
-    const host = render(<StrictMode><ZenithProvider client={new Client()} session={controlled}><FileUploader upload={upload} onItemsChange={value => { items = value; }} onUploaded={success} /></ZenithProvider></StrictMode>);
+    const host = render(<StrictMode><ArcBaseProvider client={new Client()} session={controlled}><FileUploader upload={upload} onItemsChange={value => { items = value; }} onUploaded={success} /></ArcBaseProvider></StrictMode>);
     fireEvent.change(screen.getByLabelText('选择文件'), { target: { files: [new File(['a'], 'cancel.txt')] } });
     fireEvent.click(screen.getByRole('button', { name: '取消' })); expect(attempts[0].signal.aborted).toBe(true);
     fireEvent.click(screen.getByRole('button', { name: '重试' }));

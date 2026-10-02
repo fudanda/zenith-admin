@@ -7,7 +7,7 @@ const errors = [];
 const packages = ['shared', 'client', 'elements', 'web', 'admin'];
 for (const name of packages) {
   const manifest = JSON.parse(readFileSync(resolve(root, 'packages', name, 'package.json'), 'utf8'));
-  if (name !== 'admin' && [...Object.keys(manifest.dependencies ?? {}), ...Object.keys(manifest.devDependencies ?? {})].includes('@zenith/admin')) errors.push(`${name} must not depend on admin`);
+  if (name !== 'admin' && [...Object.keys(manifest.dependencies ?? {}), ...Object.keys(manifest.devDependencies ?? {})].includes('@arcbase/admin')) errors.push(`${name} must not depend on admin`);
 }
 function visit(dir, owner) {
   for (const item of readdirSync(dir, { withFileTypes: true })) {
@@ -18,8 +18,8 @@ function visit(dir, owner) {
     const check = node => {
       if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier)) {
         const spec = node.moduleSpecifier.text;
-        if (owner !== 'admin' && /^@zenith\/admin(?:\/|$)/.test(spec)) errors.push(`${relative(root, path)}: reverse admin dependency`);
-        if (owner === 'admin' && spec.startsWith('@zenith/') && !['@zenith/web/admin', '@zenith/client'].includes(spec)) errors.push(`${relative(root, path)}: forbidden admin dependency ${spec}`);
+        if (owner !== 'admin' && /^@arcbase\/admin(?:\/|$)/.test(spec)) errors.push(`${relative(root, path)}: reverse admin dependency`);
+        if (owner === 'admin' && spec.startsWith('@arcbase/') && !['@arcbase/web/admin', '@arcbase/client'].includes(spec)) errors.push(`${relative(root, path)}: forbidden admin dependency ${spec}`);
       }
       ts.forEachChild(node, check);
     };

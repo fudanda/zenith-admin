@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
-import type { PaymentApp, PaymentChannel, PaymentChannelConfig, PaymentMethod } from '@zenith/shared/payment';
-import { PAYMENT_CHANNEL_LABELS, PAYMENT_METHOD_CHANNEL, PAYMENT_METHOD_LABELS } from '@zenith/shared/payment';
+import type { PaymentApp, PaymentChannel, PaymentChannelConfig, PaymentMethod } from '@arcbase/shared/payment';
+import { PAYMENT_CHANNEL_LABELS, PAYMENT_METHOD_CHANNEL, PAYMENT_METHOD_LABELS } from '@arcbase/shared/payment';
 import { usePaymentAppList } from '@/hooks/queries/payment-apps';
 import { usePaymentCapabilities } from '@/hooks/queries/payment-capabilities';
 import { usePaymentChannelOperationLookup } from '@/hooks/queries/payment-channels';

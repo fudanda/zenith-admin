@@ -7,7 +7,7 @@ import {
   impersonationContract,
   type ImpersonationSession,
   type ImpersonationStatus,
-} from '@zenith/shared/identity';
+} from '@arcbase/shared/identity';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { ListSearchToolbar } from '@/components/list-page';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

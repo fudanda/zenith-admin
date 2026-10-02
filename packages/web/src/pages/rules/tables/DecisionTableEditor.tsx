@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { Button, Checkbox, DatePicker, Input, InputNumber, Select, Space, Tag, Typography } from '@douyinfe/semi-ui';
 import { ChevronDown, ChevronUp, Plus, Trash2 } from 'lucide-react';
-import type { RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleFieldType, RuleHitPolicy, ParsedRuleCell } from '@zenith/shared/rules';
-import { parseRuleCell } from '@zenith/shared/rules';
+import type { RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleFieldType, RuleHitPolicy, ParsedRuleCell } from '@arcbase/shared/rules';
+import { parseRuleCell } from '@arcbase/shared/rules';
 import { useDictList } from '@/hooks/queries/dicts';
 import { useDictItems } from '@/hooks/useDictItems';
 import { formatDateTimeForApi } from '@/utils/date';

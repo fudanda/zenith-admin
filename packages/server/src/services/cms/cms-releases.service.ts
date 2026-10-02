@@ -1,7 +1,7 @@
 import { and, asc, desc, eq, inArray, isNotNull, lte, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsDeploymentSchema, cmsReleaseActivationSchema, cmsReleaseContract, cmsReleaseSchema, type CreateCmsReleaseInput, type CmsRelease } from '@zenith/shared/cms';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { cmsDeploymentSchema, cmsReleaseActivationSchema, cmsReleaseContract, cmsReleaseSchema, type CreateCmsReleaseInput, type CmsRelease } from '@arcbase/shared/cms';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { db } from '../../db';
 import { asyncTasks, cmsContents, cmsContentSuppressions, cmsContentWorkingCopies, cmsDeployments, cmsReleases, cmsReleaseActivations, cmsSiteGenerations, type CmsReleaseRow } from '../../db/schema';
 import type { DbTransaction } from '../../db/types';

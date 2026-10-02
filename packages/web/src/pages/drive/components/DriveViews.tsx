@@ -2,11 +2,11 @@ import { useMemo, useState } from 'react';
 import { Button, Empty, Space, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { RotateCcw, Trash2 } from 'lucide-react';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import {
   DRIVE_ACTIVITY_ACTION_LABELS, DRIVE_ROLE_LABELS, DRIVE_SUBJECT_TYPE_LABELS,
   DRIVE_NODE_TYPE_OPTIONS, type DriveNodeType, type DriveNode, type DriveRecentItem, type DriveSearchItem, type DriveShareLink, type DriveSharedItem, type DriveView,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { FileNameCell } from '@/components/FileNameCell';
 import { FilePreviewLayer } from '@/components/FilePreviewLayer';

@@ -1,4 +1,4 @@
-import { mpDraftContract, type MpDraft } from '@zenith/shared/mp';
+import { mpDraftContract, type MpDraft } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { mockMpDrafts } from '@/mocks/data/mp-drafts';

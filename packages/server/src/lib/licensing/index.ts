@@ -1,6 +1,6 @@
 import { HTTPException } from 'hono/http-exception';
 import type { MiddlewareHandler } from 'hono';
-import { isLicenseFeatureKey, LICENSE_FEATURE_LABELS, type LicenseFeatureKey, type LicenseMode } from '@zenith/shared/licensing';
+import { isLicenseFeatureKey, LICENSE_FEATURE_LABELS, type LicenseFeatureKey, type LicenseMode } from '@arcbase/shared/licensing';
 import { config } from '../../config';
 import { getLicenseSnapshot, logFeatureDeniedThrottled } from './snapshot';
 

@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 短链服务 —— 管理 CRUD 与跨域复用入口。
  *
@@ -8,8 +8,8 @@ import type { QueryOutputOf } from '@zenith/shared/core';
 import { randomBytes } from 'node:crypto';
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, inArray } from 'drizzle-orm';
-import { SHORT_LINK_CODE_ALPHABET, SHORT_LINK_CODE_LENGTH, SHORT_LINK_RESERVED_CODES, type ShortLinkBizType, shortLinkContract, shortLinkSchema } from '@zenith/shared/short-link';
-import type { CreateShortLinkInput } from '@zenith/shared/short-link';
+import { SHORT_LINK_CODE_ALPHABET, SHORT_LINK_CODE_LENGTH, SHORT_LINK_RESERVED_CODES, type ShortLinkBizType, shortLinkContract, shortLinkSchema } from '@arcbase/shared/short-link';
+import type { CreateShortLinkInput } from '@arcbase/shared/short-link';
 import { db } from '../../db';
 import { shortLinks, type ShortLinkRow } from '../../db/schema';
 import { config } from '../../config';

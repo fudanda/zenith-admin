@@ -7,8 +7,8 @@ import { ScatterChart, chartOptions, makeScatterSpec, datumNumber, datumText, da
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { dateTimeColumn, renderEllipsis } from '@/utils/table-columns';
 import { useAnalyticsHeatmap, useAnalyticsHeatmapPages } from '@/hooks/queries/analytics';
-import type { AnalyticsEventSource, HeatmapData, HeatmapElementItem, HeatmapPageListItem, HeatmapRageClickItem } from '@zenith/shared/analytics';
-import { ANALYTICS_DEVICE_TYPE_OPTIONS, ANALYTICS_EVENT_SOURCE_OPTIONS } from '@zenith/shared/analytics';
+import type { AnalyticsEventSource, HeatmapData, HeatmapElementItem, HeatmapPageListItem, HeatmapRageClickItem } from '@arcbase/shared/analytics';
+import { ANALYTICS_DEVICE_TYPE_OPTIONS, ANALYTICS_EVENT_SOURCE_OPTIONS } from '@arcbase/shared/analytics';
 import { FilterSelect } from '@/components/search-filters';
 import { useBehaviorDays } from './behavior-days';
 import { DAYS_OPTIONS, elementDisplayName, numberText, sectionStyle, type DeviceFilter } from './analytics-format';

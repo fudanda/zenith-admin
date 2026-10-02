@@ -1,6 +1,6 @@
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
 import { buildListResult } from '../../lib/list-query';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { createHash } from 'node:crypto';
 import dayjs from 'dayjs';
 import {
@@ -21,10 +21,10 @@ import {
   type SQL,
 } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { CMS_INTERACTION_DAILY_LIMITS, CMS_INTERACTION_POINTS, cmsMemberSubscriptionSchema } from '@zenith/shared/cms';
-import type { CmsSubscriptionSubjectInput, CmsSubscriptionSubjectType } from '@zenith/shared/cms';
+import { CMS_INTERACTION_DAILY_LIMITS, CMS_INTERACTION_POINTS, cmsMemberSubscriptionSchema } from '@arcbase/shared/cms';
+import type { CmsSubscriptionSubjectInput, CmsSubscriptionSubjectType } from '@arcbase/shared/cms';
 import { enqueueCmsTelemetryConversion } from './cms-telemetry-business';
-import { cmsSubscriptionContract } from '@zenith/shared/cms';
+import { cmsSubscriptionContract } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import {
   cmsChannels,

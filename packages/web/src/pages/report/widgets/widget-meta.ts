@@ -1,6 +1,6 @@
 import { Hash, Table as TableIcon, Grid3x3, Type, BarChart3, LineChart as LineChartIcon, TrendingUp, Columns3, PieChart as PieChartIcon, CircleDot, Radar as RadarIcon, Filter, Gauge as GaugeIcon, LayoutGrid, ListOrdered, Map, Workflow, Grid2x2, Cloud, Droplet, Image as ImageIcon, Globe } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import type { ReportWidgetType } from '@zenith/shared/report';
+import type { ReportWidgetType } from '@arcbase/shared/report';
 
 /** 组件类型元数据（设计器面板用）*/
 export interface WidgetTypeMeta {

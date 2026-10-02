@@ -103,7 +103,7 @@ export const IOT_ALARM_RULE_TYPE_LABELS: Record<IotAlarmRuleType, string> = {
 
 export const IOT_ALARM_RULE_TYPE_OPTIONS = createLabelOptions(IOT_ALARM_RULE_TYPES, IOT_ALARM_RULE_TYPE_LABELS);
 
-/** 属性比较算子：与 `@zenith/shared/core` 的 `NUMERIC_COMPARE_OPS` 同源，判定用 `compareNumber()` */
+/** 属性比较算子：与 `@arcbase/shared/core` 的 `NUMERIC_COMPARE_OPS` 同源，判定用 `compareNumber()` */
 export const IOT_COMPARE_OPS = NUMERIC_COMPARE_OPS;
 
 export type IotCompareOp = (typeof IOT_COMPARE_OPS)[number];

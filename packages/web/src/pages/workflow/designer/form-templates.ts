@@ -3,7 +3,7 @@
  * 应用时整体替换当前表单（进设计器撤销栈，可回退）。
  * key 使用可读静态标识，便于流程条件/公式/报表直接引用。
  */
-import type { WorkflowFormField, WorkflowFormSettings } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormSettings } from '@arcbase/shared/workflow';
 
 export interface FormTemplate {
   key: string;

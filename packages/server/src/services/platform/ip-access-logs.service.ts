@@ -1,6 +1,6 @@
 import { desc, eq } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { ipAccessLogContract } from '@zenith/shared/platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { ipAccessLogContract } from '@arcbase/shared/platform';
 import { db } from '../../db';
 import { ipAccessLogs } from '../../db/schema';
 import { buildWhere, dateRangeConditions, keywordCondition } from '../../lib/where-helpers';

@@ -15,7 +15,7 @@ import type {
   ChannelDashboard, ChannelDashboardTrendPoint, ChannelDashboardStatusDist, ChannelDashboardTopReply, ChannelDashboardChannelRank,
   ChannelDashboardSubscriptionTrendPoint, ChannelDashboardMessageTypeDistItem, ChannelDashboardHourlyPoint,
   ChannelDashboardRatingDist, ChannelDashboardAutoReplyMatchDistItem,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import { formatDate, startOfToday } from '../../lib/datetime';
 
 function daysAgo(n: number): Date {

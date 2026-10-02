@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Form } from '@douyinfe/semi-ui';
-import { IOT_COMPARE_OP_OPTIONS } from '@zenith/shared/iot';
+import { IOT_COMPARE_OP_OPTIONS } from '@arcbase/shared/iot';
 import { useIotThingModel } from '@/hooks/queries/iot-products';
 
 export function useIotThingModelSelects(productId: number | null | undefined) {

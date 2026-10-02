@@ -13,8 +13,8 @@ import {
 } from '@/hooks/queries/marketing-campaigns';
 import {
   MARKETING_PRIZE_TYPE_LABELS, MARKETING_PRIZE_TYPE_OPTIONS,
-} from '@zenith/shared/marketing';
-import type { MarketingCampaign, MarketingPrize, SaveMarketingPrizeInput } from '@zenith/shared/marketing';
+} from '@arcbase/shared/marketing';
+import type { MarketingCampaign, MarketingPrize, SaveMarketingPrizeInput } from '@arcbase/shared/marketing';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { EditFormModal } from '@/components/EditFormModal';
 

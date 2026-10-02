@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import { aiConversationContract } from '@zenith/shared/ai';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
+import { aiConversationContract } from '@arcbase/shared/ai';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
 import { contractKey, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { request } from '@/utils/request';
 

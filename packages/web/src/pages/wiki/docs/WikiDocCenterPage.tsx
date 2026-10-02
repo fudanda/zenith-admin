@@ -6,8 +6,8 @@ import type { OnDragProps, TreeNodeData } from '@douyinfe/semi-ui/lib/es/tree';
 import {
   Bell, ChevronLeft, ChevronRight, ChevronsDownUp, ChevronsUpDown, Eye, FilePlus2, FileUp, FolderInput, History, MessageSquare, MoreHorizontal, Pencil, Pin, PinOff, Send, Star, TableOfContents, Trash2, Undo2,
 } from 'lucide-react';
-import type { WikiComment, WikiDocTreeNode } from '@zenith/shared/wiki';
-import { WIKI_DOC_STATUS_LABELS } from '@zenith/shared/wiki';
+import type { WikiComment, WikiDocTreeNode } from '@arcbase/shared/wiki';
+import { WIKI_DOC_STATUS_LABELS } from '@arcbase/shared/wiki';
 import { MasterDetailLayout } from '@/components/MasterDetailLayout';
 import { confirmAndDelete } from '@/components/list-page';
 import MarkdownPreviewPanel from '@/components/MarkdownPreviewPanel';

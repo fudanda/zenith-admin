@@ -24,8 +24,8 @@ import {
 import { useAllUsers } from '@/hooks/queries/users';
 import { slugifyName } from '@/utils/slug';
 import { confirmDelete as confirmDeleteModal } from '@/utils/confirm';
-import { CMS_CHANNEL_DETAIL_PATH_RULE_LABELS, CMS_CHANNEL_DETAIL_PATH_RULES, CMS_CHANNEL_STATIC_MODE_LABELS, CMS_CHANNEL_STATIC_MODES, CMS_CHANNEL_TYPE_LABELS } from '@zenith/shared/cms';
-import type { CmsChannel } from '@zenith/shared/cms';
+import { CMS_CHANNEL_DETAIL_PATH_RULE_LABELS, CMS_CHANNEL_DETAIL_PATH_RULES, CMS_CHANNEL_STATIC_MODE_LABELS, CMS_CHANNEL_STATIC_MODES, CMS_CHANNEL_TYPE_LABELS } from '@arcbase/shared/cms';
+import type { CmsChannel } from '@arcbase/shared/cms';
 import { flattenChannels } from './channel-tree';
 import { CmsSiteSelect } from './CmsSiteSelect';
 import { cmsPreviewUrl } from './cms-preview-url';

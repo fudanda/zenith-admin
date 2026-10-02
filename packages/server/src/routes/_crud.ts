@@ -18,7 +18,7 @@
  */
 import type { OpenAPIHono, RouteConfig } from '@hono/zod-openapi';
 import type { Context, MiddlewareHandler } from 'hono';
-import type { AnyOperation } from '@zenith/shared/core';
+import type { AnyOperation } from '@arcbase/shared/core';
 import { defineContractRoute } from '../lib/contract-route';
 import type {
   CrudContractLike, CrudCreateInputOf, CrudCreateResponseOf, CrudDetailOf, CrudIdOf, CrudListQueryOf, CrudListResponseOf, CrudUpdateInputOf, CrudUpdateResponseOf,

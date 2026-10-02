@@ -3,8 +3,8 @@
 import { mock } from '@/mocks/utils/contract';
 import { mockDateTime } from '@/mocks/utils/date';
 import { notFound, badRequest } from '@/mocks/utils/handlers';
-import { PAYMENT_METHOD_CHANNEL, paymentPreauthContract } from '@zenith/shared/payment';
-import type { PaymentChannel, PaymentPreauth } from '@zenith/shared/payment';
+import { PAYMENT_METHOD_CHANNEL, paymentPreauthContract } from '@arcbase/shared/payment';
+import type { PaymentChannel, PaymentPreauth } from '@arcbase/shared/payment';
 import dayjs from 'dayjs';
 import { includesKeyword, matchesFilter, withinDateRange } from '@/mocks/utils/filter';
 

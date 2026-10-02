@@ -5,14 +5,14 @@
  * 本报表按用户归因——每个用户只归属于一条触点，因此各行用户数之和等于总用户数，
  * 可以直接用来比较渠道贡献。
  */
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import { useMemo, useState } from 'react';
 import { Card, Empty, Select, Space, Tag, Typography } from '@douyinfe/semi-ui';
-import type { AnalyticsAcquisitionDimension, AnalyticsAcquisitionRow, AnalyticsAttributionModel } from '@zenith/shared/analytics';
+import type { AnalyticsAcquisitionDimension, AnalyticsAcquisitionRow, AnalyticsAttributionModel } from '@arcbase/shared/analytics';
 import {
   ANALYTICS_ACQUISITION_DIMENSION_OPTIONS,
   ANALYTICS_ATTRIBUTION_MODEL_OPTIONS,
-} from '@zenith/shared/analytics';
+} from '@arcbase/shared/analytics';
 import { BarChart, chartOptions, makeBarSpec, useChartPalette } from '@/components/charts';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { useAnalyticsAcquisition, useAnalyticsEventMeta } from '@/hooks/queries/analytics';

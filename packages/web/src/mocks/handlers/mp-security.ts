@@ -1,4 +1,4 @@
-import { mpSecurityContract } from '@zenith/shared/mp';
+import { mpSecurityContract } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 
 const RISKY_WORDS = ['违规', '赌博', '诈骗', '色情', '暴力'];

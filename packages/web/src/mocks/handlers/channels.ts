@@ -1,10 +1,10 @@
-import { channelContract, channelCsContract, channelDashboardContract, channelMessageContract } from '@zenith/shared/messaging';
+import { channelContract, channelCsContract, channelDashboardContract, channelMessageContract } from '@arcbase/shared/messaging';
 import type {
   Channel, ChannelAdmin, ChannelAutoReply, ChannelConversation, ChannelConversationStatus, ChannelCsPerformance,
   ChannelDashboard, ChannelMenu, ChannelMessage, ChannelMessageTemplate, ChannelQuickReply, ChannelSubscriber,
-} from '@zenith/shared/messaging';
-import type { PublishChannelInput } from '@zenith/shared/mp';
-import type { ChatMessageExtra } from '@zenith/shared/chat';
+} from '@arcbase/shared/messaging';
+import type { PublishChannelInput } from '@arcbase/shared/mp';
+import type { ChatMessageExtra } from '@arcbase/shared/chat';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest, nextIdFrom } from '@/mocks/utils/handlers';

@@ -2,7 +2,7 @@ import { desc } from 'drizzle-orm';
 import { db } from '../../../db';
 import { paymentDisputes } from '../../../db/schema';
 import { buildDisputesWhere, type ListDisputesQuery } from '../../../services/payment/payment-dispute.service';
-import { PAYMENT_CHANNEL_LABELS, PAYMENT_DISPUTE_STATUS_LABELS, PAYMENT_DISPUTE_TYPE_LABELS } from '@zenith/shared/payment';
+import { PAYMENT_CHANNEL_LABELS, PAYMENT_DISPUTE_STATUS_LABELS, PAYMENT_DISPUTE_TYPE_LABELS } from '@arcbase/shared/payment';
 import { defineExport } from '../registry';
 import { RETENTION_7_DAYS } from '../presets';
 import type { ExportColumn } from '../types';

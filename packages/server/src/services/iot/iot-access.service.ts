@@ -10,7 +10,7 @@
 import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import { and, eq, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { IOT_ONLINE_TTL_SECONDS, IOT_SIGN_MAX_SKEW_SECONDS } from '@zenith/shared/iot';
+import { IOT_ONLINE_TTL_SECONDS, IOT_SIGN_MAX_SKEW_SECONDS } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import { iotDevices, iotDeviceState, type IotDeviceRow } from '../../db/schema';
 import redis from '../../lib/redis';

@@ -1,4 +1,4 @@
-import { cmsEditorialContract } from '@zenith/shared/cms';
+import { cmsEditorialContract } from '@arcbase/shared/cms';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateAfterCmsContentChange } from './cms-contents';
 

@@ -1,5 +1,5 @@
 // ─── 字段类型标志集中推导（拆分自 FieldConfigPanel.tsx）───
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 
 /** 由字段类型推导出的一组布尔标志，供各设置分区做条件渲染 */
 export function getFieldTypeFlags(field: WorkflowFormField) {

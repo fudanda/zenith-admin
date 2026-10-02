@@ -1,5 +1,5 @@
-import { paymentChannelContract, paymentChannelConfigSchema } from '@zenith/shared/payment';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { paymentChannelContract, paymentChannelConfigSchema } from '@arcbase/shared/payment';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 支付渠道配置 Service。
  * 密钥字段（APIv3 Key / 商户私钥 / 支付宝应用私钥）以 encryptField 加密存储，
@@ -17,7 +17,7 @@ import { tenantCondition, requireTenantScopeId } from '../../lib/tenant';
 import { buildWhere, keywordCondition } from '../../lib/where-helpers';
 import { encryptField } from '../../lib/encryption';
 import { clearDefaultFlag } from '../../lib/default-flag';
-import type { CreatePaymentChannelConfigInput, PaymentChannel, PaymentChannelConfig, PaymentChannelConfigLookup, UpdatePaymentChannelConfigInput } from '@zenith/shared/payment';
+import type { CreatePaymentChannelConfigInput, PaymentChannel, PaymentChannelConfig, PaymentChannelConfigLookup, UpdatePaymentChannelConfigInput } from '@arcbase/shared/payment';
 import { ensureChannelAccountForConfig } from './payment-channel-account.service';
 import { pickEntity } from '../../lib/entity-map';
 

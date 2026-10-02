@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
+	"github.com/fudanda/arcbase/backend/ent/dictitem"
 )
 
 // DictItem is the model entity for the DictItem schema.

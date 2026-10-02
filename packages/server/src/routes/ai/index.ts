@@ -14,7 +14,7 @@ import {
   aiSettingsContract,
   aiUsageContract,
   userAiConfigContract,
-} from '@zenith/shared/ai';
+} from '@arcbase/shared/ai';
 import { defineRouteDomain } from '../_kit';
 import aiAgentsRoutes from './ai-agents';
 import aiArenaRoutes from './ai-arena';

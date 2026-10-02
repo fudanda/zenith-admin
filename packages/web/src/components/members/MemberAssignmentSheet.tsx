@@ -5,7 +5,7 @@ import type { ColumnProps, Data } from '@douyinfe/semi-ui/lib/es/table';
 import { Users } from 'lucide-react';
 import { UserPreviewCell, type UserPreviewItem, type UserPreviewScope } from '@/components/UserPreviewCell';
 import { UserTransferSelect, type UserTransferUser } from '@/components/UserTransferSelect';
-import type { Department } from '@zenith/shared/identity';
+import type { Department } from '@arcbase/shared/identity';
 import ModalFooter from '@/components/ModalFooter';
 
 export interface MemberAssignmentSheetProps<TUser extends UserTransferUser> {

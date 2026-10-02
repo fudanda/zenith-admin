@@ -10,8 +10,8 @@ import { buildListResult } from '../../lib/list-query';
  * 不必按来源分支——各域原有 DTO 字段并不一致（岗位只有头像+昵称，用户组另有邮箱与加入时间）。
  */
 import { and, eq, inArray, sql, type SQL } from 'drizzle-orm';
-import type { UserPreview, departmentContract } from '@zenith/shared/identity';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { UserPreview, departmentContract } from '@arcbase/shared/identity';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { HTTPException } from 'hono/http-exception';
 import { db } from '../../db';
 import {

@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { cmsSlugRegex } from '@zenith/shared/cms';
+import { cmsSlugRegex } from '@arcbase/shared/cms';
 import { cmsGenerationContext } from './cms-generation-context';
 
 export const CMS_STATIC_ROOT = process.env.CMS_STATIC_ROOT?.trim()

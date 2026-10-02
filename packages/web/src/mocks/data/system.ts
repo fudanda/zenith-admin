@@ -1,6 +1,6 @@
-import type { CronJob, FileStorageConfig } from '@zenith/shared/platform';
-import type { OnlineSession } from '@zenith/shared/identity';
-import { SEED_CRON_JOBS } from '@zenith/shared/seed';
+import type { CronJob, FileStorageConfig } from '@arcbase/shared/platform';
+import type { OnlineSession } from '@arcbase/shared/identity';
+import { SEED_CRON_JOBS } from '@arcbase/shared/seed';
 import { mockDateTimeOffset } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

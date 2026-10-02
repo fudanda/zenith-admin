@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { CrudPermissionPrefix, Permission } from '@zenith/shared/core';
+import type { CrudPermissionPrefix, Permission } from '@arcbase/shared/core';
 import { createOperationColumn, type ResponsiveTableAction } from '@/components/ResponsiveTableActions';
 import { usePermission } from '@/hooks/usePermission';
 import { deleteAction } from './deleteAction';

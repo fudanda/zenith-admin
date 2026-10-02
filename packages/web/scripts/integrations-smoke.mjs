@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 
-const base = process.env.ZENITH_BROWSER_API_URL;
+const base = process.env.ARCBASE_BROWSER_API_URL;
 const browser = await chromium.launch({ headless: true });
 const errors = [], apiPaths = [];
 let page;
@@ -23,7 +23,7 @@ async function signIn(context, username, password) {
 try {
   const context = await browser.newContext({ acceptDownloads: true });
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
-  page = await signIn(context, process.env.ZENITH_BROWSER_USERNAME, process.env.ZENITH_BROWSER_PASSWORD);
+  page = await signIn(context, process.env.ARCBASE_BROWSER_USERNAME, process.env.ARCBASE_BROWSER_PASSWORD);
   await page.goto(`${base}/dash/profile`);
   await page.getByRole('tab', { name: 'API Token', exact: true }).click();
   await page.getByRole('button', { name: '新建 Token', exact: true }).click();
@@ -36,7 +36,7 @@ try {
   const created = await createdResponse;
   assert.ok(created.ok(), 'key creation succeeded');
   const { data: key } = await created.json();
-  assert.match(key.token, /^zen_[0-9a-f]{64}$/);
+  assert.match(key.token, /^arc_[0-9a-f]{64}$/);
   await page.locator('.token-display code').waitFor();
   assert.equal(await page.locator('.token-display code').innerText(), key.token);
   await page.getByRole('button', { name: '复制', exact: true }).click();
@@ -62,10 +62,10 @@ try {
   await page.getByText('本地磁盘', { exact: true }).last().click();
   await page.getByText('S3 兼容存储', { exact: true }).click();
   await page.getByPlaceholder('请输入 S3 Region').fill('us-east-1');
-  await page.getByPlaceholder('请输入 S3 Bucket').fill(process.env.ZENITH_BROWSER_S3_BUCKET);
-  await page.getByPlaceholder('可选，兼容 S3 自定义存储').fill(process.env.ZENITH_TEST_S3_ENDPOINT);
-  await page.getByPlaceholder('请输入 Access Key ID').fill(process.env.ZENITH_TEST_S3_ACCESS_KEY);
-  await page.getByPlaceholder('请输入 Secret Access Key').fill(process.env.ZENITH_TEST_S3_SECRET_KEY);
+  await page.getByPlaceholder('请输入 S3 Bucket').fill(process.env.ARCBASE_BROWSER_S3_BUCKET);
+  await page.getByPlaceholder('可选，兼容 S3 自定义存储').fill(process.env.ARCBASE_TEST_S3_ENDPOINT);
+  await page.getByPlaceholder('请输入 Access Key ID').fill(process.env.ARCBASE_TEST_S3_ACCESS_KEY);
+  await page.getByPlaceholder('请输入 Secret Access Key').fill(process.env.ARCBASE_TEST_S3_SECRET_KEY);
   await page.getByText('强制路径样式', { exact: false }).click();
   await page.getByRole('switch').click();
   const tested = page.waitForResponse(res => new URL(res.url()).pathname === '/api/v1/file-storage-configs/test');
@@ -75,7 +75,7 @@ try {
   await page.getByRole('button', { name: '保存', exact: true }).click();
   const storageResponse = await saved;
   assert.ok(storageResponse.ok());
-  assert.ok(!(await storageResponse.text()).includes(process.env.ZENITH_TEST_S3_SECRET_KEY), 'storage secret not returned');
+  assert.ok(!(await storageResponse.text()).includes(process.env.ARCBASE_TEST_S3_SECRET_KEY), 'storage secret not returned');
   await page.getByRole('row').filter({ hasText: '浏览器 MinIO' }).waitFor();
   await page.goto(`${base}/dash/system/files`);
   await page.getByRole('button', { name: '上传文件', exact: true }).waitFor();
@@ -92,7 +92,7 @@ try {
   await page.goto(`${base}/dash/system/positions`);
   await page.getByRole('button', { name: '新增', exact: true }).waitFor();
   const refreshResponse = page.waitForResponse(res => new URL(res.url()).pathname === '/api/v1/positions' && res.request().method() === 'GET');
-  const peer = await signIn(await browser.newContext(), 'realtime-peer', process.env.ZENITH_BROWSER_PEER_PASSWORD);
+  const peer = await signIn(await browser.newContext(), 'realtime-peer', process.env.ARCBASE_BROWSER_PEER_PASSWORD);
   await peer.goto(`${base}/dash/system/positions`);
   await peer.getByRole('button', { name: '新增', exact: true }).click();
   await peer.getByPlaceholder('请输入岗位名称').fill('实时订阅岗位');

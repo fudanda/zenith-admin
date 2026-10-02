@@ -8,8 +8,8 @@
  * `scopeMemberKeys.of(scope, id)`，用户保存 / 删除则调用 `invalidateScopeMemberPreviews`。
  */
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { departmentContract, positionContract, roleContract, userGroupContract, type ScopeMember } from '@zenith/shared/identity';
-import type { QueryOf } from '@zenith/shared/core';
+import { departmentContract, positionContract, roleContract, userGroupContract, type ScopeMember } from '@arcbase/shared/identity';
+import type { QueryOf } from '@arcbase/shared/core';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export type { ScopeMember };

@@ -4,7 +4,7 @@ import MonthCalendar from '@/components/MonthCalendar';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { CalendarPlus } from 'lucide-react';
-import type { MemberCheckin, MemberCheckinCalendarDay } from '@zenith/shared/member';
+import type { MemberCheckin, MemberCheckinCalendarDay } from '@arcbase/shared/member';
 import { usePermission } from '@/hooks/usePermission';
 import { ListSearchToolbar } from '@/components/list-page';
 import ConfigurableTable from '@/components/ConfigurableTable';

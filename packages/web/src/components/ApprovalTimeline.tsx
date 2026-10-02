@@ -4,9 +4,9 @@ import FileAttachment from '@/components/FileAttachment';
 import { uploadedFileToAttachment } from '@/components/FileAttachment/utils';
 import { timelineDot } from '@/components/workflow/timeline-dot';
 import { TASK_STATUS_MAP } from '@/components/workflow/workflow-runtime';
-import { WORKFLOW_INSTANCE_STATUS_LABELS, workflowExternalCallbackContract } from '@zenith/shared/workflow';
+import { WORKFLOW_INSTANCE_STATUS_LABELS, workflowExternalCallbackContract } from '@arcbase/shared/workflow';
 import { Bot, CheckCircle2, Clock, CornerUpLeft, Flag, Mail, RotateCcw, XCircle, ExternalLink, Copy, Forward, UserCog, Send, type LucideIcon } from 'lucide-react';
-import type { WorkflowTask, WorkflowInstanceStatus } from '@zenith/shared/workflow';
+import type { WorkflowTask, WorkflowInstanceStatus } from '@arcbase/shared/workflow';
 import type { FlowNodeBrief } from '@/components/workflow/workflow-runtime';
 import { formatDurationBetween } from '@/utils/date';
 import DateTimeText from '@/components/DateTimeText';
@@ -23,7 +23,7 @@ const TRANSFER_ACTION_LABEL: Record<string, string> = {
   timeout: '超时转交',
 };
 
-/** 流程结束态 → 完成节点展示（文案统一来自 @zenith/shared，图标/图标色为时间线场景特化） */
+/** 流程结束态 → 完成节点展示（文案统一来自 @arcbase/shared，图标/图标色为时间线场景特化） */
 const FINISH_MAP: Partial<Record<WorkflowInstanceStatus, { text: string; color: TagColor; icon: LucideIcon; iconColor: string }>> = {
   approved:  { text: WORKFLOW_INSTANCE_STATUS_LABELS.approved,  color: 'green',  icon: CheckCircle2, iconColor: 'var(--semi-color-success)' },
   rejected:  { text: WORKFLOW_INSTANCE_STATUS_LABELS.rejected,  color: 'red',    icon: XCircle,      iconColor: 'var(--semi-color-danger)' },

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { confirmAndDelete, ListSearchToolbar } from '@/components/list-page';
 import { Button, DatePicker, Form, Input, Modal, Select, SideSheet, Space, Tag, TextArea, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { RULE_LIST_TYPE_OPTIONS, type RuleList, type RuleListItem, type RuleUsageItem, ruleListContract } from '@zenith/shared/rules';
+import { RULE_LIST_TYPE_OPTIONS, type RuleList, type RuleListItem, type RuleUsageItem, ruleListContract } from '@arcbase/shared/rules';
 import { EMPTY_PLACEHOLDER, createdAtColumn, dateTimeColumn, renderEllipsis, renderEnabledStatusTag } from '@/utils/table-columns';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

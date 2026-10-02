@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { memberCheckinContract, memberSelfContract } from '@zenith/shared/member';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { memberCheckinContract, memberSelfContract } from '@arcbase/shared/member';
 import { and, asc, count, desc, eq, gte, isNull, lt, lte, sql, type SQL } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import { db } from '../../db';
@@ -19,7 +19,7 @@ import { applyGrowthDeltaInTx } from './member-levels.service';
 import { getMemberDetail } from './admin-members.service';
 import { getPointAccountBeforeAudit } from './member-points.service';
 import { trackServerEvent } from '../analytics/analytics-server-events.service';
-import { ANALYTICS_EVENT_NAMES } from '@zenith/shared/analytics';
+import { ANALYTICS_EVENT_NAMES } from '@arcbase/shared/analytics';
 import { memberReferenceCondition } from './member-query-helpers';
 
 type MemberCheckinFields = Pick<MemberCheckinRow, 'id' | 'memberId' | 'checkinDate' | 'consecutiveDays' | 'pointsAwarded' | 'experienceAwarded' | 'isMakeup' | 'remark' | 'createdAt'>;

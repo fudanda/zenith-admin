@@ -1,5 +1,5 @@
-import { aiPromptTemplateContract } from '@zenith/shared/ai';
-import type { QueryOf } from '@zenith/shared/core';
+import { aiPromptTemplateContract } from '@arcbase/shared/ai';
+import type { QueryOf } from '@arcbase/shared/core';
 import { api, createResourceQueries } from '@/lib/contract-query';
 
 export type AiPromptListParams = NonNullable<QueryOf<typeof aiPromptTemplateContract.list>>;

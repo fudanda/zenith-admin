@@ -1,6 +1,6 @@
 import { mockWorkflowInstances } from '../data/workflow';
-import { fillPath } from '@zenith/shared/core';
-import { workflowAttachmentContract, workflowAttachmentUploadBody } from '@zenith/shared/workflow';
+import { fillPath } from '@arcbase/shared/core';
+import { workflowAttachmentContract, workflowAttachmentUploadBody } from '@arcbase/shared/workflow';
 import { mock } from '../utils/contract';
 import { currentMockSession } from '../utils/auth';
 import { badRequest, notFound } from '../utils/handlers';

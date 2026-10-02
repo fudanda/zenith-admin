@@ -18,7 +18,7 @@
       "runtimeExecutable": "npm",
       "args": ["run", "dev:server"],
       "cwd": "${workspaceFolder}",
-      "env": { "ZENITH_ROLES": "api" },
+      "env": { "ARCBASE_ROLES": "api" },
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
     },
@@ -29,7 +29,7 @@
       "runtimeExecutable": "npx",
       "args": ["tsx", "watch", "--exclude", "storage/**", "--exclude", "logs/**", "src/index.ts"],
       "cwd": "${workspaceFolder}/packages/server",
-      "env": { "NODE_ENV": "development", "ZENITH_ROLES": "worker" },
+      "env": { "NODE_ENV": "development", "ARCBASE_ROLES": "worker" },
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"]
     },
@@ -38,7 +38,7 @@
       "request": "launch",
       "name": "Debug: Web",
       "runtimeExecutable": "npm",
-      "args": ["run", "dev", "-w", "@zenith/web"],
+      "args": ["run", "dev", "-w", "@arcbase/web"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"]

@@ -1,5 +1,5 @@
-import type { ReportAssetCatalogItem, ReportAssetTemplate, ReportAssetTemplateApplyResult, ReportAssetUsageSummary, ReportDeprecationNotice, ReportDqRule, ReportDqRun, ReportMaterializationSnapshot, ReportQueryQuota, ReportResourceType, ReportSlaRule } from '@zenith/shared/report';
-import { reportAssetContract, reportDqContract, reportMaterializationContract, reportQueryCapacityContract, reportSlaContract } from '@zenith/shared/report';
+import type { ReportAssetCatalogItem, ReportAssetTemplate, ReportAssetTemplateApplyResult, ReportAssetUsageSummary, ReportDeprecationNotice, ReportDqRule, ReportDqRun, ReportMaterializationSnapshot, ReportQueryQuota, ReportResourceType, ReportSlaRule } from '@arcbase/shared/report';
+import { reportAssetContract, reportDqContract, reportMaterializationContract, reportQueryCapacityContract, reportSlaContract } from '@arcbase/shared/report';
 import {
   getNextReportDashboardId,
   getNextReportDatasetId,

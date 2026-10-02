@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { cmsDistributionContract } from '@zenith/shared/cms';
+import { cmsDistributionContract } from '@arcbase/shared/cms';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { idempotencyGuard } from '../../middleware/idempotency';
 import { defineContractRoute } from '../../lib/contract-route';

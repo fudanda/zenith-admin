@@ -2,7 +2,7 @@
  * 表单变更摘要（F14）：对比服务端基线与当前编辑态，产出 新增/删除/重命名/修改 明细。
  * 供保存前审阅（配合 InlineEditor 的 baseline + 重命名跟踪）。
  */
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { flattenAllFields } from './form-tree';
 
 export type FormDiffKind = 'added' | 'removed' | 'renamed' | 'modified';

@@ -1,4 +1,4 @@
-import { callRaw } from '@zenith/client';
+import { callRaw } from '@arcbase/client';
 import {
   keepPreviousData,
   queryOptions,
@@ -22,7 +22,7 @@ import {
   type ParamsSchema,
   type QueryOf,
   type ShapeInput,
-} from '@zenith/shared/core';
+} from '@arcbase/shared/core';
 import { request, type RequestOptions } from '@/utils/request';
 import { LOOKUP_STALE_TIME, toQueryString, unwrap } from '@/lib/query';
 import { IS_GO_FOUNDATION } from './foundation-mode';
@@ -32,7 +32,7 @@ import { goApiClient } from './go-api-client';
 /**
  * 契约驱动的数据访问层。
  *
- * 所有服务端调用都由 `@zenith/shared` 的契约操作驱动：URL、方法、入参与响应类型均来自契约，
+ * 所有服务端调用都由 `@arcbase/shared` 的契约操作驱动：URL、方法、入参与响应类型均来自契约，
  * 页面与域 hooks 不书写路径字符串或响应泛型。
  *
  * - `api(op, input)`：单次调用，返回解包后的 `data`
@@ -153,7 +153,7 @@ function splitArgs<Op extends AnyOperation>(op: Op, args: unknown[]): [InputOf<O
  * 传部分输入（如只有 `params`）得到该输入子集的前缀，覆盖该输入下全部 query / body 变体。
  * 业务请求头不参与 key：它们不是资源身份的一部分。
  */
-export { contractKey } from '@zenith/shared/core';
+export { contractKey } from '@arcbase/shared/core';
 
 type ApiQueryExtraOptions<Op extends AnyOperation, TData = OutputOf<Op>> = Omit<
   UseQueryOptions<OutputOf<Op>, Error, TData, readonly unknown[]>,

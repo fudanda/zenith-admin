@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Banner, Button, Input, InputNumber, Select, Space, Typography } from '@douyinfe/semi-ui';
 import { ArrowDown, ArrowUp, GripVertical, Plus, Trash2 } from 'lucide-react';
-import { CMS_HOME_IMAGE_RATIO_OPTIONS, CMS_HOME_SECTION_SOURCE_OPTIONS, CMS_HOME_SECTION_STYLE_OPTIONS, type CmsChannel, type CmsHomeSection } from '@zenith/shared/cms';
+import { CMS_HOME_IMAGE_RATIO_OPTIONS, CMS_HOME_SECTION_SOURCE_OPTIONS, CMS_HOME_SECTION_STYLE_OPTIONS, type CmsChannel, type CmsHomeSection } from '@arcbase/shared/cms';
 import { useCmsChannelTree } from '@/hooks/queries/cms-channels';
 import { SliderInput } from '@/components/SliderInput';
 import './site-composition.css';

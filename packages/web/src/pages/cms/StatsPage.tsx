@@ -1,7 +1,7 @@
 import { lazy, Suspense, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Banner, Button, Card, Empty, Select, Skeleton, Space, TabPane, Tabs, Tag, Typography } from '@douyinfe/semi-ui';
-import { cmsStatContract, CMS_CONTENT_TYPES, CMS_CONTENT_TYPE_LABELS, type CmsStatMetrics } from '@zenith/shared/cms';
+import { cmsStatContract, CMS_CONTENT_TYPES, CMS_CONTENT_TYPE_LABELS, type CmsStatMetrics } from '@arcbase/shared/cms';
 import { StatCard, StatGrid } from '@/components/charts/StatCard';
 import DateTimeText from '@/components/DateTimeText';
 import { DateRangeFilter, FilterSelect } from '@/components/search-filters';

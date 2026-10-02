@@ -7,7 +7,7 @@
  *   - iot:write 服务调用指令 / 期望属性下发
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { openIotContract } from '@zenith/shared/iot';
+import { openIotContract } from '@arcbase/shared/iot';
 import { defineContractRoute } from '../../lib/contract-route';
 import { requireRow } from '../../lib/db-assert';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

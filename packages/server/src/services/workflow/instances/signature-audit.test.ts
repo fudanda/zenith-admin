@@ -20,7 +20,7 @@ vi.mock('../../../lib/request-helpers', () => ({
   resolveReportedClient: (reported: { browser?: string; os?: string }) => ({ browser: reported.browser ?? 'test', os: reported.os ?? 'test' }),
   resolveRequestClient: () => ({ browser: 'test', os: 'test' }),
 }));
-import { workflowInstanceContract, workflowInstanceOpsContract, workflowTaskContract } from '@zenith/shared/workflow';
+import { workflowInstanceContract, workflowInstanceOpsContract, workflowTaskContract } from '@arcbase/shared/workflow';
 import { guard, setAuditAfterData } from '../../../middleware/guard';
 import { redactWorkflowSignatureImages } from './signature-audit';
 

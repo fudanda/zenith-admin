@@ -8,7 +8,7 @@ import {
   type UploadChunkResult,
   type UploadSessionInit,
   type UploadSessionStatus,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 
 export interface MockUploadSession<TMeta = Record<string, unknown>> {
   uploadId: string;

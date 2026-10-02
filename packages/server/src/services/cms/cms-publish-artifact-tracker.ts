@@ -2,7 +2,7 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 import { createHash } from 'node:crypto';
 import { sql } from 'drizzle-orm';
 import dayjs from 'dayjs';
-import type { CmsPublishArtifactStatus, CmsPublishTargetType } from '@zenith/shared/cms';
+import type { CmsPublishArtifactStatus, CmsPublishTargetType } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsPublishArtifacts } from '../../db/schema';
 

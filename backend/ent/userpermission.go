@@ -8,7 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/userpermission"
+	"github.com/fudanda/arcbase/backend/ent/userpermission"
 )
 
 // UserPermission is the model entity for the UserPermission schema.

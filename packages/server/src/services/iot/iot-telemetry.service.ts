@@ -1,5 +1,5 @@
-import { iotDeviceContract, iotCommandSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotDeviceContract, iotCommandSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 遥测与指令。
  *
@@ -14,8 +14,8 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  */
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, gte, inArray, lt } from 'drizzle-orm';
-import type { IotCommandAckInput, IotMetricValue, IotTelemetryIngestInput, SendIotCommandInput } from '@zenith/shared/iot';
-import { IOT_COMMAND_DEFAULT_TTL_SECONDS } from '@zenith/shared/iot';
+import type { IotCommandAckInput, IotMetricValue, IotTelemetryIngestInput, SendIotCommandInput } from '@arcbase/shared/iot';
+import { IOT_COMMAND_DEFAULT_TTL_SECONDS } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import {
   iotCommands, iotTelemetry,

@@ -1,9 +1,9 @@
 import { HTTPException } from 'hono/http-exception';
 import { requireTenantUser } from '../../lib/user-nicknames';
 import { and, desc, eq, gte, inArray, isNotNull, isNull, lt, lte, sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { ImportWikiDocsInput, WikiGovernanceKind } from '@zenith/shared/wiki';
-import { wikiGovernanceContract } from '@zenith/shared/wiki';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { ImportWikiDocsInput, WikiGovernanceKind } from '@arcbase/shared/wiki';
+import { wikiGovernanceContract } from '@arcbase/shared/wiki';
 import { db } from '../../db';
 import {
   businessFiles, users, wikiDocVersions, wikiDocs, wikiReviewRecords, wikiSearchLogs, wikiSpaces,

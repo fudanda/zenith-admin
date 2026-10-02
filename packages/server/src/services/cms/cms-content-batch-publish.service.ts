@@ -1,5 +1,5 @@
 import { HTTPException } from 'hono/http-exception';
-import type { CmsContentBatchStatusResult } from '@zenith/shared/cms';
+import type { CmsContentBatchStatusResult } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { APP_TIME_ZONE, formatDateTime } from '../../lib/datetime';
 import { loadCmsPublishableRevision } from './cms-content-revisions.service';

@@ -1,10 +1,10 @@
-package zenith
+package arcbase
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	httptransport "github.com/fudanda/arcbase/backend/internal/transport/http"
 	"github.com/santhosh-tekuri/jsonschema/v6"
 	"net/http"
 	"strings"
@@ -44,7 +44,7 @@ func RegisterHostContract(reg *Registrar, op HostContract, handler http.Handler)
 		if err = json.Unmarshal(raw, &doc); err != nil {
 			return nil, err
 		}
-		uri := "https://zenith.local/host/" + op.ID + "/" + name
+		uri := "https://arcbase.local/host/" + op.ID + "/" + name
 		if err = compiler.AddResource(uri, doc); err != nil {
 			return nil, err
 		}

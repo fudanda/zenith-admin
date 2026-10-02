@@ -1,0 +1,108 @@
+---
+name: arcbase
+description: "ArcBase 项目专属开发辅助。Use when: 开发新模块、实现 CRUD、新增页面、配置菜单权限、增删改查、新建后台功能、新增管理功能、异步任务、批量操作、任务进度、发通知、通知事件、消息提醒、订阅通知、发布新版本、db migration、seed data、MSW mock、修改现有模块、添加字段、系统设置、运行时设置、加开关、加配置项、新增设置模块。包含完整的 CRUD 代码生成流程（Step 0-11）、异步任务接入、通知中心接入、运行时设置接入、模块修改流程与版本发布流程。"
+argument-hint: "部门管理 CRUD | 公告管理（含 MSW Mock）| 发布 v1.2.0 | 给用户表加字段"
+user-invocable: true
+---
+
+# ArcBase 开发辅助 Skill
+
+ArcBase 当前默认链路是 **GoFr + Ent + PostgreSQL / SQLite**，原 React Router / Semi UI 页面保留在 `packages/web`。
+以下 Hono / Drizzle、Worker、多租户模板仅用于保留的历史源码；当前实现以根目录 `AGENTS.md` 和 `docs/guide/go-foundation.md` 为准。
+前后端与 Mock 的 API 契约（路径、入参、响应形状）统一定义在 `packages/shared/src/{业务域}/contracts/`，
+服务端路由、前端 hooks、MSW handler 与 OpenAPI 文档都由契约派生。
+
+## 怎么用这个 skill
+
+1. 按下表识别场景，进入对应入口；CRUD 开发按本文件 Step 0 → Step 11 走，每步只读该步指向的模板文件。
+2. **动手改代码前先读硬约束**：后端与全局看 [constraints.md](./references/constraints.md)，
+   前端看 [constraints-frontend.md](./references/constraints-frontend.md)；改完按同一份清单核对本次涉及的层。
+3. 报错时看 [troubleshooting.md](./references/troubleshooting.md)（症状 → 定位 → 指回规范）。
+   参考文件**按需读取**，不要预先全部加载。
+
+| 场景 | 触发词 | 入口 |
+| --- | --- | --- |
+| CRUD 开发 | 实现 XXX CRUD、新增 XXX 模块、开发 XXX 功能、新增管理页面 | 本文件 Step 0 → Step 11 |
+| 修改已有模块 | 给 XXX 加字段、修改 XXX 接口、XXX 添加关联、改枚举、删字段 | [module-modification.md](./references/module-modification.md)：各场景的步骤序列 |
+| 跨对象关联视图 | 关联信息、对象详情关联、反查来源、关联分组、对象时间线、关系下钻 | [entity-relations.md](./references/entity-relations.md)：锚点、Provider、权限、摘要状态、详情下钻和验收 |
+| 业务模块接入审批 | 业务系统主导流程、业务表单内查看流程、审批预览 / 轮次 | [业务模块接入工作流](../../../docs/workflow/business-integration.md)：业务契约、公共流程容器、seed 与 Demo 的接入规范 |
+| 发送通知 / 新增通知事件 | 发通知、通知用户、订阅提醒、接入通知中心、加通知事件 | [notifications.md](./references/notifications.md)：事件注册、`notify()` 调用、渠道策略 |
+| 异步任务 / 大批量作业 | 批量导入、大数据量处理、后台任务、任务进度、长耗时操作 | [async-tasks.md](./references/async-tasks.md)：任务中心接入与选型对照 |
+| 运行时设置 / 系统开关 | 加一个开关、可配置阈值、系统设置项、新增设置模块、读取系统设置 | [settings.md](./references/settings.md)：加字段 / 新模块 / 服务端读取 / 前端读取 / Mock |
+| 发布新版本 | 发布 vX.Y.Z、准备发布、release X.Y.Z | [release.md](./references/release.md) |
+| 报错排查 | 构建失败、迁移失败、类型不匹配、缓存不刷新、启动缓慢 | [troubleshooting.md](./references/troubleshooting.md) |
+| 同域子路径部署 / 浏览器存储隔离 | 增加 `VITE_DEPLOYMENT_ID`、多个派生项目共用 Origin、PWA / storage 串数据 | [browser-storage-isolation.md](../../../docs/guide/browser-storage-isolation.md) 与 [constraints-frontend.md](./references/constraints-frontend.md) |
+
+> 规则只在归属文件里写一遍：约束正文在两个 `constraints*.md`，代码写法与展开说明在对应主题文件。
+> 需要引用时给指针，**不要把内容抄到第二处**。
+
+> **占位符约定**（全库通用）：`xxx` = 小写（表名、API 路径、文件名）；`Xxx` = 大驼峰（TypeScript 类型、组件名）。
+
+---
+
+## ⛔ Step 0：信息收集（BLOCKING GATE，不得跳过）
+
+读取 [crud-intake.md](./references/crud-intake.md)，只补齐用户尚未提供的信息。
+使用当前环境可用的交互式提问能力，完成汇总确认后再进入 Step 1。
+
+---
+
+## 第一阶段：后端（Step 1-7）
+
+按顺序执行，主链路模板见 [crud-backend.md](./references/crud-backend.md)；条件性能力（数据权限、多租户、审计 diff、
+附件、导出、外呼 HTTP、重依赖懒加载）见 [backend-patterns.md](./references/backend-patterns.md)。
+
+| Step | 任务 | 文件 |
+| --- | --- | --- |
+| 1 | 数据库 Schema | `packages/server/src/db/schema/{业务域}.ts`（relations 写在 `db/schema/relations.ts`） |
+| 2 | 生成并执行迁移 | `npm run db:generate && npm run db:migrate` |
+| 3 | 共享 Zod 校验 Schema | `packages/shared/src/{业务域}/validation.ts`（枚举常量放同域 `constants.ts`） |
+| 4 | 共享契约（实体 schema + 操作） | `packages/shared/src/{业务域}/contracts/xxxs.ts`（在 `contracts/index.ts` 登记） |
+| 5 | Service 层 | `packages/server/src/services/{业务域}/xxx.service.ts` |
+| 6 | 路由（`defineContractRoute`） | `packages/server/src/routes/{业务域}/xxx.ts` |
+| 7 | 注册路由 | `packages/server/src/routes/{业务域}/index.ts`（挂载路径取 `xxxContract.basePath`；新增域需同步 `routes/index.ts`） |
+
+> Step 7 完成后执行 `npm run dev:server` 冒烟验证，无编译错误再继续。
+> 实现过程中按本次涉及的章节对照 [constraints.md](./references/constraints.md)，不要在入口文件复制约束正文。
+
+## 第二阶段：前端（Step 8）
+
+先读 [query-cache.md](./references/query-cache.md) 定下失效策略，再按 [crud-frontend.md](./references/crud-frontend.md) 写代码，
+并对照 [constraints-frontend.md](./references/constraints-frontend.md)（服务端状态的获取方式、hooks 由契约派生的要求与禁止的手写模式都在那里）。
+
+| Step | 任务 | 文件 |
+| --- | --- | --- |
+| 8a | 域 hooks（查询 / 变更） | `packages/web/src/hooks/queries/xxxs.ts` |
+| 8b | 页面组件 | `packages/web/src/pages/xxx/XxxPage.tsx` |
+
+页面结构超出标准列表页（多 Tab、左右分栏、统计卡、虚拟化表格）时读 [ui-patterns.md](./references/ui-patterns.md)。
+
+页面需要展示跨对象上下文时，先读 [entity-relations.md](./references/entity-relations.md)，确认关系语义、权限、缓存失效和详情容器层级，再接入页面。
+
+## 第三阶段：配置与 Mock（Step 9-11）
+
+| Step | 任务 | 文件 | 条件 |
+| --- | --- | --- | --- |
+| 9 | 菜单 / 权限配置 | `packages/shared/src/seed/menus/{段}.ts` | 总是 |
+| 10 | 种子数据 | `packages/shared/src/seed/{业务域}.ts` + `packages/server/src/db/seed.ts` | 总是 |
+| 11 | MSW Mock（`mock(op, resolver)`） | `packages/web/src/mocks/data/xxxs.ts` + `handlers/xxxs.ts` | 仅 Step 0 确认需要时 |
+
+模板见 [seed-config.md](./references/seed-config.md)（Step 9-10）与 [crud-mock.md](./references/crud-mock.md)（Step 11）。
+
+---
+
+## CRUD 完成标准
+
+全部通过才算完成（修改已有模块时同样按本清单核对，差异项见 [module-modification.md](./references/module-modification.md#修改后的验证)）：
+
+- [ ] `npm run db:generate && npm run db:migrate` 已执行，迁移文件已提交
+- [ ] `npm run build` 无报错
+- [ ] `npm run dev:server` 冒烟通过，新接口在 `/api/docs` 中可见且可调用
+- [ ] `npm run lint` 通过（web 含 ESLint 与 stylelint；server 含契约编译期检查）
+- [ ] `npm run test -w @arcbase/shared` 通过（契约 DSL 与类型推导）
+- [ ] `npm run test -w @arcbase/web` 通过；域 hooks 的失效行为测试已补充
+- [ ] 页面实测：查询 / 重置 / 新增 / 编辑 / 删除 / 导出，确认操作后相关列、统计与面板都刷新
+      （欠失效比多失效更危险），移动端窄屏同样走一遍
+- [ ] Step 0 确认需要 MSW Mock 时，Demo 模式（`VITE_DEMO_MODE=true`）下页面功能完整
+- [ ] 打开 [constraints.md](./references/constraints.md) 与 [constraints-frontend.md](./references/constraints-frontend.md)，
+      按本次改动涉及的层逐组对照（约束条目本身即核对项）

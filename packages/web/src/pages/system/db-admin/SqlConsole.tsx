@@ -9,7 +9,7 @@ import {
 import type { editor as MonacoEditor, KeyMod as KeyModT, KeyCode as KeyCodeT, Position } from 'monaco-editor';
 import Editor from '@monaco-editor/react';
 import { format as formatSql } from 'sql-formatter';
-import type { DbAdminQueryResult, DbQueryFavorite } from '@zenith/shared/ops';
+import type { DbAdminQueryResult, DbQueryFavorite } from '@arcbase/shared/ops';
 import { downloadBlob } from '@/utils/download';
 import { AppModal } from '@/components/AppModal';
 import { useEditModal } from '@/hooks/useEditModal';

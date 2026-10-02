@@ -3,7 +3,7 @@
  * 入口 polyfill 用 getRandomValues 组装的 v4 补齐，业务代码与第三方库继续调用标准 API。
  */
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { randomUUID, uuidV4 } from '@zenith/shared/core';
+import { randomUUID, uuidV4 } from '@arcbase/shared/core';
 
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const nativeRandomUUID = Object.getOwnPropertyDescriptor(globalThis.crypto, 'randomUUID')

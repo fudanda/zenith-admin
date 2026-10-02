@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -11,10 +11,10 @@ import (
 
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/menu"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/menu"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 )
 
 // HostData is supplied only to trusted Go modules. It borrows the single business
@@ -172,7 +172,7 @@ type HostMenuSeed struct {
 }
 
 // SeedMenus is idempotent and preserves administrator edits; host navigation is
-// registered by ZenithAdmin, while these rows allow original permission drawers.
+// registered by ArcBaseAdmin, while these rows allow original permission drawers.
 func (s HostData) SeedMenus(ctx context.Context, module string, items []HostMenuSeed) error {
 	if !moduleName.MatchString(module) {
 		return errors.New("invalid module name")

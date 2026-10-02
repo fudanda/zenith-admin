@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Input, Select, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { WorkflowInstance } from '@zenith/shared/workflow';
+import type { WorkflowInstance } from '@arcbase/shared/workflow';
 import SavedViewsBar from '@/components/workflow/SavedViewsBar';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

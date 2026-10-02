@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components -- 派生函数与其内部字典下拉控件同文件，本模块不是热刷新边界 */
 import { Fragment, type ReactNode } from 'react';
 import * as z from 'zod';
-import { filterMetaOf, type FilterMeta } from '@zenith/shared/core';
+import { filterMetaOf, type FilterMeta } from '@arcbase/shared/core';
 import { DateRangeFilter, FilterSelect, KeywordInput, NumberFilter, StatusSelect, type FilterOption } from '@/components/search-filters';
 import { useDictItems } from '@/hooks/useDictItems';
 import type { UseListSearchReturn } from '@/hooks/useListSearch';

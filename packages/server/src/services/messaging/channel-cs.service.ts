@@ -21,10 +21,10 @@ import {
   channelConversations, users, menus, roleMenus, userRoles,
   type ChannelMenuRow, type ChannelAutoReplyRow, type ChannelQuickReplyRow, type ChannelConversationRow, type ChannelRow,
 } from '../../db/schema';
-import type { ChatCard, ChatMessageExtra } from '@zenith/shared/chat';
-import type { ChannelMenu, ChannelAutoReply, ChannelConversation, ChannelMessage, ChannelMessageType, ChannelQuickReply, ChannelCsAgent, ChannelCsPerformance, ChannelRichReplyExtra, CreateChannelAutoReplyInput, UpdateChannelAutoReplyInput, CreateChannelQuickReplyInput, UpdateChannelQuickReplyInput, channelCsContract } from '@zenith/shared/messaging';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { SaveChannelMenusInput } from '@zenith/shared/mp';
+import type { ChatCard, ChatMessageExtra } from '@arcbase/shared/chat';
+import type { ChannelMenu, ChannelAutoReply, ChannelConversation, ChannelMessage, ChannelMessageType, ChannelQuickReply, ChannelCsAgent, ChannelCsPerformance, ChannelRichReplyExtra, CreateChannelAutoReplyInput, UpdateChannelAutoReplyInput, CreateChannelQuickReplyInput, UpdateChannelQuickReplyInput, channelCsContract } from '@arcbase/shared/messaging';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { SaveChannelMenusInput } from '@arcbase/shared/mp';
 import { HTTPException } from 'hono/http-exception';
 import { currentUser } from '../../lib/context';
 import { formatDateTime, formatNullableDateTime, formatTimestamps } from '../../lib/datetime';

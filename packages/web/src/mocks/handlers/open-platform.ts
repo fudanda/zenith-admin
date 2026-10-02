@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import { OPEN_SIGNATURE_ALGORITHM, OPEN_SIGNATURE_TIMESTAMP_WINDOW, OPEN_SIGNATURE_HEADERS, openApiStatsContract, openSignatureContract } from '@zenith/shared/open-platform';
-import type { OpenApiCallLog, OpenApiStatsGroupItem } from '@zenith/shared/open-platform';
-import type { QueryOf } from '@zenith/shared/core';
+import { OPEN_SIGNATURE_ALGORITHM, OPEN_SIGNATURE_TIMESTAMP_WINDOW, OPEN_SIGNATURE_HEADERS, openApiStatsContract, openSignatureContract } from '@arcbase/shared/open-platform';
+import type { OpenApiCallLog, OpenApiStatsGroupItem } from '@arcbase/shared/open-platform';
+import type { QueryOf } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { mockOpenApiLogs } from '@/mocks/data/open-api-logs';
 import { includesKeyword, matchesFilter, withinDateRange } from '@/mocks/utils/filter';

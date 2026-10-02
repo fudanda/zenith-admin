@@ -1,4 +1,4 @@
-import type { CmsSite, CreateCmsSiteInput } from '@zenith/shared/cms';
+import type { CmsSite, CreateCmsSiteInput } from '@arcbase/shared/cms';
 
 export interface PreparedSiteImage {
   key: string;

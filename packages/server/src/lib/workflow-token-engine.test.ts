@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { advanceTokens, type TokenSnapshot, type AdvanceTokensResult } from './workflow-token-engine';
-import type { WorkflowFlowData } from '@zenith/shared/workflow';
+import type { WorkflowFlowData } from '@arcbase/shared/workflow';
 
 // ─── 测试基建：模拟 service 落库（消费 + 分配 id） ──────────────────────────────
 let idSeq = 1;

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Button, Descriptions, Space, Spin, Typography } from '@douyinfe/semi-ui';
-import type { ManagedFile } from '@zenith/shared/platform';
-import { formatBytes } from '@zenith/shared/core';
+import type { ManagedFile } from '@arcbase/shared/platform';
+import { formatBytes } from '@arcbase/shared/core';
 import { AppModal } from '@/components/AppModal';
 import { formatDateTime } from '@/utils/date';
 

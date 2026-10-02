@@ -1,6 +1,6 @@
 # 文件与存储
 
-本页描述 Zenith Admin 当前文件与存储实现：统一文件记录、上传下载、预览、分片上传、业务附件、存储后端与访问 URL 策略。事实来源以 `packages\server\src\routes\files`、`packages\server\src\services\files`、`packages\server\src\lib\file-storage.ts`、`packages\shared\src\platform` 为准。
+本页描述 ArcBase 当前文件与存储实现：统一文件记录、上传下载、预览、分片上传、业务附件、存储后端与访问 URL 策略。事实来源以 `packages\server\src\routes\files`、`packages\server\src\services\files`、`packages\server\src\lib\file-storage.ts`、`packages\shared\src\platform` 为准。
 
 本页对应独立的 `files` 路由领域，专题地址沿用 `/storage/`。文件契约虽放在共享层 `platform` 下，但不由 `platform` 路由领域挂载；平台能力见[平台基础能力](../platform/index.md)，空间与协作权限见[企业网盘](../drive/index.md)。
 

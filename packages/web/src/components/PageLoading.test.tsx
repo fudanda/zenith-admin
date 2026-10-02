@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { PREFERENCES_KEY } from '@zenith/shared/core';
-import { preferencePolicySchema } from '@zenith/shared/preferences';
+import { PREFERENCES_KEY } from '@arcbase/shared/core';
+import { preferencePolicySchema } from '@arcbase/shared/preferences';
 import { writePreferenceCache } from '@/lib/preference-cache';
 import { createPreferencesContext } from '@/test-utils/preferences';
 import PageLoading, { LoadingIndicator } from './PageLoading';

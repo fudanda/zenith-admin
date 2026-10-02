@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"context"

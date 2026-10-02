@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { reportDatasourceContract } from '@zenith/shared/report';
+import type { QueryOf } from '@arcbase/shared/core';
+import { reportDatasourceContract } from '@arcbase/shared/report';
 import { contractKey, createResourceQueries, useApiMutation } from '@/lib/contract-query';
 import { asyncTaskKeys } from './async-tasks';
 import { useReportLookup, type ReportLookupParams } from './report-lookups';

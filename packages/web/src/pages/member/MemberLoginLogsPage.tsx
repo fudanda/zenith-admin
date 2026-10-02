@@ -1,6 +1,6 @@
 import { Tag } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { MemberLoginLog } from '@zenith/shared/member';
+import type { MemberLoginLog } from '@arcbase/shared/member';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { ListSearchToolbar } from '@/components/list-page';
 import ExportButton from '@/components/ExportButton';

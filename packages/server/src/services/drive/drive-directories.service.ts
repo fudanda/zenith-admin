@@ -1,6 +1,6 @@
 import { and, eq, isNull, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { EnsureDriveDirectoriesInput } from '@zenith/shared/drive';
+import type { EnsureDriveDirectoriesInput } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveNodes, type DriveNodeRow } from '../../db/schema';
 import { nullableEq } from '../../lib/where-helpers';

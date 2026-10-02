@@ -1,5 +1,5 @@
-import type { MpKfSession, MpKfSessionEvent, MpKfRoutingConfig, MpKfSessionStats, MpMessage } from '@zenith/shared/mp';
-import { SEED_MP_KF_SESSIONS, SEED_MP_KF_SESSION_EVENTS, SEED_MP_KF_ROUTING_CONFIGS, SEED_MP_KF_ACCOUNTS, SEED_MP_FANS, SEED_MP_MESSAGES } from '@zenith/shared/seed';
+import type { MpKfSession, MpKfSessionEvent, MpKfRoutingConfig, MpKfSessionStats, MpMessage } from '@arcbase/shared/mp';
+import { SEED_MP_KF_SESSIONS, SEED_MP_KF_SESSION_EVENTS, SEED_MP_KF_ROUTING_CONFIGS, SEED_MP_KF_ACCOUNTS, SEED_MP_FANS, SEED_MP_MESSAGES } from '@arcbase/shared/seed';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

@@ -1,7 +1,7 @@
 import { cmsGenerationNow } from './cms-generation-context';
 import { cmsModelVersions } from '../../db/schema/cms-design';
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { buildListResult } from '../../lib/list-query';
 import { eq, asc, desc, and, or, inArray, notInArray, isNull, isNotNull, ne, lt, gt, sql, type SQL } from 'drizzle-orm';
 import { db } from '../../db';
@@ -14,7 +14,7 @@ import { pickEntity } from '../../lib/entity-map';
 import { buildWhere, dateRangeConditions, withPagination, keywordCondition } from '../../lib/where-helpers';
 import { getAccessibleChannelIds, assertChannelAccess } from './cms-channels.service';
 import { assertSiteAccess, ensureCmsSiteExists } from './cms-sites.service';
-import { CMS_CONTENT_CALENDAR_DAY_ITEM_LIMIT, cmsContentContract, cmsContentSchema, type CmsContentCalendarEventKind, type CmsContentCalendarItem, type CmsEditorialStatus, type CmsContentRevisionSnapshot, type CmsBodyDocument, type CmsModelField } from '@zenith/shared/cms';
+import { CMS_CONTENT_CALENDAR_DAY_ITEM_LIMIT, cmsContentContract, cmsContentSchema, type CmsContentCalendarEventKind, type CmsContentCalendarItem, type CmsEditorialStatus, type CmsContentRevisionSnapshot, type CmsBodyDocument, type CmsModelField } from '@arcbase/shared/cms';
 import { resolveCmsContentRow, resolveCmsContentRows } from './cms-resource-refs.service';
 import { buildCmsContentUrls } from './cms-urls';
 import { getEffectivelyEnabledCmsChannelIds } from './cms-channel-visibility.service';

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { WsMessage } from '@arcbase/shared/platform';
 import { useWebSocket } from '@/hooks/useWebSocket';
 import { useOptionalPreferences } from '@/hooks/usePreferences';
 import { useConversations } from '@/hooks/queries/chat';

@@ -7,7 +7,7 @@ import react from '@vitejs/plugin-react';
 import { fileViewerRenderers } from '@file-viewer/vite-plugin';
 import { VitePWA } from 'vite-plugin-pwa';
 import entriesManifest from './entries.json';
-import { connectedFoundationPages } from '@zenith/shared/foundation';
+import { connectedFoundationPages } from '@arcbase/shared/foundation';
 
 /**
  * 三个 SPA 入口的内容安全策略（构建期注入 <meta http-equiv="Content-Security-Policy">）。
@@ -39,7 +39,7 @@ const SPA_CSP = [
 
 function cspMetaPlugin(): Plugin {
   return {
-    name: 'zenith-csp-meta',
+    name: 'arcbase-csp-meta',
     apply: 'build',
     transformIndexHtml: {
       order: 'post',
@@ -57,7 +57,7 @@ function cspMetaPlugin(): Plugin {
  * 原因：rolldown 的 `$initial`（入口静态闭包）标签对「任一用户入口」取并集，多入口共建时
  * 后台入口的关键路径会混入会员 / 审批入口的模块，且每个共享模块的「入口集合」都掺进几十个懒加载页面，
  * 关键路径无法收敛成少数几个 chunk。管理后台、C 端会员、移动审批面向三类用户，跨入口共享 chunk 收益≈0。
- * 未设置 ZENITH_WEB_ENTRY 时保留多入口共建（dev server 与直接 `vite build` 仍可用）。
+ * 未设置 ARCBASE_WEB_ENTRY 时保留多入口共建（dev server 与直接 `vite build` 仍可用）。
  *
  * 入口清单的唯一来源是 `entries.json`（build.mjs / bundle-analyze.mjs 同样读取它）；新增入口只需在那里加一行。
  */
@@ -67,10 +67,10 @@ type BuildEntry = keyof typeof ENTRY_INPUTS;
 const FIRST_ENTRY = Object.keys(ENTRY_INPUTS)[0];
 
 function resolveBuildEntry(): BuildEntry | null {
-  const raw = process.env.ZENITH_WEB_ENTRY;
+  const raw = process.env.ARCBASE_WEB_ENTRY;
   if (!raw) return null;
   if (raw in ENTRY_INPUTS) return raw as BuildEntry;
-  throw new Error(`ZENITH_WEB_ENTRY 只能是 ${Object.keys(ENTRY_INPUTS).join(' / ')}，收到：${raw}`);
+  throw new Error(`ARCBASE_WEB_ENTRY 只能是 ${Object.keys(ENTRY_INPUTS).join(' / ')}，收到：${raw}`);
 }
 
 /**
@@ -124,7 +124,7 @@ export default defineConfig(({ command, mode }) => {
   if (deploymentId && !/^[a-z][a-z0-9_-]*$/.test(deploymentId)) {
     throw new Error(`VITE_DEPLOYMENT_ID 格式无效：${deploymentId}`);
   }
-  // GitHub Pages 部署时通过环境变量注入 base 路径（如 /zenith-admin/）
+  // GitHub Pages 部署时通过环境变量注入 base 路径（如 /arcbase/）
   // Electron 模式下使用相对路径（./ 针对 file:// 协议）
   const isElectron = env.VITE_ELECTRON === 'true';
   const rawBase = isElectron ? './' : (env.VITE_BASE_URL || '/');
@@ -194,12 +194,12 @@ export default defineConfig(({ command, mode }) => {
       ...(pwaEnabled ? [VitePWA({
         registerType: 'autoUpdate',
         scope: base,
-        cacheId: `zenith-${deploymentId}`,
+        cacheId: `arcbase-${deploymentId}`,
         // 预缓存 Vite 构建产物中的静态资源
         includeAssets: ['favicon.svg', 'icons/*.png'],
         manifest: {
-          name: env.VITE_APP_TITLE || 'Zenith Admin',
-          short_name: env.VITE_APP_SHORT_NAME || 'Zenith',
+          name: env.VITE_APP_TITLE || 'ArcBase',
+          short_name: env.VITE_APP_SHORT_NAME || 'ArcBase',
           description: env.VITE_APP_DESCRIPTION || '企业级后台管理系统',
           theme_color: env.VITE_APP_THEME_COLOR || '#3370ff',
           background_color: '#ffffff',
@@ -259,7 +259,7 @@ export default defineConfig(({ command, mode }) => {
       // 多入口分多次构建写入同一 dist：只有第一个入口清空目录，由 scripts/build.mjs 控制顺序
       emptyOutDir: entry === null || entry === FIRST_ENTRY,
       rollupOptions: {
-        // 影子 barrel（semi-ui-barrel.ts）是纯 re-export，但 @zenith/web 未声明
+        // 影子 barrel（semi-ui-barrel.ts）是纯 re-export，但 @arcbase/web 未声明
         // package.json#sideEffects，源码文件默认被视为有副作用、无法摇树；
         // 此处精确豁免该文件（返回 undefined 的模块走默认判定）。
         treeshake: {

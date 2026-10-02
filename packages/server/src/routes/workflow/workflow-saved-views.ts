@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { workflowSavedViewContract } from '@zenith/shared/workflow';
+import { workflowSavedViewContract } from '@arcbase/shared/workflow';
 import { validationHook } from '../../lib/openapi-schemas';
 import { listSavedViews, createSavedView, updateSavedView, deleteSavedView, getSavedView } from '../../services/workflow/workflow-saved-views.service';
 import { mountCrud } from '../_crud';

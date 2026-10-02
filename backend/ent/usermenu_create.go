@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/usermenu"
+	"github.com/fudanda/arcbase/backend/ent/usermenu"
 )
 
 // UserMenuCreate is the builder for creating a UserMenu entity.

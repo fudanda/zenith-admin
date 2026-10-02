@@ -1,8 +1,8 @@
 /**
  * 运营群发 Mock（Demo 模式）：活动 CRUD + 发送（联动任务中心模拟进度）。
  */
-import { broadcastContract } from '@zenith/shared/messaging';
-import type { BroadcastCampaign } from '@zenith/shared/messaging';
+import { broadcastContract } from '@arcbase/shared/messaging';
+import type { BroadcastCampaign } from '@arcbase/shared/messaging';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';

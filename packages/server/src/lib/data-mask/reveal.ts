@@ -1,5 +1,5 @@
 import { requireRow } from '../db-assert';
-import { valuesAtPath } from '@zenith/shared/core';
+import { valuesAtPath } from '@arcbase/shared/core';
 
 /**
  * 按需查看明文的数据源注册表。

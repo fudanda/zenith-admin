@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Button, Typography } from '@douyinfe/semi-ui';
 import { QRCodeSVG } from 'qrcode.react';
-import type { CreatePaymentResult, PaymentMethod } from '@zenith/shared/payment';
+import type { CreatePaymentResult, PaymentMethod } from '@arcbase/shared/payment';
 import { AppModal } from '@/components/AppModal';
 import { getPaymentQrInstruction } from '@/utils/payment';
 

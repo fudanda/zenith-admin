@@ -5,7 +5,7 @@
  * 全局 pathBoundRateLimit 已覆盖全部 API，平台「限流规则」按本域路径前缀配置即可精细限流。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { IOT_SIGN_HEADER, IOT_TIMESTAMP_HEADER, iotIngestContract } from '@zenith/shared/iot';
+import { IOT_SIGN_HEADER, IOT_TIMESTAMP_HEADER, iotIngestContract } from '@arcbase/shared/iot';
 import { captureIotRawBody, iotDeviceHeaderAuth, iotDeviceQueryAuth } from '../../middleware/iot-device-auth';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

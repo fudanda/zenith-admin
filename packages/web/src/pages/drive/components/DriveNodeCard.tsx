@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Checkbox, Tooltip } from '@douyinfe/semi-ui';
 import { Folder, Lock, Star } from 'lucide-react';
-import { formatBytes } from '@zenith/shared/core';
-import type { DriveNode } from '@zenith/shared/drive';
+import { formatBytes } from '@arcbase/shared/core';
+import type { DriveNode } from '@arcbase/shared/drive';
 import { getFileTypeIcon } from '@/utils/file-utils';
 import { request } from '@/utils/request';
 

@@ -1,7 +1,7 @@
 import { asc, eq } from 'drizzle-orm';
 import { db } from '../../db';
 import { regions } from '../../db/schema';
-import { buildRegionTree, filterRegionTree, REGION_LEVEL_SHORT_LABELS, regionFieldsSchema, validateRegionLevelHierarchy, type Region, type RegionLevel } from '@zenith/shared/platform';
+import { buildRegionTree, filterRegionTree, REGION_LEVEL_SHORT_LABELS, regionFieldsSchema, validateRegionLevelHierarchy, type Region, type RegionLevel } from '@arcbase/shared/platform';
 import { pickEntity } from '../../lib/entity-map';
 import { HTTPException } from 'hono/http-exception';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';

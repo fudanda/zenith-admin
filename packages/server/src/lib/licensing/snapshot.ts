@@ -3,7 +3,7 @@ import { db } from '../../db';
 import { licenses, licenseEvents } from '../../db/schema';
 import { config } from '../../config';
 import logger from '../logger';
-import type { LicenseFeatureKey, LicensePayload, LicenseStatus } from '@zenith/shared/licensing';
+import type { LicenseFeatureKey, LicensePayload, LicenseStatus } from '@arcbase/shared/licensing';
 import { verifyLicenseEnvelope } from './signature';
 import { ensureInstallation, readLicenseEpoch } from './installation';
 

@@ -30,7 +30,7 @@ import {
   type LicenseEdition,
   type LicenseFeatureKey,
   type LicensePayload,
-} from '@zenith/shared/licensing';
+} from '@arcbase/shared/licensing';
 
 /** 与 src/lib/licensing/keys.ts 中 TEST_PUBLIC_KEY_BASE64 配对的测试私钥（公开，勿用于生产） */
 const TEST_KEY_ID = 'test-2026';

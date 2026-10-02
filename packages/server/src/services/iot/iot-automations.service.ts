@@ -1,5 +1,5 @@
-import { iotAutomationContract, iotAutomationSchema, iotAutomationRunSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotAutomationContract, iotAutomationSchema, iotAutomationRunSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 场景联动：触发评估 + 动作执行 + 冷却抑制 + 执行留痕。
  *
@@ -14,9 +14,9 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  * 保持本模块静态依赖只有 db/redis/model —— ingest 各服务可安全静态引用本模块。
  */
 import { and, count, desc, eq, gte, inArray, type SQL } from 'drizzle-orm';
-import type { CreateIotAutomationInput, IotMetricValue, UpdateIotAutomationInput } from '@zenith/shared/iot';
-import { IOT_COMPARE_OP_LABELS, IOT_AUTOMATION_TRIGGER_LABELS } from '@zenith/shared/iot';
-import { compareNumber } from '@zenith/shared/core';
+import type { CreateIotAutomationInput, IotMetricValue, UpdateIotAutomationInput } from '@arcbase/shared/iot';
+import { IOT_COMPARE_OP_LABELS, IOT_AUTOMATION_TRIGGER_LABELS } from '@arcbase/shared/iot';
+import { compareNumber } from '@arcbase/shared/core';
 import { db } from '../../db';
 import {
   iotAutomationRuns, iotAutomations, iotDeviceGroupMembers, iotDevices, iotProducts,

@@ -1,7 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query';
-import { bizPayDemoContract } from '@zenith/shared/biz';
-import type { QueryOf } from '@zenith/shared/core';
-import { taskDemoContract } from '@zenith/shared/tasks';
+import { bizPayDemoContract } from '@arcbase/shared/biz';
+import type { QueryOf } from '@arcbase/shared/core';
+import { taskDemoContract } from '@arcbase/shared/tasks';
 import { createResourceQueries, useApiMutation } from '@/lib/contract-query';
 import { invalidateAsyncTaskState, useAsyncTaskAction, useAsyncTaskItems, useAsyncTaskTypes } from './async-tasks';
 

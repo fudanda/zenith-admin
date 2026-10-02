@@ -190,7 +190,7 @@ open-platform、workflow、chat、mp、biz-demo、ai、short-link、marketing、
 
 | 模块 | 当前能力 |
 | --- | --- |
-| 行为分析 | PV / UV、停留、点击、设备、操作系统、时间范围筛选，配套 `@zenith/analytics-sdk` |
+| 行为分析 | PV / UV、停留、点击、设备、操作系统、时间范围筛选，配套 `@arcbase/analytics-sdk` |
 | 数据管理 | 分析数据请求历史与条件清理 |
 | 前端错误监控 | JS 异常、Promise 拒绝、source map 堆栈还原、版本维度、页面与类型筛选 |
 | Campaign / Experiment / Site | 站点、活动与实验等埋点治理数据结构与接口 |

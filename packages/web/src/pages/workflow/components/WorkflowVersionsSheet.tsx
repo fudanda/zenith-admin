@@ -10,7 +10,7 @@ import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { listTableProps } from '@/components/list-page';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { WorkflowDefinition, WorkflowDefinitionVersion, WorkflowVersionDiff } from '@zenith/shared/workflow';
+import type { WorkflowDefinition, WorkflowDefinitionVersion, WorkflowVersionDiff } from '@arcbase/shared/workflow';
 import WorkflowVersionDiffView from './WorkflowVersionDiffView';
 import { useRestoreWorkflowDefinitionVersion, useWorkflowDefinitionDiff, useWorkflowDefinitionVersions } from '@/hooks/queries/workflow-definitions';
 import { usePagination } from '@/hooks/usePagination';

@@ -5,7 +5,7 @@ import { scheduleSendToUsers, getUserPresence } from '../../lib/ws-manager';
 import { currentUser } from '../../lib/context';
 import { config } from '../../config';
 import { requireRow } from '../../lib/db-assert';
-import type { ChatCallRecordInput, ChatPresence, RtcConfig } from '@zenith/shared/chat';
+import type { ChatCallRecordInput, ChatPresence, RtcConfig } from '@arcbase/shared/chat';
 import { mapChatMessage, listConversationMemberIds, touchConversation } from './chat-shared';
 
 // ─── 在线状态：批量查询用户在线/最近在线 ───────────────────────────────────────

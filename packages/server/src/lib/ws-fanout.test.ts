@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { WsMessage } from '@arcbase/shared/platform';
 
 type Fanout = typeof import('./ws-fanout');
 type RedisStub = ReturnType<typeof import('../test-utils/redis-stub').createRedisStub>;

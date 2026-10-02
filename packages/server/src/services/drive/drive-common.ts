@@ -1,5 +1,5 @@
 import { and, eq, inArray } from 'drizzle-orm';
-import type { DriveNode, DriveRole, DriveSpace, DriveSubjectType, DriveTag } from '@zenith/shared/drive';
+import type { DriveNode, DriveRole, DriveSpace, DriveSubjectType, DriveTag } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { departments, driveNodes, driveSpaces, roles, userGroups, userRoles, users, type DriveNodeRow, type DriveSpaceRow, type DriveTagRow } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';

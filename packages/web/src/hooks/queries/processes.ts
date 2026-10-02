@@ -1,4 +1,4 @@
-import { processContract } from '@zenith/shared/ops';
+import { processContract } from '@arcbase/shared/ops';
 import { contractKey, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { hostQueryOf } from './ops-hosts';
 

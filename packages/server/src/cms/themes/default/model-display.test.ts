@@ -2,7 +2,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { load } from 'cheerio';
 import { describe, expect, it } from 'vitest';
-import type { CmsModelDisplay } from '@zenith/shared/cms';
+import type { CmsModelDisplay } from '@arcbase/shared/cms';
 import type { CmsDetailContext, CmsModelFieldValue } from '../types';
 import { ModelDisplayCard } from './ModelDisplayCard';
 

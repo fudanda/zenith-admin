@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"bytes"
@@ -15,8 +15,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/fudanda/zenith-admin/backend/ent/menu"
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/ent/menu"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
 )
 
 type apiFixture struct {
@@ -29,9 +29,9 @@ type apiFixture struct {
 
 func newAPIFixture(t *testing.T) *apiFixture {
 	t.Helper()
-	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	dsn := os.Getenv("ARCBASE_TEST_DATABASE_URL")
 	if dsn == "" {
-		t.Fatal("ZENITH_TEST_DATABASE_URL is required")
+		t.Fatal("ARCBASE_TEST_DATABASE_URL is required")
 	}
 	dsn = isolatedTestDSN(t, dsn)
 	s, err := OpenStore(context.Background(), dsn)
@@ -61,9 +61,9 @@ func (a *apiFixture) call(method, path string, body any, cookie *http.Cookie, cs
 	if body == nil {
 		raw = nil
 	}
-	req := httptest.NewRequest(method, "http://zenith.test"+path, bytes.NewReader(raw))
+	req := httptest.NewRequest(method, "http://arcbase.test"+path, bytes.NewReader(raw))
 	req.RemoteAddr = ip + ":12345"
-	req.Header.Set("Origin", "http://zenith.test")
+	req.Header.Set("Origin", "http://arcbase.test")
 	req.Header.Set("X-CSRF-Token", csrf)
 	req.Header.Set("User-Agent", "Mozilla/5.0 Windows Chrome/140.0")
 	if body != nil {
@@ -147,7 +147,13 @@ func (a *apiFixture) login(username, password, ip string) (*http.Cookie, string)
 	if _, ok := data["csrfToken"]; !ok {
 		a.t.Fatalf("session missing: %s", response.Body.String())
 	}
-	return response.Result().Cookies()[0], data["csrfToken"].(string)
+	for _, cookie := range response.Result().Cookies() {
+		if cookie.Name == "arcbase_session" && cookie.Value != "" {
+			return cookie, data["csrfToken"].(string)
+		}
+	}
+	a.t.Fatal("login did not set an ArcBase session cookie")
+	return nil, ""
 }
 func (a *apiFixture) admin(method, path string, body any) map[string]any {
 	a.t.Helper()

@@ -4,7 +4,7 @@ import { Mic, MicOff, Video, VideoOff, MonitorUp, PhoneOff, Minus, Maximize2 } f
 import { MediaTile } from './MediaTile';
 import { callManager } from './callManager';
 import type { CallSnapshot } from './callManager';
-import type { RtcPeerInfo } from '@zenith/shared/chat';
+import type { RtcPeerInfo } from '@arcbase/shared/chat';
 import { formatClock } from '@/utils/format';
 
 function gridColumns(count: number): number {

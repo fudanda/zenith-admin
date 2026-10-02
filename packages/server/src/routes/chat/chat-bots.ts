@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { chatBotContract } from '@zenith/shared/chat';
+import { chatBotContract } from '@arcbase/shared/chat';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';

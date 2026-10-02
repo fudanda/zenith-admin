@@ -1,4 +1,4 @@
-import { opsOverviewContract } from '@zenith/shared/ops';
+import { opsOverviewContract } from '@arcbase/shared/ops';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export const opsOverviewKeys = {

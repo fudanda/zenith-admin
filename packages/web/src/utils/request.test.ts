@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { TOKEN_KEY } from '@zenith/shared/core';
-import { paymentRefundContract, paymentSharingContract, paymentTransferContract } from '@zenith/shared/payment';
+import { TOKEN_KEY } from '@arcbase/shared/core';
+import { paymentRefundContract, paymentSharingContract, paymentTransferContract } from '@arcbase/shared/payment';
 import { api, type ApiCallOptions } from '@/lib/contract-query';
 import { request } from './request';
 
@@ -73,7 +73,7 @@ describe('payment contracts through the real request client', () => {
     expect(options?.method).toBe('POST');
     const actualHeaders = Object.fromEntries(new Headers(options?.headers));
     expect(actualHeaders).toEqual({
-      ...intentHeaders, authorization: 'Bearer admin-token', 'content-type': 'application/json', 'x-trace': 'trace-1', 'x-zenith-client': 'web',
+      ...intentHeaders, authorization: 'Bearer admin-token', 'content-type': 'application/json', 'x-trace': 'trace-1', 'x-arcbase-client': 'web',
     });
     expect(contract.headers.safeParse(actualHeaders).success).toBe(true);
     expect(headers.get('x-idempotency-key')).toBe('request-option-intent');
@@ -99,7 +99,7 @@ describe('request.postForm headers', () => {
     const xhr = UploadXhr.instances[0];
     expect(xhr.open).toHaveBeenCalledWith('POST', '/upload');
     expect(xhr.send).toHaveBeenCalledWith(body);
-    expect(Object.fromEntries(xhr.headers)).toEqual({ authorization: 'Bearer admin-token', 'x-upload': 'upload-1', 'x-zenith-client': 'web' });
+    expect(Object.fromEntries(xhr.headers)).toEqual({ authorization: 'Bearer admin-token', 'x-upload': 'upload-1', 'x-arcbase-client': 'web' });
     expect(Object.fromEntries(new Headers(fetchMock.mock.calls[0][1]?.headers))).toEqual(Object.fromEntries(xhr.headers));
     expect(result.data).toEqual({ id: 1 });
     expect(onProgress).toHaveBeenCalledWith(50);

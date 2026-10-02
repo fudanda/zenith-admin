@@ -1,5 +1,5 @@
 // ─── 批量操作（含审计快照聚合）───
-import { workflowInstanceContract, workflowTaskContract } from '@zenith/shared/workflow';
+import { workflowInstanceContract, workflowTaskContract } from '@arcbase/shared/workflow';
 import { idempotencyGuard } from '../../../middleware/idempotency';
 import { defineContractRoute } from '../../../lib/contract-route';
 import { getWorkflowInstanceBeforeAudit, getWorkflowTaskBeforeAudit, batchApproveTasks, batchRejectTasks, batchWithdrawInstances, batchUrgeInstances } from '../../../services/workflow/workflow-instances.service';

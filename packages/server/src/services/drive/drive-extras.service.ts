@@ -10,7 +10,7 @@ import {
   type LockDriveNodeInput,
   type UpdateDriveTagInput,
   type UpdateDriveNodeCommentInput,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveNodeComments, driveNodes, driveNodeTags, driveTags } from '../../db/schema';
 import { currentUser, currentUserId } from '../../lib/context';

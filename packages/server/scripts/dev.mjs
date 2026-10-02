@@ -37,7 +37,7 @@ runSync('tsx src/db/seed.ts');
 // --exclude：CMS 静态化产物（storage/）与日志（logs/）属于运行时输出，
 // 写入时不应触发 tsx watch 重启，否则每次静态化都会导致后端重启、API 间歇 502。
 //
-// 默认单进程承担全部角色（ZENITH_ROLES 缺省 = all）。`--split` 时按生产拓扑起两个进程：
+// 默认单进程承担全部角色（ARCBASE_ROLES 缺省 = all）。`--split` 时按生产拓扑起两个进程：
 // api（业务端口）与 worker（仅健康端口），角色以代码注入环境变量——根脚本里 `env X=1 cmd` 的写法
 // 在 cmd.exe 下不可用，这里对所有平台一致。两个进程各自 tsx watch，热重启开销翻倍，只在验证角色行为时使用。
 const WATCH = 'tsx watch --exclude "storage/**" --exclude "logs/**" src/index.ts';
@@ -57,7 +57,7 @@ function exitAll(code) {
 }
 
 function spawnServer(label, roles) {
-  const child = spawn(WATCH, { stdio: 'inherit', env: { ...env, ZENITH_ROLES: roles }, shell: true });
+  const child = spawn(WATCH, { stdio: 'inherit', env: { ...env, ARCBASE_ROLES: roles }, shell: true });
   child.on('exit', (code) => {
     if (split) console.log(`[dev] ${label} 进程退出（code=${code ?? 0}）`);
     exitAll(code ?? 0);
@@ -70,7 +70,7 @@ if (split) {
   spawnServer('api', 'api');
   spawnServer('worker', 'worker');
 } else {
-  spawnServer('all', env.ZENITH_ROLES ?? 'all');
+  spawnServer('all', env.ARCBASE_ROLES ?? 'all');
 }
 for (const signal of ['SIGINT', 'SIGTERM']) {
   process.on(signal, () => { for (const child of children) child.kill(signal); });

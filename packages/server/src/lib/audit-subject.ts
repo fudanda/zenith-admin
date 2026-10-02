@@ -6,4 +6,4 @@ export {
   type SubjectRefInput as AuditSubjectRef,
   type SubjectRef as NormalizedAuditSubjectRef,
   type SubjectRefRole as AuditSubjectRole,
-} from '@zenith/shared/core';
+} from '@arcbase/shared/core';

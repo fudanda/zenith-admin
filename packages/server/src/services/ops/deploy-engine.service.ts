@@ -24,8 +24,8 @@ import {
   type DeployRunStatus,
   type DeployStep,
   type DeployTargetSyncResult,
-} from '@zenith/shared/ops';
-import { ASYNC_TASK_TERMINAL_STATUSES } from '@zenith/shared/tasks';
+} from '@arcbase/shared/ops';
+import { ASYNC_TASK_TERMINAL_STATUSES } from '@arcbase/shared/tasks';
 import { db } from '../../db';
 import {
   appArtifacts,

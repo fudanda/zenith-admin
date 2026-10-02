@@ -1,4 +1,4 @@
-module github.com/fudanda/zenith-admin/backend
+module github.com/fudanda/arcbase/backend
 
 go 1.27.1
 

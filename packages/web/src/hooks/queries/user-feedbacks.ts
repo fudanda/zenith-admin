@@ -1,5 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query';
-import { userFeedbackContract } from '@zenith/shared/platform';
+import { userFeedbackContract } from '@arcbase/shared/platform';
 import { createResourceQueries, useApiMutation } from '@/lib/contract-query';
 
 const resource = createResourceQueries(userFeedbackContract);

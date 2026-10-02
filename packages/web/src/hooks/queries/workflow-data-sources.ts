@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { workflowDataSourceContract } from '@zenith/shared/workflow';
+import type { QueryOf } from '@arcbase/shared/core';
+import { workflowDataSourceContract } from '@arcbase/shared/workflow';
 import { contractKey, createResourceQueries, useApiMutation } from '@/lib/contract-query';
 
 export type WorkflowDataSourceListParams = QueryOf<typeof workflowDataSourceContract.list>;

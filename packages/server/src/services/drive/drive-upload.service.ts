@@ -10,8 +10,8 @@ import {
   type DriveUploadPrecheck,
   type DriveUploadPrecheckInput,
   type DriveUploadConflictPolicy,
-} from '@zenith/shared/drive';
-import type { UploadSessionInit } from '@zenith/shared/platform';
+} from '@arcbase/shared/drive';
+import type { UploadSessionInit } from '@arcbase/shared/platform';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import { driveFileVersions, driveNodeRenditions, driveNodeTexts, driveNodes, driveUploadBindings, managedFiles, type DriveNodeRow, type DriveSpaceRow } from '../../db/schema';

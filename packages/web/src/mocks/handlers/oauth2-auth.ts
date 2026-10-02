@@ -3,7 +3,7 @@
  * /token、/token/revoke、/token/introspect、/userinfo 是 RFC 协议端点（表单入参 + 顶层响应），保持 http.* 声明。
  */
 import { http, HttpResponse } from 'msw';
-import { oauth2AuthContract, OAUTH2_SCOPE_DESCRIPTIONS } from '@zenith/shared/open-platform';
+import { oauth2AuthContract, OAUTH2_SCOPE_DESCRIPTIONS } from '@arcbase/shared/open-platform';
 import { readFormOrJsonBody } from '@/mocks/utils/body';
 import { mock } from '@/mocks/utils/contract';
 import { ok } from '@/mocks/utils/handlers';
@@ -91,7 +91,7 @@ export const oauth2AuthHandlers = [
       sub: '1',
       name: 'Super Admin',
       nickname: 'admin',
-      email: 'admin@zenith.com',
+      email: 'admin@arcbase.com',
       email_verified: true,
     });
   }),

@@ -1,4 +1,4 @@
-import { DRIVE_ROLES, DRIVE_ROLE_RANK, driveRoleAtLeast, maxDriveRole, type DriveRole, type DriveSubjectType } from '@zenith/shared/drive';
+import { DRIVE_ROLES, DRIVE_ROLE_RANK, driveRoleAtLeast, maxDriveRole, type DriveRole, type DriveSubjectType } from '@arcbase/shared/drive';
 
 /**
  * 企业网盘 ACL 纯函数（无 DB 依赖，可直接单测）。

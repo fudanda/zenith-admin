@@ -5,7 +5,7 @@ import {
   paymentOrderContract,
   paymentRefundContract,
   paymentStatsContract,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { idempotencyGuard } from '../../middleware/idempotency';
 import { defineContractRoute } from '../../lib/contract-route';

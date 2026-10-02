@@ -1,5 +1,5 @@
 import { HTTPException } from 'hono/http-exception';
-import type { CmsDistributionConflictStrategy, CmsDistributionFilters, CmsDistributionMode } from '@zenith/shared/cms';
+import type { CmsDistributionConflictStrategy, CmsDistributionFilters, CmsDistributionMode } from '@arcbase/shared/cms';
 
 export function assertCmsDistributionScope(input: {
   sourceSiteId: number;

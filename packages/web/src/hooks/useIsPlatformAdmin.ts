@@ -1,4 +1,4 @@
-import { SUPER_ADMIN_CODE } from '@zenith/shared/identity';
+import { SUPER_ADMIN_CODE } from '@arcbase/shared/identity';
 import { config } from '@/config';
 import { useAuth } from '@/hooks/useAuth';
 

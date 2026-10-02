@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"net/http"
@@ -10,7 +10,7 @@ import (
 
 func TestDashboardRouting(t *testing.T) {
 	api := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { fail(w, 404, "not_found", "资源不存在") })
-	h := dashboardHandler(api, fstest.MapFS{"index.html": {Data: []byte("<html>original Zenith</html>")}, "assets/app-abc.js": {Data: []byte("console.log('Zenith')")}})
+	h := dashboardHandler(api, fstest.MapFS{"index.html": {Data: []byte("<html>original ArcBase</html>")}, "assets/app-abc.js": {Data: []byte("console.log('ArcBase')")}})
 	for _, tc := range []struct {
 		path   string
 		status int

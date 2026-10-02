@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Play, Pause } from 'lucide-react';
 import { fetchManagedFileBlob } from '@/utils/file-utils';
-import type { ChatMessage } from '@zenith/shared/chat';
+import type { ChatMessage } from '@arcbase/shared/chat';
 import { getMessageExtra } from '../utils';
 
 /** 秒数格式化为 m:ss 或 N″ */

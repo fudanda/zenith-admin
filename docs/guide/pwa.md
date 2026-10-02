@@ -8,9 +8,9 @@
 
 ```ini
 VITE_PWA_ENABLED=true
-VITE_APP_TITLE=Zenith Admin
+VITE_APP_TITLE=ArcBase
 VITE_DEPLOYMENT_ID=project-a
-VITE_APP_SHORT_NAME=Zenith
+VITE_APP_SHORT_NAME=ArcBase
 VITE_APP_DESCRIPTION=企业级后台管理系统
 VITE_APP_THEME_COLOR=#3370ff
 ```
@@ -18,7 +18,7 @@ VITE_APP_THEME_COLOR=#3370ff
 重新构建前端：
 
 ```bash
-npm run build -w @zenith/web
+npm run build -w @arcbase/web
 ```
 
 构建产物会包含 `sw.js` 与 `manifest.webmanifest`。
@@ -28,8 +28,8 @@ npm run build -w @zenith/web
 | 项 | 当前实现 |
 | --- | --- |
 | 注册策略 | `registerType: 'autoUpdate'` |
-| Manifest 名称 | `VITE_APP_TITLE`，默认 `Zenith Admin` |
-| Manifest 短名称 | `VITE_APP_SHORT_NAME`，默认 `Zenith` |
+| Manifest 名称 | `VITE_APP_TITLE`，默认 `ArcBase` |
+| Manifest 短名称 | `VITE_APP_SHORT_NAME`，默认 `ArcBase` |
 | 主题色 | `VITE_APP_THEME_COLOR`，默认 `#3370ff`（与后台默认主题色「飞书蓝」一致） |
 | `display` | `standalone` |
 | `start_url` / `scope` | 由 `VITE_BASE_URL` 生成；必须只覆盖当前派生项目子路径 |

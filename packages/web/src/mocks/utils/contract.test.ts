@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import * as z from 'zod';
 import type { HttpHandler } from 'msw';
-import { defineContract, idParam, op, paginated, paginationQuery } from '@zenith/shared/core';
+import { defineContract, idParam, op, paginated, paginationQuery } from '@arcbase/shared/core';
 import { MockHttpError, mock } from './contract';
 import { notFound } from './handlers';
 

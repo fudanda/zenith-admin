@@ -6,7 +6,7 @@ import { db } from '../../db';
 import { workflowInstances } from '../../db/schema';
 import { workflowEventBus } from '../workflow-event-bus';
 import { sendToUser } from '../ws-manager';
-import type { WorkflowInstanceStatus } from '@zenith/shared/workflow';
+import type { WorkflowInstanceStatus } from '@arcbase/shared/workflow';
 
 async function loadInstanceTitle(instanceId: number): Promise<string> {
   const [row] = await db

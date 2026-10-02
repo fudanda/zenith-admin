@@ -5,8 +5,8 @@ import {
 } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Search } from 'lucide-react';
-import type { TraceFailureEntry, TraceListEntry, TraceNodeKind, TraceNodeStatus, TraceTimelineNode } from '@zenith/shared/platform';
-import { TRACE_NODE_KIND_LABELS, TRACE_NODE_KINDS, TRACE_NODE_STATUS_LABELS } from '@zenith/shared/platform';
+import type { TraceFailureEntry, TraceListEntry, TraceNodeKind, TraceNodeStatus, TraceTimelineNode } from '@arcbase/shared/platform';
+import { TRACE_NODE_KIND_LABELS, TRACE_NODE_KINDS, TRACE_NODE_STATUS_LABELS } from '@arcbase/shared/platform';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { listTableProps } from '@/components/list-page';

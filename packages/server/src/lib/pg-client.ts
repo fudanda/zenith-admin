@@ -62,7 +62,7 @@ export function buildPgDumpLaunch(binaryPath: string, params: DbConnectionParams
   return {
     file: binaryPath,
     args: [...pgConnectionArgs(params), '--no-password'],
-    env: pgClientEnv(params, 'zenith_db_backup'),
+    env: pgClientEnv(params, 'arcbase_db_backup'),
   };
 }
 

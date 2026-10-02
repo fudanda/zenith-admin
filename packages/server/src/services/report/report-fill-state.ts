@@ -1,5 +1,5 @@
 import { HTTPException } from 'hono/http-exception';
-import type { ReportFillRecordStatus } from '@zenith/shared/report';
+import type { ReportFillRecordStatus } from '@arcbase/shared/report';
 
 export type ReportFillRecordAction = 'edit' | 'submit' | 'cancel' | 'review';
 

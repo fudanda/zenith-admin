@@ -1,5 +1,5 @@
-import type { Role } from '@zenith/shared/identity';
-import { SEED_ROLES } from '@zenith/shared/seed';
+import type { Role } from '@arcbase/shared/identity';
+import { SEED_ROLES } from '@arcbase/shared/seed';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockRoles: Role[] = SEED_ROLES.map((r) => ({

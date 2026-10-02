@@ -1,7 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query';
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { paymentRiskOpsContract, paymentRiskRuleContract } from '@zenith/shared/payment';
+import type { QueryOf } from '@arcbase/shared/core';
+import { paymentRiskOpsContract, paymentRiskRuleContract } from '@arcbase/shared/payment';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';
 

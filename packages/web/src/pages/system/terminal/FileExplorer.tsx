@@ -30,7 +30,7 @@ import {
   parentNativePath,
   type FsTreeNode,
 } from './fileTree';
-import { terminalFileContract, type FsRootInfo as RootInfo } from '@zenith/shared/ops';
+import { terminalFileContract, type FsRootInfo as RootInfo } from '@arcbase/shared/ops';
 import { urlOf } from '@/lib/contract-query';
 import {
   fetchLocalDir,

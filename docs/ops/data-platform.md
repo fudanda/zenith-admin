@@ -19,7 +19,7 @@
 
 ### 安全边界
 
-- 用户提交的 SQL（控制台、EXPLAIN、CSV / JSON 导出、原生 WHERE 片段）全部在 `BEGIN; SET LOCAL TRANSACTION READ ONLY; SET LOCAL ROLE zenith_readonly; ... ROLLBACK;` 中执行：只读事务由数据库拒绝写语句；`zenith_readonly` 是迁移 0007 创建的 NOLOGIN 最小权限角色（仅 SELECT，无 `pg_read_server_files` / `pg_execute_server_program` 等特权），由 PostgreSQL 自身拒绝 `pg_read_file`、`COPY ... TO PROGRAM`、`lo_export`、`pg_authid` 等越权访问，不依赖应用层正则。
+- 用户提交的 SQL（控制台、EXPLAIN、CSV / JSON 导出、原生 WHERE 片段）全部在 `BEGIN; SET LOCAL TRANSACTION READ ONLY; SET LOCAL ROLE arcbase_readonly; ... ROLLBACK;` 中执行：只读事务由数据库拒绝写语句；`arcbase_readonly` 是迁移 0007 创建的 NOLOGIN 最小权限角色（仅 SELECT，无 `pg_read_server_files` / `pg_execute_server_program` 等特权），由 PostgreSQL 自身拒绝 `pg_read_file`、`COPY ... TO PROGRAM`、`lo_export`、`pg_authid` 等越权访问，不依赖应用层正则。
 - 提交前经统一闸门（`lib/report-sql-safety.ts` 的 `assertNoDangerousSqlFunctions`）拦截危险函数（服务器端文件 / 程序、`set_config` 篡改角色或超时、`table_to_xml` / `query_to_xml` 按名读表、dblink、后台进程控制等），含引号 / Unicode 转义 / 可执行注释绕过；控制台在此基础上要求每条语句以 SELECT / WITH / EXPLAIN / SHOW / TABLE / VALUES 开头。报表数据集与数据质量自定义 SQL 复用同一套闸门与只读角色。
 - 只读角色需要应用数据库用户具备 `CREATEROLE`（或为 superuser）才能在迁移中创建；不满足时迁移只打 WARNING、服务端首次执行用户 SQL 时打 warn 并降级为「只读事务 + 闸门」。运行期新建的 schema 由服务端在首次使用角色前自动补齐 `USAGE` / `SELECT` 授权。
 - 每次查询设置 `statement_timeout`（60 秒），防止长查询拖垮数据库。
@@ -32,7 +32,7 @@
 - **总览与对象**：数据库版本、大小、连接数等总览（`GET /overview`）；序列、函数、触发器、枚举、扩展清单（`GET /objects`）。
 - **表浏览与行编辑**：表列表、表结构、分页行数据（支持原生 WHERE 过滤与排序）；插入、更新、删除行；`POST /batch-mutate` 在单事务中批量插入、更新、删除；`POST /truncate` 截断表。
 - **SQL 查询台**：执行只读 SQL（分页返回）、`POST /query/cancel` 取消执行中的查询、`POST /explain` 查看执行计划；查询历史与 SQL 收藏夹 CRUD。
-- **psql 终端**：SQL 控制台标签栏可新建「数据库终端」，经 Web 终端基建（`/api/ws/terminal?shell=db-psql`，读写为 `db-psql:rw`）在服务端启动 psql 会话；连接参数由服务端从 `DATABASE_URL` 构造、凭据经环境变量注入 PTY，不下发前端。只读模式以 `PGOPTIONS` 设置 `default_transaction_read_only=on` 并切换到 `zenith_readonly` 角色（防误操作默认值，非权限边界——会话内可 `RESET ROLE`），真正的权限边界是 `system:terminal:execute` + `system:db-admin:terminal`。会话以 `kind='db'` 落库，复用终端会话的录制审计、断线重连、配额与管理员旁观 / 接管。`GET /terminal-availability` 探测服务端 psql 客户端（可用 `PSQL_PATH` 环境变量指定路径）；Demo 模式不可用。
+- **psql 终端**：SQL 控制台标签栏可新建「数据库终端」，经 Web 终端基建（`/api/ws/terminal?shell=db-psql`，读写为 `db-psql:rw`）在服务端启动 psql 会话；连接参数由服务端从 `DATABASE_URL` 构造、凭据经环境变量注入 PTY，不下发前端。只读模式以 `PGOPTIONS` 设置 `default_transaction_read_only=on` 并切换到 `arcbase_readonly` 角色（防误操作默认值，非权限边界——会话内可 `RESET ROLE`），真正的权限边界是 `system:terminal:execute` + `system:db-admin:terminal`。会话以 `kind='db'` 落库，复用终端会话的录制审计、断线重连、配额与管理员旁观 / 接管。`GET /terminal-availability` 探测服务端 psql 客户端（可用 `PSQL_PATH` 环境变量指定路径）；Demo 模式不可用。
 - **导入导出**：`POST /tables/{schema}/{name}/import` 批量导入 CSV / JSON；`GET .../export.csv`、`GET .../export.sql` 导出表数据；`POST /query/export.csv`、`POST /query/export.json` 导出查询结果。
 - **ER 图**：`GET /er-diagram` 返回所有外键关系，`GET /er-schema` 返回表、列与外键完整模式。
 - **健康与维护**：`GET /index-health` 索引健康；`GET /maintenance/tables` 表维护统计；`POST .../maintenance` 执行 VACUUM / ANALYZE / REINDEX；`POST .../refresh` 刷新物化视图。

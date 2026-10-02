@@ -21,8 +21,8 @@ import {
   useReportDatasetList,
   useSaveReportDataset,
 } from '@/hooks/queries/report-datasets';
-import { REPORT_DATASOURCE_TYPE_LABELS, REPORT_FIELD_TYPE_OPTIONS, reportDatasetContract } from '@zenith/shared/report';
-import type { ReportDataset, ReportDatasourceType, ReportField, ReportDataResult, ReportApiDatasetContent, ReportSqlDatasetContent, ReportComputedField, ReportStaticDatasetContent, ReportFieldFormat, ReportDatasetParam, ReportLookupOption, ReportRowRule, ReportVisualModel } from '@zenith/shared/report';
+import { REPORT_DATASOURCE_TYPE_LABELS, REPORT_FIELD_TYPE_OPTIONS, reportDatasetContract } from '@arcbase/shared/report';
+import type { ReportDataset, ReportDatasourceType, ReportField, ReportDataResult, ReportApiDatasetContent, ReportSqlDatasetContent, ReportComputedField, ReportStaticDatasetContent, ReportFieldFormat, ReportDatasetParam, ReportLookupOption, ReportRowRule, ReportVisualModel } from '@arcbase/shared/report';
 import { useAllRoles } from '@/hooks/queries/roles';
 import VisualModelBuilder from './components/VisualModelBuilder';
 import { useDictItems } from '@/hooks/useDictItems';

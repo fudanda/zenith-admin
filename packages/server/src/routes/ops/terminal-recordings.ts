@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { terminalRecordingContract } from '@zenith/shared/ops';
+import { terminalRecordingContract } from '@arcbase/shared/ops';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { currentUser } from '../../lib/context';
 import { defineContractRoute } from '../../lib/contract-route';

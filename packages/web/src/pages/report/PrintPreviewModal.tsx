@@ -1,4 +1,4 @@
-import type { ReportPrintRenderResult } from '@zenith/shared/report';
+import type { ReportPrintRenderResult } from '@arcbase/shared/report';
 import AppModal from '@/components/AppModal';
 import PrintReportView from './PrintReportView';
 

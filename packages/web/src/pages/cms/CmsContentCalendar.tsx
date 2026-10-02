@@ -4,7 +4,7 @@ import { Popover, Spin, Tag, Typography } from '@douyinfe/semi-ui';
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag';
 import MonthCalendar from '@/components/MonthCalendar';
 import { useCmsContentCalendar } from '@/hooks/queries/cms-contents';
-import type { CmsContentCalendarDay, CmsContentCalendarEventKind } from '@zenith/shared/cms';
+import type { CmsContentCalendarDay, CmsContentCalendarEventKind } from '@arcbase/shared/cms';
 
 const { Text } = Typography;
 

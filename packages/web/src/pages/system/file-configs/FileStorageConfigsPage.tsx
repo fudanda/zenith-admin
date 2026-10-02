@@ -3,8 +3,8 @@ import { FormPasswordInput } from '@/components/PasswordInput';
 import { useEffect, useState } from 'react';
 import { Button, Col, Form, Radio, Row, Select, Switch, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import { PlugZap } from 'lucide-react';
-import { fileStorageConfigContract, type CreateFileStorageConfigInput, type FileObjectAcl, type FileStorageConfig, type FileStorageProvider, type FileUrlStrategy, type UpdateFileStorageConfigInput } from '@zenith/shared/platform';
-import { FILE_OBJECT_ACL_LABELS, FILE_OBJECT_ACL_SUPPORT, FILE_STORAGE_PROVIDER_LABELS, FILE_STORAGE_PROVIDER_OPTIONS, FILE_URL_STRATEGY_LABELS, FILE_URL_STRATEGY_OPTIONS, PRESIGNED_EXPIRY_DEFAULT_SECONDS, PRESIGNED_EXPIRY_MAX_SECONDS, PRESIGNED_EXPIRY_MIN_SECONDS } from '@zenith/shared/platform';
+import { fileStorageConfigContract, type CreateFileStorageConfigInput, type FileObjectAcl, type FileStorageConfig, type FileStorageProvider, type FileUrlStrategy, type UpdateFileStorageConfigInput } from '@arcbase/shared/platform';
+import { FILE_OBJECT_ACL_LABELS, FILE_OBJECT_ACL_SUPPORT, FILE_STORAGE_PROVIDER_LABELS, FILE_STORAGE_PROVIDER_OPTIONS, FILE_URL_STRATEGY_LABELS, FILE_URL_STRATEGY_OPTIONS, PRESIGNED_EXPIRY_DEFAULT_SECONDS, PRESIGNED_EXPIRY_MAX_SECONDS, PRESIGNED_EXPIRY_MIN_SECONDS } from '@arcbase/shared/platform';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
@@ -388,7 +388,7 @@ export default function FileStorageConfigsPage() {
       dataIndex: 'provider',
       width: 120,
       render: (provider: FileStorageProvider) => {
-        // 文案统一来自 @zenith/shared；Tag 色为本页特化
+        // 文案统一来自 @arcbase/shared；Tag 色为本页特化
         const colorMap: Record<FileStorageProvider, 'blue' | 'orange' | 'purple' | 'teal' | 'red' | 'cyan' | 'indigo' | 'violet' | 'green'> = {
           local: 'blue', oss: 'orange', s3: 'purple', cos: 'teal', obs: 'red',
           kodo: 'cyan', bos: 'indigo', azure: 'violet', sftp: 'green',

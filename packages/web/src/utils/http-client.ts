@@ -1,5 +1,5 @@
-import type { ApiResponse } from '@zenith/shared/core';
-import { SESSION_CLIENT_HEADER, type SessionClientKind, type SessionRevokeReason } from '@zenith/shared/identity';
+import type { ApiResponse } from '@arcbase/shared/core';
+import { SESSION_CLIENT_HEADER, type SessionClientKind, type SessionRevokeReason } from '@arcbase/shared/identity';
 import { showRequestErrorToast, showRequestWarningToast } from './request-toast';
 import { abortSubmit } from '@/lib/abort-submit';
 
@@ -7,7 +7,7 @@ import { abortSubmit } from '@/lib/abort-submit';
 export type ApiResponseWithMeta<T> = ApiResponse<T> & { retryAfterSeconds?: number };
 
 /** 会话被动失效的原因标记（sessionStorage）：登录页读取后提示并清除 */
-export const AUTH_INVALIDATED_REASON_KEY = 'zenith_auth_invalidated_reason';
+export const AUTH_INVALIDATED_REASON_KEY = 'arcbase_auth_invalidated_reason';
 
 /** 会话被动失效的结构化原因：登录页据 `reason` 决定展示方式（被挤下线 → 常驻横幅；其它 → 提示），`username` 用于预填 */
 export interface AuthInvalidatedReason {
@@ -87,7 +87,7 @@ export interface HttpClientConfig {
   unauthorizedFallbackMessage?: string;
   /** 是否处理 503 维护模式（派发 maintenance:enabled 事件，仅 admin 端启用） */
   handleMaintenance?: boolean;
-  /** 本端的登录终端类型（网页 / 移动审批 / 桌面端），随每个请求以 X-Zenith-Client 上报；服务端据此展示会话终端并按终端分别计算并发 */
+  /** 本端的登录终端类型（网页 / 移动审批 / 桌面端），随每个请求以 X-ArcBase-Client 上报；服务端据此展示会话终端并按终端分别计算并发 */
   clientKind?: SessionClientKind | (() => SessionClientKind);
 }
 

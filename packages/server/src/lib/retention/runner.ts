@@ -1,5 +1,5 @@
 import { sql, eq, asc, notInArray } from 'drizzle-orm';
-import type { RetentionPolicy, RetentionPreview, RetentionRunResult } from '@zenith/shared/ops';
+import type { RetentionPolicy, RetentionPreview, RetentionRunResult } from '@arcbase/shared/ops';
 import { db } from '../../db';
 import { retentionPolicies } from '../../db/schema';
 import { formatDateTime } from '../datetime';

@@ -6,7 +6,7 @@ import { InstantFilterToolbar } from '@/components/list-page';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { usePermission } from '@/hooks/usePermission';
-import type { PortEntry } from '@zenith/shared/ops';
+import type { PortEntry } from '@arcbase/shared/ops';
 import { hostQueryOf } from '@/hooks/queries/ops-hosts';
 import { useKillPortProcess, usePortList } from '@/hooks/queries/ports';
 import { FilterSelect, KeywordInput } from '@/components/search-filters';

@@ -26,7 +26,7 @@ export function usePreferencesPanel() {
   }, [overrides]);
 
   const handleExportPreferences = useCallback(() => {
-    downloadBlob(new Blob([JSON.stringify({ overrides }, null, 2)], { type: 'application/json' }), 'zenith-preferences.json');
+    downloadBlob(new Blob([JSON.stringify({ overrides }, null, 2)], { type: 'application/json' }), 'arcbase-preferences.json');
     Toast.success('偏好配置已导出为文件');
   }, [overrides]);
 

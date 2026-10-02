@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Pagination, Spin, Tag, Toast } from '@douyinfe/semi-ui';
 import { BellRing, CheckCheck } from 'lucide-react';
-import type { MemberNotification } from '@zenith/shared/member';
+import type { MemberNotification } from '@arcbase/shared/member';
 import { MemberPage } from '../../components/MemberPage';
 import { useMarkAllNotificationsRead, useMarkNotificationRead, useMyNotifications } from '../../hooks/queries';
 

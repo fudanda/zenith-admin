@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { CMS_SITE_OPS_DEFAULTS } from '@zenith/shared/cms';
-import type { CmsSite } from '@zenith/shared/cms';
+import { CMS_SITE_OPS_DEFAULTS } from '@arcbase/shared/cms';
+import type { CmsSite } from '@arcbase/shared/cms';
 import {
   EMPTY_TEMPLATE_DEFAULTS,
   buildSiteFormInitValues,

@@ -7,7 +7,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 	"github.com/xuri/excelize/v2"
 )
 
@@ -52,7 +52,7 @@ func (f *Service) SyncExport(ctx context.Context, input kernel.Input) (kernel.Ou
 	if result.CSV == nil {
 		return kernel.Outcome{}, kernel.Fail(500, "export_failed", "导出源无效")
 	}
-	temp, err := os.CreateTemp("", "zenith-export-*.csv")
+	temp, err := os.CreateTemp("", "arcbase-export-*.csv")
 	if err != nil {
 		return kernel.Outcome{}, kernel.Fail(503, "storage_unavailable", "导出暂存不可用")
 	}
@@ -119,7 +119,7 @@ func (f *Service) SyncExport(ctx context.Context, input kernel.Input) (kernel.Ou
 	if err = stream.Flush(); err != nil {
 		return kernel.Outcome{}, err
 	}
-	output, err := os.CreateTemp("", "zenith-export-*.xlsx")
+	output, err := os.CreateTemp("", "arcbase-export-*.xlsx")
 	if err != nil {
 		return kernel.Outcome{}, err
 	}

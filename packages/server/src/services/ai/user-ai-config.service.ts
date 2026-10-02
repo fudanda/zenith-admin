@@ -6,8 +6,8 @@ import { userAiConfigs } from '../../db/schema';
 import { currentUser } from '../../lib/context';
 import { formatTimestamps } from '../../lib/datetime';
 import { sealApiKey, unsealApiKey } from './ai-providers.service';
-import type { SaveUserAiConfigInput } from '@zenith/shared/ai';
-import { maskSecret, SECRET_PLACEHOLDER } from '@zenith/shared/core';
+import type { SaveUserAiConfigInput } from '@arcbase/shared/ai';
+import { maskSecret, SECRET_PLACEHOLDER } from '@arcbase/shared/core';
 
 function mapRow(row: typeof userAiConfigs.$inferSelect) {
   const plainKey = unsealApiKey(row.apiKey);

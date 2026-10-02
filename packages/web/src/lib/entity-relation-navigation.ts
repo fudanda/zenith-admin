@@ -1,5 +1,5 @@
 import { createContext, useSyncExternalStore } from 'react';
-import type { CanonicalEntityRef } from '@zenith/shared/platform/entity-catalog';
+import type { CanonicalEntityRef } from '@arcbase/shared/platform/entity-catalog';
 
 export const EntityNavigationContext = createContext<((ref: CanonicalEntityRef) => void) | null>(null);
 
@@ -36,7 +36,7 @@ export function registerRelationList(path: string, key: string, read: () => Rela
 }
 export function readRelationListSnapshot<T>(path: string | undefined, key: string): RelationListSnapshot<T> | undefined {
   const frame = session?.restore;
-  if (!path || !frame || new URL(frame.url, 'https://zenith.invalid').pathname !== path) return undefined;
+  if (!path || !frame || new URL(frame.url, 'https://arcbase.invalid').pathname !== path) return undefined;
   return frame.lists?.[key] as RelationListSnapshot<T> | undefined;
 }
 
@@ -79,7 +79,7 @@ export function entityRelationSourceUrl(
   detailRoute?: string,
 ) {
   if (!detailRoute) return `${location.pathname}${location.search}${location.hash}`;
-  const detail = new URL(detailRoute, 'https://zenith.invalid');
+  const detail = new URL(detailRoute, 'https://arcbase.invalid');
   if (detail.pathname !== location.pathname) return `${detail.pathname}${detail.search}${detail.hash}`;
   const search = new URLSearchParams(location.search);
   for (const [key, value] of detail.searchParams) search.set(key, value);
@@ -97,7 +97,7 @@ export function beginEntityRelationNavigation(
   const lists = Object.fromEntries([...(listReaders.get(currentPathname) ?? [])].map(([key, read]) => [key, structuredClone(read())]));
   updateSession({
     accessKey, stack: [...previous, { ...source, lists }].slice(-MAX_DEPTH),
-    destinationPath: new URL(destinationRoute, 'https://zenith.invalid').pathname,
+    destinationPath: new URL(destinationRoute, 'https://arcbase.invalid').pathname,
     departingPath: currentPathname, arrived: false, revision: ++revision,
   });
 }
@@ -109,7 +109,7 @@ export function popEntityRelationNavigation(index = (session?.stack.length ?? 0)
   updateSession({
     ...current, stack: current.stack.slice(0, index), restore: frame,
     departingPath: current.destinationPath,
-    destinationPath: new URL(frame.url, 'https://zenith.invalid').pathname,
+    destinationPath: new URL(frame.url, 'https://arcbase.invalid').pathname,
     arrived: false, revision: ++revision,
   });
   return frame;

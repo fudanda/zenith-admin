@@ -6,7 +6,7 @@ import type { CmsContentOpLogRow } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';
 import { currentUserOrNull } from '../../lib/context';
 import logger from '../../lib/logger';
-import { CMS_CONTENT_OP_ACTION_LABELS, cmsContentOpLogSchema } from '@zenith/shared/cms';
+import { CMS_CONTENT_OP_ACTION_LABELS, cmsContentOpLogSchema } from '@arcbase/shared/cms';
 import { pickEntity } from '../../lib/entity-map';
 
 export type CmsContentOpAction = keyof typeof CMS_CONTENT_OP_ACTION_LABELS;

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import { authContract } from '@zenith/shared/identity';
+import { authContract } from '@arcbase/shared/identity';
 import type { ApiClient } from '@/lib/contract-query';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
 import { SIGNATURE_TEST_PNG } from '@/test-utils/signature';

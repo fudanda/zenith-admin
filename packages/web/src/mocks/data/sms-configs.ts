@@ -1,4 +1,4 @@
-import type { SmsConfig } from '@zenith/shared/messaging';
+import type { SmsConfig } from '@arcbase/shared/messaging';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockSmsConfigs: SmsConfig[] = [
@@ -9,7 +9,7 @@ export const mockSmsConfigs: SmsConfig[] = [
     accessKeyId: 'LTAI5tXXXXXXXXXXXX',
     accessKeySecret: 'aliyun-secret-original',
     region: 'cn-hangzhou',
-    signName: 'Zenith',
+    signName: 'ArcBase',
     isDefault: true,
     status: 'enabled',
     remark: '生产环境主用',
@@ -23,7 +23,7 @@ export const mockSmsConfigs: SmsConfig[] = [
     accessKeyId: 'AKIDxxxxxxxxxxxxxxxx',
     accessKeySecret: 'tencent-secret-original',
     region: 'ap-guangzhou',
-    signName: 'Zenith',
+    signName: 'ArcBase',
     isDefault: false,
     status: 'enabled',
     remark: null,
@@ -37,7 +37,7 @@ export const mockSmsConfigs: SmsConfig[] = [
     accessKeyId: 'LTAI5tYYYYYYYYYYYY',
     accessKeySecret: 'aliyun-test-secret',
     region: 'cn-shanghai',
-    signName: 'ZenithTest',
+    signName: 'ArcBaseTest',
     isDefault: false,
     status: 'disabled',
     remark: '已停用',

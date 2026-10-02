@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { WorkflowFlowData } from '@zenith/shared/workflow';
+import type { WorkflowFlowData } from '@arcbase/shared/workflow';
 
 const state = vi.hoisted(() => ({ monitor: false, mask: vi.fn() }));
 vi.mock('../../lib/context', () => ({ currentUser: () => ({ userId: 9 }), hasPermission: async () => state.monitor }));

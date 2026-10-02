@@ -9,7 +9,7 @@ interface AppLogoProps {
 }
 
 /**
- * 品牌标识：Z 形折带。三块折面以所在区域的 --semi-color-primary 为基准派生明暗，
+ * ArcBase 品牌标识：拱形 A 与底座，以所在区域的 --semi-color-primary 派生明暗，
  * 无底色，可直接置于浅色或深色背景；几何与配色比例见 `lib/brand-logo.ts`（favicon 同源）。
  */
 export default function AppLogo({ size = 28, className }: Readonly<AppLogoProps>) {

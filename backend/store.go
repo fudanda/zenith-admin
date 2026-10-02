@@ -1,9 +1,9 @@
-package zenith
+package arcbase
 
 import (
 	"context"
 
-	"github.com/fudanda/zenith-admin/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/data"
 )
 
 // Store preserves the embedding API while infrastructure owns its connection pool.

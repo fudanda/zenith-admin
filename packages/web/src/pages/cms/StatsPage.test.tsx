@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { cmsStatMetricsSchema, type CmsStatOverview, type CmsStatQuality } from '@zenith/shared/cms';
+import { cmsStatMetricsSchema, type CmsStatOverview, type CmsStatQuality } from '@arcbase/shared/cms';
 import type { CmsStatsQuery } from '@/hooks/queries/cms-stats';
 import StatsPage from './StatsPage';
 

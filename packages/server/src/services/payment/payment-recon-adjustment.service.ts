@@ -1,12 +1,12 @@
 import { and, asc, eq, inArray, isNull, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import type * as z from 'zod';
-import { isPlainObject, type SubjectRef } from '@zenith/shared/core';
+import { isPlainObject, type SubjectRef } from '@arcbase/shared/core';
 import {
   PAYMENT_RECON_ADJUSTMENT_BIZ_TYPE, createPaymentReconAdjustmentSchema, paymentReconAdjustmentSchema,
   reversePaymentReconAdjustmentSchema, submitPaymentReconAdjustmentSchema,
   PAYMENT_LEDGER_ACCOUNT_CODES, type PaymentLedgerAccountCode,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { db } from '../../db';
 import {
   paymentApps, paymentChannelAccounts, paymentChannelConfigs, paymentJournalLines, paymentJournals, paymentLedgerAccounts,

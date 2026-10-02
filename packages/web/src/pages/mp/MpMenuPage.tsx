@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Input, Select, Spin, Tag, Toast, Empty } from '@douyinfe/semi-ui';
 import { RefreshCw, Save, Send, Trash2, Plus } from 'lucide-react';
-import type { MpMenu, MpMenuButton } from '@zenith/shared/mp';
+import type { MpMenu, MpMenuButton } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import { SearchToolbar } from '@/components/SearchToolbar';
 import { useMpAccounts } from './useMpAccounts';

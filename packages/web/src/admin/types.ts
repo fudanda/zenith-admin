@@ -1,35 +1,35 @@
-import type { Client } from '@zenith/client';
+import type { Client } from '@arcbase/client';
 import type { QueryClient } from '@tanstack/react-query';
 import type { ComponentType, ReactNode } from 'react';
-import type { GoSession } from '@zenith/shared/identity';
-import type { ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter } from '@zenith/elements';
+import type { GoSession } from '@arcbase/shared/identity';
+import type { ArcBaseBrand, ArcBaseLocale, ArcBaseTheme, ArcBaseSessionAdapter } from '@arcbase/elements';
 
-export type { ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter } from '@zenith/elements';
+export type { ArcBaseBrand, ArcBaseLocale, ArcBaseTheme, ArcBaseSessionAdapter } from '@arcbase/elements';
 
-export interface ZenithPageProps {
+export interface ArcBasePageProps {
   client: Client;
   user: GoSession['user'];
   permissions: readonly string[];
   hasPermission: (permission: string) => boolean;
 }
-export interface ZenithAdminPage {
+export interface ArcBaseAdminPage {
   id: string;
   title: string;
   /** Host routes live below /extensions/{module.id}/. */
   path: string;
   permission: string;
-  component: ComponentType<ZenithPageProps>;
+  component: ComponentType<ArcBasePageProps>;
   icon?: string;
   keepAlive?: boolean;
 }
-export interface ZenithAdminModule {
+export interface ArcBaseAdminModule {
   id: string;
   title: string;
   icon?: string;
-  pages: readonly ZenithAdminPage[];
+  pages: readonly ArcBaseAdminPage[];
 }
 
-export interface ZenithAdminProps {
+export interface ArcBaseAdminProps {
   /** Defaults to a same-origin Cookie client. Keep the instance stable. */
   client?: Client;
   /** React Router basename; defaults to /dash. Remount to change it. */
@@ -38,15 +38,15 @@ export interface ZenithAdminProps {
   assetBasePath?: string;
   /** Optional dedicated admin cache. It is cancelled and cleared on unmount. */
   queryClient?: QueryClient;
-  brand?: ZenithBrand;
+  brand?: ArcBaseBrand;
   /** Semi controls and standalone elements locale; existing business labels stay unchanged. */
-  locale?: ZenithLocale;
+  locale?: ArcBaseLocale;
   /** Initial default only; server policy and personal overrides take precedence. */
-  theme?: ZenithTheme;
+  theme?: ArcBaseTheme;
   /** Optional host-owned Cookie session. The admin does not create a second /me observer. */
-  authSession?: ZenithSessionAdapter;
+  authSession?: ArcBaseSessionAdapter;
   /** Stable host declarations; page and button access still require Go authorization. */
-  modules?: readonly ZenithAdminModule[];
+  modules?: readonly ArcBaseAdminModule[];
   navigateExternal?: (url: string) => void;
   loading?: ReactNode;
   errorFallback?: (error: Error) => ReactNode;

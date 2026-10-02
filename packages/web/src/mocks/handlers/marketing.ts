@@ -1,5 +1,5 @@
-import { marketingCampaignContract } from '@zenith/shared/marketing';
-import type { MarketingCampaign, MarketingPrize } from '@zenith/shared/marketing';
+import { marketingCampaignContract } from '@arcbase/shared/marketing';
+import type { MarketingCampaign, MarketingPrize } from '@arcbase/shared/marketing';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

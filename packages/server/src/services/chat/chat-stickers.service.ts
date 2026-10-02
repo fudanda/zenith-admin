@@ -5,7 +5,7 @@ import { chatCustomEmojis } from '../../db/schema';
 import type { ChatCustomEmojiRow } from '../../db/schema/chat';
 import { currentUser } from '../../lib/context';
 import { formatDateTime } from '../../lib/datetime';
-import type { ChatCustomEmoji } from '@zenith/shared/chat';
+import type { ChatCustomEmoji } from '@arcbase/shared/chat';
 
 const MAX_EMOJIS = 100;
 

@@ -1,10 +1,10 @@
-# Zenith Admin — 项目架构导航
+# ArcBase — 项目架构导航
 
 当前默认交付是单组织管理后台：**GoFr + Ent** 后端，支持 **PostgreSQL / SQLite**；`packages/web` 原 React Router / Semi UI 管理台。生产由 Go 二进制携带静态资源和迁移，依赖所选数据库、本地暂存目录与本地或 S3 文件存储。npm workspaces 用于开发、shared 契约和前端构建。
 
 本文件只维护稳定的架构事实、依赖方向和文档入口。参数、字段、模板和验收步骤见专门文档。
 
-开始代码改动前，阅读 [全局/后端约束](.agents/skills/zenith/references/constraints.md) 和 [前端约束](.agents/skills/zenith/references/constraints-frontend.md)，模块修改按 [Zenith Skill](.agents/skills/zenith/SKILL.md) 执行。规范中 Hono/Drizzle、多租户、Worker 和任务中心条款属于历史链路；当前用户确认的单组织 Go 计划优先，不能重新引入已退出的基础设施或业务。
+开始代码改动前，阅读 [全局/后端约束](.agents/skills/arcbase/references/constraints.md) 和 [前端约束](.agents/skills/arcbase/references/constraints-frontend.md)，模块修改按 [ArcBase Skill](.agents/skills/arcbase/SKILL.md) 执行。规范中 Hono/Drizzle、多租户、Worker 和任务中心条款属于历史链路；当前用户确认的单组织 Go 计划优先，不能重新引入已退出的基础设施或业务。
 
 ## 系统边界
 
@@ -40,8 +40,8 @@
 | `packages/web/` | 原 React 应用、页面、域 hooks、请求适配；首版前端继续放这里 |
 | `packages/client/` | 独立 TypeScript API 客户端、契约调用、Cookie/CSRF、错误及文件传输；不依赖 UI 或查询缓存 |
 | `packages/elements/` | 可组合的会话、登录、权限、头像与上传组件，复用 Client 或宿主会话；不依赖 Web 和全局存储 |
-| `packages/admin/` | 导出 `ZenithAdmin` 的独立管理台包、ESM/类型/样式和宿主示例；复用 Web 中的原页面与装配 |
-| `packages/create-zenith/` | 独立项目和业务模块生成器；交付已校验的包及 Go SDK 源码版本，不参与生产运行 |
+| `packages/admin/` | 导出 `ArcBaseAdmin` 的独立管理台包、ESM/类型/样式和宿主示例；复用 Web 中的原页面与装配 |
+| `packages/create-arcbase/` | 独立项目和业务模块生成器；交付已校验的包及 Go SDK 源码版本，不参与生产运行 |
 | `packages/shared/` | 领域契约、纯校验、常量、首版能力清单和种子 |
 | `packages/server/` | 保留的历史 Hono API、Drizzle、CMS、Worker 与外部集成，退出默认链路 |
 | `packages/analytics-sdk/`、`packages/electron/` | 保留的采集 SDK 和桌面容器源码，退出首版构建 |
@@ -68,12 +68,13 @@ API 统一 `/api/v1`，管理台 `/dash`。SPA 只回退已开放页面，未知
 | 内容 | 位置 |
 | --- | --- |
 | 当前运行、安装、升级、部署和验收 | [docs/guide/go-foundation.md](docs/guide/go-foundation.md) |
+| ArcBase 更名、公开接口与升级兼容 | [docs/guide/arcbase-branding.md](docs/guide/arcbase-branding.md) |
 | 运维 CLI、独立项目与业务模块模板 | [docs/guide/go-tooling.md](docs/guide/go-tooling.md) |
 | API Key、S3、SSE 与只读 MCP | [docs/guide/go-integrations.md](docs/guide/go-integrations.md) |
 | Go 包边界、目录重构状态和领域拆分方式 | [docs/guide/go-backend-architecture.md](docs/guide/go-backend-architecture.md) |
-| 后端及全局约束 | [.agents/skills/zenith/references/constraints.md](.agents/skills/zenith/references/constraints.md) |
-| 前端约束 | [.agents/skills/zenith/references/constraints-frontend.md](.agents/skills/zenith/references/constraints-frontend.md) |
-| 模块修改流程 | [.agents/skills/zenith/SKILL.md](.agents/skills/zenith/SKILL.md) |
+| 后端及全局约束 | [.agents/skills/arcbase/references/constraints.md](.agents/skills/arcbase/references/constraints.md) |
+| 前端约束 | [.agents/skills/arcbase/references/constraints-frontend.md](.agents/skills/arcbase/references/constraints-frontend.md) |
+| 模块修改流程 | [.agents/skills/arcbase/SKILL.md](.agents/skills/arcbase/SKILL.md) |
 | 前端数据访问与缓存 | [docs/frontend/data-fetching.md](docs/frontend/data-fetching.md) |
 | 独立 API 客户端与使用示例 | [packages/client/README.md](packages/client/README.md) |
 | 独立管理台组件、资源部署与宿主示例 | [packages/admin/README.md](packages/admin/README.md) |

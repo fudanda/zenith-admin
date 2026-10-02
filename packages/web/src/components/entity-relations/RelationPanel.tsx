@@ -1,11 +1,11 @@
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { lazy, Suspense, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Button, Collapse, Empty, List, Space, Spin, Tag, Tooltip, Typography } from '@douyinfe/semi-ui';
-import type { EntityRelationItem, EntityRelationKind, EntityRelationSection, EntityRelationSummaryState, CanonicalEntityType } from '@zenith/shared/platform';
+import type { EntityRelationItem, EntityRelationKind, EntityRelationSection, EntityRelationSummaryState, CanonicalEntityType } from '@arcbase/shared/platform';
 import { Activity, CircleAlert, CircleCheck, CircleOff, CircleSlash2, EyeOff, Filter, GitBranch, Link2, RefreshCw, Zap } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
-import { entityRelationsContract } from '@zenith/shared/platform';
+import { entityRelationsContract } from '@arcbase/shared/platform';
 import { contractKey } from '@/lib/contract-query';
 import { useEntityAccessKey, useEntityRelationSection, useEntityRelations, useUnlinkEntity } from '@/hooks/queries/entity-relations';
 import { entityRelationKindLabel, entityRelationLabel, entityStatusLabel } from '@/utils/entity-relations';

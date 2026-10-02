@@ -1,5 +1,5 @@
 import { desc } from 'drizzle-orm';
-import { USER_FEEDBACK_CATEGORY_LABELS, USER_FEEDBACK_STATUS_LABELS } from '@zenith/shared/platform';
+import { USER_FEEDBACK_CATEGORY_LABELS, USER_FEEDBACK_STATUS_LABELS } from '@arcbase/shared/platform';
 import { db } from '../../../db';
 import { userFeedbacks } from '../../../db/schema';
 import { buildUserFeedbacksWhere, type UserFeedbackListFilter } from '../../../services/platform/user-feedbacks.service';

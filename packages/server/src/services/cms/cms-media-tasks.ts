@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { and, eq } from 'drizzle-orm';
-import { CMS_MEDIA_PROCESSING_TASK, CMS_MEDIA_VARIANT_WIDTHS, type CmsMediaResult } from '@zenith/shared/cms';
+import { CMS_MEDIA_PROCESSING_TASK, CMS_MEDIA_VARIANT_WIDTHS, type CmsMediaResult } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsMediaProcessing } from '../../db/schema/cms-media';
 import { cmsAssetVersions } from '../../db/schema/cms-design';
@@ -55,7 +55,7 @@ export async function runCmsMediaProcessing(ctx: TaskRunContext) {
       if (!owner || owner.cancelRequested) throw new TaskCancelledError('任务派发已变更或已取消');
       await tx.update(cmsMediaProcessing).set({ status: 'running', errorMessage: null }).where(cmsMediaUnfinishedCondition(processingId));
     });
-    directory = await mkdtemp(join(tmpdir(), 'zenith-cms-media-'));
+    directory = await mkdtemp(join(tmpdir(), 'arcbase-cms-media-'));
     const sourcePath = join(directory, 'source.bin');
     await materializeManagedFile(source.fileId, sourcePath);
     const image = source.mimeType?.startsWith('image/') === true;

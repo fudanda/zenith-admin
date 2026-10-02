@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Banner, Form, SideSheet, Toast } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
-import { CMS_SITE_BLUEPRINTS, type CmsSiteBlueprintInput } from '@zenith/shared/cms';
+import { CMS_SITE_BLUEPRINTS, type CmsSiteBlueprintInput } from '@arcbase/shared/cms';
 import { useCreateCmsSiteFromBlueprint } from '@/hooks/queries/cms-sites';
 import { ModalFooter } from '@/components/ModalFooter';
 

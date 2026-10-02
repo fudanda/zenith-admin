@@ -4,8 +4,8 @@ import { Form, Button, Toast, Space, Typography, Divider, Tabs, TabPane } from '
 import PageLoading from '@/components/PageLoading';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import { Save } from 'lucide-react';
-import { OAUTH_PROVIDERS, OAUTH_PROVIDER_LABELS } from '@zenith/shared/identity';
-import type { OAuthProviderType, UpdateOauthConfigInput } from '@zenith/shared/identity';
+import { OAUTH_PROVIDERS, OAUTH_PROVIDER_LABELS } from '@arcbase/shared/identity';
+import type { OAuthProviderType, UpdateOauthConfigInput } from '@arcbase/shared/identity';
 import { OAuthProviderIcon } from '@/components/OAuthProviderIcon';
 import { usePermission } from '@/hooks/usePermission';
 import { useOAuthConfigs, useSaveOAuthConfig } from '@/hooks/queries/oauth-config';

@@ -1,5 +1,5 @@
-import { SEED_TENANT_PACKAGES } from '@zenith/shared/seed';
-import type { TenantPackage } from '@zenith/shared/identity';
+import { SEED_TENANT_PACKAGES } from '@arcbase/shared/seed';
+import type { TenantPackage } from '@arcbase/shared/identity';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 let nextTenantPackageId = nextIdFrom(SEED_TENANT_PACKAGES);

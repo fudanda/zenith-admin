@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { AiChatModel, UserAiConfig } from '@zenith/shared/ai';
+import type { AiChatModel, UserAiConfig } from '@arcbase/shared/ai';
 import { DEFAULT_MODEL_OPTIONS, type ModelOption } from '../chat-utils';
 
 /**

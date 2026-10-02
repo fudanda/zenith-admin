@@ -58,7 +58,7 @@ export default function ElectronTitleBar() {
     >
       {/* 应用名称 */}
       <span style={{ paddingLeft: 12, fontSize: 12, color: 'var(--semi-color-text-1)', fontWeight: 500 }}>
-        Zenith Admin
+        ArcBase
       </span>
 
       {/* 窗口控制按钮 */}

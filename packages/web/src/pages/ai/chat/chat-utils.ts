@@ -1,8 +1,8 @@
 /** 智能对话页的常量与纯函数：推理力度选项、建议问题、本地消息 ID、模板变量、侧栏分组、数据库消息 ID 解析 */
 import type { AIChatDialogue } from '@douyinfe/semi-ui';
 import dayjs from 'dayjs';
-import type { AiConversation } from '@zenith/shared/ai';
-import { AI_REASONING_LEVELS } from '@zenith/shared/ai';
+import type { AiConversation } from '@arcbase/shared/ai';
+import { AI_REASONING_LEVELS } from '@arcbase/shared/ai';
 
 export type AIChatDialogueInstance = InstanceType<typeof AIChatDialogue>;
 

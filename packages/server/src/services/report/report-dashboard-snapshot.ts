@@ -1,4 +1,4 @@
-import type { ReportDashboardConfig, ReportDashboardSnapshot, ReportFilter, ReportGridItem, ReportWidget } from '@zenith/shared/report';
+import type { ReportDashboardConfig, ReportDashboardSnapshot, ReportFilter, ReportGridItem, ReportWidget } from '@arcbase/shared/report';
 import type { ReportDashboardRow } from '../../db/schema';
 import { buildDashboardSnapshot } from './report-dashboard-runtime';
 

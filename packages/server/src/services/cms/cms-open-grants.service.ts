@@ -5,7 +5,7 @@
  * 与人类侧的 `cms_site_users` / `cms_channel_users` 同构 —— 未显式授权一律拒绝（fail-closed）。
  * 直接发布还要三个条件同时成立：`cms:publish` scope + 授权行 `can_publish` + 站点开关。
  */
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { requireRow } from '../../lib/db-assert';
 import { and, desc, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
@@ -14,7 +14,7 @@ import { cmsChannels, cmsOpenAppGrants, cmsSites, oauth2Clients } from '../../db
 import type { CmsOpenAppGrantRow } from '../../db/schema';
 import { resolveCmsSiteOpsSettings } from './cms-site-settings';
 import { assertSiteAccess } from './cms-sites.service';
-import { cmsOpenAppGrantSchema } from '@zenith/shared/cms';
+import { cmsOpenAppGrantSchema } from '@arcbase/shared/cms';
 import { pickEntity } from '../../lib/entity-map';
 
 export function mapCmsOpenAppGrant(row: CmsOpenAppGrantRow, extra?: { siteName?: string | null; appName?: string | null }) {

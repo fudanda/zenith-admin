@@ -1,5 +1,5 @@
-import { aiUsageContract } from '@zenith/shared/ai';
-import type { AiUsageByModel, AiUsageByUser, AiUsageOverview, AiUsageTrend } from '@zenith/shared/ai';
+import { aiUsageContract } from '@arcbase/shared/ai';
+import type { AiUsageByModel, AiUsageByUser, AiUsageOverview, AiUsageTrend } from '@arcbase/shared/ai';
 import { mock } from '@/mocks/utils/contract';
 import { mockDate } from '../utils/date';
 

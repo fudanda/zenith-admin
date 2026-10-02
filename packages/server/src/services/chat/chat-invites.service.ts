@@ -10,7 +10,7 @@ import { requireRow } from '../../lib/db-assert';
 import { formatDateTime, formatNullableDateTime } from '../../lib/datetime';
 import { scheduleSendToUsers } from '../../lib/ws-manager';
 import { invalidateConversationMembers } from '../../lib/chat-member-cache';
-import type { ChatGroupInvite, ChatGroupJoinRequest, ChatInviteInfo } from '@zenith/shared/chat';
+import type { ChatGroupInvite, ChatGroupJoinRequest, ChatInviteInfo } from '@arcbase/shared/chat';
 
 const MAX_GROUP_MEMBERS = 20;
 const INVITE_TTL_DAYS = 7;

@@ -9,8 +9,8 @@ import { buildWhere, dateRangeConditions, withPagination, keywordCondition } fro
 import { streamToCsv } from '../../lib/excel-export';
 import { HTTPException } from 'hono/http-exception';
 import { resolveAgentForChat, incrementAgentUsage } from './ai-agents.service';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { aiAuditContract, aiConversationContract, buildChildrenMap, buildEffectiveParents, descendToLeaf, resolveActivePath, resolveAncestorPath, sortMessagesByTime, type AiFeedbackStatus, type BranchTreeNode } from '@zenith/shared/ai';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { aiAuditContract, aiConversationContract, buildChildrenMap, buildEffectiveParents, descendToLeaf, resolveActivePath, resolveAncestorPath, sortMessagesByTime, type AiFeedbackStatus, type BranchTreeNode } from '@arcbase/shared/ai';
 
 function mapConversation(row: typeof aiConversations.$inferSelect) {
   return {
@@ -57,7 +57,7 @@ function mapMessage(row: typeof aiMessages.$inferSelect) {
 }
 
 // ─── 消息分支树 ───────────────────────────────────────────────────────────────
-// 算法与前端共用 @zenith/shared/ai/branch-tree：服务端在落库行上推导有效父节点并对外输出，
+// 算法与前端共用 @arcbase/shared/ai/branch-tree：服务端在落库行上推导有效父节点并对外输出，
 // 前端在 API 返回行上复用同一实现，两侧不再各自维护一份。
 
 interface MsgNode extends BranchTreeNode {

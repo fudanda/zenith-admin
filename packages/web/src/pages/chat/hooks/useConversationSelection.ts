@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import type { VirtuosoHandle } from 'react-virtuoso';
-import { chatContract } from '@zenith/shared/chat';
-import type { ChatConversation, ChatMessage, ChatMessageSearchItem } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
+import type { ChatConversation, ChatMessage, ChatMessageSearchItem } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import type { ChatUser, PendingFile, PendingImage, SearchDatePreset, Setter } from '../types';
 

@@ -25,7 +25,7 @@ import {
   type NotificationRecipientSettings,
   type SaveNotificationPreferencesInput,
   type SaveNotificationSettingsInput,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import { db } from '../../db';
 import {
   members,

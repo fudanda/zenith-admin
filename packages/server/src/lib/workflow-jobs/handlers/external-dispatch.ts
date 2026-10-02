@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import type { WorkflowExternalApprovalConfig } from '@zenith/shared/workflow';
+import type { WorkflowExternalApprovalConfig } from '@arcbase/shared/workflow';
 import { db } from '../../../db';
 import { workflowTasks, workflowInstances } from '../../../db/schema';
 import { approveTaskByCallback, rejectTaskByCallback, handleNodeExecutionError } from '../../../services/workflow/workflow-instances.service';
@@ -61,11 +61,11 @@ async function handle({ payload, attempt, job }: WorkflowJobContext): Promise<Wo
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'X-Zenith-Event': 'external-approval.requested',
-    'X-Zenith-Callback-Id': task.externalCallbackId,
+    'X-ArcBase-Event': 'external-approval.requested',
+    'X-ArcBase-Callback-Id': task.externalCallbackId,
   };
   if ((ext.signMode ?? 'hmacSha256') === 'hmacSha256' && ext.secret) {
-    headers['X-Zenith-Signature'] = `t=${timestamp},v1=${signHmac(ext.secret, timestamp, bodyStr)}`;
+    headers['X-ArcBase-Signature'] = `t=${timestamp},v1=${signHmac(ext.secret, timestamp, bodyStr)}`;
   }
 
   const detailBase: WorkflowJobResult = { requestUrl: ext.url, requestMethod: 'POST', requestBody: bodyStr };

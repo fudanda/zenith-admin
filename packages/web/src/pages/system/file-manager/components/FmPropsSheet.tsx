@@ -8,7 +8,7 @@ import { copyTextWithToast } from '@/utils/clipboard';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { permStringToOctal } from '../fs-utils';
 import type { FsEntry } from '../types';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 type ChecksumAlgo = 'md5' | 'sha1' | 'sha256';
 

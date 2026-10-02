@@ -9,7 +9,7 @@ import { CUSTOM_FORM_VARIABLE_KEY_PATTERN } from './custom-form-variables';
  */
 import { Button, Input, Select, Typography, Space, Banner } from '@douyinfe/semi-ui';
 import { Plus, Trash2, CircleCheck, CircleAlert } from 'lucide-react';
-import type { WorkflowCustomFormConfig, WorkflowCustomFormVariable } from '@zenith/shared/workflow';
+import type { WorkflowCustomFormConfig, WorkflowCustomFormVariable } from '@arcbase/shared/workflow';
 import IconPicker from '@/components/IconPicker';
 import { hasBusinessFormComponent } from '@/utils/business-form-registry';
 

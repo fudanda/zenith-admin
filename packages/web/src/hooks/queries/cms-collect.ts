@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { cmsCollectContract } from '@zenith/shared/cms';
+import type { QueryOf } from '@arcbase/shared/core';
+import { cmsCollectContract } from '@arcbase/shared/cms';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateAsyncTaskState } from './async-tasks';
 

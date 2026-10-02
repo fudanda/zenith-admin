@@ -11,8 +11,8 @@
  */
 import { EventEmitter } from 'node:events';
 import { randomUUID } from 'node:crypto';
-import type { PaymentChannel, PaymentMethod } from '@zenith/shared/payment';
-import type { SubjectRef } from '@zenith/shared/core';
+import type { PaymentChannel, PaymentMethod } from '@arcbase/shared/payment';
+import type { SubjectRef } from '@arcbase/shared/core';
 import logger from './logger';
 import { captureException } from './error-tracking/reporter';
 import { formatDateTime } from './datetime';

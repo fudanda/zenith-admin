@@ -1,5 +1,5 @@
 import { withField } from '@douyinfe/semi-ui';
-import type { CmsModelField, CmsResource } from '@zenith/shared/cms';
+import type { CmsModelField, CmsResource } from '@arcbase/shared/cms';
 import { CmsAssetField } from './components/CmsAssetField';
 
 const FormAsset = withField(CmsAssetField);

@@ -1,7 +1,7 @@
 import { requireRow } from '../../lib/db-assert';
 import { and, eq, inArray, isNull } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CmsPageBlock, SetCmsPageBlockAclInput } from '@zenith/shared/cms';
+import type { CmsPageBlock, SetCmsPageBlockAclInput } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsPageBlockAcls, cmsPages, roles, userRoles, users } from '../../db/schema';
 import type { CmsPageBlockAclRow, CmsPageRow } from '../../db/schema';

@@ -12,8 +12,8 @@ import { Button, Col, Empty, Form, Input, Row, Select, SideSheet, Space, Spin, T
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag/interface';
 import { Plus, Trash2 } from 'lucide-react';
-import { WORKFLOW_AUTOMATION_TRIGGER_LABELS, WORKFLOW_AUTOMATION_TRIGGER_OPTIONS, type WorkflowAutomation, type WorkflowAutomationAction, type WorkflowAutomationRun, type WorkflowAutomationTrigger, type WorkflowDefinition, workflowAutomationContract } from '@zenith/shared/workflow';
-import { isPlainObject } from '@zenith/shared/core';
+import { WORKFLOW_AUTOMATION_TRIGGER_LABELS, WORKFLOW_AUTOMATION_TRIGGER_OPTIONS, type WorkflowAutomation, type WorkflowAutomationAction, type WorkflowAutomationRun, type WorkflowAutomationTrigger, type WorkflowDefinition, workflowAutomationContract } from '@arcbase/shared/workflow';
+import { isPlainObject } from '@arcbase/shared/core';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { usePermission } from '@/hooks/usePermission';
 import { useWorkflowDefinitionList } from '@/hooks/queries/workflow-definitions';

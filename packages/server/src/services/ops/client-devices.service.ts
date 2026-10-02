@@ -8,9 +8,9 @@
  * 读取方:推送渠道适配器（按 subject 找在活设备）、升级看板（在网/版本分布)、管理端设备列表。
  */
 import { and, desc, eq, gte, inArray, isNotNull, sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { clientDeviceSchema, type AppArch, type AppPlatform, type BindPushDeviceInput, type DeviceSubjectType } from '@zenith/shared/ops';
-import { clientDeviceContract } from '@zenith/shared/ops';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { clientDeviceSchema, type AppArch, type AppPlatform, type BindPushDeviceInput, type DeviceSubjectType } from '@arcbase/shared/ops';
+import { clientDeviceContract } from '@arcbase/shared/ops';
 import { db } from '../../db';
 import { clientApps, clientDevices, members, type ClientDeviceRow } from '../../db/schema';
 import { requireFirstRow } from '../../lib/db-assert';

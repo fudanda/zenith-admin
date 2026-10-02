@@ -1,11 +1,11 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { listRows } from '../../lib/list-query';
 import { requireRow } from '../../lib/db-assert';
 import { clearDefaultFlag as clearTableDefaultFlag } from '../../lib/default-flag';
 import { fileStorageConfigs, managedFiles } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';
-import type { createFileStorageConfigSchema } from '@zenith/shared/platform';
-import { FILE_OBJECT_ACL_SUPPORT, fileStorageConfigContract } from '@zenith/shared/platform';
+import type { createFileStorageConfigSchema } from '@arcbase/shared/platform';
+import { FILE_OBJECT_ACL_SUPPORT, fileStorageConfigContract } from '@arcbase/shared/platform';
 import type { z } from '@hono/zod-openapi';
 import { formatTimestamps } from '../../lib/datetime';
 import { randomUUID } from 'node:crypto';
@@ -245,8 +245,8 @@ export async function getFileStorageConfig(id: number) {
 }
 
 async function testStorageConfigRow(config: typeof fileStorageConfigs.$inferSelect) {
-  const objectKey = [config.basePath?.replace(/^\/+|\/+$/g, ''), '.zenith-test', `${Date.now()}-${randomUUID()}.txt`].filter(Boolean).join('/');
-  const body = Buffer.from(`zenith storage test ${new Date().getTime()}`);
+  const objectKey = [config.basePath?.replace(/^\/+|\/+$/g, ''), '.arcbase-test', `${Date.now()}-${randomUUID()}.txt`].filter(Boolean).join('/');
+  const body = Buffer.from(`arcbase storage test ${new Date().getTime()}`);
   try {
     await uploadObjectByConfig(config, {
       objectKey,

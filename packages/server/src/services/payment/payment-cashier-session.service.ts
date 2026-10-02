@@ -6,7 +6,7 @@ import type {
   PaymentCashierMethod,
   PaymentCashierSession,
   PaymentCashierSessionStatus,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { config } from '../../config';
 import { db } from '../../db';
 import { exactTenantCondition } from '../../lib/tenant';

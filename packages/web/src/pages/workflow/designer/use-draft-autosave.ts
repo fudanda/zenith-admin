@@ -4,7 +4,7 @@
  */
 import { useEffect, useRef } from 'react';
 import { useDebouncer } from '@tanstack/react-pacer';
-import type { WorkflowFormField, WorkflowFormSettings } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormSettings } from '@arcbase/shared/workflow';
 
 export interface FormDraftPayload {
   name: string;
@@ -16,7 +16,7 @@ export interface FormDraftPayload {
   revision: number | null;
 }
 
-const draftKey = (formId: number | null) => `zenith_form_draft:${formId ?? 'new'}`;
+const draftKey = (formId: number | null) => `arcbase_form_draft:${formId ?? 'new'}`;
 
 export function loadFormDraft(formId: number | null): FormDraftPayload | null {
   try {

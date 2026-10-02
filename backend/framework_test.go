@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
+	httptransport "github.com/fudanda/arcbase/backend/internal/transport/http"
 )
 
 type testModule struct {

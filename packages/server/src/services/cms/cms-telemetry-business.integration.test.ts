@@ -3,7 +3,7 @@ import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { eq, sql } from 'drizzle-orm';
 import { afterAll, describe, expect, it } from 'vitest';
-import type { CmsTelemetryConversionContext, CmsTelemetryPageContext } from '@zenith/shared/cms';
+import type { CmsTelemetryConversionContext, CmsTelemetryPageContext } from '@arcbase/shared/cms';
 import * as schema from '../../db/schema';
 import { withDbExecutor } from '../../db';
 import { signCmsTelemetryPage } from './cms-telemetry-context';
@@ -15,7 +15,7 @@ afterAll(async()=>{await client?.end();});
 describe.skipIf(!connection)('CMS business telemetry transactional outbox',()=>{
   it('rolls back with the business transaction, retries failures, deduplicates delivery and derives the last trusted origin',async()=>{
     const url=new URL(connection!);
-    if(!['localhost','127.0.0.1','[::1]'].includes(url.hostname)||url.pathname!=='/zenith_review')throw new Error('Requires disposable local zenith_review database');
+    if(!['localhost','127.0.0.1','[::1]'].includes(url.hostname)||url.pathname!=='/arcbase_review')throw new Error('Requires disposable local arcbase_review database');
     const testDb=drizzle(client!,{schema,casing:'snake_case'});const rollback=new Error('rollback outbox fixture');
     try{
       await testDb.transaction(async tx=>withDbExecutor(tx,async()=>{

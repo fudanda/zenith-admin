@@ -5,8 +5,8 @@ import {
 } from '@douyinfe/semi-ui';
 import { usePagination } from '@/hooks/usePagination';
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag';
-import { ANNOUNCEMENT_PRIORITIES, ANNOUNCEMENT_PRIORITY_LABELS } from '@zenith/shared/messaging';
-import { enumValueOf } from '@zenith/shared/core';
+import { ANNOUNCEMENT_PRIORITIES, ANNOUNCEMENT_PRIORITY_LABELS } from '@arcbase/shared/messaging';
+import { enumValueOf } from '@arcbase/shared/core';
 import { CheckCheck } from 'lucide-react';
 import DateTimeText from '@/components/DateTimeText';
 import { RefreshButton } from '@/components/toolbar-controls';

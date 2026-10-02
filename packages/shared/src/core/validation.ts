@@ -230,7 +230,7 @@ export const REPORTED_CLIENT_LABEL_MAX_LENGTH = 64;
  * 客户端自报的展示用浏览器 / OS（登录、模拟登录等入口复用）。
  * 仅用于日志与会话展示，不参与鉴权——客户端可伪造，审计口径（操作日志）
  * 仍以服务端 UA + Client Hints 解析为准。长度与落库截断（varchar 64）对齐。
- * 注意：这里只约束 JSON 请求体；同样来源不可信的 `X-Zenith-Os` 请求头无 schema，
+ * 注意：这里只约束 JSON 请求体；同样来源不可信的 `X-ArcBase-Os` 请求头无 schema，
  * 由服务端 resolveReportedClient 统一截断兜底。
  */
 export const reportedClientSchema = z.object({

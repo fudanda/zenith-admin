@@ -1,5 +1,5 @@
-import type { OutputOf } from '@zenith/shared/core';
-import { cmsEditorialContract, cmsModelContract, cmsResourceContract, validateCmsStructuredFields, type CmsEditorialNote, type CmsModelVersion } from '@zenith/shared/cms';
+import type { OutputOf } from '@arcbase/shared/core';
+import { cmsEditorialContract, cmsModelContract, cmsResourceContract, validateCmsStructuredFields, type CmsEditorialNote, type CmsModelVersion } from '@arcbase/shared/cms';
 import { mock } from '../utils/contract';
 import { requireItem, updateItem } from '../utils/crud';
 import { badRequest, conflict, nextIdFrom } from '../utils/handlers';

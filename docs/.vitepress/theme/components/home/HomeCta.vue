@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress'
 
-const demoUrl = 'https://iwangbowen.github.io/zenith-admin/demo/'
+const deploymentUrl = withBase('/guide/go-foundation')
 </script>
 
 <template>
   <section class="cta-wrap">
     <div class="cta">
       <div>
-        <h2 class="zn-h2">现在就打开在线演示</h2>
-        <p>无需后端，账号 <code>admin</code> / <code>123456</code>，体验全部 16 个业务域。</p>
+        <h2 class="zn-h2">部署自己的 ArcBase</h2>
+        <p>选择 PostgreSQL 或 SQLite，显式创建管理员，由 Go 携带管理台独立运行。</p>
       </div>
       <div class="cta__actions">
-        <a class="zn-btn zn-btn--primary" :href="demoUrl" target="_blank" rel="noreferrer">打开演示 →</a>
-        <a class="zn-btn zn-btn--ghost" :href="withBase('/guide/getting-started')">阅读文档</a>
+        <a class="zn-btn zn-btn--primary" :href="deploymentUrl">开始部署 →</a>
+        <a class="zn-btn zn-btn--ghost" :href="withBase('/guide/go-tooling')">阅读文档</a>
       </div>
     </div>
   </section>

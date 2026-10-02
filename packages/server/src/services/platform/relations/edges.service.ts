@@ -1,12 +1,12 @@
 import { and, desc, eq, inArray, lt, or, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CanonicalEntityRef, CanonicalEntityType, EntityRelationItem } from '@zenith/shared/platform';
+import type { CanonicalEntityRef, CanonicalEntityType, EntityRelationItem } from '@arcbase/shared/platform';
 import { entityRelationEdges, users } from '../../../db/schema';
 import { db } from '../../../db';
 import { currentUser, hasPermission, runWithCurrentUser, setAuditSubjects } from '../../../lib/context';
 import { exactTenantCondition, tenantCondition } from '../../../lib/tenant';
 import { buildWhere } from '../../../lib/where-helpers';
-import { canonicalEntityTypeSchema, MANUAL_RELATION_CATALOG, MANUAL_RELATION_TYPES, type ManualRelationType } from '@zenith/shared/platform';
+import { canonicalEntityTypeSchema, MANUAL_RELATION_CATALOG, MANUAL_RELATION_TYPES, type ManualRelationType } from '@arcbase/shared/platform';
 import { decodeRelationCursor, encodeRelationCursor } from './cursor';
 import { resolveVisibleEntityAnchor } from './registry';
 import type { RelationProvider, VisibleEntityAnchor } from './types';

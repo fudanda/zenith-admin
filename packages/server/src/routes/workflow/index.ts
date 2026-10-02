@@ -19,7 +19,7 @@ import {
   workflowTemplateContract,
   workflowTriggerCallbackContract,
   workflowTriggerExecutionContract,
-} from '@zenith/shared/workflow';
+} from '@arcbase/shared/workflow';
 import { defineRouteDomain } from '../_kit';
 import workflowAttachmentsRoutes from './workflow-attachments';
 import workflowAutomationsRoutes from './workflow-automations';

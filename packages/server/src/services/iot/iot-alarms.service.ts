@@ -1,5 +1,5 @@
-import { iotAlarmRuleContract, iotAlarmContract, iotAlarmRuleSchema, iotAlarmSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotAlarmRuleContract, iotAlarmContract, iotAlarmRuleSchema, iotAlarmSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 告警：规则 CRUD、告警记录与运行时判定。
  *
@@ -13,10 +13,10 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  */
 import { and, count, desc, eq, exists, inArray, isNotNull, isNull, lt, or, type SQL } from 'drizzle-orm';
 import { alias as aliasedTable } from 'drizzle-orm/pg-core';
-import type { CreateIotAlarmRuleInput, IotAlarmRuleType, UpdateIotAlarmRuleInput } from '@zenith/shared/iot';
-import { IOT_ALARM_LEVEL_LABELS, IOT_COMPARE_OP_LABELS, IOT_ONLINE_TTL_SECONDS } from '@zenith/shared/iot';
-import type { IotMetricValue } from '@zenith/shared/iot';
-import { compareNumber } from '@zenith/shared/core';
+import type { CreateIotAlarmRuleInput, IotAlarmRuleType, UpdateIotAlarmRuleInput } from '@arcbase/shared/iot';
+import { IOT_ALARM_LEVEL_LABELS, IOT_COMPARE_OP_LABELS, IOT_ONLINE_TTL_SECONDS } from '@arcbase/shared/iot';
+import type { IotMetricValue } from '@arcbase/shared/iot';
+import { compareNumber } from '@arcbase/shared/core';
 import { db } from '../../db';
 import {
   iotAlarmRules, iotAlarms, iotDevices, iotDeviceState, iotProducts,

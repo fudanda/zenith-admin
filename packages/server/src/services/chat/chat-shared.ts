@@ -6,7 +6,7 @@ import { chatConversationMembers, chatConversations, chatMessages, users } from 
 import { currentUser } from '../../lib/context';
 import { requireRow } from '../../lib/db-assert';
 import { formatTimestamps } from '../../lib/datetime';
-import type { ChatMessage, ChatReactionGroup } from '@zenith/shared/chat';
+import type { ChatMessage, ChatReactionGroup } from '@arcbase/shared/chat';
 
 /** 生成排除当前用户已删除消息的 SQL 条件 */
 export function notHiddenFor(userId: number) {

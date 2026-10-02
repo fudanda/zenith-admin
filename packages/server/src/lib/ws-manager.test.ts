@@ -16,7 +16,7 @@ function framesOf(send: ReturnType<typeof vi.fn>, type: string) {
     .map((m) => m.payload);
 }
 
-const PING: import('@zenith/shared/platform').WsMessage = { type: 'announcement:read-all', payload: {} };
+const PING: import('@arcbase/shared/platform').WsMessage = { type: 'announcement:read-all', payload: {} };
 
 let m: WsManager;
 

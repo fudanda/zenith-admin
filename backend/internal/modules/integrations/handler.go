@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/security"
-	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/security"
+	httptransport "github.com/fudanda/arcbase/backend/internal/transport/http"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
@@ -24,7 +24,7 @@ type Handler struct {
 func NewHandler(service *Service) *Handler {
 	h := &Handler{service: service}
 	h.mcp = mcp.NewStreamableHTTPHandler(func(r *http.Request) *mcp.Server {
-		server := mcp.NewServer(&mcp.Implementation{Name: "zenith-readonly", Version: "1.0.0"}, nil)
+		server := mcp.NewServer(&mcp.Implementation{Name: "arcbase-readonly", Version: "1.0.0"}, nil)
 		tools, err := service.Tools(r.Context(), kernel.FromContext(r.Context()))
 		if err != nil {
 			return nil
@@ -118,8 +118,8 @@ func (h *Handler) Events(w http.ResponseWriter, r *http.Request) {
 	token := ""
 	if key {
 		token = strings.TrimPrefix(r.Header.Get("Authorization"), "Bearer ")
-	} else if cookie, e := r.Cookie("zenith_session"); e == nil {
-		token = cookie.Value
+	} else {
+		token = httptransport.SessionToken(r)
 	}
 	timer := time.NewTicker(time.Second)
 	defer timer.Stop()

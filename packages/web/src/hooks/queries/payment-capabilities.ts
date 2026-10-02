@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { paymentCapabilityContract } from '@zenith/shared/payment';
+import type { QueryOf } from '@arcbase/shared/core';
+import { paymentCapabilityContract } from '@arcbase/shared/payment';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export type PaymentCapabilityParams = NonNullable<QueryOf<typeof paymentCapabilityContract.list>>;

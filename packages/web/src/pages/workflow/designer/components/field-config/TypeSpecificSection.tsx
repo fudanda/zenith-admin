@@ -1,7 +1,7 @@
 // ─── 字段类型专属设置（选项来源/数字/公式/日期/文件等，拆分自 FieldConfigPanel.tsx）───
 import { useContext } from 'react';
 import { Input, InputNumber, Select, Switch, Typography, TextArea, TagInput } from '@douyinfe/semi-ui';
-import { WORKFLOW_SIGNATURE_POLICY_OPTIONS, type WorkflowFormField } from '@zenith/shared/workflow';
+import { WORKFLOW_SIGNATURE_POLICY_OPTIONS, type WorkflowFormField } from '@arcbase/shared/workflow';
 import { CURRENCY_OPTIONS, DATE_FORMAT_OPTIONS, TIME_FORMAT_OPTIONS, REGION_LEVEL_OPTIONS, DATE_LIMIT_OPTIONS, toDateFnsToken } from '../../form-types';
 import type { FieldTypeFlags } from './field-type-flags';
 import { RelationDefinitionPicker, DictCodePicker } from './pickers';

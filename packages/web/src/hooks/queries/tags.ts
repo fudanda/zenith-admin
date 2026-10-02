@@ -1,4 +1,4 @@
-import { tagContract } from '@zenith/shared/platform';
+import { tagContract } from '@arcbase/shared/platform';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

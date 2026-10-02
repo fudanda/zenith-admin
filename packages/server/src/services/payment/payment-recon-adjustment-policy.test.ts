@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PAYMENT_RECON_ADJUSTMENT_BIZ_TYPE } from '@zenith/shared/payment';
+import { PAYMENT_RECON_ADJUSTMENT_BIZ_TYPE } from '@arcbase/shared/payment';
 import { assertIndependentReconApproval, assertReconAdjustmentAmount, reconEvidenceHash } from './payment-recon-adjustment-policy';
 
 const difference = { type: 'amount_diff' as const, status: 'open' as const, applicationId: 3, localAmount: 100n, channelAmount: 125n };

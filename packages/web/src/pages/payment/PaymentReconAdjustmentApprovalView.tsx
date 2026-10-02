@@ -1,5 +1,5 @@
 import { Descriptions, Empty, Spin, Typography } from '@douyinfe/semi-ui';
-import { formatReconciliationAmount, PAYMENT_RECON_ADJUSTMENT_STATUS_LABELS, PAYMENT_RECON_DIRECTION_LABELS, type PaymentReconAdjustment } from '@zenith/shared/payment';
+import { formatReconciliationAmount, PAYMENT_RECON_ADJUSTMENT_STATUS_LABELS, PAYMENT_RECON_DIRECTION_LABELS, type PaymentReconAdjustment } from '@arcbase/shared/payment';
 import type { WorkflowBusinessFormProps } from '@/components/workflow/BusinessFormHost';
 import { usePaymentReconApprovalDetail } from '@/hooks/queries/payment-recon';
 

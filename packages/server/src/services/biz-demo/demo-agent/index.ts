@@ -3,7 +3,7 @@ import { db } from '../../../db';
 import { users, aiConversations, aiMessages } from '../../../db/schema';
 import logger from '../../../lib/logger';
 import type { Mastra } from '@mastra/core';
-import type { AiBuiltinAgent } from '@zenith/shared/ai';
+import type { AiBuiltinAgent } from '@arcbase/shared/ai';
 
 /**
  * 业务示例:编程式智能体(教学)。

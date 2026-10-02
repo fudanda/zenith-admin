@@ -1,5 +1,5 @@
 /**
- * 品牌 logo（Z 形折带）的几何与配色比例——唯一来源。
+ * ArcBase 品牌 logo（拱形 A 与底座）的几何与配色比例——唯一来源。
  *
  * - 页面内：`components/AppLogo.tsx` 用 `logoStopCssColor()` 生成 `color-mix(var(--semi-color-primary))`，
  *   颜色跟随所在区域的主题色（含分区深色）；
@@ -21,11 +21,11 @@ export interface LogoFace {
   readonly stops: readonly [LogoMixStop, LogoMixStop];
 }
 
-/** 三块折面：顶杠（远，偏浅）/ 斜带（主色）/ 底杠（近，偏深） */
+/** 拱形两侧与底座，保留主题主色派生的三块渐变。 */
 export const LOGO_FACES: readonly LogoFace[] = [
-  { key: 'top', d: 'M14 7 L56 7 L33.9 19 L14 19Z', axis: 'horizontal', stops: [[52, '#fff'], [70, '#fff']] },
-  { key: 'band', d: 'M56 7 L33.9 19 L6.84 57 L32.62 43Z', axis: 'vertical', stops: [[92, '#000'], [88, '#fff']] },
-  { key: 'base', d: 'M32.62 43 L58 43 L58 57 L6.84 57Z', axis: 'horizontal', stops: [[80, '#000'], [66, '#000']] },
+  { key: 'top', d: 'M8 46 L8 29 C8 15 18 6 32 6 L32 18 C25 18 20 23 20 30 L20 46Z', axis: 'horizontal', stops: [[52, '#fff'], [70, '#fff']] },
+  { key: 'band', d: 'M32 6 C46 6 56 15 56 29 L56 46 L44 46 L44 30 C44 23 39 18 32 18Z', axis: 'vertical', stops: [[92, '#000'], [88, '#fff']] },
+  { key: 'base', d: 'M8 46 L56 46 L56 57 L8 57Z M25 32 L39 32 L39 39 L25 39Z', axis: 'horizontal', stops: [[80, '#000'], [66, '#000']] },
 ];
 
 export function logoGradientAxis(axis: LogoFace['axis']): { x1: string; y1: string; x2: string; y2: string } {

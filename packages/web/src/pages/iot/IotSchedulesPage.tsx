@@ -16,12 +16,12 @@ import { useUrlTabState } from '@/hooks/useUrlTabState';
 import { useDictItems } from '@/hooks/useDictItems';
 import { deleteAction, ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { FormStatusRadioGroup } from '@/components/FormStatusRadioGroup';
-import { USER_STATUSES, enumValueOf } from '@zenith/shared/core';
+import { USER_STATUSES, enumValueOf } from '@arcbase/shared/core';
 import {
   IOT_SCHEDULE_ACTION_LABELS, IOT_SCHEDULE_ACTION_OPTIONS,
   IOT_SCHEDULE_TYPE_LABELS, IOT_SCHEDULE_TYPE_OPTIONS,
-} from '@zenith/shared/iot';
-import type { CreateIotScheduleInput, IotSchedule, IotScheduleRun } from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
+import type { CreateIotScheduleInput, IotSchedule, IotScheduleRun } from '@arcbase/shared/iot';
 import { IotDeviceSelectField, IotProductSelectField } from './components/IotSelectors';
 import { useIotGroupOptions } from './components/iot-options';
 import { IotServiceSelectField } from './components/ThingModelFields';

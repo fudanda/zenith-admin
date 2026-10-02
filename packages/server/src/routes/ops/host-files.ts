@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Readable } from 'node:stream';
 import { HTTPException } from 'hono/http-exception';
-import { hostFileContract } from '@zenith/shared/ops';
+import { hostFileContract } from '@arcbase/shared/ops';
 import { assertRemoteHostAccess } from '../../lib/host-access';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

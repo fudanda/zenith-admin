@@ -1,6 +1,6 @@
 import { desc, eq } from 'drizzle-orm';
-import { enumValueOf, USER_STATUSES } from '@zenith/shared/core';
-import { IOT_NODE_TYPES } from '@zenith/shared/iot';
+import { enumValueOf, USER_STATUSES } from '@arcbase/shared/core';
+import { IOT_NODE_TYPES } from '@arcbase/shared/iot';
 import { db } from '../../../db';
 import { iotDevices, iotProducts } from '../../../db/schema';
 import { defineExport } from '../registry';

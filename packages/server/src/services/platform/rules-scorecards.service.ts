@@ -4,15 +4,15 @@
  */
 import { and, desc, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import type {
   RuleScorecardEvaluateResult,
   RuleScorecardGrade,
   RuleScorecardVariable,
-} from '@zenith/shared/rules';
-import { stableStringify } from '@zenith/shared/core';
-import type { CreateRuleScorecardInput, UpdateRuleScorecardInput } from '@zenith/shared/rules';
-import { ruleScorecardContract } from '@zenith/shared/rules';
+} from '@arcbase/shared/rules';
+import { stableStringify } from '@arcbase/shared/core';
+import type { CreateRuleScorecardInput, UpdateRuleScorecardInput } from '@arcbase/shared/rules';
+import { ruleScorecardContract } from '@arcbase/shared/rules';
 import { db } from '../../db';
 import { ruleScorecards, ruleAssetVersions } from '../../db/schema';
 import { currentUser } from '../../lib/context';

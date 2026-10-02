@@ -29,7 +29,7 @@ import {
 
 export const clientAppSchema = z.object({
   id: z.int(),
-  appKey: z.string().meta({ description: '客户端侧标识，创建后不可修改', example: 'zenith-desktop' }),
+  appKey: z.string().meta({ description: '客户端侧标识，创建后不可修改', example: 'arcbase-desktop' }),
   name: z.string(),
   description: z.string().nullable(),
   kind: z.enum(APP_KINDS).meta({ description: 'client 客户端应用（设备拉取升级）/ service 服务端应用（部署包推送到运维主机）' }),
@@ -220,7 +220,7 @@ export const publicLatestReleaseQuery = z.object({
 });
 
 export const publicArtifactParam = z.object({
-  app: z.string().min(1).max(64).meta({ description: '应用 appKey', example: 'zenith-desktop' }),
+  app: z.string().min(1).max(64).meta({ description: '应用 appKey', example: 'arcbase-desktop' }),
   channel: z.enum(APP_RELEASE_CHANNELS).meta({ example: 'stable' }),
   platform: z.enum(APP_PLATFORMS).meta({ example: 'windows' }),
   filename: z.string().min(1).max(255).meta({ example: 'latest.yml' }),

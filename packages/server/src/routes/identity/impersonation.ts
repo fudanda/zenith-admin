@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { impersonationContract } from '@zenith/shared/identity';
+import { impersonationContract } from '@arcbase/shared/identity';
 import { setAuditAfterData } from '../../middleware/guard';
 import { sensitiveRateLimit } from '../../middleware/rate-limit';
 import { defineContractRoute } from '../../lib/contract-route';

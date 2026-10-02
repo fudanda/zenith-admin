@@ -98,7 +98,7 @@ import type {
   DbAdminSqlExportMode,
   DbAdminTableItem,
   DbAdminTableStructure,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import './db-admin.css';
 import { EMPTY_PLACEHOLDER, dateTimeColumn, renderEllipsis } from '@/utils/table-columns';
 import { request } from '@/utils/request';

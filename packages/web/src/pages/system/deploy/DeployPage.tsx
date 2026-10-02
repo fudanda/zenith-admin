@@ -3,8 +3,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Button, Card, Descriptions, Divider, Form, Modal, SideSheet, Spin, TabPane, Tabs, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form';
-import { DEPLOY_HEALTH_CHECK_TYPE_OPTIONS, DEPLOY_RESTART_MODE_OPTIONS, DEPLOY_RUN_KIND_LABELS, DEPLOY_RUN_STATUS_LABELS, DEPLOY_STRATEGY_OPTIONS, type AppRelease, type ClientApp, type DeployRelease, type DeployRun, type DeployTarget, type DeployTargetHost, type DeployRunKind, type CreateDeployTargetInput } from '@zenith/shared/ops';
-import { deployRunContract, deployReleaseContract } from '@zenith/shared/ops';
+import { DEPLOY_HEALTH_CHECK_TYPE_OPTIONS, DEPLOY_RESTART_MODE_OPTIONS, DEPLOY_RUN_KIND_LABELS, DEPLOY_RUN_STATUS_LABELS, DEPLOY_STRATEGY_OPTIONS, type AppRelease, type ClientApp, type DeployRelease, type DeployRun, type DeployTarget, type DeployTargetHost, type DeployRunKind, type CreateDeployTargetInput } from '@arcbase/shared/ops';
+import { deployRunContract, deployReleaseContract } from '@arcbase/shared/ops';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { CreateButton, RefreshButton } from '@/components/toolbar-controls';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
@@ -20,7 +20,7 @@ import { useAllClientApps, useAppReleaseList } from '@/hooks/queries/app-release
 import { useOpsHosts } from '@/hooks/queries/ops-hosts';
 import { useCreateDeployRun, useDeleteDeployTarget, useDeployReleaseList, useDeployRunDetail, useDeployRunList, useDeployRunLogs, useDeployTargetList, useSaveDeployTarget, useSyncDeployTarget, deployKeys } from '@/hooks/queries/deploy';
 import { dateTimeColumn, EMPTY_PLACEHOLDER, renderEllipsis } from '@/utils/table-columns';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import './DeployPage.css';
 
 const { Text } = Typography;

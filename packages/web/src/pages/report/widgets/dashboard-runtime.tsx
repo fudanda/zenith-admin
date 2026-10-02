@@ -15,7 +15,7 @@ import type {
   ReportEmbedWidgetClickPayload,
   ReportFilter,
   ReportWidget,
-} from '@zenith/shared/report';
+} from '@arcbase/shared/report';
 import { sanitizeReportEmbedFilterValues } from '@/components/report-embed-bridge';
 import { openExternalUrl } from '@/utils/safe-url';
 import type { WidgetState } from './ScreenCanvas';

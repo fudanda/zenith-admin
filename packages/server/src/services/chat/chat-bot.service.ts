@@ -4,9 +4,9 @@ import { chatMessages } from '../../db/schema';
 import { scheduleSendToUsers } from '../../lib/ws-manager';
 import { httpGet } from '../../lib/http-client';
 import { HTTPException } from 'hono/http-exception';
-import type { ChatLinkPreview, ChatMessage, ChatMessageExtra, ChatMessageType } from '@zenith/shared/chat';
+import type { ChatLinkPreview, ChatMessage, ChatMessageExtra, ChatMessageType } from '@arcbase/shared/chat';
 import { mapChatMessage, fetchUserBrief, listConversationMemberIds, touchConversation } from './chat-shared';
-import { escapeRegExp } from '@zenith/shared/core';
+import { escapeRegExp } from '@arcbase/shared/core';
 
 const IMAGE_EXT_RE = /\.(?:png|jpe?g|gif|webp|bmp|svg)(\?.*)?$/i;
 
@@ -147,7 +147,7 @@ export async function getLinkPreview(rawUrl: string): Promise<ChatLinkPreview> {
       signal: controller.signal,
       headers: {
         accept: 'text/html,application/xhtml+xml',
-        'user-agent': 'ZenithAdminLinkPreviewBot/1.0',
+        'user-agent': 'ArcBaseAdminLinkPreviewBot/1.0',
       },
     });
 

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import type { ChatConversation } from '@zenith/shared/chat';
-import type { Channel } from '@zenith/shared/messaging';
+import type { ChatConversation } from '@arcbase/shared/chat';
+import type { Channel } from '@arcbase/shared/messaging';
 import type { FailedMessage, GroupAvatarMap, LeftListItem, LeftPaneContextMenuState, Setter } from '../types';
 
 /**

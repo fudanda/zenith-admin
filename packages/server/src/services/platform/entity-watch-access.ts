@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { canonicalEntityRefSchema, getDomainEventDefinition, isWatchableEntityType, watchedEntityDetailRoute } from '@zenith/shared/platform';
-import { permissionList } from '@zenith/shared/core';
+import { canonicalEntityRefSchema, getDomainEventDefinition, isWatchableEntityType, watchedEntityDetailRoute } from '@arcbase/shared/platform';
+import { permissionList } from '@arcbase/shared/core';
 import type { DbTransaction } from '../../db/types';
 import { domainEvents, domainEventSubjects, entityWatches, tenants, users, type EntityWatchRow } from '../../db/schema';
 import { hasPermission, runWithCurrentUser } from '../../lib/context';

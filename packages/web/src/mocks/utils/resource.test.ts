@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import * as z from 'zod';
 import type { HttpHandler } from 'msw';
-import { batchIdsBody, dateRangeQuery, defineContract, entityStatusQuery, entityStatusSchema, idParam, idQuery, keywordQuery, op, paginated, paginationQuery, queryBool } from '@zenith/shared/core';
+import { batchIdsBody, dateRangeQuery, defineContract, entityStatusQuery, entityStatusSchema, idParam, idQuery, keywordQuery, op, paginated, paginationQuery, queryBool } from '@arcbase/shared/core';
 import { mock } from './contract';
 import { mockResource } from './resource';
 

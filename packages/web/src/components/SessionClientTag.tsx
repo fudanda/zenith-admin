@@ -2,7 +2,7 @@ import type { ComponentType } from 'react';
 import { Tag } from '@douyinfe/semi-ui';
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag';
 import { Laptop, Monitor, Smartphone, type LucideProps } from 'lucide-react';
-import { SESSION_CLIENT_KIND_LABELS, type SessionClientKind } from '@zenith/shared/identity';
+import { SESSION_CLIENT_KIND_LABELS, type SessionClientKind } from '@arcbase/shared/identity';
 
 const ICONS: Record<SessionClientKind, ComponentType<LucideProps>> = {
   web: Monitor,

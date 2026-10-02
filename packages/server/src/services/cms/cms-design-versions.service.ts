@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { and, asc, desc, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsModelFieldViewSchema, type CmsModelField } from '@zenith/shared/cms';
+import { cmsModelFieldViewSchema, type CmsModelField } from '@arcbase/shared/cms';
 import { cmsAssetVersions, cmsModelVersions } from '../../db/schema/cms-design';
 import { cmsModels, cmsModelFields, cmsResources } from '../../db/schema/cms';
 import { dictItems, dicts } from '../../db/schema/dicts';
@@ -9,7 +9,7 @@ import type { DbExecutor } from '../../db/types';
 import { requireRow } from '../../lib/db-assert';
 import { pickEntity } from '../../lib/entity-map';
 import { retainManagedFiles } from '../files/file-gc.service';
-import { stableStringify } from '@zenith/shared/core';
+import { stableStringify } from '@arcbase/shared/core';
 
 export const cmsSnapshotHash = (value: unknown) => createHash('sha256').update(stableStringify(JSON.parse(JSON.stringify(value ?? null)))).digest('hex');
 

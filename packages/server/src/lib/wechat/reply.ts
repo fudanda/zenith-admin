@@ -1,5 +1,5 @@
 /** 微信被动回复 XML 构建（支持文本/图片/语音/视频/图文）。 */
-import type { MpReplyContentType, MpReplyArticle } from '@zenith/shared/mp';
+import type { MpReplyContentType, MpReplyArticle } from '@arcbase/shared/mp';
 
 export interface PassiveReply {
   contentType: MpReplyContentType;

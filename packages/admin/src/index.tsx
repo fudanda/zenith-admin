@@ -1,10 +1,10 @@
 import './styles.css';
-import { ZenithAdmin as OriginalAdmin } from '@zenith/web/admin';
-import type { ZenithAdminProps } from '@zenith/web/admin';
+import { ArcBaseAdmin as OriginalAdmin } from '@arcbase/web/admin';
+import type { ArcBaseAdminProps } from '@arcbase/web/admin';
 
 /** Embeddable full-page admin; all pages remain in the web workspace. */
-export function ZenithAdmin(props: ZenithAdminProps) {
+export function ArcBaseAdmin(props: ArcBaseAdminProps) {
   return <OriginalAdmin {...props} assetBasePath={props.assetBasePath ?? new URL('./public/', import.meta.url).href} />;
 }
 
-export type { ZenithAdminProps, ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter, ZenithAdminModule, ZenithAdminPage, ZenithPageProps } from '@zenith/web/admin';
+export type { ArcBaseAdminProps, ArcBaseBrand, ArcBaseLocale, ArcBaseTheme, ArcBaseSessionAdapter, ArcBaseAdminModule, ArcBaseAdminPage, ArcBasePageProps } from '@arcbase/web/admin';

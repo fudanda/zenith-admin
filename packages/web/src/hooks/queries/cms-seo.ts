@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
-import { cmsSeoContract } from '@zenith/shared/cms';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
+import { cmsSeoContract } from '@arcbase/shared/cms';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type CmsSeoListParams = NonNullable<QueryOf<typeof cmsSeoContract.redirectList>>;

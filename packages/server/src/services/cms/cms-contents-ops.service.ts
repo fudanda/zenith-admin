@@ -8,8 +8,8 @@ import { assertChannelAccess } from './cms-channels.service';
 import { logContentOp, logContentOps } from './cms-content-op-logs.service';
 import { assertSiteAccess } from './cms-sites.service';
 import { hasPermission } from '../../lib/context';
-import type { Permission } from '@zenith/shared/core';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import type { Permission } from '@arcbase/shared/core';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import { resolveCmsSiteOpsSettings } from './cms-site-settings';
 import { assertCompleteCmsBatch } from './cms-access';
 import { assertCmsContentsUnlocked, assertNoLockedCmsMappedCopies } from './cms-content-lock.service';
@@ -23,11 +23,11 @@ import { enqueueCmsWebhookEvents, insertCmsContentWebhookOutbox } from './cms-we
 import { insertContentPublishOutbox, recalcTagContentCounts, ensureChannelForContent } from './cms-contents-internal';
 import { offlineCmsContent, rejectCmsContent, submitCmsContent, createCmsContent } from './cms-contents-write.service';
 import { publishCmsContentBatch } from './cms-content-batch-publish.service';
-import type { CmsContentBatchStatusResult } from '@zenith/shared/cms';
+import type { CmsContentBatchStatusResult } from '@arcbase/shared/cms';
 import { buildWhere } from '../../lib/where-helpers';
 import { requireCmsContentAccess, requireCmsContentsAccess } from './cms-content-access.service';
 import { assertCmsContentVersion, requireCmsWorkingCopy, snapshotCmsContentProjection, writeCmsSystemWorkingCopy } from './cms-content-revisions.service';
-import type { CmsContentRevisionSnapshot } from '@zenith/shared/cms';
+import type { CmsContentRevisionSnapshot } from '@arcbase/shared/cms';
 
 // ─── 回收站 ───────────────────────────────────────────────────────────────────
 async function assertBatchSiteAccess(ids: number[]): Promise<void> {

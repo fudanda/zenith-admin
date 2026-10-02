@@ -9,7 +9,7 @@ import { Badge, Empty, Spin, Tag, Typography } from '@douyinfe/semi-ui';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { listTableProps } from '@/components/list-page';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { IotTopologyChild } from '@zenith/shared/iot';
+import type { IotTopologyChild } from '@arcbase/shared/iot';
 import { ThemedReactFlow } from '@/components/ThemedReactFlow';
 import { EMPTY_PLACEHOLDER, dateTimeColumn } from '@/utils/table-columns';
 import { layoutWithDagre } from '@/utils/graph-layout';

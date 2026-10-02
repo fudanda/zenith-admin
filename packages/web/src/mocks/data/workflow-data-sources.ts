@@ -1,5 +1,5 @@
-import { SEED_WORKFLOW_DATA_SOURCES } from '@zenith/shared/seed';
-import type { WorkflowDataSource } from '@zenith/shared/workflow';
+import { SEED_WORKFLOW_DATA_SOURCES } from '@arcbase/shared/seed';
+import type { WorkflowDataSource } from '@arcbase/shared/workflow';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

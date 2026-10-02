@@ -2,23 +2,23 @@ import { createLabelOptions, createLabelOptionsFromMap } from './enum-options';
 
 export const API_PREFIX = '/api';
 
-export const TOKEN_KEY = 'zenith_token';
+export const TOKEN_KEY = 'arcbase_token';
 
-export const REFRESH_TOKEN_KEY = 'zenith_refresh_token';
+export const REFRESH_TOKEN_KEY = 'arcbase_refresh_token';
 
-export const PREFERENCES_KEY = 'zenith_preferences';
+export const PREFERENCES_KEY = 'arcbase_preferences';
 
-export const TABS_STORAGE_KEY = 'zenith_tabs';
+export const TABS_STORAGE_KEY = 'arcbase_tabs';
 
 // ─── 账号切换器（Account Switcher）──────────────────────────────────
 /** 停靠账号注册表的 localStorage key（仅存非活跃账号：资料快照 + refreshToken） */
-export const ACCOUNTS_STORE_KEY = 'zenith_accounts';
+export const ACCOUNTS_STORE_KEY = 'arcbase_accounts';
 
 /** 同时保持登录的账号总数上限（1 个活跃 + 最多 4 个停靠） */
 export const MAX_STORED_ACCOUNTS = 5;
 
 /** 账号切换跨标签页广播 key：写入时间戳通知其他标签页整页重载为新账号 */
-export const ACCOUNT_SWITCH_BROADCAST_KEY = 'zenith_account_switch';
+export const ACCOUNT_SWITCH_BROADCAST_KEY = 'arcbase_account_switch';
 
 // ─── 模拟登录（Impersonation）───────────────────────────────────────
 /**
@@ -26,7 +26,7 @@ export const ACCOUNT_SWITCH_BROADCAST_KEY = 'zenith_account_switch';
  * 模拟态只持有目标身份的 access token（REFRESH_TOKEN_KEY 为空），操作者凭证停靠在 ACCOUNTS_STORE_KEY 里，
  * 结束 / 到期 / 被强制结束时据此标记回切操作者账号而不是回登录页。
  */
-export const IMPERSONATION_STORE_KEY = 'zenith_impersonation';
+export const IMPERSONATION_STORE_KEY = 'arcbase_impersonation';
 
 export const USER_STATUSES = ['enabled', 'disabled'] as const;
 
@@ -38,10 +38,10 @@ export const COMMON_STATUS_OPTIONS: Array<{ value: keyof typeof COMMON_STATUS_LA
   createLabelOptionsFromMap(COMMON_STATUS_LABELS);
 
 // ─── 会员中心（Member Center）────────────────────────────────────────
-/** 会员前台 token 的 localStorage key（与管理员 zenith_token 隔离）*/
-export const MEMBER_TOKEN_KEY = 'zenith_member_token';
+/** 会员前台 token 的 localStorage key（与管理员 arcbase_token 隔离）*/
+export const MEMBER_TOKEN_KEY = 'arcbase_member_token';
 
-export const MEMBER_REFRESH_TOKEN_KEY = 'zenith_member_refresh_token';
+export const MEMBER_REFRESH_TOKEN_KEY = 'arcbase_member_refresh_token';
 
 // ─── 通用比较运算符 ────────────────────────────────────────────────────
 export const BASIC_COMPARISON_OPERATORS = ['eq', 'neq', 'gt', 'gte', 'lt', 'lte'] as const;

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { ReportWidget } from '@zenith/shared/report';
+import type { ReportWidget } from '@arcbase/shared/report';
 
 /** 按表返回行；记录每次 select 命中的表，用来断言查询次数不随引用数增长 */
 const runtime = vi.hoisted(() => ({

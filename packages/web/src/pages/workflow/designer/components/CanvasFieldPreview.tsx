@@ -8,7 +8,7 @@ import { memo, useContext } from 'react';
 import { Input, TextArea, InputNumber, DatePicker, TimePicker, Select, Cascader, RadioGroup, Radio, CheckboxGroup, Switch, Slider, TagInput, Rating, PinCode, Typography, Button } from '@douyinfe/semi-ui';
 import type { CascaderData } from '@douyinfe/semi-ui/lib/es/cascader';
 import { Paperclip, ImageIcon, PenTool } from 'lucide-react';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { toDateFnsToken, dateFormatHasTime, dateFormatHasDay } from '../form-types';
 import { SignatureModeContext } from './form-renderer/contexts';
 

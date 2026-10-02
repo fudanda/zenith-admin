@@ -1,7 +1,7 @@
-import type { EntityRelationFilters, EntityRelationItem, EntityRelationPage, EntityRelationSectionDescriptor, EntityRelationSummaryState } from '@zenith/shared/platform';
-import type { CanonicalEntityType } from '@zenith/shared/platform';
-import type { EntityRef, RelationKey } from '@zenith/shared/core';
-import type { Permission } from '@zenith/shared/core';
+import type { EntityRelationFilters, EntityRelationItem, EntityRelationPage, EntityRelationSectionDescriptor, EntityRelationSummaryState } from '@arcbase/shared/platform';
+import type { CanonicalEntityType } from '@arcbase/shared/platform';
+import type { EntityRef, RelationKey } from '@arcbase/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 import type { JwtPayload } from '../../../middleware/auth';
 import type { DbTransaction } from '../../../db/types';
 import type { SQL } from 'drizzle-orm';

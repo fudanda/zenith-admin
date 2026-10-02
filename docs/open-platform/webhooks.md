@@ -44,16 +44,16 @@ CMS 站点域事件通过同一开放事件总线进入 Webhook 投递链路，�
 
 | Header | 说明 |
 | --- | --- |
-| `X-Zenith-Event` | 事件类型 |
-| `X-Zenith-Event-Id` | 事件 ID |
-| `X-Zenith-Delivery-Id` | 投递记录 ID |
-| `X-Zenith-Attempt` | 当前尝试次数 |
-| `X-Zenith-Signature` | `hmacSha256` 模式下的签名 |
+| `X-ArcBase-Event` | 事件类型 |
+| `X-ArcBase-Event-Id` | 事件 ID |
+| `X-ArcBase-Delivery-Id` | 投递记录 ID |
+| `X-ArcBase-Attempt` | 当前尝试次数 |
+| `X-ArcBase-Signature` | `hmacSha256` 模式下的签名 |
 
 签名格式：
 
 ```text
-X-Zenith-Signature: t=<timestamp>,v1=<hex_hmac_sha256>
+X-ArcBase-Signature: t=<timestamp>,v1=<hex_hmac_sha256>
 ```
 
 签名计算：

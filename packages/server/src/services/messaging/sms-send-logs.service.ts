@@ -11,8 +11,8 @@ import { currentUser } from '../../lib/context';
 import { sendSmsByProvider, renderTemplate } from '../../lib/sms-sender';
 import { ensureSmsTemplateExists } from './sms-templates.service';
 import { findDefaultSmsConfig } from './sms-configs.service';
-import type { SendSmsInput, SendSource, smsSendLogContract } from '@zenith/shared/messaging';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { SendSmsInput, SendSource, smsSendLogContract } from '@arcbase/shared/messaging';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 
 export type SmsSendLogListFilter = Omit<QueryOutputOf<typeof smsSendLogContract.list>, 'page' | 'pageSize'>;
 

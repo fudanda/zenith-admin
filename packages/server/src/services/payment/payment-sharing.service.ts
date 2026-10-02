@@ -1,5 +1,5 @@
-import { paymentSharingContract, paymentSharingReceiverSchema, paymentSharingOrderSchema } from '@zenith/shared/payment';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { paymentSharingContract, paymentSharingReceiverSchema, paymentSharingOrderSchema } from '@arcbase/shared/payment';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 支付分账/分润 Service。
  * 维护分账接收方，针对成功订单发起单笔分账（走渠道 adapter.profitShare 模拟实现），
@@ -25,7 +25,7 @@ import { getAdapter } from '../../lib/payment/registry';
 import { paymentEventBus } from '../../lib/payment-event-bus';
 import logger from '../../lib/logger';
 import { isIndeterminateProviderError } from '../../lib/payment/provider-http';
-import type { CreatePaymentSharingReceiverInput, UpdatePaymentSharingReceiverInput, PaymentSharingOrder, PaymentSharingOrderStatus, PaymentSharingReceiver } from '@zenith/shared/payment';
+import type { CreatePaymentSharingReceiverInput, UpdatePaymentSharingReceiverInput, PaymentSharingOrder, PaymentSharingOrderStatus, PaymentSharingReceiver } from '@arcbase/shared/payment';
 import { assertEffectivePaymentOperation } from './payment-capability-evaluator';
 import { assertPaymentEngineConfig } from './payment-channel-config-resolver';
 import { pickEntity } from '../../lib/entity-map';

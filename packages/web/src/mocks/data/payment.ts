@@ -1,11 +1,11 @@
-import type { PaymentChannelConfig, PaymentOrder, PaymentRefund, PaymentNotifyLog } from '@zenith/shared/payment';
+import type { PaymentChannelConfig, PaymentOrder, PaymentRefund, PaymentNotifyLog } from '@arcbase/shared/payment';
 
 export const PAYMENT_MOCK_SEED_TIME = '2024-01-01 00:00:00';
 const SEED = PAYMENT_MOCK_SEED_TIME;
 
 export const mockPaymentChannels: PaymentChannelConfig[] = [
   {
-    id: 1, name: '微信主商户', channel: 'wechat', channelAccountId: 1, credentialVersion: 1, status: 'enabled', isDefault: true, sandbox: false, notifyUrl: 'https://demo.zenith.dev',
+    id: 1, name: '微信主商户', channel: 'wechat', channelAccountId: 1, credentialVersion: 1, status: 'enabled', isDefault: true, sandbox: false, notifyUrl: 'https://demo.arcbase.dev',
     wechatAppId: 'wx1234567890abcd', wechatMchId: '1600000000', wechatSerialNo: '5F2D...A1B2', wechatPlatformCert: null,
     hasWechatApiV3Key: true, hasWechatPrivateKey: true,
     alipayAppId: null, alipayPublicKey: null, alipaySignType: null, alipayGateway: null, hasAlipayPrivateKey: false,
@@ -13,7 +13,7 @@ export const mockPaymentChannels: PaymentChannelConfig[] = [
     remark: '演示数据', createdAt: SEED, updatedAt: SEED,
   },
   {
-    id: 2, name: '支付宝主商户', channel: 'alipay', channelAccountId: 2, credentialVersion: 1, status: 'enabled', isDefault: true, sandbox: true, notifyUrl: 'https://demo.zenith.dev',
+    id: 2, name: '支付宝主商户', channel: 'alipay', channelAccountId: 2, credentialVersion: 1, status: 'enabled', isDefault: true, sandbox: true, notifyUrl: 'https://demo.arcbase.dev',
     wechatAppId: null, wechatMchId: null, wechatSerialNo: null, wechatPlatformCert: null, hasWechatApiV3Key: false, hasWechatPrivateKey: false,
     alipayAppId: '2021000000000000', alipayPublicKey: 'MIIBIjANBgkqhkiG9w0...', alipaySignType: 'RSA2', alipayGateway: null, hasAlipayPrivateKey: true,
     unionpayMerId: null, unionpayCertId: null, unionpayPublicKey: null, unionpayGateway: null, hasUnionpayPrivateKey: false,

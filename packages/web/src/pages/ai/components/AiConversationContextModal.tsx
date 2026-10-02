@@ -1,5 +1,5 @@
 import { Typography } from '@douyinfe/semi-ui';
-import type { AiFeedbackContext } from '@zenith/shared/ai';
+import type { AiFeedbackContext } from '@arcbase/shared/ai';
 import AppModal from '@/components/AppModal';
 import AiMessagesViewer from './AiMessagesViewer';
 

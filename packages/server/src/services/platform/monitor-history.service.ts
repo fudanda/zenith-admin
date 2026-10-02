@@ -22,7 +22,7 @@ import { getOpenPlatformAlertMetrics } from '../open-platform/open-platform-aler
 import { getSchedulerAlertMetrics } from './scheduler-alert-metrics.service';
 import { getReplayStorageMbMetric } from '../analytics/session-replays.service';
 import { getLogAlertMetrics } from '../../lib/log-metrics';
-import { MONITOR_HISTORY_RANGE_CONFIG, type MonitorHistoryRange, type MonitorMetric } from '@zenith/shared/platform';
+import { MONITOR_HISTORY_RANGE_CONFIG, type MonitorHistoryRange, type MonitorMetric } from '@arcbase/shared/platform';
 
 export type MetricSnapshot = Record<MonitorMetric, number>;
 

@@ -2,7 +2,7 @@ import { cmsModelVersions } from '../../db/schema/cms-design';
 import { createHash } from 'node:crypto';
 import { and, eq, max, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsContentRevisionSnapshotSchema, cmsEditorialStatusAfterPublication, type CmsContentRevisionSnapshot, type CmsRevisionKind } from '@zenith/shared/cms';
+import { cmsContentRevisionSnapshotSchema, cmsEditorialStatusAfterPublication, type CmsContentRevisionSnapshot, type CmsRevisionKind } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsContents, cmsContentTags, cmsContentChannels, cmsContentRelations, cmsContentRevisions, cmsContentWorkingCopies, cmsContentReviewRevisions, cmsContentRevisionApprovals } from '../../db/schema';
 import type { CmsContentRow, CmsContentRevisionRow, CmsContentWorkingCopyRow } from '../../db/schema';
@@ -14,7 +14,7 @@ import { syncCmsResourceRefs } from './cms-resource-refs.service';
 import { contentSearchVector, extendSearchTexts } from './cms-search.service';
 import { claimCmsUniqueModelValues, freezeCmsRevisionDependencies } from './cms-revision-dependencies.service';
 import { normalizeCmsContentDocument } from './cms-document.service';
-import { stableStringify } from '@zenith/shared/core';
+import { stableStringify } from '@arcbase/shared/core';
 
 const DATE_FIELDS = ['scheduledAt', 'expireAt', 'topExpireAt', 'dueAt'] as const;
 

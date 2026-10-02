@@ -19,7 +19,7 @@ import { recordAiRequest, recordAiError } from '../../lib/ai/reliability';
 import { addDailyTokensUsed } from '../../lib/ai/quota';
 import logger from '../../lib/logger';
 import type { ChatMessage, ChatMessagePart } from '../../lib/ai/stream-types';
-import type { AiReasoningLevel } from '@zenith/shared/ai';
+import type { AiReasoningLevel } from '@arcbase/shared/ai';
 import type { AiConversationRow, AiTraceStep } from '../../db/schema';
 
 /** data:image URL → 统一文件存储,返回 managed file id 数组(失败仅告警,不阻塞消息保存) */

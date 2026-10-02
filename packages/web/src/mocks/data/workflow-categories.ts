@@ -1,5 +1,5 @@
-import { SEED_WORKFLOW_CATEGORIES } from '@zenith/shared/seed';
-import type { WorkflowCategory } from '@zenith/shared/workflow';
+import { SEED_WORKFLOW_CATEGORIES } from '@arcbase/shared/seed';
+import type { WorkflowCategory } from '@arcbase/shared/workflow';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

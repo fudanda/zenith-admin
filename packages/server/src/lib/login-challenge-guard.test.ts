@@ -83,7 +83,7 @@ vi.mock('./redis', () => ({
   },
 }));
 
-const guard = createLoginChallengeGuard('zenith:login_');
+const guard = createLoginChallengeGuard('arcbase:login_');
 
 /** 防护阈值：3 次单来源失败即要求验证码，2 个来源即账号级；告警关闭 */
 const POLICY: LoginChallengePolicy = {

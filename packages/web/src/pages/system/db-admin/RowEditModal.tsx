@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, type JSX } from 'react';
 import { Form, Space, Tag, Banner, Tooltip } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form';
 import { Info } from 'lucide-react';
-import type { DbAdminColumn as ColumnInfo } from '@zenith/shared/ops';
+import type { DbAdminColumn as ColumnInfo } from '@arcbase/shared/ops';
 import AppModal from '@/components/AppModal';
 import { useDbAdminInsertRow, useDbAdminUpdateRow } from '@/hooks/queries/db-admin';
 

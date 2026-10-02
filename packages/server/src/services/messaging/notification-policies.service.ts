@@ -18,8 +18,8 @@ import {
   type notificationPolicyContract,
   type ResetNotificationOverrideInput,
   type SaveNotificationOverrideInput,
-} from '@zenith/shared/messaging';
-import type { QueryOutputOf } from '@zenith/shared/core';
+} from '@arcbase/shared/messaging';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { db } from '../../db';
 import {
   notificationDispatches,

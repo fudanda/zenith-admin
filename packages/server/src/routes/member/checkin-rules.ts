@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { checkinRuleContract } from '@zenith/shared/member';
+import { checkinRuleContract } from '@arcbase/shared/member';
 import { validationHook } from '../../lib/openapi-schemas';
 import {
   listCheckinRules,

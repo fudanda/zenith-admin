@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Spin, Toast } from '@douyinfe/semi-ui';
-import { REFRESH_TOKEN_KEY, TOKEN_KEY } from '@zenith/shared/core';
-import { enterpriseAuthContract } from '@zenith/shared/identity';
+import { REFRESH_TOKEN_KEY, TOKEN_KEY } from '@arcbase/shared/core';
+import { enterpriseAuthContract } from '@arcbase/shared/identity';
 import { api } from '@/lib/contract-query';
 import { ApiError } from '@/lib/query';
 import { markPostLoginHome } from '@/lib/post-login';

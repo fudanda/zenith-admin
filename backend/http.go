@@ -1,10 +1,10 @@
-package zenith
+package arcbase
 
 import (
 	"crypto/rand"
 	"crypto/sha256"
 	"encoding/hex"
-	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
+	httptransport "github.com/fudanda/arcbase/backend/internal/transport/http"
 )
 
 var (

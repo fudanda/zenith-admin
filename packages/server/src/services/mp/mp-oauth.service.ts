@@ -4,7 +4,7 @@ import { ensureMpAccountExists, getMpAccountAuthCredential } from './mp-account.
 import { buildWebAuthorizeUrl, exchangeWebAuthCode, getWebAuthUserInfo } from '../../lib/wechat';
 import type { OAuthScope } from '../../lib/wechat';
 import { mapWechatError } from '../../lib/wechat-error';
-import type { BuildMpOAuthUrlInput } from '@zenith/shared/identity';
+import type { BuildMpOAuthUrlInput } from '@arcbase/shared/identity';
 
 /** 构建网页授权跳转链接（管理端工具，便于集成/测试 H5 授权）。 */
 export async function buildMpOAuthUrl(input: BuildMpOAuthUrlInput) {

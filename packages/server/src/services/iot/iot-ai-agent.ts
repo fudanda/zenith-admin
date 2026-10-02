@@ -10,8 +10,8 @@
  */
 import { desc, eq, gte, inArray } from 'drizzle-orm';
 import type { Mastra } from '@mastra/core';
-import type { AiBuiltinAgent } from '@zenith/shared/ai';
-import { IOT_ALARM_LEVEL_LABELS, IOT_ALARM_STATUS_LABELS } from '@zenith/shared/iot';
+import type { AiBuiltinAgent } from '@arcbase/shared/ai';
+import { IOT_ALARM_LEVEL_LABELS, IOT_ALARM_STATUS_LABELS } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import {
   iotAlarms, iotDeviceEvents, iotDevices, iotDeviceState, iotProducts,

@@ -1,4 +1,4 @@
-import { escapeRegExp } from '@zenith/shared/core';
+import { escapeRegExp } from '@arcbase/shared/core';
 export type LogLevel = 'error' | 'warn' | 'info' | 'debug';
 
 export interface MatchRange {

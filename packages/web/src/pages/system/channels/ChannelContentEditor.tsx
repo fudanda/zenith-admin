@@ -10,7 +10,7 @@
  */
 import { Form, Input, TextArea, Typography } from '@douyinfe/semi-ui';
 import DOMPurify from 'dompurify';
-import type { ChannelMessageType } from '@zenith/shared/messaging';
+import type { ChannelMessageType } from '@arcbase/shared/messaging';
 import { AppModal } from '@/components/AppModal';
 import { ImageUploadField } from '@/components/ImageUploadField';
 import RichTextEditor from '@/components/RichTextEditor';

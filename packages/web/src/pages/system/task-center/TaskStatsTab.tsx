@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Card } from '@douyinfe/semi-ui';
 import dayjs from 'dayjs';
-import type { AsyncTaskStats } from '@zenith/shared/tasks';
+import type { AsyncTaskStats } from '@arcbase/shared/tasks';
 import {
   BarChart,
   PieChart,

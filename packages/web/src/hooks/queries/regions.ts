@@ -1,6 +1,6 @@
 import { type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { regionContract } from '@zenith/shared/platform';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { regionContract } from '@arcbase/shared/platform';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

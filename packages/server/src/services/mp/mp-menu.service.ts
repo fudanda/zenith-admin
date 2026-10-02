@@ -6,7 +6,7 @@ import type { MpMenuRow } from '../../db/schema';
 import { tenantScope, currentCreateTenantId } from '../../lib/tenant';
 import { ensureMpAccountExists } from './mp-account.service';
 import { createWechatMenu, getWechatMenu, deleteWechatMenu, WechatApiError } from '../../lib/wechat';
-import { mpMenuSchema, type MpMenuButton, type MpMenu } from '@zenith/shared/mp';
+import { mpMenuSchema, type MpMenuButton, type MpMenu } from '@arcbase/shared/mp';
 import { pickEntity } from '../../lib/entity-map';
 
 function mapWechatError(err: unknown): never {

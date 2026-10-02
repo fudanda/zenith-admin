@@ -1,4 +1,4 @@
-import { opsHostContract, type OpsHost } from '@zenith/shared/ops';
+import { opsHostContract, type OpsHost } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { mockDateTime } from '@/mocks/utils/date';
 import { notFound } from '@/mocks/utils/handlers';

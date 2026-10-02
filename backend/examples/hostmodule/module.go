@@ -1,4 +1,4 @@
-// Package hostmodule demonstrates a business module importing only Zenith's public API.
+// Package hostmodule demonstrates a business module importing only ArcBase's public API.
 package hostmodule
 
 import (
@@ -6,7 +6,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"errors"
-	zenith "github.com/fudanda/zenith-admin/backend"
+	arcbase "github.com/fudanda/arcbase/backend"
 	"net/http"
 	"strconv"
 )
@@ -14,17 +14,17 @@ import (
 //go:embed contract.gen.json
 var contractsJSON []byte
 
-type Module struct{ services zenith.HostServices }
+type Module struct{ services arcbase.HostServices }
 
 func (*Module) Name() string                                      { return "position-host" }
 func (*Module) Dependencies() []string                            { return []string{"organization.positions"} }
 func (*Module) Shutdown(context.Context) error                    { return nil }
-func (m *Module) BindServices(services zenith.HostServices) error { m.services = services; return nil }
-func (*Module) Extension() zenith.ExtensionDefinition {
-	return zenith.ExtensionDefinition{Pages: []zenith.ExtensionPage{{ID: "positions", Path: "/extensions/position-host/positions", Permission: "system:position:list"}}, Permissions: []string{"host:position-host:create"}}
+func (m *Module) BindServices(services arcbase.HostServices) error { m.services = services; return nil }
+func (*Module) Extension() arcbase.ExtensionDefinition {
+	return arcbase.ExtensionDefinition{Pages: []arcbase.ExtensionPage{{ID: "positions", Path: "/extensions/position-host/positions", Permission: "system:position:list"}}, Permissions: []string{"host:position-host:create"}}
 }
-func (m *Module) Initialize(_ context.Context, reg *zenith.Registrar) error {
-	var definitions []zenith.HostContract
+func (m *Module) Initialize(_ context.Context, reg *arcbase.Registrar) error {
+	var definitions []arcbase.HostContract
 	if err := json.Unmarshal(contractsJSON, &definitions); err != nil {
 		return err
 	}
@@ -34,7 +34,7 @@ func (m *Module) Initialize(_ context.Context, reg *zenith.Registrar) error {
 		if !ok {
 			return errors.New("unknown host operation")
 		}
-		if err := zenith.RegisterHostContract(reg, op, handler); err != nil {
+		if err := arcbase.RegisterHostContract(reg, op, handler); err != nil {
 			return err
 		}
 	}
@@ -50,27 +50,27 @@ func (m *Module) list(w http.ResponseWriter, r *http.Request) {
 	}
 	// This example exposes keyword and pagination only; additional business filters
 	// should be added to both its contract and its service input together.
-	result, err := m.services.Positions.List(r.Context(), zenith.PositionFilter{Keyword: r.URL.Query().Get("keyword"), Status: r.URL.Query().Get("status")}, page, size)
+	result, err := m.services.Positions.List(r.Context(), arcbase.PositionFilter{Keyword: r.URL.Query().Get("keyword"), Status: r.URL.Query().Get("status")}, page, size)
 	if err != nil {
-		zenith.Fail(w, 503, "query_failed", "岗位查询失败")
+		arcbase.Fail(w, 503, "query_failed", "岗位查询失败")
 		return
 	}
-	zenith.Respond(w, 200, result)
+	arcbase.Respond(w, 200, result)
 }
 func (m *Module) create(w http.ResponseWriter, r *http.Request) {
-	input := zenith.PositionInput{Status: "enabled"}
-	if err := zenith.DecodeJSON(r, &input); err != nil {
-		zenith.Fail(w, 400, "invalid_request", err.Error())
+	input := arcbase.PositionInput{Status: "enabled"}
+	if err := arcbase.DecodeJSON(r, &input); err != nil {
+		arcbase.Fail(w, 400, "invalid_request", err.Error())
 		return
 	}
 	result, err := m.services.Positions.Create(r.Context(), input)
 	if err != nil {
-		if errors.Is(err, zenith.ErrForbidden) {
-			zenith.Fail(w, 403, "forbidden", "没有岗位写权限")
+		if errors.Is(err, arcbase.ErrForbidden) {
+			arcbase.Fail(w, 403, "forbidden", "没有岗位写权限")
 			return
 		}
-		zenith.Fail(w, 409, "position_conflict", "岗位保存失败")
+		arcbase.Fail(w, 409, "position_conflict", "岗位保存失败")
 		return
 	}
-	zenith.Respond(w, 201, result)
+	arcbase.Respond(w, 201, result)
 }

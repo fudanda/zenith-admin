@@ -1,6 +1,6 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, asc, eq, gte, inArray, isNotNull, isNull, or, sql, type SQL } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import type {
   AdminUpdateDriveSpaceInput,
   CreateDepartmentDriveSpaceInput,
@@ -10,8 +10,8 @@ import type {
   DriveSpaceMember,
   SaveDriveSpaceMembersInput,
   UpdateDriveSpaceInput,
-} from '@zenith/shared/drive';
-import { driveAdminContract, driveSpaceContract } from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
+import { driveAdminContract, driveSpaceContract } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import { departments, driveFileVersions, driveNodes, driveSpaceMembers, driveSpaces, users, type DriveSpaceRow } from '../../db/schema';

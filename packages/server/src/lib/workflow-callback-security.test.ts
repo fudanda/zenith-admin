@@ -59,7 +59,7 @@ describe('assertWorkflowCallbackSignature', () => {
 
   it('缺少签名头 → 401', () => {
     expect(() => assertWith({ signatureHeader: undefined })).toThrow(
-      expect.objectContaining({ status: 401, message: '缺少签名头 X-Zenith-Signature' }),
+      expect.objectContaining({ status: 401, message: '缺少签名头 X-ArcBase-Signature' }),
     );
   });
 

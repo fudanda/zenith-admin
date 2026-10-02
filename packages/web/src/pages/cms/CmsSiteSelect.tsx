@@ -3,7 +3,7 @@ import { TreeSelect } from '@douyinfe/semi-ui';
 import type { TreeNodeData } from '@douyinfe/semi-ui/lib/es/tree';
 import { useEffect, useMemo, useRef } from 'react';
 import { useAllCmsSites } from '@/hooks/queries/cms';
-import type { CmsSite } from '@zenith/shared/cms';
+import type { CmsSite } from '@arcbase/shared/cms';
 
 interface CmsSiteSelectProps {
   value: number | undefined;
@@ -12,7 +12,7 @@ interface CmsSiteSelectProps {
 }
 
 /** 当前站点选择的持久化 key：全部 CMS 管理页共享同一份 */
-const CMS_SITE_STORAGE_KEY = 'zenith_cms_site';
+const CMS_SITE_STORAGE_KEY = 'arcbase_cms_site';
 
 function readStoredSiteId(): number | undefined {
   try {

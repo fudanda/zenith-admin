@@ -9,7 +9,7 @@ import { and, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
 import { buildListResult } from '../../lib/list-query';
-import type { CreatePushConfigInput, TestPushSendInput, UpdatePushConfigInput, pushConfigContract } from '@zenith/shared/messaging';
+import type { CreatePushConfigInput, TestPushSendInput, UpdatePushConfigInput, pushConfigContract } from '@arcbase/shared/messaging';
 import { db } from '../../db';
 import { pushConfigs, pushSendLogs, type PushConfigRow } from '../../db/schema';
 import { formatTimestamps } from '../../lib/datetime';
@@ -18,8 +18,8 @@ import { sendPushByProvider } from '../../lib/push-sender';
 import { clearInvalidPushRegistrations } from '../ops/client-devices.service';
 import { buildWhere, keywordCondition } from '../../lib/where-helpers';
 import { pageOffset } from '../../lib/pagination';
-import { maskSecret, SECRET_PLACEHOLDER } from '@zenith/shared/core';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { maskSecret, SECRET_PLACEHOLDER } from '@arcbase/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 
 type PushConfigWithApp = PushConfigRow & { app?: { name: string } | null };
 

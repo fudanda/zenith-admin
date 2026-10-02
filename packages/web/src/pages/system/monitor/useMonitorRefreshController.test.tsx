@@ -7,7 +7,7 @@ import {
   type MonitorHistoryPoint,
   type MonitorHistoryRange,
   type MonitorSnapshot,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
 import { request } from '@/utils/request';
 import { readSseStream } from '@/utils/streaming';

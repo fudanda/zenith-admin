@@ -1,4 +1,4 @@
-import { terminalSessionContract, type TerminalSession } from '@zenith/shared/ops';
+import { terminalSessionContract, type TerminalSession } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { notFound } from '@/mocks/utils/handlers';
 import { mockDateTimeOffset } from '@/mocks/utils/date';

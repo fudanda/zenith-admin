@@ -1,5 +1,5 @@
-import { announcementContract } from '@zenith/shared/messaging';
-import type { AnnouncementAttachment, AnnouncementDetail, AnnouncementReadStatsUser } from '@zenith/shared/messaging';
+import { announcementContract } from '@arcbase/shared/messaging';
+import type { AnnouncementAttachment, AnnouncementDetail, AnnouncementReadStatsUser } from '@arcbase/shared/messaging';
 import { mock } from '@/mocks/utils/contract';
 import { mockAnnouncements, getNextAnnouncementId } from '@/mocks/data/announcements';
 import { mockManagedFiles } from '@/mocks/handlers/files';

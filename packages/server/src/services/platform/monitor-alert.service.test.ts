@@ -108,7 +108,7 @@ describe('setRuleEnabled', () => {
     const current = alertRule();
     dbMock.select
       .mockReturnValueOnce(createChain([current]))
-      .mockReturnValueOnce(createChain([{ id: 1, email: 'admin@zenith.dev' }]));
+      .mockReturnValueOnce(createChain([{ id: 1, email: 'admin@arcbase.dev' }]));
 
     const result = await setRuleEnabled(current.id, true);
 
@@ -178,7 +178,7 @@ describe('setRulesEnabled', () => {
     dbMock.select
       .mockReturnValueOnce(createChain([valid]))
       .mockReturnValueOnce(createChain([invalid]))
-      .mockReturnValueOnce(createChain([{ id: 1, email: 'admin@zenith.dev' }]));
+      .mockReturnValueOnce(createChain([{ id: 1, email: 'admin@arcbase.dev' }]));
 
     await expect(setRulesEnabled([7, 8], true)).rejects.toMatchObject({
       message: '站内信渠道必须选择接收用户',

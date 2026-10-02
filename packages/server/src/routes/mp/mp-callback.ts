@@ -17,7 +17,7 @@ import { onFanInboundMessage } from '../../services/mp/mp-kf-session.service';
 import { handleTemplateSendReceipt } from '../../services/mp/mp-template.service';
 import { verifyWechatSignature, msgSignature, timingSafeCompare, decryptWechatMessage, encryptWechatMessage, parseWechatXml, buildWechatXml, buildPassiveReplyXml, summarizePassiveReply } from '../../lib/wechat';
 import logger from '../../lib/logger';
-import type { MpMessageType } from '@zenith/shared/mp';
+import type { MpMessageType } from '@arcbase/shared/mp';
 
 const router = new OpenAPIHono({ defaultHook: validationHook });
 

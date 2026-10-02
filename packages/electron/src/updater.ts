@@ -13,7 +13,7 @@
  *
  * 更新服务器地址是信任根，**渲染进程不能改写**（否则页面内任意脚本即可把整个客户端指向攻击者）。
  * 来源优先级：userData/update-config.json（本机运维覆盖）> 打包时写入 package.json 的
- * updateServer（electron-builder extraMetadata，来自 ZENITH_UPDATE_SERVER）> 开发模式下的环境变量。
+ * updateServer（electron-builder extraMetadata，来自 ARCBASE_UPDATE_SERVER）> 开发模式下的环境变量。
  * 除 localhost 开发地址外强制 https，制品下载地址必须与更新服务器同源。
  *
  * 灰度与统计：deviceId 首次运行生成并持久化，check / 下载请求都携带；
@@ -27,7 +27,7 @@ import path from 'node:path';
 import { autoUpdater } from 'electron-updater';
 import { safeExtractZip } from './safe-unzip';
 
-const APP_KEY = 'zenith-desktop';
+const APP_KEY = 'arcbase-desktop';
 const CHECK_INTERVAL_MS = 4 * 60 * 60 * 1000; // 4 小时
 const INITIAL_DELAY_MS = 15 * 1000;           // 启动后延迟，避免抢占首屏
 
@@ -136,7 +136,7 @@ function getConfig(): UpdateConfig {
   const fileConfig = readJsonSync<UpdateConfig>(configPath()) ?? {};
   const serverUrl = sanitizeServerUrl(fileConfig.serverUrl)
     || sanitizeServerUrl(bundledUpdateServer())
-    || (app.isPackaged ? '' : sanitizeServerUrl(process.env.ZENITH_UPDATE_SERVER));
+    || (app.isPackaged ? '' : sanitizeServerUrl(process.env.ARCBASE_UPDATE_SERVER));
   const channel = fileConfig.channel && CHANNELS.has(fileConfig.channel) ? fileConfig.channel : 'stable';
   return { serverUrl, channel };
 }
@@ -405,7 +405,7 @@ let checking = false;
 async function checkForUpdates(win: BrowserWindow | null, trigger: 'auto' | 'manual'): Promise<void> {
   const { serverUrl, channel } = getConfig();
   if (!serverUrl) {
-    if (trigger === 'manual') console.warn('[updater] 未配置更新服务器地址（userData/update-config.json、打包时 ZENITH_UPDATE_SERVER 或开发环境变量），且必须为 https');
+    if (trigger === 'manual') console.warn('[updater] 未配置更新服务器地址（userData/update-config.json、打包时 ARCBASE_UPDATE_SERVER 或开发环境变量），且必须为 https');
     return;
   }
   if (checking) return;

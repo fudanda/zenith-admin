@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { opsOverviewContract } from '@zenith/shared/ops';
+import { opsOverviewContract } from '@arcbase/shared/ops';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getOpsOverview } from '../../services/ops/ops-overview.service';

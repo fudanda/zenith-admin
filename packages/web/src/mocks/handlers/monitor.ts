@@ -7,7 +7,7 @@ import {
   type MonitorSnapshot,
   type MonitorTimeseriesPoint,
   type MonitorWsMetrics,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import dayjs from 'dayjs';
 
@@ -15,7 +15,7 @@ const baseStatus: MonitorSnapshot = {
   os: {
     platform: 'linux',
     arch: 'x64',
-    hostname: 'zenith-demo',
+    hostname: 'arcbase-demo',
     release: '5.15.0',
     uptimeSeconds: 86400,
   },
@@ -170,7 +170,7 @@ const baseStatus: MonitorSnapshot = {
     total4xx: 18, total5xx: 2, p50: 24.3, p95: 89.2, p99: 154.6, max: 421.8,
   },
   database: {
-    name: 'zenith_admin',
+    name: 'arcbase_admin',
     size: 8 * 1024 * 1024,
     activeConnections: 3,
     totalConnections: 10,

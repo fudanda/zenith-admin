@@ -1,6 +1,6 @@
 import { desc, eq, inArray, isNotNull, lte } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { mpBroadcastContract, mpBroadcastSchema } from '@zenith/shared/mp';
+import { mpBroadcastContract, mpBroadcastSchema } from '@arcbase/shared/mp';
 import { db } from '../../db';
 import { mpAccounts, mpBroadcasts, mpTags } from '../../db/schema';
 import { requireRow } from '../../lib/db-assert';

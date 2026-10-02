@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { deleteAction, ListSearchToolbar } from '@/components/list-page';
 import { Button, Form, Image, Select, Tag, Typography } from '@douyinfe/semi-ui';
 import { Plus } from 'lucide-react';
-import { MP_QRCODE_TYPE_OPTIONS, type CreateMpQrcodeInput, type MpQrcode, type MpQrcodeType, mpQrcodeContract } from '@zenith/shared/mp';
+import { MP_QRCODE_TYPE_OPTIONS, type CreateMpQrcodeInput, type MpQrcode, type MpQrcodeType, mpQrcodeContract } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';

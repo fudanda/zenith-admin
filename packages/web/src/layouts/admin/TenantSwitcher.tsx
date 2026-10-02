@@ -1,6 +1,6 @@
 import { Divider, Select } from '@douyinfe/semi-ui';
 import { Building2 } from 'lucide-react';
-import type { TenantOption } from '@zenith/shared/identity';
+import type { TenantOption } from '@arcbase/shared/identity';
 
 // 平台视角租户切换（仅平台管理员且有可用租户时由父级条件渲染）
 export function TenantSwitcher({

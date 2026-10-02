@@ -1,5 +1,5 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type BodyOf, type QueryOf } from '@zenith/shared/core';
+import { resourceKeyOf, type BodyOf, type QueryOf } from '@arcbase/shared/core';
 import {
   apiScopeContract,
   appWebhookContract,
@@ -9,7 +9,7 @@ import {
   paymentWebhookContract,
   ratePlanContract,
   type AppWebhookContract,
-} from '@zenith/shared/open-platform';
+} from '@arcbase/shared/open-platform';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { useSaveMutation, contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 

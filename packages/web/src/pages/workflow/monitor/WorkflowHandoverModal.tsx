@@ -7,7 +7,7 @@
 import { useRef, useState } from 'react';
 import { Banner, Checkbox, Form, Select, Table, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
-import type { WorkflowHandoverPreview, WorkflowHandoverResult } from '@zenith/shared/workflow';
+import type { WorkflowHandoverPreview, WorkflowHandoverResult } from '@arcbase/shared/workflow';
 import AppModal from '@/components/AppModal';
 import { useUserOptions } from '@/hooks/useUserOptions';
 import { useWorkflowHandover, useWorkflowHandoverPreview } from '@/hooks/queries/workflow-monitor';

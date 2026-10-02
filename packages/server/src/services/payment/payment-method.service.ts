@@ -10,8 +10,8 @@ import { config } from '../../config';
 import { requireRow } from '../../lib/db-assert';
 import { currentUser } from '../../lib/context';
 import { getTenantScopeId, exactTenantCondition } from '../../lib/tenant';
-import { paymentMethodConfigSchema, type UpdatePaymentMethodConfigInput } from '@zenith/shared/payment';
-import type { PaymentMethod, PaymentMethodConfig } from '@zenith/shared/payment';
+import { paymentMethodConfigSchema, type UpdatePaymentMethodConfigInput } from '@arcbase/shared/payment';
+import type { PaymentMethod, PaymentMethodConfig } from '@arcbase/shared/payment';
 import { pickEntity } from '../../lib/entity-map';
 
 export function mapMethodConfig(row: PaymentMethodConfigRow): PaymentMethodConfig {

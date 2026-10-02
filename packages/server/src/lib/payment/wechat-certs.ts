@@ -46,7 +46,7 @@ async function fetchCertificates(ctx: AdapterContext): Promise<Map<string, strin
 
   const resp = await httpGet(`${WECHAT_BASE}${urlPath}`, {
     ...providerHttpOptions(),
-    headers: { Authorization: auth, Accept: 'application/json', 'User-Agent': 'zenith-admin' },
+    headers: { Authorization: auth, Accept: 'application/json', 'User-Agent': 'arcbase' },
   });
   const text = await resp.text();
   if (!resp.ok) {

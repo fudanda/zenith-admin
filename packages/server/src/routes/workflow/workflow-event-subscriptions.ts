@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { workflowEventSubscriptionContract } from '@zenith/shared/workflow';
+import { workflowEventSubscriptionContract } from '@arcbase/shared/workflow';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

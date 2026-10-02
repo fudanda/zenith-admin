@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Modal, Spin, Toast, AudioPlayer, VideoPlayer, Typography } from '@douyinfe/semi-ui';
 import { X } from 'lucide-react';
-import { fileContract } from '@zenith/shared/platform';
+import { fileContract } from '@arcbase/shared/platform';
 import { contractKey } from '@/lib/contract-query';
 import { useThemeController } from '@/providers/theme-controller';
 import { fetchManagedFileBlob, resolveFileMimeType, isSpreadsheetFile, isWordFile, isPresentationFile, isOfdFile, isEmailFile, isMindMapFile, isDrawingFile, isDataAssetFile, isGeoFile, isMarkdownFile, isPlainTextFile, isArchiveFile, isJsonFile, isSvgFile, isCodeFile, getFileTypeIcon } from '@/utils/file-utils';
@@ -348,11 +348,11 @@ export default function FilePreviewModal({
   if (previewData?.kind === 'audio') {
     // 音频固定在页面底部以播放条形式呈现，避免在窄弹窗内控件（播放键）被裁切
     return createPortal(
-      <div className="zenith-audio-dock" role="region" aria-label="音频播放器">
-        <div className="zenith-audio-dock__inner">
-          <div className="zenith-audio-dock__player">
+      <div className="arcbase-audio-dock" role="region" aria-label="音频播放器">
+        <div className="arcbase-audio-dock__inner">
+          <div className="arcbase-audio-dock__player">
             <AudioPlayer
-              className="zenith-audio-preview"
+              className="arcbase-audio-preview"
               audioUrl={{ src: previewData.url, title: fileName }}
               theme={isDark ? 'dark' : 'light'}
               autoPlay
@@ -361,7 +361,7 @@ export default function FilePreviewModal({
           </div>
           <button
             type="button"
-            className="zenith-audio-dock__close"
+            className="arcbase-audio-dock__close"
             onClick={handleClose}
             aria-label="关闭音频播放器"
           >

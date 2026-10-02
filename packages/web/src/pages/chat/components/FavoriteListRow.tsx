@@ -1,6 +1,6 @@
 import { Typography, List as SemiList } from '@douyinfe/semi-ui';
 import { formatConvTime } from '@/utils/date';
-import type { ChatConversation, ChatMessage } from '@zenith/shared/chat';
+import type { ChatConversation, ChatMessage } from '@arcbase/shared/chat';
 import { getMessageSummary } from '../utils';
 import type { LeftPaneContextMenuState, Setter } from '../types';
 

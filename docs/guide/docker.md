@@ -11,7 +11,7 @@ Docker Compose 会启动 PostgreSQL、Redis、一次性迁移、API、worker 与
 
 ```bash
 git clone https://github.com/iwangbowen/zenith-admin.git
-cd zenith-admin
+cd arcbase
 
 cp .env.docker .env
 # 一次生成四个必填项并填入 .env（JWT_SECRET / FIELD_ENCRYPTION_KEY / POSTGRES_PASSWORD / REDIS_PASSWORD 均无默认值，留空无法启动）
@@ -49,8 +49,8 @@ Compose 默认只对外映射 `80`（Web）；API 端口 `3300` 默认绑定宿�
 ```text
 postgres ─┐
 redis    ─┤──→ migrate（一次性迁移）
-          ├──→ api × N (ZENITH_ROLES=api, Node.js :3300) ──→ web (Nginx :80)
-          └──→ worker × M (ZENITH_ROLES=worker, probe :3301)
+          ├──→ api × N (ARCBASE_ROLES=api, Node.js :3300) ──→ web (Nginx :80)
+          └──→ worker × M (ARCBASE_ROLES=worker, probe :3301)
 
 api / worker → Redis pub/sub → api  （WebSocket / IoT 推送扇出）
 api ⇄ api_storage ⇄ worker       （本地文件、上传暂存、CMS 静态产物）
@@ -58,18 +58,18 @@ api ⇄ api_storage ⇄ worker       （本地文件、上传暂存、CMS 静态
 
 | 服务 | 镜像 / 阶段 | 说明 |
 | --- | --- | --- |
-| `postgres` | `postgres:16-alpine` | 数据库，库名 `zenith_admin`；Compose 启动时预加载 `pg_stat_statements` |
+| `postgres` | `postgres:16-alpine` | 数据库，库名 `arcbase_admin`；Compose 启动时预加载 `pg_stat_statements` |
 | `redis` | `redis:7-alpine` | 会话、限流、幂等、黑名单与 WS 扇出状态；始终 `requirepass` + AOF |
 | `migrate` | Dockerfile `server` stage | 一次性执行 `node dist/db/migrate.js`，`restart: "no"` |
-| `api` | Dockerfile `server` stage | Hono 后端，`ZENITH_ROLES=api`，端口 3300，健康检查 `/api/health`；以非 root 用户 `node` 运行 |
-| `worker` | Dockerfile `server` stage | 后台任务进程，`ZENITH_ROLES=worker`，健康检查 `http://localhost:3301/health`，默认不发布端口 |
+| `api` | Dockerfile `server` stage | Hono 后端，`ARCBASE_ROLES=api`，端口 3300，健康检查 `/api/health`；以非 root 用户 `node` 运行 |
+| `worker` | Dockerfile `server` stage | 后台任务进程，`ARCBASE_ROLES=worker`，健康检查 `http://localhost:3301/health`，默认不发布端口 |
 | `web` | Dockerfile `web` stage | Nginx 静态站点，代理 `/api` 与 `/api/ws` |
 
 ## Dockerfile 构建流程
 
 | 阶段 | 基础镜像 | 行为 |
 | --- | --- | --- |
-| `builder` | `node:24-alpine` | 安装全量依赖，构建 shared、analytics-sdk、server（含 PDF 字体子集生成）、web，按 `PDF_FONT` 构建参数用 `packages/server/scripts/package-server.mjs` 组装 server 部署目录，执行 `docker/build-studio.mjs`，最后用 `docker/patch-shared-exports.mjs` 把 `@zenith/shared` 的 exports 指向编译产物 |
+| `builder` | `node:24-alpine` | 安装全量依赖，构建 shared、analytics-sdk、server（含 PDF 字体子集生成）、web，按 `PDF_FONT` 构建参数用 `packages/server/scripts/package-server.mjs` 组装 server 部署目录，执行 `docker/build-studio.mjs`，最后用 `docker/patch-shared-exports.mjs` 把 `@arcbase/shared` 的 exports 指向编译产物 |
 | `server` | `node:24-alpine` | 安装生产依赖，复制组装好的 server dist、Drizzle 迁移、PDF 字体与 shared dist，写入 entrypoint；entrypoint 传入参数时直接执行该命令（`migrate` 服务据此运行 `node dist/db/migrate.js`），否则启动 `node dist/index.js`；`storage` / `logs` 归属 `node` 后切换 `USER node` |
 | `web` | `nginx:1.30-alpine` | 复制 `packages/web/dist` 与 `docker/nginx.conf` |
 
@@ -78,7 +78,7 @@ api ⇄ api_storage ⇄ worker       （本地文件、上传暂存、CMS 静态
 ::: details 为什么产物可以用纯 Node 运行？
 源码中的相对导入不带扩展名（依赖 tsx / Vite 解析），而 Node.js 原生 ESM 要求显式 `.js` 扩展名。
 shared 与 server 的 `build` 脚本在 `tsc` 之后运行 `tsc-alias --resolve-full-paths`，把 dist 中的相对导入改写为完整路径；
-`docker/patch-shared-exports.mjs` 再把 `@zenith/shared` 的 `exports` 从 `./src/*.ts` 机械改写为 `./dist/*.js`。
+`docker/patch-shared-exports.mjs` 再把 `@arcbase/shared` 的 `exports` 从 `./src/*.ts` 机械改写为 `./dist/*.js`。
 两步之后 `node dist/db/migrate.js`、`node dist/index.js` 与 `node dist/db/seed.js` 均可脱离 tsx 直接运行。
 :::
 
@@ -104,7 +104,7 @@ shared 与 server 的 `build` 脚本在 `tsc` 之后运行 `tsc-alias --resolve-
 | `PDF_FONT` | `subset` | 构建参数：镜像携带的 PDF 导出字体规格。`subset` 为 Noto Sans SC 子集（约 2.5MB，GB 2312 ∪ 通用规范汉字表 + 常用符号），`full` 为全量（约 8MB，含繁体 / 生僻字）；改后需 `docker compose build` |
 | `WORKER_SHUTDOWN_GRACE_MS` | `120000` | worker 优雅停机硬截止（同时作为 pg-boss 等待在飞作业收尾的预算）；Compose 为 worker 设 `stop_grace_period: 130s`、为 api 设 `25s`（api 硬截止 15s），均须大于对应进程的硬截止 |
 
-`JWT_SECRET` / `FIELD_ENCRYPTION_KEY` / `POSTGRES_PASSWORD` / `REDIS_PASSWORD` 任一留空时 `docker compose up` 直接失败（前两者为占位值时 API 启动也会失败）。生产环境请按实际域名设置 `ALLOWED_ORIGINS`。Compose 已固定 api / worker 的 `ZENITH_ROLES`，通常无需在 `.env` 中覆盖。使用外部 Redis 时整体覆盖 `REDIS_URL`（含口令）即可。
+`JWT_SECRET` / `FIELD_ENCRYPTION_KEY` / `POSTGRES_PASSWORD` / `REDIS_PASSWORD` 任一留空时 `docker compose up` 直接失败（前两者为占位值时 API 启动也会失败）。生产环境请按实际域名设置 `ALLOWED_ORIGINS`。Compose 已固定 api / worker 的 `ARCBASE_ROLES`，通常无需在 `.env` 中覆盖。使用外部 Redis 时整体覆盖 `REDIS_URL`（含口令）即可。
 
 API 容器以非 root 用户 `node` 运行；如需在容器内访问宿主机 Docker socket（运维模块的容器管理），请在自定义 override 中挂载 socket 并通过 `group_add` 加入 socket 所属组，不要改回 root。
 
@@ -153,7 +153,7 @@ docker compose -f docker-compose.yml -f docker-compose.single.yml up -d
 docker compose exec api sh
 
 # 连接数据库
-docker compose exec postgres psql -U postgres -d zenith_admin
+docker compose exec postgres psql -U postgres -d arcbase_admin
 ```
 
 ## 升级版本
@@ -189,8 +189,8 @@ npm run dev
 
 ```bash
 # 备份 PostgreSQL
-docker compose exec postgres pg_dump -U postgres zenith_admin > backup.sql
+docker compose exec postgres pg_dump -U postgres arcbase_admin > backup.sql
 
 # 恢复 PostgreSQL
-docker compose exec -T postgres psql -U postgres zenith_admin < backup.sql
+docker compose exec -T postgres psql -U postgres arcbase_admin < backup.sql
 ```

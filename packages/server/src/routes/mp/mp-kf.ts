@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { mpKfAccountContract } from '@zenith/shared/mp';
+import { mpKfAccountContract } from '@arcbase/shared/mp';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

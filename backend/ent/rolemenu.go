@@ -8,7 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/rolemenu"
+	"github.com/fudanda/arcbase/backend/ent/rolemenu"
 )
 
 // RoleMenu is the model entity for the RoleMenu schema.

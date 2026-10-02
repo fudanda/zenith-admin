@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { Button, Divider, Tag, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { RotateCcw } from 'lucide-react';
-import type { PreferencePath } from '@zenith/shared/preferences';
+import type { PreferencePath } from '@arcbase/shared/preferences';
 import { usePreferences } from '@/hooks/usePreferences';
 import { SlotProbe } from '@/components/rendered-slot';
 import { useRenderedSlot } from '@/hooks/useRenderedSlot';

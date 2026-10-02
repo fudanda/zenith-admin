@@ -2,7 +2,7 @@
 
 package runtime
 
-// The schema-stitching logic is generated in github.com/fudanda/zenith-admin/backend/ent/runtime.go
+// The schema-stitching logic is generated in github.com/fudanda/arcbase/backend/ent/runtime.go
 
 const (
 	Version = "v0.14.6"                                         // Version of ent codegen.

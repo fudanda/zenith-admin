@@ -1,6 +1,6 @@
 # 会话中心
 
-Zenith Admin 的会话中心（即时通讯）提供后台用户之间的单聊、群聊、消息搜索、媒体消息、表情回应、投票、卡片消息、定时消息、常用语、自定义表情、Webhook 机器人和 WebSocket 实时同步能力。后端路由挂载在 `/api/chat`、`/api/chat-bots`、`/api/public/chat/webhook` 与 `/api/ws`，前端页面菜单为「会话中心」（路径 `/chat`），浮动快捷入口由 `QuickChatButton` 提供。
+ArcBase 的会话中心（即时通讯）提供后台用户之间的单聊、群聊、消息搜索、媒体消息、表情回应、投票、卡片消息、定时消息、常用语、自定义表情、Webhook 机器人和 WebSocket 实时同步能力。后端路由挂载在 `/api/chat`、`/api/chat-bots`、`/api/public/chat/webhook` 与 `/api/ws`，前端页面菜单为「会话中心」（路径 `/chat`），浮动快捷入口由 `QuickChatButton` 提供。
 
 ---
 
@@ -12,7 +12,7 @@ Zenith Admin 的会话中心（即时通讯）提供后台用户之间的单聊�
 | 群管理 | 创建群聊、添加 / 移除成员、退出会话、群主转移、群管理员、群名称与群公告维护、群公告历史、邀请链接、入群审批、成员禁言与全员禁言 |
 | 消息能力 | 消息类型为 `text`、`image`、`file`、`system`、`forward`、`vote`、`voice`、`card`、`video`；支持回复、撤回、编辑、转发、个人收藏、会话级置顶、仅对自己隐藏、表情回应、投票 |
 | 效率工具 | 常用语（快捷回复短语）、定时消息、自定义表情收藏 |
-| 草稿与状态 | 输入草稿保存在浏览器 `localStorage` 的 `zenith_chat_drafts`；会话列表展示未读数、@我未读、在线状态与最近在线时间 |
+| 草稿与状态 | 输入草稿保存在浏览器 `localStorage` 的 `arcbase_chat_drafts`；会话列表展示未读数、@我未读、在线状态与最近在线时间 |
 | 媒体库 | 通过会话内消息搜索聚合图片、文件与链接；图片使用预览灯箱，文件支持可预览类型的预览入口 |
 | 搜索与导出 | 支持会话内搜索、上下文定位、收藏消息列表、跨会话全局搜索；持 `chat:message:export` 权限可经导出中心导出会话聊天记录 |
 | 快捷聊天 | 非 `/chat` 页面展示浮动快捷聊天按钮，支持未读角标、快捷面板与跳转完整聊天页 |
@@ -196,7 +196,7 @@ Zenith Admin 的会话中心（即时通讯）提供后台用户之间的单聊�
 
 ```text
 GET /api/ws
-Sec-WebSocket-Protocol: zenith-auth, <accessToken>
+Sec-WebSocket-Protocol: arcbase-auth, <accessToken>
 ```
 
 服务端在握手时按管理端口径校验 JWT（拒绝会员 / refresh token，实时校验用户与租户状态）并检查吊销黑名单。鉴权失败关闭连接，关闭码为 `4001`。入站帧经 zod 校验并限速，`chat:typing` 的发送者身份由服务端覆写且要求是会话成员，详见 [WebSocket 事件清单](../backend/websocket-events)。连接建立后，`ws-manager` 按 socket 逐条登记，并分别按 `tokenId`（同一登录会话的多个标签页）与 `userId`（用户的全部多端连接）维护索引：按会话强制下线会关闭该 token 的全部标签页，按用户推送会到达每一条连接。
@@ -264,9 +264,9 @@ WebSocket 断开期间仍可通过 HTTP 接口发送消息。重连成功后，�
 
 种子数据会写入系统机器人用户：
 
-- `username = zenith-assistant`
-- `nickname = Zenith 助手`
-- `email = assistant@zenith.dev`
+- `username = arcbase-assistant`
+- `nickname = ArcBase 助手`
+- `email = assistant@arcbase.dev`
 - `is_bot = true`
 
 用户搜索会排除 `is_bot = true` 的用户。`chat-notify.service.ts` 通过系统机器人与目标用户建立单聊，并投递 `card` 类型消息，供工作流、告警等场景使用。

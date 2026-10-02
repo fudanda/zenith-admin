@@ -1,9 +1,9 @@
-import { systemSchedulerContract } from '@zenith/shared/platform';
+import { systemSchedulerContract } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';
 import { removeWhere } from '@/mocks/utils/array';
-import type { SystemSchedulerNode, SystemSchedulerRun, SystemSchedulerTask } from '@zenith/shared/platform';
+import type { SystemSchedulerNode, SystemSchedulerRun, SystemSchedulerTask } from '@arcbase/shared/platform';
 import { mockDateTime, mockDateTimeOffset } from '@/mocks/utils/date';
 import { matchesFilter, withinDateRange } from '@/mocks/utils/filter';
 

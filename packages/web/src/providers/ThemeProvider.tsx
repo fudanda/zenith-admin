@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { flushSync } from 'react-dom';
-import { canOverridePreference, isScheduledDarkNow, msUntilScheduleBoundary } from '@zenith/shared/preferences';
+import { canOverridePreference, isScheduledDarkNow, msUntilScheduleBoundary } from '@arcbase/shared/preferences';
 import { readPreferenceCache, readCachedPreferences, writePreferenceCache } from '@/lib/preference-cache';
 import { useTheme, applyThemeToDom, type ThemeMode } from '@/hooks/useTheme';
 import { usePrefersDark } from '@/hooks/useMediaQuery';

@@ -1,7 +1,7 @@
 import postgres from 'postgres';
 import logger from '../lib/logger';
 
-const sql = postgres('postgresql://postgres:postgres@localhost:5432/zenith_admin', { max: 1 });
+const sql = postgres('postgresql://postgres:postgres@localhost:5432/arcbase_admin', { max: 1 });
 
 await sql`DROP TABLE IF EXISTS users CASCADE`;
 await sql`DROP TABLE IF EXISTS drizzle.__drizzle_migrations CASCADE`;

@@ -1,5 +1,5 @@
-import { chatBotContract, chatWebhookPublicContract } from '@zenith/shared/chat';
-import type { ChatWebhook } from '@zenith/shared/chat';
+import { chatBotContract, chatWebhookPublicContract } from '@arcbase/shared/chat';
+import type { ChatWebhook } from '@arcbase/shared/chat';
 import { urlOf } from '@/lib/contract-query';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';

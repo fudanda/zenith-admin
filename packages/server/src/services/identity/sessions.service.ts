@@ -15,8 +15,8 @@ import { formatDateTime } from '../../lib/datetime';
 import { currentUser } from '../../lib/context';
 import { getTenantScopeId, isPlatformAdmin } from '../../lib/tenant';
 import { listPlatformSuperUserIds } from './role-grant';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { sessionContract } from '@zenith/shared/identity';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { sessionContract } from '@arcbase/shared/identity';
 
 /** 当前操作者可见（可管理）的在线会话 */
 async function visibleSessions(): Promise<SessionInfo[]> {

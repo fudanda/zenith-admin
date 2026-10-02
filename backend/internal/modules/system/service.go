@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
-	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
-	"github.com/fudanda/zenith-admin/backend/ent/session"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/ent/auditlog"
+	"github.com/fudanda/arcbase/backend/ent/loginlog"
+	"github.com/fudanda/arcbase/backend/ent/session"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 )
 
 type Dependencies struct {

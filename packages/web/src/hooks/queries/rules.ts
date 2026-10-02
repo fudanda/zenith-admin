@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { keepPreviousData, useMutation, useQueryClient, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
 import { useMySettings } from './settings';
-import { decisionFlowContract, decisionTableContract, ruleExecutionContract, ruleListContract, type CreateDecisionFlowInput, type CreateDecisionTableInput, type CreateRuleListInput, type RuleUsageItem, type UpdateDecisionFlowInput, type UpdateDecisionTableInput, type UpdateRuleListInput } from '@zenith/shared/rules';
+import { decisionFlowContract, decisionTableContract, ruleExecutionContract, ruleListContract, type CreateDecisionFlowInput, type CreateDecisionTableInput, type CreateRuleListInput, type RuleUsageItem, type UpdateDecisionFlowInput, type UpdateDecisionTableInput, type UpdateRuleListInput } from '@arcbase/shared/rules';
 import { api, useSaveMutation, apiRaw, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { unwrap } from '@/lib/query';
 

@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
-import { defineContract, op } from '@zenith/shared/core';
-import { authContract, menuContract, positionContract, userContract } from '@zenith/shared/identity';
-import { goAuthContract } from '@zenith/shared/identity';
-import { dictContract } from '@zenith/shared/platform';
-import { inAppMessageContract } from '@zenith/shared/messaging';
+import { defineContract, op } from '@arcbase/shared/core';
+import { authContract, menuContract, positionContract, userContract } from '@arcbase/shared/identity';
+import { goAuthContract } from '@arcbase/shared/identity';
+import { dictContract } from '@arcbase/shared/platform';
+import { inAppMessageContract } from '@arcbase/shared/messaging';
 vi.mock('./foundation-mode', () => ({ IS_GO_FOUNDATION: true }));
 import { apiQueryOptions, urlOf } from './contract-query';
 import { foundationPath, foundationRequestBody } from './foundation-operations';
-import { foundationProfileContract } from '@zenith/shared/foundation-transfer';
+import { foundationProfileContract } from '@arcbase/shared/foundation-transfer';
 
 describe('Go module boundary', () => {
   it('maps original contract parameters to v1 without changing contract keys', () => {

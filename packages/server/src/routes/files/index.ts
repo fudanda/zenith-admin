@@ -1,4 +1,4 @@
-import { businessFileContract, fileContract, fileStorageConfigContract } from '@zenith/shared/platform';
+import { businessFileContract, fileContract, fileStorageConfigContract } from '@arcbase/shared/platform';
 import { defineRouteDomain } from '../_kit';
 import businessFilesRoutes from './business-files';
 import fileStorageConfigsRoutes from './file-storage-configs';

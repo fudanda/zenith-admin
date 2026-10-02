@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { operationLogContract } from '@zenith/shared/platform';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { operationLogContract } from '@arcbase/shared/platform';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type OperationLogListParams = NonNullable<QueryOf<typeof operationLogContract.list>>;

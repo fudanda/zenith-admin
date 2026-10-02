@@ -1,4 +1,4 @@
-import type { ManagedFile } from '@zenith/shared/platform';
+import type { ManagedFile } from '@arcbase/shared/platform';
 import type { ResponsiveTableAction } from '@/components/ResponsiveTableActions';
 import type { FilePreviewController } from '@/hooks/useFilePreview';
 import { canPreviewFile } from '@/utils/file-utils';

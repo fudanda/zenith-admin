@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Space, Spin, Typography } from '@douyinfe/semi-ui';
 import { Images } from 'lucide-react';
-import { CMS_RESOURCE_URI_PREFIX, isValidCmsAssetUrl, type CmsResource, type CmsResourceType } from '@zenith/shared/cms';
+import { CMS_RESOURCE_URI_PREFIX, isValidCmsAssetUrl, type CmsResource, type CmsResourceType } from '@arcbase/shared/cms';
 import { ImageUploadField } from '@/components/ImageUploadField';
 import { usePermission } from '@/hooks/usePermission';
 import { useCmsResourceSelection, useRememberCmsResourceSelection, useUploadCmsResource } from '@/hooks/queries/cms-resources';

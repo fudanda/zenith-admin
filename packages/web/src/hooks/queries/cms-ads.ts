@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
-import { cmsAdContract } from '@zenith/shared/cms';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
+import { cmsAdContract } from '@arcbase/shared/cms';
 import { useSaveMutation, contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type CmsAdListParams = NonNullable<QueryOf<typeof cmsAdContract.list>>;

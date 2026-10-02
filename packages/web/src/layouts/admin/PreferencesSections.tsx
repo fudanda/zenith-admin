@@ -580,7 +580,7 @@ export function PrefsNavToolbarSection({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           动态浏览器标题
-          <Tooltip content="开启后浏览器标签页标题会随当前页面变化，如「用户管理 - Zenith Admin」；关闭后固定显示应用名称" position="right">
+          <Tooltip content="开启后浏览器标签页标题会随当前页面变化，如「用户管理 - ArcBase」；关闭后固定显示应用名称" position="right">
             <Info size={13} style={{ color: 'var(--semi-color-text-2)', cursor: 'help' }} />
           </Tooltip>
         </span>

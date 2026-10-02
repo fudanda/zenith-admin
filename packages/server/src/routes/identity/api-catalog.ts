@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { apiCatalogContract } from '@zenith/shared/identity';
+import { apiCatalogContract } from '@arcbase/shared/identity';
 import { defineContractRoute } from '../../lib/contract-route';
 import { notModifiedResponse, okBody, validationHook } from '../../lib/openapi-schemas';
 import { createStaticJsonResponder } from '../../lib/static-json-response';

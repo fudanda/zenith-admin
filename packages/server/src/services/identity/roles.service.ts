@@ -1,8 +1,8 @@
 import { buildListResult } from '../../lib/list-query';
 import { requireRow } from '../../lib/db-assert';
 import { eq, and, inArray } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { roleContract, SUPER_ADMIN_CODE } from '@zenith/shared/identity';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { roleContract, SUPER_ADMIN_CODE } from '@arcbase/shared/identity';
 import { buildWhere, dateRangeConditions, keywordCondition, withPagination } from '../../lib/where-helpers';
 import { db } from '../../db';
 import type { DbTransaction } from '../../db/types';

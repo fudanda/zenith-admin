@@ -1,6 +1,6 @@
 import { and, eq, inArray, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CmsDeploymentBuildPlan, CmsDeploymentBuildMetrics } from '@zenith/shared/cms';
+import type { CmsDeploymentBuildPlan, CmsDeploymentBuildMetrics } from '@arcbase/shared/cms';
 import { db, withDbExecutor, withoutDbExecutor } from '../../db';
 import { cmsChannels, cmsContents, cmsContentRevisions, cmsContentWorkingCopies, cmsDeployments, cmsReleases, cmsSites, type CmsReleaseRow, type CmsDeploymentRow, type CmsDeploymentSnapshot } from '../../db/schema';
 import type { DbTransaction } from '../../db/types';

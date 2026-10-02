@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { reportExecutionContract } from '@zenith/shared/report';
+import { reportExecutionContract } from '@arcbase/shared/report';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { parseDateRangeEnd, parseDateRangeStart } from '../../lib/datetime';

@@ -7,9 +7,9 @@
  * - `contract-access-runtime.test.ts`：断言契约 `access` 声明与运行时门禁逐端点一致；
  * - 权限矩阵 / 接口目录的运行时核对。
  */
-import type { LicenseFeatureKey } from '@zenith/shared/licensing';
+import type { LicenseFeatureKey } from '@arcbase/shared/licensing';
 
-export const ROUTE_FACT: unique symbol = Symbol.for('zenith.route-fact');
+export const ROUTE_FACT: unique symbol = Symbol.for('arcbase.route-fact');
 
 export type RouteFact =
   | { readonly kind: 'auth' }

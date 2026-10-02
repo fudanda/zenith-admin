@@ -1,4 +1,4 @@
-import { CMS_SITE_MAX_DEPTH } from '@zenith/shared/cms';
+import { CMS_SITE_MAX_DEPTH } from '@arcbase/shared/cms';
 import { listCmsSubtreeIds } from './cms-site-tree';
 
 export interface CmsSiteHierarchyNode {

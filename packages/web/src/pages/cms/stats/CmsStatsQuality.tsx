@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components -- 私有采集状态映射与详情面板共用。 */
 import { Banner, Card, Descriptions, Tag, Typography } from '@douyinfe/semi-ui';
-import type { CmsStatQuality } from '@zenith/shared/cms';
+import type { CmsStatQuality } from '@arcbase/shared/cms';
 import { StatCard, StatGrid } from '@/components/charts/StatCard';
 import DateTimeText from '@/components/DateTimeText';
 import ConfigurableTable from '@/components/ConfigurableTable';

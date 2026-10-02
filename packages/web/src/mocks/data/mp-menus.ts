@@ -1,4 +1,4 @@
-import type { MpMenu } from '@zenith/shared/mp';
-import { SEED_MP_MENUS } from '@zenith/shared/seed';
+import type { MpMenu } from '@arcbase/shared/mp';
+import { SEED_MP_MENUS } from '@arcbase/shared/seed';
 
 export const mockMpMenus: MpMenu[] = SEED_MP_MENUS.map((m) => ({ ...m, buttons: JSON.parse(JSON.stringify(m.buttons)) }));

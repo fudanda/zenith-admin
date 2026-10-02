@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Banner, Button, Empty, Space, Spin, Tag, Toast, Typography } from '@douyinfe/semi-ui';
-import type { SignatureInput, SignaturePolicy, SignatureSnapshot } from '@zenith/shared/core';
+import type { SignatureInput, SignaturePolicy, SignatureSnapshot } from '@arcbase/shared/core';
 import SignaturePad from '@/components/SignaturePad';
 import { useMySignature, useSaveMySignature } from '@/hooks/queries/personal-signature';
 

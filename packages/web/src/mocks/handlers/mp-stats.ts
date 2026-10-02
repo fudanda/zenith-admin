@@ -1,4 +1,4 @@
-import { mpStatsContract, type MpDatacube, type MpStats } from '@zenith/shared/mp';
+import { mpStatsContract, type MpDatacube, type MpStats } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest } from '@/mocks/utils/handlers';
 import { mockMpFans } from '@/mocks/data/mp-fans';

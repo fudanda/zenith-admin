@@ -1,6 +1,6 @@
 # 工具与函数调用
 
-AI 工具页面菜单路径为 `/ai/tools`。工具经 requestContext 注入 `zenith-chat` 与智能体，模型按需发起函数调用，执行过程随 assistant 消息持久化，并以折叠卡片展示在回答、审计与反馈回放中。
+AI 工具页面菜单路径为 `/ai/tools`。工具经 requestContext 注入 `arcbase-chat` 与智能体，模型按需发起函数调用，执行过程随 assistant 消息持久化，并以折叠卡片展示在回答、审计与反馈回放中。
 
 ---
 

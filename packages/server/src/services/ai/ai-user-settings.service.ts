@@ -2,8 +2,8 @@ import { eq } from 'drizzle-orm';
 import { db } from '../../db';
 import { aiUserSettings } from '../../db/schema';
 import { currentUser } from '../../lib/context';
-import { AI_USER_SETTINGS_DEFAULTS } from '@zenith/shared/ai';
-import type { AiUserSettings, AiUserSettingsPatch, SaveAiUserSettingsInput } from '@zenith/shared/ai';
+import { AI_USER_SETTINGS_DEFAULTS } from '@arcbase/shared/ai';
+import type { AiUserSettings, AiUserSettingsPatch, SaveAiUserSettingsInput } from '@arcbase/shared/ai';
 
 /**
  * 用户级 AI 设置(单份文档,分域):

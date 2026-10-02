@@ -5,7 +5,7 @@
  * 设备名快照随 payload 传递供行级明细展示。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { iotBatchContract, IOT_BATCH_DEVICE_MAX } from '@zenith/shared/iot';
+import { iotBatchContract, IOT_BATCH_DEVICE_MAX } from '@arcbase/shared/iot';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { mapAsyncTask, submitAsyncTask } from '../../lib/task-center';

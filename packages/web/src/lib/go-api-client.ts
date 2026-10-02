@@ -1,5 +1,5 @@
-import type { ApiResponse } from '@zenith/shared/core';
-import { goAuthContract } from '@zenith/shared/identity';
+import type { ApiResponse } from '@arcbase/shared/core';
+import { goAuthContract } from '@arcbase/shared/identity';
 import type { ApiClient } from './contract-query';
 import type { RequestOptions } from '@/utils/request';
 import { showRequestErrorToast } from '@/utils/request-toast';

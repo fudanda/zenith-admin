@@ -10,7 +10,7 @@ import {
   DRIVE_SUBJECT_TYPE_OPTIONS,
   type DriveRole,
   type DriveSubjectType,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import UserSelect from '@/components/UserSelect';
 import DepartmentSelect from '@/components/DepartmentSelect';
 import { useAllRoles } from '@/hooks/queries/roles';

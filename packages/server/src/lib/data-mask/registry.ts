@@ -1,4 +1,4 @@
-import { collectSensitiveFields, sensitiveKeyOf, type AnyOperation, type SensitiveFieldRef } from '@zenith/shared/core';
+import { collectSensitiveFields, sensitiveKeyOf, type AnyOperation, type SensitiveFieldRef } from '@arcbase/shared/core';
 
 /**
  * 敏感字段注册表：每条契约路由在定义时把响应 schema 里 `sensitive()` 声明的字段登记进来，

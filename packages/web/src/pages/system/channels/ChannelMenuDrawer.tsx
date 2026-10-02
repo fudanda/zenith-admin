@@ -8,9 +8,9 @@
 import { useEffect, useState } from 'react';
 import { Button, Empty, Input, Select, SideSheet, Space, Toast, Typography } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
-import type { ChannelMenu, ChannelMenuType } from '@zenith/shared/messaging';
-import { CHANNEL_MENU_TYPE_LABELS } from '@zenith/shared/messaging';
-import { createLabelOptionsFromMap } from '@zenith/shared/core';
+import type { ChannelMenu, ChannelMenuType } from '@arcbase/shared/messaging';
+import { CHANNEL_MENU_TYPE_LABELS } from '@arcbase/shared/messaging';
+import { createLabelOptionsFromMap } from '@arcbase/shared/core';
 import { useChannelMenus, useSaveChannelMenus } from '@/hooks/queries/channels';
 import ModalFooter from '@/components/ModalFooter';
 

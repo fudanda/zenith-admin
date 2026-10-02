@@ -8,7 +8,7 @@
  */
 import { createHash } from 'node:crypto';
 import { UAParser } from 'ua-parser-js';
-import type { AnalyticsDeviceType, AnalyticsEventSource, AnalyticsEnvironment } from '@zenith/shared/analytics';
+import type { AnalyticsDeviceType, AnalyticsEventSource, AnalyticsEnvironment } from '@arcbase/shared/analytics';
 import { lookupIpRegion } from './ip-region';
 
 export interface ClientGeo {

@@ -2,7 +2,7 @@
  * App 推送配置（管理侧）。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { pushConfigContract } from '@zenith/shared/messaging';
+import { pushConfigContract } from '@arcbase/shared/messaging';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

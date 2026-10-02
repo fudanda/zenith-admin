@@ -1,5 +1,5 @@
-import { SEED_WORKFLOW_FORMS } from '@zenith/shared/seed';
-import type { WorkflowForm } from '@zenith/shared/workflow';
+import { SEED_WORKFLOW_FORMS } from '@arcbase/shared/seed';
+import type { WorkflowForm } from '@arcbase/shared/workflow';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

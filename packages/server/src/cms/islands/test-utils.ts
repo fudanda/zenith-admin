@@ -37,8 +37,8 @@ export async function flush(): Promise<void> {
 }
 
 export function setMemberToken(token: string | null): void {
-  if (token === null) localStorage.removeItem('zenith_member_token');
-  else localStorage.setItem('zenith_member_token', token);
+  if (token === null) localStorage.removeItem('arcbase_member_token');
+  else localStorage.setItem('arcbase_member_token', token);
 }
 
 export function html(markup: string): HTMLElement {

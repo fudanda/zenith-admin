@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import type { CmsStatOverview } from '@zenith/shared/cms';
+import type { CmsStatOverview } from '@arcbase/shared/cms';
 import { LineChart, chartOptions, makeLineSpec, useChartPalette } from '@/components/charts';
 
 export default memo(function CmsStatsTrend({ data }: Readonly<{ data: CmsStatOverview['trend'] }>) {

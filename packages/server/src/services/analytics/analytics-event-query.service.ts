@@ -2,7 +2,7 @@
  * 行为中心阶段 1：通用事件分析工作台（自助查询）。
  *
  * 安全设计：
- *  - groupBy 维度、metric 均为白名单枚举（来自 @zenith/shared），不接受任意列名/原始 SQL
+ *  - groupBy 维度、metric 均为白名单枚举（来自 @arcbase/shared），不接受任意列名/原始 SQL
  *  - 属性过滤 key 经严格正则校验，值全部绑定参数，杜绝注入
  *  - segmentId 先校验 tenant 归属，再通过 analytics_segment_members 子查询过滤 distinctId
  *  - 所有查询强制 tenantScope
@@ -12,8 +12,8 @@ import type { PgColumn } from 'drizzle-orm/pg-core';
 import { HTTPException } from 'hono/http-exception';
 import { db } from '../../db';
 import { userEvents } from '../../db/schema';
-import type { AnalyticsEventQuery, AnalyticsEventQueryResult, AnalyticsEventQueryGroupByField, AnalyticsEventQueryMetric } from '@zenith/shared/analytics';
-import { ANALYTICS_EVENT_QUERY_METRICS, analyticsMetricRequiresProperty } from '@zenith/shared/analytics';
+import type { AnalyticsEventQuery, AnalyticsEventQueryResult, AnalyticsEventQueryGroupByField, AnalyticsEventQueryMetric } from '@arcbase/shared/analytics';
+import { ANALYTICS_EVENT_QUERY_METRICS, analyticsMetricRequiresProperty } from '@arcbase/shared/analytics';
 import { tenantScope } from '../../lib/tenant';
 import { buildWhere, withPagination } from '../../lib/where-helpers';
 import { pageOffset } from '../../lib/pagination';

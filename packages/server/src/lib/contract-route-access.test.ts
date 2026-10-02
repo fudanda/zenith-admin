@@ -11,7 +11,7 @@ vi.mock('../middleware/platform-admin', () => ({
 }));
 vi.mock('./data-mask/boundary', () => ({ withDataMasking: (_op: unknown, handler: unknown) => handler }));
 
-import { defineContract, op } from '@zenith/shared/core';
+import { defineContract, op } from '@arcbase/shared/core';
 import { resolveRouteMiddleware } from './contract-route';
 
 const named = (mw: MiddlewareHandler) => (mw as unknown as { __name?: string }).__name ?? 'custom';

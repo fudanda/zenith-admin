@@ -1,4 +1,4 @@
-import type { PaymentChannel } from '@zenith/shared/payment';
+import type { PaymentChannel } from '@arcbase/shared/payment';
 import { billArtifact, decodeBillText, unpackBillZip, withBillEvidence } from './bill-io';
 import { ProviderBillError, type ProviderBillEntry, type ProviderBillKind, type ProviderBillResult } from './bill-types';
 

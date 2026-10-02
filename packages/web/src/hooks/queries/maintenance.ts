@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { maintenanceContract } from '@zenith/shared/ops';
+import type { QueryOf } from '@arcbase/shared/core';
+import { maintenanceContract } from '@arcbase/shared/ops';
 import { apiQueryOptions, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type MaintenanceLogListParams = NonNullable<QueryOf<typeof maintenanceContract.logs>>;

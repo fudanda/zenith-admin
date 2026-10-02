@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Banner, Col, Empty, Form, Modal, Row, SideSheet, Space, TabPane, Tabs, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ReportDqAnomaly, ReportDqAnomalyStatus, ReportDqRule, ReportDqRuleType, ReportDqRun, ReportDqRunStatus, ReportDqScore } from '@zenith/shared/report';
+import type { ReportDqAnomaly, ReportDqAnomalyStatus, ReportDqRule, ReportDqRuleType, ReportDqRun, ReportDqRunStatus, ReportDqScore } from '@arcbase/shared/report';
 import { MetricMeter } from '@/components/data-viz/MetricMeter';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { CronBuilderPopover } from '@/components/CronBuilderPopover';
@@ -26,7 +26,7 @@ import {
 import { useEnabledReportDatasets } from '@/hooks/queries/report-datasets';
 import { dateTimeColumn, EMPTY_PLACEHOLDER, overflowTagColumn, renderEllipsis } from '@/utils/table-columns';
 import { DEFAULT_TIMEZONE } from '@/utils/timezones';
-import { REPORT_DQ_ANOMALY_STATUS_LABELS, REPORT_DQ_ANOMALY_STATUS_OPTIONS, REPORT_DQ_TRIGGER_LABELS } from '@zenith/shared/report';
+import { REPORT_DQ_ANOMALY_STATUS_LABELS, REPORT_DQ_ANOMALY_STATUS_OPTIONS, REPORT_DQ_TRIGGER_LABELS } from '@arcbase/shared/report';
 import {
   dqRunStatusLabel,
   dqTaskSubmissionMessage,

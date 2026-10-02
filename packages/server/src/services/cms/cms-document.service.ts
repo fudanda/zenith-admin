@@ -1,7 +1,7 @@
 import { createRequire } from 'node:module';
 import { randomUUID } from 'node:crypto';
 import type { AnyNode } from 'domhandler';
-import { CMS_DOCUMENT_TAGS, serializeCmsBodyDocument, type CmsBodyDocument, type CmsDocumentNode, type CmsFieldConfiguration } from '@zenith/shared/cms';
+import { CMS_DOCUMENT_TAGS, serializeCmsBodyDocument, type CmsBodyDocument, type CmsDocumentNode, type CmsFieldConfiguration } from '@arcbase/shared/cms';
 import { sanitizeCmsHtml } from './cms-html-sanitizer';
 
 const require = createRequire(import.meta.url);

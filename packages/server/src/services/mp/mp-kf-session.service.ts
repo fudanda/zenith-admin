@@ -31,9 +31,9 @@ import { assertContentSafe } from './mp-security.service';
 import { sendCustomServiceMessage, WechatApiError } from '../../lib/wechat';
 import { broadcast } from '../../lib/ws-manager';
 import logger from '../../lib/logger';
-import type { MpKfSession, MpKfSessionDetail, MpKfSessionEvent, MpKfRoutingConfig, MpKfSessionStats, MpKfSessionEventType, MpKfSessionCloseReason, MpKfRoutingStrategy, MpMessageType, TransferMpKfSessionInput, UpdateMpKfRoutingConfigInput, mpKfSessionContract } from '@zenith/shared/mp';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { AcceptMpKfSessionInput, CloseMpKfSessionInput, ReplyMpKfSessionInput } from '@zenith/shared/platform';
+import type { MpKfSession, MpKfSessionDetail, MpKfSessionEvent, MpKfRoutingConfig, MpKfSessionStats, MpKfSessionEventType, MpKfSessionCloseReason, MpKfRoutingStrategy, MpMessageType, TransferMpKfSessionInput, UpdateMpKfRoutingConfigInput, mpKfSessionContract } from '@arcbase/shared/mp';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { AcceptMpKfSessionInput, CloseMpKfSessionInput, ReplyMpKfSessionInput } from '@arcbase/shared/platform';
 
 // ─── 映射 ────────────────────────────────────────────────────────────────────
 interface SessionJoinRow {

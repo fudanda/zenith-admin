@@ -1,6 +1,6 @@
-package zenith
+package arcbase
 
-import "github.com/fudanda/zenith-admin/backend/internal/data"
+import "github.com/fudanda/arcbase/backend/internal/data"
 
 // Set by release builds; development builds retain honest local metadata.
 var Version = "2.58.0"

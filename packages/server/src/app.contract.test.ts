@@ -25,11 +25,11 @@
  * 它防不住自己声称要防的那件事，却让人以为顺序已被保护。已移除，
  * 顺序改动需人工核对，见 `routes/_kit.ts` 约束 1。
  *
- * 相关约束见 .agents/skills/zenith/references/constraints.md 的 Route 层章节。
+ * 相关约束见 .agents/skills/arcbase/references/constraints.md 的 Route 层章节。
  */
 import { describe, it, expect, beforeAll } from 'vitest';
-import { accessPermissions, accessPlatformOnly } from '@zenith/shared/core';
-import { listAllOperations } from '@zenith/shared/contracts';
+import { accessPermissions, accessPlatformOnly } from '@arcbase/shared/core';
+import { listAllOperations } from '@arcbase/shared/contracts';
 import {
   mockServerInfra,
   buildContractApp,
@@ -67,7 +67,7 @@ beforeAll(async () => {
   // 超时放宽到 480 秒：耗时几乎全在 buildContractApp() 转译整套 app，
   // 而发布流程的四路并行（lint / test / build / docs）抢的正是同一种转译资源。
   // 独占跑约 60-90 秒，并行下曾贴着 300 秒撞破——属「慢但有效」，不是卡死。
-  // 见 .agents/skills/zenith/references/troubleshooting.md → 性能
+  // 见 .agents/skills/arcbase/references/troubleshooting.md → 性能
 }, 480_000);
 
 describe('路由表快照', () => {
@@ -303,7 +303,7 @@ describe('部分更新契约', () => {
   /**
    * PUT / PATCH 的语义是「未提交的字段保持不变」。请求体属性一旦携带 `default`，
    * Zod 就会在字段省略时填入默认值，服务层 `.set({ ...data })` 随即把从未提交的字段写回库。
-   * update schema 必须经 `partialForUpdate()`（@zenith/shared/core）派生，
+   * update schema 必须经 `partialForUpdate()`（@arcbase/shared/core）派生，
    * 它会剥离全部 `.default()`；直接调用 `.partial()` 已被 ESLint 封禁。
    *
    * 这里从装配好的 OpenAPI 文档反向校验，覆盖路由内联 schema、DTO 与全部 shared 域，

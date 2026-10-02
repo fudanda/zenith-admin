@@ -2,7 +2,7 @@
 import { useMemo, useState } from 'react';
 import { Button, Col, Form, Modal, Row, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import { CheckCheck, Plus } from 'lucide-react';
-import { SEND_SOURCE_LABELS, SEND_SOURCE_OPTIONS, type InAppMessage, type InAppMessageType, type SendSource } from '@zenith/shared/messaging';
+import { SEND_SOURCE_LABELS, SEND_SOURCE_OPTIONS, type InAppMessage, type InAppMessageType, type SendSource } from '@arcbase/shared/messaging';
 import { usePermission } from '@/hooks/usePermission';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';

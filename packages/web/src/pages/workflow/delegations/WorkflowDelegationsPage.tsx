@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Form, Select, Tag } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { WorkflowDelegation } from '@zenith/shared/workflow';
+import type { WorkflowDelegation } from '@arcbase/shared/workflow';
 import { formatDateTime, formatDateTimeForApi } from '@/utils/date';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { usePermission } from '@/hooks/usePermission';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Form } from '@douyinfe/semi-ui';
-import { positionContract, type Position } from '@zenith/shared/identity';
+import { positionContract, type Position } from '@arcbase/shared/identity';
 import type { PositionFormValues } from '@/hooks/queries/positions';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { useDictItems } from '@/hooks/useDictItems';

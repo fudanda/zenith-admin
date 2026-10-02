@@ -26,8 +26,8 @@ import { abortSubmit } from '@/lib/abort-submit';
 import {
   IOT_OTA_DEVICE_STATUSES, IOT_OTA_DEVICE_STATUS_LABELS, IOT_OTA_DEVICE_STATUS_OPTIONS, IOT_OTA_TASK_STATUSES,
   IOT_OTA_TASK_STATUS_LABELS, IOT_OTA_TASK_STATUS_OPTIONS,
-} from '@zenith/shared/iot';
-import type { IotFirmware, IotOtaTask, IotOtaTaskDevice, UpdateIotFirmwareInput } from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
+import type { IotFirmware, IotOtaTask, IotOtaTaskDevice, UpdateIotFirmwareInput } from '@arcbase/shared/iot';
 import { IotProductSelectField } from './components/IotSelectors';
 import { useIotDeviceOptions, useIotGroupOptions, useIotProductOptions } from './components/iot-options';
 import {
@@ -35,7 +35,7 @@ import {
   useReleaseNextIotOtaBatch, useResumeIotOtaTask,
   useIotFirmwareList, useIotOtaTaskDevices, useIotOtaTaskList, useSaveIotFirmware, useUploadIotFirmware,
 } from '@/hooks/queries/iot-ota';
-import { USER_STATUSES, enumValueOf, formatBytes } from '@zenith/shared/core';
+import { USER_STATUSES, enumValueOf, formatBytes } from '@arcbase/shared/core';
 import { useFilterQuery } from '@/hooks/useFilterQuery';
 import { EditFormModal } from '@/components/EditFormModal';
 

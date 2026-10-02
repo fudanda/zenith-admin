@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { paymentMethodContract } from '@zenith/shared/payment';
+import { paymentMethodContract } from '@arcbase/shared/payment';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { listMethodConfigs, listEnabledMethodConfigs, getMethodConfig, updateMethodConfig } from '../../services/payment/payment-method.service';

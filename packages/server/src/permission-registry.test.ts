@@ -8,7 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { ALL_PERMISSIONS } from '@zenith/shared/permissions';
+import { ALL_PERMISSIONS } from '@arcbase/shared/permissions';
 
 const SERVER_SRC = path.resolve(__dirname);
 const SHARED_SRC = path.resolve(__dirname, '../../shared/src');

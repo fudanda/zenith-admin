@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import type { ChatConversation, ChatGroupMember } from '@zenith/shared/chat';
+import type { ChatConversation, ChatGroupMember } from '@arcbase/shared/chat';
 import { usePinyinReady } from '@/hooks/usePinyinReady';
 import { textMatches } from '@/utils/pinyin';
 

@@ -1,5 +1,5 @@
 import { eq, asc } from 'drizzle-orm';
-import { cmsErrorProneWordContract, cmsErrorProneWordSchema } from '@zenith/shared/cms';
+import { cmsErrorProneWordContract, cmsErrorProneWordSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsErrorProneWords } from '../../db/schema';
 import type { CmsErrorProneWordRow } from '../../db/schema';

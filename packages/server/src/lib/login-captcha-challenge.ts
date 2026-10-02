@@ -1,4 +1,4 @@
-import type { LoginCaptchaChallenge } from '@zenith/shared/identity';
+import type { LoginCaptchaChallenge } from '@arcbase/shared/identity';
 import { generateCaptcha, resolveCaptchaComplexity } from './captcha';
 import { getSettings } from './settings';
 

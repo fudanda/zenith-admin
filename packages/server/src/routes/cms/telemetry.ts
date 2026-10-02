@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { cmsTelemetryAdminContract } from '@zenith/shared/cms';
+import { cmsTelemetryAdminContract } from '@arcbase/shared/cms';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import { configureCmsTelemetry } from '../../services/cms/cms-telemetry.service';

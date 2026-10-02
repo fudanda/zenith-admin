@@ -8,7 +8,7 @@ import { ensurePinyin } from '@/utils/pinyin';
 import { copyText } from '@/utils/clipboard';
 import MenuSearchInput, { type FlatMenuItem } from '@/components/MenuSearchInput';
 import { TopbarClock } from '@/components/TopbarClock';
-import type { User, Menu } from '@zenith/shared/identity';
+import type { User, Menu } from '@arcbase/shared/identity';
 import type { ThemeMode } from '@/hooks/useTheme';
 import { usePreferences, useRouteAnimation, type NavLayout } from '@/hooks/usePreferences';
 import { getThemeColorVars } from '@/lib/theme-color';

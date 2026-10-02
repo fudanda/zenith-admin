@@ -4,7 +4,7 @@
 
 ## 能力范围
 
-- **导出格式**：`xlsx` / `csv` / `pdf` / `docx`，定义在 `@zenith/shared/tasks` 的 `EXPORT_JOB_FORMATS`。实体默认开放 `xlsx` / `csv`；`pdf` / `docx` 需要实体提供 `renderFile()`。
+- **导出格式**：`xlsx` / `csv` / `pdf` / `docx`，定义在 `@arcbase/shared/tasks` 的 `EXPORT_JOB_FORMATS`。实体默认开放 `xlsx` / `csv`；`pdf` / `docx` 需要实体提供 `renderFile()`。
 - **渲染模式**：
   - `table`（默认）：标准表格，支持多级表头、合并单元格、列宽、样式、标题行、元信息行、冻结表头。
   - `layout`：多工作表复杂布局，通过 `layout.sheets` 声明。
@@ -32,7 +32,7 @@
 | `POST` | `/api/export-jobs/{id}/retry` | 重试失败导出任务 |
 | `DELETE` | `/api/export-jobs/{id}` | 删除导出任务记录 |
 
-创建请求 schema 来自 `@zenith/shared/tasks` 的 `createExportJobSchema`：
+创建请求 schema 来自 `@arcbase/shared/tasks` 的 `createExportJobSchema`：
 
 ```ts
 {
@@ -81,7 +81,7 @@
 
 ```ts
 import { asc } from 'drizzle-orm';
-import { COMMON_STATUS_LABELS } from '@zenith/shared/core';
+import { COMMON_STATUS_LABELS } from '@arcbase/shared/core';
 import { db } from '../../../db';
 import { positions } from '../../../db/schema';
 import { currentUser } from '../../context';

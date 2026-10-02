@@ -1,5 +1,5 @@
 import { and, desc, eq, isNotNull, lt, sql } from 'drizzle-orm';
-import { entityRelationRecordFilters, WORKFLOW_BUSINESS_ENTITY_TYPES, type CanonicalEntityType, type EntityRelationItem } from '@zenith/shared/platform';
+import { entityRelationRecordFilters, WORKFLOW_BUSINESS_ENTITY_TYPES, type CanonicalEntityType, type EntityRelationItem } from '@arcbase/shared/platform';
 import { managedFiles, workflowInstances, workflowTasks } from '../../db/schema';
 import { hasPermission, runWithCurrentUser } from '../../lib/context';
 import { exactTenantCondition, tenantCondition } from '../../lib/tenant';

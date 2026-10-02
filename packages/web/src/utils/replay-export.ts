@@ -3,7 +3,7 @@
  * 可直接发给无系统权限的人在浏览器打开播放。
  */
 import { Toast } from '@douyinfe/semi-ui';
-import type { ReplaySegmentMeta } from '@zenith/shared/analytics';
+import type { ReplaySegmentMeta } from '@arcbase/shared/analytics';
 import { fetchReplaySegmentEvents } from '@/hooks/queries/session-replays';
 import { downloadBlob } from '@/utils/download';
 

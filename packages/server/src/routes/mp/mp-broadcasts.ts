@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { mpBroadcastContract } from '@zenith/shared/mp';
+import { mpBroadcastContract } from '@arcbase/shared/mp';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { idempotencyGuard } from '../../middleware/idempotency';
 import { defineContractRoute } from '../../lib/contract-route';

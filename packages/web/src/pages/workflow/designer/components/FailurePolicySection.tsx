@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Select, Input, InputNumber, Switch, Typography, RadioGroup, Radio, TextArea } from '@douyinfe/semi-ui';
-import { WORKFLOW_COMPENSATION_ACTION_TYPE_OPTIONS, type WorkflowNodeFailurePolicy, type WorkflowCompensationAction, type WorkflowCompensationActionType, type WorkflowNodeFailureAction } from '@zenith/shared/workflow';
+import { WORKFLOW_COMPENSATION_ACTION_TYPE_OPTIONS, type WorkflowNodeFailurePolicy, type WorkflowCompensationAction, type WorkflowCompensationActionType, type WorkflowNodeFailureAction } from '@arcbase/shared/workflow';
 import { WORKFLOW_NODE_FAILURE_ACTION_OPTIONS as ACTION_OPTIONS } from '../constants';
 const METHOD_OPTIONS = ['GET', 'POST', 'PUT', 'DELETE'].map((v) => ({ value: v, label: v }));
 

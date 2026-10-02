@@ -24,7 +24,7 @@ import {
 
 const OVERVIEW = {
   stats: { available: true, reason: null },
-  databaseName: 'zenith_admin',
+  databaseName: 'arcbase_admin',
   sampledAt: '2026-09-15 23:00:00',
   queryCount: 1,
   calls: 10,

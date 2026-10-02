@@ -1,4 +1,4 @@
-import { roleContract } from '@zenith/shared/identity';
+import { roleContract } from '@arcbase/shared/identity';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateCurrentUserAccess } from './menus';
 import { scopeMemberKeys } from './scope-members';

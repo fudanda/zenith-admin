@@ -1,4 +1,4 @@
-import type { WorkflowJobType } from '@zenith/shared/workflow';
+import type { WorkflowJobType } from '@arcbase/shared/workflow';
 import type { WorkflowJobHandler } from './types';
 
 /**

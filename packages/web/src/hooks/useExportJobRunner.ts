@@ -1,9 +1,9 @@
 import { Toast } from '@douyinfe/semi-ui';
-import { exportJobContract, type ExportJobFormat, type ExportJobRequestMode } from '@zenith/shared/tasks';
+import { exportJobContract, type ExportJobFormat, type ExportJobRequestMode } from '@arcbase/shared/tasks';
 import { urlOf, useApiMutation } from '@/lib/contract-query';
 import { request } from '@/utils/request';
 import { useState } from 'react';
-import { foundationTransferContract } from '@zenith/shared/foundation-transfer';
+import { foundationTransferContract } from '@arcbase/shared/foundation-transfer';
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { goTransport } from '@/lib/go-transport';
 import { downloadBlob } from '@/utils/download';

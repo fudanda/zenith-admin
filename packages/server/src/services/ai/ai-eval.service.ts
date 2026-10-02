@@ -3,7 +3,7 @@ import { requireRow } from '../../lib/db-assert';
 import { getMastra } from '../../lib/mastra';
 import { formatDateTime } from '../../lib/datetime';
 import logger from '../../lib/logger';
-import { AI_EVAL_SCORERS } from '@zenith/shared/ai';
+import { AI_EVAL_SCORERS } from '@arcbase/shared/ai';
 import type {
   AiEvalDataset,
   AiEvalDatasetItem,
@@ -13,13 +13,13 @@ import type {
   UpdateAiEvalDatasetInput,
   AddAiEvalItemsInput,
   RunAiExperimentInput,
-} from '@zenith/shared/ai';
+} from '@arcbase/shared/ai';
 
 /**
  * 模型评测(Mastra Datasets + Experiments 包装):
  * - 评测集 = mastra dataset(版本化,条目 input/groundTruth,落 mastra schema)
  * - 评测运行 = experiment:对数据集全量条目执行注册的目标智能体
- *   (zenith-chat / agent-{id} / 内置示例),按 scorer 打分
+ *   (arcbase-chat / agent-{id} / 内置示例),按 scorer 打分
  * - 打分器目录见 shared AI_EVAL_SCORERS:code 类零成本;llm 类为 LLM-as-judge
  *   (评审模型 = 当前默认服务商配置,发实验时刷新注册),产出分数与评审理由
  * - 分数持久化在 scores 域(runId = experimentId,datasetItemId 关联条目),

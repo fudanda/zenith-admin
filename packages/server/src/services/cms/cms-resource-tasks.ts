@@ -1,5 +1,5 @@
-import { uniquePositiveInts } from '@zenith/shared/core';
-import type { CmsResourceOwnerType } from '@zenith/shared/cms';
+import { uniquePositiveInts } from '@arcbase/shared/core';
+import type { CmsResourceOwnerType } from '@arcbase/shared/cms';
 import { and, asc, eq, gt } from 'drizzle-orm';
 import type { PgColumn, PgTable } from 'drizzle-orm/pg-core';
 import { db } from '../../db';

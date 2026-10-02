@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { cmsUploadContract } from '@zenith/shared/cms';
+import { cmsUploadContract } from '@arcbase/shared/cms';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import { processCmsImageUpload } from '../../services/cms/cms-image.service';

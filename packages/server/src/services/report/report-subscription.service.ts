@@ -2,8 +2,8 @@ import { requireRow } from '../../lib/db-assert';
 import { buildListResult } from '../../lib/list-query';
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, inArray, lte, isNotNull, sql } from 'drizzle-orm';
-import { aggregateReportRows, reportSubscriptionContract, reportDashboardSubscriptionSchema } from '@zenith/shared/report';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { aggregateReportRows, reportSubscriptionContract, reportDashboardSubscriptionSchema } from '@arcbase/shared/report';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { config } from '../../config';
 import { db } from '../../db';
 import { reportDashboardSubscriptions, reportDeliveryRuns } from '../../db/schema';
@@ -11,7 +11,7 @@ import { pageOffset } from '../../lib/pagination';
 import { buildWhere, keywordCondition } from '../../lib/where-helpers';
 import { formatDateTime, formatNullableDateTime } from '../../lib/datetime';
 import { currentUserOrNull } from '../../lib/context';
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';
 import { trimNullableText } from '../../lib/text-utils';
 import { assertDashboardEvaluableGlobally, ensureDashboardExists, getDashboardData } from './report-dashboard.service';
 import { ensureDatasetExists } from './report-dataset.service';
@@ -39,7 +39,7 @@ import {
   prepareReportSecret,
 } from './report-secrets';
 import type { ReportDashboardSubscriptionRow, ReportDeliveryRunRow } from '../../db/schema';
-import type { ReportDashboardSubscription, ReportWidget, ReportNotifyChannel, CreateReportSubscriptionInput, UpdateReportSubscriptionInput, ReportDeliveryStatus } from '@zenith/shared/report';
+import type { ReportDashboardSubscription, ReportWidget, ReportNotifyChannel, CreateReportSubscriptionInput, UpdateReportSubscriptionInput, ReportDeliveryStatus } from '@arcbase/shared/report';
 import {
   buildReportFieldMetadataMap,
   isNumericReportField,

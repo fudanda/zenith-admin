@@ -5,7 +5,7 @@
  * POST 实际应用退订（同时兼容 RFC 8058 One-Click：客户端直接 POST 本地址）。
  */
 import { Hono } from 'hono';
-import { getNotificationEvent, isNotificationEventKey } from '@zenith/shared/messaging';
+import { getNotificationEvent, isNotificationEventKey } from '@arcbase/shared/messaging';
 import { verifyUnsubscribeToken } from '../../lib/notification/unsubscribe';
 import { applyUnsubscribe } from '../../services/messaging/notification-preferences.service';
 
@@ -64,4 +64,4 @@ function isUnsubscribableEvent(eventKey: string | undefined): boolean {
 }
 
 export default router;
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';

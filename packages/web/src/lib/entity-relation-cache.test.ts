@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { QueryObserver } from '@tanstack/react-query';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { WsMessage } from '@arcbase/shared/platform';
 import { createTestQueryClient } from '@/test-utils/query-harness';
 import { createEntityRelationEventHandler, ENTITY_RELATION_QUERY_META } from './entity-relation-cache';
 

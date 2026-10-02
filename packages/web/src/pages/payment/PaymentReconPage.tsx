@@ -7,7 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { ArrayField, Banner, Button, DatePicker, Empty, Form, Select, SideSheet, Space, Spin, Tabs, Tag, Timeline, Toast, Typography, Upload } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { BodyOf } from '@zenith/shared/core';
+import type { BodyOf } from '@arcbase/shared/core';
 import {
   formatReconciliationAmount, isUnresolvedReconciliationCase, paymentReconContract, PAYMENT_CHANNEL_LABELS, PAYMENT_RECON_ADJUSTMENT_STATUS_LABELS,
   PAYMENT_RECON_CASE_ACTION_OPTIONS, PAYMENT_RECON_CASE_STATUS_LABELS, PAYMENT_RECON_CASE_TYPE_LABELS, PAYMENT_RECON_DIRECTION_OPTIONS,
@@ -15,8 +15,8 @@ import {
   PAYMENT_STATEMENT_PERIOD_STATUS_LABELS, PAYMENT_STATEMENT_SOURCE_LABELS, PAYMENT_STATEMENT_STATUS_LABELS,
   PAYMENT_STATEMENT_TYPE_LABELS, PAYMENT_STATEMENT_TYPE_OPTIONS, serializeReconciliationCsv,
   type PaymentReconAdjustment, type PaymentReconCase, type PaymentReconRun, type PaymentStatementEntry, type PaymentStatementPeriod,
-} from '@zenith/shared/payment';
-import type { AsyncTask } from '@zenith/shared/tasks';
+} from '@arcbase/shared/payment';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import AsyncTaskProgress from '@/components/AsyncTaskProgress';
 import { asyncTaskStatusColumn } from '@/components/async-task-columns';
 import ConfigurableTable from '@/components/ConfigurableTable';

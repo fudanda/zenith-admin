@@ -1,5 +1,5 @@
 import { eq, and, isNull } from 'drizzle-orm';
-import { SUPER_ADMIN_CODE } from '@zenith/shared/identity';
+import { SUPER_ADMIN_CODE } from '@arcbase/shared/identity';
 import { db } from '../../db';
 import { roles, userRoles, users } from '../../db/schema';
 

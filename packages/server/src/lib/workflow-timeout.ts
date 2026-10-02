@@ -1,4 +1,4 @@
-import type { WorkflowTimeoutConfig } from '@zenith/shared/workflow';
+import type { WorkflowTimeoutConfig } from '@arcbase/shared/workflow';
 
 const UNIT_MS: Record<NonNullable<WorkflowTimeoutConfig['unit']>, number> = {
   minutes: 60 * 1000,

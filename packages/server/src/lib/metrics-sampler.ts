@@ -8,7 +8,7 @@
  * - 同时维护时序环形缓冲（默认 360 点 / 1h），供前端绘制趋势折线图。
  * - Event Loop Lag、GC、HTTP QPS·P95、每核 CPU、网络吞吐 等深度指标统一在此采集。
  */
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import os from 'node:os';
 import fs from 'node:fs';
 import path from 'node:path';

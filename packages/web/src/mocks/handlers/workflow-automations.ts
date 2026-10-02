@@ -1,5 +1,5 @@
-import { workflowAutomationContract } from '@zenith/shared/workflow';
-import type { WorkflowAutomation } from '@zenith/shared/workflow';
+import { workflowAutomationContract } from '@arcbase/shared/workflow';
+import type { WorkflowAutomation } from '@arcbase/shared/workflow';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

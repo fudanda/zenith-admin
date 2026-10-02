@@ -1,5 +1,5 @@
 /**
- * Real builder baseline. Requires a migrated disposable local zenith_review database.
+ * Real builder baseline. Requires a migrated disposable local arcbase_review database.
  * TEST_DATABASE_URL=... npx tsx --tsconfig packages/server/tsconfig.json packages/server/scripts/benchmark-cms-release-build.ts --output C:/tmp/cms-build.json
  * Calls the production candidate builder directly: queue latency is explicitly excluded.
  * All fixture rows, generation schemas and static files are removed, including on failure.
@@ -16,7 +16,7 @@ import type { TaskRunContext } from '../src/lib/task-center/types';
 const connection = process.env.TEST_DATABASE_URL;
 if (!connection) throw new Error('TEST_DATABASE_URL is required');
 const database = new URL(connection);
-if (!['localhost', '127.0.0.1', '[::1]'].includes(database.hostname) || database.pathname !== '/zenith_review') throw new Error('Only a local disposable zenith_review database is accepted');
+if (!['localhost', '127.0.0.1', '[::1]'].includes(database.hostname) || database.pathname !== '/arcbase_review') throw new Error('Only a local disposable arcbase_review database is accepted');
 const outputIndex = process.argv.indexOf('--output');
 const output = outputIndex < 0 ? null : process.argv[outputIndex + 1];
 if (outputIndex >= 0 && (!output || !path.isAbsolute(output) || !path.relative(process.cwd(), output).startsWith('..'))) throw new Error('--output must be an absolute path outside the repository');
@@ -30,7 +30,7 @@ process.env.LOG_LEVEL = 'warn';
 // fatal-handlers statically imports only Node builtins; config is first loaded here, after overrides.
 const { config } = await import('../src/config');
 const { CMS_STATIC_ROOT, isStrictlyWithin } = await import('../src/services/cms/cms-static-path');
-if (config.databaseUrl !== connection || new URL(config.databaseUrl).pathname !== '/zenith_review') throw new Error('Resolved database configuration escaped the disposable benchmark database');
+if (config.databaseUrl !== connection || new URL(config.databaseUrl).pathname !== '/arcbase_review') throw new Error('Resolved database configuration escaped the disposable benchmark database');
 if (CMS_STATIC_ROOT !== path.join(root, 'static') || !isStrictlyWithin(root, CMS_STATIC_ROOT)) throw new Error('Resolved CMS static root escaped the temporary benchmark directory');
 if (!config.redis.keyPrefix.startsWith('cms-build-baseline:')) throw new Error('Resolved cache prefix is not isolated');
 const { db, closeDb } = await import('../src/db');

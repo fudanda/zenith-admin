@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { inAppMessageContract } from '@zenith/shared/messaging';
+import type { QueryOf } from '@arcbase/shared/core';
+import { inAppMessageContract } from '@arcbase/shared/messaging';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { inAppMessageKeys } from '@/hooks/queries/in-app-messages';
 

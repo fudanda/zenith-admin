@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 )
 
 func withMetadata(w http.ResponseWriter, r *http.Request, route Route) (*http.Request, error) {

@@ -17,14 +17,14 @@ import { useUrlTabState } from '@/hooks/useUrlTabState';
 import { useDictItems } from '@/hooks/useDictItems';
 import { deleteAction, ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { FormStatusRadioGroup } from '@/components/FormStatusRadioGroup';
-import { USER_STATUSES, enumValueOf, getByPath } from '@zenith/shared/core';
+import { USER_STATUSES, enumValueOf, getByPath } from '@arcbase/shared/core';
 import {
   IOT_AUTOMATION_ACTION_TYPE_LABELS, IOT_AUTOMATION_ACTION_TYPE_OPTIONS,
   IOT_AUTOMATION_DEFAULT_COOLDOWN_SECONDS, IOT_AUTOMATION_ACTION_MAX,
   IOT_AUTOMATION_TARGET_OPTIONS, IOT_AUTOMATION_TRIGGERS, IOT_AUTOMATION_TRIGGER_LABELS, IOT_AUTOMATION_TRIGGER_OPTIONS,
   IOT_COMPARE_OP_LABELS,
-} from '@zenith/shared/iot';
-import type { CreateIotAutomationInput, IotAutomation, IotAutomationAction, IotAutomationRun } from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
+import type { CreateIotAutomationInput, IotAutomation, IotAutomationAction, IotAutomationRun } from '@arcbase/shared/iot';
 import { IotDeviceSelectField, IotProductSelectField } from './components/IotSelectors';
 import { useIotDeviceOptions, useIotGroupOptions } from './components/iot-options';
 import { IotSuccessTag } from './components/IotStatus';

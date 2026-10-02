@@ -53,7 +53,7 @@ import {
 import { confirmDanger } from '@/utils/confirm';
 import { dateTimeColumn, EMPTY_PLACEHOLDER, renderCodeEllipsis } from '@/utils/table-columns';
 import DateTimeText from '@/components/DateTimeText';
-import { SQL_MONITOR_QUERY_SORT_OPTIONS, type SqlMonitorQuery, type SqlMonitorSession, type SqlMonitorLock, type SqlMonitorHistoryPoint, type MonitorHistoryRange } from '@zenith/shared/platform';
+import { SQL_MONITOR_QUERY_SORT_OPTIONS, type SqlMonitorQuery, type SqlMonitorSession, type SqlMonitorLock, type SqlMonitorHistoryPoint, type MonitorHistoryRange } from '@arcbase/shared/platform';
 import './SqlMonitorPage.css';
 
 const { Title, Text } = Typography;

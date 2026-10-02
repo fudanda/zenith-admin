@@ -39,7 +39,7 @@ vi.mock('../../lib/tenant', async (importOriginal) => ({
   tenantScope: vi.fn(() => undefined),
 }));
 vi.mock('../../lib/settings', async () => {
-  const { SETTINGS_MODULES } = await import('@zenith/shared/settings');
+  const { SETTINGS_MODULES } = await import('@arcbase/shared/settings');
   return { getSettings: vi.fn(async (module: keyof typeof SETTINGS_MODULES) => SETTINGS_MODULES[module].schema.parse({})) };
 });
 vi.mock('../../lib/session-manager', () => ({

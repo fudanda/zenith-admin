@@ -1,5 +1,5 @@
-import { dataMaskContract, matchesDataMaskFieldQuery, type DataMaskField, type DataMaskPolicy } from '@zenith/shared/platform';
-import { previewMask, valuesAtPath, type MaskType } from '@zenith/shared/core';
+import { dataMaskContract, matchesDataMaskFieldQuery, type DataMaskField, type DataMaskPolicy } from '@arcbase/shared/platform';
+import { previewMask, valuesAtPath, type MaskType } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, nextIdFrom, notFound } from '@/mocks/utils/handlers';
 import { mockDateTime } from '@/mocks/utils/date';

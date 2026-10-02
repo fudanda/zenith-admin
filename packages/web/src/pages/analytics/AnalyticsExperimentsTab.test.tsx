@@ -2,7 +2,7 @@ import { createPreferencesContext } from '@/test-utils/preferences';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { desktopToolbar } from '@/test-utils/toolbar';
-import type { AnalyticsExperiment } from '@zenith/shared/analytics';
+import type { AnalyticsExperiment } from '@arcbase/shared/analytics';
 import { PreferencesContext } from '@/hooks/usePreferences';
 
 const mockExperiment = vi.hoisted<AnalyticsExperiment>(() => ({

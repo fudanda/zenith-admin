@@ -6,7 +6,7 @@ const root = resolve(import.meta.dirname, '..');
 const clientRoot = resolve(root, 'packages/client');
 const manifest = JSON.parse(readFileSync(resolve(clientRoot, 'package.json'), 'utf8'));
 const errors = [];
-if (Object.keys(manifest.dependencies ?? {}).some(name => name !== '@zenith/shared')) errors.push('client runtime dependencies must only contain shared');
+if (Object.keys(manifest.dependencies ?? {}).some(name => name !== '@arcbase/shared')) errors.push('client runtime dependencies must only contain shared');
 const visit = dir => {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const path = resolve(dir, entry.name);
@@ -16,7 +16,7 @@ const visit = dir => {
     const check = node => {
       if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier)) {
         const spec = node.moduleSpecifier.text;
-        const allowed = spec.startsWith('./') || spec.startsWith('@zenith/shared/');
+        const allowed = spec.startsWith('./') || spec.startsWith('@arcbase/shared/');
         if (!allowed) errors.push(`${relative(root, path)}: forbidden dependency ${spec}`);
       }
       if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword) errors.push(`${relative(root, path)}: dynamic imports are not part of client`);
@@ -29,7 +29,7 @@ const visit = dir => {
 visit(resolve(clientRoot, 'src'));
 for (const domain of ['shared', 'server', 'analytics-sdk']) {
   const pkg = JSON.parse(readFileSync(resolve(root, 'packages', domain, 'package.json'), 'utf8'));
-  if (pkg.dependencies?.['@zenith/client']) errors.push(`${domain} must not depend on client`);
+  if (pkg.dependencies?.['@arcbase/client']) errors.push(`${domain} must not depend on client`);
 }
 if (errors.length) { console.error(errors.join('\n')); process.exitCode = 1; }
 else console.log('Client boundaries passed: shared -> client -> web; no UI or browser storage dependencies.');

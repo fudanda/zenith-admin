@@ -1,5 +1,5 @@
-import { memberContract } from '@zenith/shared/member';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { memberContract } from '@arcbase/shared/member';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 会员后台管理服务：会员 CRUD / 启禁 / 重置密码 / 导出。
  * 复用 member-auth.service 的 mapMember / ensureMemberExists。
@@ -21,7 +21,7 @@ import { formatDateTime } from '../../lib/datetime';
 import { registerRevealSource } from '../../lib/data-mask/reveal';
 import { mapPointAccount, mapPointTransaction, ensurePointAccount } from './member-points.service';
 import { mapWallet, mapWalletTransaction, ensureWallet } from './member-wallet.service';
-import type { MemberStatus } from '@zenith/shared/member';
+import type { MemberStatus } from '@arcbase/shared/member';
 
 export function buildMemberWhere(q: { keyword?: string; status?: MemberStatus; levelId?: number; tagId?: number }): SQL | undefined {
   // 软删除的会员对列表/下拉/导出一律不可见

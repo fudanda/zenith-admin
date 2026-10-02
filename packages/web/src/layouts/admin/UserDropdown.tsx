@@ -2,7 +2,7 @@ import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Badge, Button, Dropdown, Tooltip } from '@douyinfe/semi-ui';
 import { ArrowLeftRight, Bell, ChevronDown, Keyboard, Lock, LogOut, Megaphone, MessageSquareHeart, Settings, Smartphone, User as UserIcon, VenetianMask } from 'lucide-react';
 import type { NavigateFunction } from 'react-router-dom';
-import type { User } from '@zenith/shared/identity';
+import type { User } from '@arcbase/shared/identity';
 import { UserAvatar } from '@/components/UserAvatar';
 import { useAuth } from '@/hooks/useAuth';
 import { usePermission } from '@/hooks/usePermission';

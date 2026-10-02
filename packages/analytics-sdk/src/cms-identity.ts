@@ -1,4 +1,4 @@
-import { randomUUID } from '@zenith/shared/core';
+import { randomUUID } from '@arcbase/shared/core';
 
 export const CMS_SESSION_IDLE_MS = 30 * 60_000;
 const UUID = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i;
@@ -18,7 +18,7 @@ export interface CmsSession {
 }
 
 /** Every storage key is scoped to the rendered site, including same-origin preview hosts. */
-export function cmsStoragePrefix(siteId: number): string { return `zenith:cms:${siteId}:`; }
+export function cmsStoragePrefix(siteId: number): string { return `arcbase:cms:${siteId}:`; }
 export function cmsLocalStorage(win: Window): Storage | undefined {
   try { return win.localStorage; } catch { return undefined; }
 }

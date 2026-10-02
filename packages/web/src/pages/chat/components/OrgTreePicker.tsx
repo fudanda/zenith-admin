@@ -6,7 +6,7 @@ import { UserAvatar } from '@/components/UserAvatar';
 import { useChatOrgData } from '@/hooks/queries/chat';
 import { usePinyinReady } from '@/hooks/usePinyinReady';
 import { textMatches } from '@/utils/pinyin';
-import type { ChatOrgUser } from '@zenith/shared/chat';
+import type { ChatOrgUser } from '@arcbase/shared/chat';
 import type { ChatUser } from '../types';
 
 const { Text } = Typography;

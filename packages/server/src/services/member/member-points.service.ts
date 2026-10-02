@@ -1,5 +1,5 @@
-import { memberPointContract, memberPointAccountSchema } from '@zenith/shared/member';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { memberPointContract, memberPointAccountSchema } from '@arcbase/shared/member';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 会员积分服务。
  *
@@ -20,9 +20,9 @@ import { requireRow } from '../../lib/db-assert';
 import { ensureMemberExists } from './member-auth.service';
 import { memberReferenceCondition, mapLedgerTransaction } from './member-query-helpers';
 import { trackServerEvent } from '../analytics/analytics-server-events.service';
-import { memberSelfContract } from '@zenith/shared/member';
-import type { PointTxType } from '@zenith/shared/member';
-import { ANALYTICS_MEMBER_POINTS_EVENT_BY_TX_TYPE } from '@zenith/shared/analytics';
+import { memberSelfContract } from '@arcbase/shared/member';
+import type { PointTxType } from '@arcbase/shared/member';
+import { ANALYTICS_MEMBER_POINTS_EVENT_BY_TX_TYPE } from '@arcbase/shared/analytics';
 import type { DbTransaction } from '../../db/types';
 import { pickEntity } from '../../lib/entity-map';
 

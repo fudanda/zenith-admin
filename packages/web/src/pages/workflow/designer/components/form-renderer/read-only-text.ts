@@ -4,7 +4,7 @@
  * 可读性（灰字对比度）、可复制性、打印与无障碍朗读都优于禁用态控件。
  * 复杂类型（附件/图片/签名/明细/富文本/级联/人员部门等）保持原控件的禁用态展示。
  */
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { CURRENCY_OPTIONS } from '../../form-types';
 
 export const READONLY_TEXT_TYPES = new Set<string>([

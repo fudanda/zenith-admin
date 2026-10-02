@@ -1,5 +1,5 @@
 import { HttpResponse } from 'msw';
-import { sslCertificateContract, type SslCertificate } from '@zenith/shared/ops';
+import { sslCertificateContract, type SslCertificate } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { nextIdFrom } from '@/mocks/utils/handlers';
@@ -12,8 +12,8 @@ const mockCerts: SslCertificate[] = [
     name: 'example.com 证书',
     domain: 'example.com',
     type: 'uploaded',
-    certPath: '/etc/ssl/zenith/1/cert.pem',
-    keyPath: '/etc/ssl/zenith/1/key.pem',
+    certPath: '/etc/ssl/arcbase/1/cert.pem',
+    keyPath: '/etc/ssl/arcbase/1/key.pem',
     issuer: 'CN=Let\'s Encrypt Authority X3',
     subject: 'CN=example.com',
     validFrom: '2024-01-01 00:00:00',
@@ -31,8 +31,8 @@ const mockCerts: SslCertificate[] = [
     name: 'api.example.com 自签名',
     domain: 'api.example.com',
     type: 'self_signed',
-    certPath: '/etc/ssl/zenith/2/cert.pem',
-    keyPath: '/etc/ssl/zenith/2/key.pem',
+    certPath: '/etc/ssl/arcbase/2/cert.pem',
+    keyPath: '/etc/ssl/arcbase/2/key.pem',
     issuer: 'CN=api.example.com',
     subject: 'CN=api.example.com',
     validFrom: '2024-01-01 00:00:00',
@@ -50,8 +50,8 @@ const mockCerts: SslCertificate[] = [
     name: 'old.example.com 过期',
     domain: 'old.example.com',
     type: 'uploaded',
-    certPath: '/etc/ssl/zenith/3/cert.pem',
-    keyPath: '/etc/ssl/zenith/3/key.pem',
+    certPath: '/etc/ssl/arcbase/3/cert.pem',
+    keyPath: '/etc/ssl/arcbase/3/key.pem',
     issuer: 'CN=DigiCert CA',
     subject: 'CN=old.example.com',
     validFrom: '2023-01-01 00:00:00',
@@ -101,8 +101,8 @@ export const sslCertificatesHandlers = [
       name: body.name,
       domain: body.domain,
       type: 'self_signed',
-      certPath: `/etc/ssl/zenith/${id}/cert.pem`,
-      keyPath: `/etc/ssl/zenith/${id}/key.pem`,
+      certPath: `/etc/ssl/arcbase/${id}/cert.pem`,
+      keyPath: `/etc/ssl/arcbase/${id}/key.pem`,
       issuer: `CN=${body.domain}`,
       subject: `CN=${body.domain}`,
       validFrom: mockDateTime(),
@@ -125,8 +125,8 @@ export const sslCertificatesHandlers = [
       name: body.name,
       domain: body.domain,
       type: 'uploaded',
-      certPath: `/etc/ssl/zenith/${id}/cert.pem`,
-      keyPath: `/etc/ssl/zenith/${id}/key.pem`,
+      certPath: `/etc/ssl/arcbase/${id}/cert.pem`,
+      keyPath: `/etc/ssl/arcbase/${id}/key.pem`,
       issuer: 'CN=Uploaded CA',
       subject: `CN=${body.domain}`,
       validFrom: mockDateTime(),

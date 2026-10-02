@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button, Descriptions, Empty, Progress, Select, SideSheet, Space, Spin, Table, TextArea, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ErrorEvent, ErrorLevel, ErrorStatus } from '@zenith/shared/analytics';
-import { ANALYTICS_ENVIRONMENT_LABELS, ERROR_LEVEL_OPTIONS, ERROR_STATUS_OPTIONS } from '@zenith/shared/analytics';
+import type { ErrorEvent, ErrorLevel, ErrorStatus } from '@arcbase/shared/analytics';
+import { ANALYTICS_ENVIRONMENT_LABELS, ERROR_LEVEL_OPTIONS, ERROR_STATUS_OPTIONS } from '@arcbase/shared/analytics';
 import { CodeBlock, ErrorLevelTag, ErrorStatusTag, ErrorTypeIcon, ErrorTypeTag, TrendSparkline } from '@/components/error-tracking';
 import UserSelect from '@/components/UserSelect';
 import { useExceptionGroupDetail, useUpdateExceptionGroup } from '@/hooks/queries/exception-logs';

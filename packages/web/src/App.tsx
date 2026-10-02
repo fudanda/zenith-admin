@@ -3,8 +3,8 @@ import React, { useState, useEffect, useCallback, Suspense, useMemo } from 'reac
 import { BrowserRouter, HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useAdminPaths, useAdminOptions } from '@/admin/runtime';
-import { useZenith } from '@zenith/elements';
-import type { ZenithAdminPage } from '@/admin/types';
+import { useArcBase } from '@arcbase/elements';
+import type { ArcBaseAdminPage } from '@/admin/types';
 import { useMountedAdminModules } from '@/admin/modules';
 import { PageErrorBoundary } from '@/components/PageErrorBoundary';
 import FullPageRetry from '@/components/FullPageRetry';
@@ -23,7 +23,7 @@ import MaintenanceOverlay from '@/components/MaintenanceOverlay';
 import { maintenanceKeys, usePublicMaintenanceStatus } from '@/hooks/queries/maintenance';
 import { lazyPageComponent } from '@/utils/page-registry';
 import { useCurrentUserMenuTree, useMenuTree } from '@/hooks/queries/menus';
-import type { Menu, User } from '@zenith/shared/identity';
+import type { Menu, User } from '@arcbase/shared/identity';
 import PageLoading from '@/components/PageLoading';
 // 布局内页面的 Suspense 边界：占位 → 内容的揭示与路由切换共用 ViewTransition（体积极小，不会拖入 AdminLayout）
 import RouteSuspense from '@/layouts/RouteSuspense';
@@ -167,8 +167,8 @@ interface AdminRouteLoaderProps {
 
 const EMPTY_MENUS: Menu[] = [];
 
-function HostPage({ page }: { page: ZenithAdminPage }) {
-  const { client, session } = useZenith();
+function HostPage({ page }: { page: ArcBaseAdminPage }) {
+  const { client, session } = useArcBase();
   const permissions = session.session?.permissions ?? [];
   const hasPermission = (permission: string) => permissions.includes('*') || permissions.includes(permission);
   if (session.status !== 'authenticated' || !session.session) return <PageLoading />;

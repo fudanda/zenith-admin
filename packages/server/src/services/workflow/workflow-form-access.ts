@@ -1,4 +1,4 @@
-import { resolveNodeFieldPermissions, type WorkflowFieldPermission, type WorkflowFlowData } from '@zenith/shared/workflow';
+import { resolveNodeFieldPermissions, type WorkflowFieldPermission, type WorkflowFlowData } from '@arcbase/shared/workflow';
 
 export interface WorkflowFormViewerContext {
   initiatorId: number;

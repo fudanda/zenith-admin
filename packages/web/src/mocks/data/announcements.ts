@@ -1,4 +1,4 @@
-import type { AnnouncementDetail } from '@zenith/shared/messaging';
+import type { AnnouncementDetail } from '@arcbase/shared/messaging';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 /** 内存中的公告同时承载列表 / 详情两种视角，故直接存详情形态（收件人与附件必带） */
@@ -6,7 +6,7 @@ export const mockAnnouncements: AnnouncementDetail[] = [
   {
     id: 1,
     title: '系统上线公告',
-    content: '<p>Zenith Admin 演示系统欢迎您！本系统为演示模式，所有数据仅为示例。</p>',
+    content: '<p>ArcBase 演示系统欢迎您！本系统为演示模式，所有数据仅为示例。</p>',
     type: 'announcement',
     publishStatus: 'published',
     priority: 'high',

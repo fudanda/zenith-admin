@@ -5,7 +5,7 @@ import { TaskCancelledError } from '../../lib/task-center';
 import { db } from '../../db';
 import type { DbExecutor, DbTransaction } from '../../db/types';
 import { cmsSites, type CmsSiteRow } from '../../db/schema';
-import type { CmsPublishSubmitInput } from '@zenith/shared/cms';
+import type { CmsPublishSubmitInput } from '@arcbase/shared/cms';
 
 const writeFenceStore = new AsyncLocalStorage<() => Promise<void>>();
 

@@ -5,8 +5,8 @@
  * 设备/地域/来源等维度分布来自明细，覆盖范围受明细保留窗口限制。
  */
 import { and, count, countDistinct, desc, eq, gte, sql } from 'drizzle-orm';
-import type { ShortLinkStats, ShortLinkTrendPoint } from '@zenith/shared/short-link';
-import { SHORT_LINK_STATS_DEFAULT_DAYS, SHORT_LINK_STATS_MAX_DAYS, SHORT_LINK_STATS_TOP_LIMIT } from '@zenith/shared/short-link';
+import type { ShortLinkStats, ShortLinkTrendPoint } from '@arcbase/shared/short-link';
+import { SHORT_LINK_STATS_DEFAULT_DAYS, SHORT_LINK_STATS_MAX_DAYS, SHORT_LINK_STATS_TOP_LIMIT } from '@arcbase/shared/short-link';
 import { db } from '../../db';
 import { shortLinkClicks, shortLinkDailyStats } from '../../db/schema';
 import { formatDate, startOfRecentDays, startOfToday } from '../../lib/datetime';

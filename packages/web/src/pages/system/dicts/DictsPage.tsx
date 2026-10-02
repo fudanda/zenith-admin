@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ComponentProps } from 'react';
 import { Button, Select, Tag, Form, Pagination, Toast, TreeSelect, JsonViewer, Row, Col, Space, Switch } from '@douyinfe/semi-ui';
 import { Plus, BookOpen, ChevronsDownUp, ChevronsUpDown, RefreshCw, Pencil, Trash2 } from 'lucide-react';
-import type { CreateDictInput, CreateDictItemInput, Dict, DictItem } from '@zenith/shared/platform';
+import type { CreateDictInput, CreateDictItemInput, Dict, DictItem } from '@arcbase/shared/platform';
 import DateTimeText from '@/components/DateTimeText';
 import ExportButton from '@/components/ExportButton';
 import ConfigurableTable from '@/components/ConfigurableTable';

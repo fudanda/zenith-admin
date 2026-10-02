@@ -1,6 +1,6 @@
 import { eq, desc, isNull, isNotNull } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { maintenanceContract } from '@zenith/shared/ops';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { maintenanceContract } from '@arcbase/shared/ops';
 import { db } from '../../db';
 import { maintenanceMode, maintenanceLogs } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';
@@ -8,7 +8,7 @@ import { currentUser } from '../../lib/context';
 import { buildWhere } from '../../lib/where-helpers';
 import { listRows } from '../../lib/list-query';
 import { formatDateTime, formatNullableDateTime, parseDateTimeInput } from '../../lib/datetime';
-import type { MaintenanceLog } from '@zenith/shared/ops';
+import type { MaintenanceLog } from '@arcbase/shared/ops';
 
 export interface MaintenanceStatus {
   enabled: boolean;

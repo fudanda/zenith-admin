@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { ReportFilter } from '@zenith/shared/report';
+import type { ReportFilter } from '@arcbase/shared/report';
 import { FilterBar } from './FilterBar';
 
 vi.mock('@/hooks/queries/report-designer', () => ({

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { describe, expect, it } from 'vitest';
-import type { ReportDqRuleConfig } from '@zenith/shared/report';
+import type { ReportDqRuleConfig } from '@arcbase/shared/report';
 import {
   boundFailureSamples,
   evaluateBuiltinDqRule,

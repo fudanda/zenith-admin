@@ -1,10 +1,10 @@
-# @zenith/client
+# @arcbase/client
 
-单组织 Go 基础版的独立 TypeScript API 客户端。运行时只依赖 `@zenith/shared`，不依赖 React、Semi UI、TanStack Query、Web 源码或浏览器存储。支持 workspace 开发和根目录 `pack:packages` 的编译后 tarball 交付，可在仓库外安装，并由普通 Node 直接导入 ESM。
+单组织 Go 基础版的独立 TypeScript API 客户端。运行时只依赖 `@arcbase/shared`，不依赖 React、Semi UI、TanStack Query、Web 源码或浏览器存储。支持 workspace 开发和根目录 `pack:packages` 的编译后 tarball 交付，可在仓库外安装，并由普通 Node 直接导入 ESM。
 
 ```ts
-import { Client, call, operationURL } from '@zenith/client';
-import { goAuthContract, positionContract } from '@zenith/shared/identity';
+import { Client, call, operationURL } from '@arcbase/client';
+import { goAuthContract, positionContract } from '@arcbase/shared/identity';
 
 const client = new Client({
   onUnauthorized: () => { /* 由宿主更新登录状态 */ },
@@ -31,7 +31,7 @@ const csv = await client.readBlob(operationURL(positionContract.exportCsv, { que
 登录可通过 `call(client, goAuthContract.login, { body: ... })` 发起；登录成功后由宿主用响应中的 `csrfToken` 更新客户端。退出、改密后由宿主清除 CSRF 和用户状态。认证请求返回 401 时客户端清除 CSRF 并调用 `onUnauthorized`，503 不清除会话。登录失败不触发宿主强退事件。
 
 ```ts
-import { fileContract } from '@zenith/shared/platform';
+import { fileContract } from '@arcbase/shared/platform';
 
 const form = new FormData();
 form.append('file', file);
@@ -53,7 +53,7 @@ await client.postForm(operationURL(fileContract.uploadOne), form, {
 npm run check:types
 npm run check:boundaries
 npm run test:client
-npm run lint -w @zenith/client
+npm run lint -w @arcbase/client
 ```
 
 Web 的 `go-transport`、`go-api-client` 和文件请求仅保留宿主适配；React Query hooks、会话 Provider、下载保存和提示仍位于 `packages/web`，原页面沿用原来的调用入口。

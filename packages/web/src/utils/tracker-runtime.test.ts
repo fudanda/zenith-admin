@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { analyticsStorageKey } from '@zenith/analytics-sdk/runtime-config';
+import { analyticsStorageKey } from '@arcbase/analytics-sdk/runtime-config';
 import { config } from '@/config';
 
 /**
@@ -25,7 +25,7 @@ vi.mock('web-vitals', () => ({
   onTTFB: vi.fn(),
 }));
 
-vi.mock('@zenith/analytics-sdk/error-reporter', () => ({
+vi.mock('@arcbase/analytics-sdk/error-reporter', () => ({
   configureErrorReporting,
   configureErrorReporterRuntime,
   reportError,
@@ -34,7 +34,7 @@ vi.mock('@zenith/analytics-sdk/error-reporter', () => ({
 describe('tracker runtime 参数化（configureTracker）', () => {
   const fetchMock = vi.fn();
   let tracker: typeof import('./tracker');
-  const MEMBER_TOKEN_KEY = 'zenith_member_token';
+  const MEMBER_TOKEN_KEY = 'arcbase_member_token';
 
   beforeAll(async () => {
     vi.useFakeTimers();
@@ -103,10 +103,10 @@ describe('tracker runtime 参数化（configureTracker）', () => {
     expect(body.events[0].appId).toBe('member');
     expect(body.events[0].sdkVersion).toBe('9.9.9');
     expect(((ingestCall?.[1] as RequestInit).headers as Record<string, string>).Authorization).toContain('member-token-abc');
-    expect(sessionStorage.getItem(analyticsStorageKey(config.deploymentId, 'zenith_tracker_sid', 'member'))).toBeTruthy();
-    expect(sessionStorage.getItem(analyticsStorageKey(config.deploymentId, 'zenith_tracker_sid', 'admin'))).toBeNull();
-    expect(localStorage.getItem(analyticsStorageKey(config.deploymentId, 'zenith_anon_id', 'member'))).toBeTruthy();
-    expect(localStorage.getItem(analyticsStorageKey(config.deploymentId, 'zenith_anon_id', 'admin'))).toBeNull();
+    expect(sessionStorage.getItem(analyticsStorageKey(config.deploymentId, 'arcbase_tracker_sid', 'member'))).toBeTruthy();
+    expect(sessionStorage.getItem(analyticsStorageKey(config.deploymentId, 'arcbase_tracker_sid', 'admin'))).toBeNull();
+    expect(localStorage.getItem(analyticsStorageKey(config.deploymentId, 'arcbase_anon_id', 'member'))).toBeTruthy();
+    expect(localStorage.getItem(analyticsStorageKey(config.deploymentId, 'arcbase_anon_id', 'admin'))).toBeNull();
   });
 
   it('调用方无法伪造 source=server：doTrack 强制覆盖', async () => {

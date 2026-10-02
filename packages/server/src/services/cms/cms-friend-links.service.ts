@@ -1,13 +1,13 @@
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { buildListResult } from '../../lib/list-query';
 import { eq, asc, and, isNull } from 'drizzle-orm';
-import { cmsFriendLinkContract, cmsFriendLinkSchema } from '@zenith/shared/cms';
+import { cmsFriendLinkContract, cmsFriendLinkSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsFriendLinkGroups, cmsFriendLinks } from '../../db/schema';
 import type { CmsFriendLinkRow } from '../../db/schema';
 import { buildWhere, withPagination, keywordCondition } from '../../lib/where-helpers';
-import type { CreateCmsFriendLinkInput, UpdateCmsFriendLinkInput } from '@zenith/shared/cms';
+import type { CreateCmsFriendLinkInput, UpdateCmsFriendLinkInput } from '@arcbase/shared/cms';
 import { assertSiteAccess, ensureCmsSiteExists } from './cms-sites.service';
 import { canonicalizeCmsResourceFields, deleteCmsResourceRefsForOwner, syncCmsResourceRefs, resolveCmsResourcePayload } from './cms-resource-refs.service';
 import { ensureFriendLinkGroupInSite } from './cms-friend-link-groups.service';

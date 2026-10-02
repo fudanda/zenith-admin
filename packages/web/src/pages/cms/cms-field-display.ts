@@ -1,5 +1,5 @@
 import DOMPurify from 'dompurify';
-import type { CmsModelField } from '@zenith/shared/cms';
+import type { CmsModelField } from '@arcbase/shared/cms';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { formatDate, formatDateTime } from '@/utils/date';
 

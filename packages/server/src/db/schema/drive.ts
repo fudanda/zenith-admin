@@ -1,11 +1,11 @@
 import { pgTable, varchar, timestamp, pgEnum, integer, bigint, boolean, primaryKey, foreignKey, unique, index, uniqueIndex, text, jsonb, smallint, uuid as pgUuid, customType, type AnyPgColumn } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
-import type { DriveCollectPolicy } from '@zenith/shared/drive';
+import type { DriveCollectPolicy } from '@arcbase/shared/drive';
 import { timestampColumns, idColumn, statusColumn, sortColumn, remarkColumn } from './common';
 import { auditColumns, departments, users, tenantIdColumn } from './core';
 import { managedFiles } from './files';
 
-// ─── 枚举（与 @zenith/shared/drive constants 三端同步）─────────────────────────
+// ─── 枚举（与 @arcbase/shared/drive constants 三端同步）─────────────────────────
 
 /** 空间类型：personal=个人空间（每人一个）；department=部门空间（按部门绑定）；team=协作空间 */
 export const driveSpaceTypeEnum = pgEnum('drive_space_type', ['personal', 'department', 'team']);

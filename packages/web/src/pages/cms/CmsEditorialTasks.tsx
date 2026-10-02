@@ -2,8 +2,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Banner, Button, Form, Space, Tag, Typography } from '@douyinfe/semi-ui';
 import { useNavigate } from 'react-router-dom';
-import type { BodyOf } from '@zenith/shared/core';
-import { cmsOperationsContract, CMS_EDITORIAL_TASK_SOURCE_LABELS, CMS_EDITORIAL_TASK_STATUS_LABELS, CMS_EDITORIAL_TASK_STATUS_OPTIONS, type CmsEditorialTask } from '@zenith/shared/cms';
+import type { BodyOf } from '@arcbase/shared/core';
+import { cmsOperationsContract, CMS_EDITORIAL_TASK_SOURCE_LABELS, CMS_EDITORIAL_TASK_STATUS_LABELS, CMS_EDITORIAL_TASK_STATUS_OPTIONS, type CmsEditorialTask } from '@arcbase/shared/cms';
 import { useCmsContentList } from '@/hooks/queries/cms';
 import { useCmsEditorialTaskDetail, useCmsEditorialTasks, useCmsOperationsAssignees, useSaveCmsEditorialTask } from '@/hooks/queries/cms-operations';
 import { useEditModal } from '@/hooks/useEditModal';

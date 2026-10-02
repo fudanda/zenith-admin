@@ -3,7 +3,7 @@
  * 收敛成同一组读取入口，供共享的日志工作台组件消费。两套契约的入参与响应形状一致
  * （`logTailQuery` / `logLinesSchema` / SSE `event: log`），差别只在寻址方式与权限码。
  */
-import type { LogTailQuery } from '@zenith/shared/ops';
+import type { LogTailQuery } from '@arcbase/shared/ops';
 import { logFileDownloadUrl, logFileTailUrl, useLogFileContent } from './log-files';
 import { logViewerDownloadUrl, logViewerTailUrl, useLogViewerContent } from './log-viewer';
 

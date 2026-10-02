@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/security"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/security"
 )
 
 type Guard struct {
@@ -18,12 +18,15 @@ type Guard struct {
 	SecureCookies   bool
 }
 
-func sessionToken(r *http.Request) string {
-	cookie, err := r.Cookie("zenith_session")
-	if err != nil {
-		return ""
+// SessionToken accepts the previous cookie until its original session expires.
+// A present ArcBase cookie always takes precedence, including an empty value.
+func SessionToken(r *http.Request) string {
+	for _, name := range []string{"arcbase_session", "zenith_session"} {
+		if cookie, err := r.Cookie(name); err == nil {
+			return cookie.Value
+		}
 	}
-	return cookie.Value
+	return ""
 }
 func (f *Guard) Wrap(route Route) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -56,7 +59,7 @@ func (f *Guard) Wrap(route Route) http.Handler {
 			}
 			p, err = f.AuthenticateKey(r.Context(), strings.TrimPrefix(header, "Bearer "))
 		} else {
-			p, err = f.Authenticate(r.Context(), sessionToken(r))
+			p, err = f.Authenticate(r.Context(), SessionToken(r))
 		}
 		if errors.Is(err, kernel.ErrUnauthenticated) {
 			Fail(w, 401, "unauthorized", "请重新登录")

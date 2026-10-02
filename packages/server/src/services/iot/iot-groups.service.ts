@@ -1,11 +1,11 @@
-import { iotDeviceGroupContract, iotDeviceGroupSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotDeviceGroupContract, iotDeviceGroupSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 设备分组：静态分组 CRUD 与成员维护（批量操作的圈选目标）。
  */
 import { HTTPException } from 'hono/http-exception';
 import { and, count, desc, eq, inArray, type SQL } from 'drizzle-orm';
-import type { CreateIotDeviceGroupInput, UpdateIotDeviceGroupInput } from '@zenith/shared/iot';
+import type { CreateIotDeviceGroupInput, UpdateIotDeviceGroupInput } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import { iotDeviceGroupMembers, iotDeviceGroups, iotDevices, type IotDeviceGroupRow } from '../../db/schema';

@@ -7,7 +7,7 @@ export function useChatDrafts({
 }: {
   setDraftsMap: Setter<Record<number, string>>;
 }) {
-  const DRAFT_STORAGE_KEY = 'zenith_chat_drafts';
+  const DRAFT_STORAGE_KEY = 'arcbase_chat_drafts';
 
   const saveDraft = useCallback((convId: number, text: string) => {
     try {

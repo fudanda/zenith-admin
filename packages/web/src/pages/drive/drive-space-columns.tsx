@@ -5,11 +5,11 @@
 import { Progress, Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { NavigateFunction } from 'react-router-dom';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import {
   DRIVE_ROLE_LABELS, DRIVE_SPACE_TYPE_LABELS, isOrphanedDriveSpace,
   type DriveRole, type DriveSpace, type DriveSpaceType,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { renderEllipsis } from '@/utils/table-columns';
 import { usagePercent } from './drive-utils';
 

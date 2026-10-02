@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { cmsStatContract } from '@zenith/shared/cms';
+import { cmsStatContract } from '@arcbase/shared/cms';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import { getCmsVisitStats, getCmsSearchAnalytics } from '../../services/cms/cms-stats.service';

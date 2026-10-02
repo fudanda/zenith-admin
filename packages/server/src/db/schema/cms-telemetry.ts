@@ -1,5 +1,5 @@
 import { index, integer, jsonb, pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
-import type { CmsTelemetryBusinessPayload } from '@zenith/shared/cms';
+import type { CmsTelemetryBusinessPayload } from '@arcbase/shared/cms';
 import { idColumn } from './common';
 import { cmsSites } from './cms';
 

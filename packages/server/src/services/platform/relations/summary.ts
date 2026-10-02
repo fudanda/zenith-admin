@@ -1,5 +1,5 @@
 import { sql, type SQL } from 'drizzle-orm';
-import { entityRelationSummaryStateSchema, type EntityRelationSummaryState } from '@zenith/shared/platform';
+import { entityRelationSummaryStateSchema, type EntityRelationSummaryState } from '@arcbase/shared/platform';
 import { recordRelationSummaryMetric, recordRelationSummaryState } from './metrics';
 import { isStatementTimeout, RelationBudgetExceeded, withRelationSummaryRead } from './runtime';
 import type { RelationAccessContext, RelationProvider, VisibleEntityAnchor } from './types';

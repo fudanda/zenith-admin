@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import type * as z from 'zod';
-import type { Operation } from '@zenith/shared/core';
+import type { Operation } from '@arcbase/shared/core';
 import {
   SETTINGS_MODULE_KEYS,
   settingsContract,
@@ -8,7 +8,7 @@ import {
   settingsUpdateOp,
   type SettingsModuleKey,
   type SettingsOf,
-} from '@zenith/shared/settings';
+} from '@arcbase/shared/settings';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { redactBody } from '../../lib/sanitize';

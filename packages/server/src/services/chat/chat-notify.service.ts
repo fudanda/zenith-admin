@@ -4,7 +4,7 @@
  * 供事件订阅器（工作流、系统告警等）在请求上下文之外，
  * 通过「系统号定向消息」推送卡片给指定用户。
  */
-import type { ChatCard } from '@zenith/shared/chat';
+import type { ChatCard } from '@arcbase/shared/chat';
 import { getSystemChannelId, publishTargeted } from '../messaging/channel.service';
 import logger from '../../lib/logger';
 

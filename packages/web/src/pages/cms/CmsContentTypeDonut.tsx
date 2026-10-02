@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { ChartCard, PieChart, chartOptions, makePieSpec, useChartPalette } from '@/components/charts';
-import { CMS_CONTENT_TYPE_LABELS, type CmsContentType } from '@zenith/shared/cms';
+import { CMS_CONTENT_TYPE_LABELS, type CmsContentType } from '@arcbase/shared/cms';
 
 interface CmsContentTypeDonutProps {
   readonly data?: readonly { contentType: CmsContentType; count: number }[];

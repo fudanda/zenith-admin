@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useState } from 'react';
 import { MemoryRouter, useLocation, useNavigate } from 'react-router-dom';
-import { entityRelationsContract } from '@zenith/shared/platform';
+import { entityRelationsContract } from '@arcbase/shared/platform';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
 import { urlOf } from '@/lib/contract-query';
 import { useListDeepLink } from '@/hooks/useListDeepLink';

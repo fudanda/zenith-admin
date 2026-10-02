@@ -1,5 +1,5 @@
-import { workflowScheduleContract } from '@zenith/shared/workflow';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { workflowScheduleContract } from '@arcbase/shared/workflow';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 流程定时发起（T2-1）
  *
@@ -16,7 +16,7 @@ import { tenantCondition, getCreateTenantId } from '../../lib/tenant';
 import { formatDate, formatDateTime, formatNullableDateTime, formatTimestamps } from '../../lib/datetime';
 import logger from '../../lib/logger';
 import { createInstance } from './workflow-instances.service';
-import type { WorkflowSchedule, CreateWorkflowScheduleInput, UpdateWorkflowScheduleInput } from '@zenith/shared/workflow';
+import type { WorkflowSchedule, CreateWorkflowScheduleInput, UpdateWorkflowScheduleInput } from '@arcbase/shared/workflow';
 import { buildWhere, withPagination } from '../../lib/where-helpers';
 import { buildListResult } from '../../lib/list-query';
 import { requireRow } from '../../lib/db-assert';

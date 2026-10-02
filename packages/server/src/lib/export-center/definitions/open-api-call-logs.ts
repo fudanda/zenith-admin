@@ -1,6 +1,6 @@
 import { desc, lt, lte } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { openApiStatsContract } from '@zenith/shared/open-platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { openApiStatsContract } from '@arcbase/shared/open-platform';
 import { db } from '../../../db';
 import { openApiCallLogs } from '../../../db/schema';
 import { buildWhere } from '../../where-helpers';

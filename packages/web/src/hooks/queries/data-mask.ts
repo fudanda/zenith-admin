@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import type { QueryClient } from '@tanstack/react-query';
-import { dataMaskContract } from '@zenith/shared/platform';
-import type { QueryOf } from '@zenith/shared/core';
+import { dataMaskContract } from '@arcbase/shared/platform';
+import type { QueryOf } from '@arcbase/shared/core';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

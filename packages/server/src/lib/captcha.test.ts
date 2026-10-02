@@ -25,7 +25,7 @@ vi.mock('./redis', () => ({
   },
 }));
 
-vi.mock('../config', () => ({ config: { redis: { keyPrefix: 'zenith:' } } }));
+vi.mock('../config', () => ({ config: { redis: { keyPrefix: 'arcbase:' } } }));
 
 const redisMock = vi.mocked(redis);
 
@@ -42,7 +42,7 @@ describe('captcha', () => {
     expect(captchaImage).toContain('<svg');
     expect(redisMock.setex).toHaveBeenCalledTimes(1);
     const [key, ttl, answer] = redisMock.setex.mock.calls[0];
-    expect(key).toBe(`zenith:captcha:${captchaId}`);
+    expect(key).toBe(`arcbase:captcha:${captchaId}`);
     expect(ttl).toBe(5 * 60);
     expect(answer).toBeTruthy();
   });

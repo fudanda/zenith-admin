@@ -1,4 +1,4 @@
-import type { AnalyticsEnvironment, AnalyticsEventSource, ErrorLevel, ErrorType, ServerErrorType } from '@zenith/shared/analytics';
+import type { AnalyticsEnvironment, AnalyticsEventSource, ErrorLevel, ErrorType, ServerErrorType } from '@arcbase/shared/analytics';
 import type { NewErrorEvent } from '../../db/schema';
 
 /** 事件行里由「分组 / 来源 / 级别」等公共字段之外的列（原样写入 error_events） */

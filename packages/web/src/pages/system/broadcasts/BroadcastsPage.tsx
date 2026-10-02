@@ -19,7 +19,7 @@ import {
   type BroadcastStatus,
   type CreateBroadcastInput,
   broadcastContract,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import AsyncTaskProgress from '@/components/AsyncTaskProgress';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

@@ -5,9 +5,9 @@
  * 每条记录携带 refKind / caller / version，执行记录页可按资产类型与调用方分析。
  */
 import { desc, eq, inArray } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { RuleExecution, RuleExecutionSource, RuleHitPolicy, RuleRefKind } from '@zenith/shared/rules';
-import { ruleExecutionContract, RULE_CALLER_LABELS } from '@zenith/shared/rules';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { RuleExecution, RuleExecutionSource, RuleHitPolicy, RuleRefKind } from '@arcbase/shared/rules';
+import { ruleExecutionContract, RULE_CALLER_LABELS } from '@arcbase/shared/rules';
 import { db } from '../../db';
 import { ruleExecutions, oauth2Clients } from '../../db/schema';
 import { currentUser } from '../../lib/context';

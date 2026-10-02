@@ -4,9 +4,9 @@
  * 在线趋势读 iot_online_snapshots（10 分钟桶平均），告警趋势按天分级聚合，
  * 遥测今日量读 Redis 日计数器（ingest 累加，O(1)；明细表按时间列无单列索引，不可 count）。
  */
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import { count, desc, eq, gte, sql } from 'drizzle-orm';
-import type { IotDashboard } from '@zenith/shared/iot';
+import type { IotDashboard } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import {
   iotAlarms, iotDeviceEvents, iotDevices, iotDeviceState, iotOnlineSnapshots, iotProducts,

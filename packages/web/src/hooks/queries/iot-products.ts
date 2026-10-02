@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { iotProductContract } from '@zenith/shared/iot';
+import type { QueryOf } from '@arcbase/shared/core';
+import { iotProductContract } from '@arcbase/shared/iot';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type IotProductListParams = NonNullable<QueryOf<typeof iotProductContract.list>>;

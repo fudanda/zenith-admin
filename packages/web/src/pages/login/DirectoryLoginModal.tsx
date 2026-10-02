@@ -1,6 +1,6 @@
 import { useState, type SubmitEvent } from 'react';
 import { User, Lock } from 'lucide-react';
-import type { TenantIdentityProviderSummary } from '@zenith/shared/identity';
+import type { TenantIdentityProviderSummary } from '@arcbase/shared/identity';
 import AppModal from '@/components/AppModal';
 import { ModalFooter } from '@/components/ModalFooter';
 import { useLoginForm, type FieldRules } from './login-form';

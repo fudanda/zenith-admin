@@ -6,7 +6,7 @@
  * 两端共用设备中心服务，只是主体解析不同。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { pushDeviceContract } from '@zenith/shared/ops';
+import { pushDeviceContract } from '@arcbase/shared/ops';
 import { currentUser } from '../../lib/context';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

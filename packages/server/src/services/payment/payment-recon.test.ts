@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { assertUniqueReconciliationEntries, parseReconciliationCsv, reconcileEntries, serializeReconciliationCsv, type ReconciliationEntry } from '@zenith/shared/payment';
+import { assertUniqueReconciliationEntries, parseReconciliationCsv, reconcileEntries, serializeReconciliationCsv, type ReconciliationEntry } from '@arcbase/shared/payment';
 
 const payment = (order: string, appId: number): ReconciliationEntry => ({ entryKey: `local:${order}`, type: 'payment', merchantOrderNo: order,
   providerTransactionId: `P${order}`, currency: 'CNY', amount: '10000', direction: 'in', status: 'success',

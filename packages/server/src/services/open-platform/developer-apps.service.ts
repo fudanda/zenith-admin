@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
 import { and, eq, inArray, isNull } from 'drizzle-orm';
-import type { CreateDeveloperOAuth2ClientInput, UpdateDeveloperOAuth2ClientInput } from '@zenith/shared/open-platform';
+import type { CreateDeveloperOAuth2ClientInput, UpdateDeveloperOAuth2ClientInput } from '@arcbase/shared/open-platform';
 import { db } from '../../db';
 import { oauth2Clients, roles, userRoles, users } from '../../db/schema';
 import { config } from '../../config';

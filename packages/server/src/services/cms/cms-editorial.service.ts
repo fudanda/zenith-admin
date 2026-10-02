@@ -1,7 +1,7 @@
 import { and, desc, eq, inArray, or, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { BodyOf } from '@zenith/shared/core';
-import { cmsEditorialContract, cmsEditorialNoteSchema, mergeCmsDistributionFields, validateCmsStructuredFields, type CmsQualityIssue, type CmsDocumentNode } from '@zenith/shared/cms';
+import type { BodyOf } from '@arcbase/shared/core';
+import { cmsEditorialContract, cmsEditorialNoteSchema, mergeCmsDistributionFields, validateCmsStructuredFields, type CmsQualityIssue, type CmsDocumentNode } from '@arcbase/shared/cms';
 import { db, readSnapshot } from '../../db';
 import { cmsContents, cmsContentWorkingCopies, cmsContentRevisions } from '../../db/schema';
 import { cmsEditorialNotes, cmsDistributionSyncStates, cmsModelVersions } from '../../db/schema/cms-design';

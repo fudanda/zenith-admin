@@ -12,7 +12,7 @@ const dist = resolve(root, 'dist-example');
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.wasm': 'application/wasm', '.json': 'application/json', '.ttf': 'font/ttf', '.woff2': 'font/woff2' };
 const server = createServer(async (req, res) => {
   if (req.url.startsWith('/api/')) {
-    const proxy = proxyRequest(new URL(req.url, process.env.ZENITH_BROWSER_API_URL), { method: req.method, headers: req.headers }, upstream => {
+    const proxy = proxyRequest(new URL(req.url, process.env.ARCBASE_BROWSER_API_URL), { method: req.method, headers: req.headers }, upstream => {
       res.writeHead(upstream.statusCode, upstream.headers); upstream.pipe(res);
       res.on('close', () => upstream.destroy());
     });
@@ -60,13 +60,13 @@ try {
   const svg = Buffer.from((await captcha.getAttribute('src')).split(',')[1], 'base64').toString();
   const answer = svg.match(/>([A-F0-9]{6})<\/text>/)?.[1];
   assert.ok(answer, 'real Go captcha');
-  await page.getByPlaceholder('请输入用户名/手机号').fill(process.env.ZENITH_BROWSER_USERNAME);
-  await page.getByPlaceholder('请输入密码', { exact: true }).fill(process.env.ZENITH_BROWSER_PASSWORD);
+  await page.getByPlaceholder('请输入用户名/手机号').fill(process.env.ARCBASE_BROWSER_USERNAME);
+  await page.getByPlaceholder('请输入密码', { exact: true }).fill(process.env.ARCBASE_BROWSER_PASSWORD);
   await page.getByPlaceholder('请输入验证码').fill(answer);
   await page.getByRole('button', { name: '登录', exact: true }).click();
   await page.waitForURL(/\/console\/?$/);
   await page.getByText('系统用户总数', { exact: true }).waitFor();
-  assert.ok((await context.cookies()).some(cookie => cookie.name === 'zenith_session' && cookie.httpOnly));
+  assert.ok((await context.cookies()).some(cookie => cookie.name === 'arcbase_session' && cookie.httpOnly));
   await page.goto(`${base}/console/system/positions`);
   await page.getByRole('button', { name: '新增', exact: true }).click();
   await page.getByPlaceholder('请输入岗位名称').fill('封装宿主岗位');
@@ -78,15 +78,15 @@ try {
   await page.getByRole('row').filter({ hasText: '封装宿主岗位' }).waitFor();
   await page.locator('.admin-tab-item').filter({ hasText: '岗位管理' }).first().click({ button: 'right' });
   await page.getByText('在新标签页中打开', { exact: true }).click();
-  assert.equal(await page.evaluate(() => window.zenithExample.lastExternal), `${base}/console/system/positions`, 'host external navigation receives the complete admin URL');
+  assert.equal(await page.evaluate(() => window.arcbaseExample.lastExternal), `${base}/console/system/positions`, 'host external navigation receives the complete admin URL');
   const download = page.waitForEvent('download');
   await page.locator('.export-button__trigger').click();
   await page.getByText('导出 CSV', { exact: true }).click();
   assert.match(await readFile(await (await download).path(), 'utf8'), /封装宿主岗位/);
-  await page.evaluate(() => window.zenithExample.unmount());
+  await page.evaluate(() => window.arcbaseExample.unmount());
   await page.locator('#root').filter({ has: page.locator(':scope > *') }).waitFor({ state: 'hidden' });
   assert.equal(await page.evaluate(() => window.localStorage === window.adminHostNativeStorage && window.localStorage.getItem('host-owned-data') === 'outside-admin'), true, 'restore host storage on unmount');
-  await page.evaluate(() => window.zenithExample.mount());
+  await page.evaluate(() => window.arcbaseExample.mount());
   await page.getByRole('row').filter({ hasText: '封装宿主岗位' }).waitFor();
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole('row').filter({ hasText: '封装宿主岗位' }).waitFor();
@@ -94,7 +94,7 @@ try {
   await page.goto(`${base}/console/system/file-configs`);
   await page.getByRole('button', { name: '新增', exact: true }).click();
   await page.getByPlaceholder('请输入配置名称').fill('宿主本地文件');
-  await page.getByPlaceholder('例如 storage/local 或 D:/uploads').fill(process.env.ZENITH_BROWSER_STORAGE);
+  await page.getByPlaceholder('例如 storage/local 或 D:/uploads').fill(process.env.ARCBASE_BROWSER_STORAGE);
   await page.getByRole('switch').click();
   await page.getByRole('button', { name: '保存', exact: true }).click();
   await page.getByRole('row').filter({ hasText: '宿主本地文件' }).waitFor();
@@ -116,7 +116,7 @@ try {
   await page.getByRole('button', { name: '更换头像', exact: true }).last().click();
   await page.getByAltText('预设头像').first().waitFor();
   const avatar = await page.getByAltText('预设头像').first().getAttribute('src');
-  assert.equal(avatar, `${base}/console/zenith-assets/avatars/avatar-01.svg`);
+  assert.equal(avatar, `${base}/console/arcbase-assets/avatars/avatar-01.svg`);
   await page.getByAltText('预设头像').first().click();
   await page.goto(`${base}/console/`);
   await page.locator('.admin-header__user').click();
@@ -125,7 +125,7 @@ try {
   await page.waitForURL(/\/console\/login/);
   assert.deepEqual(failures, [], 'no runtime or missing lazy resource failures');
   assert.deepEqual(externalRequests, [], 'preview and admin resources are local');
-  console.log('Built @zenith/admin host passed: branding/theme/locale/navigation, original login, Cookie restore, /console deep links, real CRUD/export, upload/preview/download, assets, remount, narrow screen and logout.');
+  console.log('Built @arcbase/admin host passed: branding/theme/locale/navigation, original login, Cookie restore, /console deep links, real CRUD/export, upload/preview/download, assets, remount, narrow screen and logout.');
 } catch (error) {
   throw new Error(`${error.message}\nBrowser failures: ${JSON.stringify(failures)}\nPage: ${(await page?.locator('body').innerText())?.slice(0, 1500)}`);
 } finally {

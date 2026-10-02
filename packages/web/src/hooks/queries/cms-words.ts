@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { cmsErrorProneWordContract, cmsSensitiveWordContract } from '@zenith/shared/cms';
+import type { QueryOf } from '@arcbase/shared/core';
+import { cmsErrorProneWordContract, cmsSensitiveWordContract } from '@arcbase/shared/cms';
 import { createResourceQueries } from '@/lib/contract-query';
 
 export type CmsSensitiveWordListParams = NonNullable<QueryOf<typeof cmsSensitiveWordContract.list>>;

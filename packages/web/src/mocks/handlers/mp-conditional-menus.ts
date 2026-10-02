@@ -1,4 +1,4 @@
-import { mpConditionalMenuContract, type MpConditionalMenu } from '@zenith/shared/mp';
+import { mpConditionalMenuContract, type MpConditionalMenu } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { mockMpConditionalMenus } from '@/mocks/data/mp-conditional-menus';

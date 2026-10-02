@@ -6,7 +6,7 @@ export interface ChatNotifyPrefs {
   sound: boolean;
 }
 
-const KEY = 'zenith_chat_notify_prefs';
+const KEY = 'arcbase_chat_notify_prefs';
 const DEFAULTS: ChatNotifyPrefs = { desktop: true, sound: true };
 
 export function getChatNotifyPrefs(): ChatNotifyPrefs {

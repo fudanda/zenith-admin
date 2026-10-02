@@ -2,7 +2,7 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { load } from 'cheerio';
 import { describe, expect, it, vi } from 'vitest';
-import type { CmsHomeSection, CmsResolvedWidget } from '@zenith/shared/cms';
+import type { CmsHomeSection, CmsResolvedWidget } from '@arcbase/shared/cms';
 import type { CmsContentItem, CmsHomeContext, CmsThemeContentCollection, CmsThemeContentQuery } from '../types';
 import { HomeTemplate } from './templates';
 import { Layout } from './Layout';

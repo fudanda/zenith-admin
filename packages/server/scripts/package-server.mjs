@@ -2,9 +2,9 @@
 //
 //   npm run package:server                                  # 默认：子集字体（约 2.5MB），与 Release 产物一致
 //   npm run package:server -- --pdf-font=full               # 携带全量 Noto Sans SC（约 8MB，含繁体 / 生僻字）
-//   npm run package:server -- --out /tmp/zenith/server      # 输出目录，默认 <仓库根>/release_artifacts/server
+//   npm run package:server -- --out /tmp/arcbase/server      # 输出目录，默认 <仓库根>/release_artifacts/server
 //
-// 前置：已执行 npm run build -w @zenith/server（产出 dist/ 与 assets/fonts/NotoSansSC-Regular.subset.otf）。
+// 前置：已执行 npm run build -w @arcbase/server（产出 dist/ 与 assets/fonts/NotoSansSC-Regular.subset.otf）。
 // 输出布局与 Release zip 内的 server/ 目录一致：dist/ · drizzle/ · assets/fonts/ · package.json。
 // 字体只放选中的那一份（运行时 src/lib/pdf-font.ts 在全量与子集并存时优先全量，部署后把全量文件
 // 复制进 assets/fonts 即可升级，无需改配置）。
@@ -45,9 +45,9 @@ const outDir = path.resolve(process.env.INIT_CWD || process.cwd(), values.out);
 const fontFile = path.join(FONT_DIR, PDF_FONT_FILES[pdfFont]);
 
 const required = [
-  [path.join(SERVER_ROOT, 'dist', 'index.js'), '请先执行 npm run build -w @zenith/server'],
+  [path.join(SERVER_ROOT, 'dist', 'index.js'), '请先执行 npm run build -w @arcbase/server'],
   [path.join(SERVER_ROOT, 'drizzle', 'meta', '_journal.json'), 'drizzle/ 迁移目录缺失'],
-  [fontFile, pdfFont === 'subset' ? '子集字体未生成，请先执行 npm run build -w @zenith/server（或 npm run build:pdf-font -w @zenith/server）' : '全量字体缺失，请检查仓库 checkout'],
+  [fontFile, pdfFont === 'subset' ? '子集字体未生成，请先执行 npm run build -w @arcbase/server（或 npm run build:pdf-font -w @arcbase/server）' : '全量字体缺失，请检查仓库 checkout'],
 ];
 for (const [file, hint] of required) {
   if (!fs.existsSync(file)) {

@@ -1,4 +1,4 @@
-import { isAsyncTaskTerminal, type AsyncTask, type AsyncTaskItem } from '@zenith/shared/tasks';
+import { isAsyncTaskTerminal, type AsyncTask, type AsyncTaskItem } from '@arcbase/shared/tasks';
 import type { AsyncTaskRow, asyncTaskItems } from '../../db/schema';
 import { formatNullableDateTime, formatTimestamps } from '../datetime';
 import { sendToUser } from '../ws-manager';

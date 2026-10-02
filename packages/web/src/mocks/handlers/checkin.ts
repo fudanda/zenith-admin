@@ -9,7 +9,7 @@ import {
   type CheckinMilestone,
   type CheckinRule,
   type MemberCheckin,
-} from '@zenith/shared/member';
+} from '@arcbase/shared/member';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, updateItem } from '@/mocks/utils/crud';
 import { badRequest, nextIdFrom } from '@/mocks/utils/handlers';

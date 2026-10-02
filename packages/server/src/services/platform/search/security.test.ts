@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { globalSearchResponseSchema, type GlobalSearchResult } from '@zenith/shared/platform';
+import { globalSearchResponseSchema, type GlobalSearchResult } from '@arcbase/shared/platform';
 import { runGlobalSearch } from './registry';
 import type { GlobalSearchAdapter } from './types';
 

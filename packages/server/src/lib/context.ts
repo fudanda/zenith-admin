@@ -11,7 +11,7 @@
 import { getContext, tryGetContext } from 'hono/context-storage';
 import { eq } from 'drizzle-orm';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 import type { AuthEnv, JwtPayload } from '../middleware/auth';
 import { db } from '../db';
 import { users, departments } from '../db/schema';

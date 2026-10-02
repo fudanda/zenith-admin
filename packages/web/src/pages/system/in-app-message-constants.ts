@@ -1,5 +1,5 @@
-import { IN_APP_MESSAGE_TYPE_OPTIONS } from '@zenith/shared/messaging';
-import type { InAppMessageType } from '@zenith/shared/messaging';
+import { IN_APP_MESSAGE_TYPE_OPTIONS } from '@arcbase/shared/messaging';
+import type { InAppMessageType } from '@arcbase/shared/messaging';
 
 type InAppMessageTypeColor = 'blue' | 'green' | 'orange' | 'red';
 

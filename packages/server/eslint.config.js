@@ -20,39 +20,39 @@ export default tseslint.config(
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
       ],
-      // @zenith/shared 已按业务域拆分：根入口会把全部 18 个域拉进依赖图，
+      // @arcbase/shared 已按业务域拆分：根入口会把全部 18 个域拉进依赖图，
       // 使「改 CMS 类型」这类局部改动波及所有消费方，故禁止直接引用根入口与已废弃的旧巨石路径。
       'no-restricted-imports': [
         'error',
         {
           paths: [
             {
-              name: '@zenith/shared',
+              name: '@arcbase/shared',
               message:
-                "请改用域子路径：'@zenith/shared/identity' | 'payment' | 'workflow' | 'cms' | 'report' | 'core' 等；种子数据用 '@zenith/shared/seed'。",
+                "请改用域子路径：'@arcbase/shared/identity' | 'payment' | 'workflow' | 'cms' | 'report' | 'core' 等；种子数据用 '@arcbase/shared/seed'。",
             },
             {
-              name: '@zenith/shared/types',
-              message: "旧巨石路径已删除，请改用 '@zenith/shared/<domain>'。",
+              name: '@arcbase/shared/types',
+              message: "旧巨石路径已删除，请改用 '@arcbase/shared/<domain>'。",
             },
             {
-              name: '@zenith/shared/validation',
-              message: "旧巨石路径已删除，请改用 '@zenith/shared/<domain>'。",
+              name: '@arcbase/shared/validation',
+              message: "旧巨石路径已删除，请改用 '@arcbase/shared/<domain>'。",
             },
             {
-              name: '@zenith/shared/constants',
-              message: "旧巨石路径已删除，请改用 '@zenith/shared/<domain>'。",
+              name: '@arcbase/shared/constants',
+              message: "旧巨石路径已删除，请改用 '@arcbase/shared/<domain>'。",
             },
             {
-              name: '@zenith/shared/seed-data',
-              message: "旧巨石路径已删除，请改用 '@zenith/shared/seed'。",
+              name: '@arcbase/shared/seed-data',
+              message: "旧巨石路径已删除，请改用 '@arcbase/shared/seed'。",
             },
           ],
         },
       ],
     },
   },
-  // 部分更新 schema 一律由 partialForUpdate()（@zenith/shared/core）派生：Zod 的 .partial()
+  // 部分更新 schema 一律由 partialForUpdate()（@arcbase/shared/core）派生：Zod 的 .partial()
   // 保留 .default()，字段省略时会填入默认值并经服务层 .set({ ...data }) 写库，覆盖从未提交的字段。
   // 契约层校验见 app.contract.test.ts（PUT / PATCH 请求体属性不得携带 default）。
   {
@@ -62,7 +62,7 @@ export default tseslint.config(
         'error',
         {
           selector: "CallExpression[callee.property.name='partial']",
-          message: '禁止直接调用 .partial()：请改用 partialForUpdate()（@zenith/shared/core），否则字段省略时会注入 .default() 并覆盖未提交的字段。',
+          message: '禁止直接调用 .partial()：请改用 partialForUpdate()（@arcbase/shared/core），否则字段省略时会注入 .default() 并覆盖未提交的字段。',
         },
       ],
     },
@@ -78,11 +78,11 @@ export default tseslint.config(
         'error',
         {
           selector: "CallExpression[callee.property.name='partial']",
-          message: '禁止直接调用 .partial()：请改用 partialForUpdate()（@zenith/shared/core），否则字段省略时会注入 .default() 并覆盖未提交的字段。',
+          message: '禁止直接调用 .partial()：请改用 partialForUpdate()（@arcbase/shared/core），否则字段省略时会注入 .default() 并覆盖未提交的字段。',
         },
         {
           selector: "TSInterfaceDeclaration TSPropertySignature[key.name='pageSize']",
-          message: '禁止在 service 手写含 pageSize 的查询入参 interface：列表函数入参写 QueryOutputOf<typeof xxxContract.op>（@zenith/shared/core），筛选子集用 Omit<…, \'page\' | \'pageSize\'>。',
+          message: '禁止在 service 手写含 pageSize 的查询入参 interface：列表函数入参写 QueryOutputOf<typeof xxxContract.op>（@arcbase/shared/core），筛选子集用 Omit<…, \'page\' | \'pageSize\'>。',
         },
         {
           selector: "CallExpression[callee.name='and'][arguments.length=1] > SpreadElement",

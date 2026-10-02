@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { cmsEditorialContract } from '@zenith/shared/cms';
+import { cmsEditorialContract } from '@arcbase/shared/cms';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { addCmsEditorialNote, checkCmsWorkingQuality, createCmsTranslation, getCmsEditorialMetrics, listCmsEditorialNotes, listCmsTranslations, resolveCmsEditorialNote, getCmsDistributionConflict, resolveCmsDistributionConflict, previewCmsTypeConversion, convertCmsContentType } from '../../services/cms/cms-editorial.service';

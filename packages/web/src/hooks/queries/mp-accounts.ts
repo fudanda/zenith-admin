@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { mpAccountContract } from '@zenith/shared/mp';
+import type { QueryOf } from '@arcbase/shared/core';
+import { mpAccountContract } from '@arcbase/shared/mp';
 import { createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type MpAccountListParams = QueryOf<typeof mpAccountContract.list>;

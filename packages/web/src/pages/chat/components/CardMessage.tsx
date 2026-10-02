@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Modal, Tag, Typography } from '@douyinfe/semi-ui';
 import DOMPurify from 'dompurify';
 import { BookOpen, Check, ChevronRight } from 'lucide-react';
-import type { ChatMessage, ChatCardAction } from '@zenith/shared/chat';
+import type { ChatMessage, ChatCardAction } from '@arcbase/shared/chat';
 import { getMessageExtra } from '../utils';
 import { safeLinkUrl } from '@/utils/safe-url';
 

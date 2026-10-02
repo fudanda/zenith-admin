@@ -10,9 +10,9 @@ import { tenantScope, currentCreateTenantId } from '../../lib/tenant';
 import { ensureMpAccountExists } from './mp-account.service';
 import { assertContentSafe } from './mp-security.service';
 import { sendCustomServiceMessage, WechatApiError } from '../../lib/wechat';
-import type { SendMpMessageInput } from '@zenith/shared/messaging';
-import { mpMessageSchema, type MpMessageType, type mpMessageContract } from '@zenith/shared/mp';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { SendMpMessageInput } from '@arcbase/shared/messaging';
+import { mpMessageSchema, type MpMessageType, type mpMessageContract } from '@arcbase/shared/mp';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { pickEntity } from '../../lib/entity-map';
 
 export function mapMpMessage(row: MpMessageRow) {

@@ -2,7 +2,7 @@
  * 权限码注册表的类型基座。
  *
  * 每个业务域在 `shared/src/{域}/permissions.ts` 用 `definePermissions()` 声明自己的权限码，
- * `@zenith/shared/permissions` 把各域注册表聚合成 `PERMISSION_REGISTRY_BY_DOMAIN`；这里只以 **type-only** 方式引用该聚合，
+ * `@arcbase/shared/permissions` 把各域注册表聚合成 `PERMISSION_REGISTRY_BY_DOMAIN`；这里只以 **type-only** 方式引用该聚合，
  * 从中推导 `Permission` 字面量联合——运行时没有 core → 业务域的依赖，而任何引用了 `Permission` 的编译单元
  * 都必然带上全部域的注册表（不依赖调用方是否恰好 import 了某个域）。
  *

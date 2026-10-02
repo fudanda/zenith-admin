@@ -1,5 +1,5 @@
-import { iotScheduleContract, iotScheduleSchema, iotScheduleRunSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotScheduleContract, iotScheduleSchema, iotScheduleRunSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 设备计划任务：时间驱动的自动化（与场景联动的事件驱动互补）。
  *
@@ -12,8 +12,8 @@ import type { QueryOutputOf } from '@zenith/shared/core';
 import { HTTPException } from 'hono/http-exception';
 import { CronExpressionParser } from 'cron-parser';
 import { and, count, desc, eq, gte, inArray, isNull, lte, type SQL } from 'drizzle-orm';
-import type { CreateIotScheduleInput, UpdateIotScheduleInput } from '@zenith/shared/iot';
-import { IOT_SCHEDULE_TARGET_MAX } from '@zenith/shared/iot';
+import type { CreateIotScheduleInput, UpdateIotScheduleInput } from '@arcbase/shared/iot';
+import { IOT_SCHEDULE_TARGET_MAX } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import {
   iotDeviceGroupMembers, iotDeviceGroups, iotDevices, iotProducts, iotScheduleRuns, iotSchedules,

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { goAuthContract } from '@zenith/shared/identity';
+import { goAuthContract } from '@arcbase/shared/identity';
 import { apiRaw } from '@/lib/contract-query';
 import { createGoApiClient } from './go-auth-api';
 import { GoTransport } from './go-transport';

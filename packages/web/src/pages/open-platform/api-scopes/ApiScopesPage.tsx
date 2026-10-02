@@ -1,7 +1,7 @@
 import { Tag, Form, Typography, Row, Col } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { API_SCOPE_GROUPS, API_SCOPE_GROUP_LABELS, apiScopeContract } from '@zenith/shared/open-platform';
-import type { ApiScope, CreateApiScopeInput } from '@zenith/shared/open-platform';
+import { API_SCOPE_GROUPS, API_SCOPE_GROUP_LABELS, apiScopeContract } from '@arcbase/shared/open-platform';
+import type { ApiScope, CreateApiScopeInput } from '@arcbase/shared/open-platform';
 import { copyableNoColumn, createdAtColumn, renderEnabledStatusTag } from '@/utils/table-columns';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { confirmAndDelete, ListSearchToolbar, useRowSelection, useCrudOperationColumn } from '@/components/list-page';

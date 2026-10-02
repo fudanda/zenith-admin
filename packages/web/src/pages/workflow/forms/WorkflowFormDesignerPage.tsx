@@ -4,7 +4,7 @@
  * 路由：/workflow/forms/designer（新建） 或 /workflow/forms/designer?id=123（编辑）
  */
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import type { WorkflowForm } from '@zenith/shared/workflow';
+import type { WorkflowForm } from '@arcbase/shared/workflow';
 import WorkflowFormInlineEditor from './WorkflowFormInlineEditor';
 
 export default function WorkflowFormDesignerPage() {

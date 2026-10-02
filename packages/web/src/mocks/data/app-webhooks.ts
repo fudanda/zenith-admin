@@ -1,4 +1,4 @@
-import type { AppWebhookSubscription, AppWebhookDelivery } from '@zenith/shared/open-platform';
+import type { AppWebhookSubscription, AppWebhookDelivery } from '@arcbase/shared/open-platform';
 
 export const mockWebhookSubscriptions: AppWebhookSubscription[] = [
   {
@@ -24,7 +24,7 @@ export const mockWebhookSubscriptions: AppWebhookSubscription[] = [
     clientId: 'f0e1d2c3-b4a5-6789-0abc-de1234567891',
     tenantId: null,
     name: '全事件监听',
-    url: 'https://hooks.example.com/zenith',
+    url: 'https://hooks.example.com/arcbase',
     signMode: 'hmacSha256',
     events: [],
     headers: { 'X-Env': 'prod' },

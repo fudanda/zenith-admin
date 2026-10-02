@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { streamSSE } from 'hono/streaming';
 import type { SSEStreamingApi } from 'hono/streaming';
-import { aiGenerationContract } from '@zenith/shared/ai';
+import { aiGenerationContract } from '@arcbase/shared/ai';
 import { defineContractRoute } from '../../lib/contract-route';
 import { errBody, okBody, validationHook } from '../../lib/openapi-schemas';
 import { currentUser } from '../../lib/context';

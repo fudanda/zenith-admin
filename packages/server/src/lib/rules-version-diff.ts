@@ -2,7 +2,7 @@
  * 决策表版本 diff：对比两份快照（输入列/输出列/规则行 + 元信息），输出行级变更。
  * 输入/输出列按 key 匹配，规则行按 id 匹配。
  */
-import type { RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleVersionChange, RuleVersionDiff } from '@zenith/shared/rules';
+import type { RuleDecisionInput, RuleDecisionOutput, RuleDecisionRow, RuleVersionChange, RuleVersionDiff } from '@arcbase/shared/rules';
 
 interface Snapshot {
   name: string;

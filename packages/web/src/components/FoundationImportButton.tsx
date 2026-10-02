@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Button, Dropdown, Modal, Select, Table, Tag, Typography, Toast } from '@douyinfe/semi-ui';
 import { ChevronDown, Upload } from 'lucide-react';
-import { foundationTransferContract, type SyncImportResult } from '@zenith/shared/foundation-transfer';
+import { foundationTransferContract, type SyncImportResult } from '@arcbase/shared/foundation-transfer';
 import { request } from '@/utils/request';
 import { urlOf } from '@/lib/contract-query';
 import { goTransport } from '@/lib/go-transport';

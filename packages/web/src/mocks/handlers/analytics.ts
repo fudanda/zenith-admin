@@ -1,4 +1,4 @@
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import type {
   AnalyticsAcquisitionResult,
   AnalyticsDebugEvent,
@@ -26,7 +26,7 @@ import type {
   HeatmapPageListItem,
   PageStats,
   SessionListItem,
-} from '@zenith/shared/analytics';
+} from '@arcbase/shared/analytics';
 import {
   ANALYTICS_ACQUISITION_CHANNELS,
   ANALYTICS_ACQUISITION_CHANNEL_LABELS,
@@ -39,9 +39,9 @@ import {
   analyticsContract,
   analyticsExperimentContract,
   analyticsSiteContract,
-} from '@zenith/shared/analytics';
-import type { UserBehaviorEventType } from '@zenith/shared/analytics';
-import { SEED_ANALYTICS_EVENT_META, SEED_ANALYTICS_SITES, SEED_ANALYTICS_SEGMENTS } from '@zenith/shared/seed';
+} from '@arcbase/shared/analytics';
+import type { UserBehaviorEventType } from '@arcbase/shared/analytics';
+import { SEED_ANALYTICS_EVENT_META, SEED_ANALYTICS_SITES, SEED_ANALYTICS_SEGMENTS } from '@arcbase/shared/seed';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, updateItem } from '@/mocks/utils/crud';
 import { badRequest, nextIdFrom, notFound, pageResult } from '@/mocks/utils/handlers';
@@ -156,7 +156,7 @@ const OSES = ['Windows', 'macOS', 'iOS', 'Android'];
 const USERNAMES = ['admin', 'zhangsan', 'lisi', 'wangwu', 'zhaoliu'];
 
 // ─── 事件字典（内存）──────────────────────────────────────────────────────────
-// 前 4 条为前端 SDK 内置自动采集事件；其余派生自 @zenith/shared SEED_ANALYTICS_EVENT_META
+// 前 4 条为前端 SDK 内置自动采集事件；其余派生自 @arcbase/shared SEED_ANALYTICS_EVENT_META
 // （服务端权威事件：支付 / 工作流 / 会员），与 DB 种子/服务端订阅产出的 eventName 保持一致。
 let mockEventMeta: AnalyticsEventMeta[] = [
   { id: 1, eventName: '$pageview', displayName: '页面浏览', category: 'page_view', description: '页面进入自动采集', propertySchema: null, status: 'active', version: 1, ownerId: null, ownerName: null, strictMode: false, eventCount: 18420, firstSeenAt: mockDateTimeOffset(-30 * 86400000), lastSeenAt: mockDateTime(), createdAt: mockDateTimeOffset(-30 * 86400000), updatedAt: mockDateTime() },

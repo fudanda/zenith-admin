@@ -2,7 +2,7 @@
 // 能力：光标处插入函数/字段引用、明细列聚合引用、实时试算、语法/引用/循环依赖校验。
 import { useMemo, useRef, useState } from 'react';
 import { Input, TextArea, Tooltip, Typography } from '@douyinfe/semi-ui';
-import type { WorkflowFormField, WorkflowFormFieldType } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormFieldType } from '@arcbase/shared/workflow';
 import { FORMULA_FN_GROUPS, evalFormula } from '../../form-formula';
 import { formulaError, formulaCycleError } from './helpers';
 

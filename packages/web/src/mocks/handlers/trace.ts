@@ -1,5 +1,5 @@
-import { analyticsCampaignContract } from '@zenith/shared/analytics';
-import { traceContract, type TraceFailureEntry, type TraceListEntry, type TraceTimelineNode } from '@zenith/shared/platform';
+import { analyticsCampaignContract } from '@arcbase/shared/analytics';
+import { traceContract, type TraceFailureEntry, type TraceListEntry, type TraceTimelineNode } from '@arcbase/shared/platform';
 import { urlOf } from '@/lib/contract-query';
 import { mock } from '@/mocks/utils/contract';
 import { mockDateTime } from '../utils/date';

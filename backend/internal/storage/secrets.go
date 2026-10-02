@@ -16,13 +16,13 @@ func SecretKey(raw string) ([]byte, error) {
 	}
 	value, err := hex.DecodeString(raw)
 	if err != nil || len(value) != 32 {
-		return nil, errors.New("ZENITH_STORAGE_KEY must be 64 hex characters")
+		return nil, errors.New("ARCBASE_STORAGE_KEY must be 64 hex characters")
 	}
 	return value, nil
 }
 func Encrypt(key []byte, secret string) (string, error) {
 	if len(key) != 32 {
-		return "", errors.New("配置 S3 前需设置 ZENITH_STORAGE_KEY（32 字节十六进制）")
+		return "", errors.New("配置 S3 前需设置 ARCBASE_STORAGE_KEY（32 字节十六进制）")
 	}
 	block, err := aes.NewCipher(key)
 	if err != nil {

@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"bytes"
@@ -34,17 +34,17 @@ import (
 // This opt-in acceptance uses the release executable, not an in-process app.
 // Its PostgreSQL container must be dedicated: the outage check stops it briefly.
 func TestReleaseHTTPSBackupRecovery(t *testing.T) {
-	binary, container := os.Getenv("ZENITH_DEPLOYMENT_BINARY"), os.Getenv("ZENITH_ACCEPTANCE_PG_CONTAINER")
+	binary, container := os.Getenv("ARCBASE_DEPLOYMENT_BINARY"), os.Getenv("ARCBASE_ACCEPTANCE_PG_CONTAINER")
 	if binary == "" || container == "" {
-		t.Skip("set ZENITH_DEPLOYMENT_BINARY and a dedicated ZENITH_ACCEPTANCE_PG_CONTAINER")
+		t.Skip("set ARCBASE_DEPLOYMENT_BINARY and a dedicated ARCBASE_ACCEPTANCE_PG_CONTAINER")
 	}
-	node := os.Getenv("ZENITH_BROWSER_TEST_NODE")
+	node := os.Getenv("ARCBASE_BROWSER_TEST_NODE")
 	if node == "" {
-		t.Fatal("ZENITH_BROWSER_TEST_NODE is required for release acceptance")
+		t.Fatal("ARCBASE_BROWSER_TEST_NODE is required for release acceptance")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 8*time.Minute)
 	defer cancel()
-	dsn, err := url.Parse(os.Getenv("ZENITH_TEST_DATABASE_URL"))
+	dsn, err := url.Parse(os.Getenv("ARCBASE_TEST_DATABASE_URL"))
 	if err != nil || dsn.Host == "" {
 		t.Fatal("a real PostgreSQL test URL is required")
 	}
@@ -58,7 +58,7 @@ func TestReleaseHTTPSBackupRecovery(t *testing.T) {
 	}
 	defer admin.Close()
 	stamp := time.Now().UnixNano()
-	source, recovered := fmt.Sprintf("zenith_release_%d", stamp), fmt.Sprintf("zenith_recovery_%d", stamp)
+	source, recovered := fmt.Sprintf("arcbase_release_%d", stamp), fmt.Sprintf("arcbase_recovery_%d", stamp)
 	for _, name := range []string{source, recovered} {
 		if _, err := admin.DB.ExecContext(ctx, "CREATE DATABASE "+name); err != nil {
 			t.Fatal(err)
@@ -74,7 +74,7 @@ func TestReleaseHTTPSBackupRecovery(t *testing.T) {
 	}
 	address := listener.Addr().String()
 	listener.Close()
-	artifacts := os.Getenv("ZENITH_ACCEPTANCE_ARTIFACTS")
+	artifacts := os.Getenv("ARCBASE_ACCEPTANCE_ARTIFACTS")
 	if artifacts == "" {
 		artifacts = t.TempDir()
 	}
@@ -86,7 +86,7 @@ func TestReleaseHTTPSBackupRecovery(t *testing.T) {
 		t.Fatal(err)
 	}
 	env := func(name string) []string {
-		return append(os.Environ(), "ZENITH_DATABASE_URL="+databaseURL(name), "ZENITH_ADDR="+address, "ZENITH_INSECURE_COOKIES=false")
+		return append(os.Environ(), "ARCBASE_DATABASE_URL="+databaseURL(name), "ARCBASE_ADDR="+address, "ARCBASE_INSECURE_COOKIES=false")
 	}
 	cli := func(command string, input string, args ...string) {
 		t.Helper()
@@ -175,7 +175,7 @@ func TestReleaseHTTPSBackupRecovery(t *testing.T) {
 		t.Fatal(err)
 	}
 	browser := exec.CommandContext(ctx, node, script)
-	browser.Env = append(os.Environ(), "ZENITH_BROWSER_PRODUCTION=true", "ZENITH_BROWSER_HTTPS=true", "NODE_EXTRA_CA_CERTS="+certificate, "ZENITH_BROWSER_API_URL="+tlsServer.URL, "ZENITH_BROWSER_USERNAME="+username, "ZENITH_BROWSER_PASSWORD="+password, "ZENITH_BROWSER_STORAGE="+storage, "ZENITH_BROWSER_IMPORT_FILE="+importPath, "ZENITH_BROWSER_AVATAR_FILE="+avatarPath, "ZENITH_ACCEPTANCE_SCREENSHOTS="+filepath.Join(artifacts, "screenshots"))
+	browser.Env = append(os.Environ(), "ARCBASE_BROWSER_PRODUCTION=true", "ARCBASE_BROWSER_HTTPS=true", "NODE_EXTRA_CA_CERTS="+certificate, "ARCBASE_BROWSER_API_URL="+tlsServer.URL, "ARCBASE_BROWSER_USERNAME="+username, "ARCBASE_BROWSER_PASSWORD="+password, "ARCBASE_BROWSER_STORAGE="+storage, "ARCBASE_BROWSER_IMPORT_FILE="+importPath, "ARCBASE_BROWSER_AVATAR_FILE="+avatarPath, "ARCBASE_ACCEPTANCE_SCREENSHOTS="+filepath.Join(artifacts, "screenshots"))
 	output, err := browser.CombinedOutput()
 	if err := os.WriteFile(filepath.Join(artifacts, "release-browser.log"), output, 0600); err != nil {
 		t.Fatal(err)

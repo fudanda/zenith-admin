@@ -1,5 +1,5 @@
-import { randomUUID } from '@zenith/shared/core';
-import type { CmsTelemetryEvent } from '@zenith/shared/cms';
+import { randomUUID } from '@arcbase/shared/core';
+import type { CmsTelemetryEvent } from '@arcbase/shared/cms';
 import type { CmsTracker } from './cms-tracker';
 
 type Properties = CmsTelemetryEvent['properties'];

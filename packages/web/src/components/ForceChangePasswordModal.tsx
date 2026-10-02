@@ -2,7 +2,7 @@ import { FormPasswordInput } from '@/components/PasswordInput';
 import { useRef, useState } from 'react';
 import { Modal, Form, Notification } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
-import { authContract, type User } from '@zenith/shared/identity';
+import { authContract, type User } from '@arcbase/shared/identity';
 import { api } from '@/lib/contract-query';
 import { PasswordStrengthMeter } from './PasswordStrengthMeter';
 import ModalFooter from './ModalFooter';

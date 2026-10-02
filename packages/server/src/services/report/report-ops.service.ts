@@ -48,8 +48,8 @@ import type {
   ReportDashboardVersionRow,
   ReportDashboardRow,
 } from '../../db/schema';
-import { reportDashboardCategorySchema, reportDashboardVersionSchema, type CreateReportCategoryInput, type CreateReportEmbedTokenInput, type CreateReportShareInput, type CreateReportVersionInput, type ReportDashboard, type ReportDashboardCategory, type ReportDashboardConfig, type ReportDashboardEmbedToken, type ReportDashboardLifecycleActionInput, type ReportDashboardShare, type ReportDashboardSnapshot, type ReportDashboardVersion, type ReportDashboardVersionDiff, type ReportDashboardVersionSource, type ReportFilter, type ReportGridItem, type ReportPublicAccessSession, type ReportPublicDashboard, type ReportWidget, type ReportWidgetDataResult, type ReportDatasetQueryOptions, type UpdateReportCategoryInput, type ReportLookupOption, type UpdateReportShareInput } from '@zenith/shared/report';
-import type { ReportWidgetOptions } from '@zenith/shared/report';
+import { reportDashboardCategorySchema, reportDashboardVersionSchema, type CreateReportCategoryInput, type CreateReportEmbedTokenInput, type CreateReportShareInput, type CreateReportVersionInput, type ReportDashboard, type ReportDashboardCategory, type ReportDashboardConfig, type ReportDashboardEmbedToken, type ReportDashboardLifecycleActionInput, type ReportDashboardShare, type ReportDashboardSnapshot, type ReportDashboardVersion, type ReportDashboardVersionDiff, type ReportDashboardVersionSource, type ReportFilter, type ReportGridItem, type ReportPublicAccessSession, type ReportPublicDashboard, type ReportWidget, type ReportWidgetDataResult, type ReportDatasetQueryOptions, type UpdateReportCategoryInput, type ReportLookupOption, type UpdateReportShareInput } from '@arcbase/shared/report';
+import type { ReportWidgetOptions } from '@arcbase/shared/report';
 import { resolveReportSecret } from './report-secrets';
 import { ensureReportResourceAccess } from './report-resource-acl.service';
 import { recordReportAssetUsage } from './report-asset-usage.service';

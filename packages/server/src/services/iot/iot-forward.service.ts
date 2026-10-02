@@ -1,5 +1,5 @@
-import { iotForwardRuleContract, iotForwardRuleSchema, iotForwardLogSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotForwardRuleContract, iotForwardRuleSchema, iotForwardLogSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 数据流转：遥测/事件/告警/生命周期 → HTTP 推送目的地。
  *
@@ -11,8 +11,8 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  */
 import { createHmac } from 'node:crypto';
 import { and, count, desc, eq, gte, inArray, sql, type SQL } from 'drizzle-orm';
-import type { CreateIotForwardRuleInput, IotForwardSource, UpdateIotForwardRuleInput } from '@zenith/shared/iot';
-import { IOT_FORWARD_AUTO_DISABLE_THRESHOLD } from '@zenith/shared/iot';
+import type { CreateIotForwardRuleInput, IotForwardSource, UpdateIotForwardRuleInput } from '@arcbase/shared/iot';
+import { IOT_FORWARD_AUTO_DISABLE_THRESHOLD } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import {
   iotDeviceGroupMembers, iotDeviceGroups, iotForwardLogs, iotForwardRules, iotProducts,

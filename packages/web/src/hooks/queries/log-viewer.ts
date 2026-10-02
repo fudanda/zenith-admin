@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { logViewerContract } from '@zenith/shared/ops';
+import type { QueryOf } from '@arcbase/shared/core';
+import { logViewerContract } from '@arcbase/shared/ops';
 import { contractKey, urlOf, useApiQuery } from '@/lib/contract-query';
 import { hostQueryOf } from './ops-hosts';
 

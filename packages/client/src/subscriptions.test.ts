@@ -3,8 +3,17 @@ import { Client } from './client';
 import { subscribe } from './subscriptions';
 
 describe('restricted integrations', () => {
+  it('keeps legacy keys usable with the same protected transport', async () => {
+    const key = `zen_${'b'.repeat(64)}`;
+    const send = vi.fn<typeof fetch>().mockResolvedValue(new Response('{}'));
+    const client = new Client({ apiKey: key, transport: send });
+    await client.fetchRaw('/api/v1/positions');
+    expect(new Headers(send.mock.calls[0][1]?.headers).get('Authorization')).toBe(`Bearer ${key}`);
+    expect(send.mock.calls[0][1]?.credentials).toBe('omit');
+    expect(() => new Client({ apiKey: `zen_${'z'.repeat(64)}` })).toThrow();
+  });
   it('sends a configured key without Cookie or CSRF and never accepts caller identity headers', async () => {
-    const key = `zen_${'a'.repeat(64)}`;
+    const key = `arc_${'a'.repeat(64)}`;
     const send = vi.fn<typeof fetch>().mockResolvedValue(new Response('{}'));
     const client = new Client({ apiKey: key, transport: send });
     await client.fetchRaw('/api/v1/positions', { method: 'POST', body: '{}', headers: { Authorization: 'Bearer attacker', Cookie: 'fake', 'X-CSRF-Token': 'fake' } });

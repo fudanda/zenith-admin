@@ -2,7 +2,7 @@ import { afterAll, describe, expect, it, vi } from 'vitest';
 import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { sql } from 'drizzle-orm';
-import { DRIVE_ROLES, driveRoleAtLeast } from '@zenith/shared/drive';
+import { DRIVE_ROLES, driveRoleAtLeast } from '@arcbase/shared/drive';
 import { config } from '../../config';
 import * as schema from '../../db/schema';
 import { resolveNodeRoles, visibleNodeCondition } from './drive-access.service';

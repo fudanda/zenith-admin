@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { identityProviderContract } from '@zenith/shared/identity';
+import { identityProviderContract } from '@arcbase/shared/identity';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import {

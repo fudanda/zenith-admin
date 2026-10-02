@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { hashKey, useQueryClient } from '@tanstack/react-query';
-import type { InAppMessage, Announcement } from '@zenith/shared/messaging';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { InAppMessage, Announcement } from '@arcbase/shared/messaging';
+import type { WsMessage } from '@arcbase/shared/platform';
 import {
   announcementKeys,
   useMarkMyAnnouncementRead,

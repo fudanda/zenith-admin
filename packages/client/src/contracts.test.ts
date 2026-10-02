@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { positionContract, userContract } from '@zenith/shared/identity';
+import { positionContract, userContract } from '@arcbase/shared/identity';
 import { Client, ApiError, call, callRaw, operationURL } from './index';
-import { defineContract, op } from '@zenith/shared/core';
+import { defineContract, op } from '@arcbase/shared/core';
 
 describe('typed contract calls outside React', () => {
   it('opts into host contracts per client and keeps request schemas and response validation', async () => {

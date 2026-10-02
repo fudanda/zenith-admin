@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
-import { chatContract } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import { confirmDelete } from '@/utils/confirm';
 import { useChatAnnouncementHistory, useDeleteChatAnnouncementHistory } from '@/hooks/queries/chat';
-import type { ChatConversation, ChatMessage, ChatMessageContext, ChatGroupMember, ChatReadState } from '@zenith/shared/chat';
+import type { ChatConversation, ChatMessage, ChatMessageContext, ChatGroupMember, ChatReadState } from '@arcbase/shared/chat';
 import type { MessageReadReceipt, Setter } from '../types';
 import { applyPresenceToLastSeen, applyPresenceToOnlineIds } from '../utils-state';
 

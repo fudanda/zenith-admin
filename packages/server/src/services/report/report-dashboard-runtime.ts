@@ -1,5 +1,5 @@
 import ipRangeCheck from 'ip-range-check';
-import type { ReportDashboard, ReportDashboardSnapshot, ReportDashboardVersionDiff, ReportDashboardVersionWidgetChange, ReportFilter, ReportWidget, ReportWidgetDataResult } from '@zenith/shared/report';
+import type { ReportDashboard, ReportDashboardSnapshot, ReportDashboardVersionDiff, ReportDashboardVersionWidgetChange, ReportFilter, ReportWidget, ReportWidgetDataResult } from '@arcbase/shared/report';
 
 type SnapshotLike = Pick<ReportDashboard, 'name' | 'layout' | 'canvasLayout' | 'widgets' | 'filters' | 'config' | 'categoryId' | 'remark'>
   | ReportDashboardSnapshot;

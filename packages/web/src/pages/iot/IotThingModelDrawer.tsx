@@ -11,11 +11,11 @@ import { confirmAndDelete, listTableProps } from '@/components/list-page';
 import {
   IOT_ACCESS_MODE_LABELS, IOT_ACCESS_MODE_OPTIONS, IOT_EVENT_LEVEL_LABELS, IOT_EVENT_LEVEL_OPTIONS,
   IOT_PROPERTY_TYPE_LABELS, IOT_PROPERTY_TYPE_OPTIONS,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import type {
   CreateIotEventInput, CreateIotPropertyInput, CreateIotServiceInput, ImportIotTslInput,
   IotParamDef, IotProduct, IotProductEvent, IotProductProperty, IotProductService,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import {
   useCreateIotEvent, useCreateIotProperty, useCreateIotService,
   useDeleteIotEvent, useDeleteIotProperty, useDeleteIotService, useImportIotTsl,

@@ -1,9 +1,9 @@
 import { and, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { DataMaskEffective, DataMaskField, SaveDataMaskPolicyInput } from '@zenith/shared/platform';
-import { dataMaskContract, DATA_MASK_REVEAL_PERMISSION, matchesDataMaskFieldQuery } from '@zenith/shared/platform';
-import type { MaskDecision } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { DataMaskEffective, DataMaskField, SaveDataMaskPolicyInput } from '@arcbase/shared/platform';
+import { dataMaskContract, DATA_MASK_REVEAL_PERMISSION, matchesDataMaskFieldQuery } from '@arcbase/shared/platform';
+import type { MaskDecision } from '@arcbase/shared/core';
 import { db } from '../../db';
 import { dataMaskPolicies } from '../../db/schema';
 import { hasPermission } from '../../lib/context';

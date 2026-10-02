@@ -10,7 +10,7 @@ import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { confirmAndDelete } from '@/components/list-page';
 import { enabledStatusColumn, renderEllipsis } from '@/utils/table-columns';
 import { useCmsChannelTree, useCmsOpenGrants, useDeleteCmsOpenGrant, useSaveCmsOpenGrant } from '@/hooks/queries/cms';
-import type { CmsChannel, CmsOpenAppGrant, CmsSite } from '@zenith/shared/cms';
+import type { CmsChannel, CmsOpenAppGrant, CmsSite } from '@arcbase/shared/cms';
 
 interface SiteOpenGrantsModalProps {
   readonly site: CmsSite | null;

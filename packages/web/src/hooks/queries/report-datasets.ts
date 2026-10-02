@@ -1,11 +1,11 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
+import type { QueryOf } from '@arcbase/shared/core';
 import {
   reportAiContract,
   reportDatasetContract,
   reportExecutionContract,
   reportMetaContract,
-} from '@zenith/shared/report';
+} from '@arcbase/shared/report';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { useReportLookup, type ReportLookupParams } from './report-lookups';

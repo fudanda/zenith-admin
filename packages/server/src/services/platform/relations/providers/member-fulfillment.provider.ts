@@ -1,6 +1,6 @@
 import { desc, eq, lt, sql } from 'drizzle-orm';
-import { WALLET_TX_TYPES, WALLET_TX_TYPE_LABELS, MEMBER_RENEWAL_BIZ_TYPE } from '@zenith/shared/member';
-import type { EntityRelationPage } from '@zenith/shared/platform';
+import { WALLET_TX_TYPES, WALLET_TX_TYPE_LABELS, MEMBER_RENEWAL_BIZ_TYPE } from '@arcbase/shared/member';
+import type { EntityRelationPage } from '@arcbase/shared/platform';
 import { members, memberVipRenewals, memberWalletTransactions, paymentOrders } from '../../../../db/schema';
 import { hasPermission } from '../../../../lib/context';
 import { exactTenantCondition } from '../../../../lib/tenant';

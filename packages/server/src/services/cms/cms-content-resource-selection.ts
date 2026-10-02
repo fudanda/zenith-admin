@@ -1,6 +1,6 @@
 import { eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { collectCmsSelectedResourceIds } from '@zenith/shared/cms';
+import { collectCmsSelectedResourceIds } from '@arcbase/shared/cms';
 import { cmsResources } from '../../db/schema/cms';
 import type { DbTransaction } from '../../db/types';
 import { buildWhere } from '../../lib/where-helpers';

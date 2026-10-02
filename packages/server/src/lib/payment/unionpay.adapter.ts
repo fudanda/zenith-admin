@@ -11,7 +11,7 @@ import { HTTPException } from 'hono/http-exception';
 import { httpPost } from '../http-client';
 import { formatDateTime } from '../datetime';
 import logger from '../logger';
-import type { CreatePaymentResult } from '@zenith/shared/payment';
+import type { CreatePaymentResult } from '@arcbase/shared/payment';
 import { rsaSign, rsaVerify, ensurePem } from './signing';
 import { trySandboxNotify } from './sandbox-notify';
 import { UNIONPAY_PROVIDER_MANIFEST } from './capabilities';

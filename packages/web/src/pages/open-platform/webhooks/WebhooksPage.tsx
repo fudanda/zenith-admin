@@ -3,9 +3,9 @@ import { SearchToolbar } from '@/components/SearchToolbar';
 import { ListSearchToolbar, listTableProps, useRowSelection, useCrudOperationColumn } from '@/components/list-page';
 import { Button, Tag, Modal, Form, Toast, Typography, Banner, SideSheet, Descriptions } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { USER_STATUSES, enumValueOf } from '@zenith/shared/core';
-import { OPEN_WEBHOOK_DELIVERY_STATUS_LABELS, OPEN_WEBHOOK_EVENTS, OPEN_WEBHOOK_EVENT_LABELS, OPEN_WEBHOOK_SIGN_MODE_OPTIONS, PAYMENT_WEBHOOK_EVENTS, OPEN_WEBHOOK_DELIVERY_STATUS_OPTIONS } from '@zenith/shared/open-platform';
-import type { AppWebhookSubscription, AppWebhookDelivery, OpenWebhookEvent, OpenWebhookSignMode } from '@zenith/shared/open-platform';
+import { USER_STATUSES, enumValueOf } from '@arcbase/shared/core';
+import { OPEN_WEBHOOK_DELIVERY_STATUS_LABELS, OPEN_WEBHOOK_EVENTS, OPEN_WEBHOOK_EVENT_LABELS, OPEN_WEBHOOK_SIGN_MODE_OPTIONS, PAYMENT_WEBHOOK_EVENTS, OPEN_WEBHOOK_DELIVERY_STATUS_OPTIONS } from '@arcbase/shared/open-platform';
+import type { AppWebhookSubscription, AppWebhookDelivery, OpenWebhookEvent, OpenWebhookSignMode } from '@arcbase/shared/open-platform';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { usePermission } from '@/hooks/usePermission';
@@ -156,7 +156,7 @@ export default function WebhooksPage({ scope = 'open' }: Readonly<WebhooksPagePr
       }
       const reservedHeader = Object.keys(headers ?? {}).find((key) => {
         const normalized = key.trim().toLowerCase();
-        return normalized === 'content-type' || normalized.startsWith('x-zenith-');
+        return normalized === 'content-type' || normalized.startsWith('x-arcbase-');
       });
       if (reservedHeader) {
         Toast.error(`自定义请求头不能覆盖保留头：${reservedHeader}`);
@@ -368,7 +368,7 @@ export default function WebhooksPage({ scope = 'open' }: Readonly<WebhooksPagePr
 
       {/* 一次性 secret */}
       <Modal title="请复制保存 Webhook 签名密钥" visible={secretModal} onCancel={() => setSecretModal(false)} footer={<Button type="primary" onClick={() => setSecretModal(false)}>我已复制，关闭</Button>} closeOnEsc={false} maskClosable={false}>
-        <Banner type="warning" description="该签名密钥仅显示一次，用于校验 Webhook 请求的 X-Zenith-Signature。请立即复制保存。" style={{ marginBottom: 16 }} />
+        <Banner type="warning" description="该签名密钥仅显示一次，用于校验 Webhook 请求的 X-ArcBase-Signature。请立即复制保存。" style={{ marginBottom: 16 }} />
         <Paragraph copyable style={{ wordBreak: 'break-all', background: 'var(--semi-color-fill-0)', padding: 8, borderRadius: 'var(--semi-border-radius-small)' }}>{oneTimeSecret}</Paragraph>
       </Modal>
 

@@ -1,6 +1,6 @@
 import { HTTPException } from 'hono/http-exception';
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { workflowAttachmentContract, workflowAttachmentUploadBody } from '@zenith/shared/workflow';
+import { workflowAttachmentContract, workflowAttachmentUploadBody } from '@arcbase/shared/workflow';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getWorkflowAttachmentDetail, readWorkflowAttachment, readWorkflowAttachmentUpload, uploadWorkflowAttachment } from '../../services/workflow/workflow-attachments.service';

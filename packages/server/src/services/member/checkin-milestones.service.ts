@@ -7,7 +7,7 @@ import { HTTPException } from 'hono/http-exception';
 import { db } from '../../db';
 import { checkinMilestones, coupons } from '../../db/schema';
 import type { CheckinMilestoneRow } from '../../db/schema';
-import { checkinMilestoneSchema, type CheckinMilestoneRewardType } from '@zenith/shared/member';
+import { checkinMilestoneSchema, type CheckinMilestoneRewardType } from '@arcbase/shared/member';
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { pickEntity } from '../../lib/entity-map';

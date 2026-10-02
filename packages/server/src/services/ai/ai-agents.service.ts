@@ -7,7 +7,7 @@ import { currentUser } from '../../lib/context';
 import { formatTimestamps } from '../../lib/datetime';
 import logger from '../../lib/logger';
 import type { AiAgentRow } from '../../db/schema';
-import type { AiBuiltinAgent, CreateAiAgentInput, UpdateAiAgentInput } from '@zenith/shared/ai';
+import type { AiBuiltinAgent, CreateAiAgentInput, UpdateAiAgentInput } from '@arcbase/shared/ai';
 
 /**
  * 自定义智能体(Mastra AgentConfig 形状,创建即用):

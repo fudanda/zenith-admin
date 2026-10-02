@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { CmsMediaProcessing, CmsResource } from '@zenith/shared/cms';
+import type { CmsMediaProcessing, CmsResource } from '@arcbase/shared/cms';
 import CmsMediaProcessingSheet from './CmsMediaProcessingSheet';
 
 const state = vi.hoisted(() => ({ process: vi.fn(), cancel: vi.fn(), editable: true, processing: null as CmsMediaProcessing | null }));

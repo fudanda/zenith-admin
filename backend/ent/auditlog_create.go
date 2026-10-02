@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
+	"github.com/fudanda/arcbase/backend/ent/auditlog"
 )
 
 // AuditLogCreate is the builder for creating a AuditLog entity.

@@ -9,19 +9,19 @@ jobs:
       postgres:
         image: postgres:17
         env:
-          POSTGRES_USER: zenith
-          POSTGRES_PASSWORD: zenith_test
-          POSTGRES_DB: zenith_test
+          POSTGRES_USER: arcbase
+          POSTGRES_PASSWORD: arcbase_test
+          POSTGRES_DB: arcbase_test
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U zenith -d zenith_test"
+          --health-cmd "pg_isready -U arcbase -d arcbase_test"
           --health-interval 5s --health-timeout 5s --health-retries 10
     env:
-      ZENITH_TEST_DATABASE_URL: postgres://zenith:zenith_test@localhost:5432/zenith_test?sslmode=disable
-      ZENITH_TEST_S3_ENDPOINT: http://127.0.0.1:19000
-      ZENITH_TEST_S3_ACCESS_KEY: zenith_test
-      ZENITH_TEST_S3_SECRET_KEY: zenith_s3_test_only
+      ARCBASE_TEST_DATABASE_URL: postgres://arcbase:arcbase_test@localhost:5432/arcbase_test?sslmode=disable
+      ARCBASE_TEST_S3_ENDPOINT: http://127.0.0.1:19000
+      ARCBASE_TEST_S3_ACCESS_KEY: arcbase_test
+      ARCBASE_TEST_S3_SECRET_KEY: arcbase_s3_test_only
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -40,7 +40,7 @@ jobs:
           # Upstream community images were withdrawn. Build the same release
           # from a pinned upstream commit instead of using a mutable mirror.
           GOBIN="$RUNNER_TEMP/minio-bin" go install github.com/minio/minio@01ce918d8279a20e4706b96a64396146894adee4
-          MINIO_ROOT_USER=zenith_test MINIO_ROOT_PASSWORD=zenith_s3_test_only "$RUNNER_TEMP/minio-bin/minio" server "$RUNNER_TEMP/minio-data" --address 127.0.0.1:19000 > "$RUNNER_TEMP/minio.log" 2>&1 &
+          MINIO_ROOT_USER=arcbase_test MINIO_ROOT_PASSWORD=arcbase_s3_test_only "$RUNNER_TEMP/minio-bin/minio" server "$RUNNER_TEMP/minio-data" --address 127.0.0.1:19000 > "$RUNNER_TEMP/minio.log" 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:19000/minio/health/ready && exit 0; sleep 1; done
           cat "$RUNNER_TEMP/minio.log"
           exit 1
@@ -67,29 +67,29 @@ jobs:
           from pathlib import Path
           directory = Path('backend/bin/external-host-path.txt').read_text().strip()
           with open(os.environ['GITHUB_ENV'], 'a') as env_file:
-              env_file.write('ZENITH_EXTERNAL_HOST_DIR=' + directory + '\n')
+              env_file.write('ARCBASE_EXTERNAL_HOST_DIR=' + directory + '\n')
               project = Path('backend/bin/tooling-project-path.txt').read_text().strip()
-              env_file.write('ZENITH_TOOLING_PROJECT_DIR=' + project + '\n')
+              env_file.write('ARCBASE_TOOLING_PROJECT_DIR=' + project + '\n')
           PY
       - run: npx playwright install --with-deps chromium
       - run: npx vitest run src/providers/GoAuthProvider.test.tsx src/lib/go-transport.test.ts src/lib/go-auth-api.test.ts src/lib/foundation-operations.test.ts src/lib/contract-query.test.tsx src/hooks/PreferencesProvider.test.tsx --maxWorkers=3
         working-directory: packages/web
-      - run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration ./...
+      - run: ARCBASE_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration ./...
         env:
-          ZENITH_ACCEPTANCE_PG_CONTAINER: ${{ job.services.postgres.id }}
+          ARCBASE_ACCEPTANCE_PG_CONTAINER: ${{ job.services.postgres.id }}
         working-directory: backend
-      - run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" ZENITH_BROWSER_PRODUCTION=true go test -tags integration -run TestOriginalWebFoundation .
+      - run: ARCBASE_BROWSER_TEST_NODE="$(command -v node)" ARCBASE_BROWSER_PRODUCTION=true go test -tags integration -run TestOriginalWebFoundation .
         working-directory: backend
       - name: Verify SQLite APIs and embedded original dashboard
         env:
-          ZENITH_TEST_DATABASE_URL: sqlite:./sqlite-ci.db
-          ZENITH_BROWSER_PRODUCTION: 'true'
-          ZENITH_DEPLOYMENT_BINARY: ${{ github.workspace }}/backend/bin/zenith
-        run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration -count=1 ./...
+          ARCBASE_TEST_DATABASE_URL: sqlite:./sqlite-ci.db
+          ARCBASE_BROWSER_PRODUCTION: 'true'
+          ARCBASE_DEPLOYMENT_BINARY: ${{ github.workspace }}/backend/bin/arcbase
+        run: ARCBASE_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration -count=1 ./...
         working-directory: backend
       - name: Verify HTTPS release restart and backup recovery
         env:
-          ZENITH_DEPLOYMENT_BINARY: ${{ github.workspace }}/backend/bin/zenith
-          ZENITH_ACCEPTANCE_PG_CONTAINER: ${{ job.services.postgres.id }}
-        run: ZENITH_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration -count=1 -run TestReleaseHTTPSBackupRecovery -v .
+          ARCBASE_DEPLOYMENT_BINARY: ${{ github.workspace }}/backend/bin/arcbase
+          ARCBASE_ACCEPTANCE_PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: ARCBASE_BROWSER_TEST_NODE="$(command -v node)" go test -tags integration -count=1 -run TestReleaseHTTPSBackupRecovery -v .
         working-directory: backend

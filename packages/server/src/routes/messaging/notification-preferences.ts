@@ -3,7 +3,7 @@
  * 全部为登录用户自助操作，不挂权限码（与「我的站内信」同规格）。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { notificationPreferenceContract } from '@zenith/shared/messaging';
+import { notificationPreferenceContract } from '@arcbase/shared/messaging';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

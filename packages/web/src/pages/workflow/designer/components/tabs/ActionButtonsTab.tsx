@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Switch, Popover, Input, Button, Select, Empty } from '@douyinfe/semi-ui';
 import { Pencil } from 'lucide-react';
 import type { ActionButtonKey, ActionButtonConfig, ActionButtonsConfig, ActionUploadMode, FlowNodeType } from '../../types';
-import { WORKFLOW_ACTION_UPLOAD_MODE_OPTIONS } from '@zenith/shared/workflow';
+import { WORKFLOW_ACTION_UPLOAD_MODE_OPTIONS } from '@arcbase/shared/workflow';
 import { ACTION_BUTTON_META, getActionButtonConfig, normalizeActionButtons } from '../../action-buttons';
 
 interface JumpTargetNode {

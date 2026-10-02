@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import { inAppTemplateContract, inAppTemplateSchema } from '@zenith/shared/messaging';
+import { inAppTemplateContract, inAppTemplateSchema } from '@arcbase/shared/messaging';
 import { inAppTemplates } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';
 import { entityMapper } from '../../lib/entity-map';

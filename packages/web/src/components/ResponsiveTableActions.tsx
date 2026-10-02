@@ -3,10 +3,10 @@ import { Button, Dropdown, Space, Tooltip } from '@douyinfe/semi-ui';
 import type { ColumnProps, Data } from '@douyinfe/semi-ui/lib/es/table';
 import { MoreHorizontal } from 'lucide-react';
 import { useIsMobile } from '@/hooks/useMediaQuery';
-import { ZENITH_OPERATION_COLUMN_SYMBOL, type ZenithOperationColumnMarker } from './table-column-meta';
+import { ARCBASE_OPERATION_COLUMN_SYMBOL, type ArcBaseOperationColumnMarker } from './table-column-meta';
 
 type OperationColumnRecord = Data;
-type OperationColumn<RecordType extends OperationColumnRecord> = ColumnProps<RecordType> & ZenithOperationColumnMarker;
+type OperationColumn<RecordType extends OperationColumnRecord> = ColumnProps<RecordType> & ArcBaseOperationColumnMarker;
 type InlineActionButtonType = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
 
 export const OPERATION_COLUMN_KEY = 'operation';
@@ -174,7 +174,7 @@ export function createOperationColumn<RecordType extends OperationColumnRecord>(
     key: OPERATION_COLUMN_KEY,
     title,
     fixed: 'right',
-    [ZENITH_OPERATION_COLUMN_SYMBOL]: true,
+    [ARCBASE_OPERATION_COLUMN_SYMBOL]: true,
     width,
     render: (_: unknown, record: RecordType) => {
       const resolvedEmptyContent = typeof emptyContent === 'function' ? emptyContent(record) : emptyContent;

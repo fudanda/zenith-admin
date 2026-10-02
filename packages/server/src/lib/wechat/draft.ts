@@ -1,6 +1,6 @@
 import { wechatApiPost } from './api';
 import type { MpCredential } from './api';
-import type { MpArticle } from '@zenith/shared/mp';
+import type { MpArticle } from '@arcbase/shared/mp';
 
 interface DraftAddResponse {
   errcode?: number;

@@ -1,5 +1,5 @@
 import { Button, Checkbox, Space } from '@douyinfe/semi-ui';
-import type { EntityRelationSection } from '@zenith/shared/platform';
+import type { EntityRelationSection } from '@arcbase/shared/platform';
 import { DateRangeFilter, FilterSelect, KeywordInput } from '@/components/search-filters';
 import type { UseListSearchReturn } from '@/hooks/useListSearch';
 

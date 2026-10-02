@@ -1,5 +1,5 @@
-import { workflowEventSubscriptionContract } from '@zenith/shared/workflow';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { workflowEventSubscriptionContract } from '@arcbase/shared/workflow';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { and, desc, eq, inArray, isNull, or, sql, type SQL } from 'drizzle-orm';
 import { randomUUID } from 'node:crypto';
 import { db } from '../../db';
@@ -24,10 +24,10 @@ import { countJobExecutions, jobExecutionsWithJob } from './workflow-job-executi
 import { signHmac } from '../../lib/workflow-jobs/handlers/shared';
 import { enqueueJob, retryJob, scheduleJobPickup } from '../../lib/workflow-jobs/engine';
 import { invokeConnector, getConnectorRowById } from './workflow-connectors.service';
-import type { WorkflowEventType } from '@zenith/shared/workflow';
-import { maskSecret } from '@zenith/shared/core';
+import type { WorkflowEventType } from '@arcbase/shared/workflow';
+import { maskSecret } from '@arcbase/shared/core';
 
-/** 订阅密钥展示：保留头尾 4 位（`@zenith/shared/core` 默认口径），空值返回 null */
+/** 订阅密钥展示：保留头尾 4 位（`@arcbase/shared/core` 默认口径），空值返回 null */
 function maskSubscriptionSecret(secret: string | null | undefined): string | null {
   return secret ? maskSecret(secret) : null;
 }
@@ -487,14 +487,14 @@ export async function testSubscriptionDelivery(id: number): Promise<TestDelivery
   const timestamp = Math.floor(now.getTime() / 1000).toString();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'X-Zenith-Event': eventType,
-    'X-Zenith-Event-Id': sampleEvent.eventId,
-    'X-Zenith-Test': '1',
+    'X-ArcBase-Event': eventType,
+    'X-ArcBase-Event-Id': sampleEvent.eventId,
+    'X-ArcBase-Test': '1',
     ...(parseHeaders(row.headers) ?? {}),
   };
   if (row.signMode === 'hmacSha256' && row.secretEncrypted) {
     const secret = decryptSubscriptionSecret(row.secretEncrypted);
-    if (secret) headers['X-Zenith-Signature'] = `t=${timestamp},v1=${signHmac(secret, timestamp, bodyStr)}`;
+    if (secret) headers['X-ArcBase-Signature'] = `t=${timestamp},v1=${signHmac(secret, timestamp, bodyStr)}`;
   }
 
   const startedAt = Date.now();

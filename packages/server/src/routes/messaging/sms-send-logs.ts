@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { smsSendLogContract } from '@zenith/shared/messaging';
+import { smsSendLogContract } from '@arcbase/shared/messaging';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

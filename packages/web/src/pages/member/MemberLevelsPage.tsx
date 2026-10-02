@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { Form, Row, Col, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { MemberLevel } from '@zenith/shared/member';
+import type { MemberLevel } from '@arcbase/shared/member';
 import { SearchToolbar } from '@/components/SearchToolbar';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { listTableProps, useCrudOperationColumn } from '@/components/list-page';

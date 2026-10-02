@@ -1,5 +1,5 @@
 import { HttpResponse } from 'msw';
-import { dbAdminContract, type DbBackup } from '@zenith/shared/ops';
+import { dbAdminContract, type DbBackup } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { nextIdFrom, notFound } from '@/mocks/utils/handlers';
 import { mockDateTime, mockFileTimestamp } from '@/mocks/utils/date';

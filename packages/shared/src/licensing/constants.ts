@@ -116,7 +116,7 @@ export const LICENSE_EVENT_TYPE_LABELS: Record<LicenseEventType, string> = {
 };
 
 /** License 文档的 audience 固定值：防止其他产品签发的文件被误用 */
-export const LICENSE_AUDIENCE = 'zenith-admin';
+export const LICENSE_AUDIENCE = 'arcbase';
 
 /** 当前支持的 envelope 版本与算法 */
 export const LICENSE_ENVELOPE_VERSION = 1;

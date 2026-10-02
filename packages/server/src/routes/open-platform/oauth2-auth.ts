@@ -12,7 +12,7 @@
  */
 import { OpenAPIHono, createRoute, defineOpenAPIRoute, z } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { oauth2AuthContract, oauth2IntrospectResponseSchema, oauth2TokenResponseSchema, oauth2UserInfoSchema } from '@zenith/shared/open-platform';
+import { oauth2AuthContract, oauth2IntrospectResponseSchema, oauth2TokenResponseSchema, oauth2UserInfoSchema } from '@arcbase/shared/open-platform';
 import { OAuth2Error } from '../../lib/oauth2-error';
 import { defineContractRoute } from '../../lib/contract-route';
 import {

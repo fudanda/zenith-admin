@@ -1,13 +1,13 @@
 import { Dropdown, Toast } from '@douyinfe/semi-ui';
 import { useQueryClient } from '@tanstack/react-query';
 import { Archive, ArchiveRestore, BellOff, Bookmark, Pin, Search, Star, UserMinus } from 'lucide-react';
-import { chatContract } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
 import { chatKeys } from '@/hooks/queries/chat';
 import { api } from '@/lib/contract-query';
 import { confirmDelete } from '@/utils/confirm';
 import { CursorContextDropdown } from '@/components/CursorContextDropdown';
-import type { ChatConversation, ChatMessage } from '@zenith/shared/chat';
-import type { Channel } from '@zenith/shared/messaging';
+import type { ChatConversation, ChatMessage } from '@arcbase/shared/chat';
+import type { Channel } from '@arcbase/shared/messaging';
 import { removeConversationById, toggleConvMuted, toggleConvStarred, togglePinAndSort } from '../utils-state';
 import type { LeftPaneContextMenuState, Setter } from '../types';
 

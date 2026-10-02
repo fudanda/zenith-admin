@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { applyEmbedFilterScope, compareDashboardSnapshots, ensureAccessAllowedByIp } from './report-dashboard-runtime';
-import type { ReportDashboardSnapshot } from '@zenith/shared/report';
+import type { ReportDashboardSnapshot } from '@arcbase/shared/report';
 
 const left: ReportDashboardSnapshot = {
   name: '左侧',

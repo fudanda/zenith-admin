@@ -2,9 +2,9 @@ import { useCallback } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
 import type { NavigateFunction } from 'react-router-dom';
 import { callManager } from '@/webrtc/useCallManager';
-import type { ChatCardAction, ChatConversation, ChatMessage } from '@zenith/shared/chat';
+import type { ChatCardAction, ChatConversation, ChatMessage } from '@arcbase/shared/chat';
 import type { Setter } from '../types';
-import { isRootRelativePath } from '@zenith/shared/core';
+import { isRootRelativePath } from '@arcbase/shared/core';
 import { openExternalUrl } from '@/utils/safe-url';
 
 /** 卡片消息动作（工作流审批/链接跳转）与音视频通话发起（自 ChatPage 原样搬移） */

@@ -1,8 +1,8 @@
 /** 我的评论：CMS 内容评论列表（含审核状态，可删除、跳转内容页） */
 import { Button, Empty, Spin, Tag } from '@douyinfe/semi-ui';
 import { ExternalLink, Trash2 } from 'lucide-react';
-import { CMS_COMMENT_STATUS_LABELS } from '@zenith/shared/cms';
-import type { CmsCommentStatus } from '@zenith/shared/cms';
+import { CMS_COMMENT_STATUS_LABELS } from '@arcbase/shared/cms';
+import type { CmsCommentStatus } from '@arcbase/shared/cms';
 import { MemberPage } from '../../components/MemberPage';
 import { useMyCmsComments, useDeleteMyCmsComment } from '../../hooks/queries';
 import { confirmAndDelete } from '@/components/list-page';

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DRIVE_ROLES } from '@zenith/shared/drive';
+import { DRIVE_ROLES } from '@arcbase/shared/drive';
 import {
   childAclOf, computeNodeRole, computeSpaceRole, effectiveGrantNodeIds, EMPTY_SUBJECTS,
   matchedGrantRoles, ownAclOf, rolesAtLeast, type DriveSubjectSet, type ParentAclLike, type SpaceLike,

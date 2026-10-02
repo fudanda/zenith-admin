@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDebouncedValue } from '@tanstack/react-pacer';
 import { Avatar, AvatarGroup, Empty, List, Modal, Pagination, Space, Tag, Typography } from '@douyinfe/semi-ui';
-import type { UserPreview } from '@zenith/shared/identity';
+import type { UserPreview } from '@arcbase/shared/identity';
 import { KeywordInput } from '@/components/search-filters';
 import { usePagination } from '@/hooks/usePagination';
 import { useScopeMembers, type ScopeMember, type UserScopeType } from '@/hooks/queries/scope-members';

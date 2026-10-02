@@ -8,7 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/roledepartment"
+	"github.com/fudanda/arcbase/backend/ent/roledepartment"
 )
 
 // RoleDepartment is the model entity for the RoleDepartment schema.

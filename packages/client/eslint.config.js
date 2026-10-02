@@ -10,7 +10,7 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'no-restricted-imports': ['error', {
-        patterns: [{ group: ['react', 'react/*', '@tanstack/*', '@douyinfe/*', '@zenith/web', '@zenith/server', '@/*'], message: 'Client only depends on shared contracts and transport APIs.' }],
+        patterns: [{ group: ['react', 'react/*', '@tanstack/*', '@douyinfe/*', '@arcbase/web', '@arcbase/server', '@/*'], message: 'Client only depends on shared contracts and transport APIs.' }],
       }],
     },
   },

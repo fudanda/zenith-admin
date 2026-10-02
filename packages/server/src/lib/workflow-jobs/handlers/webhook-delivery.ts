@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import type { WorkflowEvent } from '@zenith/shared/workflow';
+import type { WorkflowEvent } from '@arcbase/shared/workflow';
 import { db } from '../../../db';
 import { workflowEventSubscriptions } from '../../../db/schema';
 import { invokeConnector, getConnectorRowById } from '../../../services/workflow/workflow-connectors.service';
@@ -43,15 +43,15 @@ async function handle({ payload, attempt, job }: WorkflowJobContext): Promise<Wo
   const timestamp = Math.floor(Date.now() / 1000).toString();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'X-Zenith-Event': event.type,
-    'X-Zenith-Event-Id': event.eventId,
-    'X-Zenith-Delivery-Job': String(job.id),
-    'X-Zenith-Attempt': String(attempt),
+    'X-ArcBase-Event': event.type,
+    'X-ArcBase-Event-Id': event.eventId,
+    'X-ArcBase-Delivery-Job': String(job.id),
+    'X-ArcBase-Attempt': String(attempt),
     ...parseHeaders(sub.headers),
   };
   if (sub.signMode === 'hmacSha256' && sub.secretEncrypted) {
     const secret = decryptSubscriptionSecret(sub.secretEncrypted);
-    if (secret) headers['X-Zenith-Signature'] = `t=${timestamp},v1=${signHmac(secret, timestamp, bodyStr)}`;
+    if (secret) headers['X-ArcBase-Signature'] = `t=${timestamp},v1=${signHmac(secret, timestamp, bodyStr)}`;
   }
 
   const detail: WorkflowJobResult = { requestUrl: sub.url, requestMethod: 'POST', requestBody: bodyStr };

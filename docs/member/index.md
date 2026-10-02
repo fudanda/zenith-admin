@@ -13,7 +13,7 @@
 | 中间件 | `authMiddleware` | `memberAuthMiddleware` |
 | 请求上下文 | `currentUser()` | `currentMember()` / `currentMemberId()` |
 | 前端入口 | `index.html` | `member.html` |
-| Token 存储 | `zenith_token` | `zenith_member_token` / `zenith_member_refresh_token` |
+| Token 存储 | `arcbase_token` | `arcbase_member_token` / `arcbase_member_refresh_token` |
 
 会员 Access Token 的 payload 固定包含 `type: 'member'`、`memberId`、`identifier`、`tenantId`、`jti`。`memberAuthMiddleware` 强制校验 `type: 'member'`，管理员 `authMiddleware` 会反向拒绝带 `type: 'member'` 的 Token，避免会员 Token 访问后台管理接口。
 
@@ -431,7 +431,7 @@ JWT 签名有效不等于会员仍然有效：`memberAuthMiddleware`（CMS 前�
 - 代码目录：`packages/web/src/member/`（入口、认证 Provider、独立请求客户端、布局）
 - 路由：`HashRouter`
 
-`member-request.ts` 自动携带 `zenith_member_token`，遇到 401 会调用 `/api/member/auth/refresh` 刷新 Access Token；刷新失败时清理会员 Token 并跳转到 `member.html#/login`。
+`member-request.ts` 自动携带 `arcbase_member_token`，遇到 401 会调用 `/api/member/auth/refresh` 刷新 Access Token；刷新失败时清理会员 Token 并跳转到 `member.html#/login`。
 
 前台页面覆盖会员概览、我的积分、我的钱包、我的卡券、每日签到（含里程碑进度与自助补签）、等级权益、自动续费、消息中心、邀请有礼、内容互动（浏览历史 / 收藏 / 评论 / 投稿 / 订阅）、个人设置、编辑资料、修改密码与登录历史。钱包充值页将用户输入的元转换为分后提交。
 

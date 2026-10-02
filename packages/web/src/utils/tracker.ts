@@ -1,6 +1,6 @@
-import { configureTracker as configureSdkTracker } from '@zenith/analytics-sdk/tracker';
-import type { AnalyticsEnvironment } from '@zenith/shared/analytics';
-import type { TrackerRuntimeConfig } from '@zenith/analytics-sdk/tracker';
+import { configureTracker as configureSdkTracker } from '@arcbase/analytics-sdk/tracker';
+import type { AnalyticsEnvironment } from '@arcbase/shared/analytics';
+import type { TrackerRuntimeConfig } from '@arcbase/analytics-sdk/tracker';
 import { config } from '@/config';
 
 function resolveDefaultEnvironment(): AnalyticsEnvironment {
@@ -20,7 +20,7 @@ function webRuntimeDefaults(): Pick<TrackerRuntimeConfig, 'apiBase' | 'environme
 
 configureSdkTracker(webRuntimeDefaults());
 
-export * from '@zenith/analytics-sdk';
+export * from '@arcbase/analytics-sdk';
 
 export function configureTracker(next: Partial<TrackerRuntimeConfig>): void {
   configureSdkTracker({ ...webRuntimeDefaults(), ...next });

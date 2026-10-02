@@ -1,7 +1,7 @@
 import { and, asc, desc, eq, gt, inArray, isNull, lt, lte, ne, or, sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { DriveActivityAction, DriveNodeProfile, UpdateDriveNodeProfileInput } from '@zenith/shared/drive';
-import { driveCollaborationContract, driveRoleAtLeast } from '@zenith/shared/drive';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { DriveActivityAction, DriveNodeProfile, UpdateDriveNodeProfileInput } from '@arcbase/shared/drive';
+import { driveCollaborationContract, driveRoleAtLeast } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveActivities, driveNodeProfiles, driveNodes, driveNodeSubscriptions, users, type DriveNodeRow } from '../../db/schema';
 import { currentUserId } from '../../lib/context';

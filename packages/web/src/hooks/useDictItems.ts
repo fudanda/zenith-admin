@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { dictContract } from '@zenith/shared/platform';
+import { dictContract } from '@arcbase/shared/platform';
 import { dictKeys } from '@/hooks/queries/dicts';
 import { api } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';

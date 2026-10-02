@@ -1,4 +1,4 @@
-import type { AnalyticsQualityIssueType } from '@zenith/shared/analytics';
+import type { AnalyticsQualityIssueType } from '@arcbase/shared/analytics';
 
 /** 数据质量问题类型标签色（调试与质量 Tab 共用） */
 export const ANALYTICS_ISSUE_TAG_COLOR: Record<AnalyticsQualityIssueType, 'red' | 'orange' | 'amber' | 'grey'> = {

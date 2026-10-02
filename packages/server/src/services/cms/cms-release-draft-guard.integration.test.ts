@@ -10,7 +10,7 @@ suite('configuration draft database guard', () => {
   const namespace = `release_guard_${randomUUID().replaceAll('-', '')}`;
   beforeAll(async () => {
     const url = new URL(connection!);
-    if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) || url.pathname !== '/zenith_review') throw new Error('Requires a disposable local zenith_review database');
+    if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) || url.pathname !== '/arcbase_review') throw new Error('Requires a disposable local arcbase_review database');
     sql = postgres(connection!, { max: 1 });
     await sql.unsafe(`CREATE SCHEMA "${namespace}"`);
     await sql.unsafe(`SET search_path TO "${namespace}", public`);

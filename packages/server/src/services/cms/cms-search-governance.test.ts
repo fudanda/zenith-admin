@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { PgDialect } from 'drizzle-orm/pg-core';
-import { createCmsSearchWordSchema } from '@zenith/shared/cms';
-import { SEED_CMS_SEARCH_WORDS } from '@zenith/shared/seed';
+import { createCmsSearchWordSchema } from '@arcbase/shared/cms';
+import { SEED_CMS_SEARCH_WORDS } from '@arcbase/shared/seed';
 import { loadCmsExtensionWords, normalizeCmsSearchDictionaryWord } from './cms-search-dictionary';
 import {
   contentSearchVector,
@@ -13,19 +13,19 @@ import {
 describe('CMS site search governance', () => {
   it('filters stop words and normalizes duplicate query/index tokens', () => {
     expect(filterCmsSearchTokens(
-      ['Zenith', '的', 'CMS', 'zenith', '，', '平台'],
+      ['ArcBase', '的', 'CMS', 'arcbase', '，', '平台'],
       new Set(['的']),
-    )).toEqual(['zenith', 'cms', '平台']);
+    )).toEqual(['arcbase', 'cms', '平台']);
   });
 
   it('rejects whitespace/control dictionary tokens in shared and service boundaries', () => {
-    for (const word of ['Zenith Admin', 'bad\nword', 'bad word', '***']) {
+    for (const word of ['ArcBase', 'bad\nword', 'bad word', '***']) {
       expect(normalizeCmsSearchDictionaryWord(word)).toBeNull();
       expect(createCmsSearchWordSchema.safeParse({
         siteId: 1, word, type: 'extension', groupName: '测试', weight: 1000, status: 'enabled',
       }).success).toBe(false);
     }
-    expect(SEED_CMS_SEARCH_WORDS[0].word).toBe('ZenithAdmin');
+    expect(SEED_CMS_SEARCH_WORDS[0].word).toBe('ArcBaseAdmin');
   });
 
   it('isolates a single loadDict failure and continues loading later words', () => {
@@ -53,7 +53,7 @@ describe('contentSearchVector（search_vector 唯一写入口）', () => {
 
   it('builds weighted A/B/C tsvector expression with segmented and HTML-stripped params', () => {
     const { sql: text, params } = toQuery(contentSearchVector(1, {
-      title: 'Zenith平台',
+      title: 'ArcBase平台',
       seoKeywords: '后台',
       summary: '管理系统',
       body: '<p>内容检索</p>',
@@ -62,7 +62,7 @@ describe('contentSearchVector（search_vector 唯一写入口）', () => {
     expect(text).toContain("'B'");
     expect(text).toContain("'C'");
     expect(params).toHaveLength(3);
-    expect(String(params[0])).toContain('zenith');
+    expect(String(params[0])).toContain('arcbase');
     expect(String(params[2])).not.toContain('<p>');
     expect(String(params[2])).toContain('检索');
   });

@@ -7,8 +7,8 @@
 ### 项目开发
 
 ```bash
-npm run dev            # 单个 all 角色后端 + @zenith/web（开发默认）
-npm run dev:split      # 分别启动 api 角色与 worker 角色后端 + @zenith/web
+npm run dev            # 单个 all 角色后端 + @arcbase/web（开发默认）
+npm run dev:split      # 分别启动 api 角色与 worker 角色后端 + @arcbase/web
 npm run dev:server     # 后端：迁移 → 种子 → tsx watch src/index.ts
 npm run dev:web        # 前端：Vite dev server，默认 5373
 npm run dev:studio     # Mastra Studio，端口 5380，API 前缀 /api/mastra
@@ -16,7 +16,7 @@ npm run dev:demo       # 前端 Demo 模式，读取 packages/web/.env.demo
 npm run dev:electron   # 前端 dev server + Electron 主进程 watch + Electron 窗口
 ```
 
-`npm run dev:server` 由 `packages/server/scripts/dev.mjs` 编排，在 Windows 下会剥离 VS Code Auto Attach 注入的 inspector 环境变量，避免 `node-pty` 与 Windows ConPTY 死锁。默认 `npm run dev` 使用单个 `ZENITH_ROLES=all` 进程；需要验证拆分部署、跨进程 WS 扇出或 worker 健康探针时使用 `npm run dev:split`。VS Code 提供 compound「Debug: Split (api + worker + Web)」。
+`npm run dev:server` 由 `packages/server/scripts/dev.mjs` 编排，在 Windows 下会剥离 VS Code Auto Attach 注入的 inspector 环境变量，避免 `node-pty` 与 Windows ConPTY 死锁。默认 `npm run dev` 使用单个 `ARCBASE_ROLES=all` 进程；需要验证拆分部署、跨进程 WS 扇出或 worker 健康探针时使用 `npm run dev:split`。VS Code 提供 compound「Debug: Split (api + worker + Web)」。
 
 ### 构建与校验
 
@@ -58,11 +58,11 @@ npm run docs:preview   # 预览构建产物，http://localhost:4178
 
 | 工作区 | 职责 | 主要脚本 |
 | --- | --- | --- |
-| `@zenith/shared` | 跨运行时类型、常量、Zod schema、seed | `build` / `lint` / `lint:fix` |
-| `@zenith/analytics-sdk` | 浏览器行为、性能、错误采集 SDK | `build` / `lint` / `lint:fix` |
-| `@zenith/server` | Hono API、CMS 前台渲染、后台任务、事件订阅 | `dev` / `build` / `start` / `db:*` / `test` / `lint` |
-| `@zenith/web` | React 管理后台、会员前台、移动审批、Demo | `dev` / `dev:demo` / `build` / `build:demo` / `preview` / `test` / `lint` |
-| `@zenith/electron` | 桌面壳、preload、在线升级 | `dev` / `build` / `build:win` / `build:mac` / `build:linux` |
+| `@arcbase/shared` | 跨运行时类型、常量、Zod schema、seed | `build` / `lint` / `lint:fix` |
+| `@arcbase/analytics-sdk` | 浏览器行为、性能、错误采集 SDK | `build` / `lint` / `lint:fix` |
+| `@arcbase/server` | Hono API、CMS 前台渲染、后台任务、事件订阅 | `dev` / `build` / `start` / `db:*` / `test` / `lint` |
+| `@arcbase/web` | React 管理后台、会员前台、移动审批、Demo | `dev` / `dev:demo` / `build` / `build:demo` / `preview` / `test` / `lint` |
+| `@arcbase/electron` | 桌面壳、preload、在线升级 | `dev` / `build` / `build:win` / `build:mac` / `build:linux` |
 
 依赖方向保持单向：`shared` 位于底层，`server`、`web`、`analytics-sdk` 复用它；`web` 与 `server` 不直接互相 import。
 
@@ -77,9 +77,9 @@ npm run docs:preview   # 预览构建产物，http://localhost:4178
 
 ## 开发约束入口
 
-- 全局与后端硬约束：`.agents/skills/zenith/references/constraints.md`
-- 前端硬约束：`.agents/skills/zenith/references/constraints-frontend.md`
-- CRUD、模块修改、异步任务、通知、发版等流程：`.agents/skills/zenith/SKILL.md`
+- 全局与后端硬约束：`.agents/skills/arcbase/references/constraints.md`
+- 前端硬约束：`.agents/skills/arcbase/references/constraints-frontend.md`
+- CRUD、模块修改、异步任务、通知、发版等流程：`.agents/skills/arcbase/SKILL.md`
 
 文档站的 [AI 辅助开发](/ai/) 只解释这些资产的分工；执行任务时以仓库内文件为准。
 

@@ -8,12 +8,12 @@ import {
   type SettingsEnvelope,
   type SettingsModuleKey,
   type SettingsOf,
-} from '@zenith/shared/settings';
+} from '@arcbase/shared/settings';
 import { mockDateTime } from '@/mocks/utils/date';
 
 /**
  * 运行时设置 Demo 存储：每个模块一份平台级稀疏覆盖文档 + 版本号，解析语义与服务端共用
- * `@zenith/shared/settings` 的 resolveSettings / diffSettings（默认值来自 schema，不写静态数组）。
+ * `@arcbase/shared/settings` 的 resolveSettings / diffSettings（默认值来自 schema，不写静态数组）。
  */
 interface StoredModule {
   data: SettingsDoc;

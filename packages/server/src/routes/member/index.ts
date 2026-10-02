@@ -16,8 +16,8 @@ import {
   memberTagContract,
   memberWalletContract,
   memberFulfillmentContract,
-} from '@zenith/shared/member';
-import { memberCmsContract } from '@zenith/shared/cms';
+} from '@arcbase/shared/member';
+import { memberCmsContract } from '@arcbase/shared/cms';
 import { defineRouteDomain } from '../_kit';
 import checkinMilestonesRoutes from './checkin-milestones';
 import checkinRulesRoutes from './checkin-rules';

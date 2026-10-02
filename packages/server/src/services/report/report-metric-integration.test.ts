@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createReportAlertSchema, reportWidgetSchema } from '@zenith/shared/report';
+import { createReportAlertSchema, reportWidgetSchema } from '@arcbase/shared/report';
 import { evaluateMetricAlertValue } from './report-alert.service';
 import { buildMetricWidgetDataResult } from './report-dashboard.service';
 

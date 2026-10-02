@@ -22,8 +22,8 @@ import {
   canonicalizeCmsResourceUris, extractCandidateUrls, extractCmsResourceIds,
   extractCmsResourceRefFields, remapCmsResourceUris, resolveCmsResourceUris,
 } from '../../lib/cms-resource-uri';
-import type { CmsResourceOwnerType, CmsResourceReference, CmsResourceType } from '@zenith/shared/cms';
-import { isValidCmsAssetUrl } from '@zenith/shared/cms';
+import type { CmsResourceOwnerType, CmsResourceReference, CmsResourceType } from '@arcbase/shared/cms';
+import { isValidCmsAssetUrl } from '@arcbase/shared/cms';
 
 /** 各 owner 承载素材引用的字段清单（值取自 owner 行本身，保证与落库结果一致） */
 export const CMS_RESOURCE_OWNER_FIELDS = {

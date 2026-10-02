@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Select, Tree, Typography } from '@douyinfe/semi-ui';
 import type { TreeNodeData } from '@douyinfe/semi-ui/lib/es/tree';
 import { Folder, HardDrive } from 'lucide-react';
-import { DRIVE_SPACE_TYPE_LABELS, driveNodeContract, type DriveSpace } from '@zenith/shared/drive';
+import { DRIVE_SPACE_TYPE_LABELS, driveNodeContract, type DriveSpace } from '@arcbase/shared/drive';
 import { AppModal } from '@/components/AppModal';
 import { api } from '@/lib/contract-query';
 import { useMyDriveSpaces } from '@/hooks/queries/drive';

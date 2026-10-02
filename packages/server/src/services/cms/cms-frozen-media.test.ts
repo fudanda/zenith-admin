@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { CmsFrozenMedia } from '@zenith/shared/cms';
+import type { CmsFrozenMedia } from '@arcbase/shared/cms';
 import { cmsDurationLabel, frozenCmsImageAttributes, renderCmsFrozenBody } from './cms-frozen-media';
 
 const frozen: CmsFrozenMedia = { processingId: 1, assetVersionId: 2, sourceUrl: '/original.png', width: 100, height: 80, duration: null, format: 'png', videoCodec: null, audioCodec: null, focalPoint: { x: 0.2, y: 0.8 }, poster: null, subtitle: null,

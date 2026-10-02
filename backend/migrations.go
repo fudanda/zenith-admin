@@ -1,9 +1,9 @@
-package zenith
+package arcbase
 
 import (
 	"context"
 	"database/sql"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/data"
 )
 
 const foundationSchemaVersion = data.SchemaVersion

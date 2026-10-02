@@ -1,4 +1,4 @@
-import { maintenanceContract, type MaintenanceLog, type MaintenanceStatus } from '@zenith/shared/ops';
+import { maintenanceContract, type MaintenanceLog, type MaintenanceStatus } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { mockDateTime } from '@/mocks/utils/date';
 

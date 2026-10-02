@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { monitorAlertContract, type MonitorAlertOverviewRange } from '@zenith/shared/platform';
+import type { QueryOf } from '@arcbase/shared/core';
+import { monitorAlertContract, type MonitorAlertOverviewRange } from '@arcbase/shared/platform';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type MonitorAlertListParams = NonNullable<QueryOf<typeof monitorAlertContract.list>>;

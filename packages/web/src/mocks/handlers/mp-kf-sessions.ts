@@ -1,4 +1,4 @@
-import { mpKfSessionContract, type MpKfSessionReportItem, type MpMessage } from '@zenith/shared/mp';
+import { mpKfSessionContract, type MpKfSessionReportItem, type MpMessage } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import {

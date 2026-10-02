@@ -1,4 +1,4 @@
-import type { InAppMessage } from '@zenith/shared/messaging';
+import type { InAppMessage } from '@arcbase/shared/messaging';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockInAppMessages: InAppMessage[] = [
@@ -59,8 +59,8 @@ export const mockInAppMessages: InAppMessage[] = [
     templateName: null,
     userId: 1,
     username: '管理员',
-    title: '欢迎使用 Zenith Admin',
-    content: '感谢您选择 Zenith Admin。',
+    title: '欢迎使用 ArcBase',
+    content: '感谢您选择 ArcBase。',
     type: 'info',
     isRead: false,
     readAt: null,

@@ -6,9 +6,9 @@ import {
   aiKnowledgeBaseContract,
   aiPromptTemplateContract,
   aiSettingsContract,
-} from '@zenith/shared/ai';
-import type { ArenaVoteInput, CreateAiKnowledgeBaseInput } from '@zenith/shared/ai';
-import { resourceKeyOf } from '@zenith/shared/core';
+} from '@arcbase/shared/ai';
+import type { ArenaVoteInput, CreateAiKnowledgeBaseInput } from '@arcbase/shared/ai';
+import { resourceKeyOf } from '@arcbase/shared/core';
 import { api, useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { aiPromptKeys } from './ai-prompts';

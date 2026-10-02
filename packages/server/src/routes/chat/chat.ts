@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { chatContract } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
 import { defineContractRoute } from '../../lib/contract-route';
 import { namedRateLimit } from '../../middleware/rate-limit';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

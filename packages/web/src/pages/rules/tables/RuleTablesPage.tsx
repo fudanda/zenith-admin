@@ -3,7 +3,7 @@ import { confirmAndDelete, ListSearchToolbar } from '@/components/list-page';
 import { Button, Checkbox, DatePicker, Input, InputNumber, Select, Space, Tag, Modal, Form, TextArea, Toast, Typography, SideSheet, List, Empty } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Save, Upload } from 'lucide-react';
-import { type RuleDecisionTable, type RuleEvaluateResult, type RuleTestRunResult, type RuleHitPolicy, type RuleTestCase, type RuleUsageItem, type RuleDecisionTableSettings, type RuleShadowRunResult, type RuleSimulateResult, decisionTableContract } from '@zenith/shared/rules';
+import { type RuleDecisionTable, type RuleEvaluateResult, type RuleTestRunResult, type RuleHitPolicy, type RuleTestCase, type RuleUsageItem, type RuleDecisionTableSettings, type RuleShadowRunResult, type RuleSimulateResult, decisionTableContract } from '@arcbase/shared/rules';
 import { EMPTY_PLACEHOLDER, copyableNoColumn, createdAtColumn, renderEllipsis } from '@/utils/table-columns';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';

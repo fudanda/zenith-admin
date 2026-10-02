@@ -1,4 +1,4 @@
-import type { CmsResource } from '@zenith/shared/cms';
+import type { CmsResource } from '@arcbase/shared/cms';
 
 export function cmsResourceThumbnail(resource: Pick<CmsResource, 'type' | 'url' | 'thumbUrl' | 'media'>): string | null {
   if (resource.type === 'image') return resource.media?.animated ? resource.url : resource.media?.variants[0]?.url ?? resource.thumbUrl ?? resource.url;

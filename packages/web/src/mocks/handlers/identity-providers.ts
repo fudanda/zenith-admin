@@ -4,8 +4,8 @@ import {
   type LdapDirectoryUser,
   type LoginResponse,
   type TenantIdentityProvider,
-} from '@zenith/shared/identity';
-import { SECRET_PLACEHOLDER } from '@zenith/shared/core';
+} from '@arcbase/shared/identity';
+import { SECRET_PLACEHOLDER } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { badRequest, nextIdFrom } from '@/mocks/utils/handlers';
@@ -92,7 +92,7 @@ const providers: TenantIdentityProvider[] = [
     clientSecret: '',
     scopes: 'openid profile email',
     samlSsoUrl: 'https://idp.example.com/saml/sso',
-    samlEntityId: 'https://zenith.example.com/saml/sp',
+    samlEntityId: 'https://arcbase.example.com/saml/sp',
     samlCertificate: SECRET_PLACEHOLDER,
     ldapUrl: null,
     ldapStartTls: false,

@@ -25,7 +25,7 @@ vi.mock('../../lib/context', () => ({
   currentUser: () => ({ userId: 1, tenantId: effectiveTenantId, roles: ['user'] }),
 }));
 
-import { analyticsDebugEventsQuery } from '@zenith/shared/analytics';
+import { analyticsDebugEventsQuery } from '@arcbase/shared/analytics';
 import { listDebugEvents, qualityTenantScope, queryQuality } from './analytics-quality.service';
 
 describe('qualityTenantScope — tenant safety aligned with rollupTenantScope semantics', () => {

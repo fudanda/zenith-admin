@@ -1,4 +1,4 @@
-import type { EmailSendLog } from '@zenith/shared/messaging';
+import type { EmailSendLog } from '@arcbase/shared/messaging';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockEmailSendLogs: EmailSendLog[] = [
@@ -7,8 +7,8 @@ export const mockEmailSendLogs: EmailSendLog[] = [
     templateId: 1,
     templateName: '欢迎邮件',
     toEmail: 'alice@example.com',
-    subject: '欢迎加入 Zenith Admin',
-    content: '<p>Hi Alice，欢迎加入 Zenith Admin！</p>',
+    subject: '欢迎加入 ArcBase',
+    content: '<p>Hi Alice，欢迎加入 ArcBase！</p>',
     status: 'success',
     errorMsg: null,
     source: 'system',

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Collapse, List, Popconfirm, SideSheet, Space, Spin, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import { Plus } from 'lucide-react';
-import type { AiChatModel, UserAiConfig } from '@zenith/shared/ai';
-import { AI_COMMON_PROVIDERS } from '@zenith/shared/ai';
+import type { AiChatModel, UserAiConfig } from '@arcbase/shared/ai';
+import { AI_COMMON_PROVIDERS } from '@arcbase/shared/ai';
 import AiProviderFormModal from './AiProviderFormModal';
 import { useAiChatModels } from '@/hooks/queries/ai-providers';
 import { useAiUserConfigs, useDeleteAiUserConfig } from '@/hooks/queries/ai-user-config';

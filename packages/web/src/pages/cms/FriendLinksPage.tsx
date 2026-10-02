@@ -14,7 +14,7 @@ import {
   useCmsFriendLinkList, useSaveCmsFriendLink, useDeleteCmsFriendLinks, cmsFriendLinkKeys,
   useAllCmsFriendLinkGroups, useCmsFriendLinkGroupList, useSaveCmsFriendLinkGroup, useDeleteCmsFriendLinkGroup,
 } from '@/hooks/queries/cms';
-import type { CmsFriendLink, CmsFriendLinkGroup } from '@zenith/shared/cms';
+import type { CmsFriendLink, CmsFriendLinkGroup } from '@arcbase/shared/cms';
 import { CmsSiteSelect } from './CmsSiteSelect';
 import { CreateButton } from '@/components/toolbar-controls';
 import { FilterSelect, KeywordInput } from '@/components/search-filters';

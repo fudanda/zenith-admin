@@ -1,5 +1,5 @@
 import { desc, eq, gte, isNull, lt, sql } from 'drizzle-orm';
-import type { WikiSettings } from '@zenith/shared/settings';
+import type { WikiSettings } from '@arcbase/shared/settings';
 import { db } from '../../db';
 import { users, wikiComments, wikiDocViews, wikiDocs, wikiSpaces } from '../../db/schema';
 import { currentUser } from '../../lib/context';

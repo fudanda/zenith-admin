@@ -9,8 +9,8 @@ import {
   REFRESH_TOKEN_KEY,
   TABS_STORAGE_KEY,
   TOKEN_KEY,
-} from '@zenith/shared/core';
-import { authContract, impersonationContract, type LoginResponse, type LoginResult } from '@zenith/shared/identity';
+} from '@arcbase/shared/core';
+import { authContract, impersonationContract, type LoginResponse, type LoginResult } from '@arcbase/shared/identity';
 import { apiRaw } from '@/lib/contract-query';
 import { AuthContext, type AuthContextValue, type AuthStatus } from '@/hooks/useAuth';
 import { PermissionContext } from '@/hooks/usePermission';
@@ -44,7 +44,7 @@ import { AUTH_INVALIDATED_REASON_KEY } from '@/utils/http-client';
 import { scopedStorageKey } from '@/utils/storage';
 import { LOCK_SCREEN_STORAGE_KEYS } from '@/hooks/useLockScreen';
 
-const DEVICE_ID_KEY = 'zenith_device_id';
+const DEVICE_ID_KEY = 'arcbase_device_id';
 const AUTH_PUBLIC_QUERY_ROOT = 'auth-public';
 
 function getDeviceId(): string {

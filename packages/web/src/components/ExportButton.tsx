@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { Button, Dropdown, Space, SplitButtonGroup } from '@douyinfe/semi-ui';
 import { ChevronDown, Download } from 'lucide-react';
-import type { Permission } from '@zenith/shared/core';
-import type { ExportJobFormat, ExportJobRequestMode } from '@zenith/shared/tasks';
+import type { Permission } from '@arcbase/shared/core';
+import type { ExportJobFormat, ExportJobRequestMode } from '@arcbase/shared/tasks';
 import { ToolbarSlotContext } from '@/components/toolbar-slot-context';
 import { useExportJobRunner } from '@/hooks/useExportJobRunner';
 import { usePermission } from '@/hooks/usePermission';

@@ -5,7 +5,7 @@ import ConfigurableTable from '@/components/ConfigurableTable';
 import AppModal from '@/components/AppModal';
 import { createdAtColumn, renderEllipsis } from '@/utils/table-columns';
 import { usePermission } from '@/hooks/usePermission';
-import { workflowDataSourceContract, type WorkflowDataSource, type WorkflowDataSourceOption } from '@zenith/shared/workflow';
+import { workflowDataSourceContract, type WorkflowDataSource, type WorkflowDataSourceOption } from '@arcbase/shared/workflow';
 import {
   useDeleteWorkflowDataSources,
   useSaveWorkflowDataSource,

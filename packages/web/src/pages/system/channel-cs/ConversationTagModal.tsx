@@ -5,7 +5,7 @@
  */
 import { useEffect, useState } from 'react';
 import { TagInput, Toast, Typography } from '@douyinfe/semi-ui';
-import type { ChannelConversation } from '@zenith/shared/messaging';
+import type { ChannelConversation } from '@arcbase/shared/messaging';
 import { useSetChannelConversationTags } from '@/hooks/queries/channel-cs';
 import { AppModal } from '@/components/AppModal';
 

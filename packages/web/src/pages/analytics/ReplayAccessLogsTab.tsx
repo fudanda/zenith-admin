@@ -5,7 +5,7 @@
 import { Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
-import { sessionReplayContract, type ReplayAccessLog } from '@zenith/shared/analytics';
+import { sessionReplayContract, type ReplayAccessLog } from '@arcbase/shared/analytics';
 import { useReplayAccessLogs } from '@/hooks/queries/session-replays';
 import { ListSearchToolbar } from '@/components/list-page';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';

@@ -1,9 +1,9 @@
 /**
  * 应用版本管理 Mock 数据（Demo 模式）。
- * 初始数据从 @zenith/shared/seed 派生；制品/版本关系在 handlers 中按 releaseId 组装。
+ * 初始数据从 @arcbase/shared/seed 派生；制品/版本关系在 handlers 中按 releaseId 组装。
  */
-import { SEED_APP_ARTIFACTS, SEED_APP_RELEASES, SEED_CLIENT_APPS, SEED_DEMO_SERVICE_APPS } from '@zenith/shared/seed';
-import type { AppArtifact, AppRelease, ClientApp } from '@zenith/shared/ops';
+import { SEED_APP_ARTIFACTS, SEED_APP_RELEASES, SEED_CLIENT_APPS, SEED_DEMO_SERVICE_APPS } from '@arcbase/shared/seed';
+import type { AppArtifact, AppRelease, ClientApp } from '@arcbase/shared/ops';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockClientApps: ClientApp[] = [...SEED_CLIENT_APPS, ...SEED_DEMO_SERVICE_APPS].map((a) => ({ ...a }));

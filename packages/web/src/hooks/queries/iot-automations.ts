@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { iotAutomationContract } from '@zenith/shared/iot';
+import type { QueryOf } from '@arcbase/shared/core';
+import { iotAutomationContract } from '@arcbase/shared/iot';
 import { contractKey, createResourceQueries, useApiQuery } from '@/lib/contract-query';
 
 // ─── 联动规则 ─────────────────────────────────────────────────────────────────

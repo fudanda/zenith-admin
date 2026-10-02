@@ -8,7 +8,7 @@ import { db } from '../../db';
 import { users } from '../../db/schema';
 import { currentUserOrNull } from '../../lib/context';
 import { getEffectiveTenantId } from '../../lib/tenant';
-import type { ReportDatasetParam, ReportFieldType, ReportRowRule } from '@zenith/shared/report';
+import type { ReportDatasetParam, ReportFieldType, ReportRowRule } from '@arcbase/shared/report';
 
 function coerceParam(value: unknown, type: ReportFieldType): unknown {
   if (value === null || value === undefined || value === '') return null;

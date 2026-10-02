@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
-import { paymentDeductPlanContract, paymentSigningContract } from '@zenith/shared/payment';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
+import { paymentDeductPlanContract, paymentSigningContract } from '@arcbase/shared/payment';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { paymentOrderKeys } from './payment-orders';

@@ -1,7 +1,7 @@
-import { fillPath } from '@zenith/shared/core';
-import { workflowAttachmentContract } from '@zenith/shared/workflow';
-import type { WorkflowDefinition, WorkflowDefinitionVersion, WorkflowInstance, WorkflowTask, WorkflowFormField, WorkflowInstanceFormSnapshot } from '@zenith/shared/workflow';
-import { SEED_WORKFLOW_DEFINITIONS, SEED_DATE } from '@zenith/shared/seed';
+import { fillPath } from '@arcbase/shared/core';
+import { workflowAttachmentContract } from '@arcbase/shared/workflow';
+import type { WorkflowDefinition, WorkflowDefinitionVersion, WorkflowInstance, WorkflowTask, WorkflowFormField, WorkflowInstanceFormSnapshot } from '@arcbase/shared/workflow';
+import { SEED_WORKFLOW_DEFINITIONS, SEED_DATE } from '@arcbase/shared/seed';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 import { mockUsers } from './users';
 import { mockWorkflowForms } from './workflow-forms';

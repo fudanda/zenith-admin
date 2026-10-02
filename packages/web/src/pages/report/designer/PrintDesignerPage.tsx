@@ -22,8 +22,8 @@ import { buildEntityPrintCatalog, buildEntityTemplateDraft, entityDatasetKeys, f
 import WorkflowPrintButton from '@/components/workflow/WorkflowPrintButton';
 import { useWorkflowDefinitionList } from '@/hooks/queries/workflow-definitions';
 import { useApiQuery } from '@/lib/contract-query';
-import { workflowInstanceContract } from '@zenith/shared/workflow';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import { workflowInstanceContract } from '@arcbase/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { useReportDesignerDatasets } from '@/hooks/queries/report-designer';
 import { reportDatasetKeys, useReportDatasetDetail } from '@/hooks/queries/report-datasets';
 import {
@@ -33,8 +33,8 @@ import {
   useReportPrintTemplateDetail,
   useSaveReportPrintTemplate,
 } from '@/hooks/queries/report-print';
-import { REPORT_FIELD_TYPE_OPTIONS, REPORT_PRINT_ENTITY_KIND_LABELS, reportDatasetContract, reportPrintContract } from '@zenith/shared/report';
-import type { ReportDataset, ReportDatasetParam, ReportFieldType, ReportPrintContent, ReportPrintCrosstabConfig, ReportPrintDatasetBinding, ReportPrintEntityKind, ReportPrintPageConfig, ReportPrintRenderResult, ReportPrintSheet, ReportPrintSourceType, ReportPrintTemplate, UpdateReportPrintTemplateInput } from '@zenith/shared/report';
+import { REPORT_FIELD_TYPE_OPTIONS, REPORT_PRINT_ENTITY_KIND_LABELS, reportDatasetContract, reportPrintContract } from '@arcbase/shared/report';
+import type { ReportDataset, ReportDatasetParam, ReportFieldType, ReportPrintContent, ReportPrintCrosstabConfig, ReportPrintDatasetBinding, ReportPrintEntityKind, ReportPrintPageConfig, ReportPrintRenderResult, ReportPrintSheet, ReportPrintSourceType, ReportPrintTemplate, UpdateReportPrintTemplateInput } from '@arcbase/shared/report';
 import { useDictItems } from '@/hooks/useDictItems';
 import { apiQueryOptions } from '@/lib/contract-query';
 

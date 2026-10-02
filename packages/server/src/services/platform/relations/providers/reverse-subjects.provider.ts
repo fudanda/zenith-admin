@@ -1,6 +1,6 @@
 import { and, asc, eq, gt, or, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { canonicalEntityRefSchema, type CanonicalEntityType, type EntityRelationItem } from '@zenith/shared/platform';
+import { canonicalEntityRefSchema, type CanonicalEntityType, type EntityRelationItem } from '@arcbase/shared/platform';
 import { asyncTaskSubjects, notificationOutboxSubjects, operationLogSubjects } from '../../../../db/schema';
 import { exactTenantCondition, tenantCondition } from '../../../../lib/tenant';
 import { buildWhere } from '../../../../lib/where-helpers';

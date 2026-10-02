@@ -1,5 +1,5 @@
-import { percentOf as sharedPercentOf } from '@zenith/shared/core';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { percentOf as sharedPercentOf } from '@arcbase/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { requireRow } from '../../lib/db-assert';
 import {
   and,
@@ -8,8 +8,8 @@ import {
   sql,
 } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { CMS_INTERACTION_MATRIX_SEPARATOR, CMS_INTERACTION_NPS_MAX, CMS_INTERACTION_OTHER_PREFIX, CMS_INTERACTION_OTHER_VALUE, cmsInteractionContract } from '@zenith/shared/cms';
-import type { CmsInteractionCrossStats, CmsInteractionQuestionType, CmsInteractionPublicStats, CmsInteractionQuestionStats, CmsInteractionStats, CmsInteractionTextAnswer, CmsInteractionTrendStats } from '@zenith/shared/cms';
+import { CMS_INTERACTION_MATRIX_SEPARATOR, CMS_INTERACTION_NPS_MAX, CMS_INTERACTION_OTHER_PREFIX, CMS_INTERACTION_OTHER_VALUE, cmsInteractionContract } from '@arcbase/shared/cms';
+import type { CmsInteractionCrossStats, CmsInteractionQuestionType, CmsInteractionPublicStats, CmsInteractionQuestionStats, CmsInteractionStats, CmsInteractionTextAnswer, CmsInteractionTrendStats } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import {
   cmsInteractionAnswers,

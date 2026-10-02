@@ -12,8 +12,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/department"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/department"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
 )
 
 // DepartmentQuery is the builder for querying Department entities.

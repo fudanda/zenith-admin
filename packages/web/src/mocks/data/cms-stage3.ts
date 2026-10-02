@@ -1,5 +1,5 @@
-import type { CmsPublishingTask, CmsPublishArtifact, CmsPublishTargetType } from '@zenith/shared/cms';
-import { SEED_CMS_PUBLISH_ARTIFACTS, SEED_CMS_PUBLISH_TASKS } from '@zenith/shared/seed';
+import type { CmsPublishingTask, CmsPublishArtifact, CmsPublishTargetType } from '@arcbase/shared/cms';
+import { SEED_CMS_PUBLISH_ARTIFACTS, SEED_CMS_PUBLISH_TASKS } from '@arcbase/shared/seed';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockCmsPublishingTasks: CmsPublishingTask[] = SEED_CMS_PUBLISH_TASKS.map((item) => ({
@@ -14,9 +14,9 @@ export const mockCmsPublishingTasks: CmsPublishingTask[] = SEED_CMS_PUBLISH_TASK
   tenantId: null,
   traceId: null,
   siteId: Number(item.payload.siteId),
-  siteName: 'Zenith 官方网站',
+  siteName: 'ArcBase 官方网站',
   siteIds: [Number(item.payload.siteId)],
-  siteNames: ['Zenith 官方网站'],
+  siteNames: ['ArcBase 官方网站'],
   targetType: item.payload.targetType as CmsPublishTargetType,
   artifactCount: SEED_CMS_PUBLISH_ARTIFACTS.filter((artifact) => artifact.taskId === item.id).length,
   failedArtifactCount: 0,

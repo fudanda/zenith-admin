@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ANALYTICS_CONFIG_VERSION_KEY } from '@zenith/shared/analytics';
-import { analyticsStorageKey } from '@zenith/analytics-sdk/runtime-config';
+import { ANALYTICS_CONFIG_VERSION_KEY } from '@arcbase/shared/analytics';
+import { analyticsStorageKey } from '@arcbase/analytics-sdk/runtime-config';
 import { config } from '@/config';
 
 /**
@@ -20,7 +20,7 @@ vi.mock('web-vitals', () => ({
   onTTFB: vi.fn(),
 }));
 
-vi.mock('@zenith/analytics-sdk/error-reporter', () => ({
+vi.mock('@arcbase/analytics-sdk/error-reporter', () => ({
   configureErrorReporting: vi.fn(),
   configureErrorReporterRuntime: vi.fn(),
   reportError: vi.fn(),

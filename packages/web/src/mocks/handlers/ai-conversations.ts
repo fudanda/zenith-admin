@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
-import { toColonPath } from '@zenith/shared/core';
-import { aiConversationContract, sendAiChatMessageSchema } from '@zenith/shared/ai';
-import type { AiConversation, AiFeedbackItem, AiMessage } from '@zenith/shared/ai';
+import { toColonPath } from '@arcbase/shared/core';
+import { aiConversationContract, sendAiChatMessageSchema } from '@arcbase/shared/ai';
+import type { AiConversation, AiFeedbackItem, AiMessage } from '@arcbase/shared/ai';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

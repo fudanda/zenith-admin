@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { sslCertificateContract, type SslCertDownloadKind } from '@zenith/shared/ops';
+import type { QueryOf } from '@arcbase/shared/core';
+import { sslCertificateContract, type SslCertDownloadKind } from '@arcbase/shared/ops';
 import { createResourceQueries, urlOf, useApiMutation } from '@/lib/contract-query';
 import { request } from '@/utils/request';
 

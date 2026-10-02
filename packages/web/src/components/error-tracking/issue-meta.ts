@@ -3,9 +3,9 @@
  * 组件在 `issue-atoms.tsx`；两个页面（数据分析 → 错误监控、系统监控 → 异常日志）从这里导入，禁止各自再抄一份颜色表。
  */
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag/interface';
-import type { ErrorAlertChannel, ErrorLevel, ErrorStatus, ErrorType } from '@zenith/shared/analytics';
-import { ERROR_ALERT_CHANNELS, ERROR_ALERT_CHANNEL_LABELS } from '@zenith/shared/analytics';
-import { enumValueOf } from '@zenith/shared/core';
+import type { ErrorAlertChannel, ErrorLevel, ErrorStatus, ErrorType } from '@arcbase/shared/analytics';
+import { ERROR_ALERT_CHANNELS, ERROR_ALERT_CHANNEL_LABELS } from '@arcbase/shared/analytics';
+import { enumValueOf } from '@arcbase/shared/core';
 
 export const ERROR_TYPE_COLORS: Record<ErrorType, TagColor> = {
   js_error: 'red',

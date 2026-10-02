@@ -1,6 +1,6 @@
-import { TOKEN_KEY, REFRESH_TOKEN_KEY } from '@zenith/shared/core';
-import { authContract } from '@zenith/shared/identity';
-import type { ApiResponse } from '@zenith/shared/core';
+import { TOKEN_KEY, REFRESH_TOKEN_KEY } from '@arcbase/shared/core';
+import { authContract } from '@arcbase/shared/identity';
+import type { ApiResponse } from '@arcbase/shared/core';
 import { config } from '@/config';
 import { HttpClient, type ApiResponseWithMeta, type HttpRequestOptions } from './http-client';
 import { downloadBlob } from './download';
@@ -88,7 +88,7 @@ class Request extends HttpClient {
   }
 }
 
-/** Retains Zenith's upload progress and binary channels with Cookie/CSRF auth. */
+/** Retains ArcBase's upload progress and binary channels with Cookie/CSRF auth. */
 class GoRequest extends Request {
   override authHeaders(): Record<string, string> { return goTransport.sessionHeaders(); }
 

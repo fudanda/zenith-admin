@@ -16,9 +16,9 @@ import {
   useCmsAdList, useSaveCmsAd, useDeleteCmsAds,
   cmsAdEventKeys, useCleanupCmsAdEvents, useCmsAdEventList, useCmsAdEventStats,
 } from '@/hooks/queries/cms';
-import { CMS_AD_EVENT_TYPE_LABELS, CMS_DEVICE_TYPE_LABELS, CMS_AD_EVENT_TYPE_OPTIONS, CMS_DEVICE_TYPE_OPTIONS } from '@zenith/shared/cms';
-import type { CmsAdEvent, CmsAdSlot, CmsAd } from '@zenith/shared/cms';
-import { percentOf } from '@zenith/shared/core';
+import { CMS_AD_EVENT_TYPE_LABELS, CMS_DEVICE_TYPE_LABELS, CMS_AD_EVENT_TYPE_OPTIONS, CMS_DEVICE_TYPE_OPTIONS } from '@arcbase/shared/cms';
+import type { CmsAdEvent, CmsAdSlot, CmsAd } from '@arcbase/shared/cms';
+import { percentOf } from '@arcbase/shared/core';
 import { CmsSiteSelect } from './CmsSiteSelect';
 import { CreateButton } from '@/components/toolbar-controls';
 import { DateRangeFilter, FilterSelect } from '@/components/search-filters';

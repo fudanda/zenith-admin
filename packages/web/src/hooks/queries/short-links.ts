@@ -1,5 +1,5 @@
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { channelAnalysisContract, shortLinkContract } from '@zenith/shared/short-link';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { channelAnalysisContract, shortLinkContract } from '@arcbase/shared/short-link';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const {

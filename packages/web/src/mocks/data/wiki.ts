@@ -1,6 +1,6 @@
-import { SEED_WIKI_COMMENTS, SEED_WIKI_DOCS, SEED_WIKI_SPACES, SEED_WIKI_SPACE_MEMBERS, SEED_WIKI_TAGS, SEED_WIKI_TEMPLATES } from '@zenith/shared/seed';
-import { wikiSettingsSchema, type WikiSettings } from '@zenith/shared/settings';
-import type { WikiComment, WikiDoc, WikiDocVersion, WikiSpace, WikiSpaceMember, WikiTag, WikiTemplate } from '@zenith/shared/wiki';
+import { SEED_WIKI_COMMENTS, SEED_WIKI_DOCS, SEED_WIKI_SPACES, SEED_WIKI_SPACE_MEMBERS, SEED_WIKI_TAGS, SEED_WIKI_TEMPLATES } from '@arcbase/shared/seed';
+import { wikiSettingsSchema, type WikiSettings } from '@arcbase/shared/settings';
+import type { WikiComment, WikiDoc, WikiDocVersion, WikiSpace, WikiSpaceMember, WikiTag, WikiTemplate } from '@arcbase/shared/wiki';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

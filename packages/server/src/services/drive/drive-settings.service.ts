@@ -1,5 +1,5 @@
-import type { DriveSpaceType } from '@zenith/shared/drive';
-import type { DriveSettings } from '@zenith/shared/settings';
+import type { DriveSpaceType } from '@arcbase/shared/drive';
+import type { DriveSettings } from '@arcbase/shared/settings';
 import { getSettings } from '../../lib/settings';
 
 export type { DriveSettings };

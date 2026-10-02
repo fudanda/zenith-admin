@@ -1,4 +1,4 @@
-import { ACCOUNT_SWITCH_BROADCAST_KEY, ACCOUNTS_STORE_KEY, MAX_STORED_ACCOUNTS } from '@zenith/shared/core';
+import { ACCOUNT_SWITCH_BROADCAST_KEY, ACCOUNTS_STORE_KEY, MAX_STORED_ACCOUNTS } from '@arcbase/shared/core';
 
 /**
  * 账号切换器的停靠账号仓库（localStorage，本模块是唯一读写方）。

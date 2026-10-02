@@ -1,6 +1,6 @@
 # 独立包交付与宿主业务模块
 
-管理台仍是 `packages/web` 的原 React Router、Semi UI 和业务页面。`@zenith/admin` 提供装配入口；宿主业务页面通过 `modules` 配置接入，后台通过 Go `Config.Modules` 接入。宿主不需要导入 Web 源码或配置 workspace alias。
+管理台仍是 `packages/web` 的原 React Router、Semi UI 和业务页面。`@arcbase/admin` 提供装配入口；宿主业务页面通过 `modules` 配置接入，后台通过 Go `Config.Modules` 接入。宿主不需要导入 Web 源码或配置 workspace alias。
 
 ## 交付和独立安装
 
@@ -16,19 +16,19 @@ npm run test:packages:external
 
 外部项目需同时安装四个 tarball，以及 React 19、React DOM、TanStack Query、Semi UI、Zod 等 peer dependencies。`examples/host-application/package.json` 是完整依赖示例。外部验收命令创建 OS 临时目录，执行真实 npm 安装、检查四个包没有 workspace 符号链接、执行 TypeScript 和 Vite 构建，再用普通 Node 导入编译后的 SDK。
 
-显式导入 `@zenith/admin/styles.css`。把 `node_modules/@zenith/admin/dist/public/` 复制到 `assetBasePath` 对应的公开目录，保留 `dist/file-viewer/` 下的预览运行资源。示例 `build.mjs` 完成资源复制，未设置任何源码 alias。
+显式导入 `@arcbase/admin/styles.css`。把 `node_modules/@arcbase/admin/dist/public/` 复制到 `assetBasePath` 对应的公开目录，保留 `dist/file-viewer/` 下的预览运行资源。示例 `build.mjs` 完成资源复制，未设置任何源码 alias。
 
 ## 前端宿主模块
 
 ```tsx
 const client = new Client({ operations: [hostContract.list, hostContract.create] });
-const modules: ZenithAdminModule[] = [{
+const modules: ArcBaseAdminModule[] = [{
   id: 'position-host', title: '宿主业务',
   pages: [{ id: 'positions', title: '岗位业务模块',
     path: '/extensions/position-host/positions', permission: 'system:position:list',
     component: PositionsPage }],
 }];
-<ZenithAdmin client={client} modules={modules} basePath="/console" />;
+<ArcBaseAdmin client={client} modules={modules} basePath="/console" />;
 ```
 
 模块 ID 和页面 ID 使用小写字母、数字、连字符。页面路径必须位于 `/extensions/{module.id}/`，只支持明确声明的静态页面路径；禁止覆盖内置页面、通配符或路径参数。页面获得稳定 Client、当前用户和服务端权限集合。按钮使用 Elements 的 `PermissionGuard` 或页面属性 `hasPermission`；Admin 与 Elements 共用上下文，页面不会创建第二套会话。
@@ -41,14 +41,14 @@ Client 的宿主契约必须明确传入 `operations`，路径限定为 `/api/v1
 
 ## Go 宿主模块
 
-实现公开 `zenith.Module` 的名称、依赖、初始化和关闭方法。可选实现：
+实现公开 `arcbase.Module` 的名称、依赖、初始化和关闭方法。可选实现：
 
 - `ServiceModule.BindServices`：注入 `HostServices`，仅做依赖绑定，不启动资源或后台任务。
 - `DescribedModule.Extension`：声明页面及自定义权限。新权限使用 `host:{module.name}:{action}`；内置权限可直接复用。
 
 `Extension` 用于允许原菜单管理配置宿主页面/按钮，并允许 Go 在已声明的 `/dash/extensions/...` 页面提供 SPA 深链接。原菜单管理新建宿主页面时，组件值必须为 `host:{module.name}:{page.id}`，权限与声明一致。角色、用户直接授权和用户组继续使用原授权方式。撤销权限后，后续 Go 请求立即拒绝。
 
-自定义权限的 TypeScript 类型通过 `@zenith/shared/core/permissions` 的 `HostPermissionRegistry` 接口增补，示例见 `examples/host-application/permissions.ts`。岗位示例新增按钮同时要求 `host:position-host:create` 和原 `system:position:create`：宿主包装不能绕过原领域权限。两项权限都可通过原菜单/角色授权维护。
+自定义权限的 TypeScript 类型通过 `@arcbase/shared/core/permissions` 的 `HostPermissionRegistry` 接口增补，示例见 `examples/host-application/permissions.ts`。岗位示例新增按钮同时要求 `host:position-host:create` 和原 `system:position:create`：宿主包装不能绕过原领域权限。两项权限都可通过原菜单/角色授权维护。
 
 HTTP handler 使用 `CurrentActor(ctx)` 获取操作人和追踪信息，不返回会话、密码或 Cookie。`HostServices.Authorize(ctx, permission)` 使用当前数据库授权。公开 Positions 服务示例复用原岗位业务服务、数据范围和同事务审计，缺少经过门禁的业务上下文时拒绝调用。宿主新增领域自行管理业务 schema、版本迁移、Service 与显式事务；通用扩展接口不提供绕过业务规则的任意表 CRUD。
 
@@ -61,11 +61,11 @@ cd backend
 go test ./...
 ```
 
-Go 示例位于 `backend/examples/hostmodule/`，仅导入 Zenith 公开 API；使用依赖 `organization.positions`。`examples/host-application/` 的页面通过真实宿主岗位接口读写，原岗位页面能看到同一条记录。
+Go 示例位于 `backend/examples/hostmodule/`，仅导入 ArcBase 公开 API；使用依赖 `organization.positions`。`examples/host-application/` 的页面通过真实宿主岗位接口读写，原岗位页面能看到同一条记录。
 
 ## Go 承载外部页面
 
-在独立宿主目录设置 `ZENITH_HOST_BASE_PATH=/dash/` 后构建，Go 使用 `DashboardFS` 指向该 `dist`，并注册宿主模块。`backend/examples/hostembed/` 展示装配方式：设置数据库、监听地址、文件配置和 `ZENITH_HOST_DIST` 后运行。
+在独立宿主目录设置 `ARCBASE_HOST_BASE_PATH=/dash/` 后构建，Go 使用 `DashboardFS` 指向该 `dist`，并注册宿主模块。`backend/examples/hostembed/` 展示装配方式：设置数据库、监听地址、文件配置和 `ARCBASE_HOST_DIST` 后运行。
 
 HTTP 回退仍只服务内置和声明过的页面。未知 API、未声明页面与缺失 JS/CSS/WASM 返回真实 404。宿主自己的服务器部署 `/console` 时负责同等深链接策略，并将 `/api/v1` 同源代理到 Go，保留 Host 和 Origin。
 

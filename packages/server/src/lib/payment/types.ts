@@ -5,7 +5,7 @@
  * 门面层（payment.service）通过 registry 拿到对应 adapter 调用，
  * 完全不感知渠道差异与签名细节。
  */
-import type { CreatePaymentResult, PaymentChannel, PaymentMethod } from '@zenith/shared/payment';
+import type { CreatePaymentResult, PaymentChannel, PaymentMethod } from '@arcbase/shared/payment';
 import type { PaymentChannelConfigRow, PaymentOrderRow, PaymentRefundRow } from '../../db/schema';
 import type { ProviderBillKind, ProviderBillResult } from './bill-types';
 export type { ProviderBillArtifact, ProviderBillEntry, ProviderBillKind, ProviderBillResult } from './bill-types';

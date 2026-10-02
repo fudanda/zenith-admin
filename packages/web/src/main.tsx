@@ -11,13 +11,13 @@ import App from './App';
 import { queryClient } from './lib/query';
 import { AuthProvider } from './providers/AuthProvider';
 import { IS_GO_FOUNDATION } from './lib/foundation-mode';
-import { ZenithAdmin } from './admin/ZenithAdmin';
+import { ArcBaseAdmin } from './admin/ArcBaseAdmin';
 import './styles/global.css';
 
 async function bootstrap() {
   if (IS_GO_FOUNDATION) {
     createRoot(document.getElementById('root')!).render(
-      <ZenithAdmin basePath={import.meta.env.BASE_URL} assetBasePath={import.meta.env.BASE_URL} />,
+      <ArcBaseAdmin basePath={import.meta.env.BASE_URL} assetBasePath={import.meta.env.BASE_URL} />,
     );
     return;
   }

@@ -39,7 +39,7 @@ for (const entry of entries) {
   const result = spawnSync(process.execPath, viteArgs, {
     cwd: webRoot,
     stdio: 'inherit',
-    env: { ...process.env, ZENITH_WEB_ENTRY: entry },
+    env: { ...process.env, ARCBASE_WEB_ENTRY: entry },
   });
   if (result.status !== 0) {
     console.error(`✖ 入口 ${entry} 构建失败`);

@@ -17,7 +17,7 @@ export const healthSchema = z.object({
   status: z.enum(HEALTH_STATUSES).meta({ example: 'ok' }),
   version: z.string().meta({ example: '2.17.0' }),
   uptimeSeconds: z.int().meta({ example: 12345 }),
-  /** 应答进程承担的角色（`ZENITH_ROLES`） */
+  /** 应答进程承担的角色（`ARCBASE_ROLES`） */
   roles: z.array(z.enum(PROCESS_ROLES)).meta({ example: ['api'] }),
   checks: z.record(z.string(), z.enum(HEALTH_CHECK_RESULTS)).meta({
     description: '`workers`：仅 api 角色输出，近期无活跃 worker 心跳时为 degraded（作业会排队但无人执行）',

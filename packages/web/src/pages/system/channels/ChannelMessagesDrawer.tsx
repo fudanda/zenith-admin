@@ -7,8 +7,8 @@
 import { useEffect, useState } from 'react';
 import { Modal, SideSheet, Tabs, TabPane, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ChannelAdmin, ChannelMessage, ChannelMessageStatus } from '@zenith/shared/messaging';
-import { CHANNEL_MESSAGE_STATUS_LABELS, CHANNEL_MESSAGE_TYPE_LABELS } from '@zenith/shared/messaging';
+import type { ChannelAdmin, ChannelMessage, ChannelMessageStatus } from '@arcbase/shared/messaging';
+import { CHANNEL_MESSAGE_STATUS_LABELS, CHANNEL_MESSAGE_TYPE_LABELS } from '@arcbase/shared/messaging';
 import { usePagination } from '@/hooks/usePagination';
 import { usePermission } from '@/hooks/usePermission';
 import { ConfigurableTable } from '@/components/ConfigurableTable';

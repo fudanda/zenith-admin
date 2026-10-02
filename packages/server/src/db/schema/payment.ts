@@ -1,6 +1,6 @@
 import { pgTable, varchar, timestamp, pgEnum, integer, bigint, boolean, unique, uniqueIndex, text, index, jsonb, check, type AnyPgColumn } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
-import type { CreatePaymentResult } from '@zenith/shared/payment';
+import type { CreatePaymentResult } from '@arcbase/shared/payment';
 import { timestampColumns, idColumn, statusColumn, sortColumn, remarkColumn } from './common';
 import { auditColumns, departments, users, tenantIdColumn } from './core';
 import { oauth2Clients } from './open-platform';

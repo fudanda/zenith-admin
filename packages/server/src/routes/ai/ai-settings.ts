@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { aiSettingsContract } from '@zenith/shared/ai';
+import { aiSettingsContract } from '@arcbase/shared/ai';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getMyAiSettings, saveMyAiSettings } from '../../services/ai/ai-user-settings.service';

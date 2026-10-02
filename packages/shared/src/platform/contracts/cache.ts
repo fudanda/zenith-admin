@@ -5,7 +5,7 @@ import { keywordQuery } from '../../core/api-schemas';
 // ─── 实体 ────────────────────────────────────────────────────────────────────
 
 export const cacheItemSchema = z.object({
-  key: z.string().meta({ example: 'zenith:session:abc' }),
+  key: z.string().meta({ example: 'arcbase:session:abc' }),
   displayKey: z.string().meta({ description: '去掉命名空间前缀后的 key' }),
   segment: z.string(),
   category: z.string(),
@@ -55,15 +55,15 @@ export const cacheListQuery = z.object({
 });
 
 export const cacheKeyQuery = z.object({
-  key: z.string().meta({ example: 'zenith:session:abc' }),
+  key: z.string().meta({ example: 'arcbase:session:abc' }),
 });
 
 export const cacheKeyBody = z.object({
-  key: z.string().meta({ example: 'zenith:session:abc' }),
+  key: z.string().meta({ example: 'arcbase:session:abc' }),
 });
 
 export const cacheKeysBody = z.object({
-  keys: z.array(z.string()).min(1).meta({ example: ['zenith:session:abc'] }),
+  keys: z.array(z.string()).min(1).meta({ example: ['arcbase:session:abc'] }),
 });
 
 export const cacheSegmentBody = z.object({
@@ -71,12 +71,12 @@ export const cacheSegmentBody = z.object({
 });
 
 export const cacheTtlBody = z.object({
-  key: z.string().meta({ example: 'zenith:session:abc' }),
+  key: z.string().meta({ example: 'arcbase:session:abc' }),
   ttl: z.number().int().meta({ example: 3600, description: '-1 为永久，正整数为秒数' }),
 });
 
 export const cacheValueBody = z.object({
-  key: z.string().meta({ example: 'zenith:perm:1' }),
+  key: z.string().meta({ example: 'arcbase:perm:1' }),
   value: z.string().meta({ example: '["dashboard:view"]' }),
   ttl: z.number().int().optional().meta({ example: 600, description: '不传保留原 TTL，-1 为永久，正整数为秒数' }),
 });

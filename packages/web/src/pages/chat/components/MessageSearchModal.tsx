@@ -3,7 +3,7 @@ import { MessageSquare, Search } from 'lucide-react';
 import { AppModal } from '@/components/AppModal';
 import { ResetButton, SearchButton } from '@/components/toolbar-controls';
 import { formatConvTime } from '@/utils/date';
-import type { ChatMessage, ChatMessageSearchItem } from '@zenith/shared/chat';
+import type { ChatMessage, ChatMessageSearchItem } from '@arcbase/shared/chat';
 import { CHAT_MESSAGE_TYPE_OPTIONS } from '../types';
 import type { SearchDatePreset, Setter } from '../types';
 import { DateRangeFilter, FilterSelect } from '@/components/search-filters';

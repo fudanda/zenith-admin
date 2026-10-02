@@ -12,7 +12,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { PgDialect } from 'drizzle-orm/pg-core';
 import { HTTPException } from 'hono/http-exception';
-import type { AnalyticsSegmentRule, CreateAnalyticsUserSegmentInput } from '@zenith/shared/analytics';
+import type { AnalyticsSegmentRule, CreateAnalyticsUserSegmentInput } from '@arcbase/shared/analytics';
 
 const { select, insert, update, del, count, transaction } = vi.hoisted(() => ({
   select: vi.fn(),

@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
+	"github.com/fudanda/arcbase/backend/ent/loginlog"
 )
 
 // LoginLog is the model entity for the LoginLog schema.

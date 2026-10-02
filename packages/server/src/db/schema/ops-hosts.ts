@@ -1,7 +1,7 @@
 import { timestampColumns, idColumn, remarkColumn } from './common';
 import { pgTable, varchar, timestamp, pgEnum, integer, text, jsonb, boolean, index } from 'drizzle-orm/pg-core';
-import { OPS_HOST_AUTH_TYPES, OPS_HOST_STATUSES } from '@zenith/shared/ops';
-import type { OpsHostSnapshot } from '@zenith/shared/ops';
+import { OPS_HOST_AUTH_TYPES, OPS_HOST_STATUSES } from '@arcbase/shared/ops';
+import type { OpsHostSnapshot } from '@arcbase/shared/ops';
 import { auditColumns } from './core';
 
 // ─── 运维主机注册表（多主机管理）───────────────────────────────────────────────

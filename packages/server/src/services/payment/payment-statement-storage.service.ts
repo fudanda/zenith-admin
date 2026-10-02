@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { Readable } from 'node:stream';
 import { and, desc, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { PAYMENT_RECON_MAX_FILE_BYTES } from '@zenith/shared/payment';
+import { PAYMENT_RECON_MAX_FILE_BYTES } from '@arcbase/shared/payment';
 import { db } from '../../db';
 import { fileStorageConfigs, paymentStatements, paymentStatementFiles, paymentStatementPeriods, type PaymentStatementPeriodRow, type PaymentStatementFileRow, type FileStorageConfigRow } from '../../db/schema';
 import { uploadObjectByConfig, readStoredFile, extractBucketName } from '../../lib/file-storage';

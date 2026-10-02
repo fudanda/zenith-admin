@@ -1,6 +1,6 @@
 # Swagger / OpenAPI 文档
 
-Zenith Admin 后端通过 `@hono/zod-openapi` 在运行时生成 OpenAPI 3.1 文档，并提供 Swagger UI。路由 schema 是唯一维护入口，不需要手写静态 OpenAPI 文件。
+ArcBase 后端通过 `@hono/zod-openapi` 在运行时生成 OpenAPI 3.1 文档，并提供 Swagger UI。路由 schema 是唯一维护入口，不需要手写静态 OpenAPI 文件。
 
 ---
 
@@ -56,7 +56,7 @@ Swagger UI 调试步骤：
 
 ## Spec 维护
 
-OpenAPI Spec 由 `@zenith/shared/{域}/contracts/` 中的契约操作汇总生成：路径、参数、请求体、响应 schema、tags、
+OpenAPI Spec 由 `@arcbase/shared/{域}/contracts/` 中的契约操作汇总生成：路径、参数、请求体、响应 schema、tags、
 `security` 与通用错误响应全部来自契约。维护规则：
 
 1. 路由文件创建 `new OpenAPIHono({ defaultHook: validationHook })`。

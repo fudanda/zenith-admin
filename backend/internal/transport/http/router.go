@@ -3,7 +3,7 @@ package httptransport
 import (
 	"errors"
 	"fmt"
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
 	gofrhttp "gofr.dev/pkg/gofr/http"
 	"net/http"
 	"strings"

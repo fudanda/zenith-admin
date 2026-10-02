@@ -1,8 +1,8 @@
 import { matchesFilter } from '../utils/filter';
 import { http } from 'msw';
-import { memberCmsContract } from '@zenith/shared/cms';
-import type { CmsContribution, CmsMemberComment, CmsMemberContentItem } from '@zenith/shared/cms';
-import { memberAuthContract, memberSelfContract } from '@zenith/shared/member';
+import { memberCmsContract } from '@arcbase/shared/cms';
+import type { CmsContribution, CmsMemberComment, CmsMemberContentItem } from '@arcbase/shared/cms';
+import { memberAuthContract, memberSelfContract } from '@arcbase/shared/member';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { badRequest, conflict, ok } from '@/mocks/utils/handlers';
@@ -149,7 +149,7 @@ export const memberFrontHandlers = [
 
   // ── CMS 会员投稿 ──────────────────────────────────────────────────────────
   mock(memberCmsContract.channels, ({ ok }) => ok([
-    { id: 1, name: 'Zenith 官方网站', channels: [{ id: 2, name: '新闻中心' }, { id: 3, name: '产品中心' }] },
+    { id: 1, name: 'ArcBase 官方网站', channels: [{ id: 2, name: '新闻中心' }, { id: 3, name: '产品中心' }] },
   ])),
   mock(memberCmsContract.contribution, ({ params, ok }) => {
     const row = requireItem(mockContributions, params.id, '投稿不存在', { status: 404 });
@@ -270,7 +270,7 @@ export const memberFrontHandlers = [
 
 const mockLikedIds = new Set<number>();
 const mockFavorites: CmsMemberContentItem[] = [
-  { contentId: 1, title: 'Zenith Admin 发布 CMS 内容管理模块', url: '/news/1.html', coverThumb: null, contentType: 'article', createdAt: '2026-01-05 10:00:00' },
+  { contentId: 1, title: 'ArcBase 发布 CMS 内容管理模块', url: '/news/1.html', coverThumb: null, contentType: 'article', createdAt: '2026-01-05 10:00:00' },
 ];
 const mockViewHistory: CmsMemberContentItem[] = [
 
@@ -279,7 +279,7 @@ const mockViewHistory: CmsMemberContentItem[] = [
 
 const mockMyComments: CmsMemberComment[] = [
 
-  { id: 3, contentId: 1, contentTitle: 'Zenith Admin 发布 CMS 内容管理模块', contentUrl: '/news/1.html', parentId: 0, content: '登录会员的评论会带会员标识，支持在会员中心统一管理。', likeCount: 1, status: 'approved', createdAt: '2026-01-05 11:00:00' },
+  { id: 3, contentId: 1, contentTitle: 'ArcBase 发布 CMS 内容管理模块', contentUrl: '/news/1.html', parentId: 0, content: '登录会员的评论会带会员标识，支持在会员中心统一管理。', likeCount: 1, status: 'approved', createdAt: '2026-01-05 11:00:00' },
 ];
 let nextMyCommentId = 100;
 

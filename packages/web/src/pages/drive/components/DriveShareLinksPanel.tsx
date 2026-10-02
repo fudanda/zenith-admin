@@ -4,7 +4,7 @@ import { Button, Empty, Form, Popover, Spin, Table, Toast, Tooltip, Typography, 
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { QRCodeSVG } from 'qrcode.react';
 import { Copy, Droplets, Inbox, KeyRound, Link2, Pencil, Plus, QrCode, Scissors, ShieldCheck, Trash2, Undo2 } from 'lucide-react';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import {
   describeShareCapabilities,
   DRIVE_SHARE_CAPABILITY_OPTIONS,
@@ -16,7 +16,7 @@ import {
   type DriveShareKind,
   type DriveShareLink,
   type UpdateDriveShareLinkInput,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { AppModal } from '@/components/AppModal';
 import {
   useCreateDriveShareLink, useDeleteDriveShareLink, useDriveCollectSubmissions, useDriveNodeShareLinks, useEnsureDriveShareShortLink,

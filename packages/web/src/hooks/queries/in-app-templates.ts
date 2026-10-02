@@ -1,4 +1,4 @@
-import { inAppTemplateContract } from '@zenith/shared/messaging';
+import { inAppTemplateContract } from '@arcbase/shared/messaging';
 import { createResourceQueries } from '@/lib/contract-query';
 
 export const {

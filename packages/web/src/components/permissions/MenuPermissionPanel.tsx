@@ -11,7 +11,7 @@
  */
 import { useMemo, useState } from 'react';
 import { Banner, Button, Space, Spin, Tree } from '@douyinfe/semi-ui';
-import type { Menu } from '@zenith/shared/identity';
+import type { Menu } from '@arcbase/shared/identity';
 import { usePinyinReady } from '@/hooks/usePinyinReady';
 import { textMatches } from '@/utils/pinyin';
 

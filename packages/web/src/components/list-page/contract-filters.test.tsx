@@ -9,7 +9,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import * as z from 'zod';
-import { dateRangeQuery, defineContract, entityStatusQuery, idParam, idQuery, keywordQuery, op, paginated, paginationQuery, queryBool, queryEnum } from '@zenith/shared/core';
+import { dateRangeQuery, defineContract, entityStatusQuery, idParam, idQuery, keywordQuery, op, paginated, paginationQuery, queryBool, queryEnum } from '@arcbase/shared/core';
 import { PermissionContext } from '@/hooks/usePermission';
 import { PreferencesContext } from '@/hooks/usePreferences';
 import { useListPage } from '@/hooks/useListPage';
@@ -17,7 +17,7 @@ import { createTestQueryClient } from '@/test-utils/query-harness';
 import { ListSearchToolbar } from './ListSearchToolbar';
 import { deriveFilterControls } from './ContractFilters';
 import { useCrudOperationColumn } from './useCrudOperationColumn';
-import type { CrudPermissionPrefix, Permission } from '@zenith/shared/core';
+import type { CrudPermissionPrefix, Permission } from '@arcbase/shared/core';
 
 const confirmCalls = vi.hoisted(() => [] as ModalReactProps[]);
 vi.mock('@douyinfe/semi-ui', async (importOriginal) => {

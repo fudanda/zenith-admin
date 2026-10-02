@@ -1,10 +1,10 @@
 import type {
   AnalyticsEnvironment,
   AnalyticsEventSource,
-} from '@zenith/shared/analytics';
+} from '@arcbase/shared/analytics';
 
 export function analyticsStorageKey(deploymentId: string | undefined, baseKey: string, appId: string): string {
-  return `zenith:${deploymentId ?? 'default'}:analytics:${baseKey}:${appId === 'admin' ? 'admin' : appId}`;
+  return `arcbase:${deploymentId ?? 'default'}:analytics:${baseKey}:${appId === 'admin' ? 'admin' : appId}`;
 }
 
 export interface AnalyticsRuntimeBaseConfig {

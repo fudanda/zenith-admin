@@ -1,4 +1,4 @@
-import { cmsWorkbenchContract, cmsReleaseContract } from '@zenith/shared/cms';
+import { cmsWorkbenchContract, cmsReleaseContract } from '@arcbase/shared/cms';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateCmsReleases } from './cms-releases';
 

@@ -11,8 +11,8 @@ import {
   makeGaugeSpec, makeFunnelSpec, makeRadarSpec,
   useChartPalette, chartOptions, type ChartPalette,
 } from '@/components/charts';
-import { aggregateReportRows, formatReportFieldValue } from '@zenith/shared/report';
-import type { ReportWidget, ReportField, ReportDataResult, ReportConditionalFormat, ReportWidgetOptions, ReportDatasetQueryOptions, ReportResultField } from '@zenith/shared/report';
+import { aggregateReportRows, formatReportFieldValue } from '@arcbase/shared/report';
+import type { ReportWidget, ReportField, ReportDataResult, ReportConditionalFormat, ReportWidgetOptions, ReportDatasetQueryOptions, ReportResultField } from '@arcbase/shared/report';
 import { useReportWidgetDictMaps } from '@/hooks/queries/report-designer';
 import { useElementSize } from '@/hooks/useElementSize';
 import { TABLE_PAGE_SIZE_OPTIONS } from '@/hooks/usePagination';

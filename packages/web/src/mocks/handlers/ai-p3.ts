@@ -1,4 +1,4 @@
-import { aiAgentContract, aiEvalContract, aiHttpToolContract } from '@zenith/shared/ai';
+import { aiAgentContract, aiEvalContract, aiHttpToolContract } from '@arcbase/shared/ai';
 import type {
   AiAgent,
   AiBuiltinAgent,
@@ -8,7 +8,7 @@ import type {
   AiEvalDatasetItem,
   AiEvalExperiment,
   AiEvalExperimentResult,
-} from '@zenith/shared/ai';
+} from '@arcbase/shared/ai';
 import { mock } from '@/mocks/utils/contract';
 import { removeItem, requireItem } from '@/mocks/utils/crud';
 import { notFound } from '@/mocks/utils/handlers';
@@ -126,7 +126,7 @@ const experimentStore = new Map<string, AiEvalExperiment[]>([
       id: 'exp-demo-1',
       name: 'baseline',
       datasetId: 'ds-demo-1',
-      targetId: 'zenith-chat',
+      targetId: 'arcbase-chat',
       status: 'completed',
       totalCount: 2,
       succeededCount: 2,

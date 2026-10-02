@@ -1,7 +1,7 @@
 // Watch state belongs to the authenticated user, including the selected tenant view.
 // eslint-disable-next-line no-restricted-imports
 import { useQuery } from '@tanstack/react-query';
-import { entityWatchContract, isWatchableEntityType, type CanonicalEntityRef } from '@zenith/shared/platform';
+import { entityWatchContract, isWatchableEntityType, type CanonicalEntityRef } from '@arcbase/shared/platform';
 import { apiQueryOptions, contractKey, useApiMutation } from '@/lib/contract-query';
 import { useEntityAccessKey } from './entity-relations';
 

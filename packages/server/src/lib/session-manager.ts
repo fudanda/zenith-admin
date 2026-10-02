@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import type { SessionClientKind, SessionRevokeReason } from '@zenith/shared/identity';
+import type { SessionClientKind, SessionRevokeReason } from '@arcbase/shared/identity';
 import { config } from '../config';
 import { createRedisSessionStore } from './redis-session-store';
 import { createLoginChallengeGuard, type LoginChallengePolicy, type LoginFailureOutcome } from './login-challenge-guard';

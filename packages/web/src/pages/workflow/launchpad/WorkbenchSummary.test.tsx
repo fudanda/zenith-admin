@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { workflowInstanceContract } from '@zenith/shared/workflow';
+import { workflowInstanceContract } from '@arcbase/shared/workflow';
 import { ApiRecorder, createRequestMock, createTestQueryClient } from '@/test-utils/query-harness';
 
 const recorder = new ApiRecorder();

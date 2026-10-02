@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type BodyOf, type QueryOf } from '@zenith/shared/core';
-import { reportDqContract } from '@zenith/shared/report';
+import { resourceKeyOf, type BodyOf, type QueryOf } from '@arcbase/shared/core';
+import { reportDqContract } from '@arcbase/shared/report';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { asyncTaskKeys } from './async-tasks';
 

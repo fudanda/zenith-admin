@@ -4,7 +4,7 @@ package rolemenu
 
 import (
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

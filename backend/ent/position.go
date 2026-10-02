@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/position"
+	"github.com/fudanda/arcbase/backend/ent/position"
 )
 
 // Position is the model entity for the Position schema.

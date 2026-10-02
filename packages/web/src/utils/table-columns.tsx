@@ -7,7 +7,7 @@
 import { Popover, Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps, Data } from '@douyinfe/semi-ui/lib/es/table';
 import { Check } from 'lucide-react';
-import { COMMON_STATUS_LABELS } from '@zenith/shared/core';
+import { COMMON_STATUS_LABELS } from '@arcbase/shared/core';
 import DateTimeText from '@/components/DateTimeText';
 import OverflowTagList, { type OverflowTagItem } from '@/components/OverflowTagList';
 import { formatDate } from './date';

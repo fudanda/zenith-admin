@@ -6,7 +6,7 @@ import {
   mpUnmatchedKeywordSchema,
   type MpReplyArticle,
   type MpReplyContentType,
-} from '@zenith/shared/mp';
+} from '@arcbase/shared/mp';
 import { db } from '../../db';
 import { mpAutoReplies, mpUnmatchedKeywords, type MpAutoReplyRow, type MpUnmatchedKeywordRow } from '../../db/schema';
 import { requireRow } from '../../lib/db-assert';

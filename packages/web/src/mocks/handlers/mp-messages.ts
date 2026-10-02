@@ -1,4 +1,4 @@
-import { mpMessageContract, type MpConversation, type MpMessage } from '@zenith/shared/mp';
+import { mpMessageContract, type MpConversation, type MpMessage } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { mockMpMessages, getNextMpMessageId } from '@/mocks/data/mp-messages';
 import { mockMpFans } from '@/mocks/data/mp-fans';

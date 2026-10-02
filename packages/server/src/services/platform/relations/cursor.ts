@@ -23,7 +23,7 @@ export function signRelationCursor(value: string, scope: string): string {
   const encrypted = Buffer.concat([cipher.update(JSON.stringify({ value }), 'utf8'), cipher.final()]);
   return ['2', iv.toString('base64url'), encrypted.toString('base64url'), cipher.getAuthTag().toString('base64url')].join('.');
 }
-function cursorKey() { return createHash('sha256').update('zenith:relation-cursor:v2\0').update(config.jwtSecret).digest(); }
+function cursorKey() { return createHash('sha256').update('arcbase:relation-cursor:v2\0').update(config.jwtSecret).digest(); }
 function decodePart(value: string) {
   if (!/^[A-Za-z0-9_-]+$/.test(value)) throw new Error('format');
   const decoded = Buffer.from(value, 'base64url');

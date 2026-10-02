@@ -1,7 +1,7 @@
 /**
  * 运营群发 Mock 数据(Demo 模式)。
  */
-import type { BroadcastCampaign } from '@zenith/shared/messaging';
+import type { BroadcastCampaign } from '@arcbase/shared/messaging';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

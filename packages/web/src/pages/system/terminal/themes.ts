@@ -453,7 +453,7 @@ const strip = (hex: string): string => hex.replace('#', '');
 
 /** Monaco 注册主题时使用的唯一名称 */
 export function monacoThemeName(t: TerminalThemeDef): string {
-  return `zenith-term-${t.id}`;
+  return `arcbase-term-${t.id}`;
 }
 
 /**

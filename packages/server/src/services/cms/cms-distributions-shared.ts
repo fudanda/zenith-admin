@@ -2,7 +2,7 @@ import { requireRow } from '../../lib/db-assert';
 import { CronExpressionParser } from 'cron-parser';
 import { eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CmsDistributionFilters } from '@zenith/shared/cms';
+import type { CmsDistributionFilters } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsDistributionRules } from '../../db/schema';
 import { assertChannelAccess } from './cms-channels.service';

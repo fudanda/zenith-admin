@@ -1,4 +1,4 @@
-import type { CmsAttributionContext, CmsInteractionPublicState, CmsInteractionPublicStats, CmsInteractionSubmitResult } from '@zenith/shared/cms';
+import type { CmsAttributionContext, CmsInteractionPublicState, CmsInteractionPublicStats, CmsInteractionSubmitResult } from '@arcbase/shared/cms';
 import { apiHeaders, apiJson, type ApiResult } from '../shared/api';
 
 export type SurveyState = CmsInteractionPublicState;

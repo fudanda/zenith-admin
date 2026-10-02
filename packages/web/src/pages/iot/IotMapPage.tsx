@@ -1,6 +1,6 @@
 import { lazy, Suspense, useCallback, useMemo, useState, type CSSProperties } from 'react';
 import { Spin } from '@douyinfe/semi-ui';
-import type { IotDevice } from '@zenith/shared/iot';
+import type { IotDevice } from '@arcbase/shared/iot';
 import { StatCard, StatGrid } from '@/components/charts/StatCard';
 import { useIotDeviceList } from '@/hooks/queries/iot-devices';
 

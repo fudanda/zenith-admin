@@ -2,7 +2,7 @@
  * App 推送发送记录（管理侧只读）。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { pushSendLogContract } from '@zenith/shared/messaging';
+import { pushSendLogContract } from '@arcbase/shared/messaging';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getPushSendLogStats, listPushSendLogs } from '../../services/messaging/push-send-logs.service';

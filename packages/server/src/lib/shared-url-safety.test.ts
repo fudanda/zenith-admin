@@ -11,7 +11,7 @@ import {
   linkUrl,
   optionalHttpUrl,
   optionalLinkUrl,
-} from '@zenith/shared/core';
+} from '@arcbase/shared/core';
 
 describe('url safety predicates', () => {
   it('isHttpUrl accepts only absolute http(s)', () => {

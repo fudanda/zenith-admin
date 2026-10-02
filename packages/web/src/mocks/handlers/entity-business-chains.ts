@@ -1,6 +1,6 @@
-import type { CanonicalEntityRef, CanonicalEntityType, EntityRelationItem, EntityRelationSection } from '@zenith/shared/platform';
-import { WALLET_TX_TYPES, WALLET_TX_TYPE_LABELS } from '@zenith/shared/member';
-import { IOT_OTA_DEVICE_STATUS_OPTIONS, IOT_OTA_TASK_STATUS_OPTIONS } from '@zenith/shared/iot';
+import type { CanonicalEntityRef, CanonicalEntityType, EntityRelationItem, EntityRelationSection } from '@arcbase/shared/platform';
+import { WALLET_TX_TYPES, WALLET_TX_TYPE_LABELS } from '@arcbase/shared/member';
+import { IOT_OTA_DEVICE_STATUS_OPTIONS, IOT_OTA_TASK_STATUS_OPTIONS } from '@arcbase/shared/iot';
 import { mockMemberWalletTxs } from '@/mocks/data/members';
 import { mockVipRenewals } from '@/mocks/data/payment-contracts';
 import { mockPaymentOrders } from '@/mocks/data/payment';

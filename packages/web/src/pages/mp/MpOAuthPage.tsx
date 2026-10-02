@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Button, Select, Input, Toast, Banner, Typography, Card, Tag } from '@douyinfe/semi-ui';
 import { Link2, Copy } from 'lucide-react';
-import { fillPath } from '@zenith/shared/core';
-import { MP_OAUTH_SCOPE_OPTIONS, mpOAuthPublicContract, type MpJsConfig, type MpOAuthScope } from '@zenith/shared/mp';
+import { fillPath } from '@arcbase/shared/core';
+import { MP_OAUTH_SCOPE_OPTIONS, mpOAuthPublicContract, type MpJsConfig, type MpOAuthScope } from '@arcbase/shared/mp';
 import { config } from '@/config';
 import { copyTextWithToast } from '@/utils/clipboard';
 import { SearchToolbar } from '@/components/SearchToolbar';

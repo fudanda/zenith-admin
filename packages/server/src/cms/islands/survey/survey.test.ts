@@ -311,7 +311,7 @@ describe('survey island', () => {
     const b = f.querySelector<HTMLInputElement>('input[name="q_1"][value="b"]')!;
     b.checked = true;
     b.dispatchEvent(new Event('change', { bubbles: true }));
-    const raw = localStorage.getItem('zenith:cms-interaction-draft:main:feedback');
+    const raw = localStorage.getItem('arcbase:cms-interaction-draft:main:feedback');
     expect(JSON.parse(raw!)).toEqual({ page: 0, fields: { q_1: ['b'] } });
     expect(f.querySelector<HTMLElement>('.survey-restored')!.hidden).toBe(true);
 
@@ -322,7 +322,7 @@ describe('survey island', () => {
     expect(f.querySelector<HTMLElement>('.survey-restored')!.hidden).toBe(false);
 
     f.querySelector<HTMLButtonElement>('.survey-clear-draft')!.click();
-    expect(localStorage.getItem('zenith:cms-interaction-draft:main:feedback')).toBeNull();
+    expect(localStorage.getItem('arcbase:cms-interaction-draft:main:feedback')).toBeNull();
     expect(f.querySelector<HTMLInputElement>('input[name="q_1"][value="b"]')!.checked).toBe(false);
     expect(f.querySelector<HTMLElement>('.survey-restored')!.hidden).toBe(true);
   });

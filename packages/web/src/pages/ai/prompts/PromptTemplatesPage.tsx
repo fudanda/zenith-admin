@@ -3,7 +3,7 @@ import { ListSearchToolbar, useCrudOperationColumn } from '@/components/list-pag
 import { Button, Col, Form, Modal, Row, SideSheet, Space, Spin, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { useQueryClient } from '@tanstack/react-query';
-import { aiPromptTemplateContract, type AiPromptTemplate, type AiPromptScope, type CreateAiPromptTemplateInput } from '@zenith/shared/ai';
+import { aiPromptTemplateContract, type AiPromptTemplate, type AiPromptScope, type CreateAiPromptTemplateInput } from '@arcbase/shared/ai';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { usePermission } from '@/hooks/usePermission';
 import { createdAtColumn, EMPTY_PLACEHOLDER, renderEllipsis } from '@/utils/table-columns';

@@ -1,9 +1,9 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import Button from '@douyinfe/semi-ui/lib/es/button';
 import Progress from '@douyinfe/semi-ui/lib/es/progress';
-import { ApiError, operationURL } from '@zenith/client';
-import { fileContract, type ManagedFile } from '@zenith/shared/platform';
-import { useZenith } from './provider';
+import { ApiError, operationURL } from '@arcbase/client';
+import { fileContract, type ManagedFile } from '@arcbase/shared/platform';
+import { useArcBase } from './provider';
 
 export interface FilePickerProps {
   accept?: string; maxSize?: number; maxCount?: number; multiple?: boolean; disabled?: boolean;
@@ -40,7 +40,7 @@ export interface FileUploaderProps extends Omit<FilePickerProps, 'onChange'> {
   upload?: (file: File, options: { signal: AbortSignal; onProgress(percent: number): void }) => Promise<ManagedFile>;
 }
 export function FileUploader(props: FileUploaderProps) {
-  const { client, locale } = useZenith();
+  const { client, locale } = useArcBase();
   const english = locale === 'en-US';
   const [items, setItems] = useState<UploadItem[]>([]);
   const itemsRef = useRef<UploadItem[]>([]);
@@ -69,7 +69,7 @@ export function FileUploader(props: FileUploaderProps) {
       update(item.id, controller.signal.aborted ? { status: 'cancelled' } : { status: 'failed', error: error instanceof Error ? error.message : String(error) });
     } finally { if (requests.current.get(item.id) === controller) requests.current.delete(item.id); }
   };
-  return <div className="zenith-elements-upload">
+  return <div className="arcbase-elements-upload">
     <FilePicker {...props} maxCount={props.maxCount === undefined ? undefined : Math.max(0, props.maxCount - items.length)} onChange={files => {
       const added = files.map(file => ({ id: crypto.randomUUID(), file, status: 'uploading' as const, progress: 0 }));
       change([...itemsRef.current, ...added]); for (const item of added) void upload(item);

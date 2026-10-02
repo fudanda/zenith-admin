@@ -1,4 +1,4 @@
-import type { AnalyticsPublicConfig } from '@zenith/shared/analytics';
+import type { AnalyticsPublicConfig } from '@arcbase/shared/analytics';
 import { getSettings as getRuntimeSettings } from '../../lib/settings';
 import { currentUserOrNull } from '../../lib/context';
 import { currentMemberOrNull } from '../../lib/member-context';

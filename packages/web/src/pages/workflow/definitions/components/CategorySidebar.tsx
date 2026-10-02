@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { Button, Form } from '@douyinfe/semi-ui';
 import { Plus, Layers, LayoutGrid, Pencil, Trash2 } from 'lucide-react';
-import type { CreateWorkflowCategoryInput, WorkflowCategory } from '@zenith/shared/workflow';
+import type { CreateWorkflowCategoryInput, WorkflowCategory } from '@arcbase/shared/workflow';
 import { useDeleteWorkflowCategories, useSaveWorkflowCategory } from '@/hooks/useWorkflowCategories';
 import { NavListPanel, NavListItem, NavListItemActions } from '@/components/NavListPanel';
 import { confirmAndDelete } from '@/components/list-page';

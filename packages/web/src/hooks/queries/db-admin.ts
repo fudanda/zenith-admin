@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { dbAdminContract, type DbAdminSqlExportMode, type DbBackupStatus } from '@zenith/shared/ops';
+import type { QueryOf } from '@arcbase/shared/core';
+import { dbAdminContract, type DbAdminSqlExportMode, type DbBackupStatus } from '@arcbase/shared/ops';
 import { api, useSaveMutation, contractKey, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type DbAdminHistoryParams = NonNullable<QueryOf<typeof dbAdminContract.history>>;

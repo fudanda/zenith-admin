@@ -1,6 +1,6 @@
 import { desc, eq, lt, lte } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { entityRelationRecordFilters, WORKFLOW_BUSINESS_ENTITY_TYPES, type CanonicalEntityType, type EntityRelationItem } from '@zenith/shared/platform';
+import { entityRelationRecordFilters, WORKFLOW_BUSINESS_ENTITY_TYPES, type CanonicalEntityType, type EntityRelationItem } from '@arcbase/shared/platform';
 import { workflowInstances } from '../../db/schema';
 import { hasPermission, runWithCurrentUser } from '../../lib/context';
 import { exactTenantCondition, tenantCondition } from '../../lib/tenant';

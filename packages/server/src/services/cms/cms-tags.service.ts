@@ -1,8 +1,8 @@
 import { requireFirstRow } from '../../lib/db-assert';
 import { listRows } from '../../lib/list-query';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { eq, asc, and } from 'drizzle-orm';
-import { cmsTagContract, cmsTagSchema } from '@zenith/shared/cms';
+import { cmsTagContract, cmsTagSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsTags } from '../../db/schema';
 import type { CmsTagRow } from '../../db/schema';

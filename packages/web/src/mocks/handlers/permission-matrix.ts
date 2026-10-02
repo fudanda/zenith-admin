@@ -1,6 +1,6 @@
-import { apiCatalogContract, permissionMatrixContract, type ApiCatalog, type RolePermissionSet, type UserPermissionSet } from '@zenith/shared/identity';
-import { buildApiCatalog } from '@zenith/shared/permission-catalog';
-import { SEED_MENUS } from '@zenith/shared/seed';
+import { apiCatalogContract, permissionMatrixContract, type ApiCatalog, type RolePermissionSet, type UserPermissionSet } from '@arcbase/shared/identity';
+import { buildApiCatalog } from '@arcbase/shared/permission-catalog';
+import { SEED_MENUS } from '@arcbase/shared/seed';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { mockRoles } from '@/mocks/data/roles';

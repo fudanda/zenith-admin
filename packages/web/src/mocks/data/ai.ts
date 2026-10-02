@@ -1,5 +1,5 @@
 import { mockDateTimeOffset } from '@/mocks/utils/date';
-import type { AiConversation, AiMessage, AiProviderConfig } from '@zenith/shared/ai';
+import type { AiConversation, AiMessage, AiProviderConfig } from '@arcbase/shared/ai';
 
 export const mockAiProviders: AiProviderConfig[] = [
   {
@@ -153,7 +153,7 @@ CREATE INDEX idx_users_dept ON users(department_id);
       id: 3,
       conversationId: 2,
       role: 'user',
-      content: 'Zenith Admin 使用什么权限模型？',
+      content: 'ArcBase 使用什么权限模型？',
       tokensInput: 15,
       tokensOutput: 0,
       feedback: null,
@@ -176,7 +176,7 @@ CREATE INDEX idx_users_dept ON users(department_id);
       id: 4,
       conversationId: 2,
       role: 'assistant',
-      content: `Zenith Admin 采用 **RBAC（基于角色的访问控制）** 模型，权限分为三种类型：
+      content: `ArcBase 采用 **RBAC（基于角色的访问控制）** 模型，权限分为三种类型：
 
 1. **目录（directory）** — 导航目录
 2. **菜单（menu）** — 页面级权限

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { RadioGroup, Radio, Space, Tag, Toast, Typography } from '@douyinfe/semi-ui';
-import { sessionContract, type OnlineSession } from '@zenith/shared/identity';
-import { TOKEN_KEY } from '@zenith/shared/core';
+import { sessionContract, type OnlineSession } from '@arcbase/shared/identity';
+import { TOKEN_KEY } from '@arcbase/shared/core';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { usePermission } from '@/hooks/usePermission';
 import ConfigurableTable from '@/components/ConfigurableTable';

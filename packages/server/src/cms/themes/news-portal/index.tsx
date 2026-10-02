@@ -19,7 +19,7 @@ import type {
 import { SeoHead, Breadcrumbs, Pagination, ModelFieldTable, MediaBlock, ArticleNav, RelatedArticles, AttachmentList, ThemeFooterLinks, externalLinkProps, PublishedDate, SinglePageArticle, TagLinks, loadHomeBlocks, SearchResultLink, SearchResultList } from '../_shared';
 import { defineHomeTemplate } from '../sdk';
 import { renderCmsWidgetHtml } from '../widgets';
-import { CMS_WIDGET_RENDERER_KEYS } from '@zenith/shared/cms';
+import { CMS_WIDGET_RENDERER_KEYS } from '@arcbase/shared/cms';
 
 function NewsLayout({ ctx, currentUrl, children }: { ctx: CmsBaseContext; currentUrl?: string; children: ReactNode }) {
   const { site, nav, friendLinks, baseUrl } = ctx;

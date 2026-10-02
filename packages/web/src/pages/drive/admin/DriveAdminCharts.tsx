@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Card } from '@douyinfe/semi-ui';
-import { formatBytes } from '@zenith/shared/core';
-import type { DriveAdminStats } from '@zenith/shared/drive';
+import { formatBytes } from '@arcbase/shared/core';
+import type { DriveAdminStats } from '@arcbase/shared/drive';
 import { EmptyChart, LineChart, PieChart, chartOptions, makeLineSpec, makePieSpec, useChartPalette } from '@/components/charts';
 import { shortDate } from '@/utils/date';
 

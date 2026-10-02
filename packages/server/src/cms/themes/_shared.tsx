@@ -8,7 +8,7 @@
  */
 import type { CSSProperties, ReactNode } from 'react';
 import { cloneElement, isValidElement } from 'react';
-import type { CmsContentAttachment, CmsFormField, CmsSearchResult } from '@zenith/shared/cms';
+import type { CmsContentAttachment, CmsFormField, CmsSearchResult } from '@arcbase/shared/cms';
 import type { CmsBaseContext, CmsBodyPagination, CmsBreadcrumb, CmsContentDetail, CmsFrontFormConfig, CmsModelFieldValue, CmsPageContext, CmsPagination, CmsRenderSite, CmsSearchContext, CmsThemeContentCollection, CmsThemeDataApi } from './types';
 import { serializeJsonForScript } from '../../lib/json-script';
 
@@ -69,7 +69,7 @@ export function SeoHead({ ctx, langAlternates = false, children }: SeoHeadProps)
       {seo.twitterImage ? <meta name="twitter:image" content={seo.twitterImage} /> : null}
       {seo.twitterImageAlt ? <meta name="twitter:image:alt" content={seo.twitterImageAlt} /> : null}
       {site.favicon ? <link rel="icon" href={site.favicon} /> : null}
-      <meta name="generator" content="Zenith CMS" />
+      <meta name="generator" content="ArcBase CMS" />
       {/* 页面级岛配置（非执行内容，不进 CSP 哈希）：站点编码供广告令牌；统计开启时输出采集 key 与详情内容 id */}
       <meta name="cms-site" content={site.code} />
       {ctx.telemetry ? <meta name="cms-telemetry-context" content={ctx.telemetry.contextToken} /> : null}

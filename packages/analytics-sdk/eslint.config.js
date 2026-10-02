@@ -23,7 +23,7 @@ export default [
         'error',
         {
           selector: 'MemberExpression[property.name="randomUUID"]',
-          message: '请使用 @zenith/shared/core 的 randomUUID()；非安全上下文下 crypto.randomUUID 不存在。',
+          message: '请使用 @arcbase/shared/core 的 randomUUID()；非安全上下文下 crypto.randomUUID 不存在。',
         },
       ],
     },

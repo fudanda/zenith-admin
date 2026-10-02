@@ -1,4 +1,4 @@
-import { retentionPolicyContract } from '@zenith/shared/ops';
+import { retentionPolicyContract } from '@arcbase/shared/ops';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const retentionKeys = {

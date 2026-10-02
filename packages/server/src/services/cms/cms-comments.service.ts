@@ -1,8 +1,8 @@
 import { buildListResult } from '../../lib/list-query';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { eq, asc, desc, and, inArray, isNull, isNotNull, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsCommentContract, cmsCommentSchema } from '@zenith/shared/cms';
+import { cmsCommentContract, cmsCommentSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsComments, cmsContents, cmsSites, members } from '../../db/schema';
 import type { CmsSiteRow } from '../../db/schema';

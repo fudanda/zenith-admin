@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { REPORT_EMBED_BRIDGE_CHANNEL, REPORT_EMBED_BRIDGE_VERSION } from '@zenith/shared/report';
-import type { ReportEmbedCommandName, ReportEmbedFilterValues } from '@zenith/shared/report';
+import { REPORT_EMBED_BRIDGE_CHANNEL, REPORT_EMBED_BRIDGE_VERSION } from '@arcbase/shared/report';
+import type { ReportEmbedCommandName, ReportEmbedFilterValues } from '@arcbase/shared/report';
 import { attachReportEmbedBridge, type ReportEmbedBridgeHandlers } from './report-embed-bridge';
 
 const HOST_ORIGIN = 'https://host.example';

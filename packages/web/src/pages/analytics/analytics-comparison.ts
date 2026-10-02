@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { AnalyticsComparison, AnalyticsDrillContext } from '@zenith/shared/analytics';
+import type { AnalyticsComparison, AnalyticsDrillContext } from '@arcbase/shared/analytics';
 
 /** 分群对比至少要选一个分群，否则请求体过不了 schema 校验 */
 export function isComparisonReady(comparison: AnalyticsComparison): boolean {

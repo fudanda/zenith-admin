@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
+	"github.com/fudanda/arcbase/backend/ent/uploadsession"
 )
 
 // UploadSession is the model entity for the UploadSession schema.

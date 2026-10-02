@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { workflowEventSubscriptionContract } from '@zenith/shared/workflow';
+import type { QueryOf } from '@arcbase/shared/core';
+import { workflowEventSubscriptionContract } from '@arcbase/shared/workflow';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type WorkflowEventSubscriptionListParams = QueryOf<typeof workflowEventSubscriptionContract.list>;

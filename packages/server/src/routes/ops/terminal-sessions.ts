@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { terminalSessionContract } from '@zenith/shared/ops';
+import { terminalSessionContract } from '@arcbase/shared/ops';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

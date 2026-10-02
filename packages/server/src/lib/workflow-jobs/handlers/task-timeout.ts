@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import type { WorkflowTimeoutConfig } from '@zenith/shared/workflow';
+import type { WorkflowTimeoutConfig } from '@arcbase/shared/workflow';
 import { db } from '../../../db';
 import { workflowTasks, workflowInstances } from '../../../db/schema';
 import type { workflowTasks as workflowTasksTable } from '../../../db/schema';

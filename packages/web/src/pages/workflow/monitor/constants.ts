@@ -1,4 +1,4 @@
-import type { WorkflowJobStatus } from '@zenith/shared/workflow';
+import type { WorkflowJobStatus } from '@arcbase/shared/workflow';
 
 export const WORKFLOW_ISSUE_SEVERITY_META = {
   info: { text: '信息', color: 'blue' },

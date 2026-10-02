@@ -9,8 +9,8 @@ import { useEditModal } from '@/hooks/useEditModal';
 import { usePermission } from '@/hooks/usePermission';
 import { deleteAction, ListSearchToolbar } from '@/components/list-page';
 import { FormStatusRadioGroup } from '@/components/FormStatusRadioGroup';
-import { IOT_VALIDATION_MODE_OPTIONS, iotProductContract } from '@zenith/shared/iot';
-import type { CreateIotProductInput, IotProduct } from '@zenith/shared/iot';
+import { IOT_VALIDATION_MODE_OPTIONS, iotProductContract } from '@arcbase/shared/iot';
+import type { CreateIotProductInput, IotProduct } from '@arcbase/shared/iot';
 import {
   useDeleteIotProducts,
   useIotProductList,

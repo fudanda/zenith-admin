@@ -7,7 +7,7 @@ import {
   type MonitorSnapshot,
   type MonitorTimeseriesPoint,
   type MonitorWsMetrics,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import { useMonitorHistory, useMonitorSnapshot } from '@/hooks/queries/monitor';
 import { urlOf } from '@/lib/contract-query';
 import { request } from '@/utils/request';

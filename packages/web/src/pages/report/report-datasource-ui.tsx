@@ -1,7 +1,7 @@
 import { Tag } from '@douyinfe/semi-ui';
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag/interface';
-import { REPORT_DATASOURCE_TYPE_LABELS } from '@zenith/shared/report';
-import type { ReportDatasourceType } from '@zenith/shared/report';
+import { REPORT_DATASOURCE_TYPE_LABELS } from '@arcbase/shared/report';
+import type { ReportDatasourceType } from '@arcbase/shared/report';
 
 export const REPORT_DATASOURCE_TYPE_TAG_COLORS: Record<ReportDatasourceType, TagColor> = {
   api: 'blue',

@@ -6,7 +6,7 @@
 
 | 类型 | 说明 | 取数方式 |
 |------|------|----------|
-| **内置只读主库**（sql） | 应用自身的 PostgreSQL 主库，开箱即用，无需任何连接配置 | 只读事务 + `zenith_readonly` 最小权限角色执行 SQL（见[数据平台 · 安全边界](../ops/data-platform#安全边界)） |
+| **内置只读主库**（sql） | 应用自身的 PostgreSQL 主库，开箱即用，无需任何连接配置 | 只读事务 + `arcbase_readonly` 最小权限角色执行 SQL（见[数据平台 · 安全边界](../ops/data-platform#安全边界)） |
 | **API**（api） | 远程 HTTP 接口返回的 JSON 数组 | 走统一 HTTP 客户端（防 SSRF），按数组路径提取 |
 | **MySQL** | 外部 MySQL 数据库 | 只读连接池 + 行上限 + 语句超时 |
 | **PostgreSQL** | 外部 PostgreSQL 数据库 | 只读连接（连接级 `statement_timeout` + `read_only`） |

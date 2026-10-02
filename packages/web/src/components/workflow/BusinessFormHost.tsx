@@ -9,7 +9,7 @@
  */
 import { Suspense, useMemo } from 'react';
 import { Empty, Spin, Typography } from '@douyinfe/semi-ui';
-import type { WorkflowCustomFormConfig, WorkflowCustomFormVariable } from '@zenith/shared/workflow';
+import type { WorkflowCustomFormConfig, WorkflowCustomFormVariable } from '@arcbase/shared/workflow';
 import { lazyBusinessFormComponent } from '@/utils/business-form-registry';
 import { emptyIllustration } from '@/components/EmptyIllustration';
 

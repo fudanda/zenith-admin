@@ -8,8 +8,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/dictitem"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
 )
 
 // DictItemDelete is the builder for deleting a DictItem entity.

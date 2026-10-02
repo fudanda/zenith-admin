@@ -1,6 +1,6 @@
 import { Toast } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { wikiDocContract, type WikiDoc } from '@zenith/shared/wiki';
+import { wikiDocContract, type WikiDoc } from '@arcbase/shared/wiki';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { deleteAction, ListSearchToolbar } from '@/components/list-page';

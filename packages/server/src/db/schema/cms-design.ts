@@ -1,5 +1,5 @@
 import { integer, pgTable, jsonb, varchar, timestamp, uuid, uniqueIndex, index, boolean, text } from 'drizzle-orm/pg-core';
-import type { CmsModelField, CmsFieldConfiguration } from '@zenith/shared/cms';
+import type { CmsModelField, CmsFieldConfiguration } from '@arcbase/shared/cms';
 import { idColumn, timestampColumns } from './common';
 import { auditColumns } from './core';
 import { cmsModels, cmsResources, cmsSites, cmsContents } from './cms';

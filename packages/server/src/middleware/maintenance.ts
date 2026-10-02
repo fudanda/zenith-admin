@@ -2,7 +2,7 @@ import { createMiddleware } from 'hono/factory';
 import { verifyToken } from '../lib/jwt';
 import type { JwtPayload } from './auth';
 import { getMaintenanceStatus } from '../services/ops/maintenance.service';
-import { SUPER_ADMIN_CODE } from '@zenith/shared/identity';
+import { SUPER_ADMIN_CODE } from '@arcbase/shared/identity';
 
 /** Paths exempt from maintenance mode blocking */
 const BYPASS_PREFIXES = [

@@ -1,5 +1,5 @@
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
-import { goAuthContract } from '@zenith/shared/identity';
+import { goAuthContract } from '@arcbase/shared/identity';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   settingsContract,
@@ -9,7 +9,7 @@ import {
   type SettingsGetOperation,
   type SettingsModuleKey,
   type SettingsUpdateOperation,
-} from '@zenith/shared/settings';
+} from '@arcbase/shared/settings';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

@@ -15,7 +15,7 @@
  *
  * 因此「登出」与「强制下线」语义一致：吊销 access token + 撤销 refresh 授权 + 删在线会话 + 摘出索引。
  */
-import { SESSION_REVOKE_REASONS, type SessionRevokeReason } from '@zenith/shared/identity';
+import { SESSION_REVOKE_REASONS, type SessionRevokeReason } from '@arcbase/shared/identity';
 import redis from './redis';
 import { scanKeys } from './redis-scan';
 
@@ -26,13 +26,13 @@ export interface BaseSessionInfo {
 }
 
 export interface RedisSessionStoreOptions<T extends BaseSessionInfo> {
-  /** 完整 session key 前缀（含命名空间），如 `zenith:session:` */
+  /** 完整 session key 前缀（含命名空间），如 `arcbase:session:` */
   sessionPrefix: string;
-  /** 完整黑名单 key 前缀（含命名空间），如 `zenith:blacklist:` */
+  /** 完整黑名单 key 前缀（含命名空间），如 `arcbase:blacklist:` */
   blacklistPrefix: string;
-  /** 完整 refresh 授权 key 前缀（含命名空间），如 `zenith:refresh:` */
+  /** 完整 refresh 授权 key 前缀（含命名空间），如 `arcbase:refresh:` */
   refreshPrefix: string;
-  /** 按主体索引会话 jti 的 SET key 前缀（含命名空间），如 `zenith:user-sessions:`；不得与 sessionPrefix 同前缀（getAll 按 sessionPrefix* SCAN） */
+  /** 按主体索引会话 jti 的 SET key 前缀（含命名空间），如 `arcbase:user-sessions:`；不得与 sessionPrefix 同前缀（getAll 按 sessionPrefix* SCAN） */
   ownerIndexPrefix: string;
   /** 会话所属主体 id（用户 id / 会员 id） */
   ownerIdOf: (session: T) => number;

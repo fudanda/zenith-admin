@@ -24,9 +24,9 @@ import {
   useSaveDeductPlan,
   useTerminatePaymentContract,
 } from '@/hooks/queries/payment-contracts';
-import { enumValueOf } from '@zenith/shared/core';
-import { PAYMENT_CHANNELS, PAYMENT_CONTRACT_STATUS_LABELS, PAYMENT_CONTRACT_STATUSES, PAYMENT_DEDUCT_METHOD_OPTIONS, PAYMENT_DEDUCT_PERIOD_LABELS, PAYMENT_DEDUCT_PERIOD_OPTIONS, PAYMENT_CONTRACT_STATUS_OPTIONS, PAYMENT_CHANNEL_OPTIONS } from '@zenith/shared/payment';
-import type { CreatePaymentContractInput, CreatePaymentDeductPlanInput, PaymentChannel, PaymentContract, PaymentContractSignResult, PaymentContractStatus, PaymentDeductMethod, PaymentDeductPeriod, PaymentDeductPlan } from '@zenith/shared/payment';
+import { enumValueOf } from '@arcbase/shared/core';
+import { PAYMENT_CHANNELS, PAYMENT_CONTRACT_STATUS_LABELS, PAYMENT_CONTRACT_STATUSES, PAYMENT_DEDUCT_METHOD_OPTIONS, PAYMENT_DEDUCT_PERIOD_LABELS, PAYMENT_DEDUCT_PERIOD_OPTIONS, PAYMENT_CONTRACT_STATUS_OPTIONS, PAYMENT_CHANNEL_OPTIONS } from '@arcbase/shared/payment';
+import type { CreatePaymentContractInput, CreatePaymentDeductPlanInput, PaymentChannel, PaymentContract, PaymentContractSignResult, PaymentContractStatus, PaymentDeductMethod, PaymentDeductPeriod, PaymentDeductPlan } from '@arcbase/shared/payment';
 import { CreateButton } from '@/components/toolbar-controls';
 import { FilterSelect, KeywordInput, StatusSelect } from '@/components/search-filters';
 import { PaymentChannelTag, paymentMoneyColumn } from './payment-display';

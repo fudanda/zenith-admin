@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/systemsetting"
+	"github.com/fudanda/arcbase/backend/ent/systemsetting"
 )
 
 // SystemSetting is the model entity for the SystemSetting schema.

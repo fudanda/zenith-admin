@@ -21,7 +21,7 @@ import {
   tenantPackageContract,
   userContract,
   userGroupContract,
-} from '@zenith/shared/identity';
+} from '@arcbase/shared/identity';
 import { defineRouteDomain } from '../_kit';
 import apiCatalogRoutes from './api-catalog';
 import apiTokensRoutes from './api-tokens';

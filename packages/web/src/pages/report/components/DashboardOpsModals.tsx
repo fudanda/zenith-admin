@@ -8,7 +8,7 @@ import AppModal from '@/components/AppModal';
 import { formatDateTimeForApi } from '@/utils/date';
 import DateTimeText from '@/components/DateTimeText';
 import { copyTextWithToast } from '@/utils/clipboard';
-import type { ReportDashboardShare } from '@zenith/shared/report';
+import type { ReportDashboardShare } from '@arcbase/shared/report';
 import {
   useCreateReportDashboardShare,
   useDeleteReportDashboardShare,

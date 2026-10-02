@@ -7,7 +7,7 @@ import ExportButton from './ExportButton';
 import { ClearLogsButtons } from './logs/ClearLogsControl';
 import { ToolbarSlotContext } from './toolbar-slot-context';
 import { PermissionContext } from '@/hooks/usePermission';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 
 vi.mock('@/hooks/useExportJobRunner', () => ({
   useExportJobRunner: () => ({ runExport: vi.fn(), isPending: false, pendingFormat: null }),

@@ -1,4 +1,4 @@
-import { opsOverviewContract, type OpsOverviewSection } from '@zenith/shared/ops';
+import { opsOverviewContract, type OpsOverviewSection } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { mockDateTime } from '@/mocks/utils/date';
 

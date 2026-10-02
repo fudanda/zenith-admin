@@ -6,7 +6,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import * as z from 'zod';
-import { defineContract, idParam, op, paginated, sensitive } from '@zenith/shared/core';
+import { defineContract, idParam, op, paginated, sensitive } from '@arcbase/shared/core';
 
 const { dbState, ctx } = vi.hoisted(() => ({
   dbState: { policies: [] as Record<string, unknown>[] },

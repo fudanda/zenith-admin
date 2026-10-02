@@ -2,7 +2,7 @@
  * IoT 设备管理
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { iotDeviceContract } from '@zenith/shared/iot';
+import { iotDeviceContract } from '@arcbase/shared/iot';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, errBody, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

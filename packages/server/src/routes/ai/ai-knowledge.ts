@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { aiKnowledgeBaseContract } from '@zenith/shared/ai';
+import { aiKnowledgeBaseContract } from '@arcbase/shared/ai';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

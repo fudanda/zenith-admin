@@ -1,4 +1,4 @@
-import type { GlobalSearchType } from '@zenith/shared/platform';
+import type { GlobalSearchType } from '@arcbase/shared/platform';
 import { hasPermission } from '../../../lib/context';
 import logger from '../../../lib/logger';
 import { createConcurrencyLimiter } from '../../../lib/concurrency';

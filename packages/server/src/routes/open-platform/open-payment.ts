@@ -2,7 +2,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import type { Context } from 'hono';
 import { HTTPException } from 'hono/http-exception';
-import { openPaymentContract } from '@zenith/shared/payment';
+import { openPaymentContract } from '@arcbase/shared/payment';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { idempotencyGuard } from '../../middleware/idempotency';

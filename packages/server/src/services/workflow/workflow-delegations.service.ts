@@ -1,5 +1,5 @@
-import { workflowDelegationContract, workflowDelegationSchema } from '@zenith/shared/workflow';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { workflowDelegationContract, workflowDelegationSchema } from '@arcbase/shared/workflow';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { and, desc, eq, isNull, or } from 'drizzle-orm';
 import { db } from '../../db';
 import { workflowDelegations } from '../../db/schema';
@@ -13,7 +13,7 @@ import { buildListResult } from '../../lib/list-query';
 import { requireRow } from '../../lib/db-assert';
 import { requireTenantUser } from '../../lib/user-nicknames';
 import type { DbExecutor } from '../../db/types';
-import type { WorkflowDelegation, CreateWorkflowDelegationInput, UpdateWorkflowDelegationInput } from '@zenith/shared/workflow';
+import type { WorkflowDelegation, CreateWorkflowDelegationInput, UpdateWorkflowDelegationInput } from '@arcbase/shared/workflow';
 import { buildWhere } from '../../lib/where-helpers';
 import { pickEntity } from '../../lib/entity-map';
 

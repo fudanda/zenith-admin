@@ -14,8 +14,8 @@ import type {
   NotificationReasonCode,
   NotificationRecipient,
   NotificationRecipientType,
-} from '@zenith/shared/messaging';
-import { eventAvailableChannels } from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
+import { eventAvailableChannels } from '@arcbase/shared/messaging';
 import { db } from '../../db';
 import {
   notificationEventOverrides,

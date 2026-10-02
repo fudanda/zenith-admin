@@ -2,7 +2,7 @@
  * 仪表盘筛选值 ↔ URL query 序列化（纯函数，查看页/公开页共用）。
  * 规则：数组型（multiSelect / daterange / numberRange）JSON 编码；标量转字符串；空值不占用 URL。
  */
-import type { ReportFilter } from '@zenith/shared/report';
+import type { ReportFilter } from '@arcbase/shared/report';
 
 /** 筛选值 → URL 参数字符串；返回 null 表示应从 URL 删除该 key */
 export function encodeFilterValue(value: unknown): string | null {

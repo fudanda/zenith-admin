@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Empty, Spin, Tag } from '@douyinfe/semi-ui';
 import { PenLine, Trash2, Pencil } from 'lucide-react';
-import { type CmsContentStatus, type CmsEditorialStatus } from '@zenith/shared/cms';
+import { type CmsContentStatus, type CmsEditorialStatus } from '@arcbase/shared/cms';
 import { CMS_EDITORIAL_STATUS_LABELS, CMS_EDITORIAL_STATUS_COLORS } from '@/pages/cms/cms-content-view-state';
 import { MemberPage } from '../../components/MemberPage';
 import { useMyContributions, useDeleteContribution } from '../../hooks/queries';

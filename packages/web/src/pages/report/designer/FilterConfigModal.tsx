@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Input, Select, Button, Space, Typography, Empty, TextArea } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
 import AppModal from '@/components/AppModal';
-import type { ReportFilter, ReportFilterType } from '@zenith/shared/report';
+import type { ReportFilter, ReportFilterType } from '@arcbase/shared/report';
 
 interface Props {
   visible: boolean;

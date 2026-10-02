@@ -1,4 +1,4 @@
-import { integrationContract } from '@zenith/shared/integrations';
+import { integrationContract } from '@arcbase/shared/integrations';
 import { operationURL } from './contracts';
 import { ClientError } from './errors';
 import type { Client } from './client';

@@ -9,8 +9,8 @@ describe('CMS admin/member route authentication boundary', () => {
   });
 
   it('keeps admin CMS content routes on the admin bearer contract with publish permission declared', async () => {
-    const { cmsContentContract } = await import('@zenith/shared/cms');
-    const { accessPermissions } = await import('@zenith/shared/core');
+    const { cmsContentContract } = await import('@arcbase/shared/cms');
+    const { accessPermissions } = await import('@arcbase/shared/core');
     // 后台 CMS 内容契约整组为后台登录令牌（bearer），门禁由契约 access 装配；发布操作要求发布权限
     for (const op of Object.values(cmsContentContract)) {
       if (typeof op !== 'object') continue;

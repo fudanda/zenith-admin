@@ -2,7 +2,7 @@
  * 契约 → Hono 路由适配。
  *
  * 路由文件只提供 `middleware` 与 `handler`，方法 / 路径 / 入参 schema / 响应 schema /
- * security / tags 全部来自 `@zenith/shared` 的契约对象；OpenAPI 文档因此与前端调用、MSW mock
+ * security / tags 全部来自 `@arcbase/shared` 的契约对象；OpenAPI 文档因此与前端调用、MSW mock
  * 同源。`commonErrorResponses` 与统一响应信封由本模块统一施加，路由文件无需再写。
  *
  * ```ts
@@ -18,10 +18,10 @@ import type { z } from 'zod';
 import {
   accessPermissions, accessPlatformOnly, isMultipart, MULTIPART_CONTENT_TYPE,
   type AnyOperation, type MultipartBody, type OperationAudit, type ParamsSchema, type SecurityScheme,
-} from '@zenith/shared/core';
-import { IOT_SIGN_HEADER, IOT_SN_HEADER, IOT_TIMESTAMP_HEADER } from '@zenith/shared/iot';
-import { isLicenseFeatureKey } from '@zenith/shared/licensing';
-import { OPEN_SIGNATURE_HEADERS } from '@zenith/shared/open-platform';
+} from '@arcbase/shared/core';
+import { IOT_SIGN_HEADER, IOT_SN_HEADER, IOT_TIMESTAMP_HEADER } from '@arcbase/shared/iot';
+import { isLicenseFeatureKey } from '@arcbase/shared/licensing';
+import { OPEN_SIGNATURE_HEADERS } from '@arcbase/shared/open-platform';
 import { authMiddleware } from '../middleware/auth';
 import { guard, type AuditLogOptions } from '../middleware/guard';
 import { platformAdminOnly } from '../middleware/platform-admin';

@@ -1,5 +1,5 @@
-import { iotProductContract, iotDeviceContract, iotProductSchema, iotDeviceSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotProductContract, iotDeviceContract, iotProductSchema, iotDeviceSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 产品 / 设备管理 CRUD。
  *
@@ -8,7 +8,7 @@ import type { QueryOutputOf } from '@zenith/shared/core';
 import { HTTPException } from 'hono/http-exception';
 import { and, count, desc, eq, exists, inArray, sql, type SQL } from 'drizzle-orm';
 import { alias as aliasedTable } from 'drizzle-orm/pg-core';
-import type { CreateIotDeviceInput, CreateIotProductInput, UpdateIotDeviceInput, UpdateIotProductInput } from '@zenith/shared/iot';
+import type { CreateIotDeviceInput, CreateIotProductInput, UpdateIotDeviceInput, UpdateIotProductInput } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import {

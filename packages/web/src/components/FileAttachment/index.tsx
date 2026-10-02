@@ -11,7 +11,7 @@ import {
 import type { CSSProperties } from 'react';
 import type { FileItem, RenderFileItemProps } from '@douyinfe/semi-ui/lib/es/upload';
 import { Plus, Download, X, Eye, RotateCcw } from 'lucide-react';
-import { fileContract, type ManagedFile } from '@zenith/shared/platform';
+import { fileContract, type ManagedFile } from '@arcbase/shared/platform';
 import { config } from '@/config';
 import { urlOf } from '@/lib/contract-query';
 import { request } from '@/utils/request';
@@ -25,7 +25,7 @@ import {
 } from '@/utils/file-utils';
 import { createDisplayableImageUrl } from '@/utils/image-decode';
 import FilePreviewModal from '@/components/FilePreviewModal';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 const { Text } = Typography;
 const UPLOAD_PENDING_STATUSES = new Set(['wait', 'validating', 'uploading']);

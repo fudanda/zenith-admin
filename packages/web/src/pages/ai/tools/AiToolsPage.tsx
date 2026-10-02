@@ -4,7 +4,7 @@ import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { listTableProps } from '@/components/list-page';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { useAiHttpTools, useSaveAiHttpTool, useDeleteAiHttpTool } from '@/hooks/queries/ai-tools';
-import type { AiHttpTool, AiHttpToolParam, CreateAiHttpToolInput } from '@zenith/shared/ai';
+import type { AiHttpTool, AiHttpToolParam, CreateAiHttpToolInput } from '@arcbase/shared/ai';
 import { CreateButton } from '@/components/toolbar-controls';
 import { confirmDelete } from '@/utils/confirm';
 import { useEditModal } from '@/hooks/useEditModal';

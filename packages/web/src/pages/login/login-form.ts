@@ -1,2 +1,2 @@
-export { useLoginForm, isEmail } from '@zenith/elements';
-export type { FieldRule, FieldRules } from '@zenith/elements';
+export { useLoginForm, isEmail } from '@arcbase/elements';
+export type { FieldRule, FieldRules } from '@arcbase/elements';

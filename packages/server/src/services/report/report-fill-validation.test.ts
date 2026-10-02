@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { WorkflowFormSchema } from '@zenith/shared/workflow';
+import type { WorkflowFormSchema } from '@arcbase/shared/workflow';
 import {
   validateReportFillSchema,
   validateReportFillValues,
@@ -67,7 +67,7 @@ describe('report fill schema validation', () => {
       { key: 'name', label: '名称', type: 'text', required: true },
       { key: 'enabled', label: '启用', type: 'switch' },
     ]);
-    const values = { name: 'Zenith', enabled: true };
+    const values = { name: 'ArcBase', enabled: true };
     expect(validateReportFillValues(form, values)).toEqual(values);
   });
 

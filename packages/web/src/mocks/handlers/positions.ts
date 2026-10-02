@@ -1,4 +1,4 @@
-import { positionContract, type Position } from '@zenith/shared/identity';
+import { positionContract, type Position } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { mockPositions, getNextPositionId } from '@/mocks/data/positions';
 import { mockUsers } from '@/mocks/data/users';

@@ -2,7 +2,7 @@
  * 运营群发路由（管理员）。发送动作提交任务中心任务，进度经任务中心查询。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { broadcastContract } from '@zenith/shared/messaging';
+import { broadcastContract } from '@arcbase/shared/messaging';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

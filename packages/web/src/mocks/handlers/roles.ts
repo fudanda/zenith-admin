@@ -1,4 +1,4 @@
-import { roleContract, type Role } from '@zenith/shared/identity';
+import { roleContract, type Role } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest, conflict } from '@/mocks/utils/handlers';

@@ -13,7 +13,7 @@ import {
   type MemberLevel,
   type MemberLoginLog,
   type MemberTag,
-} from '@zenith/shared/member';
+} from '@arcbase/shared/member';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, updateItem } from '@/mocks/utils/crud';
 import { badRequest, notFound, nextIdFrom } from '@/mocks/utils/handlers';
@@ -130,7 +130,7 @@ export const memberAdminHandlers = [
       activeCouponCount: 2,
       loginLogCount: 8,
       checkinTotal: 15,
-      inviteCode: 'ZENITH88',
+      inviteCode: 'ARCBASE88',
       inviter: null,
       invitedCount: 2,
       mpFans: [{ id: 1, nickname: '小明', openid: 'oDemoFan0000000000000001' }],

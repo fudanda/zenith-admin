@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { openSignatureContract } from '@zenith/shared/open-platform';
+import { openSignatureContract } from '@arcbase/shared/open-platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import { getSignatureAlgorithmDoc, verifyAppSignature } from '../../services/open-platform/open-signature.service';

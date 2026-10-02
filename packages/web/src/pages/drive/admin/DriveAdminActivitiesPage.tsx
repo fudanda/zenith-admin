@@ -2,7 +2,7 @@ import { Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { useNavigate } from 'react-router-dom';
-import { DRIVE_ACTIVITY_ACTION_LABELS, DRIVE_ACTIVITY_ACTION_OPTIONS, type DriveActivity, type DriveActivityAction } from '@zenith/shared/drive';
+import { DRIVE_ACTIVITY_ACTION_LABELS, DRIVE_ACTIVITY_ACTION_OPTIONS, type DriveActivity, type DriveActivityAction } from '@arcbase/shared/drive';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import ExportButton from '@/components/ExportButton';
 import { FileNameCell } from '@/components/FileNameCell';

@@ -1,9 +1,9 @@
 {
-  "name": "@zenith/elements",
+  "name": "@arcbase/elements",
   "version": "2.58.0",
   "private": true,
   "type": "module",
-  "description": "Composable Zenith session, login, permission, avatar and file elements.",
+  "description": "Composable ArcBase session, login, permission, avatar and file elements.",
   "sideEffects": [
     "**/*.css"
   ],
@@ -29,13 +29,13 @@
     "build:example": "vite build --config examples/vite.config.ts"
   },
   "peerDependencies": {
-    "@zenith/client": "^2.58.0",
+    "@arcbase/client": "^2.58.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@douyinfe/semi-ui": "^2.103.0"
   },
   "dependencies": {
-    "@zenith/shared": "^2.58.0",
+    "@arcbase/shared": "^2.58.0",
     "zod": "^4.6.4"
   },
   "devDependencies": {

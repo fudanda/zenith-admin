@@ -8,7 +8,7 @@
  *   以及 useAnalyticsConsent() React hook 给 UI（基于 useSyncExternalStore，跨标签页/组件保持同步）。
  */
 import { useCallback, useSyncExternalStore } from 'react';
-import { MEMBER_ANALYTICS_CONSENT_KEY, MEMBER_ANALYTICS_CONSENT_VERSION } from '@zenith/shared/member';
+import { MEMBER_ANALYTICS_CONSENT_KEY, MEMBER_ANALYTICS_CONSENT_VERSION } from '@arcbase/shared/member';
 import { reloadTrackerConfig } from '@/utils/tracker';
 import { formatDateTimeForApi } from '@/utils/date';
 import { scopedStorageKey } from '@/utils/storage';

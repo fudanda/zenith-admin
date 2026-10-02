@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Banner, Radio, RadioGroup, Select, Tag, Typography } from '@douyinfe/semi-ui';
 import { CircleCheck, CircleSlash, Fingerprint, Globe, KeyRound, Layers, Lock, ShieldCheck } from 'lucide-react';
-import { judgeOperation, type OperationVerdict, type PermissionSubject } from '@zenith/shared/permission-catalog-core';
+import { judgeOperation, type OperationVerdict, type PermissionSubject } from '@arcbase/shared/permission-catalog-core';
 import { StatCard, StatGrid } from '@/components/charts/StatCard';
 import UserSelect from '@/components/UserSelect';
 import { FilterSelect } from '@/components/search-filters';

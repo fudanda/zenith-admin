@@ -19,10 +19,10 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect"
-	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/storage"
-	s3bytes "github.com/fudanda/zenith-admin/backend/internal/storage/s3"
+	"github.com/fudanda/arcbase/backend/ent/managedfile"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/storage"
+	s3bytes "github.com/fudanda/arcbase/backend/internal/storage/s3"
 	"github.com/gofrs/flock"
 )
 
@@ -201,7 +201,7 @@ func pgCommand(ctx context.Context, options Options, tool string, args []string,
 		if strings.HasPrefix(options.PostgresContainer, "-") || strings.ContainsAny(options.PostgresContainer, "\r\n") {
 			return errors.New("invalid PostgreSQL container name")
 		}
-		command := append([]string{"exec", "-i", options.PostgresContainer, "sh", "-c", `IFS= read -r PGPASSWORD; export PGPASSWORD; exec "$@"`, "zenith-pg-tool", tool}, args...)
+		command := append([]string{"exec", "-i", options.PostgresContainer, "sh", "-c", `IFS= read -r PGPASSWORD; export PGPASSWORD; exec "$@"`, "arcbase-pg-tool", tool}, args...)
 		cmd = exec.CommandContext(ctx, "docker", command...)
 		if archive == nil {
 			archive = strings.NewReader("")
@@ -280,7 +280,7 @@ func Backup(ctx context.Context, options Options) (Manifest, error) {
 	if err = os.MkdirAll(filepath.Dir(target), 0700); err != nil {
 		return manifest, err
 	}
-	stage, err := os.MkdirTemp(filepath.Dir(target), ".zenith-backup-")
+	stage, err := os.MkdirTemp(filepath.Dir(target), ".arcbase-backup-")
 	if err != nil {
 		return manifest, err
 	}
@@ -376,7 +376,7 @@ func Backup(ctx context.Context, options Options) (Manifest, error) {
 		manifest.Staging = true
 	}
 	if options.StorageKey != "" {
-		if err = os.WriteFile(filepath.Join(stage, "secrets.env"), []byte("ZENITH_STORAGE_KEY="+options.StorageKey+"\n"), 0600); err != nil {
+		if err = os.WriteFile(filepath.Join(stage, "secrets.env"), []byte("ARCBASE_STORAGE_KEY="+options.StorageKey+"\n"), 0600); err != nil {
 			return manifest, err
 		}
 		manifest.KeyIncluded = true
@@ -504,7 +504,7 @@ func Restore(ctx context.Context, options Options) (Manifest, error) {
 		if readErr != nil {
 			return manifest, readErr
 		}
-		key = strings.TrimSpace(strings.TrimPrefix(string(raw), "ZENITH_STORAGE_KEY="))
+		key = strings.TrimSpace(strings.TrimPrefix(strings.TrimPrefix(string(raw), "ARCBASE_STORAGE_KEY="), "ZENITH_STORAGE_KEY="))
 		if _, err = storage.SecretKey(key); err != nil {
 			return manifest, err
 		}
@@ -591,7 +591,7 @@ func Restore(ctx context.Context, options Options) (Manifest, error) {
 			return manifest, err
 		}
 	}
-	env := fmt.Sprintf("ZENITH_DATABASE_URL=%s\nZENITH_FILE_STAGING_PATH=%s\nZENITH_STORAGE_KEY=%s\n", strconv.Quote(options.DSN), strconv.Quote(staging), key)
+	env := fmt.Sprintf("ARCBASE_DATABASE_URL=%s\nARCBASE_FILE_STAGING_PATH=%s\nARCBASE_STORAGE_KEY=%s\n", strconv.Quote(options.DSN), strconv.Quote(staging), key)
 	if err = copyReader(strings.NewReader(env), environment); err != nil {
 		return manifest, err
 	}

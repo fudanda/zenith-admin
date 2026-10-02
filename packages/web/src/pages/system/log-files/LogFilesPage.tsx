@@ -11,11 +11,11 @@ import { request } from '@/utils/request';
 import DateTimeText from '@/components/DateTimeText';
 import { usePermission } from '@/hooks/usePermission';
 import { useUrlSelectionState } from '@/hooks/useUrlSelectionState';
-import type { LogFile } from '@zenith/shared/ops';
+import type { LogFile } from '@arcbase/shared/ops';
 import { logFileDownloadUrl, useDeleteLogFile, useLogFiles } from '@/hooks/queries/log-files';
 import { logSourceKey, type LogSource } from '@/hooks/queries/log-source';
 import { confirmAndDelete } from '@/components/list-page';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 const EMPTY_LOG_FILES: LogFile[] = [];
 

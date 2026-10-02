@@ -11,7 +11,7 @@ import {
   type PaymentOrder,
   type PaymentRefund,
   type PaymentTrendPoint,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import {
   mockPaymentChannels,
   getNextPaymentChannelId,

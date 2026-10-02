@@ -1,5 +1,5 @@
-import type { LoginLog } from '@zenith/shared/identity';
-import type { IpAccessLog, OperationLog } from '@zenith/shared/platform';
+import type { LoginLog } from '@arcbase/shared/identity';
+import type { IpAccessLog, OperationLog } from '@arcbase/shared/platform';
 import { mockDateTimeOffset } from '@/mocks/utils/date';
 
 export const mockLoginLogs: LoginLog[] = [

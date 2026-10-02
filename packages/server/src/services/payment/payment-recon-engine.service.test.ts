@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { PAYMENT_RECON_RULE_VERSION } from '@zenith/shared/payment';
+import { PAYMENT_RECON_RULE_VERSION } from '@arcbase/shared/payment';
 import type { DbExecutor } from '../../db/types';
 import { paymentReconCases, type PaymentStatementPeriodRow } from '../../db/schema';
 import type { TaskRunContext } from '../../lib/task-center';

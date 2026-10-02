@@ -16,7 +16,7 @@ afterAll(async () => { await client?.end(); });
 describe.skipIf(!connection)('CMS frozen release build inputs', () => {
   it('copies the immutable base and captures runtime inputs separately without changing live data', async () => {
     const url = new URL(connection!);
-    if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) || url.pathname !== '/zenith_review') throw new Error('Requires a migrated disposable local zenith_review database');
+    if (!['localhost', '127.0.0.1', '[::1]'].includes(url.hostname) || url.pathname !== '/arcbase_review') throw new Error('Requires a migrated disposable local arcbase_review database');
     const testDb = drizzle(client!, { schema, casing: 'snake_case' });
     const rollback = new Error('rollback build fixtures');
     try {

@@ -18,7 +18,7 @@ import type {
   CmsResourceReference,
   CmsSite,
   cmsModelFieldSchema,
-} from '@zenith/shared/cms';
+} from '@arcbase/shared/cms';
 import {
   CMS_CONTENT_CALENDAR_DAY_ITEM_LIMIT,
   CMS_SECRET_MASK,
@@ -43,8 +43,8 @@ import {
   cmsTagContract,
   cmsUploadContract,
   parseCmsLink,
-} from '@zenith/shared/cms';
-import { SEED_CMS_EDITOR_USER } from '@zenith/shared/seed';
+} from '@arcbase/shared/cms';
+import { SEED_CMS_EDITOR_USER } from '@arcbase/shared/seed';
 import {
   mockCmsSites,
   mockCmsModels,
@@ -107,7 +107,7 @@ import { mockCmsResourceWithMedia, mockCmsResourceVersions } from './cms-media';
 import { submitMockCmsWidgetSourceRefresh } from './cms-widgets';
 import { assertMockCmsSiteComposition } from '../utils/cms-site-composition';
 import { getMockCmsPublishedModelFields, getMockCmsUnresolvedNoteContentIds } from './cms-editorial';
-import { CMS_SITE_COMPOSITION_SETTING_FIELDS } from '@zenith/shared/cms';
+import { CMS_SITE_COMPOSITION_SETTING_FIELDS } from '@arcbase/shared/cms';
 import { mockDateTime, mockDate } from '../utils/date';
 import { filterByKeyword, matchesFilter } from '@/mocks/utils/filter';
 import { mockResource } from '@/mocks/utils/resource';
@@ -132,7 +132,7 @@ function syncMockPageWidgetRefs(page: (typeof mockCmsPages)[number]) {
       ownerType: 'page',
       ownerId: page.id,
       field: block.id,
-      rendererKey: String(block.props.rendererKey ?? 'list-sidebar') as import('@zenith/shared/cms').CmsWidgetRendererKey,
+      rendererKey: String(block.props.rendererKey ?? 'list-sidebar') as import('@arcbase/shared/cms').CmsWidgetRendererKey,
       styleProps: block.props.styleProps && typeof block.props.styleProps === 'object'
         ? block.props.styleProps as Record<string, unknown>
         : {},

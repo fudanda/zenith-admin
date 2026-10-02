@@ -17,8 +17,8 @@ import { pageOffset } from '../../lib/pagination';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { keywordCondition } from '../../lib/where-helpers';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { chatBotContract, type ChatWebhook, type CreateChatWebhookInput, type UpdateChatWebhookInput, type ChatWebhookPayloadInput, type ChatMessageExtra } from '@zenith/shared/chat';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { chatBotContract, type ChatWebhook, type CreateChatWebhookInput, type UpdateChatWebhookInput, type ChatWebhookPayloadInput, type ChatMessageExtra } from '@arcbase/shared/chat';
 import { postBotMessage } from './chat.service';
 
 const TOKEN_PREFIX = 'cwh_';

@@ -1,6 +1,6 @@
 import { Popover, Typography } from '@douyinfe/semi-ui';
 import { UserAvatar } from '@/components/UserAvatar';
-import type { ChatConversation } from '@zenith/shared/chat';
+import type { ChatConversation } from '@arcbase/shared/chat';
 import { formatPresenceText } from '../utils-state';
 import type { GroupAvatarMap } from '../types';
 import { GroupGridAvatar } from './GroupGridAvatar';

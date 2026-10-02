@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { and, eq, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import type * as z from 'zod';
-import { CMS_PREVIEW_MODE_LABELS, cmsSiteRelativePath, renderCmsWorkbenchPreviewSchema, type CmsWorkbenchPreview } from '@zenith/shared/cms';
+import { CMS_PREVIEW_MODE_LABELS, cmsSiteRelativePath, renderCmsWorkbenchPreviewSchema, type CmsWorkbenchPreview } from '@arcbase/shared/cms';
 import { db, withDbExecutor } from '../../db';
 import { cmsContents, cmsChannels, cmsContentWorkingCopies, cmsContentRevisions, cmsReleases, cmsSiteGenerations, cmsDeployments } from '../../db/schema';
 import { currentUser, hasPermission } from '../../lib/context';

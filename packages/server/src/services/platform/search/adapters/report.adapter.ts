@@ -1,6 +1,6 @@
-import { reportDashboardContract } from '@zenith/shared/report';
-import { reportDatasetContract } from '@zenith/shared/report';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { reportDashboardContract } from '@arcbase/shared/report';
+import { reportDatasetContract } from '@arcbase/shared/report';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { hasPermission } from '../../../../lib/context';
 import { listDashboards } from '../../../report/report-dashboard.service';
 import { listDatasets } from '../../../report/report-dataset-crud.service';

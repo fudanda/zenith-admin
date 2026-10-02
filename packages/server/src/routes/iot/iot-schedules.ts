@@ -4,7 +4,7 @@
  * CRUD + 执行记录；到期调度由系统任务 iot-schedule-dispatch 每分钟执行。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { iotScheduleContract } from '@zenith/shared/iot';
+import { iotScheduleContract } from '@arcbase/shared/iot';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import {

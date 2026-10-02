@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { defaultPreferences, preferencePolicySchema } from '@zenith/shared/preferences';
+import { defaultPreferences, preferencePolicySchema } from '@arcbase/shared/preferences';
 import { PreferencesContext, type PreferencesContextValue } from '@/hooks/usePreferences';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import CmsWorkspacePage from './CmsWorkspacePage';

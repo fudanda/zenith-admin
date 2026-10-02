@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 支付财务报表 Service。
  *
@@ -7,8 +7,8 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  */
 import { and, eq, sql, type SQL } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { PAYMENT_CHANNEL_LABELS, paymentReportContract } from '@zenith/shared/payment';
-import type { PaymentChannel, PaymentReportGroupBy, PaymentReportRow } from '@zenith/shared/payment';
+import { PAYMENT_CHANNEL_LABELS, paymentReportContract } from '@arcbase/shared/payment';
+import type { PaymentChannel, PaymentReportGroupBy, PaymentReportRow } from '@arcbase/shared/payment';
 import { readSnapshot } from '../../db';
 import { paymentApps, paymentChannelConfigs, paymentJournalLines, paymentJournals, paymentLedgerAccounts } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';

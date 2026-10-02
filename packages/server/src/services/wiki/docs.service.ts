@@ -1,14 +1,14 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, asc, desc, eq, inArray, isNotNull, isNull, ne, sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import type {
   CreateWikiDocInput,
   MoveWikiDocInput,
   ReviewWikiDocInput,
   UpdateWikiDocInput,
   WikiDocTreeNode,
-} from '@zenith/shared/wiki';
-import { wikiDocContract, wikiDocSchema } from '@zenith/shared/wiki';
+} from '@arcbase/shared/wiki';
+import { wikiDocContract, wikiDocSchema } from '@arcbase/shared/wiki';
 import { pickEntity } from '../../lib/entity-map';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
@@ -43,7 +43,7 @@ import { notifyWikiDocPublished, notifyWikiDocReviewed } from './notifications.s
 import { removeWikiDocFromAiKb, syncPublishedWikiDocToAiKb } from './ai-sync.service';
 import { ensureSpaceRole, getMySpaceRole, spaceRoleAtLeast } from './spaces.service';
 import { nextWikiDocSort } from './doc-order';
-import { buildTree } from '@zenith/shared/core';
+import { buildTree } from '@arcbase/shared/core';
 import { resolveUserNames } from '../../lib/user-nicknames';
 
 // ─── 数据映射 ─────────────────────────────────────────────────────────────────

@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useMemo } from 'react';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 
 /** 当前用户的权限码集合（服务端 `/auth/me` 下发；超管为 `['*']`） */
 export const PermissionContext = createContext<string[]>([]);

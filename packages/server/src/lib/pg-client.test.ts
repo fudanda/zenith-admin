@@ -6,18 +6,18 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { buildPgDumpLaunch, parseDatabaseUrl, pgClientEnv, runPgDumpToGzip } from './pg-client';
 describe('parseDatabaseUrl', () => {
   it('解析标准连接串', () => {
-    expect(parseDatabaseUrl('postgresql://app:secret@db.internal:5433/zenith')).toEqual({
+    expect(parseDatabaseUrl('postgresql://app:secret@db.internal:5433/arcbase')).toEqual({
       host: 'db.internal',
       port: '5433',
       user: 'app',
       password: 'secret',
-      database: 'zenith',
+      database: 'arcbase',
       sslMode: null,
     });
   });
 
   it('缺省端口回退 5432 并解码转义字符', () => {
-    const parsed = parseDatabaseUrl('postgres://app:p%40ss%20w0rd@localhost/zenith_admin');
+    const parsed = parseDatabaseUrl('postgres://app:p%40ss%20w0rd@localhost/arcbase_admin');
     expect(parsed.port).toBe('5432');
     expect(parsed.password).toBe('p@ss w0rd');
   });
@@ -33,22 +33,22 @@ describe('parseDatabaseUrl', () => {
 
 const params = {
   host: 'localhost', port: '5432', user: 'postgres', password: 'pw',
-  database: 'zenith_admin', sslMode: null,
+  database: 'arcbase_admin', sslMode: null,
 };
 
 describe('buildPgDumpLaunch', () => {
   it('凭据只进环境变量，参数带 --no-password 避免缺凭据时交互挂起', () => {
     const launch = buildPgDumpLaunch('pg_dump', params);
     expect(launch.file).toBe('pg_dump');
-    expect(launch.args).toEqual(['-h', 'localhost', '-p', '5432', '-U', 'postgres', '-d', 'zenith_admin', '--no-password']);
+    expect(launch.args).toEqual(['-h', 'localhost', '-p', '5432', '-U', 'postgres', '-d', 'arcbase_admin', '--no-password']);
     expect(launch.args.join(' ')).not.toContain('pw');
     expect(launch.env.PGPASSWORD).toBe('pw');
     expect(launch.env.PGCLIENTENCODING).toBe('UTF8');
-    expect(launch.env.PGAPPNAME).toBe('zenith_db_backup');
+    expect(launch.env.PGAPPNAME).toBe('arcbase_db_backup');
   });
 
   it('连接串 sslmode 透传为 PGSSLMODE', () => {
-    expect(pgClientEnv({ ...params, sslMode: 'require' }, 'zenith_test').PGSSLMODE).toBe('require');
+    expect(pgClientEnv({ ...params, sslMode: 'require' }, 'arcbase_test').PGSSLMODE).toBe('require');
   });
 });
 
@@ -60,7 +60,7 @@ describe('runPgDumpToGzip', () => {
   let out: string;
 
   beforeEach(async () => {
-    dir = await fs.mkdtemp(path.join(os.tmpdir(), 'zenith-pgdump-'));
+    dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arcbase-pgdump-'));
     out = path.join(dir, 'dump.sql.gz');
   });
 

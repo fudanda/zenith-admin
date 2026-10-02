@@ -1,6 +1,6 @@
-import type { DriveShareAccessLog } from '@zenith/shared/drive';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { driveAdminContract } from '@zenith/shared/drive';
+import type { DriveShareAccessLog } from '@arcbase/shared/drive';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { driveAdminContract } from '@arcbase/shared/drive';
 import { listShareAccessLogsForAdmin } from '../../../services/drive/drive-share.service';
 import { asBoolean, asPositiveInt, asString } from '../query-normalize';
 import { defineExport } from '../registry';

@@ -16,8 +16,8 @@ import {
 } from '@/hooks/queries/cms';
 import { useMyAsyncTasks } from '@/hooks/useAsyncTasks';
 import AsyncTaskProgress from '@/components/AsyncTaskProgress';
-import { CMS_PUSH_ENGINE_LABELS } from '@zenith/shared/cms';
-import type { CmsRedirect, CmsLinkWord, CmsPushLog } from '@zenith/shared/cms';
+import { CMS_PUSH_ENGINE_LABELS } from '@arcbase/shared/cms';
+import type { CmsRedirect, CmsLinkWord, CmsPushLog } from '@arcbase/shared/cms';
 import { CmsSiteSelect } from './CmsSiteSelect';
 import { CreateButton } from '@/components/toolbar-controls';
 import { KeywordInput } from '@/components/search-filters';

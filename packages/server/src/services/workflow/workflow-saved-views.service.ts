@@ -7,8 +7,8 @@ import { getCreateTenantId, tenantCondition } from '../../lib/tenant';
 import { buildWhere } from '../../lib/where-helpers';
 import { formatTimestamps } from '../../lib/datetime';
 import { clearDefaultFlag } from '../../lib/default-flag';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { workflowSavedViewContract, type WorkflowSavedView, type CreateWorkflowSavedViewInput, type UpdateWorkflowSavedViewInput } from '@zenith/shared/workflow';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { workflowSavedViewContract, type WorkflowSavedView, type CreateWorkflowSavedViewInput, type UpdateWorkflowSavedViewInput } from '@arcbase/shared/workflow';
 
 type Row = typeof workflowSavedViews.$inferSelect;
 

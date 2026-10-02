@@ -1,6 +1,6 @@
 import { cmsGenerationNow } from './cms-generation-context';
-import { CMS_PAGE_BLOCK_TYPES, isValidCmsAssetUrl, isValidCmsLink } from '@zenith/shared/cms';
-import type { CmsPageBlock, CmsPageBlockType } from '@zenith/shared/cms';
+import { CMS_PAGE_BLOCK_TYPES, isValidCmsAssetUrl, isValidCmsLink } from '@arcbase/shared/cms';
+import type { CmsPageBlock, CmsPageBlockType } from '@arcbase/shared/cms';
 import { HTTPException } from 'hono/http-exception';
 import { isDeepStrictEqual } from 'node:util';
 import dayjs from 'dayjs';

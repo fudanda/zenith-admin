@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type BodyOf, type InputOf, type QueryOf } from '@zenith/shared/core';
-import { reportCategoryContract, reportDashboardContract, reportDashboardOpsContract, reportExecutionContract, reportPublicContract, type ReportDatasetQueryOptions, type ReportWidget, type ReportWidgetDataResult } from '@zenith/shared/report';
+import { resourceKeyOf, type BodyOf, type InputOf, type QueryOf } from '@arcbase/shared/core';
+import { reportCategoryContract, reportDashboardContract, reportDashboardOpsContract, reportExecutionContract, reportPublicContract, type ReportDatasetQueryOptions, type ReportWidget, type ReportWidgetDataResult } from '@arcbase/shared/report';
 import { api, apiQueryOptions, useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { useReportLookup, type ReportLookupParams } from './report-lookups';
 

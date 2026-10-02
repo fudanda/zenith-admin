@@ -9,7 +9,7 @@
 import { eq } from 'drizzle-orm';
 import { db } from '../../db';
 import { workflowInstances } from '../../db/schema';
-import type { NodeListenerConfig, NodeListenerEvent, WorkflowTaskEventPayload } from '@zenith/shared/workflow';
+import type { NodeListenerConfig, NodeListenerEvent, WorkflowTaskEventPayload } from '@arcbase/shared/workflow';
 import { workflowEventBus } from '../workflow-event-bus';
 import { workflowHttpGet, workflowHttpPost } from '../workflow-outbound';
 import logger from '../logger';

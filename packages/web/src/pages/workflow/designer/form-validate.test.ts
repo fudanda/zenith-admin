@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { validateFormSchema, countErrors } from './form-validate';
 
 const f = (partial: Partial<WorkflowFormField> & { key: string; type: WorkflowFormField['type'] }): WorkflowFormField =>

@@ -1,4 +1,4 @@
-import { nginxSiteContract, type NginxInfo, type NginxSite } from '@zenith/shared/ops';
+import { nginxSiteContract, type NginxInfo, type NginxSite } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { notFound } from '@/mocks/utils/handlers';
 import { mockDateTime } from '../utils/date';

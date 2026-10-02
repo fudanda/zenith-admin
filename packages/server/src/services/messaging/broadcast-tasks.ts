@@ -6,7 +6,7 @@
  * 渠道投递失败由 outbox 自身的补投机制兜底,任务只负责「把事件登记完」。
  */
 import { eq } from 'drizzle-orm';
-import type { BroadcastChannel } from '@zenith/shared/messaging';
+import type { BroadcastChannel } from '@arcbase/shared/messaging';
 import { db } from '../../db';
 import { broadcastCampaigns } from '../../db/schema';
 import { registerTaskHandler } from '../../lib/task-center';

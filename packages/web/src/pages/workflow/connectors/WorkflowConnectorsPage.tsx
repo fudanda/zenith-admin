@@ -6,7 +6,7 @@ import ConfigurableTable from '@/components/ConfigurableTable';
 import AppModal from '@/components/AppModal';
 import { createdAtColumn, dateTimeColumn, EMPTY_PLACEHOLDER, renderEllipsis } from '@/utils/table-columns';
 import { usePermission } from '@/hooks/usePermission';
-import { WORKFLOW_CONNECTOR_BREAKER_STATE_LABELS, WORKFLOW_CONNECTOR_INVOCATION_SOURCE_LABELS, WORKFLOW_CONNECTOR_TYPE_LABELS, type WorkflowConnector, type WorkflowConnectorType, type WorkflowConnectorBreakerState, type WorkflowConnectorInvokeResult, type WorkflowConnectorHttpConfig, type WorkflowConnectorInvocation, workflowConnectorContract } from '@zenith/shared/workflow';
+import { WORKFLOW_CONNECTOR_BREAKER_STATE_LABELS, WORKFLOW_CONNECTOR_INVOCATION_SOURCE_LABELS, WORKFLOW_CONNECTOR_TYPE_LABELS, type WorkflowConnector, type WorkflowConnectorType, type WorkflowConnectorBreakerState, type WorkflowConnectorInvokeResult, type WorkflowConnectorHttpConfig, type WorkflowConnectorInvocation, workflowConnectorContract } from '@arcbase/shared/workflow';
 import {
   useDeleteWorkflowConnectors,
   useSaveWorkflowConnector,

@@ -2,7 +2,7 @@ import { desc } from 'drizzle-orm';
 import { db } from '../../../db';
 import { paymentRefunds } from '../../../db/schema';
 import { buildRefundsWhere, type PaymentRefundListFilter } from '../../../services/payment/payment.service';
-import { PAYMENT_CHANNEL_LABELS, PAYMENT_REFUND_STATUS_LABELS } from '@zenith/shared/payment';
+import { PAYMENT_CHANNEL_LABELS, PAYMENT_REFUND_STATUS_LABELS } from '@arcbase/shared/payment';
 import { defineExport } from '../registry';
 import { RETENTION_7_DAYS } from '../presets';
 import type { ExportColumn } from '../types';

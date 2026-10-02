@@ -1,4 +1,4 @@
-import type { BizPayDemo } from '@zenith/shared/biz';
+import type { BizPayDemo } from '@arcbase/shared/biz';
 import { mockDateTime } from '@/mocks/utils/date';
 
 export const mockBizPayDemos: BizPayDemo[] = [

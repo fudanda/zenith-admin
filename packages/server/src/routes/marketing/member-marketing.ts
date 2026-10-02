@@ -3,7 +3,7 @@
  * 活动详情 / 抽奖 / 我的记录，供会员前台或外部 H5 活动页对接。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { memberMarketingContract } from '@zenith/shared/marketing';
+import { memberMarketingContract } from '@arcbase/shared/marketing';
 import { memberAuthMiddleware } from '../../middleware/member-auth';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

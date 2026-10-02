@@ -1,4 +1,4 @@
-import type { OAuthProviderType } from '@zenith/shared/identity';
+import type { OAuthProviderType } from '@arcbase/shared/identity';
 import { MonoIcon } from '@/components/icons/MonoIcon';
 import { MONO_ICONS } from '@/components/icons/generated/mono-icons';
 

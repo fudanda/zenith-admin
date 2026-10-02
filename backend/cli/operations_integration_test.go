@@ -10,9 +10,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	sdk "github.com/aws/aws-sdk-go-v2/service/s3"
-	zenith "github.com/fudanda/zenith-admin/backend"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/internal/storage"
+	arcbase "github.com/fudanda/arcbase/backend"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/internal/storage"
 	"golang.org/x/crypto/bcrypt"
 	"net/url"
 	"os"
@@ -24,13 +24,13 @@ import (
 
 func TestRealDatabaseAndS3BackupRestore(t *testing.T) {
 	ctx := context.Background()
-	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	dsn := os.Getenv("ARCBASE_TEST_DATABASE_URL")
 	if dsn == "" {
-		t.Fatal("ZENITH_TEST_DATABASE_URL required")
+		t.Fatal("ARCBASE_TEST_DATABASE_URL required")
 	}
 	targetDSN := "sqlite:" + filepath.Join(t.TempDir(), "restore.db")
 	if strings.HasPrefix(dsn, "postgres") {
-		admin, err := zenith.OpenStore(ctx, dsn)
+		admin, err := arcbase.OpenStore(ctx, dsn)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -40,7 +40,7 @@ func TestRealDatabaseAndS3BackupRestore(t *testing.T) {
 			t.Fatal(err)
 		}
 		stamp := time.Now().UnixNano()
-		names := []string{fmt.Sprintf("zenith_cli_%d", stamp), fmt.Sprintf("zenith_cli_restore_%d", stamp)}
+		names := []string{fmt.Sprintf("arcbase_cli_%d", stamp), fmt.Sprintf("arcbase_cli_restore_%d", stamp)}
 		for _, name := range names {
 			if _, err = admin.DB.ExecContext(ctx, "CREATE DATABASE "+name); err != nil {
 				t.Fatal(err)
@@ -54,7 +54,7 @@ func TestRealDatabaseAndS3BackupRestore(t *testing.T) {
 	} else {
 		dsn = "sqlite:" + filepath.Join(t.TempDir(), "source.db")
 	}
-	config := zenith.Config{DSN: dsn, FileStagingPath: t.TempDir(), StorageEncryptionKey: strings.Repeat("b", 64)}
+	config := arcbase.Config{DSN: dsn, FileStagingPath: t.TempDir(), StorageEncryptionKey: strings.Repeat("b", 64)}
 	for _, cmd := range []string{"migrate", "seed"} {
 		if _, err := call(t, config, []string{cmd}, ""); err != nil {
 			t.Fatal(err)
@@ -67,7 +67,7 @@ func TestRealDatabaseAndS3BackupRestore(t *testing.T) {
 	if _, err := call(t, config, []string{"reset-admin", "recovery-admin"}, password+"-new\n"); err != nil {
 		t.Fatal(err)
 	}
-	store, err := zenith.OpenStore(ctx, dsn)
+	store, err := arcbase.OpenStore(ctx, dsn)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -76,12 +76,12 @@ func TestRealDatabaseAndS3BackupRestore(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	endpoint, access, secret := os.Getenv("ZENITH_TEST_S3_ENDPOINT"), os.Getenv("ZENITH_TEST_S3_ACCESS_KEY"), os.Getenv("ZENITH_TEST_S3_SECRET_KEY")
+	endpoint, access, secret := os.Getenv("ARCBASE_TEST_S3_ENDPOINT"), os.Getenv("ARCBASE_TEST_S3_ACCESS_KEY"), os.Getenv("ARCBASE_TEST_S3_SECRET_KEY")
 	if endpoint == "" || access == "" || secret == "" {
 		t.Fatal("isolated S3 test endpoint and credentials required")
 	}
 	api := sdk.NewFromConfig(aws.Config{Region: "us-east-1", Credentials: credentials.NewStaticCredentialsProvider(access, secret, "")}, func(o *sdk.Options) { o.BaseEndpoint = aws.String(endpoint); o.UsePathStyle = true })
-	bucket := fmt.Sprintf("zenith-cli-%d", time.Now().UnixNano())
+	bucket := fmt.Sprintf("arcbase-cli-%d", time.Now().UnixNano())
 	objectKey := "original-prefix/nested/file.txt"
 	contents := "S3 real snapshot bytes"
 	if _, err = api.CreateBucket(ctx, &sdk.CreateBucketInput{Bucket: aws.String(bucket)}); err != nil {
@@ -122,7 +122,7 @@ func TestRealDatabaseAndS3BackupRestore(t *testing.T) {
 	snapshot := filepath.Join(t.TempDir(), "snapshot")
 	args := []string{"backup", snapshot}
 	if strings.HasPrefix(dsn, "postgres") {
-		container := os.Getenv("ZENITH_ACCEPTANCE_PG_CONTAINER")
+		container := os.Getenv("ARCBASE_ACCEPTANCE_PG_CONTAINER")
 		if container != "" {
 			args = append(args, "--pg-container", container)
 		}
@@ -130,16 +130,16 @@ func TestRealDatabaseAndS3BackupRestore(t *testing.T) {
 	if _, err = call(t, config, args, ""); err != nil {
 		t.Fatal(err)
 	}
-	target := zenith.Config{DSN: targetDSN}
+	target := arcbase.Config{DSN: targetDSN}
 	files, env := filepath.Join(t.TempDir(), "files"), filepath.Join(t.TempDir(), "restored.env")
 	args = []string{"restore", snapshot, "--files-root", files, "--env-file", env, "--s3-to-local"}
-	if strings.HasPrefix(dsn, "postgres") && os.Getenv("ZENITH_ACCEPTANCE_PG_CONTAINER") != "" {
-		args = append(args, "--pg-container", os.Getenv("ZENITH_ACCEPTANCE_PG_CONTAINER"))
+	if strings.HasPrefix(dsn, "postgres") && os.Getenv("ARCBASE_ACCEPTANCE_PG_CONTAINER") != "" {
+		args = append(args, "--pg-container", os.Getenv("ARCBASE_ACCEPTANCE_PG_CONTAINER"))
 	}
 	if _, err = call(t, target, args, ""); err != nil {
 		t.Fatal(err)
 	}
-	recovered, err := zenith.OpenStore(ctx, targetDSN)
+	recovered, err := arcbase.OpenStore(ctx, targetDSN)
 	if err != nil {
 		t.Fatal(err)
 	}

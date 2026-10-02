@@ -6,7 +6,7 @@ import { GoAuthProvider } from './GoAuthProvider';
 import { goSessionKey } from '../lib/go-session';
 import { useAuth } from '@/hooks/useAuth';
 import { goTransport } from '@/lib/go-transport';
-import { TOKEN_KEY, REFRESH_TOKEN_KEY } from '@zenith/shared/core';
+import { TOKEN_KEY, REFRESH_TOKEN_KEY } from '@arcbase/shared/core';
 
 const session = {
   user: { id: 1, username: 'admin', nickname: '管理员', tenantId: null, status: 'enabled', email: null, roles: [], passwordUpdatedAt: '2026-09-30T00:00:00Z', createdAt: '2026-09-30T00:00:00Z', updatedAt: '2026-09-30T00:00:00Z' },

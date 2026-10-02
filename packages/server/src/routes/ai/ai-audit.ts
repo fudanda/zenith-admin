@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { aiAuditContract } from '@zenith/shared/ai';
+import { aiAuditContract } from '@arcbase/shared/ai';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { listAuditMessages, getFeedbackContext } from '../../services/ai/ai-conversations.service';

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Form } from '@douyinfe/semi-ui';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { CmsResource } from '@zenith/shared/cms';
+import type { CmsResource } from '@arcbase/shared/cms';
 import type { CmsAssetFieldProps } from './CmsAssetField';
 import CmsContentMediaFields from './CmsContentMediaFields';
 

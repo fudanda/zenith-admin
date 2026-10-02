@@ -1,6 +1,6 @@
 import { Divider, Form, List, Typography } from '@douyinfe/semi-ui';
 import { useCmsAssetVersions } from '@/hooks/queries/cms-resources';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 export default function AssetRightsFields({ resourceId }: Readonly<{ resourceId?: number }>) {
   const versions = useCmsAssetVersions(resourceId);

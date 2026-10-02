@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Banner, Card, Select, Typography } from '@douyinfe/semi-ui';
-import type { CmsStatOverview } from '@zenith/shared/cms';
+import type { CmsStatOverview } from '@arcbase/shared/cms';
 import { StatCard, StatGrid } from '@/components/charts/StatCard';
 import type { CmsStatsQuery } from '@/hooks/queries/cms-stats';
 import CmsStatsReport from './stats/CmsStatsReport';

@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, SideSheet, Space, Tabs, TabPane } from '@douyinfe/semi-ui';
 import { ArrowLeft } from 'lucide-react';
-import { ENTITY_REGISTRY, type CanonicalEntityRef, type CanonicalEntityType } from '@zenith/shared/platform/entity-catalog';
+import { ENTITY_REGISTRY, type CanonicalEntityRef, type CanonicalEntityType } from '@arcbase/shared/platform/entity-catalog';
 import { useEntityAccessKey } from '@/hooks/queries/entity-relations';
 import { entityDetailRoute, entityTypeLabel } from '@/utils/entity-relations';
 import {

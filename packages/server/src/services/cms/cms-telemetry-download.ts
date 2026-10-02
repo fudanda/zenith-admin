@@ -1,6 +1,6 @@
 import { buildWhere } from '../../lib/where-helpers';
 import { and, eq, isNull, or, sql } from 'drizzle-orm';
-import { cmsTelemetryConversionContextSchema } from '@zenith/shared/cms';
+import { cmsTelemetryConversionContextSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsAssetRights, cmsAssetVersions, cmsResources } from '../../db/schema';
 import { verifyCmsTelemetryPageToken } from './cms-telemetry-context';

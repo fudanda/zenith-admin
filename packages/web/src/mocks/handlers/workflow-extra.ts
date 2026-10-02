@@ -39,8 +39,8 @@ import {
   type WorkflowVersionDiffSide,
   type WorkflowVersionEdgeChange,
   type WorkflowVersionNodeChange,
-} from '@zenith/shared/workflow';
-import { SEED_WORKFLOW_TEMPLATES } from '@zenith/shared/seed';
+} from '@arcbase/shared/workflow';
+import { SEED_WORKFLOW_TEMPLATES } from '@arcbase/shared/seed';
 import { buildFirstApproveTask, mockWorkflowInstances, mockWorkflowTasks, mockWorkflowDefinitions, getNextInstanceId, getNextDefinitionId } from '@/mocks/data/workflow';
 import { mockUsers } from '@/mocks/data/users';
 import { mockDateTime } from '@/mocks/utils/date';

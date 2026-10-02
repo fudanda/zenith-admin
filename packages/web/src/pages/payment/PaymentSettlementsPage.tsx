@@ -22,9 +22,9 @@ import {
   usePaymentSettlementList,
   useUpdatePaymentSettlementStatus,
 } from '@/hooks/queries/payment-settlements';
-import { enumValueOf } from '@zenith/shared/core';
-import { PAYMENT_CHANNELS, PAYMENT_SETTLEMENT_STATUS_LABELS, PAYMENT_SETTLEMENT_STATUSES, PAYMENT_CHANNEL_OPTIONS, PAYMENT_SETTLEMENT_STATUS_OPTIONS } from '@zenith/shared/payment';
-import type { CreatePaymentSettlementInput, PaymentChannel, PaymentSettlementBatch, PaymentSettlementItem, PaymentSettlementStatus } from '@zenith/shared/payment';
+import { enumValueOf } from '@arcbase/shared/core';
+import { PAYMENT_CHANNELS, PAYMENT_SETTLEMENT_STATUS_LABELS, PAYMENT_SETTLEMENT_STATUSES, PAYMENT_CHANNEL_OPTIONS, PAYMENT_SETTLEMENT_STATUS_OPTIONS } from '@arcbase/shared/payment';
+import type { CreatePaymentSettlementInput, PaymentChannel, PaymentSettlementBatch, PaymentSettlementItem, PaymentSettlementStatus } from '@arcbase/shared/payment';
 import { abortSubmit } from '@/lib/abort-submit';
 import { FilterSelect, StatusSelect } from '@/components/search-filters';
 import { deleteAction, listTableProps, ListSearchToolbar } from '@/components/list-page';

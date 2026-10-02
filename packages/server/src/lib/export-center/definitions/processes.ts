@@ -1,4 +1,4 @@
-import { matchesProcessFilter } from '@zenith/shared/ops';
+import { matchesProcessFilter } from '@arcbase/shared/ops';
 import { listProcesses } from '../../../services/ops/processes.service';
 import { defineExport } from '../registry';
 import { RETENTION_7_DAYS } from '../presets';

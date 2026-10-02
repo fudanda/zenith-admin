@@ -1,5 +1,5 @@
-import { memberSelfContract, memberWalletContract } from '@zenith/shared/member';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { memberSelfContract, memberWalletContract } from '@arcbase/shared/member';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 会员钱包服务。
  *
@@ -24,8 +24,8 @@ import { requireRow } from '../../lib/db-assert';
 import logger from '../../lib/logger';
 import { createPayment } from '../payment/payment.service';
 import { memberReferenceCondition, mapLedgerTransaction } from './member-query-helpers';
-import type { WalletTxType } from '@zenith/shared/member';
-import type { PaymentCashierMethod } from '@zenith/shared/payment';
+import type { WalletTxType } from '@arcbase/shared/member';
+import type { PaymentCashierMethod } from '@arcbase/shared/payment';
 
 /** 钱包充值的支付业务类型标识 */
 export const WALLET_RECHARGE_BIZ_TYPE = 'member_recharge';

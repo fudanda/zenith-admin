@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { Play } from 'lucide-react';
 import { Spin, Typography } from '@douyinfe/semi-ui';
 import { fetchManagedFileBlob } from '@/utils/file-utils';
-import type { ChatMessage } from '@zenith/shared/chat';
+import type { ChatMessage } from '@arcbase/shared/chat';
 import { getMessageExtra } from '../utils';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 const { Text } = Typography;
 

@@ -1,5 +1,5 @@
-import { mpAccountContract, type MpAccount } from '@zenith/shared/mp';
-import { SECRET_PLACEHOLDER } from '@zenith/shared/core';
+import { mpAccountContract, type MpAccount } from '@arcbase/shared/mp';
+import { SECRET_PLACEHOLDER } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';

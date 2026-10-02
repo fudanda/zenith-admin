@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import type { CmsEditorialTask, CmsFeedbackDetail } from '@zenith/shared/cms';
+import type { CmsEditorialTask, CmsFeedbackDetail } from '@arcbase/shared/cms';
 import { mockCmsContents, mockCmsFormSubmissions } from './data/cms';
 import { mockCmsFeedback, mockCmsEditorialTasks, mockCmsHandlingPolicies, syncMockCmsFeedbackSubmissions } from './data/cms-operations';
 import { mockWorkflowDefinitions, mockWorkflowInstances, mockWorkflowTasks } from './data/workflow';

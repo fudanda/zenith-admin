@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { iotBatchContract, iotDeviceContract, type IotDeviceShadow } from '@zenith/shared/iot';
+import type { QueryOf } from '@arcbase/shared/core';
+import { iotBatchContract, iotDeviceContract, type IotDeviceShadow } from '@arcbase/shared/iot';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';
 

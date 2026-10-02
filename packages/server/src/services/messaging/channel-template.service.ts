@@ -4,8 +4,8 @@
 import { asc, eq } from 'drizzle-orm';
 import { db } from '../../db';
 import { channelMessageTemplates, type ChannelMessageTemplateRow } from '../../db/schema';
-import type { ChatMessageExtra } from '@zenith/shared/chat';
-import type { ChannelMessageTemplate, CreateChannelTemplateInput, UpdateChannelTemplateInput } from '@zenith/shared/messaging';
+import type { ChatMessageExtra } from '@arcbase/shared/chat';
+import type { ChannelMessageTemplate, CreateChannelTemplateInput, UpdateChannelTemplateInput } from '@arcbase/shared/messaging';
 import { formatTimestamps } from '../../lib/datetime';
 import { requireRow } from '../../lib/db-assert';
 

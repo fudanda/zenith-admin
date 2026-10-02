@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
+	httptransport "github.com/fudanda/arcbase/backend/internal/transport/http"
 )
 
 type Module interface {

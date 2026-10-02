@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
-import { authContract } from '@zenith/shared/identity';
+import { authContract } from '@arcbase/shared/identity';
 import { api } from '@/lib/contract-query';
 
 export const CLEAR_LOGS_LABELS: Record<number, string> = { 30: '一个月前', 90: '三个月前', 180: '六个月前', 365: '一年前' };

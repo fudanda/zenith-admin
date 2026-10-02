@@ -8,7 +8,7 @@
  */
 import { describe, expect, it } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import type { Menu } from '@zenith/shared/identity';
+import type { Menu } from '@arcbase/shared/identity';
 import { useMenuMaps } from './useMenuDerived';
 
 function menu(partial: Partial<Menu> & Pick<Menu, 'id' | 'title'>): Menu {

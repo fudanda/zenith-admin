@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import { Empty, Space, Tag, Typography } from '@douyinfe/semi-ui';
-import type { CmsChannel, CmsContent, CmsModel, CmsModelField, CmsTag } from '@zenith/shared/cms';
+import type { CmsChannel, CmsContent, CmsModel, CmsModelField, CmsTag } from '@arcbase/shared/cms';
 import type { UserSelectOptionSource } from '@/components/UserSelect';
 import { flattenChannels } from './channel-tree';
 import { buildCmsContentConflictRows, cmsConflictValueText } from './cms-content-conflicts';

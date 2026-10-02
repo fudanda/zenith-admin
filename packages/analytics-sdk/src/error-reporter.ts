@@ -2,15 +2,15 @@
  * 前端错误上报：统一构造 payload 并发送到错误监控采集端点。
  * 携带行为面包屑、会话 ID、发布版本，附带去重与限流保护。
  */
-import { TOKEN_KEY } from '@zenith/shared/core';
-import type { FrontendErrorType, ErrorLevel } from '@zenith/shared/analytics';
+import { TOKEN_KEY } from '@arcbase/shared/core';
+import type { FrontendErrorType, ErrorLevel } from '@arcbase/shared/analytics';
 import { getBreadcrumbs } from './breadcrumbs';
 import { analyticsRequestHeaders } from './http';
 import { getActiveReplayId, notifyReplayTrigger } from './replay';
 import { analyticsStorageKey } from './runtime-config';
 import type { AnalyticsRuntimeBaseConfig } from './runtime-config';
 
-const SESSION_KEY = 'zenith_tracker_sid';
+const SESSION_KEY = 'arcbase_tracker_sid';
 let reportingPolicy = { ready: false, enabled: true, trackErrors: true, respectDnt: false };
 
 // ─── 运行时参数化（与 tracker.ts 的 configureTracker 单向同步，避免循环依赖）───

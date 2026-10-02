@@ -10,7 +10,7 @@ import {
   resolvePreferences,
   type PreferenceOverrides,
   type PreferencePolicy,
-} from '@zenith/shared/preferences';
+} from '@arcbase/shared/preferences';
 import type { PreferencesContextValue } from '@/hooks/usePreferences';
 import { PrefsAppearanceSection, PrefsGeneralSection, PrefsNavToolbarSection, PrefsTableSection, PrefsTabsSection } from '@/layouts/admin/PreferencesSections';
 import { PreferenceControl, PreferenceSection } from '@/components/settings/SettingRow';

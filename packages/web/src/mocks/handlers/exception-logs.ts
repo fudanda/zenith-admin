@@ -1,6 +1,6 @@
-import type { ErrorAlertLog, ErrorAlertRule, ErrorEvent, ErrorGroup, ServerErrorType } from '@zenith/shared/analytics';
-import { ERROR_LEVELS, SERVER_ERROR_TYPES } from '@zenith/shared/analytics';
-import { exceptionLogContract, type ExceptionGroupDetail, type ExceptionOverview } from '@zenith/shared/platform';
+import type { ErrorAlertLog, ErrorAlertRule, ErrorEvent, ErrorGroup, ServerErrorType } from '@arcbase/shared/analytics';
+import { ERROR_LEVELS, SERVER_ERROR_TYPES } from '@arcbase/shared/analytics';
+import { exceptionLogContract, type ExceptionGroupDetail, type ExceptionOverview } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem, updateItem } from '@/mocks/utils/crud';
 import { filterByKeyword, matchesFilter, withinDateRange } from '@/mocks/utils/filter';
@@ -16,7 +16,7 @@ const SAMPLES: Array<{ type: ServerErrorType; name: string; message: string; rou
   { type: 'job_failure', name: 'Error', message: '导出任务超时：等待数据库响应超过 30000ms', job: 'export' },
   { type: 'cron_failure', name: 'Error', message: 'connect ECONNREFUSED 127.0.0.1:6379', job: 'system:cache-warmup' },
   { type: 'event_failure', name: 'ZodError', message: 'Invalid payload for workflow.instance.approved', job: 'workflow.instance.approved' },
-  { type: 'process_crash', name: 'unhandledRejection', message: 'FATAL: too many connections for role "zenith"' },
+  { type: 'process_crash', name: 'unhandledRejection', message: 'FATAL: too many connections for role "arcbase"' },
   { type: 'logged_error', name: 'Error', message: '[sms] 供应商回调签名校验失败', job: 'sms:callback' },
 ];
 
@@ -97,7 +97,7 @@ function buildEvents(group: ErrorGroup, n: number): ErrorEvent[] {
       jobType: sample.job ?? null,
       jobId: sample.job ? String(500 + i) : null,
       processRole: sample.job ? 'worker' : 'api',
-      hostname: i % 2 === 0 ? 'zenith-api-1' : 'zenith-api-2',
+      hostname: i % 2 === 0 ? 'arcbase-api-1' : 'arcbase-api-2',
       pid: 4000 + (i % 2),
       affectedTenantId: i % 3 === 0 ? 1 : null,
       createdAt: mockDateTimeOffset(-i * 1800000),
@@ -149,7 +149,7 @@ export const exceptionLogHandlers = [
   mock(exceptionLogContract.overview, ({ ok }) => ok(overview())),
   mock(exceptionLogContract.reporterStatus, ({ ok }) => ok({
     enabled: true, captured: 128, stored: 120, countOnly: 6, dropped: 0, ignored: 2, flushFailures: 0, pending: 0, paused: false,
-    hostname: 'zenith-api-1', pid: 4000, processRole: 'api',
+    hostname: 'arcbase-api-1', pid: 4000, processRole: 'api',
   })),
 
   mock(exceptionLogContract.groups, ({ query, ok, paginate }) => {

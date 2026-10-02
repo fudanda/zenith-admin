@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { openApiStatsContract } from '@zenith/shared/open-platform';
+import { openApiStatsContract } from '@arcbase/shared/open-platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import {

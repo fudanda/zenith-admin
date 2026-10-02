@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { mpQrcodeContract } from '@zenith/shared/mp';
+import type { QueryOf } from '@arcbase/shared/core';
+import { mpQrcodeContract } from '@arcbase/shared/mp';
 import { createResourceQueries } from '@/lib/contract-query';
 
 export type MpQrcodeListParams = QueryOf<typeof mpQrcodeContract.list>;

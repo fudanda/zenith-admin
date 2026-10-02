@@ -6,8 +6,8 @@
  * 那样只有角色查看权的人就能读到部门成员。每个域的 `memberPreviewOp()` 在契约上声明自己的 `:list` 权限，
  * 才能保证「能看见这个列表页 = 能看这一列的成员」，前端也因此不需要任何额外权限判断。
  */
-import type { Bind } from '@zenith/shared/core';
-import type { memberPreviewOp } from '@zenith/shared/identity';
+import type { Bind } from '@arcbase/shared/core';
+import type { memberPreviewOp } from '@arcbase/shared/identity';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody } from '../../lib/openapi-schemas';
 import { listScopeMembers, type UserScopeType } from '../../services/identity/user-scope.service';

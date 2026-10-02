@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useLayoutEffect, use
 import type { CSSProperties, PointerEvent as ReactPointerEvent, ReactNode } from 'react';
 import { Button, Tooltip } from '@douyinfe/semi-ui';
 import { ArrowLeftRight } from 'lucide-react';
-import { clamp } from '@zenith/shared/core';
+import { clamp } from '@arcbase/shared/core';
 import './MasterDetailLayout.css';
 
 type Side = 'left' | 'right';

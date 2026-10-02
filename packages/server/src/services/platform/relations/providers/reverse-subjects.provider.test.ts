@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { HTTPException } from 'hono/http-exception';
-import type { CanonicalEntityType } from '@zenith/shared/platform';
+import type { CanonicalEntityType } from '@arcbase/shared/platform';
 import type { JwtPayload } from '../../../../middleware/auth';
 import type { RelationAccessContext, VisibleEntityAnchor } from '../types';
 

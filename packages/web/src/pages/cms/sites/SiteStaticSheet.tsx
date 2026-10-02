@@ -10,9 +10,9 @@ import AsyncTaskProgress from '@/components/AsyncTaskProgress';
 import { dateTimeColumn, renderEllipsis } from '@/utils/table-columns';
 import { useMyAsyncTasks } from '@/hooks/useAsyncTasks';
 import { useCmsSiteEffectiveConfig, useCmsStaticBuild } from '@/hooks/queries/cms';
-import { CMS_STATIC_MODE_LABELS } from '@zenith/shared/cms';
-import type { CmsSite } from '@zenith/shared/cms';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import { CMS_STATIC_MODE_LABELS } from '@arcbase/shared/cms';
+import type { CmsSite } from '@arcbase/shared/cms';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import { cmsPreviewUrl } from '../cms-preview-url';
 
 /** 站点静态化面板（SideSheet 打开时才挂载，任务列表轮询随关闭停止） */

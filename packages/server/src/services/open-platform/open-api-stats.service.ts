@@ -1,7 +1,7 @@
 import { gte, lte, eq, desc, sql, count, type SQL } from 'drizzle-orm';
 import dayjs from 'dayjs';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { openApiStatsContract } from '@zenith/shared/open-platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { openApiStatsContract } from '@arcbase/shared/open-platform';
 import { db } from '../../db';
 import { openApiCallLogs, openApiCallStatsDaily } from '../../db/schema';
 import { buildListResult } from '../../lib/list-query';

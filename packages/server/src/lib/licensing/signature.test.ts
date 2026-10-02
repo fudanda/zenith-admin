@@ -15,7 +15,7 @@ vi.mock('../../config', () => ({
 
 import { verifyLicenseEnvelope } from './signature';
 import { TEST_KEY_ID } from './keys';
-import { LICENSE_ALGORITHM, LICENSE_AUDIENCE, LICENSE_ENVELOPE_VERSION } from '@zenith/shared/licensing';
+import { LICENSE_ALGORITHM, LICENSE_AUDIENCE, LICENSE_ENVELOPE_VERSION } from '@arcbase/shared/licensing';
 
 /** 与 keys.ts TEST_PUBLIC_KEY_BASE64 配对的公开测试私钥（scripts/license-issue.ts 同源） */
 const TEST_PRIVATE_KEY_BASE64 = 'MC4CAQAwBQYDK2VwBCIEIGyZp5WDE++d2SWo6Ns/202nKFvDAhjDQiRAzHItJW0L';

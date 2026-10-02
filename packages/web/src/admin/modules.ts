@@ -1,7 +1,7 @@
-import type { Menu } from '@zenith/shared/identity';
-import type { ZenithAdminModule } from './types';
+import type { Menu } from '@arcbase/shared/identity';
+import type { ArcBaseAdminModule } from './types';
 import { useMemo } from 'react';
-import { integrationContract } from '@zenith/shared/integrations';
+import { integrationContract } from '@arcbase/shared/integrations';
 import { useAdminOptions } from './runtime';
 import { useApiQuery } from '@/lib/contract-query';
 
@@ -18,8 +18,8 @@ export function useMountedAdminModules() {
   return { modules: mounted, enabled, query };
 }
 
-/** Local host navigation uses negative IDs, keeping persisted Zenith IDs intact. */
-export function hostMenus(modules: readonly ZenithAdminModule[], permissions: readonly string[]): Menu[] {
+/** Local host navigation uses negative IDs, keeping persisted ArcBase IDs intact. */
+export function hostMenus(modules: readonly ArcBaseAdminModule[], permissions: readonly string[]): Menu[] {
   let id = -1;
   const allowed = (permission: string) => permissions.includes('*') || permissions.includes(permission);
   return modules.flatMap(module => {

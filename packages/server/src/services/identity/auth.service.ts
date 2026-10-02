@@ -19,9 +19,9 @@ import { lookupIpLocation } from '../../lib/ip-location';
 import { clampSmallint, truncateVarchar } from '../../lib/sanitize';
 import logger from '../../lib/logger';
 import { getSettings } from '../../lib/settings';
-import { validatePassword, type IdentitySecuritySettings, type SessionConcurrencyPolicy } from '@zenith/shared/settings';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { SESSION_CLIENT_KIND_LABELS, type authContract, type LoginEventType as SharedLoginEventType, type SessionClientKind, type UpdateProfileInput } from '@zenith/shared/identity';
+import { validatePassword, type IdentitySecuritySettings, type SessionConcurrencyPolicy } from '@arcbase/shared/settings';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { SESSION_CLIENT_KIND_LABELS, type authContract, type LoginEventType as SharedLoginEventType, type SessionClientKind, type UpdateProfileInput } from '@arcbase/shared/identity';
 import {
   clearMfaChallenge,
   createMfaChallenge,
@@ -869,7 +869,7 @@ export async function forgotPassword(email: string) {
     try {
       await sendMail(
         email,
-        '【Zenith Admin】密码重置',
+        '【ArcBase】密码重置',
         `<p>您好，${user.username}！</p>
   <p>我们收到了您的密码重置请求。请点击下方链接重置密码（链接 30 分钟内有效）：</p>
   <p><a href="${resetLink}">${resetLink}</a></p>

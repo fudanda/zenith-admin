@@ -3,7 +3,7 @@ import {
   iotAlarmContract, iotAlarmRuleContract, iotAutomationContract, iotBatchContract, iotDashboardContract,
   iotDeviceContract, iotDeviceGroupContract, iotFirmwareContract, iotForwardRuleContract, iotIngestContract,
   iotMaintenanceWindowContract, iotOtaTaskContract, iotProductContract, iotScheduleContract, iotWhitelistContract,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import { defineRouteDomain } from '../_kit';
 import iotProductsRoutes from './iot-products';
 import iotDevicesRoutes from './iot-devices';

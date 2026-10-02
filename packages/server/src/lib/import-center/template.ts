@@ -1,7 +1,7 @@
 /**
  * 导入模板生成：表头（必填标星）+ 枚举数据验证下拉 + 示例行 + 说明批注。
  */
-import type { ImportColumnMeta } from '@zenith/shared/tasks';
+import type { ImportColumnMeta } from '@arcbase/shared/tasks';
 
 export async function buildImportTemplate(title: string, columns: ImportColumnMeta[]): Promise<ArrayBuffer> {
   const { default: ExcelJS } = await import('exceljs');

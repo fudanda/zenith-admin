@@ -1,8 +1,8 @@
 import { canReadBusinessChainFixtures, mockBusinessChainItem, mockBusinessChainRefs, mockBusinessChainSections } from './entity-business-chains';
 import { mockIotBusinessEvents } from '@/mocks/data/entity-watch-events';
-import { canonicalEntityRefSchema, MANUAL_RELATION_CATALOG, type ManualRelationType } from '@zenith/shared/platform';
-import { ENTITY_RELATION_TYPES, SEARCH_TYPE_ENTITY_TYPES, entityRelationsContract, entityTimelineContract, globalSearchContract, type CanonicalEntityRef, type CanonicalEntityType, type EntityRelationItem, type EntityRelationSection, type GlobalSearchType, type GlobalSearchResult } from '@zenith/shared/platform';
-import type { TimelineEvent } from '@zenith/shared/core';
+import { canonicalEntityRefSchema, MANUAL_RELATION_CATALOG, type ManualRelationType } from '@arcbase/shared/platform';
+import { ENTITY_RELATION_TYPES, SEARCH_TYPE_ENTITY_TYPES, entityRelationsContract, entityTimelineContract, globalSearchContract, type CanonicalEntityRef, type CanonicalEntityType, type EntityRelationItem, type EntityRelationSection, type GlobalSearchType, type GlobalSearchResult } from '@arcbase/shared/platform';
+import type { TimelineEvent } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, forbidden, notFound, unauthorized } from '@/mocks/utils/handlers';
 import { currentMockSession, isMockPlatformAdmin, mockUserPermissions, type MockSession } from '@/mocks/utils/auth';
@@ -20,11 +20,11 @@ import dayjs from 'dayjs';
 import { mockAsyncTasks, mockAsyncTaskTerminalEvents } from './async-tasks';
 import { mockEntitySubjects, mockNotificationOutboxes, mockNotificationDispatches } from '@/mocks/data/entity-subjects';
 import { mockFinancialItem, mockFinancialRelationRefs, mockFinancialSections } from './entity-financial-relations';
-import { WORKFLOW_BUSINESS_ENTITY_TYPES } from '@zenith/shared/platform/workflow-business-catalog';
+import { WORKFLOW_BUSINESS_ENTITY_TYPES } from '@arcbase/shared/platform/workflow-business-catalog';
 import { mockBizLeaves } from '@/mocks/data/biz-leave';
 import { mockPaymentReconAdjustments } from './payment-ext';
 import { mockWorkflowAttachmentLinks, canReadMockWorkflowAttachmentForSession } from '@/mocks/utils/workflow-attachments';
-import { entityRelationRecordFilters, explainEntityRelation, normalizeEntityRelationFilters, supportsEntityRelationFilters } from '@zenith/shared/platform';
+import { entityRelationRecordFilters, explainEntityRelation, normalizeEntityRelationFilters, supportsEntityRelationFilters } from '@arcbase/shared/platform';
 import { includesKeyword, matchesFilter, withinDateRange } from '@/mocks/utils/filter';
 import { formatDateTime } from '@/utils/date';
 

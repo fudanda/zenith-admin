@@ -2,7 +2,7 @@
  * IoT 总览仪表盘、固件包与 OTA 升级任务。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { iotDashboardContract, iotFirmwareContract, iotOtaTaskContract } from '@zenith/shared/iot';
+import { iotDashboardContract, iotFirmwareContract, iotOtaTaskContract } from '@arcbase/shared/iot';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, errBody, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import { getIotDashboard } from '../../services/iot/iot-dashboard.service';

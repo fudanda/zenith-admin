@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { permissionMatrixContract } from '@zenith/shared/identity';
+import { permissionMatrixContract } from '@arcbase/shared/identity';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getUserPermissionSet, listRolePermissionSets } from '../../services/identity/permission-matrix.service';

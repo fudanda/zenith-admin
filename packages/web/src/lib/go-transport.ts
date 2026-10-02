@@ -1,8 +1,8 @@
-import { Client, type Method, type RequestOptions, type ApiEnvelope } from '@zenith/client';
-export { ClientError as GoTransportError, validateGoPath } from '@zenith/client';
-export type { ApiEnvelope as GoResponse } from '@zenith/client';
+import { Client, type Method, type RequestOptions, type ApiEnvelope } from '@arcbase/client';
+export { ClientError as GoTransportError, validateGoPath } from '@arcbase/client';
+export type { ApiEnvelope as GoResponse } from '@arcbase/client';
 
-export const GO_SESSION_INVALIDATED = 'zenith:go-session-invalidated';
+export const GO_SESSION_INVALIDATED = 'arcbase:go-session-invalidated';
 
 /** The Web host owns session notifications; transport lives in client. */
 export class GoTransport extends Client {
@@ -14,8 +14,8 @@ export class GoTransport extends Client {
 
   /** Original imperative page requests share the mounted host's client. */
   bind(client: Client): () => void {
-    if (this.binding) throw new Error('Only one ZenithAdmin can be mounted in a document');
-    if (client === this) throw new Error('ZenithAdmin needs a separate Client instance');
+    if (this.binding) throw new Error('Only one ArcBaseAdmin can be mounted in a document');
+    if (client === this) throw new Error('ArcBaseAdmin needs a separate Client instance');
     const binding = { client, abort: new AbortController() };
     this.binding = binding;
     const unsubscribe = client.subscribeUnauthorized(() => globalThis.dispatchEvent(new Event(GO_SESSION_INVALIDATED)));

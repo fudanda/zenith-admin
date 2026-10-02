@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import { HTTPException } from 'hono/http-exception';
-import type { SessionClientKind, SessionRevokeReason } from '@zenith/shared/identity';
+import type { SessionClientKind, SessionRevokeReason } from '@arcbase/shared/identity';
 import logger from './logger';
 import { errBody } from './openapi-schemas';
 import { getClientIp, getClientKind, getPlatformVersion, resolveRequestClient } from './request-helpers';

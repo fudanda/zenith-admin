@@ -9,7 +9,7 @@ import {
   resolveReportSecret,
 } from './report-secrets';
 import type { JwtPayload } from '../../middleware/auth';
-import type { ReportWidget, ReportWidgetDataResult } from '@zenith/shared/report';
+import type { ReportWidget, ReportWidgetDataResult } from '@arcbase/shared/report';
 
 const user = (userId: number, roles: string[] = ['viewer']): JwtPayload => ({
   userId,

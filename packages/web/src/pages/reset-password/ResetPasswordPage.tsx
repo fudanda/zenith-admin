@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Form, Button, Toast, Typography, Spin } from '@douyinfe/semi-ui';
 import { Lock, CheckCircle } from 'lucide-react';
 import { config } from '@/config';
-import { authContract } from '@zenith/shared/identity';
+import { authContract } from '@arcbase/shared/identity';
 import { api } from '@/lib/contract-query';
 import { ApiError } from '@/lib/query';
 import { PasswordStrengthMeter } from '@/components/PasswordStrengthMeter';

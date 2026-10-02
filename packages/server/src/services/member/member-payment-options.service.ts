@@ -1,6 +1,6 @@
 import { and, asc, eq } from 'drizzle-orm';
-import { PAYMENT_DEDUCT_METHODS, PAYMENT_METHOD_CHANNEL, PAYMENT_METHOD_LABELS } from '@zenith/shared/payment';
-import type { MemberPaymentApplicationOption } from '@zenith/shared/member';
+import { PAYMENT_DEDUCT_METHODS, PAYMENT_METHOD_CHANNEL, PAYMENT_METHOD_LABELS } from '@arcbase/shared/payment';
+import type { MemberPaymentApplicationOption } from '@arcbase/shared/member';
 import { db } from '../../db';
 import { paymentApps, paymentChannelConfigs } from '../../db/schema';
 import { currentMember } from '../../lib/member-context';

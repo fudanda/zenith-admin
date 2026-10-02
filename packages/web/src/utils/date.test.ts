@@ -151,7 +151,7 @@ describe('stripHtml', () => {
   });
 
   it('解析恶意 HTML 时不执行脚本、不触发事件处理器（惰性 DOMParser 文档）', () => {
-    const marker = '__zenith_strip_html_xss__';
+    const marker = '__arcbase_strip_html_xss__';
     (globalThis as Record<string, unknown>)[marker] = false;
     const text = stripHtml(`<img src=x onerror="globalThis['${marker}']=true"><script>globalThis['${marker}']=true</script>safe`);
     expect(text).toBe('safe');

@@ -1,4 +1,4 @@
-import { apiTokenContract, authContract, impersonationContract } from '@zenith/shared/identity';
+import { apiTokenContract, authContract, impersonationContract } from '@arcbase/shared/identity';
 import type { ImpersonationClaim } from '../middleware/auth';
 
 const WRITE_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);

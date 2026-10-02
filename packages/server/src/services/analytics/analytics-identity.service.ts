@@ -17,7 +17,7 @@ import { exactTenantCondition } from '../../lib/tenant';
 import { db } from '../../db';
 import { analyticsIdentityMap, analyticsSessions, analyticsUserProfiles, userEvents } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';
-import type { AnalyticsIdentityType } from '@zenith/shared/analytics';
+import type { AnalyticsIdentityType } from '@arcbase/shared/analytics';
 import logger from '../../lib/logger';
 
 export interface IdentityBinding {

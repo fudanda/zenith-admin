@@ -6,7 +6,7 @@
  * Webhook 打 5 次。调用方需要显式传入
  * `{ type: 'external', channel: 'webhook', address: url }`。
  */
-import type { NotificationRecipient } from '@zenith/shared/messaging';
+import type { NotificationRecipient } from '@arcbase/shared/messaging';
 import { httpPost } from '../../http-client';
 import type { DeliveryContext, DeliveryResult, NotificationChannelAdapter } from '../types';
 

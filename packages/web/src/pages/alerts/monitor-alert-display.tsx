@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Tag } from '@douyinfe/semi-ui';
-import { NOTIFY_CHANNEL_LABELS } from '@zenith/shared/messaging';
-import type { MonitorMetric } from '@zenith/shared/platform';
+import { NOTIFY_CHANNEL_LABELS } from '@arcbase/shared/messaging';
+import type { MonitorMetric } from '@arcbase/shared/platform';
 import { FilterSelect } from '@/components/search-filters';
 import {
   MONITOR_ALERT_LEVEL_CONFIG as LEVEL_CONFIG,

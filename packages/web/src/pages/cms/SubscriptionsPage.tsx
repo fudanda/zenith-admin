@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
 import { SideSheet, TabPane, Tabs, Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { CMS_SUBSCRIPTION_SUBJECT_TYPE_LABELS, CMS_SUBSCRIPTION_SUBJECT_TYPE_OPTIONS } from '@zenith/shared/cms';
-import type { CmsMemberSubscription, CmsSubscriptionAggregate, CmsSubscriptionSubjectType } from '@zenith/shared/cms';
+import { CMS_SUBSCRIPTION_SUBJECT_TYPE_LABELS, CMS_SUBSCRIPTION_SUBJECT_TYPE_OPTIONS } from '@arcbase/shared/cms';
+import type { CmsMemberSubscription, CmsSubscriptionAggregate, CmsSubscriptionSubjectType } from '@arcbase/shared/cms';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import ExportButton from '@/components/ExportButton';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

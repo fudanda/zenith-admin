@@ -21,15 +21,15 @@ import {
   useQueryPaymentTransfer,
   useRejectPaymentTransfer,
 } from '@/hooks/queries/payment-transfers';
-import { enumValueOf } from '@zenith/shared/core';
-import { PAYMENT_CHANNEL_OPTIONS, PAYMENT_CHANNELS, PAYMENT_TRANSFER_APPROVAL_STATUS_LABELS, PAYMENT_TRANSFER_APPROVAL_STATUSES, PAYMENT_TRANSFER_STATUS_LABELS, PAYMENT_TRANSFER_STATUS_OPTIONS, PAYMENT_TRANSFER_STATUSES, PAYMENT_TRANSFER_APPROVAL_STATUS_OPTIONS } from '@zenith/shared/payment';
+import { enumValueOf } from '@arcbase/shared/core';
+import { PAYMENT_CHANNEL_OPTIONS, PAYMENT_CHANNELS, PAYMENT_TRANSFER_APPROVAL_STATUS_LABELS, PAYMENT_TRANSFER_APPROVAL_STATUSES, PAYMENT_TRANSFER_STATUS_LABELS, PAYMENT_TRANSFER_STATUS_OPTIONS, PAYMENT_TRANSFER_STATUSES, PAYMENT_TRANSFER_APPROVAL_STATUS_OPTIONS } from '@arcbase/shared/payment';
 import type {
   CreatePaymentTransferInput,
   PaymentChannel,
   PaymentTransfer,
   PaymentTransferApprovalStatus,
   PaymentTransferStatus,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { FilterSelect, KeywordInput, StatusSelect } from '@/components/search-filters';
 import { PaymentChannelTag } from './payment-display';

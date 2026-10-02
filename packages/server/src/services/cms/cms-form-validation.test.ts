@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { performance } from 'node:perf_hooks';
-import { createCmsFormSchema } from '@zenith/shared/cms';
-import type { CmsFormField } from '@zenith/shared/cms';
+import { createCmsFormSchema } from '@arcbase/shared/cms';
+import type { CmsFormField } from '@arcbase/shared/cms';
 import { compileCmsFormPattern } from './cms-form-pattern';
 import { validateCmsFormFields } from './cms-form-validation';
 

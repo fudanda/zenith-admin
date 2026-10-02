@@ -9,7 +9,7 @@
  */
 
 /* ── 底部播放条容器 ───────────────────────────────────────────── */
-.zenith-audio-dock {
+.arcbase-audio-dock {
   position: fixed;
   inset-inline: 0;
   bottom: 0;
@@ -19,15 +19,15 @@
   /* stylelint-disable-next-line declaration-property-value-disallowed-list -- 底部停靠栏的上缘方向投影，elevated 方向不适用 */
   box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
   padding: 10px 24px;
-  animation: zenith-audio-dock-in 0.22s ease;
+  animation: arcbase-audio-dock-in 0.22s ease;
 }
 
-@keyframes zenith-audio-dock-in {
+@keyframes arcbase-audio-dock-in {
   from { transform: translateY(100%); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
-.zenith-audio-dock__inner {
+.arcbase-audio-dock__inner {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -35,12 +35,12 @@
   margin: 0 auto;
 }
 
-.zenith-audio-dock__player {
+.arcbase-audio-dock__player {
   flex: 1 1 auto;
   min-width: 0;
 }
 
-.zenith-audio-dock__close {
+.arcbase-audio-dock__close {
   flex-shrink: 0;
   width: 32px;
   height: 32px;
@@ -55,20 +55,20 @@
   transition: background 0.15s ease, color 0.15s ease;
 }
 
-.zenith-audio-dock__close:hover {
+.arcbase-audio-dock__close:hover {
   background: var(--semi-color-fill-2);
   color: var(--semi-color-text-0);
 }
 
 /* ── 播放器自适应铺满播放条 ───────────────────────────────────── */
-.zenith-audio-preview.semi-audio-player {
+.arcbase-audio-preview.semi-audio-player {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
 }
 
 /* 在底部播放条内让播放器背景透明、去掉边框，与播放条融为一体 */
-.zenith-audio-dock .zenith-audio-preview.semi-audio-player {
+.arcbase-audio-dock .arcbase-audio-preview.semi-audio-player {
   background: transparent;
   border: none;
   height: auto;
@@ -78,39 +78,39 @@
  * 关键：播放器自带的文字/图标色基于 --semi-color-bg-0（暗色模式下≈纯黑），
  * 背景透明后会糊在深色播放条上不可读。统一改用语义文字色，明暗主题均清晰。
  */
-.zenith-audio-dock .semi-audio-player-info-title {
+.arcbase-audio-dock .semi-audio-player-info-title {
   color: var(--semi-color-text-0);
 }
 
-.zenith-audio-dock .semi-audio-player-info-time {
+.arcbase-audio-dock .semi-audio-player-info-time {
   color: var(--semi-color-text-2);
 }
 
-.zenith-audio-dock .semi-audio-player-control-button-icon {
+.arcbase-audio-dock .semi-audio-player-control-button-icon {
   color: var(--semi-color-text-1);
 }
 
 /* 播放键改用主色实心圆，明暗主题都醒目、对比清晰 */
-.zenith-audio-dock .semi-audio-player-control-button-play {
+.arcbase-audio-dock .semi-audio-player-control-button-play {
   background: var(--semi-color-primary) !important;
   color: #fff !important;
 }
 
-.zenith-audio-dock .semi-audio-player-control-button-play:hover {
+.arcbase-audio-dock .semi-audio-player-control-button-play:hover {
   background: var(--semi-color-primary-hover) !important;
 }
 
-.zenith-audio-preview .semi-audio-player-info-container,
-.zenith-audio-preview .semi-audio-player-info {
+.arcbase-audio-preview .semi-audio-player-info-container,
+.arcbase-audio-preview .semi-audio-player-info {
   flex: 1 1 auto;
   min-width: 0;
 }
 
-.zenith-audio-preview .semi-audio-player-info-time {
+.arcbase-audio-preview .semi-audio-player-info-time {
   width: 100%;
 }
 
-.zenith-audio-preview .semi-audio-player-slider-container {
+.arcbase-audio-preview .semi-audio-player-slider-container {
   flex: 1 1 auto;
   width: auto;
   min-width: 0;

@@ -1,6 +1,6 @@
 import { redactWorkflowSignatureImages } from '../../../services/workflow/instances/signature-audit';
 // ─── 实例生命周期：创建/撤回/取消/删除/草稿/重新提交 ───
-import { workflowInstanceContract } from '@zenith/shared/workflow';
+import { workflowInstanceContract } from '@arcbase/shared/workflow';
 import { setAuditAfterData, setAuditBeforeData } from '../../../middleware/guard';
 import { idempotencyGuard } from '../../../middleware/idempotency';
 import { defineContractRoute } from '../../../lib/contract-route';

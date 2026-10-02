@@ -2,7 +2,7 @@ import { runWorkflowJobStep } from '../steps';
 import { markWorkflowExternalEffect, throwIfWorkflowExternalEffectUncertain } from '../external-effects';
 import { currentWorkflowJobContext } from '../execution-context';
 import { eq } from 'drizzle-orm';
-import type { WorkflowCompensationAction } from '@zenith/shared/workflow';
+import type { WorkflowCompensationAction } from '@arcbase/shared/workflow';
 import { db } from '../../../db';
 import { workflowInstances, smsConfigs, smsTemplates } from '../../../db/schema';
 import { invokeConnector, getConnectorRowById } from '../../../services/workflow/workflow-connectors.service';

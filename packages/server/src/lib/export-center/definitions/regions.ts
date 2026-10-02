@@ -1,7 +1,7 @@
 import { defineExport } from '../registry';
 import { RETENTION_7_DAYS, STATUS_ENUM_MAP } from '../presets';
 import { asString } from '../query-normalize';
-import { REGION_LEVEL_LABELS, matchesRegionFilter } from '@zenith/shared/platform';
+import { REGION_LEVEL_LABELS, matchesRegionFilter } from '@arcbase/shared/platform';
 import { listRegionsFlat } from '../../../services/platform/regions.service';
 import type { ExportColumn } from '../types';
 

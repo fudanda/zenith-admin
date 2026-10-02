@@ -12,9 +12,9 @@
  */
 import { randomBytes } from 'node:crypto';
 import { HTTPException } from 'hono/http-exception';
-import { SESSION_CLIENT_KIND_LABELS, type ConflictingSession, type SessionClientKind } from '@zenith/shared/identity';
-import type { SessionForceLogoutPayload } from '@zenith/shared/platform';
-import type { SessionConcurrencyPolicy } from '@zenith/shared/settings';
+import { SESSION_CLIENT_KIND_LABELS, type ConflictingSession, type SessionClientKind } from '@arcbase/shared/identity';
+import type { SessionForceLogoutPayload } from '@arcbase/shared/platform';
+import type { SessionConcurrencyPolicy } from '@arcbase/shared/settings';
 import { formatDateTime } from '../../lib/datetime';
 import redis from '../../lib/redis';
 import { listUserSessions, revokeSessions, type SessionInfo } from '../../lib/session-manager';

@@ -12,7 +12,7 @@
  *   只有 worker 角色做。api 角色的 boss 是「只发不执行」实例（supervise / schedule 关闭、小连接池）。
  * 例外：`forceLocal` 的系统队列 worker（节点亲和的任务中心队列）在任何角色都激活。
  */
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { PgBoss, type JobWithMetadata, type Queue, type QueueOptions, type SendOptions, type Warning } from 'pg-boss';
 import { eq, and, gte, inArray, isNull, or, desc, notInArray, sql, type SQL } from 'drizzle-orm';
 import { db } from '../db';
@@ -24,9 +24,9 @@ import { config } from '../config';
 import { PROCESS_HOSTNAME, PROCESS_ID, PROCESS_PID } from './process-identity';
 import { captureException } from './error-tracking/reporter';
 import { dispatchAlertChannels } from './alert-dispatch';
-import type { SystemSchedulerAlertChannel } from '@zenith/shared/chat';
-import type { CronRunStatus, CronRunTrigger, ProcessRole, SystemSchedulerTaskBase, SystemSchedulerTaskType, SystemSchedulerRunStatus, SystemSchedulerTriggerType } from '@zenith/shared/platform';
-import { CRON_HEALTH_RULES, SCHEDULER_WARNING_SEVERE_TYPES, schedulerWarningLabel, toMinuteCron } from '@zenith/shared/platform';
+import type { SystemSchedulerAlertChannel } from '@arcbase/shared/chat';
+import type { CronRunStatus, CronRunTrigger, ProcessRole, SystemSchedulerTaskBase, SystemSchedulerTaskType, SystemSchedulerRunStatus, SystemSchedulerTriggerType } from '@arcbase/shared/platform';
+import { CRON_HEALTH_RULES, SCHEDULER_WARNING_SEVERE_TYPES, schedulerWarningLabel, toMinuteCron } from '@arcbase/shared/platform';
 import { notify } from '../services/messaging/notification-outbox.service';
 
 /** 定时任务失败 → 推送告警卡片给任务创建者（无则推给系统管理员） */
@@ -101,7 +101,7 @@ export function schedulerExecutesJobs(): boolean {
 /** 只允许 worker 角色调用的入口（孤儿清理 / 队列对账）：api 误调用会删掉别的进程正在服务的声明 */
 function assertExecutesJobs(operation: string): void {
   if (!schedulerExecutesJobs()) {
-    throw new Error(`pg-boss: ${operation} 只能在 worker 角色执行（当前 ZENITH_ROLES=${config.roles.label}）`);
+    throw new Error(`pg-boss: ${operation} 只能在 worker 角色执行（当前 ARCBASE_ROLES=${config.roles.label}）`);
   }
 }
 

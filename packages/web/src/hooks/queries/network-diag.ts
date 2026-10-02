@@ -1,4 +1,4 @@
-import { networkDiagContract, type NetDiagStreamType } from '@zenith/shared/ops';
+import { networkDiagContract, type NetDiagStreamType } from '@arcbase/shared/ops';
 import { urlOf, useApiMutation } from '@/lib/contract-query';
 
 /** 诊断均为一次性查询（不进缓存），故以 mutation 形态暴露；变量即契约输入（`{ query }` / `{ body }`） */

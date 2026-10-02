@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 报表数据集 CRUD：映射、存在性/全局可求值校验、增删改查、复制、批量状态与血缘引用收集。
  * 对外统一经 report-dataset.service.ts facade 暴露。
@@ -40,9 +40,9 @@ import {
 } from './report-resource.service';
 import { assertMaterializable, normalizeDatasetContent, normalizeIdentifier } from './report-dataset-shared';
 import { clearDatasetCache } from './report-dataset-execution.service';
-import { isSqlLikeType, reportDatasetContract, reportDatasetSchema } from '@zenith/shared/report';
+import { isSqlLikeType, reportDatasetContract, reportDatasetSchema } from '@arcbase/shared/report';
 import type { ReportDatasetRow } from '../../db/schema';
-import type { ReportDataset, ReportField, ReportDatasetContent, ReportDatasetParam, ReportDatasourceType, ReportComputedField, ReportDatasetMaterialize, ReportRowRule, ReportDatasetRefs, ReportWidget, ReportFilter, ReportSqlDatasetContent, ReportDashboardSnapshot, ReportPrintContent, ReportLookupOption, CreateReportDatasetInput, UpdateReportDatasetInput } from '@zenith/shared/report';
+import type { ReportDataset, ReportField, ReportDatasetContent, ReportDatasetParam, ReportDatasourceType, ReportComputedField, ReportDatasetMaterialize, ReportRowRule, ReportDatasetRefs, ReportWidget, ReportFilter, ReportSqlDatasetContent, ReportDashboardSnapshot, ReportPrintContent, ReportLookupOption, CreateReportDatasetInput, UpdateReportDatasetInput } from '@arcbase/shared/report';
 import { pickEntity } from '../../lib/entity-map';
 
 type DatasetRowWithDs = ReportDatasetRow & {

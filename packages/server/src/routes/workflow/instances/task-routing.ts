@@ -1,6 +1,6 @@
 import { redactWorkflowSignatureImages } from '../../../services/workflow/instances/signature-audit';
 // ─── 任务流转：转办/委派/加签/减签/退回 ───
-import { workflowTaskContract } from '@zenith/shared/workflow';
+import { workflowTaskContract } from '@arcbase/shared/workflow';
 import { setAuditAfterData, setAuditBeforeData } from '../../../middleware/guard';
 import { idempotencyGuard } from '../../../middleware/idempotency';
 import { defineContractRoute } from '../../../lib/contract-route';

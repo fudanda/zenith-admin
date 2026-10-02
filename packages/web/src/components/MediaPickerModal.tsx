@@ -3,7 +3,7 @@ import { FileText, UploadCloud } from 'lucide-react';
 import { AppModal } from '@/components/AppModal';
 import { fileKeys, useFileList, useUploadFile } from '@/hooks/queries/files';
 import { useListSearch } from '@/hooks/useListSearch';
-import type { ManagedFile } from '@zenith/shared/platform';
+import type { ManagedFile } from '@arcbase/shared/platform';
 import { SearchButton } from '@/components/toolbar-controls';
 import { KeywordInput } from '@/components/search-filters';
 import { useFilterQuery } from '@/hooks/useFilterQuery';

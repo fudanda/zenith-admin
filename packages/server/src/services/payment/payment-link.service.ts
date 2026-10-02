@@ -1,5 +1,5 @@
-import { paymentLinkContract, paymentLinkSchema, paymentLinkPublicSchema } from '@zenith/shared/payment';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { paymentLinkContract, paymentLinkSchema, paymentLinkPublicSchema } from '@arcbase/shared/payment';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 支付链接/收款码 Service。
  * 后台生成可分享的收款链接（固定/用户填写金额，可限次/限时），
@@ -19,8 +19,8 @@ import { buildWhere, keywordCondition } from '../../lib/where-helpers';
 import { parseDateTimeInput } from '../../lib/datetime';
 import { createPayment } from './payment.service';
 import { bindCashierSession, bindCashierSessionAfterCreateFailure, buildCashierSessionExpiry, createCashierSession, failCashierSession, getPublicCashierSession, releaseExpiredCashierUseSlots } from './payment-cashier-session.service';
-import type { CreatePaymentLinkInput, UpdatePaymentLinkInput } from '@zenith/shared/payment';
-import type { PaymentCashierSession, PaymentLink, PaymentLinkPublic, PaymentLinkStatus, PaymentMethod, PaymentCashierMethod } from '@zenith/shared/payment';
+import type { CreatePaymentLinkInput, UpdatePaymentLinkInput } from '@arcbase/shared/payment';
+import type { PaymentCashierSession, PaymentLink, PaymentLinkPublic, PaymentLinkStatus, PaymentMethod, PaymentCashierMethod } from '@arcbase/shared/payment';
 import { assertEffectiveCashierMethod, listEffectiveCashierMethods } from './payment-cashier-capability.service';
 import logger from '../../lib/logger';
 import { pickEntity } from '../../lib/entity-map';

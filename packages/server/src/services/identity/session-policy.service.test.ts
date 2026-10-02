@@ -6,7 +6,7 @@
  * `findConflictingSessions` 只在拒绝模式且名额已满时返回占用者。
  */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { SessionConcurrencyPolicy } from '@zenith/shared/settings';
+import type { SessionConcurrencyPolicy } from '@arcbase/shared/settings';
 import type { SessionInfo } from '../../lib/session-manager';
 
 const mocks = vi.hoisted(() => ({

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { analyzeWorkflowHealth } from './workflow-health';
-import type { WorkflowFlowData } from '@zenith/shared/workflow';
+import type { WorkflowFlowData } from '@arcbase/shared/workflow';
 
 /** 构造一个含网关条件 + 静态审批人的最小流程，用于校验 3D 增强（类型兼容 + 审批人可用性）。 */
 function buildFlow(): WorkflowFlowData {

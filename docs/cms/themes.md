@@ -83,7 +83,7 @@ themes/
 | 容器岛 | `follow`、`likes`、`comments`、`captcha`、`survey/**`、`article-tools` | 每个岛只读自身容器上的 `data-*`，找不到期望元素时静默 no-op |
 | 页面岛 | `analytics`、`ads` | 无容器、每页运行一次；配置来自 `SeoHead` 输出的 `<meta name="cms-site" / "cms-analytics-key" / "cms-content-id">` |
 | 共享件 | `islands/shared/` | 会员 token 读取与登录跳转、`fetch` + 鉴权头 + `code` 判定、meta 读取 |
-| 类型检查 / 测试 | `tsconfig.islands.json`（lib DOM，`npm run lint` 内）、`*.test.ts`（`// @vitest-environment jsdom`） | 与服务端 tsc 隔离；类型可仅类型导入 `@zenith/shared/cms` 契约 |
+| 类型检查 / 测试 | `tsconfig.islands.json`（lib DOM，`npm run lint` 内）、`*.test.ts`（`// @vitest-environment jsdom`） | 与服务端 tsc 隔离；类型可仅类型导入 `@arcbase/shared/cms` 契约 |
 
 **交付**：`scripts/build-islands.mjs` 用 esbuild 打成单个 ESM（生产预构建到 `dist/cms/islands/islands.js`；开发 / 测试由
 `themes/islands-asset.ts` 按源码 mtime 在内存中按需构建，改岛源码刷新即生效）。渲染管线以内容指纹外链

@@ -4,7 +4,7 @@ import { workflowQuickPhrases } from '../../db/schema';
 import { HTTPException } from 'hono/http-exception';
 import { currentUser } from '../../lib/context';
 import { tenantCondition, getCreateTenantId } from '../../lib/tenant';
-import { workflowQuickPhraseSchema, type WorkflowQuickPhrase, type CreateWorkflowQuickPhraseInput, type UpdateWorkflowQuickPhraseInput } from '@zenith/shared/workflow';
+import { workflowQuickPhraseSchema, type WorkflowQuickPhrase, type CreateWorkflowQuickPhraseInput, type UpdateWorkflowQuickPhraseInput } from '@arcbase/shared/workflow';
 import { requireRow } from '../../lib/db-assert';
 import { buildWhere } from '../../lib/where-helpers';
 import { pickEntity } from '../../lib/entity-map';

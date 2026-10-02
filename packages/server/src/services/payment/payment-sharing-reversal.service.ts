@@ -1,9 +1,9 @@
-import { paymentSharingContract } from '@zenith/shared/payment';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { paymentSharingContract } from '@arcbase/shared/payment';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { createHash, randomUUID } from 'node:crypto';
 import { and, desc, eq, inArray, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { PaymentSharingReversal } from '@zenith/shared/payment';
+import type { PaymentSharingReversal } from '@arcbase/shared/payment';
 import { db } from '../../db';
 import { buildListResult } from '../../lib/list-query';
 import { paymentOrders, paymentChannelConfigs, paymentSharingOrders, paymentSharingReversals, type PaymentOrderRow, type PaymentSharingOrderRow, type PaymentSharingReversalRow } from '../../db/schema';

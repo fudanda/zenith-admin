@@ -1,5 +1,5 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { wikiGovernanceContract, type WikiGovernanceKind } from '@zenith/shared/wiki';
+import { wikiGovernanceContract, type WikiGovernanceKind } from '@arcbase/shared/wiki';
 import { useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { wikiDocKeys, wikiDocTreeKeys } from './wiki-docs';
 import { wikiGovernanceKeys, wikiStatsKeys, type WikiGovernanceDocListParams } from './wiki-query-keys';

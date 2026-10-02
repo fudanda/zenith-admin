@@ -1,8 +1,8 @@
 /**
- * @zenith/shared/core 通用字符串 / 数值 / 树形工具单测（shared 包自身不带测试运行器，由 server 侧覆盖）。
+ * @arcbase/shared/core 通用字符串 / 数值 / 树形工具单测（shared 包自身不带测试运行器，由 server 侧覆盖）。
  */
 import { describe, expect, it } from 'vitest';
-import { buildTree, clamp, escapeHtml, escapeRegExp, formatBytes, mapTree } from '@zenith/shared/core';
+import { buildTree, clamp, escapeHtml, escapeRegExp, formatBytes, mapTree } from '@arcbase/shared/core';
 
 describe('escapeHtml', () => {
   it('转义 HTML 文本与属性中的全部特殊字符', () => {

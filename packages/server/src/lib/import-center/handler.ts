@@ -13,7 +13,7 @@ import { currentUser } from '../context';
 import { getImportDefinition } from './registry';
 import { parseImportWorkbook, type ParsedImportRow } from './parser';
 import { DEFAULT_MAX_ROWS, IMPORT_TASK_TYPE, IMPORT_PREVIEW_TASK_TYPE } from './types';
-import type { ImportColumnMeta } from '@zenith/shared/tasks';
+import type { ImportColumnMeta } from '@arcbase/shared/tasks';
 
 interface FailedRow {
   rowNum: number;

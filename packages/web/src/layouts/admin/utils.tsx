@@ -1,6 +1,6 @@
 import { Badge } from '@douyinfe/semi-ui';
-import type { Menu } from '@zenith/shared/identity';
-import type { InAppMessage, Announcement } from '@zenith/shared/messaging';
+import type { Menu } from '@arcbase/shared/identity';
+import type { InAppMessage, Announcement } from '@arcbase/shared/messaging';
 import { renderLucideIcon } from '@/utils/icons';
 
 export function getMenuIcon(iconName?: string): React.ReactNode {

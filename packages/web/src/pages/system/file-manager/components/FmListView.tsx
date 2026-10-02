@@ -11,7 +11,7 @@ import { isArchive, isEditableFile } from '../fs-utils';
 import type { EntryActions } from '../entry-actions';
 import type { ClipOp, FsEntry, SortField, SortState } from '../types';
 import { dateTimeColumn, EMPTY_PLACEHOLDER } from '@/utils/table-columns';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 // Table 虚拟滚动：ConfigurableTable 有工具栏（约36px）+ 表头（约37px）= 73px
 const VIRTUAL_ITEM_HEIGHT = 40;

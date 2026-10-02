@@ -8,7 +8,7 @@ import { HTTPException } from 'hono/http-exception';
 import { httpGet, httpPost } from '../http-client';
 import { formatDateTime } from '../datetime';
 import logger from '../logger';
-import type { CreatePaymentResult } from '@zenith/shared/payment';
+import type { CreatePaymentResult } from '@arcbase/shared/payment';
 import { rsaSign, rsaVerify, ensurePem, type RsaAlgorithm } from './signing';
 import { trySandboxNotify } from './sandbox-notify';
 import { ALIPAY_PROVIDER_MANIFEST } from './capabilities';

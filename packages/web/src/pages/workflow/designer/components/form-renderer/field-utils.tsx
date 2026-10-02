@@ -5,7 +5,7 @@
 import type { ReactNode } from 'react';
 import { Space } from '@douyinfe/semi-ui';
 import dayjs from 'dayjs';
-import type { WorkflowFormField, WorkflowFormFieldColumn, WorkflowFormFieldOptionItem, WorkflowFormCascaderNode } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormFieldColumn, WorkflowFormFieldOptionItem, WorkflowFormCascaderNode } from '@arcbase/shared/workflow';
 
 export const PHONE_REGEX = /^1[3-9]\d{9}$/;
 export const EMAIL_REGEX = /^[\w.+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;

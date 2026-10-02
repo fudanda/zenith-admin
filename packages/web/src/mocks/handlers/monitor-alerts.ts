@@ -4,7 +4,7 @@ import {
   type MonitorAlertEvent,
   type MonitorAlertHandleStatus,
   type MonitorAlertRule,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 import { mockDateTime, mockDateTimeOffset } from '../utils/date';

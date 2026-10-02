@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { analyticsHandlers } from '@/mocks/handlers/analytics';
-import { ANALYTICS_SITE_KEY_HEADER, analyticsContract, analyticsSiteContract } from '@zenith/shared/analytics';
-import type { ApiResponse, OutputOf } from '@zenith/shared/core';
+import { ANALYTICS_SITE_KEY_HEADER, analyticsContract, analyticsSiteContract } from '@arcbase/shared/analytics';
+import type { ApiResponse, OutputOf } from '@arcbase/shared/core';
 
 const ORIGIN = window.location.origin;
 async function call<T = unknown>(method: string, path: string, body?: unknown, headers?: Record<string, string>): Promise<ApiResponse<T>> {

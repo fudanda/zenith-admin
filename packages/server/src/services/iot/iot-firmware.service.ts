@@ -1,5 +1,5 @@
-import { iotFirmwareContract, iotFirmwareSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotFirmwareContract, iotFirmwareSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 固件包管理：产品维度版本 + 托管文件（生成文件通道，服务端计算 sha256）。
  *
@@ -10,8 +10,8 @@ import { HTTPException } from 'hono/http-exception';
 import { createHash } from 'node:crypto';
 import { and, count, desc, eq, inArray, type SQL } from 'drizzle-orm';
 import * as z from 'zod';
-import type { InitIotFirmwareUploadInput, UpdateIotFirmwareInput } from '@zenith/shared/iot';
-import { IOT_FIRMWARE_VERSION_PATTERN } from '@zenith/shared/iot';
+import type { InitIotFirmwareUploadInput, UpdateIotFirmwareInput } from '@arcbase/shared/iot';
+import { IOT_FIRMWARE_VERSION_PATTERN } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import { iotFirmwares, iotOtaTasks, iotProducts, type IotFirmwareRow } from '../../db/schema';
 import { requireFirstRow } from '../../lib/db-assert';

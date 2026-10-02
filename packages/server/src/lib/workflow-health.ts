@@ -7,11 +7,11 @@
  *  - branch    分支覆盖（网关默认分支缺失 / 条件重叠 / 死路 / 路由字段缺失）
  *  - timeout   超时/SLA 策略完整性（审批节点是否配置超时提醒）
  */
-import type { WorkflowDefinitionBranchCoverageItem, WorkflowDefinitionHealthCheckItem, WorkflowDefinitionHealthIssue, WorkflowDefinitionHealthReport, WorkflowEdge, WorkflowEdgeCondition, WorkflowFlowData, WorkflowNodeConfig } from '@zenith/shared/workflow';
+import type { WorkflowDefinitionBranchCoverageItem, WorkflowDefinitionHealthCheckItem, WorkflowDefinitionHealthIssue, WorkflowDefinitionHealthReport, WorkflowEdge, WorkflowEdgeCondition, WorkflowFlowData, WorkflowNodeConfig } from '@arcbase/shared/workflow';
 import { edgeHasCondition, validateFlowData } from './workflow-engine';
 import { validateExpression } from './workflow-expression';
 import { formatDateTime } from './datetime';
-import { clamp } from '@zenith/shared/core';
+import { clamp } from '@arcbase/shared/core';
 
 /** 审批人/条件表达式可引用的根变量（form=表单字段，starter=发起人上下文） */
 const EXPR_ROOTS = ['form', 'starter'];

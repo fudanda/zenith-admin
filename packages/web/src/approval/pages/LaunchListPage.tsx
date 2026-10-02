@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Empty, Skeleton, Tag } from '@douyinfe/semi-ui';
 import { ChevronLeft, ChevronRight, Clock, Monitor } from 'lucide-react';
-import type { WorkflowDefinition } from '@zenith/shared/workflow';
+import type { WorkflowDefinition } from '@arcbase/shared/workflow';
 import { canLaunchOnMobile } from '../lib/launch';
 import { getRecentDefinitionIds } from '../lib/recent';
 import { usePublishedDefinitions } from '../lib/queries';

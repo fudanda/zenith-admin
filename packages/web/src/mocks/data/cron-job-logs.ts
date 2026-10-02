@@ -1,4 +1,4 @@
-import type { CronJobLog, CronRunTrigger } from '@zenith/shared/platform';
+import type { CronJobLog, CronRunTrigger } from '@arcbase/shared/platform';
 import { mockCronJobs } from '@/mocks/data/system';
 import { mockDateTime } from '@/mocks/utils/date';
 

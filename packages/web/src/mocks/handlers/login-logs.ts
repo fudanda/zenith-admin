@@ -1,4 +1,4 @@
-import { loginLogContract } from '@zenith/shared/identity';
+import { loginLogContract } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { removeWhere } from '@/mocks/utils/array';
 import { mockLoginLogs } from '@/mocks/data/logs';

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, type ReactNode } from 'react';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 import { useSession } from './provider';
 
 export function usePermission() {

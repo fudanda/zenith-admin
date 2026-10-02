@@ -1,4 +1,4 @@
-import { memberFulfillmentContract } from '@zenith/shared/member';
+import { memberFulfillmentContract } from '@arcbase/shared/member';
 import { useApiQuery } from '@/lib/contract-query';
 
 export function useMemberWalletTransactionDetail(id: number | null) {

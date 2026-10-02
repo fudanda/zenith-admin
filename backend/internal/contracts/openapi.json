@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Zenith Go foundation verified operations",
+    "title": "ArcBase Go foundation verified operations",
     "version": "0.1.0"
   },
   "components": {
@@ -14,7 +14,7 @@
       "SessionCookie": {
         "type": "apiKey",
         "in": "cookie",
-        "name": "zenith_session",
+        "name": "arcbase_session",
         "description": "管理员 HttpOnly 服务端会话；浏览器自动发送。"
       },
       "CsrfToken": {

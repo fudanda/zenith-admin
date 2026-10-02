@@ -1,1 +1,1 @@
-export * from '@zenith/analytics-sdk/breadcrumbs';
+export * from '@arcbase/analytics-sdk/breadcrumbs';

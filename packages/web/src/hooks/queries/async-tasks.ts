@@ -1,8 +1,8 @@
 import { keepPreviousData } from '@tanstack/react-query';
 import type { QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { asyncTaskContract } from '@zenith/shared/tasks';
-import type { AsyncTaskItemStatus } from '@zenith/shared/tasks';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { asyncTaskContract } from '@arcbase/shared/tasks';
+import type { AsyncTaskItemStatus } from '@arcbase/shared/tasks';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';
 

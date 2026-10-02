@@ -1,5 +1,5 @@
-// Package main demonstrates mounting Zenith inside an existing Go HTTP host.
-// Apply migrations and seed data with cmd/zenith before starting the host.
+// Package main demonstrates mounting ArcBase inside an existing Go HTTP host.
+// Apply migrations and seed data with cmd/arcbase before starting the host.
 package main
 
 import (
@@ -12,16 +12,17 @@ import (
 	"syscall"
 	"time"
 
-	zenith "github.com/fudanda/zenith-admin/backend"
+	arcbase "github.com/fudanda/arcbase/backend"
+	"github.com/fudanda/arcbase/backend/cli"
 )
 
 func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	app, err := zenith.New(ctx, zenith.Config{
-		DSN:           os.Getenv("ZENITH_DATABASE_URL"),
-		SecureCookies: os.Getenv("ZENITH_INSECURE_COOKIES") != "true",
+	app, err := arcbase.New(ctx, arcbase.Config{
+		DSN:           cli.Environment("ARCBASE_DATABASE_URL"),
+		SecureCookies: cli.Environment("ARCBASE_INSECURE_COOKIES") != "true",
 	})
 	if err != nil {
 		log.Fatal(err)

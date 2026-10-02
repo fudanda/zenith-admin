@@ -3,7 +3,7 @@
  * 与管理端 routes/ops/push-devices.ts 共用设备中心服务，主体固定为 member。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { memberPushContract } from '@zenith/shared/member';
+import { memberPushContract } from '@arcbase/shared/member';
 import { memberAuthMiddleware } from '../../middleware/member-auth';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

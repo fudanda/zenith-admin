@@ -1,4 +1,4 @@
-import { dashboardContract } from '@zenith/shared/analytics';
+import { dashboardContract } from '@arcbase/shared/analytics';
 import { mock } from '@/mocks/utils/contract';
 import { mockDate } from '@/mocks/utils/date';
 

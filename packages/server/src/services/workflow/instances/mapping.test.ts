@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mapInstance } from './mapping';
 import type { workflowInstances } from '../../../db/schema';
-import type { WorkflowDefinitionSnapshot } from '@zenith/shared/workflow';
+import type { WorkflowDefinitionSnapshot } from '@arcbase/shared/workflow';
 
 type InstanceRow = typeof workflowInstances.$inferSelect;
 

@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import { smsTemplateContract, smsTemplateSchema } from '@zenith/shared/messaging';
+import { smsTemplateContract, smsTemplateSchema } from '@arcbase/shared/messaging';
 import { smsTemplates } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';
 import { entityMapper } from '../../lib/entity-map';

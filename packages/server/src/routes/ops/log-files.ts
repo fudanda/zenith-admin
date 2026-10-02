@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import fs from 'node:fs';
 import fsp from 'node:fs/promises';
-import { logFileContract } from '@zenith/shared/ops';
+import { logFileContract } from '@arcbase/shared/ops';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, errBody, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

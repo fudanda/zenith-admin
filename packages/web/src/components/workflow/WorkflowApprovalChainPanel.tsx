@@ -9,12 +9,12 @@
  *   （条件分支展开 / 重新解析候选人），刷新期间保留旧链路避免闪烁。
  */
 /* eslint-disable react-refresh/only-export-components */
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { useEffect, useMemo } from 'react';
 import { Button, Empty, Select, Space, Spin, Tag, Timeline, Typography } from '@douyinfe/semi-ui';
 import { Clock, Flag, Mail, Send, UserPlus, type LucideIcon } from 'lucide-react';
-import { WORKFLOW_APPROVE_METHOD_LABELS as METHOD_LABEL } from '@zenith/shared/workflow';
-import type { WorkflowApproverPreviewNode } from '@zenith/shared/workflow';
+import { WORKFLOW_APPROVE_METHOD_LABELS as METHOD_LABEL } from '@arcbase/shared/workflow';
+import type { WorkflowApproverPreviewNode } from '@arcbase/shared/workflow';
 import { UserAvatar } from '@/components/UserAvatar';
 import { timelineDot } from '@/components/workflow/timeline-dot';
 import { useWorkflowApprovalPreview } from '@/hooks/queries/workflow-shared';

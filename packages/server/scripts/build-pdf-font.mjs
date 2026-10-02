@@ -5,7 +5,7 @@
 // GB 2312 ∪《通用规范汉字表》8230 字 + 常用符号，字符集定义在 pdf-font-charset/charset.mjs。
 // 子集化用 harfbuzz（subset-font → harfbuzzjs WASM），纯 Node，无需 Python / fonttools，耗时约 0.3s。
 //
-// 子集文件已 gitignore，`npm run build -w @zenith/server` 每次重新生成；运行时解析顺序见 src/lib/pdf-font.ts，
+// 子集文件已 gitignore，`npm run build -w @arcbase/server` 每次重新生成；运行时解析顺序见 src/lib/pdf-font.ts，
 // 打包 / 镜像选用哪一份见 scripts/package-server.mjs（--pdf-font）与 Dockerfile（--build-arg PDF_FONT）。
 import fs from 'node:fs';
 import path from 'node:path';

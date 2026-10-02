@@ -1,5 +1,5 @@
-import { SEED_INAPP_TEMPLATES } from '@zenith/shared/seed';
-import type { InAppTemplate } from '@zenith/shared/messaging';
+import { SEED_INAPP_TEMPLATES } from '@arcbase/shared/seed';
+import type { InAppTemplate } from '@arcbase/shared/messaging';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockInAppTemplates: InAppTemplate[] = [...SEED_INAPP_TEMPLATES];

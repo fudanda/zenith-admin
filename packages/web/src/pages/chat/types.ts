@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react';
-import type { ChatConversation, ChatMessage } from '@zenith/shared/chat';
-import type { Channel } from '@zenith/shared/messaging';
+import type { ChatConversation, ChatMessage } from '@arcbase/shared/chat';
+import type { Channel } from '@arcbase/shared/messaging';
 
-export type { ChatUser } from '@zenith/shared/chat';
+export type { ChatUser } from '@arcbase/shared/chat';
 
 /** React state setter 简写：拆分出的子组件 / hook 与主组件共享同名 setter */
 export type Setter<T> = Dispatch<SetStateAction<T>>;

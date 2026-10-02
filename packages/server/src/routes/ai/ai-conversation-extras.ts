@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { aiConversationContract } from '@zenith/shared/ai';
+import { aiConversationContract } from '@arcbase/shared/ai';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { shareConversation, getConversationShare, revokeConversationShare } from '../../services/ai/ai-share.service';

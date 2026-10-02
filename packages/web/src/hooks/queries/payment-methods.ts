@@ -1,5 +1,5 @@
-import type { BodyOf } from '@zenith/shared/core';
-import { paymentMethodContract } from '@zenith/shared/payment';
+import type { BodyOf } from '@arcbase/shared/core';
+import { paymentMethodContract } from '@arcbase/shared/payment';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type PaymentMethodSaveValues = BodyOf<typeof paymentMethodContract.update>;

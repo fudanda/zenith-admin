@@ -1,9 +1,9 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 审批单打印：实例 → PDF。
  *
  * 数据：复用 getInstanceDetail（发起人 / 参与人 / 监控权限判定与详情一致）→ 表单快照 → 引用批量解析
- * （人员 / 部门 / 字典 / 关联单）→ @zenith/shared/workflow 的 buildWorkflowPrintDatasets。
+ * （人员 / 部门 / 字典 / 关联单）→ @arcbase/shared/workflow 的 buildWorkflowPrintDatasets。
  * 版式：流程绑定的实体打印模板（报表打印设计器）→ 请求临时指定的模板 → 按表单快照自动生成。
  * 渲染：报表打印引擎 renderPrintContent → pdfkit（report-print-export 惰性加载，模块图大）。
  */
@@ -21,11 +21,11 @@ import {
   workflowInstanceContract,
   workflowPrintPageConfig,
   workflowPrintRenderParams,
-} from '@zenith/shared/workflow';
-import type { WorkflowFormField, WorkflowInstance, WorkflowPrintLookups, WorkflowPrintSettings } from '@zenith/shared/workflow';
-import { renderPrintContent } from '@zenith/shared/report';
-import type { ReportPrintContent, ReportPrintPageConfig, ReportPrintRenderResult } from '@zenith/shared/report';
-import { applyMask } from '@zenith/shared/core';
+} from '@arcbase/shared/workflow';
+import type { WorkflowFormField, WorkflowInstance, WorkflowPrintLookups, WorkflowPrintSettings } from '@arcbase/shared/workflow';
+import { renderPrintContent } from '@arcbase/shared/report';
+import type { ReportPrintContent, ReportPrintPageConfig, ReportPrintRenderResult } from '@arcbase/shared/report';
+import { applyMask } from '@arcbase/shared/core';
 import { config } from '../../config';
 import { db } from '../../db';
 import { departments, users, workflowInstances } from '../../db/schema';
@@ -35,7 +35,7 @@ import { resolveMaskDecisions } from '../../lib/data-mask/policies';
 import { FORM_FIELD_MASK_KINDS, WORKFLOW_FORM_SENSITIVE_REFS, workflowArchiveNeedsRedaction } from './workflow-print-access';
 import { readStoredFile } from '../../lib/file-storage';
 import logger from '../../lib/logger';
-import { SUPER_ADMIN_CODE } from '@zenith/shared/identity';
+import { SUPER_ADMIN_CODE } from '@arcbase/shared/identity';
 import { createSignedTokenCodec } from '../../lib/signed-token';
 import type { JwtPayload } from '../../middleware/auth';
 import { retainManagedFiles } from '../files/file-gc.service';

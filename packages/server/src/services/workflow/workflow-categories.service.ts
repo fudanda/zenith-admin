@@ -1,4 +1,4 @@
-import { workflowCategoryContract, workflowCategorySchema } from '@zenith/shared/workflow';
+import { workflowCategoryContract, workflowCategorySchema } from '@arcbase/shared/workflow';
 import { asc, desc, eq } from 'drizzle-orm';
 import { db } from '../../db';
 import { workflowCategories, workflowDefinitions } from '../../db/schema';

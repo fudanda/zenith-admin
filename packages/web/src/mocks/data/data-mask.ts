@@ -1,11 +1,11 @@
-import { SEED_DATA_MASK_POLICIES } from '@zenith/shared/seed';
-import type { DataMaskPolicy } from '@zenith/shared/platform';
-import { contractOperations, collectSensitiveFields, sensitiveKeyOf, type AnyContract, type SensitiveFieldRef } from '@zenith/shared/core';
-import * as identity from '@zenith/shared/identity';
-import * as member from '@zenith/shared/member';
-import * as messaging from '@zenith/shared/messaging';
-import * as payment from '@zenith/shared/payment';
-import * as platform from '@zenith/shared/platform';
+import { SEED_DATA_MASK_POLICIES } from '@arcbase/shared/seed';
+import type { DataMaskPolicy } from '@arcbase/shared/platform';
+import { contractOperations, collectSensitiveFields, sensitiveKeyOf, type AnyContract, type SensitiveFieldRef } from '@arcbase/shared/core';
+import * as identity from '@arcbase/shared/identity';
+import * as member from '@arcbase/shared/member';
+import * as messaging from '@arcbase/shared/messaging';
+import * as payment from '@arcbase/shared/payment';
+import * as platform from '@arcbase/shared/platform';
 
 /** 策略覆盖记录（可变，供 handler 增删改） */
 export const mockDataMaskPolicies: DataMaskPolicy[] = [...SEED_DATA_MASK_POLICIES];

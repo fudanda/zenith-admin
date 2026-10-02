@@ -1,10 +1,10 @@
 {
-  "name": "zenith-external-host-example",
+  "name": "arcbase-external-host-example",
   "private": true,
   "type": "module",
   "scripts": { "build": "tsc --noEmit && node build.mjs" },
   "dependencies": {
-    "@zenith/shared": "^2.58.0", "@zenith/client": "^2.58.0", "@zenith/elements": "^2.58.0", "@zenith/admin": "^2.58.0",
+    "@arcbase/shared": "^2.58.0", "@arcbase/client": "^2.58.0", "@arcbase/elements": "^2.58.0", "@arcbase/admin": "^2.58.0",
     "react": "^19.3.0", "react-dom": "^19.3.0", "@tanstack/react-query": "^5.102.8", "@douyinfe/semi-ui": "^2.103.0", "zod": "^4.6.4"
   },
   "devDependencies": { "vite": "^8.2.2", "typescript": "npm:@typescript/typescript6@^6.0.2", "@types/react": "^19.0.0", "@types/react-dom": "^19.0.0", "@types/node": "^24.0.0" }

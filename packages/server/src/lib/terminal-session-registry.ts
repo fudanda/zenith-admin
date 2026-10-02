@@ -17,7 +17,7 @@
  */
 
 import os from 'node:os';
-import type { TerminalEndReason, TerminalSessionKind } from '@zenith/shared/ops';
+import type { TerminalEndReason, TerminalSessionKind } from '@arcbase/shared/ops';
 import { config } from '../config';
 
 /** 抽象终端进程接口，兼容本地 PTY 和 SSH 两种后端 */

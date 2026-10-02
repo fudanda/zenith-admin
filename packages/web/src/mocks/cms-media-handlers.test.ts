@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { CmsMediaProcessing, CmsResource } from '@zenith/shared/cms';
+import type { CmsMediaProcessing, CmsResource } from '@arcbase/shared/cms';
 import { mockCmsResources } from './data/cms';
 import { cmsMediaHandlers, mockCmsResourceWithMedia } from './handlers/cms-media';
 

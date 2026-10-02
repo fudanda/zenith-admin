@@ -1,5 +1,5 @@
-import { paymentTransferContract, paymentTransferSchema } from '@zenith/shared/payment';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { paymentTransferContract, paymentTransferSchema } from '@arcbase/shared/payment';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 转账/代付 Service。
  * 对接渠道适配器 transfer/queryTransfer（微信商家转账到零钱、支付宝单笔转账；sandbox 渠道为模拟实现）。
@@ -31,7 +31,7 @@ import type {
   ApprovePaymentTransferInput,
   CreatePaymentTransferInput,
   PaymentTransfer,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { assertPaymentEngineConfig, resolvePaymentChannelConfig } from './payment-channel-config-resolver';
 import { resolveApplicationChannelConfig } from './payment-apps.service';
 import { isPgUniqueViolation } from '../../lib/db-errors';

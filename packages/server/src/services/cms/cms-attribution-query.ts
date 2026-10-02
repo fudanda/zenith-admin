@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { CMS_ATTRIBUTION_EVENTS, cmsOperationsContract, cmsStatsQuery, type CmsAttribution } from '@zenith/shared/cms';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { CMS_ATTRIBUTION_EVENTS, cmsOperationsContract, cmsStatsQuery, type CmsAttribution } from '@arcbase/shared/cms';
 import { readSnapshot } from '../../db';
 import { ensureCmsSiteExists } from './cms-sites.service';
 import { assertCmsStatisticsAccess, cmsStatisticsWhere } from './cms-stats-query';

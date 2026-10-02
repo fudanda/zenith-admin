@@ -20,7 +20,7 @@ export function ThemedReactFlow<
   return (
     <ReactFlow<NodeType, EdgeType>
       {...props}
-      className={['zenith-react-flow', className].filter(Boolean).join(' ')}
+      className={['arcbase-react-flow', className].filter(Boolean).join(' ')}
       colorMode={isDark ? 'dark' : 'light'}
       proOptions={{ hideAttribution: true, ...proOptions }}
     />

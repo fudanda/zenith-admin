@@ -49,7 +49,7 @@ POST /api/public/workflow/trigger-callback/{callbackId}
 回调签名默认使用 `hmacSha256`。开启签名时，外部系统需要携带：
 
 ```http
-X-Zenith-Signature: t={timestamp},v1={hex_hmac}
+X-ArcBase-Signature: t={timestamp},v1={hex_hmac}
 ```
 
 签名内容为 `${timestamp}.${rawBody}`，时间戳允许 5 分钟偏差。
@@ -87,9 +87,9 @@ X-Zenith-Signature: t={timestamp},v1={hex_hmac}
 系统向外部地址发送 `POST` 请求：
 
 ```http
-X-Zenith-Event: external-approval.requested
-X-Zenith-Callback-Id: {callbackId}
-X-Zenith-Signature: t={timestamp},v1={hex_hmac}
+X-ArcBase-Event: external-approval.requested
+X-ArcBase-Callback-Id: {callbackId}
+X-ArcBase-Signature: t={timestamp},v1={hex_hmac}
 ```
 
 请求体包含回调标识、回调路径、实例摘要和任务摘要。
@@ -130,7 +130,7 @@ POST /api/public/workflow/external-callback/{callbackId}
 }
 ```
 
-`action` 支持 `approve` 和 `reject`。开启 HMAC 时同样需要 `X-Zenith-Signature`。
+`action` 支持 `approve` 和 `reject`。开启 HMAC 时同样需要 `X-ArcBase-Signature`。
 
 ### 派发失败
 

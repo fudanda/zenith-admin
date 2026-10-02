@@ -3,7 +3,7 @@
  * 工单列表/详情/统计、商户回复、完结、投诉退款（复用退款审批链路）、模拟投诉（演示）。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { paymentDisputeContract } from '@zenith/shared/payment';
+import { paymentDisputeContract } from '@arcbase/shared/payment';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { idempotencyGuard } from '../../middleware/idempotency';
 import { defineContractRoute } from '../../lib/contract-route';

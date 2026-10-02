@@ -8,8 +8,8 @@
  */
 import { and, desc, eq, gt, isNotNull, isNull, lte, or } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { impersonationContract, impersonationSessionSchema, type ImpersonationState, type SessionClientKind, type StartImpersonationInput } from '@zenith/shared/identity';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { impersonationContract, impersonationSessionSchema, type ImpersonationState, type SessionClientKind, type StartImpersonationInput } from '@arcbase/shared/identity';
 import { db } from '../../db';
 import { impersonationSessions, users, type ImpersonationSessionRow } from '../../db/schema';
 import { currentUser } from '../../lib/context';

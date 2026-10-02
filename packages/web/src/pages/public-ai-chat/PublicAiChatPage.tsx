@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Empty, MarkdownRender, Spin, Tag, Typography } from '@douyinfe/semi-ui';
 import { Sparkles } from 'lucide-react';
-import { aiPublicContract } from '@zenith/shared/ai';
-import type { AiSharedConversation } from '@zenith/shared/ai';
+import { aiPublicContract } from '@arcbase/shared/ai';
+import type { AiSharedConversation } from '@arcbase/shared/ai';
 import { api } from '@/lib/contract-query';
 import DateTimeText from '@/components/DateTimeText';
 

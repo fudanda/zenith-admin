@@ -1,6 +1,6 @@
 import { Button, Form, Modal, Popconfirm, Space, Table, Tag, Toast } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { MemberTag } from '@zenith/shared/member';
+import type { MemberTag } from '@arcbase/shared/member';
 import { useDeleteMemberTag, useMemberTags, useSaveMemberTag, type MemberTagFormValues } from '@/hooks/queries/member-admin';
 import { useDictItems } from '@/hooks/useDictItems';
 import { CreateButton } from '@/components/toolbar-controls';

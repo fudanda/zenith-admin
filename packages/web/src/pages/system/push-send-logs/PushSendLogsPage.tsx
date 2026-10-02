@@ -16,7 +16,7 @@ import {
   type SendSource,
   type SendStatus,
   pushSendLogContract,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import {
   LineChart,
   StatCard,

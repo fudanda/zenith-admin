@@ -46,7 +46,7 @@ packages/web/src/
 
 ## 基建（lib/contract-query.ts）
 
-所有服务端调用由 `@zenith/shared/{域}` 的契约操作驱动：URL、方法、参数与响应类型来自契约，域 hooks 与页面不书写 `/api/...` 字面量。
+所有服务端调用由 `@arcbase/shared/{域}` 的契约操作驱动：URL、方法、参数与响应类型来自契约，域 hooks 与页面不书写 `/api/...` 字面量。
 
 | 导出 | 说明 |
 | --- | --- |
@@ -71,7 +71,7 @@ packages/web/src/
 工厂固定失效契约：保存后失效 `detail(saved.id)`、`lists` 与（契约声明 `all` 时）`lookup`；删除后 `removeQueries(detail(id))`，再失效 `lists` 与 `lookup`。
 
 ```ts
-import { xxxContract } from '@zenith/shared/{域}';
+import { xxxContract } from '@arcbase/shared/{域}';
 import { createResourceQueries, useApiMutation } from '@/lib/contract-query';
 
 export const {

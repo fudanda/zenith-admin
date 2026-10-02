@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Breadcrumb, Empty, List, Select, Spin, Typography } from '@douyinfe/semi-ui';
 import { ChevronRight } from 'lucide-react';
-import { formatBytes } from '@zenith/shared/core';
-import { DRIVE_SPACE_TYPE_LABELS, type DriveNode } from '@zenith/shared/drive';
+import { formatBytes } from '@arcbase/shared/core';
+import { DRIVE_SPACE_TYPE_LABELS, type DriveNode } from '@arcbase/shared/drive';
 import { AppModal } from '@/components/AppModal';
 import { getFileTypeIcon } from '@/utils/file-utils';
 import { useDriveDir, useMyDriveSpaces } from '@/hooks/queries/drive';

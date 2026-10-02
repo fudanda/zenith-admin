@@ -8,7 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/usermenu"
+	"github.com/fudanda/arcbase/backend/ent/usermenu"
 )
 
 // UserMenu is the model entity for the UserMenu schema.

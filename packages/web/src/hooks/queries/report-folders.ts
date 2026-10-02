@@ -1,5 +1,5 @@
-import { flattenTree, type BodyOf, type QueryOf } from '@zenith/shared/core';
-import { reportFolderContract, type ReportFolderTreeNode } from '@zenith/shared/report';
+import { flattenTree, type BodyOf, type QueryOf } from '@arcbase/shared/core';
+import { reportFolderContract, type ReportFolderTreeNode } from '@arcbase/shared/report';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

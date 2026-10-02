@@ -8,7 +8,7 @@ import {
   type DbAdminQueryResultColumn,
   type DbAdminRow,
   type DbAdminTableKind,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { notFound } from '@/mocks/utils/handlers';
 import { mockDateTime } from '@/mocks/utils/date';
@@ -47,7 +47,7 @@ const usersRows: DbAdminRow[] = Array.from({ length: 42 }, (_, i) => ({
   id: i + 1,
   username: i === 0 ? 'admin' : `user${i + 1}`,
   nickname: i === 0 ? '超级管理员' : `用户${i + 1}`,
-  email: i === 0 ? 'admin@zenith.dev' : `user${i + 1}@example.com`,
+  email: i === 0 ? 'admin@arcbase.dev' : `user${i + 1}@example.com`,
   status: i % 7 === 0 ? 'disabled' : 'enabled',
   department_id: (i % 5) + 1,
   created_at: mockDateTime(),
@@ -350,7 +350,7 @@ export const dbAdminHandlers = [
       .slice(0, 10);
     return ok({
       version: '16.4',
-      databaseName: 'zenith_admin',
+      databaseName: 'arcbase_admin',
       databaseSize: dbSize,
       databaseSizeText: prettySize(dbSize),
       schemaCount: 3,
@@ -620,26 +620,26 @@ export const dbAdminHandlers = [
     const now = mockDateTime();
     return ok([
       {
-        pid: 101, username: 'postgres', applicationName: 'zenith-admin', clientAddr: '172.18.0.1', database: 'zenith_admin',
+        pid: 101, username: 'postgres', applicationName: 'arcbase', clientAddr: '172.18.0.1', database: 'arcbase_admin',
         state: 'active', waitEventType: null, waitEvent: null, backendType: 'client backend',
         query: 'SELECT * FROM pg_stat_activity WHERE datname = current_database()',
         querySeconds: 0.03, xactSeconds: 0.03, backendSeconds: 1820,
         queryStart: now, backendStart: now, blockedBy: [], isCurrent: true,
       },
       {
-        pid: 102, username: 'postgres', applicationName: 'zenith-admin', clientAddr: '172.18.0.1', database: 'zenith_admin',
+        pid: 102, username: 'postgres', applicationName: 'arcbase', clientAddr: '172.18.0.1', database: 'arcbase_admin',
         state: 'idle', waitEventType: 'Client', waitEvent: 'ClientRead', backendType: 'client backend',
         query: 'SELECT id, username FROM users WHERE status = $1', querySeconds: 12.4, xactSeconds: null,
         backendSeconds: 3600, queryStart: now, backendStart: now, blockedBy: [], isCurrent: false,
       },
       {
-        pid: 103, username: 'app', applicationName: 'worker', clientAddr: '172.18.0.5', database: 'zenith_admin',
+        pid: 103, username: 'app', applicationName: 'worker', clientAddr: '172.18.0.5', database: 'arcbase_admin',
         state: 'active', waitEventType: 'Lock', waitEvent: 'transactionid', backendType: 'client backend',
         query: 'UPDATE operation_logs SET module = $1 WHERE id = $2', querySeconds: 45.8, xactSeconds: 46.0,
         backendSeconds: 600, queryStart: now, backendStart: now, blockedBy: [104], isCurrent: false,
       },
       {
-        pid: 104, username: 'app', applicationName: 'worker', clientAddr: '172.18.0.6', database: 'zenith_admin',
+        pid: 104, username: 'app', applicationName: 'worker', clientAddr: '172.18.0.6', database: 'arcbase_admin',
         state: 'idle in transaction', waitEventType: null, waitEvent: null, backendType: 'client backend',
         query: 'BEGIN', querySeconds: 60.1, xactSeconds: 62.0, backendSeconds: 700,
         queryStart: now, backendStart: now, blockedBy: [], isCurrent: false,

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Button, Empty, Modal, Select, Spin, Switch, Tag, Toast } from '@douyinfe/semi-ui';
 import { BellRing } from 'lucide-react';
-import { CMS_SUBSCRIPTION_SUBJECT_TYPE_LABELS, CMS_SUBSCRIPTION_SUBJECT_TYPE_OPTIONS } from '@zenith/shared/cms';
-import type { CmsSubscriptionSubjectType } from '@zenith/shared/cms';
+import { CMS_SUBSCRIPTION_SUBJECT_TYPE_LABELS, CMS_SUBSCRIPTION_SUBJECT_TYPE_OPTIONS } from '@arcbase/shared/cms';
+import type { CmsSubscriptionSubjectType } from '@arcbase/shared/cms';
 import { MemberPage } from '../../components/MemberPage';
 import {
   useCancelCmsSubscription,

@@ -1,4 +1,4 @@
-import { apiTokenContract, type UserApiToken, type UserApiTokenCreated } from '@zenith/shared/identity';
+import { apiTokenContract, type UserApiToken, type UserApiTokenCreated } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest, nextIdFrom } from '@/mocks/utils/handlers';

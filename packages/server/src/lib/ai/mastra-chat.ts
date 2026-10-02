@@ -1,11 +1,11 @@
 import { estimateTokens } from './tokens';
 import { estimateMessageTokens, type ChatMessage, type StreamChunk } from './stream-types';
 import { buildModelChain, type ModelChainEntry } from './mastra-models';
-import type { AiModelSettings } from '@zenith/shared/ai';
+import type { AiModelSettings } from '@arcbase/shared/ai';
 import { config } from '../../config';
 
 /**
- * Mastra Agent 聊天桥:注册式 zenith-chat(requestContext 动态注入模型链/提示词/工具),
+ * Mastra Agent 聊天桥:注册式 arcbase-chat(requestContext 动态注入模型链/提示词/工具),
  * 把 Mastra 流 chunk 映射回系统稳定的 SSE 协议(StreamChunk / tool_result)。
  */
 
@@ -109,8 +109,8 @@ export async function* streamAgentChat(params: StreamAgentChatParams): AsyncGene
     const { getMastra, CHAT_MODEL_CHAIN_KEY, CHAT_SYSTEM_PROMPT_KEY, CHAT_TOOLS_KEY } = await import('../mastra');
     const { RequestContext } = await import('@mastra/core/request-context');
     const mastra = await getMastra();
-    // 注册式 zenith-chat:模型链/提示词/工具经 requestContext 动态注入(每次调用独立)
-    const agent = mastra.getAgentById('zenith-chat' as never);
+    // 注册式 arcbase-chat:模型链/提示词/工具经 requestContext 动态注入(每次调用独立)
+    const agent = mastra.getAgentById('arcbase-chat' as never);
     const requestContext = new RequestContext();
     requestContext.set(CHAT_MODEL_CHAIN_KEY, buildModelChain(params.chain));
     if (params.systemPrompt?.trim()) requestContext.set(CHAT_SYSTEM_PROMPT_KEY, params.systemPrompt);
@@ -236,12 +236,12 @@ export interface ChatOnceResult {
   tokensOutput: number;
 }
 
-/** 非流式一次性调用(标题生成 / 评测 / 报表解读等场景;走注册式 zenith-chat,无记忆) */
+/** 非流式一次性调用(标题生成 / 评测 / 报表解读等场景;走注册式 arcbase-chat,无记忆) */
 export async function chatOnce(params: ChatOnceParams): Promise<ChatOnceResult> {
   const { getMastra, CHAT_MODEL_CHAIN_KEY, CHAT_SYSTEM_PROMPT_KEY } = await import('../mastra');
   const { RequestContext } = await import('@mastra/core/request-context');
   const mastra = await getMastra();
-  const agent = mastra.getAgentById('zenith-chat' as never);
+  const agent = mastra.getAgentById('arcbase-chat' as never);
   const requestContext = new RequestContext();
   requestContext.set(CHAT_MODEL_CHAIN_KEY, buildModelChain(params.chain));
   if (params.systemPrompt?.trim()) requestContext.set(CHAT_SYSTEM_PROMPT_KEY, params.systemPrompt);

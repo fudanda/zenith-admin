@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 
 interface MockDropdownProps {
   readonly children?: ReactNode;

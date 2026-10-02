@@ -12,7 +12,7 @@ import { analyzeWorkflowHealth } from '../../lib/workflow-health';
 import { tenantCondition } from '../../lib/tenant';
 import { buildStarterContext, resolveAdminUserId, resolveAssigneeIds } from './workflow-assignee-resolver.service';
 import { resolveFormSnapshot } from './workflow-forms.service';
-import type { SimulateWorkflowInput, WorkflowConditionGroup, WorkflowEdge, WorkflowEdgeCondition, WorkflowFlowData, WorkflowHealthCheckInput, WorkflowDefinitionHealthReport, WorkflowNodeConfig, WorkflowSimulationEdgeResult, WorkflowSimulationHealthIssue, WorkflowSimulationBlockingPoint, WorkflowSimulationNodeState, WorkflowSimulationResult, WorkflowSimulationTimelineItem, WorkflowStarterContext } from '@zenith/shared/workflow';
+import type { SimulateWorkflowInput, WorkflowConditionGroup, WorkflowEdge, WorkflowEdgeCondition, WorkflowFlowData, WorkflowHealthCheckInput, WorkflowDefinitionHealthReport, WorkflowNodeConfig, WorkflowSimulationEdgeResult, WorkflowSimulationHealthIssue, WorkflowSimulationBlockingPoint, WorkflowSimulationNodeState, WorkflowSimulationResult, WorkflowSimulationTimelineItem, WorkflowStarterContext } from '@arcbase/shared/workflow';
 import { requireRow } from '../../lib/db-assert';
 import { resolveUserNames } from '../../lib/user-nicknames';
 import { buildWhere } from '../../lib/where-helpers';

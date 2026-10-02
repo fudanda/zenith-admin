@@ -1,5 +1,5 @@
 import { Descriptions, SideSheet, Spin, Typography } from '@douyinfe/semi-ui';
-import { WALLET_TX_TYPE_LABELS } from '@zenith/shared/member';
+import { WALLET_TX_TYPE_LABELS } from '@arcbase/shared/member';
 import { EntityContextView } from '@/components/entity-relations/EntityRelationButton';
 import DateTimeText from '@/components/DateTimeText';
 import { useMemberVipRenewalDetail, useMemberWalletTransactionDetail } from '@/hooks/queries/member-fulfillment';

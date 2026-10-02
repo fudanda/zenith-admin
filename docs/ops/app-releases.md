@@ -22,7 +22,7 @@ app_release_events（检查 / 下载 / 安装回执流水）
 | `app_artifacts` | 平台、CPU 架构、制品类型、托管文件、外链、文件名、大小、SHA256 与下载次数 |
 | `app_release_events` | `check`、`download`、`install_success`、`install_fail` 追加型事件，用于升级看板统计 |
 
-种子数据 `SEED_CLIENT_APPS` 预置 `zenith-desktop` 与 `zenith-mobile` 两个应用；版本与制品由管理员发布产生。Demo 模式通过 `SEED_APP_RELEASES` 与 `SEED_APP_ARTIFACTS` 派生示例数据。
+种子数据 `SEED_CLIENT_APPS` 预置 `arcbase-desktop` 与 `arcbase-mobile` 两个应用；版本与制品由管理员发布产生。Demo 模式通过 `SEED_APP_RELEASES` 与 `SEED_APP_ARTIFACTS` 派生示例数据。
 
 ## 枚举与约束
 
@@ -130,7 +130,7 @@ init 阶段即校验同名制品，支持断点续传与取消，不再受反向
     "fileName": "web-1.90.0.zip",
     "size": 18874368,
     "sha256": "...",
-    "downloadUrl": "/api/public/app-releases/zenith-desktop/stable/windows/web-1.90.0.zip"
+    "downloadUrl": "/api/public/app-releases/arcbase-desktop/stable/windows/web-1.90.0.zip"
   }
 }
 ```

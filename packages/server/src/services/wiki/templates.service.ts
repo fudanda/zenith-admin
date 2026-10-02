@@ -1,5 +1,5 @@
 import { asc, eq } from 'drizzle-orm';
-import { wikiTemplateContract, wikiTemplateSchema } from '@zenith/shared/wiki';
+import { wikiTemplateContract, wikiTemplateSchema } from '@arcbase/shared/wiki';
 import { db } from '../../db';
 import { wikiTemplates } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';

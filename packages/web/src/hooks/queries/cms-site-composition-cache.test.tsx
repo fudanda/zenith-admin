@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { cmsSiteContract, cmsWidgetContract, cmsWorkbenchContract } from '@zenith/shared/cms';
+import { cmsSiteContract, cmsWidgetContract, cmsWorkbenchContract } from '@arcbase/shared/cms';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
 import { useSaveCmsSite } from './cms-sites';
 import { useSaveCmsWidgetSlot } from './cms-widgets';

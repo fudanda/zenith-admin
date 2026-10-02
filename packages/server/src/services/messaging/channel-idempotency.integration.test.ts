@@ -14,8 +14,8 @@ integration('targeted channel message idempotency', () => {
 
   beforeAll(async () => {
     const url = new URL(testDatabaseUrl!);
-    if (!['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname) || url.pathname !== '/zenith_review') {
-      throw new Error('TEST_DATABASE_URL must target a disposable local zenith_review database');
+    if (!['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname) || url.pathname !== '/arcbase_review') {
+      throw new Error('TEST_DATABASE_URL must target a disposable local arcbase_review database');
     }
     vi.stubEnv('DATABASE_URL', testDatabaseUrl!);
     vi.resetModules();

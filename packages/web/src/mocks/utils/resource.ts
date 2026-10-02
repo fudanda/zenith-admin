@@ -1,6 +1,6 @@
 import type { HttpHandler } from 'msw';
 import type * as z from 'zod';
-import { filterMetaMap, type AnyOperation, type FilterMeta } from '@zenith/shared/core';
+import { filterMetaMap, type AnyOperation, type FilterMeta } from '@arcbase/shared/core';
 import { mock, MockHttpError, type MockContext } from './contract';
 import { removeByIds, requireItem } from './crud';
 import { mockDateTime } from './date';

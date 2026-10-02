@@ -6,7 +6,7 @@ import { HTTPException } from 'hono/http-exception';
 import { currentUser, setAuditSubjects } from '../../lib/context';
 import { isSuperAdmin } from '../../lib/permissions';
 import logger from '../../lib/logger';
-import { workflowCommentSchema, type WorkflowComment, type CreateWorkflowCommentInput } from '@zenith/shared/workflow';
+import { workflowCommentSchema, type WorkflowComment, type CreateWorkflowCommentInput } from '@arcbase/shared/workflow';
 import { notify } from '../messaging/notification-outbox.service';
 import { loadWorkflowUserDisplays } from './workflow-user-helpers';
 import { requireRow } from '../../lib/db-assert';

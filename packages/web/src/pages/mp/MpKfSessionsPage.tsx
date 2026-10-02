@@ -21,9 +21,9 @@ import {
 } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form';
 import { RefreshCw, Settings, Send, UserCheck, ArrowRightLeft, XCircle, MessageSquare, Star } from 'lucide-react';
-import { MP_KF_ROUTING_STRATEGY_OPTIONS, MP_KF_SESSION_CLOSE_REASON_LABELS, MP_KF_SESSION_EVENT_TYPE_LABELS, MP_KF_SESSION_STATUS_LABELS } from '@zenith/shared/mp';
-import type { MpKfSessionStatus, MpMessage, UpdateMpKfRoutingConfigInput } from '@zenith/shared/mp';
-import type { WsMessage } from '@zenith/shared/platform';
+import { MP_KF_ROUTING_STRATEGY_OPTIONS, MP_KF_SESSION_CLOSE_REASON_LABELS, MP_KF_SESSION_EVENT_TYPE_LABELS, MP_KF_SESSION_STATUS_LABELS } from '@arcbase/shared/mp';
+import type { MpKfSessionStatus, MpMessage, UpdateMpKfRoutingConfigInput } from '@arcbase/shared/mp';
+import type { WsMessage } from '@arcbase/shared/platform';
 import { usePermission } from '@/hooks/usePermission';
 import { useWebSocket } from '@/hooks/useWebSocket';
 import { AppModal } from '@/components/AppModal';

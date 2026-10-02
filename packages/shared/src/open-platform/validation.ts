@@ -194,11 +194,11 @@ export type OpenSignatureVerifyInput = z.input<typeof openSignatureVerifySchema>
 const webhookHeadersSchema = z.record(z.string(), z.string()).superRefine((headers, ctx) => {
   for (const key of Object.keys(headers)) {
     const normalized = key.trim().toLowerCase();
-    if (normalized === 'content-type' || normalized.startsWith('x-zenith-')) {
+    if (normalized === 'content-type' || normalized.startsWith('x-arcbase-')) {
       ctx.addIssue({
         code: 'custom',
         path: [key],
-        message: '自定义请求头不能覆盖 Content-Type 或 X-Zenith-* 保留头',
+        message: '自定义请求头不能覆盖 Content-Type 或 X-ArcBase-* 保留头',
       });
     }
   }

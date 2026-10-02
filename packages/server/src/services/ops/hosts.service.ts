@@ -7,7 +7,7 @@
  */
 import { desc, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CreateOpsHostInput, OpsHost, OpsHostSnapshot, UpdateOpsHostInput } from '@zenith/shared/ops';
+import type { CreateOpsHostInput, OpsHost, OpsHostSnapshot, UpdateOpsHostInput } from '@arcbase/shared/ops';
 import { db } from '../../db';
 import { opsHosts } from '../../db/schema';
 import type { OpsHostRow } from '../../db/schema';

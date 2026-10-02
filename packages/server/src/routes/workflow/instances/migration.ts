@@ -1,5 +1,5 @@
 // ─── 实例迁移 ───
-import { workflowInstanceOpsContract } from '@zenith/shared/workflow';
+import { workflowInstanceOpsContract } from '@arcbase/shared/workflow';
 import { defineContractRoute } from '../../../lib/contract-route';
 import { okBody } from '../../../lib/openapi-schemas';
 import { preflightMigration, migrateInstance, batchMigrate, listMigrations } from '../../../services/workflow/workflow-migrations.service';

@@ -1,4 +1,4 @@
-import { authContract } from '@zenith/shared/identity';
+import { authContract } from '@arcbase/shared/identity';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { useSignatureClient } from '@/components/signature/SignatureClientContext';
 

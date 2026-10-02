@@ -1,5 +1,5 @@
-import type { GlobalSearchResult, GlobalSearchType } from '@zenith/shared/platform';
-import type { Permission } from '@zenith/shared/core';
+import type { GlobalSearchResult, GlobalSearchType } from '@arcbase/shared/platform';
+import type { Permission } from '@arcbase/shared/core';
 
 export interface GlobalSearchInput {
   readonly q: string;

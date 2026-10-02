@@ -1,5 +1,5 @@
 import { pgTable, pgEnum, integer, jsonb, varchar, timestamp, uniqueIndex, index } from 'drizzle-orm/pg-core';
-import { CMS_EDITORIAL_STATUSES, CMS_REVISION_KINDS, type CmsContentRevisionSnapshot } from '@zenith/shared/cms';
+import { CMS_EDITORIAL_STATUSES, CMS_REVISION_KINDS, type CmsContentRevisionSnapshot } from '@arcbase/shared/cms';
 import { cmsContents } from './cms';
 import { auditColumns, users } from './core';
 import { idColumn, timestampColumns } from './common';

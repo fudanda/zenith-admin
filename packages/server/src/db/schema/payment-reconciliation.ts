@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { bigint, check, date, index, integer, jsonb, pgEnum, pgTable, text, timestamp, unique, uniqueIndex, varchar, type AnyPgColumn } from 'drizzle-orm/pg-core';
-import { PAYMENT_RECON_ADJUSTMENT_STATUSES, PAYMENT_RECON_CASE_STATUSES, PAYMENT_RECON_CASE_TYPES, PAYMENT_RECON_DIRECTIONS, PAYMENT_RECON_RUN_STATUSES, PAYMENT_STATEMENT_ENTRY_TYPES, PAYMENT_STATEMENT_PERIOD_STATUSES, PAYMENT_STATEMENT_SOURCES, PAYMENT_STATEMENT_STATUSES, PAYMENT_STATEMENT_TYPES } from '@zenith/shared/payment';
+import { PAYMENT_RECON_ADJUSTMENT_STATUSES, PAYMENT_RECON_CASE_STATUSES, PAYMENT_RECON_CASE_TYPES, PAYMENT_RECON_DIRECTIONS, PAYMENT_RECON_RUN_STATUSES, PAYMENT_STATEMENT_ENTRY_TYPES, PAYMENT_STATEMENT_PERIOD_STATUSES, PAYMENT_STATEMENT_SOURCES, PAYMENT_STATEMENT_STATUSES, PAYMENT_STATEMENT_TYPES } from '@arcbase/shared/payment';
 import { idColumn, timestampColumns } from './common';
 import { auditColumns, tenantIdColumn, users } from './core';
 import { fileStorageConfigs } from './files';

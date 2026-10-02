@@ -1,7 +1,7 @@
 import { useDeferredValue, useState } from 'react';
 import { Pagination, Select, Space } from '@douyinfe/semi-ui';
 import { useQueries } from '@tanstack/react-query';
-import { cmsContentContract } from '@zenith/shared/cms';
+import { cmsContentContract } from '@arcbase/shared/cms';
 import { api, contractKey, useApiQuery } from '@/lib/contract-query';
 import { COMPACT_PAGINATION_PROPS } from '@/hooks/usePagination';
 

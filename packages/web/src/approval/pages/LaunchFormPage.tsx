@@ -5,8 +5,8 @@ import { Banner, Button, Empty, Input, Skeleton, Spin, Tag, Toast, Typography } 
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import { ChevronLeft, Clock, GitBranch, Mail, Send, UserPlus, type LucideIcon } from 'lucide-react';
 import dayjs from 'dayjs';
-import type { WorkflowApproverPreviewNode } from '@zenith/shared/workflow';
-import { applyFieldPermissionsToFields, WORKFLOW_APPROVE_METHOD_LABELS as METHOD_LABEL } from '@zenith/shared/workflow';
+import type { WorkflowApproverPreviewNode } from '@arcbase/shared/workflow';
+import { applyFieldPermissionsToFields, WORKFLOW_APPROVE_METHOD_LABELS as METHOD_LABEL } from '@arcbase/shared/workflow';
 import WorkflowFormRenderer from '@/pages/workflow/designer/components/WorkflowFormRenderer';
 import { SignatureClientProvider } from '@/components/signature/SignatureClientContext';
 import { approvalRequest } from '../lib/approval-request';

@@ -24147,7 +24147,7 @@
           "type": "varchar(64)",
           "primaryKey": false,
           "notNull": true,
-          "default": "'Zenith Admin'"
+          "default": "'ArcBase'"
         },
         "from_email": {
           "name": "from_email",
@@ -37500,8 +37500,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "frozen_amount": {
-          "name": "frozen_amount",
+        "froarc_amount": {
+          "name": "froarc_amount",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -37546,8 +37546,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "frozen_at": {
-          "name": "frozen_at",
+        "froarc_at": {
+          "name": "froarc_at",
           "type": "timestamp with time zone",
           "primaryKey": false,
           "notNull": false

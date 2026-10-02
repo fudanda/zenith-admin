@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button, Divider, Dropdown, Form, Spin, Toast, Tooltip, Row, Col, Banner, SideSheet, Space, Timeline, Modal, Upload, Typography, Tag, Input, Tabs, TabPane, withField, Pagination } from '@douyinfe/semi-ui';
 import { EntityContextSheet } from '@/components/entity-relations/EntityRelationButton';
 import { MasterDetailLayout } from '@/components/MasterDetailLayout';
-import { supportsEntityRelations } from '@zenith/shared/platform/entity-catalog';
+import { supportsEntityRelations } from '@arcbase/shared/platform/entity-catalog';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import { ArrowLeft, Save, Send, ImageUp, Eye, GitCompare, Images, Paperclip, Workflow, MoreHorizontal, PanelRight } from 'lucide-react';
 import { useDebouncedCallback } from '@tanstack/react-pacer';
@@ -27,10 +27,10 @@ import {
   useCmsContentWorkflowPreview, useCmsContentWorkflowContext,
 } from '@/hooks/queries/cms';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
-import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_TYPE_LABELS, CMS_CONTENT_TYPES, CMS_TITLE_STYLE_COLORS, CMS_RESOURCE_URI_PREFIX } from '@zenith/shared/cms';
-import type { CmsContent, CmsPreviewLink, CmsModelField, CmsEditLock, CmsTextCheckResult, CmsContentType, CmsAlbumImage, CmsContentAttachment, CmsResource } from '@zenith/shared/cms';
+import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_TYPE_LABELS, CMS_CONTENT_TYPES, CMS_TITLE_STYLE_COLORS, CMS_RESOURCE_URI_PREFIX } from '@arcbase/shared/cms';
+import type { CmsContent, CmsPreviewLink, CmsModelField, CmsEditLock, CmsTextCheckResult, CmsContentType, CmsAlbumImage, CmsContentAttachment, CmsResource } from '@arcbase/shared/cms';
 import { useCmsLinkPicker } from './cms-link-picker';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import { channelsToSelectTree } from './channel-tree';
 import { CmsModelFieldControl } from './model-field-renderer';
 import { ContentApprovalDetails } from './ContentApprovalView';

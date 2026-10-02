@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { wikiGovernanceContract } from '@zenith/shared/wiki';
+import { wikiGovernanceContract } from '@arcbase/shared/wiki';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import {

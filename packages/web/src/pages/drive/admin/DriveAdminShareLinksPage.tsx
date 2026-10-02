@@ -3,7 +3,7 @@ import { ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { useNavigate } from 'react-router-dom';
-import { DRIVE_SHARE_LINK_STATE_OPTIONS, type DriveShareLink, type DriveShareLinkState } from '@zenith/shared/drive';
+import { DRIVE_SHARE_LINK_STATE_OPTIONS, type DriveShareLink, type DriveShareLinkState } from '@arcbase/shared/drive';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

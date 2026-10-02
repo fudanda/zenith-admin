@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type BodyOf, type QueryOf } from '@zenith/shared/core';
-import { apiScopeContract, oauth2ClientContract, ratePlanContract } from '@zenith/shared/open-platform';
+import { resourceKeyOf, type BodyOf, type QueryOf } from '@arcbase/shared/core';
+import { apiScopeContract, oauth2ClientContract, ratePlanContract } from '@arcbase/shared/open-platform';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 

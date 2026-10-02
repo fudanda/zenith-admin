@@ -5,7 +5,7 @@ import os from 'node:os';
 import { HTTPException } from 'hono/http-exception';
 import { formatDateTime } from '../../lib/datetime';
 import { localExecutor, resolveExecutor, type HostExecutor } from '../../lib/host-exec';
-import type { ProcessInfo, ProcessListResponse, ProcessNetConn, SetProcessPriorityInput } from '@zenith/shared/ops';
+import type { ProcessInfo, ProcessListResponse, ProcessNetConn, SetProcessPriorityInput } from '@arcbase/shared/ops';
 
 const execFileAsync = promisify(execFile);
 const MAX_BUFFER = 20 * 1024 * 1024;

@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { smsSendLogContract } from '@zenith/shared/messaging';
+import type { QueryOf } from '@arcbase/shared/core';
+import { smsSendLogContract } from '@arcbase/shared/messaging';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type SmsSendLogListParams = NonNullable<QueryOf<typeof smsSendLogContract.list>>;

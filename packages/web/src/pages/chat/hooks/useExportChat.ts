@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
-import { exportJobContract } from '@zenith/shared/tasks';
+import { exportJobContract } from '@arcbase/shared/tasks';
 import { api, urlOf } from '@/lib/contract-query';
 import { ApiError } from '@/lib/query';
 import { request } from '@/utils/request';

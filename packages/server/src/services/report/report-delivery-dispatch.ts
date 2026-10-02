@@ -1,4 +1,4 @@
-import type { ReportDeliveryStatus, ReportNotifyChannel } from '@zenith/shared/report';
+import type { ReportDeliveryStatus, ReportNotifyChannel } from '@arcbase/shared/report';
 import { dispatchNotificationChannels } from './report-delivery.service';
 
 export interface DispatchReportNotificationInput {

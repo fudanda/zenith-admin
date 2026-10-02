@@ -50,7 +50,7 @@ jobs:
 
       # 产物预算：入口关键路径文件数 / 体积、壳层增量、chunk 总数超过 packages/web/bundle-budget.json 即失败
       - name: Bundle budget
-        run: npm run check:bundle -w @zenith/web
+        run: npm run check:bundle -w @arcbase/web
 
   smoke:
     name: Web boot smoke (demo build)
@@ -86,4 +86,4 @@ jobs:
         run: npm run build:demo
 
       - name: Boot smoke
-        run: npm run smoke -w @zenith/web
+        run: npm run smoke -w @arcbase/web

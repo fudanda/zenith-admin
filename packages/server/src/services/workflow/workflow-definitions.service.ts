@@ -1,8 +1,8 @@
-import { workflowDefinitionContract } from '@zenith/shared/workflow';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { workflowDefinitionContract } from '@arcbase/shared/workflow';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { workflowDefinitions, workflowDefinitionVersions, workflowForms, workflowCategories, workflowInstances, users, userRoles } from '../../db/schema';
 import { formatDateTime, formatTimestamps } from '../../lib/datetime';
-import type { WorkflowFormSchema, WorkflowCustomFormConfig, WorkflowFormType } from '@zenith/shared/workflow';
+import type { WorkflowFormSchema, WorkflowCustomFormConfig, WorkflowFormType } from '@arcbase/shared/workflow';
 
 // ─── 数据映射 ─────────────────────────────────────────────────────────────────
 
@@ -83,8 +83,8 @@ import { requireRow } from '../../lib/db-assert';
 import { normalizeFlowData } from '../../lib/workflow-engine';
 import { analyzeWorkflowHealth } from '../../lib/workflow-health';
 import { buildVersionDiff } from '../../lib/workflow-version-diff';
-import type { WorkflowFlowData } from '@zenith/shared/workflow';
-import { WORKFLOW_SCHEMA_VERSION, collectReferencedFormFieldKeys } from '@zenith/shared/workflow';
+import type { WorkflowFlowData } from '@arcbase/shared/workflow';
+import { WORKFLOW_SCHEMA_VERSION, collectReferencedFormFieldKeys } from '@arcbase/shared/workflow';
 import { HTTPException } from 'hono/http-exception';
 import { currentUser } from '../../lib/context';
 import type { DbExecutor } from '../../db/types';

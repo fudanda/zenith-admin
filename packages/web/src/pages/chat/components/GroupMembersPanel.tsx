@@ -8,7 +8,7 @@ import { confirmDanger, confirmDelete } from '@/utils/confirm';
 import { UserSearchList } from './UserSearchList';
 import { OrgTreePicker } from './OrgTreePicker';
 import { GroupInviteModal } from './GroupInviteModal';
-import type { ChatConversation, ChatGroupMember } from '@zenith/shared/chat';
+import type { ChatConversation, ChatGroupMember } from '@arcbase/shared/chat';
 import type { ChatUser } from '../types';
 import {
   useAddChatGroupMember,

@@ -17,8 +17,8 @@ import {
   usePublishMarketingCampaign,
   useSaveMarketingCampaign,
 } from '@/hooks/queries/marketing-campaigns';
-import { MARKETING_CAMPAIGN_STATUS_LABELS, marketingCampaignContract } from '@zenith/shared/marketing';
-import type { CreateMarketingCampaignInput, MarketingCampaign } from '@zenith/shared/marketing';
+import { MARKETING_CAMPAIGN_STATUS_LABELS, marketingCampaignContract } from '@arcbase/shared/marketing';
+import type { CreateMarketingCampaignInput, MarketingCampaign } from '@arcbase/shared/marketing';
 import MarketingPrizesDrawer from './MarketingPrizesDrawer';
 import MarketingRecordsDrawer from './MarketingRecordsDrawer';
 import { useListPage } from '@/hooks/useListPage';

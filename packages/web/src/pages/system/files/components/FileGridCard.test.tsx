@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import type { ManagedFile } from '@zenith/shared/platform';
+import type { ManagedFile } from '@arcbase/shared/platform';
 import { FileGridCard } from './FileGridCard';
 
 vi.mock('@/components/CursorContextDropdown', () => ({

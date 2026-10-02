@@ -1,6 +1,6 @@
 import { and, desc, eq } from 'drizzle-orm';
-import { mergeCmsConfigurationSnapshots } from '@zenith/shared/cms';
-import type { CmsRelease } from '@zenith/shared/cms';
+import { mergeCmsConfigurationSnapshots } from '@arcbase/shared/cms';
+import type { CmsRelease } from '@arcbase/shared/cms';
 import { cmsReleases } from '../../db/schema';
 import type { DbTransaction } from '../../db/types';
 import { currentUserOrNull } from '../../lib/context';

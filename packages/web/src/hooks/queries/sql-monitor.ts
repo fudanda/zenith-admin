@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { sqlMonitorContract } from '@zenith/shared/platform';
+import type { QueryOf } from '@arcbase/shared/core';
+import { sqlMonitorContract } from '@arcbase/shared/platform';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type SqlMonitorQueriesParams = NonNullable<QueryOf<typeof sqlMonitorContract.queries>>;

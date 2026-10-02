@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { HTTPException } from 'hono/http-exception';
-import { PAYMENT_RECON_ADJUSTMENT_BIZ_TYPE, isUnresolvedReconciliationCase, type PaymentReconCaseStatus, type PaymentReconCaseType, type PaymentReconDirection } from '@zenith/shared/payment';
+import { PAYMENT_RECON_ADJUSTMENT_BIZ_TYPE, isUnresolvedReconciliationCase, type PaymentReconCaseStatus, type PaymentReconCaseType, type PaymentReconDirection } from '@arcbase/shared/payment';
 
 /** JSONB may reorder object keys; evidence hashes must be independent of key order. */
 export function reconEvidenceHash(value: unknown): string {

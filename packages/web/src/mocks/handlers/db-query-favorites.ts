@@ -1,4 +1,4 @@
-import { dbAdminContract, type DbQueryFavorite } from '@zenith/shared/ops';
+import { dbAdminContract, type DbQueryFavorite } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { notFound } from '@/mocks/utils/handlers';
 import { mockDateTime } from '@/mocks/utils/date';

@@ -1,5 +1,5 @@
-import { paymentRiskRuleContract, paymentRiskOpsContract } from '@zenith/shared/payment';
-import type { QueryOutputOf, SubjectRef } from '@zenith/shared/core';
+import { paymentRiskRuleContract, paymentRiskOpsContract } from '@arcbase/shared/payment';
+import type { QueryOutputOf, SubjectRef } from '@arcbase/shared/core';
 /**
  * 支付风控 Service。
  * 两层裁决：规则中心 payment_risk 决策表（发布即优先接管，输出 block/review/pass）；
@@ -29,8 +29,8 @@ import { buildPaymentEventPayload } from './payment-events';
 import { checkRuleListsBatch, type RuleListBatchHit } from '../platform/rules-lists.service';
 import { decide } from '../platform/rules-runtime.service';
 import { resolveRuntimeDecisionTable } from '../platform/rules.service';
-import { paymentRiskRuleSchema } from '@zenith/shared/payment';
-import type { CreatePaymentRiskRuleInput, PaymentChannel, PaymentRiskDimension, PaymentRiskHit, PaymentRiskReview, PaymentRiskScope } from '@zenith/shared/payment';
+import { paymentRiskRuleSchema } from '@arcbase/shared/payment';
+import type { CreatePaymentRiskRuleInput, PaymentChannel, PaymentRiskDimension, PaymentRiskHit, PaymentRiskReview, PaymentRiskScope } from '@arcbase/shared/payment';
 import { defineCrudService } from '../../lib/crud-service';
 import { entityMapper } from '../../lib/entity-map';
 

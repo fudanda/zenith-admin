@@ -1,4 +1,4 @@
-import { identitySecurityContract, type LoginRiskEvent } from '@zenith/shared/identity';
+import { identitySecurityContract, type LoginRiskEvent } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { mockDateTime } from '@/mocks/utils/date';
 import { filterByKeyword } from '@/mocks/utils/filter';

@@ -6,7 +6,7 @@
  */
 import { createHash } from 'node:crypto';
 import { eq, sql } from 'drizzle-orm';
-import { ANALYTICS_EVENT_NAMES } from '@zenith/shared/analytics';
+import { ANALYTICS_EVENT_NAMES } from '@arcbase/shared/analytics';
 import { db } from '../../db';
 import { shortLinks, shortLinkClicks, type ShortLinkRow } from '../../db/schema';
 import redis from '../../lib/redis';

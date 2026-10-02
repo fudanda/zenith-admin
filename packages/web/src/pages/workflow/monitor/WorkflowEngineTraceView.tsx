@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Banner, Button, Empty, Spin, Space, Tag, Timeline, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { AlertTriangle, Clock, RefreshCw } from 'lucide-react';
-import type { WorkflowEngineTraceEntry } from '@zenith/shared/workflow';
+import type { WorkflowEngineTraceEntry } from '@arcbase/shared/workflow';
 import { useWorkflowInstanceTrace, workflowMonitorKeys } from '@/hooks/queries/workflow-monitor';
 import { WORKFLOW_HEALTH_SEVERITY_META as SEVERITY_META } from '../constants';
 

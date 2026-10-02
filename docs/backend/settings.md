@@ -67,7 +67,7 @@ flowchart LR
 
 唯一约束 `(module, tenant_id)` 使用 `NULLS NOT DISTINCT`（PostgreSQL ≥ 15），平台行不会重复。
 
-解析函数 `resolveSettings(module, layers)`（`@zenith/shared/settings`，服务端与 Demo Mock 共用）逐层深合并后 `schema.parse`；
+解析函数 `resolveSettings(module, layers)`（`@arcbase/shared/settings`，服务端与 Demo Mock 共用）逐层深合并后 `schema.parse`；
 解析失败时**逐路径降级**：先丢弃校验失败的叶子再解析，仍失败则回落到完整默认值并记录 `error` 日志——
 一条坏数据只影响它自己，不会让登录或上传整体失效。
 
@@ -109,7 +109,7 @@ const policy = await getSettings('identitySecurity', { tenantId });       // 租
 
 ## API
 
-挂载在 `/api/settings`（契约 `settingsContract`，`@zenith/shared/settings`）：
+挂载在 `/api/settings`（契约 `settingsContract`，`@arcbase/shared/settings`）：
 
 | 方法 | 路径 | 鉴权 / 权限 | 说明 |
 | --- | --- | --- | --- |

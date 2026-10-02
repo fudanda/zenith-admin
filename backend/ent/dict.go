@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/dict"
+	"github.com/fudanda/arcbase/backend/ent/dict"
 )
 
 // Dict is the model entity for the Dict schema.

@@ -8,7 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/userdepartmentscope"
+	"github.com/fudanda/arcbase/backend/ent/userdepartmentscope"
 )
 
 // UserDepartmentScope is the model entity for the UserDepartmentScope schema.

@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { HTTPException } from 'hono/http-exception';
-import { WORKFLOW_BUSINESS_ENTITY_TYPES } from '@zenith/shared/platform';
-import { PAYMENT_RECON_ADJUSTMENT_BIZ_TYPE } from '@zenith/shared/payment';
+import { WORKFLOW_BUSINESS_ENTITY_TYPES } from '@arcbase/shared/platform';
+import { PAYMENT_RECON_ADJUSTMENT_BIZ_TYPE } from '@arcbase/shared/payment';
 import type { JwtPayload } from '../../middleware/auth';
 import type { RelationAccessContext, VisibleEntityAnchor } from '../platform/relations/types';
 

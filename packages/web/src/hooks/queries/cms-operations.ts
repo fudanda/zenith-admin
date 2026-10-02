@@ -1,7 +1,7 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { cmsOperationsContract } from '@zenith/shared/cms';
-import { WORKFLOW_ACTIVE_INSTANCE_STATUSES } from '@zenith/shared/workflow';
-import type { QueryOf, BodyOf } from '@zenith/shared/core';
+import { cmsOperationsContract } from '@arcbase/shared/cms';
+import { WORKFLOW_ACTIVE_INSTANCE_STATUSES } from '@arcbase/shared/workflow';
+import type { QueryOf, BodyOf } from '@arcbase/shared/core';
 import { contractKey, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

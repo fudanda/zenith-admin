@@ -12,8 +12,8 @@
  * - 隐私默认安全：maskAllInputs 恒开，可配 maskAllText / blockSelector；
  * - 任何内部异常静默（监控自身不得拖垮业务应用）。
  */
-import { TOKEN_KEY, randomUUID } from '@zenith/shared/core';
-import type { AnalyticsPublicConfig, ReplayTrigger, ReplayTriggerType } from '@zenith/shared/analytics';
+import { TOKEN_KEY, randomUUID } from '@arcbase/shared/core';
+import type { AnalyticsPublicConfig, ReplayTrigger, ReplayTriggerType } from '@arcbase/shared/analytics';
 import { analyticsRequestHeaders } from './http';
 import { analyticsStorageKey } from './runtime-config';
 import type { AnalyticsRuntimeBaseConfig } from './runtime-config';
@@ -44,7 +44,7 @@ const CHECKOUT_EVERY_MS = 30_000;
 const STREAM_FLUSH_INTERVAL_MS = 10_000;
 const STREAM_FLUSH_MAX_EVENTS = 800;
 const MAX_SEGMENTS = 600;
-const SAMPLED_KEY = 'zenith_replay_sampled';
+const SAMPLED_KEY = 'arcbase_replay_sampled';
 
 // rrweb 事件最小结构类型（避免静态依赖 rrweb 类型导致主包体积增长）
 interface RrwebEvent { type: number; timestamp: number; data?: unknown }

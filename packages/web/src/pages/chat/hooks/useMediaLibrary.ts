@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { chatContract } from '@zenith/shared/chat';
-import type { ChatMessage } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
+import type { ChatMessage } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import type { Setter } from '../types';
 

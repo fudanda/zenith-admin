@@ -6,12 +6,12 @@ import {
   NOTIFICATION_DIGEST_MODES,
   NOTIFICATION_OUTBOX_STATUSES,
   NOTIFICATION_RECIPIENT_TYPES,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import type {
   NotificationChannelOptions,
   NotificationChannelPolicy,
   NotificationRecipient,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import { pushProviderEnum, timestampColumns, idColumn, statusColumn } from './common';
 import { auditColumns, users, tenantIdColumn } from './core';
 import { clientApps } from './app-releases';
@@ -26,7 +26,7 @@ export const emailConfigs = pgTable('email_configs', {
   smtpPort: integer().notNull().default(465),
   smtpUser: varchar({ length: 128 }).notNull().default(''),
   smtpPassword: varchar({ length: 256 }).notNull().default(''),
-  fromName: varchar({ length: 64 }).notNull().default('Zenith Admin'),
+  fromName: varchar({ length: 64 }).notNull().default('ArcBase'),
   fromEmail: varchar({ length: 128 }).notNull().default(''),
   encryption: emailEncryptionEnum().notNull().default('ssl'),
   status: statusColumn(),

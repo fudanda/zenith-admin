@@ -4,7 +4,7 @@ import { Empty, Spin, Tag, Typography, Space, Button } from '@douyinfe/semi-ui';
 import { Background, Controls, type Edge, type Node } from '@xyflow/react';
 import AppModal from '@/components/AppModal';
 import { ThemedReactFlow } from '@/components/ThemedReactFlow';
-import type { ReportDataset } from '@zenith/shared/report';
+import type { ReportDataset } from '@arcbase/shared/report';
 import { useReportDatasetRefs } from '@/hooks/queries/report-datasets';
 
 interface Props {

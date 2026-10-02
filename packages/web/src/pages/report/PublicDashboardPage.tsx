@@ -24,7 +24,7 @@ import {
 } from './widgets/dashboard-runtime';
 import { DashboardCanvasView } from './widgets/DashboardCanvasView';
 import { useIsMobile } from '@/hooks/useMediaQuery';
-import type { ReportEmbedFilterChangePayload, ReportEmbedFilterValues, ReportEmbedState, ReportPublicDashboard, ReportWidget } from '@zenith/shared/report';
+import type { ReportEmbedFilterChangePayload, ReportEmbedFilterValues, ReportEmbedState, ReportPublicDashboard, ReportWidget } from '@arcbase/shared/report';
 import { usePublicReportDashboard, usePublicReportDashboardAccess, usePublicReportDashboardData } from '@/hooks/queries/report-dashboards';
 import { ApiError } from '@/lib/query';
 import { sanitizeReportEmbedFilterValues, useReportEmbedBridge } from '@/components/report-embed-bridge';

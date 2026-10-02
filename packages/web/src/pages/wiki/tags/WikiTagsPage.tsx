@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, Tag } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { wikiTagContract, type CreateWikiTagInput, type WikiTag } from '@zenith/shared/wiki';
+import { wikiTagContract, type CreateWikiTagInput, type WikiTag } from '@arcbase/shared/wiki';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { SwatchColorPicker } from '@/components/SwatchColorPicker';
 import { THEME_COLOR_PRESETS } from '@/lib/theme-color';

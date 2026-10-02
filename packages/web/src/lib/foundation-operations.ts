@@ -1,1 +1,1 @@
-export { foundationPath, foundationRequestBody, isFoundationOperation } from '@zenith/client';
+export { foundationPath, foundationRequestBody, isFoundationOperation } from '@arcbase/client';

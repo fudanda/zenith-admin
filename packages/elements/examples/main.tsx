@@ -1,8 +1,8 @@
 import '@douyinfe/semi-ui/react19-adapter';
-import '@zenith/elements/styles.css';
+import '@arcbase/elements/styles.css';
 import { createRoot } from 'react-dom/client';
-import { Client } from '@zenith/client';
-import { ZenithProvider, SessionBoundary, PermissionGuard, UserAvatar, LoginForm, FileUploader, useSession, type UploadItem } from '@zenith/elements';
+import { Client } from '@arcbase/client';
+import { ArcBaseProvider, SessionBoundary, PermissionGuard, UserAvatar, LoginForm, FileUploader, useSession, type UploadItem } from '@arcbase/elements';
 import { useState } from 'react';
 
 const client = new Client();
@@ -18,7 +18,7 @@ function Content() {
   </SessionBoundary>;
 }
 const root = createRoot(document.getElementById('root')!);
-function mount() { root.render(<ZenithProvider client={client}><main style={{ maxWidth: 500, padding: 24, margin: 'auto' }}><Content /></main></ZenithProvider>); }
+function mount() { root.render(<ArcBaseProvider client={client}><main style={{ maxWidth: 500, padding: 24, margin: 'auto' }}><Content /></main></ArcBaseProvider>); }
 mount();
-declare global { interface Window { zenithElementsExample: { mount(): void; unmount(): void } } }
-window.zenithElementsExample = { mount, unmount: () => root.render(null) };
+declare global { interface Window { arcbaseElementsExample: { mount(): void; unmount(): void } } }
+window.arcbaseElementsExample = { mount, unmount: () => root.render(null) };

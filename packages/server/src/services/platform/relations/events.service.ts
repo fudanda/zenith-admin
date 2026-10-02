@@ -2,8 +2,8 @@ import type { DbTransaction } from '../../../db/types';
 import { currentUserOrNull } from '../../../lib/context';
 import { domainEventSubjects, domainEvents, entityWatchEvents } from '../../../db/schema';
 import { normalizeAuditSubjects, type AuditSubjectRef } from '../../../lib/audit-subject';
-import { isCanonicalEntityType, isWatchableDomainEvent, parseDomainEventSummary, type DomainEventPayload, type DomainEventType } from '@zenith/shared/platform';
-import { entityRefSchema, type EntityRef } from '@zenith/shared/core';
+import { isCanonicalEntityType, isWatchableDomainEvent, parseDomainEventSummary, type DomainEventPayload, type DomainEventType } from '@arcbase/shared/platform';
+import { entityRefSchema, type EntityRef } from '@arcbase/shared/core';
 import { and, eq, sql } from 'drizzle-orm';
 import { exactTenantCondition } from '../../../lib/tenant';
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Banner, Button, Select, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Download } from 'lucide-react';
-import { cmsStatContract, type CmsStatMetrics, type CmsStatReportRow } from '@zenith/shared/cms';
+import { cmsStatContract, type CmsStatMetrics, type CmsStatReportRow } from '@arcbase/shared/cms';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { KeywordInput } from '@/components/search-filters';
 import { ListSearchToolbar, listTableProps } from '@/components/list-page';

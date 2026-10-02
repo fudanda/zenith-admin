@@ -5,7 +5,7 @@
  * 第三方回传（链接预览、卡片）仍可能带来 `javascript:` / `file:` / `data:`；
  * 所有 href / src / window.open 目标统一经这里过滤，未通过则不渲染或不打开。
  */
-import { isHttpUrl, isSafeExternalUrl, isSafeLinkUrl, isSameOriginUrl } from '@zenith/shared/core';
+import { isHttpUrl, isSafeExternalUrl, isSafeLinkUrl, isSameOriginUrl } from '@arcbase/shared/core';
 
 /** 可作为 <a href> / <img src> / <video src> 的地址；不安全时返回 undefined（React 会省略该属性） */
 export function safeLinkUrl(value: string | null | undefined): string | undefined {

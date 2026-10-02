@@ -2,10 +2,10 @@ import { Button, Empty, Spin, Typography, List as SemiList } from '@douyinfe/sem
 import { Download, Eye, X } from 'lucide-react';
 import DateTimeText from '@/components/DateTimeText';
 import { canPreviewFile, getFileTypeIcon } from '@/utils/file-utils';
-import type { ChatMessage } from '@zenith/shared/chat';
+import type { ChatMessage } from '@arcbase/shared/chat';
 import type { Setter } from '../types';
 import { openExternalUrl, safeHttpUrl, safeLinkUrl } from '@/utils/safe-url';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 const { Text } = Typography;
 

@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { reportDeliveryRunContract, reportSubscriptionContract } from '@zenith/shared/report';
+import type { QueryOf } from '@arcbase/shared/core';
+import { reportDeliveryRunContract, reportSubscriptionContract } from '@arcbase/shared/report';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { asyncTaskKeys } from './async-tasks';
 import { useReportLookup } from './report-lookups';

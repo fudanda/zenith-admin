@@ -3,11 +3,11 @@ import { deleteAction, ListSearchToolbar, listTableProps } from '@/components/li
 import { Checkbox, Input, InputNumber, Spin, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { useNavigate } from 'react-router-dom';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import {
   DRIVE_ACCESS_REQUEST_STATUS_LABELS, DRIVE_ROLE_LABELS, DRIVE_SPACE_TYPE_OPTIONS,
   type DriveRole, type DriveSpace, type DriveSpaceType,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

@@ -57,9 +57,9 @@ export async function sendTestEmail(toEmail: string) {
     await transporter.sendMail({
       from: `"${config.fromName}" <${config.fromEmail || config.smtpUser}>`,
       to: toEmail,
-      subject: '【Zenith Admin】邮件配置测试',
-      text: '这是一封来自 Zenith Admin 的测试邮件，说明您的邮件配置正确。',
-      html: '<p>这是一封来自 <strong>Zenith Admin</strong> 的测试邮件，说明您的邮件配置正确。</p>',
+      subject: '【ArcBase】邮件配置测试',
+      text: '这是一封来自 ArcBase 的测试邮件，说明您的邮件配置正确。',
+      html: '<p>这是一封来自 <strong>ArcBase</strong> 的测试邮件，说明您的邮件配置正确。</p>',
     });
   } catch (err: unknown) {
     let msg: string;

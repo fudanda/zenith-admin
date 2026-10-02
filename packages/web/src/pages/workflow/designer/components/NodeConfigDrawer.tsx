@@ -14,7 +14,7 @@ import { SideSheet, Tabs, TabPane, Input, TextArea, Typography, Form, Select, In
 import { Plus, Trash2, AlertTriangle } from 'lucide-react';
 import ModalFooter from '@/components/ModalFooter';
 import type { FlowNode, FlowNodeType, AssigneeType, ApproveMethod, ApprovalType, RejectStrategy, EmptyAssigneeStrategy, OperationPermission, FieldPermission, TimeoutConfig, SameInitiatorStrategy, DeduplicateStrategy, ActionButtonsConfig, NodeHealthInfo, NodeHealthIssue } from '../types';
-import type { NodeListenerConfig } from '@zenith/shared/workflow';
+import type { NodeListenerConfig } from '@arcbase/shared/workflow';
 import {
   ADDABLE_NODE_TYPES,
   DEFAULT_APPROVER_OPERATIONS,
@@ -30,7 +30,7 @@ import ActionButtonsTab from './tabs/ActionButtonsTab';
 import { normalizeActionButtons } from '../action-buttons';
 import NodeListenersTab from './tabs/NodeListenersTab';
 import FailurePolicySection from './FailurePolicySection';
-import type { WorkflowNodeFailurePolicy } from '@zenith/shared/workflow';
+import type { WorkflowNodeFailurePolicy } from '@arcbase/shared/workflow';
 import { useWorkflowDesignerConnectorOptions, useWorkflowDesignerDecisionRefOptions, type WorkflowDecisionRefKind } from '@/hooks/queries/workflow-designer';
 
 interface UserOption { id: number; nickname: string; }
@@ -735,7 +735,7 @@ export default function NodeConfigDrawer({
                     style={{ width: '100%' }}
                     optionList={[
                       { value: 'none', label: '不校验签名' },
-                      { value: 'hmacSha256', label: 'HMAC-SHA256（X-Zenith-Signature）' },
+                      { value: 'hmacSha256', label: 'HMAC-SHA256（X-ArcBase-Signature）' },
                     ]}
                   />
                 </Form.Slot>

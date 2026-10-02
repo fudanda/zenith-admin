@@ -8,8 +8,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/managedfile"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
 )
 
 // ManagedFileDelete is the builder for deleting a ManagedFile entity.

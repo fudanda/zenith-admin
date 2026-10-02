@@ -12,8 +12,8 @@ import { EMPTY_PLACEHOLDER, dateTimeColumn, renderEllipsis } from '@/utils/table
 import { usePermission } from '@/hooks/usePermission';
 import { deleteAction, ListSearchToolbar } from '@/components/list-page';
 import { copyTextWithToast } from '@/utils/clipboard';
-import { iotIngestContract, iotWhitelistContract } from '@zenith/shared/iot';
-import type { CreateIotWhitelistInput, IotWhitelistEntry } from '@zenith/shared/iot';
+import { iotIngestContract, iotWhitelistContract } from '@arcbase/shared/iot';
+import type { CreateIotWhitelistInput, IotWhitelistEntry } from '@arcbase/shared/iot';
 import { IotProductSelectField } from './components/IotSelectors';
 import { useIotProductOptions } from './components/iot-options';
 import {

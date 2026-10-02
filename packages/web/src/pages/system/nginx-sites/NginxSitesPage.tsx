@@ -20,7 +20,7 @@ import {
   useTestNginxConfig,
   useUpdateNginxSite,
 } from '@/hooks/queries/nginx-sites';
-import type { NginxInfo, NginxSite } from '@zenith/shared/ops';
+import type { NginxInfo, NginxSite } from '@arcbase/shared/ops';
 import { useListSearch } from '@/hooks/useListSearch';
 import { CreateButton } from '@/components/toolbar-controls';
 import { KeywordInput } from '@/components/search-filters';

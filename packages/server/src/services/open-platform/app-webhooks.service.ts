@@ -13,9 +13,9 @@ import { httpPost, type HttpResponse } from '../../lib/http-client';
 import logger from '../../lib/logger';
 import { openEventBus, type OpenPlatformEvent } from '../../lib/open-event-bus';
 import { mapWithConcurrency } from '../../lib/concurrency';
-import { OPEN_WEBHOOK_SIGNATURE_HEADER, OPEN_WEBHOOK_RETRY_STAGES_MINUTES, OPEN_WEBHOOK_EVENTS, OPEN_WEBHOOK_EVENT_LABELS, PAYMENT_WEBHOOK_EVENTS } from '@zenith/shared/open-platform';
-import type { CreateAppWebhookInput, UpdateAppWebhookInput } from '@zenith/shared/open-platform';
-import { DRIVE_OPEN_EVENTS } from '@zenith/shared/drive';
+import { OPEN_WEBHOOK_SIGNATURE_HEADER, OPEN_WEBHOOK_RETRY_STAGES_MINUTES, OPEN_WEBHOOK_EVENTS, OPEN_WEBHOOK_EVENT_LABELS, PAYMENT_WEBHOOK_EVENTS } from '@arcbase/shared/open-platform';
+import type { CreateAppWebhookInput, UpdateAppWebhookInput } from '@arcbase/shared/open-platform';
+import { DRIVE_OPEN_EVENTS } from '@arcbase/shared/drive';
 import { config } from '../../config';
 import { assertSafeOutboundUrl } from '../../lib/outbound-url';
 import { notify } from '../messaging/notification-outbox.service';
@@ -42,7 +42,7 @@ function isSensitiveWebhookEvent(eventType: string): boolean {
 function assertCustomHeaders(headers: Record<string, string> | null | undefined): void {
   for (const key of Object.keys(headers ?? {})) {
     const normalized = key.trim().toLowerCase();
-    if (normalized === 'content-type' || normalized.startsWith('x-zenith-')) {
+    if (normalized === 'content-type' || normalized.startsWith('x-arcbase-')) {
       throw new HTTPException(400, { message: `自定义请求头不能覆盖保留头：${key}` });
     }
   }
@@ -684,10 +684,10 @@ export async function dispatchDelivery(deliveryId: number, expectedTenantId: num
   const headers: Record<string, string> = {
     ...(sub.headers ?? {}),
     'Content-Type': 'application/json',
-    'X-Zenith-Event': delivery.eventType,
-    'X-Zenith-Event-Id': delivery.eventId,
-    'X-Zenith-Delivery-Id': String(delivery.id),
-    'X-Zenith-Attempt': String(attempt),
+    'X-ArcBase-Event': delivery.eventType,
+    'X-ArcBase-Event-Id': delivery.eventId,
+    'X-ArcBase-Delivery-Id': String(delivery.id),
+    'X-ArcBase-Attempt': String(attempt),
   };
   if (sub.signMode === 'hmacSha256') {
     const secret = sub.secretEncrypted ? decryptField(sub.secretEncrypted) : null;

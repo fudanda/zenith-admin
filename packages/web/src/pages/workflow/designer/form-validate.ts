@@ -2,8 +2,8 @@
  * 表单 schema 体检：保存前/设计中统一校验，汇总空标签、重复 key、空选项、
  * 区间非法、无效正则、孤儿依赖、公式错误等问题。供保存阻断与体检面板复用。
  */
-import type { WorkflowFormField, WorkflowFormFieldType } from '@zenith/shared/workflow';
-import { collectWorkflowRuleConditions } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormFieldType } from '@arcbase/shared/workflow';
+import { collectWorkflowRuleConditions } from '@arcbase/shared/workflow';
 import { FORM_FIELD_TYPES } from './form-types';
 import { flattenAllFields, formulaReferencesKey } from './form-tree';
 import { evalFormula } from './form-formula';

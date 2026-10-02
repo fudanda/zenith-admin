@@ -1,5 +1,5 @@
-import { ratePlanContract } from '@zenith/shared/open-platform';
-import type { RatePlan } from '@zenith/shared/open-platform';
+import { ratePlanContract } from '@arcbase/shared/open-platform';
+import type { RatePlan } from '@arcbase/shared/open-platform';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, notFound, nextIdFrom } from '@/mocks/utils/handlers';
 import { mockRatePlans } from '@/mocks/data/rate-plans';

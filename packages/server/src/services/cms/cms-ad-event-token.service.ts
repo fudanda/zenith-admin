@@ -2,7 +2,7 @@ import { requireRow } from '../../lib/db-assert';
 import { randomUUID } from 'node:crypto';
 import { and, eq, gte, inArray, isNull, lte, or } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CmsAdEventType } from '@zenith/shared/cms';
+import type { CmsAdEventType } from '@arcbase/shared/cms';
 import { config } from '../../config';
 import { db } from '../../db';
 import { cmsAds, cmsAdSlots, cmsSites } from '../../db/schema';

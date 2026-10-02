@@ -1,7 +1,7 @@
 import { goSessionKey } from '../lib/go-session';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { hashKey, useQuery, useQueryClient } from '@tanstack/react-query';
-import { goAuthContract, type GoSession } from '@zenith/shared/identity';
+import { goAuthContract, type GoSession } from '@arcbase/shared/identity';
 import { AuthContext, type AuthContextValue } from '@/hooks/useAuth';
 import { PermissionContext } from '@/hooks/usePermission';
 import { apiRaw } from '@/lib/contract-query';
@@ -9,10 +9,10 @@ import { ApiError } from '@/lib/query';
 import { loginGo, logoutGo } from '@/lib/go-auth-api';
 import { GO_SESSION_INVALIDATED, goApiClient } from '@/lib/go-api-client';
 import { goTransport } from '@/lib/go-transport';
-import { TOKEN_KEY, REFRESH_TOKEN_KEY, PREFERENCES_KEY, TABS_STORAGE_KEY } from '@zenith/shared/core';
+import { TOKEN_KEY, REFRESH_TOKEN_KEY, PREFERENCES_KEY, TABS_STORAGE_KEY } from '@arcbase/shared/core';
 import { showRequestErrorToast } from '@/utils/request-toast';
-import { ZenithProvider, useSession, type ZenithSessionAdapter, type ZenithSessionValue, type LoginResult as ElementsLoginResult } from '@zenith/elements';
-import type { Client, ApiEnvelope } from '@zenith/client';
+import { ArcBaseProvider, useSession, type ArcBaseSessionAdapter, type ArcBaseSessionValue, type LoginResult as ElementsLoginResult } from '@arcbase/elements';
+import type { Client, ApiEnvelope } from '@arcbase/client';
 import { useAdminOptions } from '@/admin/runtime';
 import { useAuth } from '@/hooks/useAuth';
 import PageLoading from '@/components/PageLoading';
@@ -64,7 +64,7 @@ function OwnedGoAuthProvider({ children }: Readonly<{ children: ReactNode }>) {
     const invalidated = () => { if (authenticated.current) void clearIdentity(); };
     globalThis.addEventListener(GO_SESSION_INVALIDATED, invalidated);
     if (typeof BroadcastChannel !== 'undefined') {
-      channel.current = new BroadcastChannel('zenith-go-session');
+      channel.current = new BroadcastChannel('arcbase-go-session');
       channel.current.onmessage = () => { void clearIdentity().then(() => refetch()); };
     }
     return () => {
@@ -119,7 +119,7 @@ function OwnedGoAuthProvider({ children }: Readonly<{ children: ReactNode }>) {
 function ElementsBridge({ children, client }: { children: ReactNode; client: Client }) {
   const auth = useAuth();
   const options = useAdminOptions();
-  const session = useMemo<ZenithSessionValue>(() => ({
+  const session = useMemo<ArcBaseSessionValue>(() => ({
     status: auth.status, error: auth.error, refreshing: auth.refreshing,
     session: auth.user ? { user: auth.user, permissions: auth.permissions, csrfToken: client.sessionHeaders()['X-CSRF-Token'] ?? '', superAdmin: auth.permissions.includes('*') } : null,
     login: input => auth.login(input.username, input.password, input.captchaId, input.captchaAnswer) as Promise<ApiEnvelope<ElementsLoginResult>>,
@@ -127,7 +127,7 @@ function ElementsBridge({ children, client }: { children: ReactNode; client: Cli
     refresh: auth.refresh, updateUser: auth.updateUser,
     logout: auth.logoutAllAccounts,
   }), [auth, client]);
-  return <ZenithProvider client={client} session={session} locale={options.locale} brand={options.brand}>{children}</ZenithProvider>;
+  return <ArcBaseProvider client={client} session={session} locale={options.locale} brand={options.brand}>{children}</ArcBaseProvider>;
 }
 
 function HostAuthBridge({ children }: { children: ReactNode }) {
@@ -172,9 +172,9 @@ function HostAuthBridge({ children }: { children: ReactNode }) {
   return <AuthContext.Provider value={value}><PermissionContext.Provider value={value.permissions}>{visibleIdentity === (user?.id ?? null) ? children : <PageLoading />}</PermissionContext.Provider></AuthContext.Provider>;
 }
 
-export function GoAuthProvider({ children, client = goTransport, authSession }: { children: ReactNode; client?: Client; authSession?: ZenithSessionAdapter }) {
+export function GoAuthProvider({ children, client = goTransport, authSession }: { children: ReactNode; client?: Client; authSession?: ArcBaseSessionAdapter }) {
   const options = useAdminOptions();
   return authSession
-    ? <ZenithProvider client={client} authSession={authSession} locale={options.locale} brand={options.brand}><HostAuthBridge>{children}</HostAuthBridge></ZenithProvider>
+    ? <ArcBaseProvider client={client} authSession={authSession} locale={options.locale} brand={options.brand}><HostAuthBridge>{children}</HostAuthBridge></ArcBaseProvider>
     : <OwnedGoAuthProvider><ElementsBridge client={client}>{children}</ElementsBridge></OwnedGoAuthProvider>;
 }

@@ -1,5 +1,5 @@
 import { OpenAPIHono, z } from '@hono/zod-openapi';
-import { DRIVE_UPLOAD_CONFLICT_POLICIES, driveNodeContract } from '@zenith/shared/drive';
+import { DRIVE_UPLOAD_CONFLICT_POLICIES, driveNodeContract } from '@arcbase/shared/drive';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, apiResponse, errBody, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import { supportsRange, rangeContentHeaders } from '../../lib/http-range';

@@ -1,8 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
 import type { UseQueryOptions } from '@tanstack/react-query';
-import { aiEvalContract } from '@zenith/shared/ai';
-import type { AiEvalExperiment } from '@zenith/shared/ai';
-import { resourceKeyOf } from '@zenith/shared/core';
+import { aiEvalContract } from '@arcbase/shared/ai';
+import type { AiEvalExperiment } from '@arcbase/shared/ai';
+import { resourceKeyOf } from '@arcbase/shared/core';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const aiEvalKeys = {

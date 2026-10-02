@@ -61,6 +61,12 @@ func PositiveInt(value string, fallback, limit int) (int, error) {
 }
 
 func ExpireCookie(w http.ResponseWriter, secure bool) {
+	http.SetCookie(w, &http.Cookie{Name: "arcbase_session", Value: "", Path: "/", HttpOnly: true,
+		Secure: secure, SameSite: http.SameSiteLaxMode, Expires: time.Unix(0, 0), MaxAge: -1})
+	expireLegacyCookie(w, secure)
+}
+
+func expireLegacyCookie(w http.ResponseWriter, secure bool) {
 	http.SetCookie(w, &http.Cookie{Name: "zenith_session", Value: "", Path: "/", HttpOnly: true,
 		Secure: secure, SameSite: http.SameSiteLaxMode, Expires: time.Unix(0, 0), MaxAge: -1})
 }

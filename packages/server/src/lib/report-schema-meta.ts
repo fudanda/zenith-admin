@@ -8,7 +8,7 @@ import { db } from '../db';
 import { config } from '../config';
 import { currentUser } from './context';
 import { isPlatformAdmin } from './tenant';
-import type { ReportMetaColumn } from '@zenith/shared/report';
+import type { ReportMetaColumn } from '@arcbase/shared/report';
 
 /** 敏感表：含凭据/密钥/会话等，不对建模与 AI 上下文暴露 */
 const SENSITIVE_TABLE_RE = /(^|_)(password|secret|token|tokens|session|sessions|credential|oauth|sso|api_keys?|sms_config|email_config|ai_provider|file_storage|provider_config)s?($|_)/i;

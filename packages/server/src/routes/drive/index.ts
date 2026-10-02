@@ -7,7 +7,7 @@ import {
   driveShareLinkContract,
   driveSpaceContract,
   driveTagContract,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { defineRouteDomain } from '../_kit';
 import driveSpacesRoutes from './drive-spaces';
 import driveNodesRoutes from './drive-nodes';

@@ -12,8 +12,8 @@ import {
   type DirectorySyncSourceRow, type DirectorySyncUserLinkRow, type DirectorySyncDeptLinkRow,
   type NewDirectorySyncRunItem,
 } from '../../db/schema';
-import type { DirectorySyncRunStatus, DirectorySyncTriggerType } from '@zenith/shared/identity';
-import { DIRECTORY_SYNC_FIELD_IGNORE } from '@zenith/shared/identity';
+import type { DirectorySyncRunStatus, DirectorySyncTriggerType } from '@arcbase/shared/identity';
+import { DIRECTORY_SYNC_FIELD_IGNORE } from '@arcbase/shared/identity';
 import { reserveTenantSeats } from '../../lib/tenant-quota';
 import { exactTenantCondition } from '../../lib/tenant';
 import { syncAllDynamicGroupsSafe } from './user-group-rules.service';

@@ -23,7 +23,7 @@ import {
   reportQueryCapacityContract,
   reportSlaContract,
   reportSubscriptionContract,
-} from '@zenith/shared/report';
+} from '@arcbase/shared/report';
 import { defineRouteDomain } from '../_kit';
 import reportAiRoutes from './report-ai';
 import reportAlertsRoutes from './report-alerts';

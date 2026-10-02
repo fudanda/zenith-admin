@@ -1,4 +1,4 @@
-import { NOTIFICATION_CHANNELS, NOTIFICATION_EVENTS, NOTIFICATION_EVENT_GROUP_LABELS, isNotificationEventKey, notificationPolicyContract, type NotificationEventDef, type NotificationPolicyEvent } from '@zenith/shared/messaging';
+import { NOTIFICATION_CHANNELS, NOTIFICATION_EVENTS, NOTIFICATION_EVENT_GROUP_LABELS, isNotificationEventKey, notificationPolicyContract, type NotificationEventDef, type NotificationPolicyEvent } from '@arcbase/shared/messaging';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, forbidden, notFound, unauthorized } from '@/mocks/utils/handlers';
 import { currentMockSession, mockUserPermissions } from '@/mocks/utils/auth';

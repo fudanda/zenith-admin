@@ -7,7 +7,7 @@ import { useFilterQuery } from '@/hooks/useFilterQuery';
 import { useListSearch, type UseListSearchOptions, type UseListSearchReturn } from '@/hooks/useListSearch';
 import type { CompactParams } from '@/lib/query';
 import { formatDateTimeRangeValuesForApi } from '@/utils/date';
-import type { AnyOperation, QueryOf } from '@zenith/shared/core';
+import type { AnyOperation, QueryOf } from '@arcbase/shared/core';
 
 interface PageParams {
   readonly page: number;

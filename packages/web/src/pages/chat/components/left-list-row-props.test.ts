@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { ChatConversation } from '@zenith/shared/chat';
+import type { ChatConversation } from '@arcbase/shared/chat';
 import type { LeftListItem } from '../types';
 import { areLeftListRowPropsEqual, toLeftListRowProps, type LeftListContext } from './left-list-row-props';
 

@@ -1,7 +1,7 @@
 import { requireRow } from '../../lib/db-assert';
 import { HTTPException } from 'hono/http-exception';
 import { and, eq, inArray, type SQL, type SQLWrapper } from 'drizzle-orm';
-import { reportResourceAclSchema, type GrantReportResourceAclInput, type ReportAclRole, type ReportAclSubjectType, type ReportResourceAcl, type ReportResourceType, type UpdateReportResourceAclInput } from '@zenith/shared/report';
+import { reportResourceAclSchema, type GrantReportResourceAclInput, type ReportAclRole, type ReportAclSubjectType, type ReportResourceAcl, type ReportResourceType, type UpdateReportResourceAclInput } from '@arcbase/shared/report';
 import { db } from '../../db';
 import {
   departments,

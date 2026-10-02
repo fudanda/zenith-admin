@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import type { Menu } from '@zenith/shared/identity';
+import type { Menu } from '@arcbase/shared/identity';
 import type { FlatMenuItem } from '@/components/MenuSearchInput';
 import type { NavLayout } from '@/hooks/usePreferences';
 import { useLucideIconsReady } from '@/utils/icons';

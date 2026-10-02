@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { REFRESH_TOKEN_KEY, TOKEN_KEY } from '@zenith/shared/core';
+import { REFRESH_TOKEN_KEY, TOKEN_KEY } from '@arcbase/shared/core';
 import { useAllTenants, useSwitchTenant } from '@/hooks/queries/tenants';
 
 // ─── 租户切换（仅平台管理员） ─────────────────────────────────────────────

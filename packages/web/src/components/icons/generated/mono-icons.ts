@@ -1,4 +1,4 @@
-// 由 scripts/gen-iconify-assets.mjs 生成，勿手改；新增图标字面量后运行 `npm run icons:iconify -w @zenith/web`。
+// 由 scripts/gen-iconify-assets.mjs 生成，勿手改；新增图标字面量后运行 `npm run icons:iconify -w @arcbase/web`。
 // 单色图标内联为数据（currentColor 需跟随文字颜色，<img> 不继承），经 components/icons/MonoIcon 渲染。
 import type { MonoIconData } from '../MonoIcon';
 

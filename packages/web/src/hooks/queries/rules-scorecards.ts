@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { ruleScorecardContract, type CreateRuleScorecardInput, type UpdateRuleScorecardInput } from '@zenith/shared/rules';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { ruleScorecardContract, type CreateRuleScorecardInput, type UpdateRuleScorecardInput } from '@arcbase/shared/rules';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type RuleScorecardListParams = NonNullable<QueryOf<typeof ruleScorecardContract.list>>;

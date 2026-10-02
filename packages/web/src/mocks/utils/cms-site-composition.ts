@@ -1,4 +1,4 @@
-import { cmsHomeSectionsSchema, cmsModelDisplaysSchema, validateCmsHomeSections, validateCmsModelDisplay } from '@zenith/shared/cms';
+import { cmsHomeSectionsSchema, cmsModelDisplaysSchema, validateCmsHomeSections, validateCmsModelDisplay } from '@arcbase/shared/cms';
 import { mockCmsChannels, mockCmsModels } from '../data/cms';
 import { MockHttpError } from './contract';
 import { badRequest } from './handlers';

@@ -1,7 +1,7 @@
 import { ListSearchToolbar } from '@/components/list-page';
 import { Avatar, Button, Form, Modal, Space, Tag, Toast } from '@douyinfe/semi-ui';
 import { RefreshCw, Ban } from 'lucide-react';
-import { type MpFan, type MpFanSubscribe, type UpdateMpFanInput, mpFanContract } from '@zenith/shared/mp';
+import { type MpFan, type MpFanSubscribe, type UpdateMpFanInput, mpFanContract } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

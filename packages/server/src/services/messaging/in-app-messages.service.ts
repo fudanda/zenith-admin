@@ -12,8 +12,8 @@ import { currentUser } from '../../lib/context';
 import { renderTemplate } from '../../lib/sms-sender';
 import { scheduleSendPerUser, scheduleSendToUsers } from '../../lib/ws-manager';
 import { ensureInAppTemplateExists } from './in-app-templates.service';
-import type { SendInAppInput, InAppMessageType, inAppMessageContract } from '@zenith/shared/messaging';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { SendInAppInput, InAppMessageType, inAppMessageContract } from '@arcbase/shared/messaging';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 
 type InAppMessageListQuery = QueryOutputOf<typeof inAppMessageContract.list>;
 type InAppMessageAdminListQuery = QueryOutputOf<typeof inAppMessageContract.adminList>;

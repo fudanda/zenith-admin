@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { HttpHandler } from 'msw';
-import { businessFileContract, entityRelationsContract, entityRelationPageSchema, type CanonicalEntityType } from '@zenith/shared/platform';
-import { memberFulfillmentContract } from '@zenith/shared/member';
-import { iotFirmwareContract, iotOtaTaskContract } from '@zenith/shared/iot';
+import { businessFileContract, entityRelationsContract, entityRelationPageSchema, type CanonicalEntityType } from '@arcbase/shared/platform';
+import { memberFulfillmentContract } from '@arcbase/shared/member';
+import { iotFirmwareContract, iotOtaTaskContract } from '@arcbase/shared/iot';
 import { urlOf } from '@/lib/contract-query';
 import { entityDetailRoute } from '@/utils/entity-relations';
 import { entityRelationsHandlers } from './handlers/entity-relations';

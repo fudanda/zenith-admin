@@ -10,21 +10,21 @@ import { mergeSeo } from './cms-render.service';
 const site = {
   id: 1,
   code: 'main',
-  name: 'Zenith',
-  title: 'Zenith CMS',
+  name: 'ArcBase',
+  title: 'ArcBase CMS',
   keywords: null,
   description: 'CMS 平台',
   logo: '/logo.png',
   favicon: null,
   domain: 'cms.example.com',
   aliasDomains: [],
-  settings: { twitterSite: '@zenith', twitterCard: 'summary_large_image', socialImageAlt: 'Zenith Logo' },
+  settings: { twitterSite: '@arcbase', twitterCard: 'summary_large_image', socialImageAlt: 'ArcBase Logo' },
 } as unknown as CmsSiteRow;
 
 describe('CMS social SEO rendering behavior', () => {
   it('uses readable fallback metadata for empty or whitespace overrides', () => {
     expect(mergeSeo(site, { title: ' ', description: '', ogTitle: '', twitterTitle: '  ' })).toMatchObject({
-      title: 'Zenith CMS', description: 'CMS 平台', ogTitle: 'Zenith CMS', twitterTitle: 'Zenith CMS',
+      title: 'ArcBase CMS', description: 'CMS 平台', ogTitle: 'ArcBase CMS', twitterTitle: 'ArcBase CMS',
     });
   });
   it('renders complete OG/article/Twitter metadata in default and docs themes', () => {
@@ -42,7 +42,7 @@ describe('CMS social SEO rendering behavior', () => {
     });
     const ctx = {
       site: {
-        id: 1, code: 'main', name: 'Zenith', title: 'Zenith CMS', keywords: null,
+        id: 1, code: 'main', name: 'ArcBase', title: 'ArcBase CMS', keywords: null,
         description: 'CMS 平台', logo: '/logo.png', favicon: null, icp: null, copyright: null,
         theme: 'default', settings: site.settings, themeConfig: {},
       },
@@ -64,7 +64,7 @@ describe('CMS social SEO rendering behavior', () => {
     ];
     for (const html of htmlOutputs) {
       expect(html).toContain('property="og:url" content="https://cms.example.com/news/demo.html"');
-      expect(html).toContain('property="og:site_name" content="Zenith"');
+      expect(html).toContain('property="og:site_name" content="ArcBase"');
       expect(html).toContain('property="article:published_time"');
       expect(html).toContain('name="twitter:card" content="summary_large_image"');
       expect(html).toContain('name="twitter:creator" content="@author"');

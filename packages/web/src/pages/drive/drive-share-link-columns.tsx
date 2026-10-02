@@ -4,7 +4,7 @@
  */
 import { Space, Tag } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { describeShareCapabilities, type DriveShareLink, type DriveShareLinkState } from '@zenith/shared/drive';
+import { describeShareCapabilities, type DriveShareLink, type DriveShareLinkState } from '@arcbase/shared/drive';
 import { FileNameCell } from '@/components/FileNameCell';
 import type { ResponsiveTableAction } from '@/components/ResponsiveTableActions';
 import { copyTextWithToast } from '@/utils/clipboard';

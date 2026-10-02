@@ -4,7 +4,7 @@
  * CRUD + 投递日志查询；运行时派发见 iot-forward.service（挂在遥测/事件/告警/生命周期）。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { iotForwardRuleContract } from '@zenith/shared/iot';
+import { iotForwardRuleContract } from '@arcbase/shared/iot';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import {

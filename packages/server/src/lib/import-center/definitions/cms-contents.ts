@@ -1,6 +1,6 @@
 import * as z from 'zod';
 import { and, eq, inArray } from 'drizzle-orm';
-import { CMS_CONTENT_IMPORT_COLUMNS, parseCmsContentImportCells } from '@zenith/shared/cms';
+import { CMS_CONTENT_IMPORT_COLUMNS, parseCmsContentImportCells } from '@arcbase/shared/cms';
 import { db } from '../../../db';
 import { cmsChannels, cmsTags, cmsResources } from '../../../db/schema';
 import { extractCmsResourceIds } from '../../cms-resource-uri';

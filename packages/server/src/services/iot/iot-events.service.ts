@@ -1,5 +1,5 @@
-import { iotDeviceContract, iotDeviceEventSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotDeviceContract, iotDeviceEventSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 设备事件流：生命周期事件（系统打点）+ 物模型事件（设备上报）。
  *
@@ -7,8 +7,8 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  * 并触发事件类告警规则判定。
  */
 import { and, desc, eq } from 'drizzle-orm';
-import type { IotEventIngestInput } from '@zenith/shared/iot';
-import { IOT_LIFECYCLE_EVENTS, type IotLifecycleEventId } from '@zenith/shared/iot';
+import type { IotEventIngestInput } from '@arcbase/shared/iot';
+import { IOT_LIFECYCLE_EVENTS, type IotLifecycleEventId } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import { iotDeviceEvents, iotDevices, type IotDeviceEventRow, type IotDeviceRow } from '../../db/schema';
 import { formatDateTime, parseDateTimeInput } from '../../lib/datetime';

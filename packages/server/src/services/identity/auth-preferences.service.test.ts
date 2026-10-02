@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { defaultPreferencePolicy, type PreferencePolicy } from '@zenith/shared/preferences';
-import { userPreferencesInputSchema } from '@zenith/shared/identity';
+import { defaultPreferencePolicy, type PreferencePolicy } from '@arcbase/shared/preferences';
+import { userPreferencesInputSchema } from '@arcbase/shared/identity';
 
 const state = vi.hoisted(() => ({
   stored: null as unknown,

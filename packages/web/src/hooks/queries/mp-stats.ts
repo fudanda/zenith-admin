@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { mpStatsContract } from '@zenith/shared/mp';
+import type { QueryOf } from '@arcbase/shared/core';
+import { mpStatsContract } from '@arcbase/shared/mp';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export type MpDatacubeParams = Omit<QueryOf<typeof mpStatsContract.datacube>, 'accountId'>;

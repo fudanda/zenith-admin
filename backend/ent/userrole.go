@@ -8,7 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/userrole"
+	"github.com/fudanda/arcbase/backend/ent/userrole"
 )
 
 // UserRole is the model entity for the UserRole schema.

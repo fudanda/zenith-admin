@@ -1,5 +1,5 @@
-import { bizPayDemoContract, type BizPayDemo } from '@zenith/shared/biz';
-import { PAYMENT_METHOD_CHANNEL, type CreatePaymentResult } from '@zenith/shared/payment';
+import { bizPayDemoContract, type BizPayDemo } from '@arcbase/shared/biz';
+import { PAYMENT_METHOD_CHANNEL, type CreatePaymentResult } from '@arcbase/shared/payment';
 import { mockBizPayDemos, getNextPayDemoId } from '@/mocks/data/biz-pay-demo';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';

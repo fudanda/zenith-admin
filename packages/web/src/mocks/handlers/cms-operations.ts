@@ -1,5 +1,5 @@
-import { canTransitionCmsFeedback, CMS_ATTRIBUTION_EVENTS, CMS_WORKSPACE_QUEUES, cmsFeedbackSchema, cmsOperationsContract, type CmsEditorialTask, type CmsWorkspaceItem } from '@zenith/shared/cms';
-import { WORKFLOW_ACTIVE_INSTANCE_STATUSES } from '@zenith/shared/workflow';
+import { canTransitionCmsFeedback, CMS_ATTRIBUTION_EVENTS, CMS_WORKSPACE_QUEUES, cmsFeedbackSchema, cmsOperationsContract, type CmsEditorialTask, type CmsWorkspaceItem } from '@arcbase/shared/cms';
+import { WORKFLOW_ACTIVE_INSTANCE_STATUSES } from '@arcbase/shared/workflow';
 import { mock, MockHttpError } from '../utils/contract';
 import { requireItem } from '../utils/crud';
 import { badRequest, conflict, nextIdFrom } from '../utils/handlers';

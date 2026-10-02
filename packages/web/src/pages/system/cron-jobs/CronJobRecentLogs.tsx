@@ -1,8 +1,8 @@
 import { Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { CronJobLog, CronRunStatus, CronRunTrigger } from '@zenith/shared/platform';
-import { CRON_RUN_STATUSES, CRON_RUN_STATUS_OPTIONS, CRON_RUN_TRIGGERS, CRON_RUN_TRIGGER_LABELS, CRON_RUN_TRIGGER_OPTIONS } from '@zenith/shared/platform';
-import { enumValueOf } from '@zenith/shared/core';
+import type { CronJobLog, CronRunStatus, CronRunTrigger } from '@arcbase/shared/platform';
+import { CRON_RUN_STATUSES, CRON_RUN_STATUS_OPTIONS, CRON_RUN_TRIGGERS, CRON_RUN_TRIGGER_LABELS, CRON_RUN_TRIGGER_OPTIONS } from '@arcbase/shared/platform';
+import { enumValueOf } from '@arcbase/shared/core';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { DateRangeFilter, FilterSelect, KeywordInput, StatusSelect } from '@/components/search-filters';

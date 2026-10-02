@@ -37,14 +37,14 @@ Demo 模式由 `packages/web/.env.demo` 的 `VITE_DEMO_MODE=true` 激活，详�
 
 ### `base` 路径
 
-VitePress 按环境切换：本地为 `/`，GitHub Pages 构建为 `/zenith-admin/`。Pages 工作流通过 `GITHUB_REPOSITORY` 提供上下文，无需手动修改配置。
+VitePress 按环境切换：本地为 `/`，GitHub Pages 构建为 `/arcbase/`。Pages 工作流通过 `GITHUB_REPOSITORY` 提供上下文，无需手动修改配置。
 
 ### 文档写作约定
 
 - 只描述当前实现状态，不写版本迁移故事。
 - 命令、端口、环境变量与脚本以 `package.json`、`.env.example`、Docker / Workflow 文件为准。
 - 产品能力以路由、菜单 seed、页面、服务和 mock 的当前代码为准。
-- 开发规范正文只放在 `.agents/skills/zenith/references/`；文档站只做说明与链接。
+- 开发规范正文只放在 `.agents/skills/arcbase/references/`；文档站只做说明与链接。
 
 ## CI
 
@@ -98,8 +98,8 @@ git push origin vX.Y.Z
 
 1. Node 24 + `npm ci`。
 2. `npm run build` 构建全部包。
-3. 打包 `zenith-admin-server-${tag}.zip`：`packages/server/dist`、`packages/server/drizzle`、`packages/server/package.json`。
-4. 打包 `zenith-admin-web-${tag}.zip`：`packages/web/dist`。
+3. 打包 `arcbase-server-${tag}.zip`：`packages/server/dist`、`packages/server/drizzle`、`packages/server/package.json`。
+4. 打包 `arcbase-web-${tag}.zip`：`packages/web/dist`。
 5. 从 `docs/changelog/index.md` 提取对应 tag 的 Release Notes。
 6. 创建 GitHub Release 并上传两个 zip。
 

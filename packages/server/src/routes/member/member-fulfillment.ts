@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { memberFulfillmentContract } from '@zenith/shared/member';
+import { memberFulfillmentContract } from '@arcbase/shared/member';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getMemberVipRenewal, getMemberWalletTransaction } from '../../services/member/member-fulfillment.service';

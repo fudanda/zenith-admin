@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { keepPreviousData, useMutation, useQueryClient, type QueryClient } from '@tanstack/react-query';
-import type { InputOf, QueryOf } from '@zenith/shared/core';
+import type { InputOf, QueryOf } from '@arcbase/shared/core';
 import {
   workflowAutomationContract,
   workflowConnectorContract,
@@ -11,7 +11,7 @@ import {
   workflowInstanceOpsContract,
   workflowTaskContract,
   workflowTriggerExecutionContract,
-} from '@zenith/shared/workflow';
+} from '@arcbase/shared/workflow';
 import { api, contractKey, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';
 import { compactQuery } from '@/lib/query';
@@ -196,7 +196,7 @@ export async function fetchWorkflowInstancePrintPdf(id: number, options: Workflo
   return {
     blob,
     filename: match ? decodeURIComponent(match[1]) : `审批单-${id}.pdf`,
-    source: res.headers.get('x-zenith-print-source') === 'archive' ? 'archive' : 'live',
+    source: res.headers.get('x-arcbase-print-source') === 'archive' ? 'archive' : 'live',
   };
 }
 

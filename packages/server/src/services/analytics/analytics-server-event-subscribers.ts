@@ -11,7 +11,7 @@
 import type { PaymentEvent } from '../../lib/payment-event-bus';
 import { paymentEventBus } from '../../lib/payment-event-bus';
 import { workflowEventBus } from '../../lib/workflow-event-bus';
-import type { WorkflowEvent } from '@zenith/shared/workflow';
+import type { WorkflowEvent } from '@arcbase/shared/workflow';
 import { trackServerEvent } from './analytics-server-events.service';
 import logger from '../../lib/logger';
 

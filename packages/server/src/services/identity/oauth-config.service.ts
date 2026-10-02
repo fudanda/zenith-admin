@@ -1,7 +1,7 @@
 import { eq, inArray } from 'drizzle-orm';
 import { db } from '../../db';
 import { oauthConfigs } from '../../db/schema';
-import type { OAuthProviderType } from '@zenith/shared/identity';
+import type { OAuthProviderType } from '@arcbase/shared/identity';
 import { HTTPException } from 'hono/http-exception';
 import { formatNullableDateTime } from '../../lib/datetime';
 

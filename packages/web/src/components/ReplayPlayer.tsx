@@ -10,7 +10,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Empty, Spin, Switch, TabPane, Tabs, Tag, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { Info } from 'lucide-react';
-import type { ReplaySegmentMeta, ReplaySessionDetail } from '@zenith/shared/analytics';
+import type { ReplaySegmentMeta, ReplaySessionDetail } from '@arcbase/shared/analytics';
 import { fetchReplaySegmentEvents } from '@/hooks/queries/session-replays';
 
 const { Text } = Typography;

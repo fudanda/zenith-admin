@@ -1,4 +1,4 @@
-import { CMS_SECRET_MASK } from '@zenith/shared/cms';
+import { CMS_SECRET_MASK } from '@arcbase/shared/cms';
 import { describe, expect, it } from 'vitest';
 import { cmsCredentialWriteValue } from './cms-site-credentials';
 

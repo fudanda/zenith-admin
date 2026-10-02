@@ -1,7 +1,7 @@
 // ─── 节点级表单字段权限（shared 纯函数）单元测试 ────────────────────────────────
 import { describe, expect, it } from 'vitest';
-import { applyFieldPermissionsToFields, buildWorkflowSummaryItems, hasEditableFieldPermission, resolveNodeFieldPermissions, sanitizeFormUpdatesByNodePerms } from '@zenith/shared/workflow';
-import type { WorkflowFieldPermission, WorkflowFlowData, WorkflowFormField } from '@zenith/shared/workflow';
+import { applyFieldPermissionsToFields, buildWorkflowSummaryItems, hasEditableFieldPermission, resolveNodeFieldPermissions, sanitizeFormUpdatesByNodePerms } from '@arcbase/shared/workflow';
+import type { WorkflowFieldPermission, WorkflowFlowData, WorkflowFormField } from '@arcbase/shared/workflow';
 
 const flowData = {
   nodes: [

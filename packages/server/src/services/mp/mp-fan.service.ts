@@ -9,8 +9,8 @@ import { buildWhere, keywordCondition } from '../../lib/where-helpers';
 import { tenantScope, currentCreateTenantId } from '../../lib/tenant';
 import { ensureMpAccountExists } from './mp-account.service';
 import { getFollowerOpenids, batchGetFanInfo, getWechatBlacklist, batchBlacklistFans, batchUnblacklistFans, WechatApiError } from '../../lib/wechat';
-import { mpFanSchema, type UpdateMpFanInput, type MpFanSubscribe, type mpFanContract } from '@zenith/shared/mp';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { mpFanSchema, type UpdateMpFanInput, type MpFanSubscribe, type mpFanContract } from '@arcbase/shared/mp';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { pickEntity } from '../../lib/entity-map';
 
 export function mapMpFan(row: MpFanRow) {

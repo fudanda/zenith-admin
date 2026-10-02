@@ -1,4 +1,4 @@
-import { defaultPreferences, preferenceDefinitions, type TerminalPreferences } from '@zenith/shared/preferences';
+import { defaultPreferences, preferenceDefinitions, type TerminalPreferences } from '@arcbase/shared/preferences';
 import { usePreferences } from '@/hooks/usePreferences';
 
 export const defaultTerminalPreferences: TerminalPreferences = defaultPreferences.terminal;

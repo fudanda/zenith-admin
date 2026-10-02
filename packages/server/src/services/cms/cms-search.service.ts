@@ -2,7 +2,7 @@ import { cmsGenerationNow } from './cms-generation-context';
 import { sql, and, eq, gt, inArray, isNull, or, type SQL } from 'drizzle-orm';
 import { Jieba } from '@node-rs/jieba';
 import { dict } from '@node-rs/jieba/dict.js';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { db } from '../../db';
 import { cmsContents, cmsChannels, cmsSearchWords, cmsModelVersions } from '../../db/schema';
 import { formatNullableDateTime } from '../../lib/datetime';
@@ -10,8 +10,8 @@ import { keywordCondition, buildWhere, withPagination } from '../../lib/where-he
 import { config } from '../../config';
 import redis from '../../lib/redis';
 import logger from '../../lib/logger';
-import { cmsSearchContract } from '@zenith/shared/cms';
-import type { CmsChannelDetailPathRule, CmsSearchResult } from '@zenith/shared/cms';
+import { cmsSearchContract } from '@arcbase/shared/cms';
+import type { CmsChannelDetailPathRule, CmsSearchResult } from '@arcbase/shared/cms';
 import { assertSiteAccess, ensureCmsSiteExists } from './cms-sites.service';
 import { contentUrl } from './cms-urls';
 import { buildCmsLinkResolver } from './cms-link.service';
@@ -20,7 +20,7 @@ import { getEffectivelyEnabledCmsChannelIds } from './cms-channel-visibility.ser
 import { assertAllCmsSiteChannelsAccess, getAccessibleChannelIds } from './cms-channels.service';
 import { loadCmsExtensionWords, normalizeCmsSearchDictionaryWord } from './cms-search-dictionary';
 import { listSummaryOf } from './cms-content-columns';
-import { escapeHtml, escapeRegExp } from '@zenith/shared/core';
+import { escapeHtml, escapeRegExp } from '@arcbase/shared/core';
 import { cmsGenerationContext } from './cms-generation-context';
 
 // ─── 分词器（进程级单例，加载默认词典 + DB 自定义词典）─────────────────────────

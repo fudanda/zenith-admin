@@ -1,4 +1,4 @@
-import { mpKfAccountContract, type MpKfAccount } from '@zenith/shared/mp';
+import { mpKfAccountContract, type MpKfAccount } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';

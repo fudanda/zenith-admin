@@ -63,7 +63,7 @@ export const SESSION_CLIENT_KIND_OPTIONS: Array<{ value: SessionClientKind; labe
   createLabelOptions(SESSION_CLIENT_KINDS, SESSION_CLIENT_KIND_LABELS);
 
 /** 请求头：前端各入口自报终端类型，服务端只接受 SESSION_CLIENT_KINDS 内的值，其余按 web */
-export const SESSION_CLIENT_HEADER = 'x-zenith-client';
+export const SESSION_CLIENT_HEADER = 'x-arcbase-client';
 
 /** 并发统计范围：global 全部终端合计 / per-client 按终端类型分别计算 */
 export const SESSION_CONCURRENCY_SCOPES = ['global', 'per-client'] as const;

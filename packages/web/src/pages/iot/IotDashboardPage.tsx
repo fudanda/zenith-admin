@@ -11,8 +11,8 @@ import {
 import { dateTimeColumn, renderEllipsis } from '@/utils/table-columns';
 import {
   IOT_ALARM_LEVEL_LABELS, IOT_ALARM_STATUS_LABELS, IOT_DEVICE_EVENT_KIND_LABELS, IOT_EVENT_LEVEL_LABELS,
-} from '@zenith/shared/iot';
-import type { IotAlarm, IotDeviceEvent } from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
+import type { IotAlarm, IotDeviceEvent } from '@arcbase/shared/iot';
 import { useIotDashboard } from '@/hooks/queries/iot-dashboard';
 import { IOT_ALARM_LEVEL_COLORS, IOT_EVENT_LEVEL_COLORS } from './iot-tag-colors';
 import { shortDate } from '@/utils/date';

@@ -1,6 +1,6 @@
 import { sanitizeDetailFormDataForViewer } from '../workflow-form-access';
-import { workflowInstanceContract, workflowTaskContract, WORKFLOW_INSTANCE_STATUSES, type WorkflowWorkbenchSummary } from '@zenith/shared/workflow';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { workflowInstanceContract, workflowTaskContract, WORKFLOW_INSTANCE_STATUSES, type WorkflowWorkbenchSummary } from '@arcbase/shared/workflow';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 // ─── 实例/待办/已办/抄送列表查询与详情（拆分自 workflow-instances.service.ts）───
 import { formatDateTime, formatNullableDateTime } from '../../../lib/datetime';
 import { count, countDistinct, eq, and, desc, or, inArray, lte, sql, type SQL } from 'drizzle-orm';
@@ -11,8 +11,8 @@ import { pageOffset } from '../../../lib/pagination';
 import { workflowInstances, workflowTasks, workflowTaskConsults, workflowDefinitions, workflowCategories, users } from '../../../db/schema';
 import { tenantCondition } from '../../../lib/tenant';
 import { getDataScopeCondition } from '../../../lib/data-scope';
-import type { WorkflowFlowData, WorkflowFormField } from '@zenith/shared/workflow';
-import { buildWorkflowSummaryItems, findNextApproverSelectNodes } from '@zenith/shared/workflow';
+import type { WorkflowFlowData, WorkflowFormField } from '@arcbase/shared/workflow';
+import { buildWorkflowSummaryItems, findNextApproverSelectNodes } from '@arcbase/shared/workflow';
 import { HTTPException } from 'hono/http-exception';
 import { currentUser, hasPermission } from '../../../lib/context';
 import { isSuperAdmin, getUserPermissions } from '../../../lib/permissions';

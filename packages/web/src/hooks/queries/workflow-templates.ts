@@ -1,4 +1,4 @@
-import { workflowTemplateContract } from '@zenith/shared/workflow';
+import { workflowTemplateContract } from '@arcbase/shared/workflow';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { workflowDefinitionKeys } from './workflow-definitions';
 

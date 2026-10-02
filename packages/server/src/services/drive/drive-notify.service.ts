@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
-import { formatBytes } from '@zenith/shared/core';
-import { DRIVE_NODE_TYPE_LABELS, DRIVE_ROLE_LABELS, type DriveRole, type DriveSubjectType } from '@zenith/shared/drive';
+import { formatBytes } from '@arcbase/shared/core';
+import { DRIVE_NODE_TYPE_LABELS, DRIVE_ROLE_LABELS, type DriveRole, type DriveSubjectType } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveSpaceMembers, users, type DriveAccessRequestRow, type DriveNodeRow, type DriveShareLinkRow, type DriveSpaceRow } from '../../db/schema';
 import { currentUserOrNull } from '../../lib/context';

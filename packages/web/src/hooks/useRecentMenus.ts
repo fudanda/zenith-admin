@@ -5,7 +5,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { FlatMenuItem } from '@/components/MenuSearchInput';
 
-const STORAGE_KEY = 'zenith:recent_menus';
+const STORAGE_KEY = 'arcbase:recent_menus';
 const MAX_RECENT = 20;
 
 function loadRecent(): number[] {

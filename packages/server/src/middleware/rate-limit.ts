@@ -1,5 +1,5 @@
 import type { MiddlewareHandler, Context } from 'hono';
-import type { RateLimitKeyType, RateLimitMode, RateLimitAlgorithm } from '@zenith/shared/platform';
+import type { RateLimitKeyType, RateLimitMode, RateLimitAlgorithm } from '@arcbase/shared/platform';
 import ipRangeCheck from 'ip-range-check';
 import redis from '../lib/redis';
 import { config } from '../config';

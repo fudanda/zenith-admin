@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Banner, Button, Col, Empty, Form, Modal, Row, SideSheet, Space, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ReportMetric, ReportMetricType } from '@zenith/shared/report';
+import type { ReportMetric, ReportMetricType } from '@arcbase/shared/report';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';

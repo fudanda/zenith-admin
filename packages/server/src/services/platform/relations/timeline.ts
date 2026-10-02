@@ -1,8 +1,8 @@
 import { and, desc, eq, exists, inArray, lt, or, sql, type AnyColumn } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { DOMAIN_EVENT_CATALOG, getDomainEventDefinition, canonicalEntityTypeSchema, type EntityTimelineResponse, type entityTimelineContract } from '@zenith/shared/platform';
-import type { TimelineEvent, QueryOutputOf, ParamsOf } from '@zenith/shared/core';
-import { permissionList } from '@zenith/shared/core';
+import { DOMAIN_EVENT_CATALOG, getDomainEventDefinition, canonicalEntityTypeSchema, type EntityTimelineResponse, type entityTimelineContract } from '@arcbase/shared/platform';
+import type { TimelineEvent, QueryOutputOf, ParamsOf } from '@arcbase/shared/core';
+import { permissionList } from '@arcbase/shared/core';
 import { hasPermission } from '../../../lib/context';
 import { domainEventSubjects, domainEvents, operationLogSubjects, operationLogs } from '../../../db/schema';
 import { exactTenantCondition, tenantCondition } from '../../../lib/tenant';

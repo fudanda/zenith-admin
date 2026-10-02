@@ -4,7 +4,7 @@
  * 矩阵与全局设置是两棵独立缓存：调偏好开关不影响免打扰设置，反之亦然，
  * 因此互不失效；保存设置的写接口与查询同源（同一 service 映射），允许回填。
  */
-import { notificationPreferenceContract } from '@zenith/shared/messaging';
+import { notificationPreferenceContract } from '@arcbase/shared/messaging';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const notificationPreferenceKeys = {

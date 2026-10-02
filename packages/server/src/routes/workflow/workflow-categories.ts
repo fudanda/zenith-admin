@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { workflowCategoryContract } from '@zenith/shared/workflow';
+import { workflowCategoryContract } from '@arcbase/shared/workflow';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

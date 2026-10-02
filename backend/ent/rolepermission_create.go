@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/rolepermission"
+	"github.com/fudanda/arcbase/backend/ent/rolepermission"
 )
 
 // RolePermissionCreate is the builder for creating a RolePermission entity.

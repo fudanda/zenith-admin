@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import type { SignatureInput, SignatureSnapshot } from '@zenith/shared/core';
+import type { SignatureInput, SignatureSnapshot } from '@arcbase/shared/core';
 import { SIGNATURE_TEST_PNG } from '@/test-utils/signature';
 
 const state = vi.hoisted(() => ({ data: null as null | { id: number; version: number; dataUrl: string; updatedAt: string }, save: vi.fn() }));

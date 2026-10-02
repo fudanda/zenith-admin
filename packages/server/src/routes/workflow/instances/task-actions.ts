@@ -1,6 +1,6 @@
 import { redactWorkflowSignatureImages } from '../../../services/workflow/instances/signature-audit';
 // ─── 审批动作：同意/拒绝/下一步审批人 ───
-import { workflowTaskContract } from '@zenith/shared/workflow';
+import { workflowTaskContract } from '@arcbase/shared/workflow';
 import { setAuditAfterData, setAuditBeforeData } from '../../../middleware/guard';
 import { idempotencyGuard } from '../../../middleware/idempotency';
 import { defineContractRoute } from '../../../lib/contract-route';

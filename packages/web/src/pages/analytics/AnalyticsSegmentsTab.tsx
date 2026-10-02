@@ -26,8 +26,8 @@ import {
 import { useEmailTemplateList } from '@/hooks/queries/email-templates';
 import { useInAppTemplateList } from '@/hooks/queries/in-app-templates';
 import { useSmsTemplateList } from '@/hooks/queries/sms-templates';
-import type { AnalyticsSegmentAttributeCondition, AnalyticsSegmentCompareOp, AnalyticsSegmentCondition, AnalyticsSegmentEventCondition, AnalyticsSegmentMember, AnalyticsSegmentCampaign, AnalyticsSegmentPropertyFilter, AnalyticsUserSegment } from '@zenith/shared/analytics';
-import { ANALYTICS_EVENT_OVERRIDE_STATUS_OPTIONS, ANALYTICS_CAMPAIGN_CHANNEL_OPTIONS, ANALYTICS_CAMPAIGN_STATUS_LABELS, ANALYTICS_IDENTITY_TYPE_OPTIONS, ANALYTICS_SEGMENT_COMPARE_OP_OPTIONS } from '@zenith/shared/analytics';
+import type { AnalyticsSegmentAttributeCondition, AnalyticsSegmentCompareOp, AnalyticsSegmentCondition, AnalyticsSegmentEventCondition, AnalyticsSegmentMember, AnalyticsSegmentCampaign, AnalyticsSegmentPropertyFilter, AnalyticsUserSegment } from '@arcbase/shared/analytics';
+import { ANALYTICS_EVENT_OVERRIDE_STATUS_OPTIONS, ANALYTICS_CAMPAIGN_CHANNEL_OPTIONS, ANALYTICS_CAMPAIGN_STATUS_LABELS, ANALYTICS_IDENTITY_TYPE_OPTIONS, ANALYTICS_SEGMENT_COMPARE_OP_OPTIONS } from '@arcbase/shared/analytics';
 import { CreateButton } from '@/components/toolbar-controls';
 import { KeywordInput, StatusSelect } from '@/components/search-filters';
 import { dateTimeColumn, renderEllipsis, EMPTY_PLACEHOLDER, renderEnabledStatusTag } from '@/utils/table-columns';

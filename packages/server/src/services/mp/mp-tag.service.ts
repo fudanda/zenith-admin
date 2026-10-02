@@ -1,6 +1,6 @@
 import { and, eq, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { mpTagContract, mpTagSchema } from '@zenith/shared/mp';
+import { mpTagContract, mpTagSchema } from '@arcbase/shared/mp';
 import { db } from '../../db';
 import { mpTags } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';

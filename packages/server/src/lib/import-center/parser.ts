@@ -3,7 +3,7 @@
  * exceljs 模块图大（实测 ~2.4s），惰性加载，仅在任务执行/模板生成时进入内存。
  */
 import { HTTPException } from 'hono/http-exception';
-import type { ImportColumnMeta } from '@zenith/shared/tasks';
+import type { ImportColumnMeta } from '@arcbase/shared/tasks';
 
 export interface ParsedImportRow {
   /** Excel 实际行号（从 2 开始，用户按它定位错误行） */

@@ -7,12 +7,12 @@ import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { JsonBlock } from '@/components/JsonBlock';
 import { PaymentExpandedDetail } from './payment-expanded-detail';
 import { usePermission } from '@/hooks/usePermission';
-import { PAYMENT_OUTBOX_EVENT_STATUS_LABELS, PAYMENT_OUTBOX_EVENT_STATUS_OPTIONS, PAYMENT_OUTBOX_EVENT_STATUSES, type PaymentOutboxEvent } from '@zenith/shared/payment';
+import { PAYMENT_OUTBOX_EVENT_STATUS_LABELS, PAYMENT_OUTBOX_EVENT_STATUS_OPTIONS, PAYMENT_OUTBOX_EVENT_STATUSES, type PaymentOutboxEvent } from '@arcbase/shared/payment';
 import { paymentEventKeys, usePaymentEventList, usePaymentOpsHealth, useRedispatchPaymentEvent } from '@/hooks/queries/payment-events';
 import { ListSearchToolbar } from '@/components/list-page';
 import { KeywordInput, StatusSelect } from '@/components/search-filters';
 import { copyableNoColumn, dateTimeColumn, renderEllipsis } from '@/utils/table-columns';
-import { enumValueOf } from '@zenith/shared/core';
+import { enumValueOf } from '@arcbase/shared/core';
 import { useListPage } from '@/hooks/useListPage';
 
 const EVENT_STATUS_COLOR = { pending: 'blue', done: 'green', failed: 'red' } as const satisfies Record<PaymentOutboxEvent['status'], string>;

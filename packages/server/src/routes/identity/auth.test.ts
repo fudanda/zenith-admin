@@ -99,7 +99,7 @@ vi.mock('../../lib/session-manager', () => ({
 }));
 
 vi.mock('../../lib/settings', async () => {
-  const { SETTINGS_MODULES } = await import('@zenith/shared/settings');
+  const { SETTINGS_MODULES } = await import('@arcbase/shared/settings');
   return {
     // 运行时设置：全部按 schema 默认值返回（验证码关闭、注册关闭、密码不过期）
     getSettings: vi.fn(async (module: keyof typeof SETTINGS_MODULES) => SETTINGS_MODULES[module].schema.parse({})),
@@ -383,7 +383,7 @@ describe('GET /api/auth/me - 认证中间件', () => {
       id: 1,
       username: 'admin',
       nickname: '管理员',
-      email: 'admin@zenith.com',
+      email: 'admin@arcbase.com',
       password: 'hashed',
       avatar: null,
       phone: null,

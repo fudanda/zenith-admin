@@ -8,7 +8,7 @@ import { FileTypeIcon } from '@/components/FileTypeIcon';
 import { getFileIcon, getFolderIcon } from '@/utils/fileIcons';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import type { FsEntry } from '../types';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 interface GridCardProps {
   entry: FsEntry;

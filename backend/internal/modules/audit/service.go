@@ -9,14 +9,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
-	"github.com/fudanda/zenith-admin/backend/ent/loginlog"
-	"github.com/fudanda/zenith-admin/backend/ent/predicate"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/internal/data"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/validation"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/auditlog"
+	"github.com/fudanda/arcbase/backend/ent/loginlog"
+	"github.com/fudanda/arcbase/backend/ent/predicate"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/internal/data"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/validation"
 )
 
 type Dependencies struct {

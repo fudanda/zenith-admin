@@ -9,7 +9,7 @@ import { requireRow } from '../../lib/db-assert';
 import { formatDateTime, formatTimestamps, parseDateTimeInput } from '../../lib/datetime';
 import logger from '../../lib/logger';
 import { sendMessage } from './chat.service';
-import type { ChatMessageExtra, ChatScheduledMessage, SendChatMessageInput } from '@zenith/shared/chat';
+import type { ChatMessageExtra, ChatScheduledMessage, SendChatMessageInput } from '@arcbase/shared/chat';
 import { buildWhere } from '../../lib/where-helpers';
 
 const MAX_PENDING_PER_USER = 20;

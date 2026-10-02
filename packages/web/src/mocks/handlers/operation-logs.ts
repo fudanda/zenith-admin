@@ -1,5 +1,5 @@
-import { analyticsContract } from '@zenith/shared/analytics';
-import { operationLogContract } from '@zenith/shared/platform';
+import { analyticsContract } from '@arcbase/shared/analytics';
+import { operationLogContract } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { removeWhere } from '@/mocks/utils/array';
 import { mockOperationLogs } from '@/mocks/data/logs';

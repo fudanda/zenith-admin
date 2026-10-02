@@ -14,14 +14,14 @@ import {
   StatCard,
   StatGrid,
 } from '@/components/charts';
-import type { WorkflowDefinitionOption } from '@zenith/shared/workflow';
+import type { WorkflowDefinitionOption } from '@arcbase/shared/workflow';
 import { useWorkflowAnalytics, useWorkflowOverdueTasks } from '@/hooks/queries/workflow-monitor';
-import { WORKFLOW_INSTANCE_STATUS_LABELS } from '@zenith/shared/workflow';
+import { WORKFLOW_INSTANCE_STATUS_LABELS } from '@arcbase/shared/workflow';
 import { FilterSelect } from '@/components/search-filters';
 import { shortDate } from '@/utils/date';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 
-// 文案统一来自 @zenith/shared；hex 色值为图表 canvas 专用（Semi Tag 色名不适用）
+// 文案统一来自 @arcbase/shared；hex 色值为图表 canvas 专用（Semi Tag 色名不适用）
 const STATUS_META: Record<string, { text: string; color: string }> = {
   draft: { text: WORKFLOW_INSTANCE_STATUS_LABELS.draft, color: '#8c8c8c' },
   running: { text: WORKFLOW_INSTANCE_STATUS_LABELS.running, color: '#3370ff' },

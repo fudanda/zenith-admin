@@ -18,7 +18,7 @@
 import { createHash } from 'node:crypto';
 import { Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
-import { DEPLOY_RELEASE_NAME_RE, type DeployLogLevel, type DeployRunKind, type DeployRunSnapshot, type DeployStep } from '@zenith/shared/ops';
+import { DEPLOY_RELEASE_NAME_RE, type DeployLogLevel, type DeployRunKind, type DeployRunSnapshot, type DeployStep } from '@arcbase/shared/ops';
 import { HostExecError, type ExecResult, type RemoteHostExecutor } from '../../lib/host-exec';
 
 // ─── 输入 / 输出 ─────────────────────────────────────────────────────────────
@@ -91,7 +91,7 @@ const STEP_TIMEOUT_MS = {
   prune: 5 * 60_000,
 } as const;
 
-const RELEASE_ENV_PREFIX = 'ZENITH_';
+const RELEASE_ENV_PREFIX = 'ARCBASE_';
 
 export function releaseNameFor(version: string, at: Date): string {
   const pad = (n: number) => String(n).padStart(2, '0');
@@ -205,7 +205,7 @@ class HostSession {
    * 脚本文本作为独立 argv 传入，内部 `"$@"` 展开为 `env K=V … bash -c <script>`。
    */
   async runScript(step: DeployStep, cwd: string, script: string, env: string[], timeoutMs: number): Promise<void> {
-    const args = ['-c', 'cd -- "$1" && shift && exec "$@"', 'zenith-deploy', cwd, 'env', ...env, 'bash', '-c', script];
+    const args = ['-c', 'cd -- "$1" && shift && exec "$@"', 'arcbase-deploy', cwd, 'env', ...env, 'bash', '-c', script];
     let buffered = '';
     const flush = (final = false) => {
       const parts = buffered.split('\n');
@@ -303,7 +303,7 @@ class HostSession {
           const res = await this.run('curl', ['-fsS', '-o', '/dev/null', '-w', '%{http_code}', '-m', String(hc.timeoutSeconds), hc.url!], (hc.timeoutSeconds + 5) * 1000);
           await this.log('info', step, `GET ${hc.url} → ${res.stdout.trim()}（第 ${i} 次）`);
         } else if (hc.type === 'tcp') {
-          await this.run('timeout', [String(hc.timeoutSeconds), 'bash', '-c', 'exec 3<>"/dev/tcp/127.0.0.1/$1"', 'zenith-deploy', String(hc.port)], (hc.timeoutSeconds + 5) * 1000);
+          await this.run('timeout', [String(hc.timeoutSeconds), 'bash', '-c', 'exec 3<>"/dev/tcp/127.0.0.1/$1"', 'arcbase-deploy', String(hc.port)], (hc.timeoutSeconds + 5) * 1000);
           await this.log('info', step, `TCP 127.0.0.1:${hc.port} 可连接（第 ${i} 次）`);
         } else {
           await this.runScript(step, this.layout.current, hc.command!, this.envPairs(releaseName, previousReleaseName), hc.timeoutSeconds * 1000);

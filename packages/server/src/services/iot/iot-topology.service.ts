@@ -13,7 +13,7 @@
 import { HTTPException } from 'hono/http-exception';
 import { requireRow } from '../../lib/db-assert';
 import { and, count, eq, inArray } from 'drizzle-orm';
-import type { IotGatewayBatchInput, IotGatewayEventInput } from '@zenith/shared/iot';
+import type { IotGatewayBatchInput, IotGatewayEventInput } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import { iotAlarms, iotDevices, type IotDeviceRow } from '../../db/schema';
 import { formatNullableDateTime } from '../../lib/datetime';

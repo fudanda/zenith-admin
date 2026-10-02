@@ -1,9 +1,9 @@
 /**
  * 结束节点
  */
-import { WORKFLOW_INSTANCE_STATUS_LABELS } from '@zenith/shared/workflow';
+import { WORKFLOW_INSTANCE_STATUS_LABELS } from '@arcbase/shared/workflow';
 
-// 文案统一来自 @zenith/shared；CSS 变量色为画布场景特化
+// 文案统一来自 @arcbase/shared；CSS 变量色为画布场景特化
 const END_LABEL: Record<string, { text: string; color: string }> = {
   approved: { text: WORKFLOW_INSTANCE_STATUS_LABELS.approved, color: 'var(--semi-color-success)' },
   rejected: { text: WORKFLOW_INSTANCE_STATUS_LABELS.rejected, color: 'var(--semi-color-danger)' },

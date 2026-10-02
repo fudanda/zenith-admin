@@ -38,15 +38,15 @@ describe('rtc-manager：callId 绑定会话', () => {
 describe('extractWsBearerToken', () => {
   const ctx = (header?: string) => ({ req: { header: () => header } }) as never;
 
-  it('从 zenith-auth 子协议中取出 JWT，忽略 URL 查询串', () => {
-    expect(extractWsBearerToken(ctx('zenith-auth, aaa.bbb.ccc'))).toBe('aaa.bbb.ccc');
-    expect(extractWsBearerToken(ctx('aaa.bbb.ccc, zenith-auth'))).toBe('aaa.bbb.ccc');
+  it('从 arcbase-auth 子协议中取出 JWT，忽略 URL 查询串', () => {
+    expect(extractWsBearerToken(ctx('arcbase-auth, aaa.bbb.ccc'))).toBe('aaa.bbb.ccc');
+    expect(extractWsBearerToken(ctx('aaa.bbb.ccc, arcbase-auth'))).toBe('aaa.bbb.ccc');
   });
 
   it('缺少子协议名 / 无头 / 非 JWT 形态一律返回 null', () => {
     expect(extractWsBearerToken(ctx(undefined))).toBeNull();
     expect(extractWsBearerToken(ctx('aaa.bbb.ccc'))).toBeNull();
-    expect(extractWsBearerToken(ctx('zenith-auth'))).toBeNull();
-    expect(extractWsBearerToken(ctx('zenith-auth, not-a-jwt'))).toBeNull();
+    expect(extractWsBearerToken(ctx('arcbase-auth'))).toBeNull();
+    expect(extractWsBearerToken(ctx('arcbase-auth, not-a-jwt'))).toBeNull();
   });
 });

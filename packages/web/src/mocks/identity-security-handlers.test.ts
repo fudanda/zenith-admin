@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { identitySecurityContract, authContract, type LoginRiskEvent } from '@zenith/shared/identity';
+import { identitySecurityContract, authContract, type LoginRiskEvent } from '@arcbase/shared/identity';
 import { identitySecurityHandlers } from './handlers/identity-security';
 import { authHandlers } from './handlers/auth';
 import { mockUsers } from './data/users';

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { wikiSpaceContract } from '@zenith/shared/wiki';
+import { wikiSpaceContract } from '@arcbase/shared/wiki';
 import { setAuditBeforeData, setAuditAfterData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';

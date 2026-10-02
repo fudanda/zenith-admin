@@ -1,7 +1,7 @@
 import { asc, eq, inArray, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import type * as z from 'zod';
-import { cmsReleaseFieldDiffs, type CmsReleaseChange, type CmsReleaseReview, recreateCmsReleaseSchema } from '@zenith/shared/cms';
+import { cmsReleaseFieldDiffs, type CmsReleaseChange, type CmsReleaseReview, recreateCmsReleaseSchema } from '@arcbase/shared/cms';
 import { readSnapshot, withDbExecutor } from '../../db';
 import { asyncTasks, cmsChannels, cmsContents, cmsDeployments } from '../../db/schema';
 import { createCmsRelease, getCmsReleaseDetail, requireRelease } from './cms-releases.service';

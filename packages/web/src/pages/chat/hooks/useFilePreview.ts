@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
-import type { ChatMessage } from '@zenith/shared/chat';
+import type { ChatMessage } from '@arcbase/shared/chat';
 import { canPreviewFile, fetchManagedFileBlob, isSpreadsheetFile, resolveFileMimeType } from '@/utils/file-utils';
 
 export interface FilePreviewTarget {

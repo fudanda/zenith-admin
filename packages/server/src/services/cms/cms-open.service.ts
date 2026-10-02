@@ -24,7 +24,7 @@ import {
   encodeCmsOpenCursor, OpenQueryError, pickCmsOpenFields,
   type CmsOpenSortRule, type ParsedCmsOpenQuery,
 } from '../../lib/open-query';
-import { CMS_OPEN_SYNC_PAGE_SIZE_MAX, isValidCmsAssetUrl } from '@zenith/shared/cms';
+import { CMS_OPEN_SYNC_PAGE_SIZE_MAX, isValidCmsAssetUrl } from '@arcbase/shared/cms';
 import { resolveCmsContentRows } from './cms-resource-refs.service';
 import { cmsContentListColumns, type CmsContentListRow } from './cms-content-columns';
 import { contentUrl } from './cms-urls';

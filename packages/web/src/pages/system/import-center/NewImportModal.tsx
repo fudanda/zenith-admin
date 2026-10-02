@@ -5,7 +5,7 @@
 import { useMemo, useState } from 'react';
 import { Banner, Button, Descriptions, Modal, Select, Spin, Tag, Typography } from '@douyinfe/semi-ui';
 import { Download, FileSearch, Upload } from 'lucide-react';
-import type { ImportEntityMeta } from '@zenith/shared/tasks';
+import type { ImportEntityMeta } from '@arcbase/shared/tasks';
 import { downloadImportTemplate } from '@/hooks/queries/import-jobs';
 import { useImportUpload } from '@/hooks/useImportUpload';
 import { groupImportEntitiesByModule } from './import-entity-groups';

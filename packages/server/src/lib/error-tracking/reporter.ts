@@ -11,8 +11,8 @@
  */
 import { HTTPException } from 'hono/http-exception';
 import type { Context } from 'hono';
-import type { AnalyticsEnvironment, ErrorLevel, ServerErrorType } from '@zenith/shared/analytics';
-import { resolveSettings, type ErrorTrackingSettings } from '@zenith/shared/settings';
+import type { AnalyticsEnvironment, ErrorLevel, ServerErrorType } from '@arcbase/shared/analytics';
+import { resolveSettings, type ErrorTrackingSettings } from '@arcbase/shared/settings';
 import { config } from '../../config';
 import { currentUserOrNull } from '../context';
 import { isFatalShutdownInProgress } from '../fatal-handlers';
@@ -27,7 +27,7 @@ import { snapshotRequest } from './scrub';
 import { bumpErrorGroupCounts, recordErrorEventBatch } from './store';
 import type { CaptureContext, ErrorEventInput, ErrorGroupBump, RecordedError, RequestSnapshot } from './types';
 
-const CAPTURED = Symbol.for('zenith.error-tracking.captured');
+const CAPTURED = Symbol.for('arcbase.error-tracking.captured');
 
 /** 缓冲上限：超出直接丢弃（计数），避免风暴期间内存无界增长 */
 const BUFFER_MAX = 500;

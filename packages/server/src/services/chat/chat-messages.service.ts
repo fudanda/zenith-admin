@@ -1,6 +1,6 @@
 import { eq, and, desc, sql, inArray, ne, asc, lt, gt, type SQL } from 'drizzle-orm';
 import type { PgSelect } from 'drizzle-orm/pg-core';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { db } from '../../db';
 import { chatConversations, chatConversationMembers, chatMessages, chatMessageFavorites, users } from '../../db/schema';
 import { scheduleSendToUsers } from '../../lib/ws-manager';
@@ -9,7 +9,7 @@ import { formatDateTime } from '../../lib/datetime';
 import { requireRow } from '../../lib/db-assert';
 import { buildListResult, emptyListResult } from '../../lib/list-query';
 import { HTTPException } from 'hono/http-exception';
-import { chatContract, type ForwardMessagesInput, type ChatMessage, type ChatMessageExtra, type ChatMessageSearchResult, type ChatMessageContext, type ChatMessageType, type ChatForwardedItem, type SendChatMessageInput } from '@zenith/shared/chat';
+import { chatContract, type ForwardMessagesInput, type ChatMessage, type ChatMessageExtra, type ChatMessageSearchResult, type ChatMessageContext, type ChatMessageType, type ChatForwardedItem, type SendChatMessageInput } from '@arcbase/shared/chat';
 import { notHiddenFor, rowSender, mapChatMessage, fetchUserBrief, listConversationMemberIds, ensureConversationMember, ensureMessageAccessible, touchConversation, requireGroupMember } from './chat-shared';
 import { aggregateReactions } from './chat-reactions.service';
 import { buildWhere, dateRangeConditions, keywordCondition, withPagination } from '../../lib/where-helpers';

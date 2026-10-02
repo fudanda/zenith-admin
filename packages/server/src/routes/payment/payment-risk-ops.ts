@@ -3,7 +3,7 @@
  * 拦截/命中留痕列表、人工审核队列（放行/拒绝）。规则 CRUD 见 payment-risk 路由。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { paymentRiskOpsContract } from '@zenith/shared/payment';
+import { paymentRiskOpsContract } from '@arcbase/shared/payment';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

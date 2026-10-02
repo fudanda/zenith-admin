@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cmsSiteContract, type CmsSiteImportResult } from '@zenith/shared/cms';
+import { cmsSiteContract, type CmsSiteImportResult } from '@arcbase/shared/cms';
 import { cmsBlueprintHandlers } from './handlers/cms-blueprints';
 import { mockCmsChannels, mockCmsSites, mockCmsModels, mockCmsWidgetRefs, mockCmsWidgets } from './data/cms';
 import { getMockCmsPublishedModelFields } from './handlers/cms-editorial';

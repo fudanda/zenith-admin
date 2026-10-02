@@ -2,7 +2,7 @@
  * 营销活动管理
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { marketingCampaignContract } from '@zenith/shared/marketing';
+import { marketingCampaignContract } from '@arcbase/shared/marketing';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import {

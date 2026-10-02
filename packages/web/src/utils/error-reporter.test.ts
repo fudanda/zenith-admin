@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { TOKEN_KEY } from '@zenith/shared/core';
-import { analyticsStorageKey } from '@zenith/analytics-sdk/runtime-config';
+import { TOKEN_KEY } from '@arcbase/shared/core';
+import { analyticsStorageKey } from '@arcbase/analytics-sdk/runtime-config';
 import { config } from '@/config';
 import { configureErrorReporterRuntime, configureErrorReporting, reportError } from './error-reporter';
 
@@ -39,15 +39,15 @@ describe('error reporting policy', () => {
 
   it('uses member-specific token, session and platform fields', () => {
     configureErrorReporterRuntime({
-      tokenKey: 'zenith_member_token',
+      tokenKey: 'arcbase_member_token',
       source: 'web_member',
       appId: 'member',
       environment: 'production',
       consentProvider: () => true,
     });
-    localStorage.setItem('zenith_member_token', 'member-token');
+    localStorage.setItem('arcbase_member_token', 'member-token');
     // 会话 key 按部署隔离命名（与 tracker-runtime.test.ts 同格式），旧的无 namespace key 不再读取
-    sessionStorage.setItem(analyticsStorageKey(config.deploymentId, 'zenith_tracker_sid', 'member'), 'member-session');
+    sessionStorage.setItem(analyticsStorageKey(config.deploymentId, 'arcbase_tracker_sid', 'member'), 'member-session');
 
     reportError('js_error', 'member telemetry');
 

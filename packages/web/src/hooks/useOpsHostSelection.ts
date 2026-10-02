@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const OPS_HOST_SELECTION_KEY = 'zenith_ops_selected_host';
+const OPS_HOST_SELECTION_KEY = 'arcbase_ops_selected_host';
 
 /**
  * 由深链查询参数推导运维页的初始主机选择：

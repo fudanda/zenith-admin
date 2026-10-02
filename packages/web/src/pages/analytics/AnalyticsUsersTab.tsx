@@ -7,7 +7,7 @@ import DateTimeText from '@/components/DateTimeText';
 import { dateTimeColumn } from '@/utils/table-columns';
 import { usePagination } from '@/hooks/usePagination';
 import { useAnalyticsUserStats, useAnalyticsUserTimeline } from '@/hooks/queries/analytics';
-import type { AnalyticsUserStats } from '@zenith/shared/analytics';
+import type { AnalyticsUserStats } from '@arcbase/shared/analytics';
 import { useBehaviorDays } from './behavior-days';
 import { DAYS_OPTIONS, msToReadable, numberText, sectionStyle } from './analytics-format';
 import { SectionHeader } from './analytics-shared';

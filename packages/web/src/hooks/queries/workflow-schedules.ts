@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { workflowScheduleContract } from '@zenith/shared/workflow';
+import type { QueryOf } from '@arcbase/shared/core';
+import { workflowScheduleContract } from '@arcbase/shared/workflow';
 import { createResourceQueries, useApiMutation } from '@/lib/contract-query';
 import { invalidateAfterInstanceChange } from './workflow-instances';
 

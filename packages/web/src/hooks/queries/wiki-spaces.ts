@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { wikiSpaceContract } from '@zenith/shared/wiki';
+import type { QueryOf } from '@arcbase/shared/core';
+import { wikiSpaceContract } from '@arcbase/shared/wiki';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

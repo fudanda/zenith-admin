@@ -14,8 +14,8 @@ import type { DbExecutor } from '../../db/types';
 import { cmsChannels, cmsContents } from '../../db/schema';
 import type { CmsChannelRow } from '../../db/schema';
 import { isTemplateRegistered, isThemeRegistered, listThemeTemplates, getThemeSettingsSchema } from '../../cms/themes/registry';
-import { isDirectCmsHref, isValidCmsAssetUrl } from '@zenith/shared/cms';
-import type { CmsSiteTemplateDefaults, CmsTemplateHealth, CmsInvalidTemplateRef } from '@zenith/shared/cms';
+import { isDirectCmsHref, isValidCmsAssetUrl } from '@arcbase/shared/cms';
+import type { CmsSiteTemplateDefaults, CmsTemplateHealth, CmsInvalidTemplateRef } from '@arcbase/shared/cms';
 import { resolveEffectiveCmsSiteRow } from './cms-site-inheritance.service';
 import { assertCmsSiteComposition } from './cms-site-composition.service';
 

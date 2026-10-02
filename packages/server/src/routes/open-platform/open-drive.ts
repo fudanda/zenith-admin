@@ -7,7 +7,7 @@
  *   - drive:write 上传文件（授权角色需为 editor）
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { DRIVE_UPLOAD_CONFLICT_POLICIES, openDriveContract } from '@zenith/shared/drive';
+import { DRIVE_UPLOAD_CONFLICT_POLICIES, openDriveContract } from '@arcbase/shared/drive';
 import { defineContractRoute } from '../../lib/contract-route';
 import { parseRangeHeader, rangeNotSatisfiable, supportsRange } from '../../lib/http-range';
 import { ErrorResponse, errBody, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

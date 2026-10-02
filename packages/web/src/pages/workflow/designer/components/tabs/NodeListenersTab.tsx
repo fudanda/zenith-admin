@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { Typography, Button, Select, Checkbox, Input, TextArea, Space, Popconfirm, Toast } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
-import { NODE_LISTENER_EVENT_OPTIONS, type NodeListenerConfig, type NodeListenerEvent } from '@zenith/shared/workflow';
+import { NODE_LISTENER_EVENT_OPTIONS, type NodeListenerConfig, type NodeListenerEvent } from '@arcbase/shared/workflow';
 
 interface NodeListenersTabProps {
   value: NodeListenerConfig[] | undefined;

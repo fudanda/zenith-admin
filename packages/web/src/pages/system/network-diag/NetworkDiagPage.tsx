@@ -2,8 +2,8 @@ import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { Button, Input, Select, InputNumber, Tag, Typography, Tabs, TabPane } from '@douyinfe/semi-ui';
 import { Play, Square, Wifi, Search } from 'lucide-react';
 import { streamText } from '@/utils/streaming';
-import { DNS_RECORD_TYPES, NET_DIAG_STREAM_TYPES, type DnsRecordType } from '@zenith/shared/ops';
-import { enumValueOf } from '@zenith/shared/core';
+import { DNS_RECORD_TYPES, NET_DIAG_STREAM_TYPES, type DnsRecordType } from '@arcbase/shared/ops';
+import { enumValueOf } from '@arcbase/shared/core';
 import { CommandOutputPanel } from '@/components/ops/CommandOutputPanel';
 import {
   networkDiagStreamUrl,

@@ -1,6 +1,6 @@
 import { timestampColumns, idColumn } from './common';
 import { pgTable, varchar, timestamp, pgEnum, integer, boolean, text, index, jsonb, real, bigint, doublePrecision, type AnyPgColumn } from 'drizzle-orm/pg-core';
-import { MONITOR_ALERT_HANDLE_STATUSES, MONITOR_ALERT_NOTIFY_STATUSES, MONITOR_METRICS } from '@zenith/shared/platform';
+import { MONITOR_ALERT_HANDLE_STATUSES, MONITOR_ALERT_NOTIFY_STATUSES, MONITOR_METRICS } from '@arcbase/shared/platform';
 import { auditColumns, users, tenantIdColumn } from './core';
 
 // ─── 系统监控指标采样（时序持久化，追加型）──────────────────────────────────────

@@ -2,22 +2,22 @@ import { bindWorkflowAttachments, bindWorkflowFormAttachments, type WorkflowAtta
 import { assertIndependentReconApproval } from '../../payment/payment-recon-adjustment-policy';
 import { assertWorkflowFormUpdatesCurrent } from './signature-concurrency';
 import { nullableEq } from '../../../lib/where-helpers';
-import type { SignatureInput, SignatureSnapshot } from '@zenith/shared/core';
+import type { SignatureInput, SignatureSnapshot } from '@arcbase/shared/core';
 import { resolveWorkflowFormSignatures, resolveWorkflowTaskSignature, signatureTaskValues } from './signatures';
-import { workflowTaskContract } from '@zenith/shared/workflow';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { workflowTaskContract } from '@arcbase/shared/workflow';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { workflowTransaction } from '../../../lib/workflow-jobs/lease';
 // ─── 审批动作核心：同意/拒绝（含回调与动作按钮校验）（拆分自 workflow-instances.service.ts）───
 import { eq, and, desc, or, inArray } from 'drizzle-orm';
 import { db } from '../../../db';
 import { workflowInstances, workflowTasks, users } from '../../../db/schema';
 import { findReturnPrevTarget } from '../../../lib/workflow-engine';
-import type { WorkflowEventActor, WorkflowActionButtonKey, WorkflowActionButtonConfig, WorkflowNodeConfig } from '@zenith/shared/workflow';
-import { findNextApproverSelectNodes, resolveNodeFieldPermissions, sanitizeFormUpdatesByNodePerms } from '@zenith/shared/workflow';
+import type { WorkflowEventActor, WorkflowActionButtonKey, WorkflowActionButtonConfig, WorkflowNodeConfig } from '@arcbase/shared/workflow';
+import { findNextApproverSelectNodes, resolveNodeFieldPermissions, sanitizeFormUpdatesByNodePerms } from '@arcbase/shared/workflow';
 import { HTTPException } from 'hono/http-exception';
 import { currentUser } from '../../../lib/context';
 import { buildStarterContext, searchSelectableApprovers } from '../workflow-assignee-resolver.service';
-import type { WorkflowSelectableNextApproverGroup } from '@zenith/shared/workflow';
+import type { WorkflowSelectableNextApproverGroup } from '@arcbase/shared/workflow';
 import logger from '../../../lib/logger';
 import { cancelJobs, WORKFLOW_ADVANCING_JOB_TYPES } from '../../../lib/workflow-jobs/engine';
 import { enqueueSubprocessJoin } from './async-jobs';

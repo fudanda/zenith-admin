@@ -1,7 +1,7 @@
 import { initializeCmsContentWorkingCopy, requireCmsWorkingCopy, writeCmsSystemWorkingCopy, cmsRevisionToContentRow } from './cms-content-revisions.service';
 import { cmsDistributionSyncStates } from '../../db/schema/cms-design';
 import { cmsContentWorkingCopies } from '../../db/schema/cms-revisions';
-import { mergeCmsDistributionFields } from '@zenith/shared/cms';
+import { mergeCmsDistributionFields } from '@arcbase/shared/cms';
 import { freezeCmsRevisionDependencies } from './cms-revision-dependencies.service';
 import { formatNullableDateTime } from '../../lib/datetime';
 import { requireRow } from '../../lib/db-assert';
@@ -19,7 +19,7 @@ import {
   type SQL,
 } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { AsyncTask, AsyncTaskItem } from '@zenith/shared/tasks';
+import type { AsyncTask, AsyncTaskItem } from '@arcbase/shared/tasks';
 import { db } from '../../db';
 import {
   asyncTasks,

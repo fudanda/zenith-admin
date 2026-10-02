@@ -10,8 +10,8 @@ import {
   directorySyncUserLinks, tenantIdentityProviders, users,
   type DirectorySyncSourceRow, type DirectorySyncRunRow, type DirectorySyncRunItemRow, type DirectorySyncConflictRow,
 } from '../../db/schema';
-import { directorySyncSourceSchema, directorySyncRunSchema, directorySyncRunItemSchema, directorySyncConflictSchema, type CreateDirectorySyncSourceInput, type UpdateDirectorySyncSourceInput, type ResolveDirectorySyncConflictInput, type DirectorySyncEntityType, type DirectorySyncTriggerType, type DirectorySyncItemAction, type DirectorySyncMatchKey, type DirectorySyncConflictPolicy, type DirectorySyncConflictType, type DirectorySyncResolution, type directorySyncSourceContract, type directorySyncContract } from '@zenith/shared/identity';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { directorySyncSourceSchema, directorySyncRunSchema, directorySyncRunItemSchema, directorySyncConflictSchema, type CreateDirectorySyncSourceInput, type UpdateDirectorySyncSourceInput, type ResolveDirectorySyncConflictInput, type DirectorySyncEntityType, type DirectorySyncTriggerType, type DirectorySyncItemAction, type DirectorySyncMatchKey, type DirectorySyncConflictPolicy, type DirectorySyncConflictType, type DirectorySyncResolution, type directorySyncSourceContract, type directorySyncContract } from '@arcbase/shared/identity';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { buildWhere, dateRangeConditions, keywordCondition } from '../../lib/where-helpers';
 import { pageOffset } from '../../lib/pagination';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';

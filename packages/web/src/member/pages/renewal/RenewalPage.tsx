@@ -4,8 +4,8 @@ import { BadgeCheck, CalendarClock, Repeat, ShieldCheck } from 'lucide-react';
 import { MemberPage } from '../../components/MemberPage';
 import { formatYuan } from '../../utils/format';
 import { useMemberPaymentOptions, useMyRenewal, useRenewalPlans, useRenewNow, useSignRenewal, useTerminateRenewal } from '../../hooks/queries';
-import type { MemberRenewalPlan } from '@zenith/shared/member';
-import { PAYMENT_CONTRACT_STATUS_LABELS, PAYMENT_DEDUCT_PERIOD_LABELS } from '@zenith/shared/payment';
+import type { MemberRenewalPlan } from '@arcbase/shared/member';
+import { PAYMENT_CONTRACT_STATUS_LABELS, PAYMENT_DEDUCT_PERIOD_LABELS } from '@arcbase/shared/payment';
 import { confirmDanger } from '@/utils/confirm';
 
 function periodText(p: Pick<MemberRenewalPlan, 'period' | 'customDays'>): string {

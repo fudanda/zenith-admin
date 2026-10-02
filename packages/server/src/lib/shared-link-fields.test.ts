@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { reportWidgetSchema } from '@zenith/shared/report';
-import { chatMessageExtraSchema, isChatMediaContentSafe } from '@zenith/shared/chat';
+import { reportWidgetSchema } from '@arcbase/shared/report';
+import { chatMessageExtraSchema, isChatMediaContentSafe } from '@arcbase/shared/chat';
 
 const base = { i: 'w1', type: 'bar' as const, title: '', datasetId: 1 };
 
@@ -8,7 +8,7 @@ describe('report widget URL safety (H10)', () => {
   it('drilldown url must be an http(s) template', () => {
     expect(reportWidgetSchema.safeParse({ ...base, drilldown: { enabled: true, type: 'url', url: 'https://crm.example.com/c/{value}' } }).success).toBe(true);
     expect(reportWidgetSchema.safeParse({ ...base, drilldown: { enabled: true, type: 'url', url: '' } }).success).toBe(true);
-    const bad = reportWidgetSchema.safeParse({ ...base, drilldown: { enabled: true, type: 'url', url: 'javascript:alert(localStorage.zenith_token)' } });
+    const bad = reportWidgetSchema.safeParse({ ...base, drilldown: { enabled: true, type: 'url', url: 'javascript:alert(localStorage.arcbase_token)' } });
     expect(bad.success).toBe(false);
     expect(bad.error?.issues[0]?.path).toEqual(['drilldown', 'url']);
     expect(reportWidgetSchema.safeParse({ ...base, drilldown: { enabled: true, type: 'url', url: '//evil.example/{value}' } }).success).toBe(false);

@@ -5,10 +5,10 @@
  */
 import { and, desc, eq, gte, inArray, isNotNull, isNull, sql, countDistinct } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { exceptionLogContract, type ExceptionGroupDetail, type ExceptionOverview, type ExceptionReporterStatus } from '@zenith/shared/platform';
-import type { CreateErrorAlertRuleInput, ErrorStatus, ServerErrorType, UpdateErrorAlertRuleInput, UpdateErrorGroupInput } from '@zenith/shared/analytics';
-import { isServerErrorType } from '@zenith/shared/analytics';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { exceptionLogContract, type ExceptionGroupDetail, type ExceptionOverview, type ExceptionReporterStatus } from '@arcbase/shared/platform';
+import type { CreateErrorAlertRuleInput, ErrorStatus, ServerErrorType, UpdateErrorAlertRuleInput, UpdateErrorGroupInput } from '@arcbase/shared/analytics';
+import { isServerErrorType } from '@arcbase/shared/analytics';
 import { db } from '../../db';
 import { errorAlertLogs, errorAlertRules, errorEvents, errorGroups, users } from '../../db/schema';
 import { requireFirstRow, requireRow } from '../../lib/db-assert';

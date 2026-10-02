@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { reportQueryCapacityContract } from '@zenith/shared/report';
+import { reportQueryCapacityContract } from '@arcbase/shared/report';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import {

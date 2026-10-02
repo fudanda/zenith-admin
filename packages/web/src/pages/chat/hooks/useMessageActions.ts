@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
-import { chatContract } from '@zenith/shared/chat';
-import type { ChatMessage, ChatMessageExtra, ChatVoteData } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
+import type { ChatMessage, ChatMessageExtra, ChatVoteData } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import { confirmDelete } from '@/utils/confirm';
 import { removeMessageById, removeMessagesByIds, setMessageReactions } from '../utils-state';

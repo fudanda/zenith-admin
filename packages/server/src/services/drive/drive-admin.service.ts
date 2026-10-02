@@ -1,5 +1,5 @@
 import { eq, gte, isNotNull, isNull, ne, sql } from 'drizzle-orm';
-import type { DriveAdminStats, DriveSpaceType } from '@zenith/shared/drive';
+import type { DriveAdminStats, DriveSpaceType } from '@arcbase/shared/drive';
 import { readSnapshot } from '../../db';
 import { driveActivities, driveFileVersions, driveNodes, driveShareLinks, driveSpaces } from '../../db/schema';
 import { currentUser } from '../../lib/context';

@@ -10,7 +10,7 @@ import {
   cmsDistributionContract,
   cmsPublishingContract,
   cmsSiteContract,
-} from '@zenith/shared/cms';
+} from '@arcbase/shared/cms';
 import type {
   CmsDistributionRule,
   CmsDistributionRun,
@@ -20,8 +20,8 @@ import type {
   CmsSiteInheritanceFlags,
   CmsSiteInheritanceSource,
   CmsSiteTemplateDefaults,
-} from '@zenith/shared/cms';
-import type { AsyncTaskItem } from '@zenith/shared/tasks';
+} from '@arcbase/shared/cms';
+import type { AsyncTaskItem } from '@arcbase/shared/tasks';
 import {
   getNextCmsContentId,
   mockCmsChannels,

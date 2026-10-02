@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { MonitorHistoryPoint } from '@zenith/shared/platform';
+import type { MonitorHistoryPoint } from '@arcbase/shared/platform';
 import { PreferencesContext } from '@/hooks/usePreferences';
 import { createPreferencesContext } from '@/test-utils/preferences';
 import { useMonitorRefreshController } from './useMonitorRefreshController';
@@ -44,8 +44,8 @@ function page(initialEntry = '/system/monitor?tab=history') {
 
 beforeEach(() => {
   vi.clearAllMocks();
-  localStorage.removeItem('zenith_monitor_prefs');
-  localStorage.setItem('zenith_monitor_prefs', JSON.stringify({ refreshInterval: -1 }));
+  localStorage.removeItem('arcbase_monitor_prefs');
+  localStorage.setItem('arcbase_monitor_prefs', JSON.stringify({ refreshInterval: -1 }));
   refresh.mockResolvedValue(undefined);
   controller = {
     isHistory: true,
@@ -75,7 +75,7 @@ beforeEach(() => {
 
 afterEach(() => {
   cleanup();
-  localStorage.removeItem('zenith_monitor_prefs');
+  localStorage.removeItem('arcbase_monitor_prefs');
 });
 
 describe('MonitorPage history refresh controls', () => {

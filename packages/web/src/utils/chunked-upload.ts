@@ -7,7 +7,7 @@
  * 释放会话（云端 multipart / 临时分片）并清除续传键；不带该原因的 abort（页面卸载、路由切换）只中断
  * 请求，会话保留，下次选择同一文件仍可续传。
  */
-import { fileContract, UPLOAD_CHUNK_MIN_BYTES, type UploadChunkResult, type UploadSessionInit, type UploadSessionStatus } from '@zenith/shared/platform';
+import { fileContract, UPLOAD_CHUNK_MIN_BYTES, type UploadChunkResult, type UploadSessionInit, type UploadSessionStatus } from '@arcbase/shared/platform';
 import { urlOf } from '@/lib/contract-query';
 import { request } from '@/utils/request';
 
@@ -15,7 +15,7 @@ import { request } from '@/utils/request';
 export const CHUNK_SIZE = UPLOAD_CHUNK_MIN_BYTES;
 const CHUNK_CONCURRENCY = 3;
 const MAX_RETRY = 3;
-const RESUME_KEY_PREFIX = 'zenith_chunk_upload:';
+const RESUME_KEY_PREFIX = 'arcbase_chunk_upload:';
 
 /** `AbortController.abort(reason)` 的原因值：用户显式取消，需要服务端释放会话 */
 export const CHUNKED_UPLOAD_CANCELLED = 'chunked-upload:cancelled';

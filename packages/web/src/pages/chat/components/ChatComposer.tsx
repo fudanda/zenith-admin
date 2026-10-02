@@ -2,7 +2,7 @@ import { lazy, Suspense, useCallback, useRef, useState } from 'react';
 import type { ClipboardEvent, RefObject } from 'react';
 import { Button, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { BarChart3, CornerDownLeft, ImagePlus, Mic, Paperclip, Send, Smile } from 'lucide-react';
-import type { ChatCustomEmoji, ChatGroupMember, ChatMessage } from '@zenith/shared/chat';
+import type { ChatCustomEmoji, ChatGroupMember, ChatMessage } from '@arcbase/shared/chat';
 import type { PendingFile, PendingImage, Setter, TypingUsersMap } from '../types';
 import { createComposerKeyDownHandler, getReplyPreviewText } from '../utils-state';
 import type { VoiceRecorderResult } from '../useVoiceRecorder';

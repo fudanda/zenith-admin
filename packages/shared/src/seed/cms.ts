@@ -4,7 +4,7 @@ import { SEED_DATE } from './_base';
 export const SEED_CMS_EDITOR_USER = {
   username: 'cms_editor',
   nickname: 'CMS 演示编辑',
-  email: 'cms-editor@zenith.dev',
+  email: 'cms-editor@arcbase.dev',
   password: '123456',
   roleId: 3,
   departmentId: 2,
@@ -13,16 +13,16 @@ export const SEED_CMS_EDITOR_USER = {
 // ─── CMS：站点 / 模型 / 栏目 / 内容 / 标签 / 友链 ─────────────────────────────
 export const SEED_CMS_SITES: CmsSite[] = [
   {
-    id: 1, parentId: null, name: 'Zenith 官方网站', code: 'main', domain: null, aliasDomains: [], isDefault: true,
-    title: 'Zenith Admin — 企业级全栈管理系统', keywords: 'Zenith,CMS,后台管理,内容管理',
-    description: 'Zenith Admin 是基于 Hono + React + PostgreSQL 的企业级全栈管理系统，内置 CMS 内容管理、多站点与全文检索。',
-    logo: null, favicon: null, icp: null, copyright: '© 2024 Zenith Admin', theme: 'default',
+    id: 1, parentId: null, name: 'ArcBase 官方网站', code: 'main', domain: null, aliasDomains: [], isDefault: true,
+    title: 'ArcBase — 企业级全栈管理系统', keywords: 'ArcBase,CMS,后台管理,内容管理',
+    description: 'ArcBase 是基于 Hono + React + PostgreSQL 的企业级全栈管理系统，内置 CMS 内容管理、多站点与全文检索。',
+    logo: null, favicon: null, icp: null, copyright: '© 2024 ArcBase', theme: 'default',
     themeRevision: 0, templateRefsRevision: 0, publicRevision: 0, staticMode: 'hybrid', robots: null, modelId: null, extend: {},
     settings: {
       auditMode: 'simple',
       webhookUrl: 'https://hooks.example.invalid/cms',
       webhookSecret: 'demo-parent-secret',
-      themeConfig: { footerText: '由 Zenith CMS 驱动' },
+      themeConfig: { footerText: '由 ArcBase CMS 驱动' },
       // 内容策略（缺省值见 CMS_SITE_OPS_DEFAULTS，此处显式写出便于演示）
       publishedContentEditable: true,
       recycleKeepDays: 30,
@@ -39,9 +39,9 @@ export const SEED_CMS_SITES: CmsSite[] = [
     createdAt: SEED_DATE, updatedAt: SEED_DATE,
   },
   {
-    id: 2, parentId: 1, name: 'Zenith 技术子站', code: 'tech', domain: null, aliasDomains: [], isDefault: false,
-    title: 'Zenith 技术中心', keywords: null, description: null,
-    logo: null, favicon: null, icp: null, copyright: '© 2024 Zenith Tech', theme: 'default',
+    id: 2, parentId: 1, name: 'ArcBase 技术子站', code: 'tech', domain: null, aliasDomains: [], isDefault: false,
+    title: 'ArcBase 技术中心', keywords: null, description: null,
+    logo: null, favicon: null, icp: null, copyright: '© 2024 ArcBase Tech', theme: 'default',
     themeRevision: 0, templateRefsRevision: 0, publicRevision: 0, staticMode: 'dynamic', robots: null, modelId: null, extend: {},
     settings: {
       cdnPurgeUrl: 'https://cdn.example.invalid/purge',
@@ -93,7 +93,7 @@ export const SEED_CMS_MODELS: (CmsModel & { fields: NonNullable<CmsModel['fields
 export const SEED_CMS_CHANNELS: CmsChannel[] = [
   { id: 1, siteId: 1, parentId: 0, modelId: 1, name: '新闻中心', code: 'news',     slug: 'news',     path: 'news',     type: 'list', linkUrl: null, listTemplate: null, detailTemplate: null, staticMode: 'inherit', detailPathRule: 'year', pageSize: 20, pageContent: null, seoTitle: null, seoKeywords: null, seoDescription: '最新公司动态与行业资讯', image: null, visible: true, status: 'enabled', sort: 1, settings: {}, createdAt: SEED_DATE, updatedAt: SEED_DATE },
   { id: 2, siteId: 1, parentId: 0, modelId: 2, name: '产品中心', code: 'products', slug: 'products', path: 'products', type: 'list', linkUrl: null, listTemplate: null, detailTemplate: null, staticMode: 'inherit', detailPathRule: 'none', pageSize: 20, pageContent: null, seoTitle: null, seoKeywords: null, seoDescription: '产品与解决方案', image: null, visible: true, status: 'enabled', sort: 2, settings: {}, createdAt: SEED_DATE, updatedAt: SEED_DATE },
-  { id: 3, siteId: 1, parentId: 0, modelId: null, name: '关于我们', code: 'about',    slug: 'about', path: 'about',    type: 'page', linkUrl: null, listTemplate: null, detailTemplate: null, staticMode: 'inherit', detailPathRule: 'none', pageSize: 20, pageContent: '<h2>关于 Zenith</h2><p>Zenith Admin 是一套企业级全栈管理系统，本页面由 CMS 单页栏目渲染。</p>', seoTitle: null, seoKeywords: null, seoDescription: '关于 Zenith Admin', image: null, visible: true, status: 'enabled', sort: 3, settings: {}, createdAt: SEED_DATE, updatedAt: SEED_DATE },
+  { id: 3, siteId: 1, parentId: 0, modelId: null, name: '关于我们', code: 'about',    slug: 'about', path: 'about',    type: 'page', linkUrl: null, listTemplate: null, detailTemplate: null, staticMode: 'inherit', detailPathRule: 'none', pageSize: 20, pageContent: '<h2>关于 ArcBase</h2><p>ArcBase 是一套企业级全栈管理系统，本页面由 CMS 单页栏目渲染。</p>', seoTitle: null, seoKeywords: null, seoDescription: '关于 ArcBase', image: null, visible: true, status: 'enabled', sort: 3, settings: {}, createdAt: SEED_DATE, updatedAt: SEED_DATE },
   { id: 4, siteId: 2, parentId: 0, modelId: 1, name: '技术动态', code: 'news', slug: 'news', path: 'news', type: 'list', linkUrl: null, listTemplate: null, detailTemplate: null, staticMode: 'inherit', detailPathRule: 'none', pageSize: 20, pageContent: null, seoTitle: null, seoKeywords: null, seoDescription: '来自根站点治理分发的技术动态', image: null, visible: true, status: 'enabled', sort: 1, settings: {}, createdAt: SEED_DATE, updatedAt: SEED_DATE },
 ];
 
@@ -110,9 +110,9 @@ export const SEED_CMS_CONTENTS: (Omit<CmsContent, 'coverThumb'> & { tagIds: numb
     id: 1, siteId: 1, channelId: 1, channelName: '新闻中心', modelId: 1,
     ...CMS_SEED_EDITORIAL_FIELDS,
     contentType: 'article', mediaData: {},
-    titleStyle: {}, title: 'Zenith Admin 发布 CMS 内容管理模块', subTitle: null, shortTitle: 'CMS 模块发布', slug: null,
+    titleStyle: {}, title: 'ArcBase 发布 CMS 内容管理模块', subTitle: null, shortTitle: 'CMS 模块发布', slug: null,
     summary: '全新 CMS 模块支持多站点、SEO 优化、SSR 静态化发布与基于 PostgreSQL 的中文全文检索。',
-    coverImage: 'https://picsum.photos/seed/zenith-cms-launch/1200/800', author: '管理员', editor: '管理员', source: '官方', sourceUrl: null, isOriginal: true, body: '<p>Zenith Admin 全新 CMS 模块正式发布：支持站群管理、内容模型自定义字段、React SSR 静态化与 PostgreSQL 全文检索，功能全面对标国内主流 CMS。</p>',
+    coverImage: 'https://picsum.photos/seed/arcbase-cms-launch/1200/800', author: '管理员', editor: '管理员', source: '官方', sourceUrl: null, isOriginal: true, body: '<p>ArcBase 全新 CMS 模块正式发布：支持站群管理、内容模型自定义字段、React SSR 静态化与 PostgreSQL 全文检索，功能全面对标国内主流 CMS。</p>',
     attachments: [], extend: {}, externalLink: null, detailTemplate: null, staticPath: null, isTop: true, topWeight: 10, topExpireAt: null, isRecommend: true, isHot: false,
     status: 'published', rejectReason: null, publishedAt: SEED_DATE, scheduledAt: null, expireAt: null,
     viewCount: 128, likeCount: 0, favoriteCount: 0, version: 1, sort: 0, seoTitle: null, seoKeywords: 'CMS,发布', seoDescription: null, socialImageAlt: null, twitterCreator: null,
@@ -136,11 +136,11 @@ export const SEED_CMS_CONTENTS: (Omit<CmsContent, 'coverThumb'> & { tagIds: numb
     id: 3, siteId: 1, channelId: 2, channelName: '产品中心', modelId: 2,
     ...CMS_SEED_EDITORIAL_FIELDS,
     contentType: 'article', mediaData: {},
-    titleStyle: {}, title: 'Zenith 企业版', subTitle: '一体化数字化底座', shortTitle: null, slug: 'enterprise',
+    titleStyle: {}, title: 'ArcBase 企业版', subTitle: '一体化数字化底座', shortTitle: null, slug: 'enterprise',
     summary: '面向中大型企业的一体化数字化底座。',
-    coverImage: null, author: null, editor: null, source: null, sourceUrl: null, isOriginal: false, body: '<p>Zenith 企业版提供完整的权限体系、工作流引擎、支付中心与 CMS 内容管理能力。</p>',
+    coverImage: null, author: null, editor: null, source: null, sourceUrl: null, isOriginal: false, body: '<p>ArcBase 企业版提供完整的权限体系、工作流引擎、支付中心与 CMS 内容管理能力。</p>',
     attachments: [
-      { name: 'Zenith 企业版产品白皮书.pdf', url: 'cms-res://3', size: 1_048_576, ext: 'pdf', sort: 0 },
+      { name: 'ArcBase 企业版产品白皮书.pdf', url: 'cms-res://3', size: 1_048_576, ext: 'pdf', sort: 0 },
     ],
     extend: { price: '联系销售', spec: '支持私有化部署，PostgreSQL 16 + Redis 7' }, externalLink: null, detailTemplate: null, staticPath: null,
     isTop: false, topWeight: 0, topExpireAt: null, isRecommend: false, isHot: false,
@@ -154,19 +154,19 @@ export const SEED_CMS_CONTENTS: (Omit<CmsContent, 'coverThumb'> & { tagIds: numb
     ...CMS_SEED_EDITORIAL_FIELDS,
     contentType: 'album', mediaData: {
       images: [
-        { url: 'https://picsum.photos/seed/zenith-album-1/1200/800', thumb: 'https://picsum.photos/seed/zenith-album-1/400/267', caption: '发布会现场' },
-        { url: 'https://picsum.photos/seed/zenith-album-2/1200/800', thumb: 'https://picsum.photos/seed/zenith-album-2/400/267', caption: '圆桌讨论' },
-        { url: 'https://picsum.photos/seed/zenith-album-3/1200/800', thumb: 'https://picsum.photos/seed/zenith-album-3/400/267', caption: null },
+        { url: 'https://picsum.photos/seed/arcbase-album-1/1200/800', thumb: 'https://picsum.photos/seed/arcbase-album-1/400/267', caption: '发布会现场' },
+        { url: 'https://picsum.photos/seed/arcbase-album-2/1200/800', thumb: 'https://picsum.photos/seed/arcbase-album-2/400/267', caption: '圆桌讨论' },
+        { url: 'https://picsum.photos/seed/arcbase-album-3/1200/800', thumb: 'https://picsum.photos/seed/arcbase-album-3/400/267', caption: null },
       ],
     },
     titleStyle: {}, title: '产品发布会精彩瞬间（图集）', subTitle: null, shortTitle: '发布会图集', slug: null,
-    summary: 'Zenith Admin 年度产品发布会现场图集。',
-    coverImage: 'https://picsum.photos/seed/zenith-album-1/1200/800',
+    summary: 'ArcBase 年度产品发布会现场图集。',
+    coverImage: 'https://picsum.photos/seed/arcbase-album-1/1200/800',
     author: '管理员', editor: null, source: '官方', sourceUrl: null, isOriginal: true, body: '<p>发布会现场图集，点击图片查看大图。</p>',
     attachments: [], extend: {}, externalLink: null, detailTemplate: null, staticPath: null, isTop: false, topWeight: 0, topExpireAt: null, isRecommend: true, isHot: false,
     hasImage: true,
     status: 'published', rejectReason: null, publishedAt: SEED_DATE, scheduledAt: null, expireAt: null,
-    viewCount: 66, likeCount: 0, favoriteCount: 0, version: 1, sort: 0, seoTitle: null, seoKeywords: '发布会,图集', seoDescription: null, socialImageAlt: 'Zenith 产品发布会现场', twitterCreator: '@zenith_admin',
+    viewCount: 66, likeCount: 0, favoriteCount: 0, version: 1, sort: 0, seoTitle: null, seoKeywords: '发布会,图集', seoDescription: null, socialImageAlt: 'ArcBase 产品发布会现场', twitterCreator: '@arcbase_admin',
     archivedAt: null, mappingSourceId: null, distributionRuleId: null, distributionSourceId: null, distributionSourceVersion: null, lockedAt: null, lockedBy: null, lockReason: null,
     tagIds: [1], createdAt: SEED_DATE, updatedAt: SEED_DATE,
   },
@@ -176,17 +176,17 @@ export const SEED_CMS_CONTENTS: (Omit<CmsContent, 'coverThumb'> & { tagIds: numb
     contentType: 'media', mediaData: {
       mediaType: 'video',
       mediaUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-      poster: 'https://picsum.photos/seed/zenith-video/1200/675',
+      poster: 'https://picsum.photos/seed/arcbase-video/1200/675',
       duration: '00:06',
     },
-    titleStyle: {}, title: '三分钟了解 Zenith CMS（视频）', subTitle: null, shortTitle: null, slug: null,
+    titleStyle: {}, title: '三分钟了解 ArcBase CMS（视频）', subTitle: null, shortTitle: null, slug: null,
     summary: '视频快速导览：站群、静态化、全文检索与多形态内容。',
-    coverImage: 'https://picsum.photos/seed/zenith-video/1200/675',
+    coverImage: 'https://picsum.photos/seed/arcbase-video/1200/675',
     author: '管理员', editor: null, source: '官方', sourceUrl: null, isOriginal: true, body: '<p>视频简介：本片演示 CMS 模块核心能力。</p>',
     attachments: [], extend: {}, externalLink: null, detailTemplate: null, staticPath: null, isTop: false, topWeight: 0, topExpireAt: null, isRecommend: false, isHot: true,
     hasImage: true, hasVideo: true,
     status: 'published', rejectReason: null, publishedAt: SEED_DATE, scheduledAt: null, expireAt: null,
-    viewCount: 88, likeCount: 0, favoriteCount: 0, version: 1, sort: 0, seoTitle: null, seoKeywords: '视频,导览', seoDescription: null, socialImageAlt: 'Zenith CMS 视频导览', twitterCreator: '@zenith_admin',
+    viewCount: 88, likeCount: 0, favoriteCount: 0, version: 1, sort: 0, seoTitle: null, seoKeywords: '视频,导览', seoDescription: null, socialImageAlt: 'ArcBase CMS 视频导览', twitterCreator: '@arcbase_admin',
     archivedAt: null, mappingSourceId: null, distributionRuleId: null, distributionSourceId: null, distributionSourceVersion: null, lockedAt: null, lockedBy: null, lockReason: null,
     tagIds: [], createdAt: SEED_DATE, updatedAt: SEED_DATE,
   },
@@ -194,7 +194,7 @@ export const SEED_CMS_CONTENTS: (Omit<CmsContent, 'coverThumb'> & { tagIds: numb
     id: 6, siteId: 2, channelId: 4, channelName: '技术动态', modelId: 1,
     ...CMS_SEED_EDITORIAL_FIELDS, editorialStatus: 'draft', hasUnpublishedChanges: true,
     contentType: 'article', mediaData: {},
-    titleStyle: {}, title: 'Zenith Admin 发布 CMS 内容管理模块', subTitle: null, shortTitle: 'CMS 模块发布', slug: null,
+    titleStyle: {}, title: 'ArcBase 发布 CMS 内容管理模块', subTitle: null, shortTitle: 'CMS 模块发布', slug: null,
     summary: '由 Stage 5 分发规则映射自根站点；正文跟随来源，发布仍需走子站审核管道。',
     coverImage: null, author: '管理员', editor: null, source: '站群分发', sourceUrl: null,
     isOriginal: false, body: null, attachments: [], extend: {}, externalLink: null, detailTemplate: null, staticPath: null,
@@ -222,7 +222,7 @@ export const SEED_CMS_CONTENT_VERSIONS: CmsContentVersion[] = [
     id: 1,
     contentId: 1,
     version: 1,
-    title: 'Zenith Admin 发布 CMS 内容管理模块',
+    title: 'ArcBase 发布 CMS 内容管理模块',
     snapshot: { ...SEED_CMS_CONTENTS[0] }, hash: 'seed-content-1-v1', kind: 'publication', sourceVersion: 1,
     remark: 'Demo 初始发布快照',
     createdByName: '管理员',
@@ -238,7 +238,7 @@ export const SEED_CMS_FRIEND_LINK_GROUPS: CmsFriendLinkGroup[] = [
 export const SEED_CMS_FRIEND_LINKS: CmsFriendLink[] = [
   { id: 1, siteId: 1, groupId: 1, name: 'Hono',       url: 'https://hono.dev',           logo: null, status: 'enabled', sort: 1, remark: null, createdAt: SEED_DATE, updatedAt: SEED_DATE },
   { id: 2, siteId: 1, groupId: 1, name: 'PostgreSQL', url: 'https://www.postgresql.org', logo: null, status: 'enabled', sort: 2, remark: null, createdAt: SEED_DATE, updatedAt: SEED_DATE },
-  { id: 3, siteId: 1, groupId: null, name: 'Zenith 文档', url: 'https://example.invalid/docs', logo: null, status: 'enabled', sort: 3, remark: '未分组示例', createdAt: SEED_DATE, updatedAt: SEED_DATE },
+  { id: 3, siteId: 1, groupId: null, name: 'ArcBase 文档', url: 'https://example.invalid/docs', logo: null, status: 'enabled', sort: 3, remark: '未分组示例', createdAt: SEED_DATE, updatedAt: SEED_DATE },
 ];
 
 // ─── CMS 素材中心（P2 示例素材）──────────────────────────────────────────────────
@@ -252,7 +252,7 @@ export const SEED_CMS_RESOURCE_FOLDERS: CmsResourceFolder[] = [
 ];
 
 export const SEED_CMS_SEARCH_WORDS: CmsSearchWord[] = [
-  { id: 1, siteId: 1, word: 'ZenithAdmin', type: 'extension', groupName: '品牌词', weight: 3000, status: 'enabled', remark: '品牌完整词（词典 token 不含空白）', createdAt: SEED_DATE, updatedAt: SEED_DATE },
+  { id: 1, siteId: 1, word: 'ArcBaseAdmin', type: 'extension', groupName: '品牌词', weight: 3000, status: 'enabled', remark: '品牌完整词（词典 token 不含空白）', createdAt: SEED_DATE, updatedAt: SEED_DATE },
   { id: 2, siteId: 1, word: '的', type: 'stop', groupName: '通用停用词', weight: 1, status: 'enabled', remark: '过滤低价值助词', createdAt: SEED_DATE, updatedAt: SEED_DATE },
 ];
 
@@ -286,11 +286,11 @@ export const SEED_CMS_DISTRIBUTION_RULES: CmsDistributionRule[] = [
     id: 1,
     name: '根站技术资讯映射至子站',
     sourceSiteId: 1,
-    sourceSiteName: 'Zenith 官方网站',
+    sourceSiteName: 'ArcBase 官方网站',
     sourceChannelId: 1,
     sourceChannelName: '新闻中心',
     targetSiteId: 2,
-    targetSiteName: 'Zenith 技术子站',
+    targetSiteName: 'ArcBase 技术子站',
     targetChannelId: 4,
     targetChannelName: '技术动态',
     mode: 'mapping',
@@ -317,11 +317,11 @@ export const SEED_CMS_PAGES: CmsPage[] = [
   {
     id: 1, siteId: 1, name: '产品能力落地页', slug: 'capabilities', path: 'capabilities.html', isHome: false,
     blocks: [
-      { id: 'hero-1', type: 'hero', props: { title: 'Zenith CMS', subtitle: '内容、检索与素材治理一体化' } },
+      { id: 'hero-1', type: 'hero', props: { title: 'ArcBase CMS', subtitle: '内容、检索与素材治理一体化' } },
       { id: 'content-1', type: 'content-list', props: { title: '最新内容', channelId: 1, limit: 5 } },
       { id: 'widget-1', type: 'widget-ref', props: { widgetId: 1, rendererKey: 'list-grid', styleProps: {} } },
     ],
-    seoTitle: 'Zenith CMS 产品能力', seoKeywords: 'CMS,内容管理', seoDescription: '可视化页面搭建演示',
+    seoTitle: 'ArcBase CMS 产品能力', seoKeywords: 'CMS,内容管理', seoDescription: '可视化页面搭建演示',
     requiresDynamic: false,
     status: 'enabled', remark: 'Stage 4 Demo 页面', createdAt: SEED_DATE, updatedAt: SEED_DATE,
   },
@@ -342,10 +342,10 @@ export const SEED_CMS_WIDGETS: CmsWidget[] = [
         {
           id: 'manual-1',
           sourceType: 'manual',
-          title: '关注 Zenith CMS',
+          title: '关注 ArcBase CMS',
           summary: '获取产品更新与实践案例',
-          url: 'https://example.invalid/zenith-cms',
-          image: 'https://picsum.photos/seed/zenith-cms-widget/400/267',
+          url: 'https://example.invalid/arcbase-cms',
+          image: 'https://picsum.photos/seed/arcbase-cms-widget/400/267',
           displayDate: null,
         },
       ],
@@ -357,10 +357,10 @@ export const SEED_CMS_WIDGETS: CmsWidget[] = [
         {
           id: 'manual-1',
           sourceType: 'manual',
-          title: '关注 Zenith CMS',
+          title: '关注 ArcBase CMS',
           summary: '获取产品更新与实践案例',
-          url: 'https://example.invalid/zenith-cms',
-          image: 'https://picsum.photos/seed/zenith-cms-widget/400/267',
+          url: 'https://example.invalid/arcbase-cms',
+          image: 'https://picsum.photos/seed/arcbase-cms-widget/400/267',
           displayDate: null,
         },
       ],
@@ -451,7 +451,7 @@ export const SEED_CMS_DISTRIBUTION_TASKS = [
 export const SEED_CMS_DISTRIBUTION_TASK_ITEMS = [
   {
     key: 'source:1',
-    label: 'Zenith Admin 发布 CMS 内容管理模块',
+    label: 'ArcBase 发布 CMS 内容管理模块',
     status: 'success' as const,
     message: '已创建映射草稿 #6',
     data: {
@@ -475,7 +475,7 @@ export const SEED_CMS_AD_SLOTS: CmsAdSlot[] = [
 ];
 
 export const SEED_CMS_ADS: CmsAd[] = [
-  { id: 1, slotId: 1, name: 'Zenith 企业版上线', image: null, linkUrl: '/products/enterprise.html', startAt: null, endAt: null, clickCount: 0, viewCount: 0, sort: 1, status: 'enabled', createdAt: SEED_DATE, updatedAt: SEED_DATE },
+  { id: 1, slotId: 1, name: 'ArcBase 企业版上线', image: null, linkUrl: '/products/enterprise.html', startAt: null, endAt: null, clickCount: 0, viewCount: 0, sort: 1, status: 'enabled', createdAt: SEED_DATE, updatedAt: SEED_DATE },
 ];
 
 const CMS_SEED_VISITOR_HASH = '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08';
@@ -485,7 +485,7 @@ const CMS_SEED_IP_HASH = '60303ae22b998861e0b4a7f9dfecefb7e5f817e746c44649e5f9b8
 export const SEED_CMS_AD_EVENTS: CmsAdEvent[] = [
   {
     id: 1, siteId: 1, adId: 1, slotId: 1, eventType: 'impression', occurredAt: SEED_DATE,
-    visitorHash: CMS_SEED_VISITOR_HASH, ipHash: CMS_SEED_IP_HASH, userAgent: 'Zenith Demo',
+    visitorHash: CMS_SEED_VISITOR_HASH, ipHash: CMS_SEED_IP_HASH, userAgent: 'ArcBase Demo',
     device: 'pc', referrer: null, path: '/', memberId: null,
   },
 ];
@@ -541,14 +541,14 @@ function interactionQuestion(
 export const SEED_CMS_INTERACTIONS: (CmsInteraction & { questions: CmsInteractionQuestion[] })[] = [
   {
     id: 1, siteId: 1, code: 'satisfaction', kind: 'survey', title: '产品满意度调查',
-    description: '感谢使用 Zenith CMS，您的反馈将帮助我们持续改进。', status: 'published',
+    description: '感谢使用 ArcBase CMS，您的反馈将帮助我们持续改进。', status: 'published',
     participantScope: 'anonymous', repeatPolicy: 'once_per_ip', resultVisibility: 'after_submit',
     captchaPolicy: 'inherit', turnstileSiteKey: null, turnstileSecretConfigured: false, thankYouMessage: '感谢您的反馈！',
     startAt: null, endAt: null, responseCount: 1,
     createdAt: SEED_DATE, updatedAt: SEED_DATE,
     questions: [
       interactionQuestion({
-        id: 1, interactionId: 1, label: '您对 Zenith CMS 的整体满意度？', type: 'single', required: true,
+        id: 1, interactionId: 1, label: '您对 ArcBase CMS 的整体满意度？', type: 'single', required: true,
         minChoices: 1, maxChoices: 1, sort: 0,
         options: [
           { id: 'very-satisfied', label: '非常满意', value: 'very-satisfied' },
@@ -668,7 +668,7 @@ export const SEED_CMS_INTERACTION_ANSWERS = [
 export const SEED_CMS_SUBSCRIPTIONS: CmsMemberSubscription[] = [
   {
     id: 1, memberId: 1, siteId: 1, subjectType: 'site', subjectKey: '1', subjectId: 1,
-    subjectLabel: 'Zenith 官方站', notificationEnabled: true, active: true,
+    subjectLabel: 'ArcBase 官方站', notificationEnabled: true, active: true,
     pointsAwardedAt: SEED_DATE, createdAt: SEED_DATE, updatedAt: SEED_DATE,
   },
   {

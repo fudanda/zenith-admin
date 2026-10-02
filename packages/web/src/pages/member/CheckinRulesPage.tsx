@@ -4,7 +4,7 @@ import { Button, Form, Toast } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Settings } from 'lucide-react';
-import type { CheckinRule, UpdateCheckinSettingsInput } from '@zenith/shared/member';
+import type { CheckinRule, UpdateCheckinSettingsInput } from '@arcbase/shared/member';
 import { usePermission } from '@/hooks/usePermission';
 import { SearchToolbar } from '@/components/SearchToolbar';
 import ConfigurableTable from '@/components/ConfigurableTable';

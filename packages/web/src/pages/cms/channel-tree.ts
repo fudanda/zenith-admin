@@ -1,6 +1,6 @@
 import type { TreeNodeData } from '@douyinfe/semi-ui/lib/es/tree/interface';
-import type { CmsChannel } from '@zenith/shared/cms';
-import { flattenTree, mapTree } from '@zenith/shared/core';
+import type { CmsChannel } from '@arcbase/shared/cms';
+import { flattenTree, mapTree } from '@arcbase/shared/core';
 
 /** 栏目树 → 先序平铺（栏目管理 / 分发 / 页面部件的下拉源与名称映射共用） */
 export function flattenChannels(nodes: CmsChannel[]): CmsChannel[] {

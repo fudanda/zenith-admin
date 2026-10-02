@@ -1,5 +1,5 @@
-import { tenantContract } from '@zenith/shared/identity';
-import type { Tenant } from '@zenith/shared/identity';
+import { tenantContract } from '@arcbase/shared/identity';
+import type { Tenant } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { notFound } from '@/mocks/utils/handlers';

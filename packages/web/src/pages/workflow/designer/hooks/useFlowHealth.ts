@@ -5,7 +5,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDebouncer } from '@tanstack/react-pacer';
-import type { WorkflowDefinitionHealthReport, WorkflowFlowData } from '@zenith/shared/workflow';
+import type { WorkflowDefinitionHealthReport, WorkflowFlowData } from '@arcbase/shared/workflow';
 import { fetchWorkflowFlowHealth } from '@/hooks/queries/workflow-designer';
 import type { NodeHealthInfo, NodeHealthIssue } from '../types';
 

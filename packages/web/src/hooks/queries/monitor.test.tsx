@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { monitorContract, type MonitorHistoryRange } from '@zenith/shared/platform';
+import { monitorContract, type MonitorHistoryRange } from '@arcbase/shared/platform';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
 import { request } from '@/utils/request';
 import { monitorKeys, useMonitorHistory, useMonitorSnapshot } from './monitor';

@@ -40,7 +40,7 @@ const WRITE_OR_CONTROL_KEYWORDS = new Set([
  * - 会话状态篡改（set_config 可在只读事务内 SET ROLE / 关闭 statement_timeout）
  * - 以字符串执行任意 SQL 或按名读表、绕过表 allowlist 的 XML 函数（query_to_xml、table_to_xml…）
  * - 跨库 / 后台进程控制 / 复制与备份控制
- * 只读事务与 zenith_readonly 角色是真正的边界，这里是让错误更早、更可读的第一道闸。
+ * 只读事务与 arcbase_readonly 角色是真正的边界，这里是让错误更早、更可读的第一道闸。
  */
 const DANGEROUS_FUNCTIONS = new Set([
   'benchmark',

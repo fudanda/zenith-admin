@@ -5,10 +5,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/ent/userposition"
-	"github.com/fudanda/zenith-admin/backend/internal/security"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/ent/userposition"
+	"github.com/fudanda/arcbase/backend/internal/security"
 )
 
 func (s *Service) memberView(ctx context.Context, account *ent.User, joinedAt time.Time) map[string]any {

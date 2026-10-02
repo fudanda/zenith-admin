@@ -1,5 +1,5 @@
 import { Banner, Form } from '@douyinfe/semi-ui';
-import type { CmsSite } from '@zenith/shared/cms';
+import type { CmsSite } from '@arcbase/shared/cms';
 import { EditFormSheet } from '@/components/EditFormModal';
 import { FormTimezoneSelect } from '@/components/FormTimezoneSelect';
 import { useEditModal } from '@/hooks/useEditModal';

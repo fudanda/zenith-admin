@@ -28,7 +28,7 @@ import { config } from '../config';
 import { errBody } from '../lib/openapi-schemas';
 import { getClientIp } from '../lib/request-helpers';
 import logger from '../lib/logger';
-import { OPEN_SIGNATURE_HEADERS as H, OPEN_SIGNATURE_TIMESTAMP_WINDOW } from '@zenith/shared/open-platform';
+import { OPEN_SIGNATURE_HEADERS as H, OPEN_SIGNATURE_TIMESTAMP_WINDOW } from '@arcbase/shared/open-platform';
 import { signRequest, timingSafeEqualHex } from '../lib/open-signature';
 import { getOpenApiApp, recordOpenApiCall, type OpenApiAppContext } from '../services/open-platform/open-gateway.service';
 import { resolveAccessToken } from '../services/open-platform/oauth2-auth.service';
@@ -170,7 +170,7 @@ export const openGatewayAuth: MiddlewareHandler = async (c, next) => {
 
   c.set('openPrincipal', principal);
   c.set('openApp', principal.app);
-  c.header('X-Zenith-Environment', principal.app.environment);
+  c.header('X-ArcBase-Environment', principal.app.environment);
   await next();
 };
 

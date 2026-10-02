@@ -2,13 +2,13 @@ import { useCallback, useEffect } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
 import type { VirtuosoHandle } from 'react-virtuoso';
 import type { QueryClient } from '@tanstack/react-query';
-import { chatContract } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import { useWebSocket, useWsConnected } from '@/hooks/useWebSocket';
 import { chatKeys } from '@/hooks/queries/chat';
-import type { ChatConversation, ChatMessage, ChatReadState } from '@zenith/shared/chat';
-import type { Channel } from '@zenith/shared/messaging';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { ChatConversation, ChatMessage, ChatReadState } from '@arcbase/shared/chat';
+import type { Channel } from '@arcbase/shared/messaging';
+import type { WsMessage } from '@arcbase/shared/platform';
 import { getNextMentionUnread, markConversationReadById, recallMessageById, removeConversationById, removeMessageById, setMessageReactions, setMessageVoteData, applyPresenceToLastSeen, applyPresenceToOnlineIds } from '../utils-state';
 import type { GroupAvatarMap, Setter, TypingUsersMap } from '../types';
 

@@ -1,6 +1,6 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { and, eq, inArray, sql } from 'drizzle-orm';
-import type { CanonicalEntityRef } from '@zenith/shared/platform';
+import type { CanonicalEntityRef } from '@arcbase/shared/platform';
 import type { JwtPayload } from '../../../middleware/auth';
 import type { RelationProvider } from './types';
 
@@ -10,7 +10,7 @@ function isolatedDatabaseUrl(value: string | undefined): string | undefined {
   try {
     const url = new URL(value);
     if (!['postgres:', 'postgresql:'].includes(url.protocol) || url.hostname !== 'localhost' || url.search || url.hash) return undefined;
-    if (!/^\/zenith_entity_relations_qa_\d+$/.test(url.pathname)) return undefined;
+    if (!/^\/arcbase_entity_relations_qa_\d+$/.test(url.pathname)) return undefined;
     return url.toString();
   } catch { return undefined; }
 }
@@ -48,7 +48,7 @@ integration('entity relations on isolated PostgreSQL', () => {
       import('./edges.service'), import('./timeline'), import('./events.service'),
     ]);
     const [{ name }] = await storage.pgClient<{ name: string }[]>`select current_database() as name`;
-    expect(name).toMatch(/^zenith_entity_relations_qa_\d+$/);
+    expect(name).toMatch(/^arcbase_entity_relations_qa_\d+$/);
     const [a, b] = await storage.db.insert(tables.tenants).values([
       { name: `${runId} A`, code: `${runId}_a` }, { name: `${runId} B`, code: `${runId}_b` },
     ]).returning({ id: tables.tenants.id });

@@ -1,5 +1,5 @@
-import type { QueryOutputOf, SubjectRef } from '@zenith/shared/core';
-import type { DomainEventType } from '@zenith/shared/platform';
+import type { QueryOutputOf, SubjectRef } from '@arcbase/shared/core';
+import type { DomainEventType } from '@arcbase/shared/platform';
 /**
  * 交易投诉/争议 Service。
  *
@@ -29,8 +29,8 @@ import { formatNullableDateTime } from '../../lib/datetime';
 import { refund } from './payment.service';
 import { decide } from '../platform/rules-runtime.service';
 import logger from '../../lib/logger';
-import { paymentDisputeSchema, paymentDisputeReplySchema, type PaymentChannel, type PaymentDispute, type PaymentDisputeDetail, type PaymentDisputeReply, type PaymentDisputeStats, type PaymentDisputeStatus, type PaymentDisputeType, type RefundPaymentDisputeInput } from '@zenith/shared/payment';
-import { PAYMENT_DISPUTE_ROUTE_LABELS, paymentDisputeContract } from '@zenith/shared/payment';
+import { paymentDisputeSchema, paymentDisputeReplySchema, type PaymentChannel, type PaymentDispute, type PaymentDisputeDetail, type PaymentDisputeReply, type PaymentDisputeStats, type PaymentDisputeStatus, type PaymentDisputeType, type RefundPaymentDisputeInput } from '@arcbase/shared/payment';
+import { PAYMENT_DISPUTE_ROUTE_LABELS, paymentDisputeContract } from '@arcbase/shared/payment';
 import { pickEntity } from '../../lib/entity-map';
 
 const OPEN_STATUSES: PaymentDisputeStatus[] = ['pending', 'processing'];

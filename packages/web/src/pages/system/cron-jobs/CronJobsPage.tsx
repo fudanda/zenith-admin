@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button, Col, Row, SideSheet, Form, Modal, Popover, Space, Tabs, Tag, Toast, Tooltip } from '@douyinfe/semi-ui';
 import { ScrollText, HelpCircle } from 'lucide-react';
-import { cronJobContract, type CreateCronJobInput, type CronJob, type CronJobLog, type CronRunTrigger } from '@zenith/shared/platform';
-import { CRON_RUN_STATUS_LABELS, CRON_RUN_TRIGGER_LABELS, cronSecondsIgnored, toMinuteCron } from '@zenith/shared/platform';
+import { cronJobContract, type CreateCronJobInput, type CronJob, type CronJobLog, type CronRunTrigger } from '@arcbase/shared/platform';
+import { CRON_RUN_STATUS_LABELS, CRON_RUN_TRIGGER_LABELS, cronSecondsIgnored, toMinuteCron } from '@arcbase/shared/platform';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import DateTimeText from '@/components/DateTimeText';
 import { usePermission } from '@/hooks/usePermission';

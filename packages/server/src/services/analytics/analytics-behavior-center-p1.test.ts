@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { getTableConfig } from 'drizzle-orm/pg-core';
-import { ANALYTICS_ENVIRONMENTS, ANALYTICS_EVENT_OVERRIDE_STATUS_LABELS, ANALYTICS_EVENT_PROPERTY_TYPES, ANALYTICS_EVENT_SOURCES, ANALYTICS_IDENTITY_TYPES, ANALYTICS_QUALITY_ISSUE_TYPES, createAnalyticsEventMetaSchema, createAnalyticsUserSegmentSchema } from '@zenith/shared/analytics';
+import { ANALYTICS_ENVIRONMENTS, ANALYTICS_EVENT_OVERRIDE_STATUS_LABELS, ANALYTICS_EVENT_PROPERTY_TYPES, ANALYTICS_EVENT_SOURCES, ANALYTICS_IDENTITY_TYPES, ANALYTICS_QUALITY_ISSUE_TYPES, createAnalyticsEventMetaSchema, createAnalyticsUserSegmentSchema } from '@arcbase/shared/analytics';
 import {
   analyticsEventOverrides,
   analyticsEventOverrideStatusEnum,

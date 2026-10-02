@@ -8,7 +8,7 @@ import { currentUser } from '../../lib/context';
 import { tenantCondition } from '../../lib/tenant';
 import { buildWhere } from '../../lib/where-helpers';
 import { APP_TIME_ZONE, formatDate, startOfDayAgo, startOfToday } from '../../lib/datetime';
-import type { PaymentStats, PaymentTrendPoint } from '@zenith/shared/payment';
+import type { PaymentStats, PaymentTrendPoint } from '@arcbase/shared/payment';
 
 const round1 = (n: number): number => Math.round(n * 10) / 10;
 

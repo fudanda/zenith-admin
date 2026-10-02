@@ -1,5 +1,5 @@
-import { emailTemplateContract } from '@zenith/shared/messaging';
-import type { EmailTemplate } from '@zenith/shared/messaging';
+import { emailTemplateContract } from '@arcbase/shared/messaging';
+import type { EmailTemplate } from '@arcbase/shared/messaging';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { mockEmailTemplates } from '@/mocks/data/email-templates';

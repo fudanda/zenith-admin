@@ -1,5 +1,5 @@
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { buildListResult } from '../../lib/list-query';
 import { clearDefaultFlag } from '../../lib/default-flag';
 import { eq, asc, and, or, inArray, sql } from 'drizzle-orm';
@@ -21,9 +21,9 @@ import { buildWhere, keywordCondition, withPagination } from '../../lib/where-he
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import logger from '../../lib/logger';
 import { currentCmsOpenApiAccess, currentUser, hasPermission } from '../../lib/context';
-import { CMS_SITE_INHERITABLE_FIELDS, CMS_SITE_MAX_DEPTH, cmsSiteContract } from '@zenith/shared/cms';
-import type { CmsSiteInheritableField, CmsSiteInheritanceFlags, CreateCmsSiteInput, UpdateCmsSiteInput } from '@zenith/shared/cms';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import { CMS_SITE_INHERITABLE_FIELDS, CMS_SITE_MAX_DEPTH, cmsSiteContract } from '@arcbase/shared/cms';
+import type { CmsSiteInheritableField, CmsSiteInheritanceFlags, CreateCmsSiteInput, UpdateCmsSiteInput } from '@arcbase/shared/cms';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import { assertSiteTemplateSettings, assertSiteThemeConfig, pruneStaleTemplateDefaults } from './cms-template-refs.service';
 import { isCmsPlatformAdmin } from './cms-access';
 import {
@@ -46,7 +46,7 @@ import {
   resolveCmsSiteSnapshot,
 } from './cms-site-inheritance.service';
 import { planCmsSiteMove, validateCmsSiteEnablement } from './cms-site-hierarchy-policy';
-import { buildTree } from '@zenith/shared/core';
+import { buildTree } from '@arcbase/shared/core';
 
 function assertCdnPurgeSetting(settings: Record<string, unknown>): void {
   const rawUrl = typeof settings.cdnPurgeUrl === 'string' ? settings.cdnPurgeUrl.trim() : '';

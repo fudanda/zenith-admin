@@ -1,6 +1,6 @@
 # 通知中心
 
-本页描述 Zenith Admin 当前通知中心实现：通知事件目录、`notify()` 统一派发、站内信/邮件/短信/App 推送/Webhook/聊天卡片渠道、偏好矩阵、免打扰、摘要与投递留痕。事实来源以 `packages\shared\src\messaging`、`packages\server\src\services\messaging`、`packages\server\src\lib\notification`、`packages\server\src\routes\messaging` 为准。
+本页描述 ArcBase 当前通知中心实现：通知事件目录、`notify()` 统一派发、站内信/邮件/短信/App 推送/Webhook/聊天卡片渠道、偏好矩阵、免打扰、摘要与投递留痕。事实来源以 `packages\shared\src\messaging`、`packages\server\src\services\messaging`、`packages\server\src\lib\notification`、`packages\server\src\routes\messaging` 为准。
 
 ## 模块边界
 

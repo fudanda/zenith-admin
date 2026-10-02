@@ -11,7 +11,7 @@ import {
   type NotificationChannel,
   type NotificationEventKey,
   type NotificationRecipient,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 import { db } from '../../db';
 import {
   notificationDispatches,

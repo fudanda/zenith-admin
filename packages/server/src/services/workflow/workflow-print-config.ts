@@ -3,7 +3,7 @@
  * 打印渲染主链路与归档作业注册都从这里取配置，避免作业注册模块被拖进 pdf / 报表渲染的大模块图。
  */
 import { eq } from 'drizzle-orm';
-import type { WorkflowFlowData, WorkflowPrintSettings } from '@zenith/shared/workflow';
+import type { WorkflowFlowData, WorkflowPrintSettings } from '@arcbase/shared/workflow';
 import { db } from '../../db';
 import { workflowDefinitions } from '../../db/schema';
 

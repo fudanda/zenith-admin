@@ -1,4 +1,4 @@
-import { fileContract } from '@zenith/shared/platform';
+import { fileContract } from '@arcbase/shared/platform';
 import { AttachmentInstanceContext, AttachmentModeContext } from './contexts';
 /**
  * 接入 Semi Form 的自定义控件：关联审批单 / 远程数据源 / 手写签名 / 人员 / 富文本 / 附件上传，
@@ -7,8 +7,8 @@ import { AttachmentInstanceContext, AttachmentModeContext } from './contexts';
 import { lazy, Suspense, useContext, useEffect, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { Rating, Select, Spin, Typography, withField } from '@douyinfe/semi-ui';
-import type { WorkflowRelationOption } from '@zenith/shared/workflow';
-import { workflowAttachmentContract } from '@zenith/shared/workflow';
+import type { WorkflowRelationOption } from '@arcbase/shared/workflow';
+import { workflowAttachmentContract } from '@arcbase/shared/workflow';
 import FileAttachment from '@/components/FileAttachment';
 import { workflowFileToAttachment, uploadedFileToAttachment, type WorkflowUploadedFile } from '@/components/FileAttachment/utils';
 import RegionSelect from '@/components/RegionSelect';

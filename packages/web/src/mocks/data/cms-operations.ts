@@ -1,5 +1,5 @@
-import type { CmsEditorialTask, CmsFeedbackDetail, CmsFormHandlingPolicy } from '@zenith/shared/cms';
-import type { WorkflowInstance } from '@zenith/shared/workflow';
+import type { CmsEditorialTask, CmsFeedbackDetail, CmsFormHandlingPolicy } from '@arcbase/shared/cms';
+import type { WorkflowInstance } from '@arcbase/shared/workflow';
 import { mockCmsContents, mockCmsForms, mockCmsFormSubmissions } from './cms';
 import { mockDateTime } from '../utils/date';
 import { nextIdFrom } from '../utils/handlers';

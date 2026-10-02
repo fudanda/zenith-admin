@@ -18,9 +18,9 @@ import {
   useUploadCmsResource,
 } from '@/hooks/queries/cms';
 import { useWorkflowDefinitionList } from '@/hooks/queries/workflow-definitions';
-import { CMS_RESOURCE_URI_PREFIX, CMS_STATIC_MODES, CMS_STATIC_MODE_LABELS, CMS_TWITTER_CARDS, CMS_TWITTER_CARD_LABELS } from '@zenith/shared/cms';
-import type { CmsInvalidTemplateRef, CmsModelField, CmsSite, CmsThemeSettingField, CmsHomeSection, CmsModelDisplay } from '@zenith/shared/cms';
-import { cmsHomeSectionsSchema, cmsModelDisplaysSchema } from '@zenith/shared/cms';
+import { CMS_RESOURCE_URI_PREFIX, CMS_STATIC_MODES, CMS_STATIC_MODE_LABELS, CMS_TWITTER_CARDS, CMS_TWITTER_CARD_LABELS } from '@arcbase/shared/cms';
+import type { CmsInvalidTemplateRef, CmsModelField, CmsSite, CmsThemeSettingField, CmsHomeSection, CmsModelDisplay } from '@arcbase/shared/cms';
+import { cmsHomeSectionsSchema, cmsModelDisplaysSchema } from '@arcbase/shared/cms';
 import {
   EMPTY_TEMPLATE_DEFAULTS, SITE_FORM_CREATE_DEFAULTS, buildSiteFormInitValues, buildSiteSavePayload,
   templateDefaultsFromSettings,

@@ -1,4 +1,4 @@
-import { mpTemplateContract, type MpTemplateSendLog } from '@zenith/shared/mp';
+import { mpTemplateContract, type MpTemplateSendLog } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { mockMpTemplates, mockMpTemplateLogs, getNextMpTemplateLogId } from '@/mocks/data/mp-templates';

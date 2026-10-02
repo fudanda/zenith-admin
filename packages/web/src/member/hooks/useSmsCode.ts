@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
-import { memberAuthContract, type MemberSmsScene } from '@zenith/shared/member';
+import { memberAuthContract, type MemberSmsScene } from '@arcbase/shared/member';
 import { apiRaw } from '@/lib/contract-query';
 import { memberRequest } from '../utils/member-request';
 

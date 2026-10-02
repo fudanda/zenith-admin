@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import { cronJobContract } from '@zenith/shared/platform';
-import type { CronJob } from '@zenith/shared/platform';
+import { cronJobContract } from '@arcbase/shared/platform';
+import type { CronJob } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { notFound } from '@/mocks/utils/handlers';

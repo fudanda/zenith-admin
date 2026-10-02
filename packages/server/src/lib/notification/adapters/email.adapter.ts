@@ -6,11 +6,11 @@
  * 通知中心发出的邮件如果不落在同一张表里，那个页面就会出现看不见的盲区。
  */
 import { eq } from 'drizzle-orm';
-import type { NotificationChannelOptions, NotificationRecipient } from '@zenith/shared/messaging';
+import type { NotificationChannelOptions, NotificationRecipient } from '@arcbase/shared/messaging';
 import { db } from '../../../db';
 import { emailSendLogs, members, users } from '../../../db/schema';
 import { sendMail } from '../../email';
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';
 import { buildUnsubscribeUrl } from '../unsubscribe';
 import type { DeliveryContext, DeliveryResult, NotificationChannelAdapter } from '../types';
 

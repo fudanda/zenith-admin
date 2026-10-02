@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { SignatureInput, SignatureSnapshot } from '@zenith/shared/core';
-import type { WorkflowFormField, WorkflowInstanceFormSnapshot, WorkflowNodeConfig } from '@zenith/shared/workflow';
-import { approveWorkflowTaskSchema, batchApproveWorkflowTaskSchema, workflowNodeConfigSchema } from '@zenith/shared/workflow';
+import type { SignatureInput, SignatureSnapshot } from '@arcbase/shared/core';
+import type { WorkflowFormField, WorkflowInstanceFormSnapshot, WorkflowNodeConfig } from '@arcbase/shared/workflow';
+import { approveWorkflowTaskSchema, batchApproveWorkflowTaskSchema, workflowNodeConfigSchema } from '@arcbase/shared/workflow';
 
 const { resolveSignature } = vi.hoisted(() => ({ resolveSignature: vi.fn() }));
 vi.mock('../../identity/user-signatures.service', () => ({ resolveUserSignature: resolveSignature }));

@@ -1,7 +1,7 @@
 import { timestampColumns, idColumn } from './common';
 import { pgTable, varchar, timestamp, pgEnum, integer, text, jsonb, real, uuid as pgUuid, index } from 'drizzle-orm/pg-core';
 import { v7 as uuidv7 } from 'uuid';
-import { TERMINAL_SESSION_KINDS, TERMINAL_SESSION_STATES } from '@zenith/shared/ops';
+import { TERMINAL_SESSION_KINDS, TERMINAL_SESSION_STATES } from '@arcbase/shared/ops';
 import { users, tenantIdColumn } from './core';
 
 // ─── 终端会话表 ─────────────────────────────────────────────────────────
@@ -35,7 +35,7 @@ export const terminalSessions = pgTable('terminal_sessions', {
   startedAt: timestamp().defaultNow().notNull(),
   lastActivityAt: timestamp().defaultNow().notNull(),
   endedAt: timestamp(),
-  /** 结束原因，取值见 @zenith/shared/ops 的 TERMINAL_END_REASONS */
+  /** 结束原因，取值见 @arcbase/shared/ops 的 TERMINAL_END_REASONS */
   endReason: varchar({ length: 32 }),
   ...timestampColumns(),
 }, (t) => [

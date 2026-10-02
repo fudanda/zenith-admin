@@ -1,5 +1,5 @@
 import { inArray } from 'drizzle-orm';
-import { DRIVE_PRESENCE_TTL_SECONDS, type DrivePresenceUser } from '@zenith/shared/drive';
+import { DRIVE_PRESENCE_TTL_SECONDS, type DrivePresenceUser } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { users } from '../../db/schema';
 import { config } from '../../config';

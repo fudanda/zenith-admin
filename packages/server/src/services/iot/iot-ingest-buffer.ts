@@ -14,7 +14,7 @@
  * 待写行数达到 MAX_PENDING_ROWS 立即刷；同一时刻只有一批在途，后到的帧攒成下一批，形成自然背压。
  * 停机前 flushIotIngestBuffer() 排空。
  */
-import type { IotMetricValue } from '@zenith/shared/iot';
+import type { IotMetricValue } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import { iotTelemetry, type IotDeviceRow } from '../../db/schema';
 import logger from '../../lib/logger';

@@ -7,7 +7,7 @@ import { InstantFilterToolbar } from '@/components/list-page';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { KeywordInput, StatusSelect } from '@/components/search-filters';
-import type { SystemdAction, SystemdService } from '@zenith/shared/ops';
+import type { SystemdAction, SystemdService } from '@arcbase/shared/ops';
 import { hostQueryOf } from '@/hooks/queries/ops-hosts';
 import { serviceLogsStreamUrl, useServiceAction, useServiceList, useServiceLogs } from '@/hooks/queries/services';
 import { HostSelector } from '@/components/HostSelector';

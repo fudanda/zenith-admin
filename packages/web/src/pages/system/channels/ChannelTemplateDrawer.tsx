@@ -11,10 +11,10 @@
 import { useState } from 'react';
 import { Form, SideSheet, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { CHANNEL_MESSAGE_TYPE_LABELS as TYPE_LABELS } from '@zenith/shared/messaging';
-import type { ChatCard, ChatMessageExtra } from '@zenith/shared/chat';
-import type { ChannelMessageTemplate, ChannelMessageType, CreateChannelTemplateInput } from '@zenith/shared/messaging';
-import { enumValueOf } from '@zenith/shared/core';
+import { CHANNEL_MESSAGE_TYPE_LABELS as TYPE_LABELS } from '@arcbase/shared/messaging';
+import type { ChatCard, ChatMessageExtra } from '@arcbase/shared/chat';
+import type { ChannelMessageTemplate, ChannelMessageType, CreateChannelTemplateInput } from '@arcbase/shared/messaging';
+import { enumValueOf } from '@arcbase/shared/core';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { deleteAction, listTableProps } from '@/components/list-page';

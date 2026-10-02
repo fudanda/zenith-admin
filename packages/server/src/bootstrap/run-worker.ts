@@ -11,13 +11,13 @@ import { serve, type ServerType } from '@hono/node-server';
 import { prometheus } from '@hono/prometheus';
 import { Hono } from 'hono';
 import { Registry } from 'prom-client';
-import type { HealthCheckResult } from '@zenith/shared/platform';
+import type { HealthCheckResult } from '@arcbase/shared/platform';
 import { config } from '../config';
 import { checkInfraHealth, overallHealthStatus } from '../lib/health-checks';
 import logger from '../lib/logger';
 import { errBody, okBody } from '../lib/openapi-schemas';
 import { getSchedulerIntrospection } from '../lib/pg-boss-scheduler';
-import { registerZenithMetrics } from '../lib/prometheus-metrics';
+import { registerArcBaseMetrics } from '../lib/prometheus-metrics';
 import { assertWorkerStorageTopology } from '../lib/storage-topology';
 import { withTimeout } from './shutdown';
 
@@ -34,7 +34,7 @@ export function createWorkerApp(): Hono {
   const app = new Hono();
   const registry = new Registry();
   const { printMetrics } = prometheus({ collectDefaultMetrics: true, registry });
-  registerZenithMetrics(registry);
+  registerArcBaseMetrics(registry);
 
   app.get('/health', async (c) => {
     const checks: Record<string, HealthCheckResult> = await checkInfraHealth();

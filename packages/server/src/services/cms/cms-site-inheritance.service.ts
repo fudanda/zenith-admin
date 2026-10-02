@@ -1,6 +1,6 @@
 import { requireRow } from '../../lib/db-assert';
-import { CMS_SECRET_MASK, CMS_SITE_INHERITABLE_FIELDS, CMS_SITE_MAX_DEPTH } from '@zenith/shared/cms';
-import type { CmsSiteEffectiveConfig, CmsSiteInheritableField, CmsSiteInheritanceFlags } from '@zenith/shared/cms';
+import { CMS_SECRET_MASK, CMS_SITE_INHERITABLE_FIELDS, CMS_SITE_MAX_DEPTH } from '@arcbase/shared/cms';
+import type { CmsSiteEffectiveConfig, CmsSiteInheritableField, CmsSiteInheritanceFlags } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import {

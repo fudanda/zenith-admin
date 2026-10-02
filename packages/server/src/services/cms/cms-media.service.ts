@@ -1,7 +1,7 @@
 import { and, desc, eq, inArray, isNull } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import type { z } from 'zod';
-import { CMS_MEDIA_PROCESSING_TASK, cmsMediaProcessingSchema, freezeCmsMediaResult, type CmsFrozenMedia, type CmsMediaResult, type CmsResource, type processCmsMediaSchema } from '@zenith/shared/cms';
+import { CMS_MEDIA_PROCESSING_TASK, cmsMediaProcessingSchema, freezeCmsMediaResult, type CmsFrozenMedia, type CmsMediaResult, type CmsResource, type processCmsMediaSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsResources } from '../../db/schema/cms';
 import { cmsAssetVersions } from '../../db/schema/cms-design';

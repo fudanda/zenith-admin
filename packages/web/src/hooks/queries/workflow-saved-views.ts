@@ -1,4 +1,4 @@
-import { workflowSavedViewContract } from '@zenith/shared/workflow';
+import { workflowSavedViewContract } from '@arcbase/shared/workflow';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const workflowSavedViewKeys = {

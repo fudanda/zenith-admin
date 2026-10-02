@@ -11,7 +11,7 @@ import { workflowDefinitions } from '../../db/schema';
 import { tenantCondition } from '../../lib/tenant';
 import { currentUser } from '../../lib/context';
 import { listSelectableApprovers, resolveAssigneeIds } from './workflow-assignee-resolver.service';
-import type { WorkflowFlowData, WorkflowApproverPreviewNode } from '@zenith/shared/workflow';
+import type { WorkflowFlowData, WorkflowApproverPreviewNode } from '@arcbase/shared/workflow';
 import { requireRow } from '../../lib/db-assert';
 import { buildWhere } from '../../lib/where-helpers';
 import { resolveUserNames } from '../../lib/user-nicknames';

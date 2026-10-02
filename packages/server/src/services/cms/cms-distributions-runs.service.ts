@@ -1,6 +1,6 @@
 import { requireFirstRow } from '../../lib/db-assert';
 import { buildListResult } from '../../lib/list-query';
-import { enumValueOf, type QueryOutputOf } from '@zenith/shared/core';
+import { enumValueOf, type QueryOutputOf } from '@arcbase/shared/core';
 import {
   and,
   asc,
@@ -12,7 +12,7 @@ import {
   sql,
   type SQL,
 } from 'drizzle-orm';
-import { CMS_DISTRIBUTION_TASK_STATUSES, cmsDistributionContract } from '@zenith/shared/cms';
+import { CMS_DISTRIBUTION_TASK_STATUSES, cmsDistributionContract } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import {
   asyncTaskItems,

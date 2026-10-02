@@ -1,9 +1,9 @@
 /**
  * App 推送 Mock（Demo 模式）：配置 CRUD / 测试发送 / 发送记录 / 设备中心。
  */
-import { pushConfigContract, pushSendLogContract } from '@zenith/shared/messaging';
-import type { PushConfig } from '@zenith/shared/messaging';
-import { clientDeviceContract } from '@zenith/shared/ops';
+import { pushConfigContract, pushSendLogContract } from '@arcbase/shared/messaging';
+import type { PushConfig } from '@arcbase/shared/messaging';
+import { clientDeviceContract } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';
@@ -37,7 +37,7 @@ export const pushHandlers = [
       return badRequest('该应用已存在推送配置(一个应用只允许一套凭证)', { status: 400 });
     }
     const now = mockDateTime();
-    const appNames: Record<number, string> = { 1: 'Zenith 桌面端', 2: 'Zenith 移动端' };
+    const appNames: Record<number, string> = { 1: 'ArcBase 桌面端', 2: 'ArcBase 移动端' };
     const config: PushConfig = {
       id: getNextPushConfigId(),
       appId: body.appId,

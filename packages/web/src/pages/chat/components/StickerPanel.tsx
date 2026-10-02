@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { Button, Empty, Spin, Toast, Typography } from '@douyinfe/semi-ui';
 import { Plus, X } from 'lucide-react';
-import { fileContract, type ManagedFile } from '@zenith/shared/platform';
+import { fileContract, type ManagedFile } from '@arcbase/shared/platform';
 import { api } from '@/lib/contract-query';
 import { useAddChatCustomEmoji, useChatCustomEmojis, useDeleteChatCustomEmoji } from '@/hooks/queries/chat';
-import type { ChatCustomEmoji } from '@zenith/shared/chat';
+import type { ChatCustomEmoji } from '@arcbase/shared/chat';
 
 const { Text } = Typography;
 

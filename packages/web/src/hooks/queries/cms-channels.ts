@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { BodyOf } from '@zenith/shared/core';
-import { cmsChannelContract } from '@zenith/shared/cms';
+import type { BodyOf } from '@arcbase/shared/core';
+import { cmsChannelContract } from '@arcbase/shared/cms';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { cmsContentKeys, invalidateAfterCmsContentChange } from './cms-contents';
 import { invalidateCmsPublishingViews } from './cms-stage3';

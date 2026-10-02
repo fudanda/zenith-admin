@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { memberAuthContract } from '@zenith/shared/member';
+import { memberAuthContract } from '@arcbase/shared/member';
 import { memberAuthMiddleware } from '../../middleware/member-auth';
 import { authRateLimit, sensitiveRateLimit } from '../../middleware/rate-limit';
 import { defineContractRoute } from '../../lib/contract-route';

@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/usergrouprole"
+	"github.com/fudanda/arcbase/backend/ent/usergrouprole"
 )
 
 // UserGroupRoleCreate is the builder for creating a UserGroupRole entity.

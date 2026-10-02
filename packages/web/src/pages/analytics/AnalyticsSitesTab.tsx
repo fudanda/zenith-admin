@@ -4,8 +4,8 @@ import { compactParams } from '@/lib/query';
 import { useListSearch } from '@/hooks/useListSearch';
 import { Form, Modal, Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { AnalyticsSite } from '@zenith/shared/analytics';
-import { COMMON_STATUS_LABELS, COMMON_STATUS_OPTIONS } from '@zenith/shared/core';
+import type { AnalyticsSite } from '@arcbase/shared/analytics';
+import { COMMON_STATUS_LABELS, COMMON_STATUS_OPTIONS } from '@arcbase/shared/core';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import {

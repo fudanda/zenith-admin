@@ -7,8 +7,8 @@
  */
 import { and, desc, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { RuleFlowStep, RuleFlowEvaluateResult } from '@zenith/shared/rules';
-import { decisionFlowContract, ruleDecisionFlowSchema } from '@zenith/shared/rules';
+import type { RuleFlowStep, RuleFlowEvaluateResult } from '@arcbase/shared/rules';
+import { decisionFlowContract, ruleDecisionFlowSchema } from '@arcbase/shared/rules';
 import { db } from '../../db';
 import { ruleDecisionFlows, ruleDecisionTables, ruleAssetVersions } from '../../db/schema';
 import { currentUser } from '../../lib/context';

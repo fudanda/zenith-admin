@@ -1,4 +1,4 @@
-import type { WorkflowJob, WorkflowJobExecution } from '@zenith/shared/workflow';
+import type { WorkflowJob, WorkflowJobExecution } from '@arcbase/shared/workflow';
 import { mockDateTime, mockDateTimeOffset } from '@/mocks/utils/date';
 
 /** 相对当前时间偏移（分钟）生成时间字符串 */

@@ -1,7 +1,7 @@
 import { Button, Empty, Typography, List as SemiList } from '@douyinfe/semi-ui';
 import { AppModal } from '@/components/AppModal';
 import DateTimeText from '@/components/DateTimeText';
-import type { ChatMessage } from '@zenith/shared/chat';
+import type { ChatMessage } from '@arcbase/shared/chat';
 import type { Setter } from '../types';
 
 const { Text } = Typography;

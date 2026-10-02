@@ -1,4 +1,4 @@
-import { iotDashboardContract } from '@zenith/shared/iot';
+import { iotDashboardContract } from '@arcbase/shared/iot';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export const iotDashboardKeys = {

@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, Dropdown, Modal, Table, Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { ChevronDown, Upload } from 'lucide-react';
-import { isAsyncTaskTerminal, type AsyncTaskItem } from '@zenith/shared/tasks';
+import { isAsyncTaskTerminal, type AsyncTaskItem } from '@arcbase/shared/tasks';
 import AsyncTaskProgress from '@/components/AsyncTaskProgress';
 import { useAsyncTaskItems } from '@/hooks/queries/async-tasks';
 import { downloadImportTemplate, useImportTaskPolling } from '@/hooks/queries/import-jobs';

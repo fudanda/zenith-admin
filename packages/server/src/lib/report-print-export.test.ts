@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import ExcelJS from 'exceljs';
 import JSZip from 'jszip';
-import { renderPrintContent } from '@zenith/shared/report';
-import type { ReportPrintRenderPage, ReportPrintRenderResult } from '@zenith/shared/report';
+import { renderPrintContent } from '@arcbase/shared/report';
+import type { ReportPrintRenderPage, ReportPrintRenderResult } from '@arcbase/shared/report';
 
 // 字形覆盖检查的日志出口；字体固定为仓库内的全量 Noto Sans SC 但标记为「子集」来源，验证提示文案按来源切换
 vi.mock('./logger', () => ({ default: { warn: vi.fn(), info: vi.fn(), error: vi.fn(), debug: vi.fn() } }));

@@ -1,5 +1,5 @@
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
-import { paymentLinkContract, paymentLinkPublicContract } from '@zenith/shared/payment';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
+import { paymentLinkContract, paymentLinkPublicContract } from '@arcbase/shared/payment';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type PaymentLinkListParams = NonNullable<QueryOf<typeof paymentLinkContract.list>>;

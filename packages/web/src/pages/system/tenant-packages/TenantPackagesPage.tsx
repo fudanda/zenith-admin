@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Form, Toast, Spin, CheckboxGroup } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { tenantPackageContract, type CreateTenantPackageInput, type TenantPackage } from '@zenith/shared/identity';
-import { enumValueOf } from '@zenith/shared/core';
-import { LICENSE_FEATURES, LICENSE_FEATURE_LABELS, LICENSE_FEATURE_OPTIONS, type LicenseFeatureKey } from '@zenith/shared/licensing';
+import { tenantPackageContract, type CreateTenantPackageInput, type TenantPackage } from '@arcbase/shared/identity';
+import { enumValueOf } from '@arcbase/shared/core';
+import { LICENSE_FEATURES, LICENSE_FEATURE_LABELS, LICENSE_FEATURE_OPTIONS, type LicenseFeatureKey } from '@arcbase/shared/licensing';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { usePermission } from '@/hooks/usePermission';

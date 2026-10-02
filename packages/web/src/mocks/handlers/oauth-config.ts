@@ -1,4 +1,4 @@
-import { oauthConfigContract, type OAuthConfig } from '@zenith/shared/identity';
+import { oauthConfigContract, type OAuthConfig } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { mockDateTime } from '@/mocks/utils/date';
 

@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/storage"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/storage"
 )
 
 // Only encrypted credentials enter this restart-safe compensation journal.

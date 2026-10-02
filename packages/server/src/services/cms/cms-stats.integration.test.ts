@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import postgres from 'postgres';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { afterAll, describe, expect, it } from 'vitest';
-import { cmsStatReportQuery, cmsStatsQuery } from '@zenith/shared/cms';
+import { cmsStatReportQuery, cmsStatsQuery } from '@arcbase/shared/cms';
 import * as schema from '../../db/schema';
 import { withDbExecutor } from '../../db';
 import { runWithCurrentUser } from '../../lib/context';
@@ -15,7 +15,7 @@ afterAll(async()=>{await client?.end();});
 describe.skipIf(!connection)('CMS v2 statistics PostgreSQL reconciliation',()=>{
   it('reconciles identities, time zones, engagement snapshots, bot/preview exclusions and complete pagination',async()=>{
     const target=new URL(connection!);
-    if(!['localhost','127.0.0.1','[::1]'].includes(target.hostname)||target.pathname!=='/zenith_review')throw new Error('Requires disposable local zenith_review database');
+    if(!['localhost','127.0.0.1','[::1]'].includes(target.hostname)||target.pathname!=='/arcbase_review')throw new Error('Requires disposable local arcbase_review database');
     const testDb=drizzle(client!,{schema,casing:'snake_case'});
     const rollback=new Error('rollback CMS statistics fixtures');
     try{

@@ -10,7 +10,7 @@
  */
 import { inArray, sql, type SQL } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { AnalyticsBreakdownDimension, AnalyticsComparison } from '@zenith/shared/analytics';
+import type { AnalyticsBreakdownDimension, AnalyticsComparison } from '@arcbase/shared/analytics';
 import {
   ANALYTICS_BREAKDOWN_DIMENSION_LABELS,
   ANALYTICS_BREAKDOWN_MAX_SERIES,
@@ -18,7 +18,7 @@ import {
   ANALYTICS_BREAKDOWN_UNKNOWN_LABEL,
   ANALYTICS_SERIES_OVERALL_KEY,
   ANALYTICS_SERIES_OVERALL_LABEL,
-} from '@zenith/shared/analytics';
+} from '@arcbase/shared/analytics';
 import { userEvents } from '../../db/schema';
 import { ensureSegmentAccessible, segmentMemberDistinctIdSubquery } from './analytics-segments.service';
 

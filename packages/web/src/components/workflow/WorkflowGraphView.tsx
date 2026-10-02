@@ -7,7 +7,7 @@
 import { useId, useMemo } from 'react';
 import { Banner, Space, Typography } from '@douyinfe/semi-ui';
 import { CornerUpLeft } from 'lucide-react';
-import type { WorkflowTask } from '@zenith/shared/workflow';
+import type { WorkflowTask } from '@arcbase/shared/workflow';
 import FlowRenderer from '@/pages/workflow/designer/components/FlowRenderer';
 import type { FlowProcess, FlowNode } from '@/pages/workflow/designer/types';
 import { buildNodeRuntimeMap } from './workflow-runtime';

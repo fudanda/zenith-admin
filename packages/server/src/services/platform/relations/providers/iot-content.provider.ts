@@ -1,6 +1,6 @@
 import { and, desc, eq, inArray, isNull, lt, sql } from 'drizzle-orm';
-import type { EntityRef } from '@zenith/shared/core';
-import { entityRelationRecordFilters, type EntityRelationPage } from '@zenith/shared/platform';
+import type { EntityRef } from '@arcbase/shared/core';
+import { entityRelationRecordFilters, type EntityRelationPage } from '@arcbase/shared/platform';
 import { relationFilterWhere } from '../filters';
 import { formatDateTime } from '../../../../lib/datetime';
 import { hasPermission, runWithCurrentUser } from '../../../../lib/context';

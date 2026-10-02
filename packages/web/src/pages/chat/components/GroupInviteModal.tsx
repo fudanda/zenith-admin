@@ -5,7 +5,7 @@ import { Copy } from 'lucide-react';
 import { AppModal } from '@/components/AppModal';
 import { copyTextWithToast } from '@/utils/clipboard';
 import { useChatGroupInvite, useResetChatGroupInvite } from '@/hooks/queries/chat';
-import type { ChatGroupInvite } from '@zenith/shared/chat';
+import type { ChatGroupInvite } from '@arcbase/shared/chat';
 import { ResetButton } from '@/components/toolbar-controls';
 
 const { Text } = Typography;

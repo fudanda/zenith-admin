@@ -1,10 +1,10 @@
-package zenith
+package arcbase
 
 import (
 	"context"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/internal/app"
+	"github.com/fudanda/arcbase/backend/internal/app"
 )
 
 func (f *Framework) startMaintenance() {

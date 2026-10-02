@@ -3,7 +3,7 @@ import { ListSearchToolbar, useCrudOperationColumn } from '@/components/list-pag
 import { Button, Form, Input, List, Modal, Select, SideSheet, Space, Tag, TextArea, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { ChevronDown, ChevronUp, Plus, Trash2 } from 'lucide-react';
-import { decisionFlowContract, type RuleDecisionFlow, type RuleFlowEvaluateResult, type RuleFlowStep } from '@zenith/shared/rules';
+import { decisionFlowContract, type RuleDecisionFlow, type RuleFlowEvaluateResult, type RuleFlowStep } from '@arcbase/shared/rules';
 import { EMPTY_PLACEHOLDER, createdAtColumn, renderEllipsis } from '@/utils/table-columns';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';

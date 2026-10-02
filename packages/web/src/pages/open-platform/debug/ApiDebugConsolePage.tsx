@@ -15,9 +15,9 @@ import {
   Typography,
 } from '@douyinfe/semi-ui';
 import { Play } from 'lucide-react';
-import { enumValueOf } from '@zenith/shared/core';
-import { OPEN_API_DEBUG_METHODS, openGatewayContract } from '@zenith/shared/open-platform';
-import type { OpenApiDebugResult } from '@zenith/shared/open-platform';
+import { enumValueOf } from '@arcbase/shared/core';
+import { OPEN_API_DEBUG_METHODS, openGatewayContract } from '@arcbase/shared/open-platform';
+import type { OpenApiDebugResult } from '@arcbase/shared/open-platform';
 import { urlOf } from '@/lib/contract-query';
 import { useDebugEndpoints, useDebugMyApp, useMyAppList } from '@/hooks/queries/developer-apps';
 import { ResetButton } from '@/components/toolbar-controls';

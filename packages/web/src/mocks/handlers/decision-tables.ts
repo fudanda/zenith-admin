@@ -1,5 +1,5 @@
-import type { RuleDecisionTable, RuleDecisionOutput, RuleDecisionRow, RuleDecisionTableVersion, RuleEvaluateResult, RuleTestRunResult, RuleUsageItem, RuleVersionChange } from '@zenith/shared/rules';
-import { decisionTableContract, matchDecisionRows, resolveDecisionHits, ruleExecutionContract } from '@zenith/shared/rules';
+import type { RuleDecisionTable, RuleDecisionOutput, RuleDecisionRow, RuleDecisionTableVersion, RuleEvaluateResult, RuleTestRunResult, RuleUsageItem, RuleVersionChange } from '@arcbase/shared/rules';
+import { decisionTableContract, matchDecisionRows, resolveDecisionHits, ruleExecutionContract } from '@arcbase/shared/rules';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, updateItem } from '@/mocks/utils/crud';
 import { badRequest, notFound, conflict } from '@/mocks/utils/handlers';
@@ -21,7 +21,7 @@ function resolveThen(raw: unknown, o: RuleDecisionOutput, scope: Record<string, 
   return raw;
 }
 
-/** 行匹配与 hit-policy 装配来自 `@zenith/shared/rules`（与服务端引擎同源），这里只提供简单路径取值 */
+/** 行匹配与 hit-policy 装配来自 `@arcbase/shared/rules`（与服务端引擎同源），这里只提供简单路径取值 */
 function evaluate(table: RuleDecisionTable, input: Record<string, unknown>): RuleEvaluateResult {
   const cols = table.inputs.map((i) => get(input, i.expr));
   const matched = matchDecisionRows(table, cols);

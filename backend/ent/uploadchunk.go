@@ -8,7 +8,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/uploadchunk"
+	"github.com/fudanda/arcbase/backend/ent/uploadchunk"
 )
 
 // UploadChunk is the model entity for the UploadChunk schema.

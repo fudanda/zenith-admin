@@ -4,7 +4,7 @@
  */
 import { useCallback, useMemo } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { authContract } from '@zenith/shared/identity';
+import { authContract } from '@arcbase/shared/identity';
 import { api, useApiMutation } from '@/lib/contract-query';
 
 const favoriteMenuKeys = {

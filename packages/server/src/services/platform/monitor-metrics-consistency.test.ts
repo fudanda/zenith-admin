@@ -14,8 +14,8 @@ import {
   createMonitorAlertRuleSchema,
   formatMonitorMetricValue,
   type MonitorMetric,
-} from '@zenith/shared/platform';
-import { SEED_MONITOR_ALERT_RULES } from '@zenith/shared/seed';
+} from '@arcbase/shared/platform';
+import { SEED_MONITOR_ALERT_RULES } from '@arcbase/shared/seed';
 import { monitorMetricEnum } from '../../db/schema';
 
 describe('监控告警指标一致性', () => {

@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"bytes"
@@ -23,13 +23,13 @@ import (
 func isolatedTestDSN(t *testing.T, dsn string) string {
 	t.Helper()
 	if strings.HasPrefix(dsn, "sqlite:") {
-		return "sqlite:" + filepath.Join(t.TempDir(), "zenith.db")
+		return "sqlite:" + filepath.Join(t.TempDir(), "arcbase.db")
 	}
 	admin, err := OpenStore(context.Background(), dsn)
 	if err != nil {
 		t.Fatal(err)
 	}
-	name := fmt.Sprintf("zenith_api_%d", time.Now().UnixNano())
+	name := fmt.Sprintf("arcbase_api_%d", time.Now().UnixNano())
 	if _, err := admin.DB.ExecContext(context.Background(), "CREATE SCHEMA "+name); err != nil {
 		_ = admin.Close()
 		t.Fatal(err)
@@ -52,9 +52,9 @@ func isolatedTestDSN(t *testing.T, dsn string) string {
 }
 
 func TestPostgresAuthAndFoundation(t *testing.T) {
-	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	dsn := os.Getenv("ARCBASE_TEST_DATABASE_URL")
 	if dsn == "" {
-		t.Fatal("ZENITH_TEST_DATABASE_URL is required for integration tests")
+		t.Fatal("ARCBASE_TEST_DATABASE_URL is required for integration tests")
 	}
 	dsn = isolatedTestDSN(t, dsn)
 	ctx := context.Background()
@@ -90,12 +90,12 @@ func TestPostgresAuthAndFoundation(t *testing.T) {
 		if body != nil {
 			payload, _ = json.Marshal(body)
 		}
-		req := httptest.NewRequest(method, "http://zenith.test"+path, bytes.NewReader(payload))
+		req := httptest.NewRequest(method, "http://arcbase.test"+path, bytes.NewReader(payload))
 		if body != nil {
 			req.Header.Set("Content-Type", "application/json")
 		}
 		if method != http.MethodGet {
-			req.Header.Set("Origin", "http://zenith.test")
+			req.Header.Set("Origin", "http://arcbase.test")
 			req.Header.Set("X-CSRF-Token", csrf)
 		}
 		if cookie != nil {
@@ -134,7 +134,7 @@ func TestPostgresAuthAndFoundation(t *testing.T) {
 	}
 	var cookie *http.Cookie
 	for _, candidate := range login.Result().Cookies() {
-		if candidate.Name == "zenith_session" {
+		if candidate.Name == "arcbase_session" {
 			cookie = candidate
 		}
 	}

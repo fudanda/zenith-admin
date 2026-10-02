@@ -1,6 +1,6 @@
 import { Button, Typography } from '@douyinfe/semi-ui';
 import { Sparkles } from 'lucide-react';
-import type { AiAgent } from '@zenith/shared/ai';
+import type { AiAgent } from '@arcbase/shared/ai';
 import { SUGGESTED_QUESTIONS } from '../chat-utils';
 
 const { Title } = Typography;

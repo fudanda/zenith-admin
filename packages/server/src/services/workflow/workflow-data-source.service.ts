@@ -1,4 +1,4 @@
-import { workflowDataSourceContract, workflowDataSourceSchema } from '@zenith/shared/workflow';
+import { workflowDataSourceContract, workflowDataSourceSchema } from '@arcbase/shared/workflow';
 /**
  * 表单远程数据源 Service
  * CRUD + 代理拉取选项（仅登记 URL 可被调用；保存时与请求时都经 workflow-outbound 做 SSRF 防护）。
@@ -10,8 +10,8 @@ import { keywordCondition } from '../../lib/where-helpers';
 import { assertSafeWorkflowUrl, workflowHttp } from '../../lib/workflow-outbound';
 import { decryptSecret, encryptSecret } from '../../lib/secret-crypto';
 import type { WorkflowDataSourceRow } from '../../db/schema';
-import type { WorkflowDataSourceOption } from '@zenith/shared/workflow';
-import { SECRET_PLACEHOLDER, getByPath } from '@zenith/shared/core';
+import type { WorkflowDataSourceOption } from '@arcbase/shared/workflow';
+import { SECRET_PLACEHOLDER, getByPath } from '@arcbase/shared/core';
 import { defineCrudService } from '../../lib/crud-service';
 import { entityMapper } from '../../lib/entity-map';
 

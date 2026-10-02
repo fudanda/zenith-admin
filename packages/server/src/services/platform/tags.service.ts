@@ -1,5 +1,5 @@
 import { asc, eq } from 'drizzle-orm';
-import { tagContract, tagSchema } from '@zenith/shared/platform';
+import { tagContract, tagSchema } from '@arcbase/shared/platform';
 import { db } from '../../db';
 import { tags } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';

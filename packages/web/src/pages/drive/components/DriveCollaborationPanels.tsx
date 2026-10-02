@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Bell, BellOff } from 'lucide-react';
 import { Button, Descriptions, Empty, Form, List, Select, Space, Spin, Timeline, Toast, Typography } from '@douyinfe/semi-ui';
-import { DRIVE_ACTIVITY_ACTION_LABELS, driveMetadataSchema, type CreateDriveTagInput, type DriveNode, type DriveNodeProfile, type DriveSpace, type DriveTag, type UpdateDriveNodeProfileInput } from '@zenith/shared/drive';
+import { DRIVE_ACTIVITY_ACTION_LABELS, driveMetadataSchema, type CreateDriveTagInput, type DriveNode, type DriveNodeProfile, type DriveSpace, type DriveTag, type UpdateDriveNodeProfileInput } from '@arcbase/shared/drive';
 import { AppModal } from '@/components/AppModal';
 import { ListPagination } from '@/components/ListPagination';
 import { useEditModal } from '@/hooks/useEditModal';

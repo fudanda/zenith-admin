@@ -1,6 +1,6 @@
 import { timestampColumns, idColumn } from './common';
 import { pgTable, varchar, timestamp, pgEnum, integer, boolean, unique, text, uniqueIndex, index, jsonb, uuid } from 'drizzle-orm/pg-core';
-import { OAUTH_PROVIDERS, IMPERSONATION_END_REASONS } from '@zenith/shared/identity';
+import { OAUTH_PROVIDERS, IMPERSONATION_END_REASONS } from '@arcbase/shared/identity';
 import { auditColumns, users, tenantIdColumn } from './core';
 import { managedFiles } from './files';
 

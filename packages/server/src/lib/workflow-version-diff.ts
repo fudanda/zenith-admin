@@ -2,7 +2,7 @@
  * 版本 diff 细化：对比两份 flowData，输出节点增删改（含字段级变化）与连线/条件变化。
  * 节点按 data.key 稳定匹配；连线按 sourceKey->targetKey 匹配（节点 id 可能跨版本变化）。
  */
-import type { WorkflowEdge, WorkflowFlowData, WorkflowNodeConfig, WorkflowVersionDiffSummary, WorkflowVersionEdgeChange, WorkflowVersionFieldChange, WorkflowVersionNodeChange } from '@zenith/shared/workflow';
+import type { WorkflowEdge, WorkflowFlowData, WorkflowNodeConfig, WorkflowVersionDiffSummary, WorkflowVersionEdgeChange, WorkflowVersionFieldChange, WorkflowVersionNodeChange } from '@arcbase/shared/workflow';
 
 const NODE_TYPE_LABEL: Record<string, string> = {
   start: '开始', approve: '审批', handler: '办理', end: '结束',

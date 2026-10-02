@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Button, Empty, Pagination, Spin, Tag } from '@douyinfe/semi-ui';
 import { ExternalLink } from 'lucide-react';
-import { CMS_CONTENT_TYPE_LABELS, type CmsContentType } from '@zenith/shared/cms';
+import { CMS_CONTENT_TYPE_LABELS, type CmsContentType } from '@arcbase/shared/cms';
 
 export interface CmsContentListItem {
   contentId: number;

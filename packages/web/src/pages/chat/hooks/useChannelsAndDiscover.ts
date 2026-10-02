@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
-import { chatContract } from '@zenith/shared/chat';
-import { channelContract } from '@zenith/shared/messaging';
+import { chatContract } from '@arcbase/shared/chat';
+import { channelContract } from '@arcbase/shared/messaging';
 import { api } from '@/lib/contract-query';
 import { confirmDanger } from '@/utils/confirm';
 import { useDiscoverableChannels } from '@/hooks/queries/chat';
-import type { ChatConversation } from '@zenith/shared/chat';
-import type { Channel } from '@zenith/shared/messaging';
+import type { ChatConversation } from '@arcbase/shared/chat';
+import type { Channel } from '@arcbase/shared/messaging';
 import type { Setter } from '../types';
 
 /** 会话/频道列表加载 + 发现频道（防抖搜索、订阅/退订）（自 ChatPage 原样搬移） */

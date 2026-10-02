@@ -1,6 +1,6 @@
 import { HTTPException } from 'hono/http-exception';
 import dayjs from 'dayjs';
-import { validateCmsStructuredFields } from '@zenith/shared/cms';
+import { validateCmsStructuredFields } from '@arcbase/shared/cms';
 import { sanitizeCmsModelValues } from './cms-document.service';
 import type { CmsModelFieldRow } from '../../db/schema';
 import { listCmsModelFields, resolveCmsModelFieldOptions } from './cms-models.service';

@@ -1,6 +1,6 @@
 import { Toast } from '@douyinfe/semi-ui';
-import { SEND_SOURCE_OPTIONS, SEND_STATUS_OPTIONS } from '@zenith/shared/messaging';
-import type { SendStatus } from '@zenith/shared/messaging';
+import { SEND_SOURCE_OPTIONS, SEND_STATUS_OPTIONS } from '@arcbase/shared/messaging';
+import type { SendStatus } from '@arcbase/shared/messaging';
 import { abortSubmit } from '@/lib/abort-submit';
 
 const SEND_STATUS_COLORS: Record<SendStatus, 'orange' | 'green' | 'red'> = {

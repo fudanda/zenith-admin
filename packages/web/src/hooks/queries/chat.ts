@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
-import { chatContract } from '@zenith/shared/chat';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { channelContract } from '@zenith/shared/messaging';
+import { chatContract } from '@arcbase/shared/chat';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { channelContract } from '@arcbase/shared/messaging';
 import { apiQueryOptions, contractKey, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

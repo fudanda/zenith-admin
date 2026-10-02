@@ -1,4 +1,4 @@
-import { goAuthContract } from '@zenith/shared/identity';
+import { goAuthContract } from '@arcbase/shared/identity';
 import { api, apiRaw } from '@/lib/contract-query';
 import { goApiClient } from './go-api-client';
 export { createGoApiClient, goApiClient } from './go-api-client';

@@ -2,7 +2,7 @@ import { PasswordInput } from '@/components/PasswordInput';
 import { useState, useMemo } from 'react';
 import { Tabs, TabPane, Select, Input, Typography, Banner, Button, Space, Card } from '@douyinfe/semi-ui';
 import { Copy } from 'lucide-react';
-import { openGatewayContract } from '@zenith/shared/open-platform';
+import { openGatewayContract } from '@arcbase/shared/open-platform';
 import { config } from '@/config';
 import { urlOf } from '@/lib/contract-query';
 import { copyTextWithToast } from '@/utils/clipboard';
@@ -119,7 +119,7 @@ curl "$BASE/ping" \\
   -H "X-Nonce: $NONCE" \\
   -H "X-Signature: $SIG"`;
 
-  const curlVerify = `# Webhook 请求头：X-Zenith-Signature: t=<ts>,v1=<sig>
+  const curlVerify = `# Webhook 请求头：X-ArcBase-Signature: t=<ts>,v1=<sig>
 # 待签名串 = "<ts>.<原始请求体>"，HMAC-SHA256(secret) 后比对 v1
 TS=$(echo "$SIG_HEADER" | sed -n 's/.*t=\\([0-9]*\\).*/\\1/p')
 V1=$(echo "$SIG_HEADER" | sed -n 's/.*v1=\\([a-f0-9]*\\).*/\\1/p')

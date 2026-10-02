@@ -1,9 +1,9 @@
 import { badRequest } from '@/mocks/utils/handlers';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
-import { cmsPublishingContract } from '@zenith/shared/cms';
-import type { CmsPublishTargetType } from '@zenith/shared/cms';
-import { isAsyncTaskTerminal, type AsyncTask } from '@zenith/shared/tasks';
+import { cmsPublishingContract } from '@arcbase/shared/cms';
+import type { CmsPublishTargetType } from '@arcbase/shared/cms';
+import { isAsyncTaskTerminal, type AsyncTask } from '@arcbase/shared/tasks';
 import {
   mockCmsPublishArtifacts,
   mockCmsPublishingTasks,

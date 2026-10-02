@@ -1,4 +1,4 @@
-import { collectCmsSelectedResourceIds } from '@zenith/shared/cms';
+import { collectCmsSelectedResourceIds } from '@arcbase/shared/cms';
 
 /** Selection intent survives retries, while older save responses cannot clear newer choices. */
 export function createCmsResourceSelections() {

@@ -5,10 +5,10 @@ import ConfigurableTable from '@/components/ConfigurableTable';
 import { batchStatusHandler, confirmAndDelete, ListSearchToolbar, useStatusToggle, useRowSelection, useCrudOperationColumn } from '@/components/list-page';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
-import { monitorAlertContract, type CreateMonitorAlertRuleInput, type MonitorAlertRule, type MonitorMetric } from '@zenith/shared/platform';
-import { MONITOR_ALERT_LEVEL_OPTIONS } from '@zenith/shared/platform';
-import { BASIC_COMPARISON_OPERATOR_LABELS } from '@zenith/shared/core';
-import { NOTIFY_CHANNEL_OPTIONS } from '@zenith/shared/messaging';
+import { monitorAlertContract, type CreateMonitorAlertRuleInput, type MonitorAlertRule, type MonitorMetric } from '@arcbase/shared/platform';
+import { MONITOR_ALERT_LEVEL_OPTIONS } from '@arcbase/shared/platform';
+import { BASIC_COMPARISON_OPERATOR_LABELS } from '@arcbase/shared/core';
+import { NOTIFY_CHANNEL_OPTIONS } from '@arcbase/shared/messaging';
 import {
   useBatchToggleMonitorAlerts,
   useDeleteMonitorAlerts,

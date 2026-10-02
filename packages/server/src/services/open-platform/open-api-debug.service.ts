@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { HTTPException } from 'hono/http-exception';
-import { OPEN_SIGNATURE_HEADERS } from '@zenith/shared/open-platform';
-import type { OpenApiDebugResult } from '@zenith/shared/open-platform';
+import { OPEN_SIGNATURE_HEADERS } from '@arcbase/shared/open-platform';
+import type { OpenApiDebugResult } from '@arcbase/shared/open-platform';
 import { config } from '../../config';
 import { httpRequest } from '../../lib/http-client';
 import { signRequest } from '../../lib/open-signature';
@@ -84,7 +84,7 @@ export async function executeOpenApiDebugRequest(
   });
   const responseBody = (await response.text()).slice(0, 64 * 1024);
   const responseHeaders: Record<string, string> = {};
-  for (const key of ['content-type', 'x-request-id', 'x-zenith-environment', 'retry-after']) {
+  for (const key of ['content-type', 'x-request-id', 'x-arcbase-environment', 'retry-after']) {
     const value = response.headers.get(key);
     if (value) responseHeaders[key] = value;
   }

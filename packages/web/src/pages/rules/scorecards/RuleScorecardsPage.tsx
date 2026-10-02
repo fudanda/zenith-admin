@@ -3,7 +3,7 @@ import { ListSearchToolbar, useCrudOperationColumn } from '@/components/list-pag
 import { Banner, Button, Divider, Input, InputNumber, Modal, Select, Space, Tag, TextArea, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Plus, Trash2 } from 'lucide-react';
-import { RULE_SCORECARD_BAND_OP_OPTIONS, RULE_SCORECARD_VARIABLE_TYPE_OPTIONS, type RuleScorecard, type RuleScorecardBand, type RuleScorecardEvaluateResult, type RuleScorecardGrade, type RuleScorecardVariable, ruleScorecardContract } from '@zenith/shared/rules';
+import { RULE_SCORECARD_BAND_OP_OPTIONS, RULE_SCORECARD_VARIABLE_TYPE_OPTIONS, type RuleScorecard, type RuleScorecardBand, type RuleScorecardEvaluateResult, type RuleScorecardGrade, type RuleScorecardVariable, ruleScorecardContract } from '@arcbase/shared/rules';
 import { createdAtColumn, renderEllipsis, EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';

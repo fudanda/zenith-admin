@@ -1,5 +1,5 @@
-import { emailSendLogContract } from '@zenith/shared/messaging';
-import type { EmailSendLog } from '@zenith/shared/messaging';
+import { emailSendLogContract } from '@arcbase/shared/messaging';
+import type { EmailSendLog } from '@arcbase/shared/messaging';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { mockEmailSendLogs, getNextEmailSendLogId } from '@/mocks/data/email-send-logs';

@@ -1,7 +1,7 @@
 import { useMemo, type ComponentProps } from 'react';
 import { Badge, Button, Empty, Input, Spin, Tooltip, List as SemiList } from '@douyinfe/semi-ui';
 import { Bookmark, Compass, ExternalLink, MessageSquarePlus, Search, X } from 'lucide-react';
-import type { ChatConversation, ChatMessage } from '@zenith/shared/chat';
+import type { ChatConversation, ChatMessage } from '@arcbase/shared/chat';
 import { AppModal } from '@/components/AppModal';
 import { MasterDetailLayout } from '@/components/MasterDetailLayout';
 import type { LeftListItem, LeftPaneContextMenuState, LeftPaneMode, Setter } from '../types';

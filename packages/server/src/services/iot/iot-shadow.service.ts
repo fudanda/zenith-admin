@@ -8,7 +8,7 @@
 import { HTTPException } from 'hono/http-exception';
 import { requireRow } from '../../lib/db-assert';
 import { eq, sql } from 'drizzle-orm';
-import { iotDeviceShadowSchema, type IotDesiredPayload, type IotDeviceShadow, type IotMetricValue, type SetIotDesiredInput } from '@zenith/shared/iot';
+import { iotDeviceShadowSchema, type IotDesiredPayload, type IotDeviceShadow, type IotMetricValue, type SetIotDesiredInput } from '@arcbase/shared/iot';
 import { pickEntity } from '../../lib/entity-map';
 import { db } from '../../db';
 import { iotDeviceState, type IotDeviceRow, type IotDeviceStateRow, type IotProductPropertyRow } from '../../db/schema';

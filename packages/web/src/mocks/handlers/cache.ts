@@ -1,4 +1,4 @@
-import { cacheContract, type CacheItem } from '@zenith/shared/platform';
+import { cacheContract, type CacheItem } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, notFound } from '@/mocks/utils/handlers';
 import { removeWhere } from '@/mocks/utils/array';
@@ -12,7 +12,7 @@ interface MockCacheItem extends CacheItem {
 
 const mockCacheItems: MockCacheItem[] = [
   {
-    key: 'zenith:session:550e8400-e29b-41d4-a716-446655440000',
+    key: 'arcbase:session:550e8400-e29b-41d4-a716-446655440000',
     displayKey: 'session:550e8400-e29b-41d4-a716-446655440000',
     segment: 'session',
     category: '会话 Token',
@@ -22,7 +22,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '{"tokenId":"550e8400-e29b-41d4-a716-446655440000","userId":1,"username":"admin","nickname":"超级管理员","ip":"127.0.0.1"…',
   },
   {
-    key: 'zenith:session:6ba7b810-9dad-11d1-80b4-00c04fd430c8',
+    key: 'arcbase:session:6ba7b810-9dad-11d1-80b4-00c04fd430c8',
     displayKey: 'session:6ba7b810-9dad-11d1-80b4-00c04fd430c8',
     segment: 'session',
     category: '会话 Token',
@@ -32,7 +32,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '{"tokenId":"6ba7b810-9dad-11d1-80b4-00c04fd430c8","userId":2,"username":"user01","nickname":"测试用户","ip":"192.168.1.1"…',
   },
   {
-    key: 'zenith:blacklist:3f2504e0-4f89-11d3-9a0c-0305e82c3301',
+    key: 'arcbase:blacklist:3f2504e0-4f89-11d3-9a0c-0305e82c3301',
     displayKey: 'blacklist:3f2504e0-4f89-11d3-9a0c-0305e82c3301',
     segment: 'blacklist',
     category: '强制下线黑名单',
@@ -42,7 +42,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '1',
   },
   {
-    key: 'zenith:perm:1',
+    key: 'arcbase:perm:1',
     displayKey: 'perm:1',
     segment: 'perm',
     category: '权限缓存',
@@ -52,7 +52,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '["system:user:list","system:user:create","system:user:update","system:user:delete","system:role:list"…',
   },
   {
-    key: 'zenith:perm:2',
+    key: 'arcbase:perm:2',
     displayKey: 'perm:2',
     segment: 'perm',
     category: '权限缓存',
@@ -62,7 +62,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '["dashboard:view"]',
   },
   {
-    key: 'zenith:login_attempt:admin',
+    key: 'arcbase:login_attempt:admin',
     displayKey: 'login_attempt:admin',
     segment: 'login_attempt',
     category: '登录失败计数',
@@ -72,7 +72,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '2',
   },
   {
-    key: 'zenith:rl:172.16.0.10',
+    key: 'arcbase:rl:172.16.0.10',
     displayKey: 'rl:172.16.0.10',
     segment: 'rl',
     category: '接口限流计数',
@@ -82,7 +82,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '3',
   },
   {
-    key: 'zenith:rlstats:ai_chat_send:hit',
+    key: 'arcbase:rlstats:ai_chat_send:hit',
     displayKey: 'rlstats:ai_chat_send:hit',
     segment: 'rlstats',
     category: '限流统计',
@@ -92,7 +92,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '5',
   },
   {
-    key: `zenith:ai:req:${mockDate()}`,
+    key: `arcbase:ai:req:${mockDate()}`,
     displayKey: `ai:req:${mockDate()}`,
     segment: 'ai',
     category: 'AI 服务',
@@ -102,7 +102,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '12',
   },
   {
-    key: 'zenith:openrl:monthly:demo-app:api_call',
+    key: 'arcbase:openrl:monthly:demo-app:api_call',
     displayKey: 'openrl:monthly:demo-app:api_call',
     segment: 'openrl',
     category: '开放平台限流',
@@ -112,7 +112,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '42',
   },
   {
-    key: `zenith:report:quota:1:${mockDate()}`,
+    key: `arcbase:report:quota:1:${mockDate()}`,
     displayKey: `report:quota:1:${mockDate()}`,
     segment: 'report',
     category: '报表中心',
@@ -123,7 +123,7 @@ const mockCacheItems: MockCacheItem[] = [
     fullValue: '{"scan_rows":"152400","result_rows":"3200","query_count":"18","exceeded":"0","updated_at":"1752885000"}',
   },
   {
-    key: 'zenith:member-session:9f1c2b3a-4d5e-6f70-8192-a3b4c5d6e7f8',
+    key: 'arcbase:member-session:9f1c2b3a-4d5e-6f70-8192-a3b4c5d6e7f8',
     displayKey: 'member-session:9f1c2b3a-4d5e-6f70-8192-a3b4c5d6e7f8',
     segment: 'member-session',
     category: '会员会话',
@@ -133,7 +133,7 @@ const mockCacheItems: MockCacheItem[] = [
     value: '{"memberId":1,"nickname":"演示会员","loginType":"phone_password"}',
   },
   {
-    key: 'zenith:mp:access_token:wx1234567890abcdef',
+    key: 'arcbase:mp:access_token:wx1234567890abcdef',
     displayKey: 'mp:access_token:wx1234567890abcdef',
     segment: 'mp',
     category: '公众号凭证',
@@ -166,7 +166,7 @@ export const cacheHandlers = [
       keyspaceMisses: 4_210,
       hitRate: 97.31,
       totalKeys,
-      keyPrefix: 'zenith:',
+      keyPrefix: 'arcbase:',
     });
   }),
 

@@ -1,5 +1,5 @@
-import { SEED_EMAIL_TEMPLATES } from '@zenith/shared/seed';
-import type { EmailTemplate } from '@zenith/shared/messaging';
+import { SEED_EMAIL_TEMPLATES } from '@arcbase/shared/seed';
+import type { EmailTemplate } from '@arcbase/shared/messaging';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockEmailTemplates: EmailTemplate[] = [...SEED_EMAIL_TEMPLATES];

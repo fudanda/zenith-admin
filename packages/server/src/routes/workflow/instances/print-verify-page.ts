@@ -2,7 +2,7 @@
  * 审批单验真页（公开、无脚本、noindex）。
  * 只呈现单据身份与终态事实，不含表单内容与参与人，二维码令牌由 workflow-print.service 签发与校验。
  */
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';
 import type { PrintVerifyView } from '../../../services/workflow/workflow-print.service';
 
 function shell(title: string, body: string): string {

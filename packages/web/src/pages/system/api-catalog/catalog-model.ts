@@ -1,12 +1,12 @@
 /**
  * 接口目录页的纯数据层：目录条目、筛选状态与谓词、下拉选项、展示映射。
  * 目录本身由服务端 `GET /api/api-catalog` 从契约派生；这里**不 import 任何契约聚合**
- * （那会把全部域契约拉进共享分包），只依赖 `@zenith/shared/permission-catalog-core` 的纯判定与标签。
+ * （那会把全部域契约拉进共享分包），只依赖 `@arcbase/shared/permission-catalog-core` 的纯判定与标签。
  */
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag/interface';
-import type { SecurityScheme } from '@zenith/shared/core';
-import type { ApiCatalog, ApiCatalogItem } from '@zenith/shared/identity';
-import { SECURITY_SCHEME_LABELS, type AccessKind, type OperationVerdict } from '@zenith/shared/permission-catalog-core';
+import type { SecurityScheme } from '@arcbase/shared/core';
+import type { ApiCatalog, ApiCatalogItem } from '@arcbase/shared/identity';
+import { SECURITY_SCHEME_LABELS, type AccessKind, type OperationVerdict } from '@arcbase/shared/permission-catalog-core';
 import { textMatches } from '@/utils/pinyin';
 
 export type HttpMethod = ApiCatalogItem['method'];

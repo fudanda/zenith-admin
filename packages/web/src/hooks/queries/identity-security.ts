@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { identitySecurityContract } from '@zenith/shared/identity';
+import type { QueryOf } from '@arcbase/shared/core';
+import { identitySecurityContract } from '@arcbase/shared/identity';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export type LoginRiskEventListParams = NonNullable<QueryOf<typeof identitySecurityContract.riskEvents>>;

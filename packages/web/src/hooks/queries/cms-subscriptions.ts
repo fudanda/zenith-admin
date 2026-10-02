@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { cmsSubscriptionContract } from '@zenith/shared/cms';
+import type { QueryOf } from '@arcbase/shared/core';
+import { cmsSubscriptionContract } from '@arcbase/shared/cms';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export type CmsSubscriptionListParams = NonNullable<QueryOf<typeof cmsSubscriptionContract.list>>;

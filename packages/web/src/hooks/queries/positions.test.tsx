@@ -11,7 +11,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import type { Position } from '@zenith/shared/identity';
+import type { Position } from '@arcbase/shared/identity';
 import {
   ApiRecorder,
   createRequestMock,

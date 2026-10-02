@@ -4,25 +4,25 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import pluginQuery from '@tanstack/eslint-plugin-query';
 
-// ── @zenith/shared 引用纪律：根入口与旧巨石路径禁止；把全部域收拢在一起的聚合模块只允许 Demo Mock 引用 ──
+// ── @arcbase/shared 引用纪律：根入口与旧巨石路径禁止；把全部域收拢在一起的聚合模块只允许 Demo Mock 引用 ──
 const sharedRootImportRestrictions = [
   {
-    name: '@zenith/shared',
+    name: '@arcbase/shared',
     message:
-      "请改用域子路径：'@zenith/shared/identity' | 'payment' | 'workflow' | 'cms' | 'report' | 'core' 等；种子数据用 '@zenith/shared/seed'。",
+      "请改用域子路径：'@arcbase/shared/identity' | 'payment' | 'workflow' | 'cms' | 'report' | 'core' 等；种子数据用 '@arcbase/shared/seed'。",
   },
-  { name: '@zenith/shared/types', message: "旧巨石路径已删除，请改用 '@zenith/shared/<domain>'。" },
-  { name: '@zenith/shared/validation', message: "旧巨石路径已删除，请改用 '@zenith/shared/<domain>'。" },
-  { name: '@zenith/shared/constants', message: "旧巨石路径已删除，请改用 '@zenith/shared/<domain>'。" },
-  { name: '@zenith/shared/seed-data', message: "旧巨石路径已删除，请改用 '@zenith/shared/seed'。" },
+  { name: '@arcbase/shared/types', message: "旧巨石路径已删除，请改用 '@arcbase/shared/<domain>'。" },
+  { name: '@arcbase/shared/validation', message: "旧巨石路径已删除，请改用 '@arcbase/shared/<domain>'。" },
+  { name: '@arcbase/shared/constants', message: "旧巨石路径已删除，请改用 '@arcbase/shared/<domain>'。" },
+  { name: '@arcbase/shared/seed-data', message: "旧巨石路径已删除，请改用 '@arcbase/shared/seed'。" },
 ];
 const SHARED_AGGREGATE_MESSAGE =
-  '聚合模块会把全部域契约拆进产物并让 app-shared 膨胀：只 import 域子路径（@zenith/shared/<domain>）或叶子模块'
-  + '（@zenith/shared/permission-catalog-core）；需要全部契约派生的数据由服务端接口下发（如 GET /api/api-catalog）。';
+  '聚合模块会把全部域契约拆进产物并让 app-shared 膨胀：只 import 域子路径（@arcbase/shared/<domain>）或叶子模块'
+  + '（@arcbase/shared/permission-catalog-core）；需要全部契约派生的数据由服务端接口下发（如 GET /api/api-catalog）。';
 const sharedAggregateImportRestrictions = [
-  { name: '@zenith/shared/contracts', message: SHARED_AGGREGATE_MESSAGE },
-  { name: '@zenith/shared/permissions', message: SHARED_AGGREGATE_MESSAGE },
-  { name: '@zenith/shared/permission-catalog', message: SHARED_AGGREGATE_MESSAGE },
+  { name: '@arcbase/shared/contracts', message: SHARED_AGGREGATE_MESSAGE },
+  { name: '@arcbase/shared/permissions', message: SHARED_AGGREGATE_MESSAGE },
+  { name: '@arcbase/shared/permission-catalog', message: SHARED_AGGREGATE_MESSAGE },
 ];
 
 // ── 图标纪律：@iconify/react 在运行时向公网 Iconify API 拉图标数据（内网 / 离线 / Demo 下空白，登录页还多一个第三方源）。
@@ -191,7 +191,7 @@ export default [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
       ],
-      // @zenith/shared 已按业务域拆分：根入口会把全部 18 个域拉进依赖图与前端产物，
+      // @arcbase/shared 已按业务域拆分：根入口会把全部 18 个域拉进依赖图与前端产物，
       // 使「改 CMS 类型」这类局部改动波及所有消费方，故禁止直接引用根入口与已废弃的旧巨石路径。
       'no-restricted-imports': ['error', { paths: [...sharedRootImportRestrictions, ...iconifyRuntimeRestrictions] }],
       // 同名规则在后续 files 更窄的配置块中会被整体覆盖而非合并，Token 纪律块需再带一份 clipboardRestrictions
@@ -199,7 +199,7 @@ export default [
     },
   },
   {
-    // ── 业务模块禁止 import @zenith/shared 的聚合模块；mocks 只进 Demo 构建、测试不进产物，均放行 ──
+    // ── 业务模块禁止 import @arcbase/shared 的聚合模块；mocks 只进 Demo 构建、测试不进产物，均放行 ──
     files: ['src/**/*.ts', 'src/**/*.tsx'],
     ignores: ['src/mocks/**', 'src/**/*.test.ts', 'src/**/*.test.tsx'],
     rules: {
@@ -250,7 +250,7 @@ export default [
   },
   {
     // ── 域 hooks 由契约派生：服务端状态一律经 lib/contract-query 访问，key 由 contractKey 生成 ──
-    // 同名规则整体覆盖，故此处把根配置的 @zenith/shared 路径限制一并带上
+    // 同名规则整体覆盖，故此处把根配置的 @arcbase/shared 路径限制一并带上
     files: ['src/hooks/queries/**/*.ts'],
     ignores: ['src/hooks/queries/**/*.test.ts', 'src/hooks/queries/**/*.test.tsx'],
     rules: {
@@ -265,7 +265,7 @@ export default [
                 '域 hooks 用 useApiQuery / apiQueryOptions / useApiMutation / useSaveMutation / createResourceQueries（lib/contract-query）；'
                 + '仅组合多次请求、非契约通道、多操作分派、上传进度等场景可手写，须在 import 行加 eslint-disable 并注明理由，且 queryKey 仍由 contractKey 生成。',
             },
-            { name: '@zenith/shared', message: "请改用域子路径 '@zenith/shared/<domain>'。" },
+            { name: '@arcbase/shared', message: "请改用域子路径 '@arcbase/shared/<domain>'。" },
             ...sharedAggregateImportRestrictions,
             ...iconifyRuntimeRestrictions,
           ],

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Checkbox, Radio, RadioGroup, Transfer } from '@douyinfe/semi-ui';
 import { X } from 'lucide-react';
-import type { Department } from '@zenith/shared/identity';
+import type { Department } from '@arcbase/shared/identity';
 import { usePinyinReady } from '@/hooks/usePinyinReady';
 import { textMatches } from '@/utils/pinyin';
 import { UserAvatar } from './UserAvatar';

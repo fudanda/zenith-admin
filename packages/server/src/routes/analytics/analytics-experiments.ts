@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { ANALYTICS_SITE_KEY_HEADER, analyticsExperimentContract } from '@zenith/shared/analytics';
+import { ANALYTICS_SITE_KEY_HEADER, analyticsExperimentContract } from '@arcbase/shared/analytics';
 import { optionalAuthMiddleware } from '../../middleware/optional-auth';
 import { namedRateLimit } from '../../middleware/rate-limit';
 import { currentMemberOrNull } from '../../lib/member-context';

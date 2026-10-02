@@ -1,7 +1,7 @@
 import type { DbExecutor } from '../../../../db/types';
 import { and, desc, eq, exists, isNull, lt, or, sql } from 'drizzle-orm';
-import type { EntityRef } from '@zenith/shared/core';
-import { entityRelationRecordFilters, type EntityRelationPage } from '@zenith/shared/platform';
+import type { EntityRef } from '@arcbase/shared/core';
+import { entityRelationRecordFilters, type EntityRelationPage } from '@arcbase/shared/platform';
 import { asyncTasks, driveNodes, driveSpaces, wikiDocs, wikiSpaces, workflowInstances, workflowTasks } from '../../../../db/schema';
 import { hasPermission, runWithCurrentUser } from '../../../../lib/context';
 import { exactTenantCondition, tenantCondition } from '../../../../lib/tenant';

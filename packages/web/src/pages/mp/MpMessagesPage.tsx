@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Avatar, Button, Input, Toast, Spin, Empty, Select, Typography } from '@douyinfe/semi-ui';
 import { RefreshCw, Send, Paperclip } from 'lucide-react';
-import { MP_MESSAGE_TYPE_LABELS } from '@zenith/shared/mp';
-import type { MpConversation, MpMessage, MpMessageType } from '@zenith/shared/mp';
-import type { SendMpMessageInput } from '@zenith/shared/messaging';
+import { MP_MESSAGE_TYPE_LABELS } from '@arcbase/shared/mp';
+import type { MpConversation, MpMessage, MpMessageType } from '@arcbase/shared/mp';
+import type { SendMpMessageInput } from '@arcbase/shared/messaging';
 import { usePermission } from '@/hooks/usePermission';
 import { useUrlSelectionParams } from '@/hooks/useUrlSelectionState';
 import { MasterDetailLayout } from '@/components/MasterDetailLayout';

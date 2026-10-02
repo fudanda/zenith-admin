@@ -1,6 +1,6 @@
 import { Banner, Button, Select, Space, Typography } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
-import { CMS_MODEL_DISPLAY_OPTIONS, CMS_MODEL_DISPLAY_ROLES, validateCmsModelDisplay, type CmsModelDisplay } from '@zenith/shared/cms';
+import { CMS_MODEL_DISPLAY_OPTIONS, CMS_MODEL_DISPLAY_ROLES, validateCmsModelDisplay, type CmsModelDisplay } from '@arcbase/shared/cms';
 import { useAllCmsModels } from '@/hooks/queries/cms-models';
 import './site-composition.css';
 

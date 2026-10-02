@@ -6,7 +6,7 @@
  */
 import { Tag } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { AsyncTask, AsyncTaskItem, AsyncTaskItemStatus, AsyncTaskStatus } from '@zenith/shared/tasks';
+import type { AsyncTask, AsyncTaskItem, AsyncTaskItemStatus, AsyncTaskStatus } from '@arcbase/shared/tasks';
 import { ASYNC_TASK_ITEM_STATUS_TAG_MAP, ASYNC_TASK_STATUS_TAG_MAP } from '@/utils/async-task';
 import { renderCodeEllipsis, renderEllipsis } from '@/utils/table-columns';
 

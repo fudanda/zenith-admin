@@ -10,8 +10,8 @@ import { encryptField, decryptField } from '../../lib/encryption';
 import { AI_SSRF_OPTIONS } from '../../lib/ai/outbound';
 import { chatOnce } from '../../lib/ai/mastra-chat';
 import { loadMastraLlmModule } from '../../lib/ai/mastra-models';
-import { AI_COMMON_PROVIDERS, AI_CUSTOM_PROVIDER_ID } from '@zenith/shared/ai';
-import { maskSecret, SECRET_PLACEHOLDER } from '@zenith/shared/core';
+import { AI_COMMON_PROVIDERS, AI_CUSTOM_PROVIDER_ID } from '@arcbase/shared/ai';
+import { maskSecret, SECRET_PLACEHOLDER } from '@arcbase/shared/core';
 import { HTTPException } from 'hono/http-exception';
 import type {
   AiProviderCatalogEntry,
@@ -19,10 +19,10 @@ import type {
   UpdateAiProviderConfigInput,
   TestAiConnectionInput,
   FetchAiModelsInput,
-} from '@zenith/shared/ai';
+} from '@arcbase/shared/ai';
 import { httpRequest } from '../../lib/http-client';
 
-/** API Key 展示口径：头 4 + `...` + 尾 4；过短整体输出占位（`@zenith/shared/core` maskSecret） */
+/** API Key 展示口径：头 4 + `...` + 尾 4；过短整体输出占位（`@arcbase/shared/core` maskSecret） */
 const API_KEY_MASK_OPTIONS = { filler: '...', short: SECRET_PLACEHOLDER } as const;
 /** 加密存储前缀：`enc:v1:` + AES-256-GCM base64 */
 const ENC_PREFIX = 'enc:v1:';

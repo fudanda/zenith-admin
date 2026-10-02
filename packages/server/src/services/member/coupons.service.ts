@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 优惠券服务：模板 CRUD + 发券 / 会员领取 / 核销 / 作废 / 批量过期。
  *
@@ -20,9 +20,9 @@ import { pageOffset } from '../../lib/pagination';
 import { buildListResult } from '../../lib/list-query';
 import { requireRow } from '../../lib/db-assert';
 import { trackServerEvent } from '../analytics/analytics-server-events.service';
-import type { CouponType, CouponValidType, CouponTemplateStatus } from '@zenith/shared/member';
-import { COUPON_TEMPLATE_STATUS_LABELS, couponContract, couponSchema, memberCouponSchema, memberSelfContract, type MemberCoupon } from '@zenith/shared/member';
-import { ANALYTICS_EVENT_NAMES } from '@zenith/shared/analytics';
+import type { CouponType, CouponValidType, CouponTemplateStatus } from '@arcbase/shared/member';
+import { COUPON_TEMPLATE_STATUS_LABELS, couponContract, couponSchema, memberCouponSchema, memberSelfContract, type MemberCoupon } from '@arcbase/shared/member';
+import { ANALYTICS_EVENT_NAMES } from '@arcbase/shared/analytics';
 import { memberReferenceCondition } from './member-query-helpers';
 import { defineCrudService } from '../../lib/crud-service';
 import { entityMapper, pickEntity } from '../../lib/entity-map';

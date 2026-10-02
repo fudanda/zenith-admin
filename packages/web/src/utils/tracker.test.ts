@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ANALYTICS_EXPERIMENT_EXPOSURE_EVENT } from '@zenith/shared/analytics';
-import { TOKEN_KEY } from '@zenith/shared/core';
+import { ANALYTICS_EXPERIMENT_EXPOSURE_EVENT } from '@arcbase/shared/analytics';
+import { TOKEN_KEY } from '@arcbase/shared/core';
 
 const { configureErrorReporting, configureErrorReporterRuntime, reportError } = vi.hoisted(() => ({
   configureErrorReporting: vi.fn(),
@@ -22,7 +22,7 @@ vi.mock('./error-reporter', () => ({
   reportError,
 }));
 
-vi.mock('@zenith/analytics-sdk/error-reporter', () => ({
+vi.mock('@arcbase/analytics-sdk/error-reporter', () => ({
   configureErrorReporting,
   configureErrorReporterRuntime,
   reportError,
@@ -98,7 +98,7 @@ describe('analytics tracker P0 reliability', () => {
     expect(body.events.every((event) => /^[0-9a-f-]{36}$/i.test(event.eventId ?? ''))).toBe(true);
     expect(body.events.every((event) => event.distinctId === 'u:7')).toBe(true);
     expect((request.headers as Record<string, string>).Authorization).toContain('account-a-token');
-    expect(sessionStorage.getItem('zenith_tracker_sid')).toBeNull();
+    expect(sessionStorage.getItem('arcbase_tracker_sid')).toBeNull();
   });
 
   it('does not use sendBeacon for authenticated unload events', () => {

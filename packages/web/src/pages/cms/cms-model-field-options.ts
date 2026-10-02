@@ -1,4 +1,4 @@
-import type { CmsModelField } from '@zenith/shared/cms';
+import type { CmsModelField } from '@arcbase/shared/cms';
 
 /**
  * 字段可选项：优先用服务端解析后的 resolvedOptions（字典来源已展开），

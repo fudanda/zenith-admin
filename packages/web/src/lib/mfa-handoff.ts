@@ -1,4 +1,4 @@
-import type { MfaLoginChallenge, SessionConflict } from '@zenith/shared/identity';
+import type { MfaLoginChallenge, SessionConflict } from '@arcbase/shared/identity';
 
 /**
  * 企业 SSO（OIDC / SAML / LDAP）/ 第三方 OAuth 回调拿到 MFA 挑战或会话并发冲突后，跳回登录页复用同一套

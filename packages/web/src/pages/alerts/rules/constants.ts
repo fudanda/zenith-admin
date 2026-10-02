@@ -1,12 +1,12 @@
-import type { MonitorAlertHandleStatus, MonitorAlertLevel, MonitorAlertNotifyStatus, MonitorMetric } from '@zenith/shared/platform';
+import type { MonitorAlertHandleStatus, MonitorAlertLevel, MonitorAlertNotifyStatus, MonitorMetric } from '@arcbase/shared/platform';
 import {
   MONITOR_ALERT_HANDLE_STATUS_LABELS,
   MONITOR_ALERT_LEVEL_LABELS,
   MONITOR_ALERT_NOTIFY_STATUS_LABELS,
   MONITOR_METRIC_META,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 
-// 告警指标标签 / 分组 / 单位的唯一来源是 `@zenith/shared/platform` 的 MONITOR_METRIC_META，
+// 告警指标标签 / 分组 / 单位的唯一来源是 `@arcbase/shared/platform` 的 MONITOR_METRIC_META，
 // 本文件只做展示层的派生（单位归类、级别配色），不再复制一份中文映射。
 export {
   MONITOR_METRIC_LABELS,
@@ -14,7 +14,7 @@ export {
   MONITOR_METRIC_GROUPED_OPTIONS,
   MONITOR_METRIC_META,
   formatMonitorMetricValue,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 
 export const MONITOR_PERCENT_METRICS = new Set<MonitorMetric>(
   (Object.keys(MONITOR_METRIC_META) as MonitorMetric[]).filter((m) => MONITOR_METRIC_META[m].unit === 'percent'),

@@ -1,4 +1,4 @@
-import { isPlainObject } from '@zenith/shared/core';
+import { isPlainObject } from '@arcbase/shared/core';
 
 /**
  * 作业 / 事件 payload（jsonb，形态未知）的安全读取：

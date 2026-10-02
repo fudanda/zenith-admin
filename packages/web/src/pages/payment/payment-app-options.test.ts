@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import type { PaymentApp, PaymentChannelConfig } from '@zenith/shared/payment';
+import type { PaymentApp, PaymentChannelConfig } from '@arcbase/shared/payment';
 import { paymentAppBoundConfigIds, useAppBoundConfigOptions, useEnabledPaymentAppLookup } from './payment-app-options';
 
 const apps = [

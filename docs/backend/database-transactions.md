@@ -1,6 +1,6 @@
 # 数据库事务
 
-Zenith Admin 使用 Drizzle ORM 的 `db.transaction()` 管理 PostgreSQL 事务。本页约定事务使用场景、可复用写函数、任务 outbox、副作用边界和错误处理。
+ArcBase 使用 Drizzle ORM 的 `db.transaction()` 管理 PostgreSQL 事务。本页约定事务使用场景、可复用写函数、任务 outbox、副作用边界和错误处理。
 
 ## 基本用法
 

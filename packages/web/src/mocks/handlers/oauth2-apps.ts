@@ -1,5 +1,5 @@
-import { oauth2ClientContract } from '@zenith/shared/open-platform';
-import type { OAuth2Client, OAuth2ClientCreated, OAuth2MyGrant, OAuth2Token, OAuth2UserGrant } from '@zenith/shared/open-platform';
+import { oauth2ClientContract } from '@arcbase/shared/open-platform';
+import type { OAuth2Client, OAuth2ClientCreated, OAuth2MyGrant, OAuth2Token, OAuth2UserGrant } from '@arcbase/shared/open-platform';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { notFound } from '@/mocks/utils/handlers';

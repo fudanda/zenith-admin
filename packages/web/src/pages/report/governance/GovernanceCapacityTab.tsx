@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Banner, Col, Empty, Form, Row, SideSheet, Space, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ReportQueryCostLog, ReportQueryCostTrendPoint, ReportQueryQuota, ReportQuotaScope } from '@zenith/shared/report';
+import type { ReportQueryCostLog, ReportQueryCostTrendPoint, ReportQueryQuota, ReportQuotaScope } from '@arcbase/shared/report';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { confirmAndDelete, ListSearchToolbar, listTableProps } from '@/components/list-page';
 import ExportButton from '@/components/ExportButton';

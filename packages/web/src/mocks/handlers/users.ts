@@ -1,4 +1,4 @@
-import { userContract, type Department, type Position, type Role, type User } from '@zenith/shared/identity';
+import { userContract, type Department, type Position, type Role, type User } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';

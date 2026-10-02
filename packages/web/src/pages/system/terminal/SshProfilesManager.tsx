@@ -3,8 +3,8 @@ import { useState, useMemo } from 'react';
 import { Button, Form, Toast, Typography, Tag, Space, Popconfirm, Select, Row, Col, Collapse, Input, Tooltip } from '@douyinfe/semi-ui';
 import { useEditModal } from '@/hooks/useEditModal';
 import { Plus, Pencil, Trash2, Server, ChevronUp, ChevronDown, Search, FolderOpen } from 'lucide-react';
-import { SSH_AUTH_TYPES, type CreateSshProfileInput, type SshAuthType, type SshProfile } from '@zenith/shared/ops';
-import { enumValueOf } from '@zenith/shared/core';
+import { SSH_AUTH_TYPES, type CreateSshProfileInput, type SshAuthType, type SshProfile } from '@arcbase/shared/ops';
+import { enumValueOf } from '@arcbase/shared/core';
 import {
   useDeleteSshProfiles,
   useSaveSshProfile,

@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, useMemo, type ReactNode } from 'react';
-import { MEMBER_TOKEN_KEY, MEMBER_REFRESH_TOKEN_KEY } from '@zenith/shared/core';
-import type { ApiResponse, BodyOf } from '@zenith/shared/core';
-import { memberAuthContract, type Member, type MemberLoginResult, type MemberLoginResponse } from '@zenith/shared/member';
+import { MEMBER_TOKEN_KEY, MEMBER_REFRESH_TOKEN_KEY } from '@arcbase/shared/core';
+import type { ApiResponse, BodyOf } from '@arcbase/shared/core';
+import { memberAuthContract, type Member, type MemberLoginResult, type MemberLoginResponse } from '@arcbase/shared/member';
 import { apiRaw } from '@/lib/contract-query';
 import { getPreciseOs } from '@/utils/client-os';
 import { prepareTrackerLogout } from '@/utils/tracker';

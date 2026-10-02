@@ -7,7 +7,7 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } fro
 import { Button, Spin, Toast, Typography, Input, Select, TextArea, RadioGroup, Radio, InputNumber, SideSheet, Divider, Tooltip, Dropdown, Banner, Switch, Tag } from '@douyinfe/semi-ui';
 import { useQueryClient } from '@tanstack/react-query';
 import { ArrowLeft, X, Eye, Save, Settings, Monitor, Smartphone, Undo2, Redo2, Braces, Copy, Stethoscope, LayoutTemplate, SlidersHorizontal, AlertTriangle, CircleAlert, Share2, History as HistoryIcon, GitCompareArrows, MoreHorizontal } from 'lucide-react';
-import type { WorkflowForm, WorkflowFormField, WorkflowFormFieldType, WorkflowFormSettings, WorkflowFormStatus } from '@zenith/shared/workflow';
+import type { WorkflowForm, WorkflowFormField, WorkflowFormFieldType, WorkflowFormSettings, WorkflowFormStatus } from '@arcbase/shared/workflow';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form';
 import { useWorkflowCategories } from '@/hooks/useWorkflowCategories';
 import { ApiError } from '@/lib/query';

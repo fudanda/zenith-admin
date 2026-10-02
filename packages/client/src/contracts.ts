@@ -1,6 +1,6 @@
-import { fillPath, type AnyOperation, type ApiResponse, type EmptyInput, type InputOf, type OutputOf, type ParamsSchema, type ShapeInput } from '@zenith/shared/core';
-import { foundationOperations } from '@zenith/shared/foundation-operations';
-import { foundationSettingsBody, foundationSettingsOperation } from '@zenith/shared/settings/foundation';
+import { fillPath, type AnyOperation, type ApiResponse, type EmptyInput, type InputOf, type OutputOf, type ParamsSchema, type ShapeInput } from '@arcbase/shared/core';
+import { foundationOperations } from '@arcbase/shared/foundation-operations';
+import { foundationSettingsBody, foundationSettingsOperation } from '@arcbase/shared/settings/foundation';
 import type { RequestOptions } from './client';
 import { ApiError } from './errors';
 

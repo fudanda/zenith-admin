@@ -10,7 +10,7 @@
  */
 import { OpenAPIHono, z } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { publicAppReleaseContract } from '@zenith/shared/ops';
+import { publicAppReleaseContract } from '@arcbase/shared/ops';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import { getStoredFileForRead } from '../../services/files/files.service';

@@ -1,8 +1,8 @@
 import { cmsGenerationNow } from './cms-generation-context';
 import { and, eq, gt, inArray, isNull, or, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsSiteRelativePath, parseCmsLink } from '@zenith/shared/cms';
-import type { CmsChannelDetailPathRule, CmsLinkEntityType, CmsLinkRef, CmsLinkTarget } from '@zenith/shared/cms';
+import { cmsSiteRelativePath, parseCmsLink } from '@arcbase/shared/cms';
+import type { CmsChannelDetailPathRule, CmsLinkEntityType, CmsLinkRef, CmsLinkTarget } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsChannels, cmsContents, cmsSites } from '../../db/schema';
 import { channelUrl, contentUrl } from './cms-urls';

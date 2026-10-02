@@ -1,5 +1,5 @@
 import { HttpResponse } from 'msw';
-import { fillPath } from '@zenith/shared/core';
+import { fillPath } from '@arcbase/shared/core';
 import {
   DRIVE_SYNC_ZIP_MAX_FILES,
   normalizeDriveShareCapabilities,
@@ -28,7 +28,7 @@ import {
   type DriveSpace,
   type DriveSubjectType,
   type DriveTag,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, updateItem } from '@/mocks/utils/crud';
 import { badRequest, conflict, forbidden, locked, notFound, unauthorized } from '@/mocks/utils/handlers';
@@ -860,7 +860,7 @@ const shareLinkHandlers = [
   mock(driveShareLinkContract.submissions, ({ params, ok, paginate }) => ok(paginate(mockDriveCollectSubmissions.filter((s) => s.shareId === params.id)))),
   mock(driveShareLinkContract.shortLink, ({ params, ok }) => {
     const link = requireItem(mockDriveShareLinks, params.id, '外链不存在', { status: 404 });
-    link.shortUrl ??= `https://demo.zenith.local/s/d${link.id.toString(36)}`;
+    link.shortUrl ??= `https://demo.arcbase.local/s/d${link.id.toString(36)}`;
     return ok({ shortUrl: link.shortUrl }, '短链已生成');
   }),
 ];

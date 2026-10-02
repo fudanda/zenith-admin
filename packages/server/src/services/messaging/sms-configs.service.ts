@@ -10,9 +10,9 @@ import { tenantScope, currentCreateTenantId } from '../../lib/tenant';
 import { clearDefaultFlag, ensureSingleDefault } from '../../lib/default-flag';
 import { currentUserOrNull } from '../../lib/context';
 import { config } from '../../config';
-import type { CreateSmsConfigInput, UpdateSmsConfigInput, smsConfigContract } from '@zenith/shared/messaging';
-import { maskSecret, SECRET_PLACEHOLDER } from '@zenith/shared/core';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { CreateSmsConfigInput, UpdateSmsConfigInput, smsConfigContract } from '@arcbase/shared/messaging';
+import { maskSecret, SECRET_PLACEHOLDER } from '@arcbase/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 
 /** 列表返回脱敏 */
 export function mapSmsConfigSafe(row: SmsConfigRow) {

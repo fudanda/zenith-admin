@@ -1,4 +1,4 @@
-import type { DockerContainer } from '@zenith/shared/ops';
+import type { DockerContainer } from '@arcbase/shared/ops';
 
 export interface ComposeGrouping {
   /** Compose 项目名 → 成员容器（按首次出现顺序） */

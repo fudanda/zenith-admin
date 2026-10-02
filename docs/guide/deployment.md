@@ -1,6 +1,6 @@
 # 部署说明
 
-本页说明源码方式部署 Zenith Admin。若希望一键启动 PostgreSQL、Redis、API 与 Nginx，优先使用 [Docker 部署](./docker.md)。
+本页说明源码方式部署 ArcBase。若希望一键启动 PostgreSQL、Redis、API 与 Nginx，优先使用 [Docker 部署](./docker.md)。
 
 ## 环境要求
 
@@ -14,7 +14,7 @@
 | Git | 拉取源码与切换 tag |
 
 ::: warning 源码方式运行后端
-`@zenith/shared` 是工作区包，后端源码部署时依赖仓库完整 checkout。GitHub Release 中的 server zip 是归档产物，不作为独立 npm 包分发。
+`@arcbase/shared` 是工作区包，后端源码部署时依赖仓库完整 checkout。GitHub Release 中的 server zip 是归档产物，不作为独立 npm 包分发。
 :::
 
 ## 后端部署
@@ -23,7 +23,7 @@
 
 ```bash
 git clone https://github.com/iwangbowen/zenith-admin.git
-cd zenith-admin
+cd arcbase
 git checkout vX.Y.Z
 npm ci
 ```
@@ -39,10 +39,10 @@ npm run secret:generate   # 输出 JWT_SECRET / FIELD_ENCRYPTION_KEY 两行，�
 
 ```dotenv
 PORT=3300
-ZENITH_ROLES=all
+ARCBASE_ROLES=all
 JWT_SECRET=<npm run secret:generate 输出>
 FIELD_ENCRYPTION_KEY=<npm run secret:generate 输出>
-DATABASE_URL=postgresql://zenith:strong-password@db.example.com:5432/zenith_admin
+DATABASE_URL=postgresql://arcbase:strong-password@db.example.com:5432/arcbase_admin
 REDIS_URL=redis://redis.example.com:6379
 LOG_LEVEL=info
 LOG_DIR=./logs
@@ -59,7 +59,7 @@ ALLOWED_ORIGINS=https://admin.example.com
 | 变量 | 用途 |
 | --- | --- |
 | `DATABASE_MAX_CONNECTIONS` | 单个进程的业务连接池上限，默认 `20`。连接预算按角色累计：业务池 + pg-boss 池（worker 约 10，api send-only 约 2）+ 1 条 LISTEN 连接；api 还包含 Mastra 10 + 5。所有 api / worker 进程总和必须低于 PostgreSQL `max_connections`，超出时前置 pgBouncer（会话池模式，事务池无法透传 LISTEN/NOTIFY）或调低该值 |
-| `ZENITH_ROLES` | 进程角色，逗号分隔：`api` / `worker` / `all`（等于两者）。非 `NODE_ENV=development` 环境必填；单机全量部署显式设为 `all` |
+| `ARCBASE_ROLES` | 进程角色，逗号分隔：`api` / `worker` / `all`（等于两者）。非 `NODE_ENV=development` 环境必填；单机全量部署显式设为 `all` |
 | `WORKER_HEALTH_PORT` | 纯 worker 探针端口，默认 `3301`，提供 `/health`、`/ready`、`/metrics` |
 | `SHUTDOWN_GRACE_MS` | 优雅停机硬截止；默认 api/all `15000`，纯 worker `120000`。worker 把该预算（扣除收尾步骤的 10s）传给 pg-boss 等待在飞作业收尾，超时的作业被标记失败、由任务中心兜底扫描按断点恢复。容器 `stop_grace_period` / K8s `terminationGracePeriodSeconds` 必须大于该值 |
 | `STORAGE_SHARED` | 默认 `false`。纯 worker 使用本地磁盘相关存储或 CMS 静态化时，设为 `true` 表示 `storage/` 由 api 与 worker 共享 |
@@ -82,15 +82,15 @@ ALLOWED_ORIGINS=https://admin.example.com
 
 ### 3. 进程角色（api / worker）
 
-后端进程通过 `ZENITH_ROLES` 选择运行角色：
+后端进程通过 `ARCBASE_ROLES` 选择运行角色：
 
 | 角色 | 职责 | 端口与探针 |
 | --- | --- | --- |
 | `api` | HTTP / WebSocket 入口、IoT 设备接入、CMS SSR、终端 PTY、OpenAPI、限流规则、Mastra 代理；pg-boss 只声明队列与入队，不执行 `work()` | 监听 `PORT`（默认 3300），健康检查走 `/api/health` |
 | `worker` | 执行任务中心、业务 `cron_jobs`、系统周期任务与系统队列 worker（导出、网盘渲染、工作流作业等） | 纯 worker 不监听业务端口；在 `WORKER_HEALTH_PORT`（默认 3301）暴露 `/health`、`/ready`、`/metrics`，业务路径返回 404 |
-| `all` | 单进程同时承担 api 与 worker | 仅允许开发默认；生产单机部署也必须显式设置 `ZENITH_ROLES=all` |
+| `all` | 单进程同时承担 api 与 worker | 仅允许开发默认；生产单机部署也必须显式设置 `ARCBASE_ROLES=all` |
 
-`ZENITH_ROLES` 未设置时仅 `NODE_ENV=development` 允许默认 `all`；生产或未设置 `NODE_ENV` 时会拒绝启动。
+`ARCBASE_ROLES` 未设置时仅 `NODE_ENV=development` 允许默认 `all`；生产或未设置 `NODE_ENV` 时会拒绝启动。
 
 任务 handler、系统队列和调度元数据在所有角色中都会声明，便于 api 校验任务类型、入队、管理开关和展示调度概览；只有 worker 负责通用执行、cron 监控、孤儿清理与队列对账。节点亲和任务（如终端文件压缩 / 解压）会投递到提交进程专属队列，是 api 进程执行 worker 的唯一例外。
 
@@ -107,43 +107,43 @@ npm run db:seed
 
 ### 5. 启动后端
 
-生产部署请在 `.env` 或进程环境中显式设置 `NODE_ENV=production` 与 `ZENITH_ROLES`（Docker Compose 已内置）。未设置 `NODE_ENV` 时服务按严格模式运行（密钥必填、验证码不回传），但部分第三方库仍可能以开发模式加载。
+生产部署请在 `.env` 或进程环境中显式设置 `NODE_ENV=production` 与 `ARCBASE_ROLES`（Docker Compose 已内置）。未设置 `NODE_ENV` 时服务按严格模式运行（密钥必填、验证码不回传），但部分第三方库仍可能以开发模式加载。
 
 源码方式可直接用 TypeScript 运行。单机全量部署示例：
 
 ```bash
 cd packages/server
-ZENITH_ROLES=all npx tsx src/index.ts
+ARCBASE_ROLES=all npx tsx src/index.ts
 ```
 
 拆分部署建议分别启动 api 与 worker：
 
 ```bash
 cd packages/server
-ZENITH_ROLES=api npx tsx src/index.ts
-ZENITH_ROLES=worker WORKER_HEALTH_PORT=3301 npx tsx src/index.ts
+ARCBASE_ROLES=api npx tsx src/index.ts
+ARCBASE_ROLES=worker WORKER_HEALTH_PORT=3301 npx tsx src/index.ts
 ```
 
 运行编译产物时，迁移需要作为显式步骤执行；`npm start` 只启动 `node dist/index.js`：
 
 ```bash
-npm run build -w @zenith/shared && npm run build -w @zenith/server
-node docker/patch-shared-exports.mjs   # 把 @zenith/shared 的 exports 指向 dist（部署机执行）
-npm run start:migrate -w @zenith/server
-ZENITH_ROLES=api npm start -w @zenith/server
-ZENITH_ROLES=worker WORKER_HEALTH_PORT=3301 npm start -w @zenith/server
+npm run build -w @arcbase/shared && npm run build -w @arcbase/server
+node docker/patch-shared-exports.mjs   # 把 @arcbase/shared 的 exports 指向 dist（部署机执行）
+npm run start:migrate -w @arcbase/server
+ARCBASE_ROLES=api npm start -w @arcbase/server
+ARCBASE_ROLES=worker WORKER_HEALTH_PORT=3301 npm start -w @arcbase/server
 ```
 
 ::: warning
 `patch-shared-exports.mjs` 会就地修改 `packages/shared/package.json`。开发机执行后 tsx / Vite 将改为消费 dist，请用 `git checkout packages/shared/package.json` 还原；仅建议在部署机或 CI 产物目录中执行。
 :::
 
-使用 PM2 管理进程时在仓库根目录执行两个应用，迁移先单独运行 `npm run db:migrate`（或 dist 产物用 `npm run start:migrate -w @zenith/server`）：
+使用 PM2 管理进程时在仓库根目录执行两个应用，迁移先单独运行 `npm run db:migrate`（或 dist 产物用 `npm run start:migrate -w @arcbase/server`）：
 
 ```bash
 npm install -g pm2
-NODE_ENV=production ZENITH_ROLES=api pm2 start node_modules/tsx/dist/cli.mjs --name zenith-api --cwd packages/server -- src/index.ts
-NODE_ENV=production ZENITH_ROLES=worker WORKER_HEALTH_PORT=3301 pm2 start node_modules/tsx/dist/cli.mjs --name zenith-worker --cwd packages/server -- src/index.ts
+NODE_ENV=production ARCBASE_ROLES=api pm2 start node_modules/tsx/dist/cli.mjs --name arcbase-api --cwd packages/server -- src/index.ts
+NODE_ENV=production ARCBASE_ROLES=worker WORKER_HEALTH_PORT=3301 pm2 start node_modules/tsx/dist/cli.mjs --name arcbase-worker --cwd packages/server -- src/index.ts
 pm2 save
 pm2 startup
 ```
@@ -179,7 +179,7 @@ api 默认监听 `http://localhost:3300`；纯 worker 不占用业务端口，�
 运行时解析顺序：`REPORT_PDF_FONT_PATH` → 全量 → 子集 → 系统字体（Windows `msyh` / `simsun`、Linux `NotoSansCJK` / `wqy-zenhei`、macOS `PingFang`）。
 启动日志 `[pdf-font] PDF 导出使用……` 记录实际选用的字体；导出时若文本含字体没有字形的字符，会记一条 `[pdf-font] ……缺少以下字符的字形` 的 warn 并列出缺字（PDF 中显示为空白），据此判断是否需要全量字体。
 
-子集字体由 `npm run build -w @zenith/server` 从全量字体生成（`scripts/build-pdf-font.mjs`，harfbuzz WASM，不依赖 Python），字符集定义在 `scripts/pdf-font-charset/`。
+子集字体由 `npm run build -w @arcbase/server` 从全量字体生成（`scripts/build-pdf-font.mjs`，harfbuzz WASM，不依赖 Python），字符集定义在 `scripts/pdf-font-charset/`。
 
 **切换到全量字体**（报表 / 审批单常含繁体或生僻字时）任选其一：
 
@@ -188,7 +188,7 @@ api 默认监听 `http://localhost:3300`；纯 worker 不占用业务端口，�
 npm run build && npm run package:server -- --pdf-font=full [--out <目录>]
 
 # Docker：构建参数（compose 用户在 .env 中设 PDF_FONT=full 后 docker compose build）
-docker build --build-arg PDF_FONT=full --target server -t zenith-admin-api .
+docker build --build-arg PDF_FONT=full --target server -t arcbase-api .
 
 # 已部署的子集包：把仓库中的全量文件复制到 assets/fonts 即生效（全量与子集并存时优先全量），重启服务
 cp packages/server/assets/fonts/NotoSansSC-Regular.otf <部署目录>/assets/fonts/
@@ -208,7 +208,7 @@ npm run build
 # 静态产物位于 packages/web/dist/
 ```
 
-GitHub Release 的 `zenith-admin-web-vX.Y.Z.zip` 也包含 `web/dist/`，适合同域部署。发布包**不含**预压缩副本（`.gz` / `.br`），
+GitHub Release 的 `arcbase-web-vX.Y.Z.zip` 也包含 `web/dist/`，适合同域部署。发布包**不含**预压缩副本（`.gz` / `.br`），
 需要 `gzip_static` 时在部署机上生成一次：`node web/precompress.mjs web/dist`（脚本随包提供，仅依赖 Node 内建模块，约 30 秒）；
 未生成时 nginx 按 `gzip on` 动态压缩，功能不受影响。
 
@@ -285,12 +285,12 @@ server {
 ```ini
 VITE_API_BASE_URL=https://api.example.com
 VITE_WS_BASE_URL=wss://api.example.com
-VITE_APP_TITLE=Zenith Admin
+VITE_APP_TITLE=ArcBase
 VITE_DEPLOYMENT_ID=project-a
 ```
 
 ```bash
-npm run build -w @zenith/web
+npm run build -w @arcbase/web
 ```
 
 后端同时配置 `CORS_ORIGIN` 与 `ALLOWED_ORIGINS`。
@@ -311,9 +311,9 @@ Docker 构建会自动执行该步骤。手动部署时需先 `npm run build`，
 | worker 探针 | 纯 worker 暴露 `GET /health`、`GET /ready`（pg-boss 启动前 503）、`GET /metrics`，端口 `WORKER_HEALTH_PORT`（默认 3301） |
 | Swagger UI | `GET /api/docs`（api 角色） |
 | OpenAPI JSON | `GET /api/openapi.json`（api 角色） |
-| Prometheus | api 为 `GET /metrics`；worker 为 `GET /metrics`。指标默认标签包含 `process_role`；WS 扇出提供 published / failed / delivered / dropped 计数；`zenith_pgboss_queue_jobs{queue,state}`（`state="ready"` 为可立即领取的积压，可作 worker HPA 信号）与 `zenith_scheduler_worker_nodes`（有心跳的 worker 进程数） |
+| Prometheus | api 为 `GET /metrics`；worker 为 `GET /metrics`。指标默认标签包含 `process_role`；WS 扇出提供 published / failed / delivered / dropped 计数；`arcbase_pgboss_queue_jobs{queue,state}`（`state="ready"` 为可立即领取的积压，可作 worker HPA 信号）与 `arcbase_scheduler_worker_nodes`（有心跳的 worker 进程数） |
 | 日志 | 日志行包含 `role` 字段；`all` 角色写 `logs/app.*.log`，拆分时分别写 `logs/app-api.*.log` 与 `logs/app-worker.*.log` |
-| OpenTelemetry | `OTEL_ENABLED=true` 或配置 `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` / `OTEL_EXPORTER_OTLP_ENDPOINT`。启用后自动插桩入站 HTTP（每请求 span）与出站 fetch（undici），资源属性包含 `zenith.process.role`，日志行追加 `trace_id` / `span_id` 便于 APM 关联；停机时自动 flush 未导出的 span |
+| OpenTelemetry | `OTEL_ENABLED=true` 或配置 `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` / `OTEL_EXPORTER_OTLP_ENDPOINT`。启用后自动插桩入站 HTTP（每请求 span）与出站 fetch（undici），资源属性包含 `arcbase.process.role`，日志行追加 `trace_id` / `span_id` 便于 APM 关联；停机时自动 flush 未导出的 span |
 
 `/metrics` 默认无鉴权，生产环境应只向内网、VPN 或采集器开放。
 
@@ -330,7 +330,7 @@ Docker 构建会自动执行该步骤。手动部署时需先 `npm run build`，
 1. 可选：在发布前执行 `npm run verify:split` 验证本地 api / worker 拆分链路（需要可用的 PostgreSQL 与 Redis）。
 2. 停止 worker，等待其在 `SHUTDOWN_GRACE_MS` 内完成在飞作业的收尾。
 3. 切换到目标 tag 并安装依赖：`git fetch --tags && git checkout vX.Y.Z && npm ci`。
-4. 显式执行迁移：源码部署用 `npm run db:migrate`，dist 产物用 `npm run start:migrate -w @zenith/server`。
+4. 显式执行迁移：源码部署用 `npm run db:migrate`，dist 产物用 `npm run start:migrate -w @arcbase/server`。
 5. 启动 worker。
 6. 滚动重启 api；api 只承载接入面，重启不影响 worker 上的后台作业。
 7. 重新构建或替换 `packages/web/dist/`，Nginx 无需重启。

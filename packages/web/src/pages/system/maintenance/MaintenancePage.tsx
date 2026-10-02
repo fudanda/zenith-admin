@@ -10,7 +10,7 @@ import {
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Wrench, Power, PowerOff, RefreshCw } from 'lucide-react';
-import type { MaintenanceLog } from '@zenith/shared/ops';
+import type { MaintenanceLog } from '@arcbase/shared/ops';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { listTableProps } from '@/components/list-page';
 import PageLoading from '@/components/PageLoading';

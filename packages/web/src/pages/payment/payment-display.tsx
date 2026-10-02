@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps, Data } from '@douyinfe/semi-ui/lib/es/table';
-import type { PaymentChannel } from '@zenith/shared/payment';
-import { PAYMENT_CHANNEL_LABELS } from '@zenith/shared/payment';
+import type { PaymentChannel } from '@arcbase/shared/payment';
+import { PAYMENT_CHANNEL_LABELS } from '@arcbase/shared/payment';
 import { formatYuan, PAYMENT_CHANNEL_TAG_COLOR } from '@/utils/payment';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 

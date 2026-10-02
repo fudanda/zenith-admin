@@ -1,4 +1,4 @@
-import { workflowConnectorContract } from '@zenith/shared/workflow';
+import { workflowConnectorContract } from '@arcbase/shared/workflow';
 /**
  * 流程连接器服务：统一外部集成注册中心（首期 http）。
  * - CRUD + 凭据 AES 加密落库 / 脱敏返回
@@ -21,7 +21,7 @@ import { sendMail } from '../../lib/email';
 import { sendSmsByProvider, renderTemplate } from '../../lib/sms-sender';
 import { breakerAllow, breakerSuccess, breakerFailure, breakerState, breakerReset } from '../../lib/workflow-connector-breaker';
 import { rateLimitAcquire, rateLimitReset } from '../../lib/workflow-connector-rate-limit';
-import type { WorkflowConnector, WorkflowConnectorType, WorkflowConnectorHttpConfig, WorkflowConnectorCredentials, WorkflowConnectorInvokeResult, TestWorkflowConnectorInput } from '@zenith/shared/workflow';
+import type { WorkflowConnector, WorkflowConnectorType, WorkflowConnectorHttpConfig, WorkflowConnectorCredentials, WorkflowConnectorInvokeResult, TestWorkflowConnectorInput } from '@arcbase/shared/workflow';
 import { defineCrudService } from '../../lib/crud-service';
 
 // ─── 凭据编解码 ───────────────────────────────────────────────────────────────

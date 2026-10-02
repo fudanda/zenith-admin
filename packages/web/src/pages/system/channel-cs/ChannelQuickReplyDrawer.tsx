@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { Form, SideSheet, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ChannelQuickReply } from '@zenith/shared/messaging';
+import type { ChannelQuickReply } from '@arcbase/shared/messaging';
 import { AppModal } from '@/components/AppModal';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

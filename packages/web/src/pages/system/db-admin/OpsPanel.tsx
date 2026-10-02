@@ -20,14 +20,14 @@ import {
   useDbAdminRunMaintenance,
   useDbAdminSchemaDrift,
 } from '@/hooks/queries/db-admin';
-import { DB_ADMIN_COLUMN_DIFF_ISSUE_LABELS, DB_ADMIN_TABLE_DRIFT_STATUS_LABELS } from '@zenith/shared/ops';
+import { DB_ADMIN_COLUMN_DIFF_ISSUE_LABELS, DB_ADMIN_TABLE_DRIFT_STATUS_LABELS } from '@arcbase/shared/ops';
 import type {
   DbAdminActivityConnection,
   DbAdminColumnDiff,
   DbAdminIndexInfo as DbAdminIndexInfoRow,
   DbAdminTableDrift,
   DbAdminTableMaintenance,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 
 const { Text } = Typography;
 

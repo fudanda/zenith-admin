@@ -1,5 +1,5 @@
-import type { Channel, ChannelMessage, ChannelMenu, ChannelAutoReply, ChannelQuickReply, ChannelMessageTemplate } from '@zenith/shared/messaging';
-import { SEED_CHANNELS, SEED_CHANNEL_QUICK_REPLIES } from '@zenith/shared/seed';
+import type { Channel, ChannelMessage, ChannelMenu, ChannelAutoReply, ChannelQuickReply, ChannelMessageTemplate } from '@arcbase/shared/messaging';
+import { SEED_CHANNELS, SEED_CHANNEL_QUICK_REPLIES } from '@arcbase/shared/seed';
 import { mockDateTime } from '@/mocks/utils/date';
 
 /**
@@ -41,7 +41,7 @@ export const mockChannelMessages: MockChannelMessage[] = [
     title: '待办审批提醒',
     content: '待办审批提醒',
     extra: {
-      bot: { name: 'Zenith 助手', avatar: null },
+      bot: { name: 'ArcBase 助手', avatar: null },
       card: {
         title: '待办审批提醒',
         text: '流程「请假申请（LV-20260624）」需要你审批',

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { iotAlarmContract, iotAlarmSchema } from '@zenith/shared/iot';
+import { iotAlarmContract, iotAlarmSchema } from '@arcbase/shared/iot';
 import { urlOf } from '@/lib/contract-query';
 import { iotHandlers } from './handlers/iot';
 import { mockIotAlarms } from './data/iot';

@@ -16,7 +16,7 @@ import type {
   PaymentLedgerAccountCode,
   PaymentLedgerNormalBalance,
   PostPaymentJournalInput,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import {
   PAYMENT_CHANNEL_LABELS,
   PAYMENT_FUND_RESERVATION_STATUS_LABELS,
@@ -25,7 +25,7 @@ import {
   PAYMENT_LEDGER_ACCOUNT_CODE_LABELS,
   PAYMENT_LEDGER_ACCOUNT_CODES,
   PAYMENT_LEDGER_NORMAL_BALANCE_LABELS,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import './PaymentLedgerPage.css';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { EntityContextView } from '@/components/entity-relations/EntityRelationButton';
@@ -58,7 +58,7 @@ import { formatMinorAmount } from '@/utils/payment';
 import { confirmDanger } from '@/utils/confirm';
 import { copyableNoColumn, createdAtColumn, dateTimeColumn, renderEllipsis, renderEnabledStatusTag } from '@/utils/table-columns';
 import { abortSubmit } from '@/lib/abort-submit';
-import { COMMON_STATUS_OPTIONS, enumValueOf } from '@zenith/shared/core';
+import { COMMON_STATUS_OPTIONS, enumValueOf } from '@arcbase/shared/core';
 import { useListPage } from '@/hooks/useListPage';
 import { EditFormModal, EditFormSheet } from '@/components/EditFormModal';
 

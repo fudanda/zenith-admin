@@ -2,8 +2,8 @@
  * App 推送发送记录（追加型日志,回执回调更新送达状态）。
  */
 import { and, desc, eq, gte, isNull, or, sql } from 'drizzle-orm';
-import { pushSendLogSchema, type PushDeliveryStatus, type PushProvider, type PushSendLogStats, type pushSendLogContract } from '@zenith/shared/messaging';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { pushSendLogSchema, type PushDeliveryStatus, type PushProvider, type PushSendLogStats, type pushSendLogContract } from '@arcbase/shared/messaging';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { db } from '../../db';
 import { pushSendLogs, type PushSendLogRow } from '../../db/schema';
 import { startOfRecentDays } from '../../lib/datetime';

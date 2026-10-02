@@ -30,7 +30,7 @@ function pdfResponse(filename: string, source?: 'archive' | 'live') {
     headers: {
       'Content-Type': 'application/pdf',
       'Content-Disposition': `inline; filename*=UTF-8''${encodeURIComponent(filename)}`,
-      ...(source ? { 'X-Zenith-Print-Source': source } : {}),
+      ...(source ? { 'X-ArcBase-Print-Source': source } : {}),
     },
   });
 }

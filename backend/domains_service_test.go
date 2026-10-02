@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"archive/zip"
@@ -10,10 +10,10 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/fudanda/zenith-admin/backend/ent/department"
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/security"
+	"github.com/fudanda/arcbase/backend/ent/department"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/security"
 )
 
 func domainServiceFixture(t *testing.T) (context.Context, *Store, *services, string, string) {

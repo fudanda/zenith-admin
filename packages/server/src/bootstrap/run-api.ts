@@ -7,7 +7,7 @@
  */
 import { serve, type ServerType } from '@hono/node-server';
 import { WebSocketServer } from 'ws';
-import { WS_AUTH_SUBPROTOCOL } from '@zenith/shared/platform';
+import { WS_AUTH_SUBPROTOCOL } from '@arcbase/shared/platform';
 import { createApp } from '../app';
 import { config } from '../config';
 import logger from '../lib/logger';
@@ -35,8 +35,8 @@ export async function startApiRole(): Promise<ApiRoleHandle> {
   // 握手请求走正常 fetch 管线，响应头会被带入握手响应。
   // noServer 必须为 true——HTTP 监听由 serve() 持有，wss 只负责协议升级。
   // maxPayload：单帧上限 64 KiB（SDP offer 通常 < 20 KiB；终端输入极小），默认 100 MiB 可被用于内存 DoS。
-  // handleProtocols：客户端经 Sec-WebSocket-Protocol: zenith-auth, <token> 传 access token，
-  // 服务端只回显 zenith-auth，绝不把 token 回写到握手响应。
+  // handleProtocols：客户端经 Sec-WebSocket-Protocol: arcbase-auth, <token> 传 access token，
+  // 服务端只回显 arcbase-auth，绝不把 token 回写到握手响应。
   const wss = new WebSocketServer({
     noServer: true,
     maxPayload: 64 * 1024,

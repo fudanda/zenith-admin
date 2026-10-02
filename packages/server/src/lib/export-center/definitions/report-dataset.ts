@@ -6,8 +6,8 @@
 import { ensureDatasetExists, getDatasetData } from '../../../services/report/report-dataset.service';
 import { defineExport } from '../registry';
 import type { ExportColumn, ExportColumnType } from '../types';
-import { formatReportFieldValue } from '@zenith/shared/report';
-import type { ReportField, ReportComputedField } from '@zenith/shared/report';
+import { formatReportFieldValue } from '@arcbase/shared/report';
+import type { ReportField, ReportComputedField } from '@arcbase/shared/report';
 
 const EXPORT_MAX_ROWS = 5000;
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Button, Tag, Tooltip } from '@douyinfe/semi-ui';
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag/interface';
-import type { CronJobAlert, CronAlertLevel } from '@zenith/shared/platform';
-import { CRON_ALERT_TYPE_LABELS } from '@zenith/shared/platform';
+import type { CronJobAlert, CronAlertLevel } from '@arcbase/shared/platform';
+import { CRON_ALERT_TYPE_LABELS } from '@arcbase/shared/platform';
 
 const COLLAPSED_LIMIT = 6;
 

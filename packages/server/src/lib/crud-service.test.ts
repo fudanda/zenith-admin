@@ -3,7 +3,7 @@ import * as z from 'zod';
 import { asc, eq, sql, type SQL } from 'drizzle-orm';
 import { integer, pgTable, varchar, PgDialect } from 'drizzle-orm/pg-core';
 import { HTTPException } from 'hono/http-exception';
-import { defineContract, op, idParam, paginated, paginationQuery, keywordQuery, batchIdsBody, partialForUpdate, type PaginatedResponse } from '@zenith/shared/core';
+import { defineContract, op, idParam, paginated, paginationQuery, keywordQuery, batchIdsBody, partialForUpdate, type PaginatedResponse } from '@arcbase/shared/core';
 import { defineCrudService } from './crud-service';
 
 // ─── db 桩：记录每次调用的链式参数 ───────────────────────────────────────────

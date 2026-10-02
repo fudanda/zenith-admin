@@ -1,16 +1,16 @@
 import { requireFirstRow } from '../../lib/db-assert';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { listRows } from '../../lib/list-query';
 import { eq, asc } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsSeoContract, cmsRedirectSchema } from '@zenith/shared/cms';
+import { cmsSeoContract, cmsRedirectSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsRedirects, cmsSites } from '../../db/schema';
 import type { CmsRedirectRow } from '../../db/schema';
 import { buildWhere, keywordCondition } from '../../lib/where-helpers';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { assertSiteAccess } from './cms-sites.service';
-import type { CreateCmsRedirectInput, UpdateCmsRedirectInput } from '@zenith/shared/cms';
+import type { CreateCmsRedirectInput, UpdateCmsRedirectInput } from '@arcbase/shared/cms';
 import { pickEntity } from '../../lib/entity-map';
 
 // ─── 开放重定向防护 ────────────────────────────────────────────────────────────

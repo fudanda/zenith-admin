@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { aiAuditContract } from '@zenith/shared/ai';
-import type { AiFeedbackItem } from '@zenith/shared/ai';
+import { aiAuditContract } from '@arcbase/shared/ai';
+import type { AiFeedbackItem } from '@arcbase/shared/ai';
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { enumValueOf } from '@zenith/shared/core';
+import type { QueryOf } from '@arcbase/shared/core';
+import { enumValueOf } from '@arcbase/shared/core';
 import { formatDateRangeValuesForApi } from '@/utils/date';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

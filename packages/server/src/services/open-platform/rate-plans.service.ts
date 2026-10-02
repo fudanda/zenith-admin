@@ -1,5 +1,5 @@
 import { eq, and, ne, desc } from 'drizzle-orm';
-import { ratePlanContract, ratePlanSchema } from '@zenith/shared/open-platform';
+import { ratePlanContract, ratePlanSchema } from '@arcbase/shared/open-platform';
 import { clearDefaultFlag } from '../../lib/default-flag';
 import { db } from '../../db';
 import { ratePlans, oauth2Clients } from '../../db/schema';
@@ -8,7 +8,7 @@ import type { DbExecutor } from '../../db/types';
 import { HTTPException } from 'hono/http-exception';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { keywordCondition } from '../../lib/where-helpers';
-import type { CreateRatePlanInput, UpdateRatePlanInput } from '@zenith/shared/open-platform';
+import type { CreateRatePlanInput, UpdateRatePlanInput } from '@arcbase/shared/open-platform';
 import { defineCrudService } from '../../lib/crud-service';
 import { entityMapper } from '../../lib/entity-map';
 

@@ -1,5 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { WsMessage } from '@arcbase/shared/platform';
 import { Throttler } from '@tanstack/react-pacer';
 
 /** Feature metadata lets domain mutations invalidate summaries without importing relation UI or schemas. */

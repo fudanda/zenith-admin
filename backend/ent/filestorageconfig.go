@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/filestorageconfig"
+	"github.com/fudanda/arcbase/backend/ent/filestorageconfig"
 )
 
 // FileStorageConfig is the model entity for the FileStorageConfig schema.

@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"entgo.io/ent/dialect"
 	"fmt"
-	"github.com/fudanda/zenith-admin/backend/migrations"
+	"github.com/fudanda/arcbase/backend/migrations"
 	"strings"
 )
 
@@ -49,7 +49,7 @@ func (s *Store) Migrate(ctx context.Context) error {
 			return err
 		}
 		if existing {
-			return fmt.Errorf("unversioned Zenith schema exists; refusing to overwrite it")
+			return fmt.Errorf("unversioned ArcBase schema exists; refusing to overwrite it")
 		}
 		for _, path := range []string{"migrations/0004_baseline_ent.sql", "migrations/0004_baseline_constraints.sql"} {
 			if err := ApplyMigration(ctx, tx, path); err != nil {

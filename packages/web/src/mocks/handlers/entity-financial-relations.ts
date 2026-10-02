@@ -1,5 +1,5 @@
-import type { CanonicalEntityRef, CanonicalEntityType, EntityRelationItem, EntityRelationSection } from '@zenith/shared/platform';
-import type { PaymentJournal, PaymentOrder } from '@zenith/shared/payment';
+import type { CanonicalEntityRef, CanonicalEntityType, EntityRelationItem, EntityRelationSection } from '@arcbase/shared/platform';
+import type { PaymentJournal, PaymentOrder } from '@arcbase/shared/payment';
 import { mockPaymentOrders, mockPaymentRefunds, mockPaymentLogs, mockPaymentNotifyLogScopes } from '@/mocks/data/payment';
 import { mockPaymentJournals } from './payment-journals';
 import { mockPaymentReconAdjustments, mockPaymentReconCases } from './payment-ext';

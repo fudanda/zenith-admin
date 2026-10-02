@@ -1,6 +1,6 @@
 import { Button, Dropdown, Radio, RadioGroup, Select, Tooltip } from '@douyinfe/semi-ui';
 import { AlignJustify, AlignLeft, Library, Settings, Sparkles, Swords, UserRoundPen } from 'lucide-react';
-import type { AiConversation, AiPromptTemplate } from '@zenith/shared/ai';
+import type { AiConversation, AiPromptTemplate } from '@arcbase/shared/ai';
 
 export type DialogueMode = 'bubble' | 'noBubble' | 'userBubble';
 export type DialogueAlign = 'leftRight' | 'leftAlign';

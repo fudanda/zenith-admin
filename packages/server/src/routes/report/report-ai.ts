@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { reportAiContract } from '@zenith/shared/report';
+import { reportAiContract } from '@arcbase/shared/report';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { generateReportSql } from '../../services/report/report-ai.service';

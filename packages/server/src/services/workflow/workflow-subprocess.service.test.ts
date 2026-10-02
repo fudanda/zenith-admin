@@ -4,7 +4,7 @@
  * - resolveMultiItems：多实例循环数据源的归一化
  */
 import { describe, it, expect } from 'vitest';
-import type { WorkflowNodeConfig } from '@zenith/shared/workflow';
+import type { WorkflowNodeConfig } from '@arcbase/shared/workflow';
 import { buildChildFormData, resolveMultiItems } from './workflow-instances.service';
 
 const parentForm = { title: '差旅报销', amount: 1280, name: '张三' };

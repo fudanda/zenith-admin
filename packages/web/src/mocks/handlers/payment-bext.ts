@@ -39,8 +39,8 @@ import {
   type PaymentSharingReceiver,
   type PaymentSharingReversal,
   type PaymentTransfer,
-} from '@zenith/shared/payment';
-import { SEED_PAYMENT_METHOD_CONFIGS } from '@zenith/shared/seed';
+} from '@arcbase/shared/payment';
+import { SEED_PAYMENT_METHOD_CONFIGS } from '@arcbase/shared/seed';
 import { recordMockPaymentSucceeded } from './payment-ext';
 import { recordMockSystemJournal } from './payment-journals';
 import { mockOAuth2Clients } from './oauth2-apps';

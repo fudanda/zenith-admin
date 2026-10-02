@@ -7,7 +7,7 @@
 `.env` 通过 `DATABASE_URL` 配置数据库连接：
 
 ```ini
-DATABASE_URL=postgres://postgres:postgres@localhost:5432/zenith_admin
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/arcbase_admin
 ```
 
 运行时连接池参数由 `config.database` 控制（`DATABASE_MAX_CONNECTIONS` 默认 20、`DATABASE_IDLE_TIMEOUT_SECONDS` 默认 20、
@@ -30,13 +30,13 @@ npm run db:migrate
 npm run db:seed
 ```
 
-根目录脚本会转发到 `@zenith/server`：
+根目录脚本会转发到 `@arcbase/server`：
 
 | 根目录脚本 | Server 脚本 |
 | --- | --- |
-| `npm run db:generate` | `npm run db:generate -w @zenith/server` → `drizzle-kit generate` |
-| `npm run db:migrate` | `npm run db:migrate -w @zenith/server` → `tsx src/db/migrate.ts` |
-| `npm run db:seed` | `npm run db:seed -w @zenith/server` → `tsx src/db/seed.ts` |
+| `npm run db:generate` | `npm run db:generate -w @arcbase/server` → `drizzle-kit generate` |
+| `npm run db:migrate` | `npm run db:migrate -w @arcbase/server` → `tsx src/db/migrate.ts` |
+| `npm run db:seed` | `npm run db:seed -w @arcbase/server` → `tsx src/db/seed.ts` |
 
 迁移入口 `packages/server/src/db/migrate.ts` 使用 Drizzle migrator 执行 `./drizzle`。开发、生产和容器启动链路都会先执行迁移再启动服务；迁移失败以非零码退出，阻断服务启动。
 
@@ -57,7 +57,7 @@ npm run db:seed
 - `drive_activities` / `drive_share_access_logs` 的 RANGE 月分区建表与初始分区（见下文「分区表：企业网盘日志」）。
 - 跨实例缓存失效广播：通用触发器函数 `notify_cache_invalidate()`（以表名为 topic、可选以某列为 key 向 `cache_invalidate` 频道 `pg_notify`）与 `system_settings` 上的触发器；服务端 `lib/invalidation-bus.ts` 监听该频道，见[运行时设置](./settings.md)。新增需跨实例失效的进程内缓存只需再挂一个触发器。
 - `data_mask_policies` 上的同类触发器（数据脱敏策略的进程内缓存跨实例失效）。
-- 只读执行角色 `zenith_readonly`（NOLOGIN，仅 SELECT），供用户手写 SQL 在事务内 `SET LOCAL ROLE` 切换；无 CREATEROLE 权限的部署跳过创建并告警，服务端降级为白名单 + READ ONLY，见[数据平台 · 安全边界](../ops/data-platform.md#安全边界)。
+- 只读执行角色 `arcbase_readonly`（NOLOGIN，仅 SELECT），供用户手写 SQL 在事务内 `SET LOCAL ROLE` 切换；无 CREATEROLE 权限的部署跳过创建并告警，服务端降级为白名单 + READ ONLY，见[数据平台 · 安全边界](../ops/data-platform.md#安全边界)。
 - 条件启用 `pg_stat_statements`：扩展可用时创建数据库扩展；PostgreSQL 仍必须在启动配置中预加载 `pg_stat_statements`，否则 SQL 监控保留降级提示。
 
 分区表在基线中先按普通表生成，`0001_extensions.sql` 再删除重建为分区表——其中列 / 外键 / 索引与 `0000_baseline.sql` 对应表的定义逐字一致，schema 改动这三张表后必须同步更新 `0001_extensions.sql`。
@@ -101,7 +101,7 @@ npm run db:seed
 枚举必须保持三端一致：
 
 - PostgreSQL `pgEnum`；
-- `@zenith/shared/{domain}` 中的 TS union / 常量数组；
+- `@arcbase/shared/{domain}` 中的 TS union / 常量数组；
 - Zod enum。
 
 可被其他域复用的枚举常量放在 `shared/src/{domain}/constants.ts`，不要放在 `validation.ts` 中制造 ESM 值循环。

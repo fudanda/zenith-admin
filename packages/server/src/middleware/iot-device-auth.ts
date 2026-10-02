@@ -5,7 +5,7 @@
  * Hono 按首次读取的形态缓存 body，后续校验器的 `c.req.json()` 从同一份文本派生，不会重复消费请求流。
  */
 import type { MiddlewareHandler } from 'hono';
-import { IOT_SIGN_HEADER, IOT_SN_HEADER, IOT_TIMESTAMP_HEADER } from '@zenith/shared/iot';
+import { IOT_SIGN_HEADER, IOT_SN_HEADER, IOT_TIMESTAMP_HEADER } from '@arcbase/shared/iot';
 import type { IotDeviceRow } from '../db/schema';
 import { authenticateDevice } from '../services/iot/iot-access.service';
 

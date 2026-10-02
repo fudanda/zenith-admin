@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
 	"github.com/gorilla/mux"
 )
 

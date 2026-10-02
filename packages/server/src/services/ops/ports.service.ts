@@ -29,7 +29,7 @@ const COMMON_PORTS: Record<number, string> = {
   6379: 'Redis', 6380: 'Redis', 7001: 'WebLogic', 8000: 'HTTP-Alt', 8025: 'MailHog',
   8080: 'HTTP-Proxy', 8081: 'HTTP-Alt', 8443: 'HTTPS-Alt', 8848: 'Nacos', 9000: 'HTTP-Alt',
   9090: 'Prometheus', 9092: 'Kafka', 9200: 'Elasticsearch', 9300: 'Elasticsearch',
-  11211: 'Memcached', 15672: 'RabbitMQ-UI', 5173: 'Vite', 3300: 'Zenith-API',
+  11211: 'Memcached', 15672: 'RabbitMQ-UI', 5173: 'Vite', 3300: 'ArcBase-API',
 };
 
 function serviceNameForPort(port: number): string | null {

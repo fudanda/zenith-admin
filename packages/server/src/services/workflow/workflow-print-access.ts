@@ -1,5 +1,5 @@
-import type { MaskType, SensitiveFieldRef } from '@zenith/shared/core';
-import { flattenWorkflowPrintLeafFields, normalizeWorkflowFormSnapshot } from '@zenith/shared/workflow';
+import type { MaskType, SensitiveFieldRef } from '@arcbase/shared/core';
+import { flattenWorkflowPrintLeafFields, normalizeWorkflowFormSnapshot } from '@arcbase/shared/workflow';
 import type { DbExecutor } from '../../db/types';
 import { currentUser, hasPermission } from '../../lib/context';
 import { resolveMaskDecisions } from '../../lib/data-mask/policies';

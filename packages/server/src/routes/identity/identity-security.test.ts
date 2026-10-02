@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Hono } from 'hono';
 import { contextStorage } from 'hono/context-storage';
-import { identitySecurityContract } from '@zenith/shared/identity';
+import { identitySecurityContract } from '@arcbase/shared/identity';
 import type { JwtPayload } from '../../middleware/auth';
 
 const state = vi.hoisted(() => ({

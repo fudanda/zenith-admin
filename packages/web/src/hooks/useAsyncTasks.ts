@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import type { WsMessage } from '@zenith/shared/platform';
-import { asyncTaskContract, type AsyncTask } from '@zenith/shared/tasks';
+import type { WsMessage } from '@arcbase/shared/platform';
+import { asyncTaskContract, type AsyncTask } from '@arcbase/shared/tasks';
 import { api, contractKey } from '@/lib/contract-query';
 import { useWebSocket } from '@/hooks/useWebSocket';
 

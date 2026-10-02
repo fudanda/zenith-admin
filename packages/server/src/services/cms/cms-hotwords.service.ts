@@ -1,7 +1,7 @@
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
 import { asc, desc, eq, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { db } from '../../db';
 import { cmsHotwordGroups, cmsHotwords, cmsSearchLogs } from '../../db/schema';
 import type { CmsHotwordGroupRow } from '../../db/schema';
@@ -9,8 +9,8 @@ import { config } from '../../config';
 import redis from '../../lib/redis';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { buildWhere, dateRangeConditions, keywordCondition } from '../../lib/where-helpers';
-import { cmsSearchContract, cmsHotwordGroupSchema } from '@zenith/shared/cms';
-import type { CmsHotKeyword, CreateCmsHotwordGroupInput, CreateCmsHotwordInput, UpdateCmsHotwordGroupInput, UpdateCmsHotwordInput } from '@zenith/shared/cms';
+import { cmsSearchContract, cmsHotwordGroupSchema } from '@arcbase/shared/cms';
+import type { CmsHotKeyword, CreateCmsHotwordGroupInput, CreateCmsHotwordInput, UpdateCmsHotwordGroupInput, UpdateCmsHotwordInput } from '@arcbase/shared/cms';
 import { assertSiteAccess, ensureCmsSiteExists } from './cms-sites.service';
 import { pickEntity } from '../../lib/entity-map';
 

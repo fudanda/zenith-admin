@@ -1,5 +1,5 @@
-import { paymentAppContract, paymentAppSchema } from '@zenith/shared/payment';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { paymentAppContract, paymentAppSchema } from '@arcbase/shared/payment';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /** 支付应用：开放平台客户端的一对一支付路由画像。 */
 import { and, desc, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
@@ -12,7 +12,7 @@ import { requireTenantScopeId, tenantCondition, exactTenantCondition } from '../
 import { buildWhere, keywordCondition } from '../../lib/where-helpers';
 import { pageOffset } from '../../lib/pagination';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
-import type { CreatePaymentAppInput, UpdatePaymentAppInput, PaymentApp, PaymentChannel } from '@zenith/shared/payment';
+import type { CreatePaymentAppInput, UpdatePaymentAppInput, PaymentApp, PaymentChannel } from '@arcbase/shared/payment';
 import { pickEntity } from '../../lib/entity-map';
 
 type AppWithConfigs = PaymentAppRow & {

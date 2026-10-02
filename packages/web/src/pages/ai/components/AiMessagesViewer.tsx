@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { AIChatDialogue, Tag, Typography } from '@douyinfe/semi-ui';
 import type { RenderTitleProps } from '@douyinfe/semi-ui/lib/es/aiChatDialogue/interface';
-import type { AiMessage } from '@zenith/shared/ai';
+import type { AiMessage } from '@arcbase/shared/ai';
 import { renderUserDialogueAvatar } from '../chat/dialogue-avatar';
 import { AI_AVATAR, convertApiMessage, formatMessageTime } from '../chat/message-adapters';
 import { buildContentItemRenderers } from '../chat/content-renderers';

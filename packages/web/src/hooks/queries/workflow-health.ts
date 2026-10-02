@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { workflowHealthContract } from '@zenith/shared/workflow';
+import type { QueryOf } from '@arcbase/shared/core';
+import { workflowHealthContract } from '@arcbase/shared/workflow';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export type WorkflowHealthParams = QueryOf<typeof workflowHealthContract.summary>;

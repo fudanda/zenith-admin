@@ -3,7 +3,7 @@ import { Button, Descriptions, Tag } from '@douyinfe/semi-ui';
 import AppModal from '@/components/AppModal';
 import type { ColumnProps, TableProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag';
-import { LOGIN_EVENT_TYPE_LABELS, type LoginEventType, type LoginLog } from '@zenith/shared/identity';
+import { LOGIN_EVENT_TYPE_LABELS, type LoginEventType, type LoginLog } from '@arcbase/shared/identity';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { formatDateTime } from '@/utils/date';
 import { dateTimeColumn, renderEllipsis } from '@/utils/table-columns';

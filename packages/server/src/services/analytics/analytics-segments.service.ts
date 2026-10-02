@@ -15,8 +15,8 @@ import { db } from '../../db';
 import { analyticsUserSegments, analyticsSegmentMembers, analyticsUserProfiles, userEvents } from '../../db/schema';
 import type { AnalyticsUserSegmentRow } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';
-import { analyticsContract } from '@zenith/shared/analytics';
-import type { AnalyticsSegmentRule, AnalyticsSegmentEventCondition, AnalyticsSegmentAttributeCondition, CreateAnalyticsUserSegmentInput, UpdateAnalyticsUserSegmentInput } from '@zenith/shared/analytics';
+import { analyticsContract } from '@arcbase/shared/analytics';
+import type { AnalyticsSegmentRule, AnalyticsSegmentEventCondition, AnalyticsSegmentAttributeCondition, CreateAnalyticsUserSegmentInput, UpdateAnalyticsUserSegmentInput } from '@arcbase/shared/analytics';
 import { formatDateTime, formatNullableDateTime, formatTimestamps } from '../../lib/datetime';
 import { buildWhere, keywordCondition } from '../../lib/where-helpers';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
@@ -24,7 +24,7 @@ import { currentCreateTenantId, tenantScope, exactTenantCondition } from '../../
 import { startOfDaysAgo } from '../../lib/analytics-helpers';
 import logger from '../../lib/logger';
 import { buildJsonPropertyCondition, buildColumnCompareCondition, PROPERTY_KEY_RE } from './analytics-property-filter';
-import type { PaginationQuery, QueryOutputOf } from '@zenith/shared/core';
+import type { PaginationQuery, QueryOutputOf } from '@arcbase/shared/core';
 
 export function mapSegment(row: AnalyticsUserSegmentRow) {
   return {

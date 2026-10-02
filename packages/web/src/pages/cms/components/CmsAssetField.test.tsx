@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { CmsResource } from '@zenith/shared/cms';
+import type { CmsResource } from '@arcbase/shared/cms';
 import { CmsAssetField } from './CmsAssetField';
 
 const state = vi.hoisted(() => ({ resolved: null as CmsResource | null, success: false, upload: vi.fn() }));

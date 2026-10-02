@@ -1,5 +1,5 @@
-import type { ErrorAlertLog, ErrorAlertRule, ErrorEvent, ErrorGroup, ErrorLevel, FrontendErrorType, SourceMapItem } from '@zenith/shared/analytics';
-import { frontendErrorContract } from '@zenith/shared/analytics';
+import type { ErrorAlertLog, ErrorAlertRule, ErrorEvent, ErrorGroup, ErrorLevel, FrontendErrorType, SourceMapItem } from '@arcbase/shared/analytics';
+import { frontendErrorContract } from '@arcbase/shared/analytics';
 import { mock } from '@/mocks/utils/contract';
 import { notFound } from '@/mocks/utils/handlers';
 import { mockDateTime, mockDateTimeOffset, mockDateOffset } from '../utils/date';

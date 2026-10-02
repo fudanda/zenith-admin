@@ -3,7 +3,7 @@ import { Bookmark, Search } from 'lucide-react';
 import { AppModal } from '@/components/AppModal';
 import { UserAvatar } from '@/components/UserAvatar';
 import DateTimeText from '@/components/DateTimeText';
-import type { ChatConversation, ChatMessage, ChatMessageExtra } from '@zenith/shared/chat';
+import type { ChatConversation, ChatMessage, ChatMessageExtra } from '@arcbase/shared/chat';
 import type { Setter } from '../types';
 import { MessageContent } from './MessageContent';
 

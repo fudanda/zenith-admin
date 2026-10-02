@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { globalSearchContract } from '@zenith/shared/platform';
+import { globalSearchContract } from '@arcbase/shared/platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { searchGlobal } from '../../services/platform/search/global-search.service';

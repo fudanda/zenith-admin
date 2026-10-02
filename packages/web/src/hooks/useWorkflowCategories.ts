@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { workflowCategoryContract } from '@zenith/shared/workflow';
+import { workflowCategoryContract } from '@arcbase/shared/workflow';
 import { createResourceQueries } from '@/lib/contract-query';
 
 const resource = createResourceQueries(workflowCategoryContract);

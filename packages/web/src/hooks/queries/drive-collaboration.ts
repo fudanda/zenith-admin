@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { driveAdminContract, driveCollaborationContract, driveTagContract, driveNodeContract } from '@zenith/shared/drive';
+import type { QueryOf } from '@arcbase/shared/core';
+import { driveAdminContract, driveCollaborationContract, driveTagContract, driveNodeContract } from '@arcbase/shared/drive';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { driveKeys, invalidateDriveTagSurface } from './drive';
 

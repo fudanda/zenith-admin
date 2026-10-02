@@ -1,5 +1,5 @@
 import { Button, Space, Spin, Typography } from '@douyinfe/semi-ui';
-import { businessFileContract } from '@zenith/shared/platform';
+import { businessFileContract } from '@arcbase/shared/platform';
 import { useApiQuery } from '@/lib/contract-query';
 import FileAttachment from '@/components/FileAttachment';
 

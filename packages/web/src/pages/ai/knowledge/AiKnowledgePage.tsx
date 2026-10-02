@@ -5,7 +5,7 @@ import { Button, Form, SideSheet, Space, Tag, Toast, Typography, Upload } from '
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import { Plus, FileUp, Globe } from 'lucide-react';
-import type { AiKnowledgeBase, AiKbDocument, AddAiKbDocumentInput } from '@zenith/shared/ai';
+import type { AiKnowledgeBase, AiKbDocument, AddAiKbDocumentInput } from '@arcbase/shared/ai';
 import { AppModal } from '@/components/AppModal';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

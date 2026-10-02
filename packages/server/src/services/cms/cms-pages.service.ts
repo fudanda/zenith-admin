@@ -6,7 +6,7 @@ import { HTTPException } from 'hono/http-exception';
 import { db } from '../../db';
 import { cmsPageBlockAcls, cmsPages, cmsChannels, cmsContents } from '../../db/schema';
 import type { CmsPageRow } from '../../db/schema';
-import { cmsPageSchema, type CmsPageBlock } from '@zenith/shared/cms';
+import { cmsPageSchema, type CmsPageBlock } from '@arcbase/shared/cms';
 import { buildWhere, withPagination, keywordCondition } from '../../lib/where-helpers';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { assertSiteAccess } from './cms-sites.service';

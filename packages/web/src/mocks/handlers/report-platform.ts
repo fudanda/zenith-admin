@@ -1,5 +1,5 @@
-import type { ReportAclRole, ReportEnvironment, ReportEnvironmentPromotion, ReportFolder, ReportFolderTreeNode, ReportMetric, ReportPublishApproval, ReportResourceAcl, ReportResourceTransfer, ReportResourceType } from '@zenith/shared/report';
-import { reportEnvironmentContract, reportFolderContract, reportGovernanceContract, reportMetricContract } from '@zenith/shared/report';
+import type { ReportAclRole, ReportEnvironment, ReportEnvironmentPromotion, ReportFolder, ReportFolderTreeNode, ReportMetric, ReportPublishApproval, ReportResourceAcl, ReportResourceTransfer, ReportResourceType } from '@arcbase/shared/report';
+import { reportEnvironmentContract, reportFolderContract, reportGovernanceContract, reportMetricContract } from '@arcbase/shared/report';
 import {
   mockReportDashboards,
   mockReportDatasets,

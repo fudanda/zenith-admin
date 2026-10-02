@@ -2,8 +2,8 @@ import type { Context } from 'hono';
 import { getConnInfo } from '@hono/node-server/conninfo';
 import { UAParser } from 'ua-parser-js';
 import ipRangeCheck from 'ip-range-check';
-import { REPORTED_CLIENT_LABEL_MAX_LENGTH } from '@zenith/shared/core';
-import { SESSION_CLIENT_HEADER, SESSION_CLIENT_KINDS, type SessionClientKind } from '@zenith/shared/identity';
+import { REPORTED_CLIENT_LABEL_MAX_LENGTH } from '@arcbase/shared/core';
+import { SESSION_CLIENT_HEADER, SESSION_CLIENT_KINDS, type SessionClientKind } from '@arcbase/shared/identity';
 import { config } from '../config';
 
 /**
@@ -72,7 +72,7 @@ export function getPlatformVersion(c: Context): string | null {
 /**
  * 自报优先、缺项回退 UA 解析：登录 / 模拟登录 / 操作日志的浏览器·OS 展示值统一走这里。
  * 自报是逐字段的——只报 os 时 browser 仍从 UA 解析（反之亦然），不能因一侧自报把另一侧置 Unknown。
- * 自报值不可信（登录体经契约校验，`X-Zenith-Os` 请求头则完全没有 schema），
+ * 自报值不可信（登录体经契约校验，`X-ArcBase-Os` 请求头则完全没有 schema），
  * 这里按 varchar 列宽统一截断兜底：值会进 Redis 会话对象与在线列表，不只是落库列。
  */
 export function resolveReportedClient(
@@ -119,7 +119,7 @@ export function resolveRequestClient(
 const CLIENT_KIND_SET: ReadonlySet<string> = new Set(SESSION_CLIENT_KINDS);
 
 /**
- * 登录终端类型：前端各入口经 `X-Zenith-Client` 自报（网页 / 移动审批 / 桌面端），
+ * 登录终端类型：前端各入口经 `X-ArcBase-Client` 自报（网页 / 移动审批 / 桌面端），
  * 只接受枚举内的值，缺省或伪造值一律按 web——它只影响会话展示与「按终端分别计算」的并发分组，不参与鉴权。
  */
 export function getClientKind(c: Context): SessionClientKind {

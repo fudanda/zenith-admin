@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
-import { createCmsInteractionSchema } from '@zenith/shared/cms';
+import { createCmsInteractionSchema } from '@arcbase/shared/cms';
 import {
   canExposeCmsInteractionResults,
   cmsInteractionRepeatIdentity,

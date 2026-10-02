@@ -1,4 +1,4 @@
-import { sessionContract } from '@zenith/shared/identity';
+import { sessionContract } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { notFound } from '@/mocks/utils/handlers';
 import { removeWhere } from '@/mocks/utils/array';

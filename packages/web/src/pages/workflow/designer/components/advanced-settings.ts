@@ -1,4 +1,4 @@
-import type { WorkflowSerialNoConfig, WorkflowNotifyChannels, WorkflowApproverDedupMode, WorkflowPrintSettings } from '@zenith/shared/workflow';
+import type { WorkflowSerialNoConfig, WorkflowNotifyChannels, WorkflowApproverDedupMode, WorkflowPrintSettings } from '@arcbase/shared/workflow';
 
 export interface AdvancedSettingsData {
   allowWithdraw: boolean;

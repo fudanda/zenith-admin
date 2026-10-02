@@ -1,6 +1,6 @@
 import { buildWhere } from '../../lib/where-helpers';
 import { and, desc, eq, sql } from 'drizzle-orm';
-import type { CmsTelemetryPageContext } from '@zenith/shared/cms';
+import type { CmsTelemetryPageContext } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsAssetVersions, cmsResources, cmsChannels, cmsContents, cmsContentWorkingCopies, cmsDeployments, type CmsSiteRow } from '../../db/schema';
 import type { CmsSeo } from '../../cms/themes/types';

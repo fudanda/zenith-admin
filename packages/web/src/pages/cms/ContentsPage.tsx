@@ -19,8 +19,8 @@ import {
   useAllCmsSites, useAllCmsTags, useCmsContentBatchOps, useCmsContentBatchStatus, useDuplicateCmsContent, cmsContentKeys,
   useCmsContentPersistentLock, useAllCmsModels, useCmsEditorialMetrics, useSuppressCmsContent, useUnsuppressCmsContent,
 } from '@/hooks/queries/cms';
-import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_TYPE_LABELS, CMS_CONTENT_TYPE_OPTIONS } from '@zenith/shared/cms';
-import type { CmsChannel, CmsContentListItem, CmsContentStatus, CmsContentType, CmsEditorialStatus, CmsModelField } from '@zenith/shared/cms';
+import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_TYPE_LABELS, CMS_CONTENT_TYPE_OPTIONS } from '@arcbase/shared/cms';
+import type { CmsChannel, CmsContentListItem, CmsContentStatus, CmsContentType, CmsEditorialStatus, CmsModelField } from '@arcbase/shared/cms';
 import { CmsSiteSelect } from './CmsSiteSelect';
 import { CmsWidgetSourceRefsSheet, type CmsWidgetSourceTarget } from './CmsWidgetSourceRefsSheet';
 import { CreateButton } from '@/components/toolbar-controls';
@@ -39,7 +39,7 @@ import { cmsFieldDisplayText } from './cms-field-display';
 
 import { useUrlTabState } from '@/hooks/useUrlTabState';
 import { channelsToSelectTree } from './channel-tree';
-import { mapTree } from '@zenith/shared/core';
+import { mapTree } from '@arcbase/shared/core';
 import { confirmAndDelete, deleteAction, ListSearchToolbar, listTableProps } from '@/components/list-page';
 const STATUS_COLORS: Record<CmsContentStatus, 'grey' | 'orange' | 'green' | 'red' | 'violet'> = {
   draft: 'grey',

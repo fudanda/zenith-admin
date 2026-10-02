@@ -5,12 +5,12 @@ package enttest
 import (
 	"context"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent"
 	// required by schema hooks.
-	_ "github.com/fudanda/zenith-admin/backend/ent/runtime"
+	_ "github.com/fudanda/arcbase/backend/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/fudanda/zenith-admin/backend/ent/migrate"
+	"github.com/fudanda/arcbase/backend/ent/migrate"
 )
 
 type (

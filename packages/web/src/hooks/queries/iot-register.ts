@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { iotWhitelistContract } from '@zenith/shared/iot';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { iotWhitelistContract } from '@arcbase/shared/iot';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { iotProductKeys } from './iot-products';
 

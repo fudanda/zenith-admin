@@ -1,6 +1,6 @@
 import type { ReportWidgetType } from './types';
 
-export const REPORT_EMBED_BRIDGE_CHANNEL = 'zenith.report.embed' as const;
+export const REPORT_EMBED_BRIDGE_CHANNEL = 'arcbase.report.embed' as const;
 export const REPORT_EMBED_BRIDGE_VERSION = '1.0' as const;
 export const REPORT_EMBED_BRIDGE_MAX_MESSAGE_BYTES = 64 * 1024;
 

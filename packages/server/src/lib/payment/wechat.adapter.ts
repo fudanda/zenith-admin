@@ -9,7 +9,7 @@ import { HTTPException } from 'hono/http-exception';
 import { httpGet, httpPost } from '../http-client';
 import { formatDateTime } from '../datetime';
 import logger from '../logger';
-import type { CreatePaymentResult } from '@zenith/shared/payment';
+import type { CreatePaymentResult } from '@arcbase/shared/payment';
 import { rsaSign, rsaVerify, aesGcmDecrypt, ensurePem, buildWechatPayAuthorization, wechatNonce as genNonce } from './signing';
 import { trySandboxNotify } from './sandbox-notify';
 import { getPlatformCert } from './wechat-certs';
@@ -67,7 +67,7 @@ async function wechatRequest<T = Record<string, unknown>>(
     Authorization: authToken,
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'User-Agent': 'zenith-admin',
+    'User-Agent': 'arcbase',
   };
   const url = `${WECHAT_BASE}${urlPath}`;
   const requestOptions = { ...providerHttpOptions(), headers };
@@ -603,7 +603,7 @@ export const wechatPayAdapter: PaymentChannelAdapter = {
       const url = new URL(downloadUrl);
       const resp = await httpGet(downloadUrl, {
         ...providerHttpOptions(),
-        headers: { Authorization: buildAuthToken(ctx, 'GET', `${url.pathname}${url.search}`, ''), Accept: 'text/csv', 'User-Agent': 'zenith-admin' },
+        headers: { Authorization: buildAuthToken(ctx, 'GET', `${url.pathname}${url.search}`, ''), Accept: 'text/csv', 'User-Agent': 'arcbase' },
       });
       const bytes = await readBillBytes(resp);
       if (!resp.ok) throw new ProviderBillError(resp.status === 429 || resp.status >= 500 ? 'temporary' : 'permanent', `微信账单下载失败(${resp.status})`);

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import type { CmsStatOverview, CmsStatQuality, CmsStatReport, CmsStatOptions } from '@zenith/shared/cms';
+import type { CmsStatOverview, CmsStatQuality, CmsStatReport, CmsStatOptions } from '@arcbase/shared/cms';
 import { cmsStatsHandlers } from './handlers/cms-stats';
 import { mockCmsSites } from './data/cms';
 import { resetMockCmsReleases } from './handlers/cms-releases';

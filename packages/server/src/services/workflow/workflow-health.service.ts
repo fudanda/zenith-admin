@@ -1,6 +1,6 @@
 import { and, desc, eq, inArray, lte } from 'drizzle-orm';
 import { buildWhere } from '../../lib/where-helpers';
-import { summarizeWorkflowHealth, type WorkflowHealthIssue, type WorkflowHealthSummary } from '@zenith/shared/workflow';
+import { summarizeWorkflowHealth, type WorkflowHealthIssue, type WorkflowHealthSummary } from '@arcbase/shared/workflow';
 import { db } from '../../db';
 import { workflowJobExecutions, workflowJobs, workflowInstances, workflowTasks, workflowTokens } from '../../db/schema';
 import { currentUser } from '../../lib/context';

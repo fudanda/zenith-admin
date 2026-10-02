@@ -1,5 +1,5 @@
 // ─── 实例查询与看板读模型（列表/详情/分析/逾期）───
-import { workflowInstanceContract, workflowTaskContract } from '@zenith/shared/workflow';
+import { workflowInstanceContract, workflowTaskContract } from '@arcbase/shared/workflow';
 import { defineContractRoute } from '../../../lib/contract-route';
 import { inlineOrAttachmentDisposition } from '../../../lib/content-disposition';
 import { okBody } from '../../../lib/openapi-schemas';
@@ -76,7 +76,7 @@ export const printRoute = defineContractRoute(workflowInstanceContract.print, {
         'Content-Type': 'application/pdf',
         'Content-Disposition': inlineOrAttachmentDisposition('application/pdf', filename),
         'Cache-Control': 'private, no-store',
-        'X-Zenith-Print-Source': source,
+        'X-ArcBase-Print-Source': source,
       },
     });
   },

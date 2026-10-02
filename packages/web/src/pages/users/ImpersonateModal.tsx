@@ -1,7 +1,7 @@
 import { FormPasswordInput } from '@/components/PasswordInput';
 import { useMemo } from 'react';
 import { Banner, Descriptions, Form, Tag, Typography } from '@douyinfe/semi-ui';
-import { IMPERSONATION_DURATION_OPTIONS, type User } from '@zenith/shared/identity';
+import { IMPERSONATION_DURATION_OPTIONS, type User } from '@arcbase/shared/identity';
 import { EditFormModal } from '@/components/EditFormModal';
 import { useMySettings } from '@/hooks/queries/settings';
 import type { UseEditModalReturn } from '@/hooks/useEditModal';

@@ -8,7 +8,7 @@ import {
   deployTargetContract,
   type DeployTarget,
   type DeployTargetHost,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { mockDateTime } from '@/mocks/utils/date';

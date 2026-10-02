@@ -1,4 +1,4 @@
-import { menuContract, type Menu } from '@zenith/shared/identity';
+import { menuContract, type Menu } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { conflict } from '@/mocks/utils/handlers';

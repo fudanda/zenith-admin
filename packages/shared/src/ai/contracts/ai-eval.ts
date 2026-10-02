@@ -32,7 +32,7 @@ export const aiEvalExperimentSchema = z.object({
   id: z.string(),
   name: z.string(),
   datasetId: z.string(),
-  targetId: z.string().meta({ description: '目标 Mastra agent ID(agent-{id} / zenith-chat / 内置智能体)' }),
+  targetId: z.string().meta({ description: '目标 Mastra agent ID(agent-{id} / arcbase-chat / 内置智能体)' }),
   status: z.enum(AI_EVAL_EXPERIMENT_STATUSES),
   totalCount: z.int(),
   succeededCount: z.int(),

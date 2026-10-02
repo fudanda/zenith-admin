@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Toast, Typography } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
-import { TOKEN_KEY, REFRESH_TOKEN_KEY } from '@zenith/shared/core';
-import { authContract } from '@zenith/shared/identity';
+import { TOKEN_KEY, REFRESH_TOKEN_KEY } from '@arcbase/shared/core';
+import { authContract } from '@arcbase/shared/identity';
 import { api } from '@/lib/contract-query';
 import { ApiError } from '@/lib/query';
 import { getPreciseOs } from '@/utils/client-os';
@@ -51,7 +51,7 @@ export default function LoginPage() {
     <div className="ap-login">
       <div className="ap-login__brand">
         <Typography.Title heading={3} style={{ margin: 0 }}>移动审批</Typography.Title>
-        <Typography.Text type="tertiary">Zenith Admin · 随时随地处理审批</Typography.Text>
+        <Typography.Text type="tertiary">ArcBase · 随时随地处理审批</Typography.Text>
       </div>
       <Form getFormApi={(api) => { formApi = api; }} onSubmit={() => void submit()}>
         <Form.Input

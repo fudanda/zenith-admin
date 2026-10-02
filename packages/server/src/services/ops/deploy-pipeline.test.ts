@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { Writable } from 'node:stream';
 import { describe, expect, it } from 'vitest';
-import type { DeployRunSnapshot, DeployStep } from '@zenith/shared/ops';
+import type { DeployRunSnapshot, DeployStep } from '@arcbase/shared/ops';
 import { HostExecError, type ExecResult, type RemoteHostExecutor, type StreamHandle, type StreamOptions } from '../../lib/host-exec';
 import {
   DeployCancelledError,
@@ -146,7 +146,7 @@ class FakeHost implements RemoteHostExecutor {
 
   async execStream(file: string, args: readonly string[], opts: StreamOptions): Promise<StreamHandle> {
     this.calls.push(`[stream] ${[file, ...args.slice(0, 2)].join(' ')}`);
-    // bash -c 'cd -- "$1" && shift && exec "$@"' zenith-deploy <cwd> env K=V… bash -c <script>
+    // bash -c 'cd -- "$1" && shift && exec "$@"' arcbase-deploy <cwd> env K=V… bash -c <script>
     const cwd = args[3];
     const envEnd = args.indexOf('bash', 4);
     const env = args.slice(5, envEnd);
@@ -399,12 +399,12 @@ describe('runHostPipeline · deploy', () => {
     expect(host.scripts[0].cwd).toBe(`${ROOT}/releases/20260101120000-1.2.0`);
     expect(host.scripts[0].env).toEqual(expect.arrayContaining([
       'NODE_ENV=production',
-      'ZENITH_APP_KEY=order-svc',
-      'ZENITH_VERSION=1.2.0',
-      'ZENITH_RELEASE_NAME=20260101120000-1.2.0',
-      `ZENITH_RELEASE_PATH=${ROOT}/releases/20260101120000-1.2.0`,
-      `ZENITH_CURRENT_PATH=${ROOT}/current`,
-      'ZENITH_PREVIOUS_RELEASE=20251201000000-1.1.0',
+      'ARCBASE_APP_KEY=order-svc',
+      'ARCBASE_VERSION=1.2.0',
+      'ARCBASE_RELEASE_NAME=20260101120000-1.2.0',
+      `ARCBASE_RELEASE_PATH=${ROOT}/releases/20260101120000-1.2.0`,
+      `ARCBASE_CURRENT_PATH=${ROOT}/current`,
+      'ARCBASE_PREVIOUS_RELEASE=20251201000000-1.1.0',
     ]));
     expect(logs.some((l) => l.includes('hello from script'))).toBe(true);
 

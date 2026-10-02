@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { paymentSharingContract } from '@zenith/shared/payment';
+import { paymentSharingContract } from '@arcbase/shared/payment';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { idempotencyGuard } from '../../middleware/idempotency';
 import { defineContractRoute } from '../../lib/contract-route';

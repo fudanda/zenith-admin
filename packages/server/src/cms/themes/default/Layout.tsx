@@ -24,7 +24,7 @@ export interface LayoutProps {
 /** 暗色变量组（[data-theme=dark] 或 auto 模式下系统偏好）；注册进主题对象 darkVars 供样式装配 */
 export const DEFAULT_THEME_DARK_VARS = '--text:#e6edf3; --text-2:#9198a1; --border:#3d444d; --bg:#0d1117; --bg-2:#151b23;';
 
-const MEMBER_AUDIENCE_RELOAD_SCRIPT = `(function(){var key='cms-audience:'+location.pathname;try{if(sessionStorage.getItem(key)==='1'){sessionStorage.removeItem(key);return}}catch(e){}var token=null;try{token=localStorage.getItem('zenith_member_token')}catch(e){}if(!token)return;try{sessionStorage.setItem(key,'1')}catch(e){}fetch(location.href,{headers:{Authorization:'Bearer '+token},cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('reload');return r.text()}).then(function(html){document.open();document.write(html);document.close()}).catch(function(){try{sessionStorage.removeItem(key)}catch(e){}})})();`;
+const MEMBER_AUDIENCE_RELOAD_SCRIPT = `(function(){var key='cms-audience:'+location.pathname;try{if(sessionStorage.getItem(key)==='1'){sessionStorage.removeItem(key);return}}catch(e){}var token=null;try{token=localStorage.getItem('arcbase_member_token')}catch(e){}if(!token)return;try{sessionStorage.setItem(key,'1')}catch(e){}fetch(location.href,{headers:{Authorization:'Bearer '+token},cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('reload');return r.text()}).then(function(html){document.open();document.write(html);document.close()}).catch(function(){try{sessionStorage.removeItem(key)}catch(e){}})})();`;
 const MEMBER_AUDIENCE_CLEAR_SCRIPT = `(function(){try{sessionStorage.removeItem('cms-audience:'+location.pathname)}catch(e){}})();`;
 
 /** 关注按钮：交互由 islands/follow.ts 按 data-island 挂载（契约：data-site / data-subject-*） */

@@ -1,6 +1,6 @@
 import { Progress, Space, Spin, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { HelpCircle } from 'lucide-react';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 
 interface AsyncTaskProgressProps {
   task: AsyncTask;

@@ -1,4 +1,4 @@
-import type { SmsSendLog } from '@zenith/shared/messaging';
+import type { SmsSendLog } from '@arcbase/shared/messaging';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockSmsSendLogs: SmsSendLog[] = [

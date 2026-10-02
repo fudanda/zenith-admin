@@ -1,7 +1,7 @@
 import {
   wikiCommentContract, wikiDocContract, wikiGovernanceContract,
   wikiSpaceContract, wikiStatsContract, wikiTagContract, wikiTemplateContract,
-} from '@zenith/shared/wiki';
+} from '@arcbase/shared/wiki';
 import { defineRouteDomain } from '../_kit';
 import wikiSpacesRoutes from './wiki-spaces';
 import wikiDocsRoutes from './wiki-docs';

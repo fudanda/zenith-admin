@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
+	"github.com/fudanda/arcbase/backend/ent/auditlog"
 )
 
 // AuditLog is the model entity for the AuditLog schema.

@@ -5,14 +5,14 @@ import {
   type MaskDecision,
   type MaskType,
   type SensitiveFieldRef,
-} from '@zenith/shared/core';
+} from '@arcbase/shared/core';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import { dataMaskPolicies, type DataMaskPolicyRow } from '../../db/schema';
 import { currentUserOrNull, hasPermission, currentCmsOpenApiAccess } from '../context';
 import { onInvalidate, onInvalidationReset } from '../invalidation-bus';
 import { isSuperAdmin } from '../permissions';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 
 /**
  * 脱敏策略缓存与生效解析。

@@ -1,7 +1,7 @@
 import { cmsGenerationNow } from './cms-generation-context';
 import { and, desc, eq, inArray, sql } from 'drizzle-orm';
-import type { BodyOf } from '@zenith/shared/core';
-import { cmsAssetRightsSchema, cmsAssetVersionSchema, cmsResourceContract } from '@zenith/shared/cms';
+import type { BodyOf } from '@arcbase/shared/core';
+import { cmsAssetRightsSchema, cmsAssetVersionSchema, cmsResourceContract } from '@arcbase/shared/cms';
 import { HTTPException } from 'hono/http-exception';
 import { db } from '../../db';
 import { cmsAssetRights, cmsAssetVersions } from '../../db/schema/cms-design';

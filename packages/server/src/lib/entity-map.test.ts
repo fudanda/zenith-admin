@@ -1,6 +1,6 @@
 import { describe, expect, expectTypeOf, it } from 'vitest';
 import * as z from 'zod';
-import { entityStatusSchema, auditFieldsSchema } from '@zenith/shared/core';
+import { entityStatusSchema, auditFieldsSchema } from '@arcbase/shared/core';
 import { formatDateTime } from './datetime';
 import { entityMapper, pickEntity } from './entity-map';
 

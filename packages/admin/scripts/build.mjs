@@ -7,7 +7,7 @@ import ts from 'typescript';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const webRoot = resolve(root, '../web');
 process.chdir(webRoot);
-process.env.ZENITH_WEB_ENTRY = 'main';
+process.env.ARCBASE_WEB_ENTRY = 'main';
 process.env.VITE_DEPLOYMENT_ID = 'go-foundation';
 await build({ configFile: resolve(root, 'vite.config.ts'), mode: 'go-foundation' });
 const dist = resolve(root, 'dist');
@@ -19,4 +19,4 @@ const declaration = ts.transpileDeclaration(source, { compilerOptions: { declara
 if (declaration.diagnostics?.length) throw new Error(ts.formatDiagnosticsWithColorAndContext(declaration.diagnostics, { getCanonicalFileName: value => value, getCurrentDirectory: () => webRoot, getNewLine: () => '\n' }));
 writeFileSync(resolve(dist, 'types.d.ts'), declaration.outputText);
 writeFileSync(resolve(dist, 'styles.d.ts'), 'export {};\n');
-writeFileSync(resolve(dist, 'index.d.ts'), 'import type { ReactElement } from "react";\nimport type { ZenithAdminProps } from "./types.js";\nexport type { ZenithAdminProps, ZenithBrand, ZenithLocale, ZenithTheme, ZenithSessionAdapter, ZenithAdminModule, ZenithAdminPage, ZenithPageProps } from "./types.js";\nexport declare function ZenithAdmin(props: ZenithAdminProps): ReactElement;\n');
+writeFileSync(resolve(dist, 'index.d.ts'), 'import type { ReactElement } from "react";\nimport type { ArcBaseAdminProps } from "./types.js";\nexport type { ArcBaseAdminProps, ArcBaseBrand, ArcBaseLocale, ArcBaseTheme, ArcBaseSessionAdapter, ArcBaseAdminModule, ArcBaseAdminPage, ArcBasePageProps } from "./types.js";\nexport declare function ArcBaseAdmin(props: ArcBaseAdminProps): ReactElement;\n');

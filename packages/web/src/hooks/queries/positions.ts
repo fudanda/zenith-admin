@@ -1,5 +1,5 @@
-import type { BodyOf } from '@zenith/shared/core';
-import { positionContract } from '@zenith/shared/identity';
+import type { BodyOf } from '@arcbase/shared/core';
+import { positionContract } from '@arcbase/shared/identity';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 import { scopeMemberKeys } from './scope-members';
 

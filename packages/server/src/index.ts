@@ -2,12 +2,12 @@
  * 服务启动编排。
  *
  * 本文件只负责"把进程按角色跑起来"：校验密钥与角色 → 遥测初始化 → 公共运行时（失效总线、采样器）→
- * 按 ZENITH_ROLES 启动接入面（api）/ 执行面（worker）→ 后台作业声明与事件订阅 → 执行期收尾 → 优雅停机。
+ * 按 ARCBASE_ROLES 启动接入面（api）/ 执行面（worker）→ 后台作业声明与事件订阅 → 执行期收尾 → 优雅停机。
  *
  * 角色（config.roles）：
  * - api：监听业务端口、承载 WS、订阅跨进程推送；pg-boss 只投递不执行（见 bootstrap/run-api.ts）
  * - worker：执行任务中心 / cron / 系统作业；纯 worker 只暴露健康端口（见 bootstrap/run-worker.ts）
- * - 两者同时（缺省仅限开发；生产用 ZENITH_ROLES=all 显式声明）= 单机全量进程
+ * - 两者同时（缺省仅限开发；生产用 ARCBASE_ROLES=all 显式声明）= 单机全量进程
  * 声明（注册表 / 队列 / schedule）对所有角色一致，见 bootstrap/workers.ts；应用装配在 src/app.ts 的 createApp()。
  */
 // ⚠ 必须是第一条 import：本模块只依赖 Node 内置模块并在 import 时自装
@@ -15,10 +15,10 @@
 // 在加载阶段抛错同样会被兜住。详见 lib/fatal-handlers.ts。
 import { isFatalShutdownInProgress } from './lib/fatal-handlers';
 // ⚠ 必须是第二条 import：@hono/zod-openapi 在加载时把 .openapi() 补丁到 ZodType 原型，
-// 而 zod v4 实例只在构造时拷贝原型方法。@zenith/shared 的契约 schema 在各自模块加载时构造，
+// 而 zod v4 实例只在构造时拷贝原型方法。@arcbase/shared 的契约 schema 在各自模块加载时构造，
 // 必须晚于此补丁，lib/openapi-schemas 与路由层对它们调 .openapi(...) 才成立。
 import '@hono/zod-openapi';
-import { validateSettingsRegistry } from '@zenith/shared/settings';
+import { validateSettingsRegistry } from '@arcbase/shared/settings';
 import { startApiRole, type ApiRoleHandle } from './bootstrap/run-api';
 import { activateWorkerJobs, startWorkerRole, type WorkerRoleHandle } from './bootstrap/run-worker';
 import { withTimeout } from './bootstrap/shutdown';

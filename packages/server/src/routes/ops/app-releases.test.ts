@@ -19,7 +19,7 @@ import {
   appReleaseStatsContract,
   clientAppContract,
   clientDeviceContract,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 
 // ─── Mocks ───────────────────────────────────────────────────────────────────
 vi.mock('../../middleware/auth', () => ({

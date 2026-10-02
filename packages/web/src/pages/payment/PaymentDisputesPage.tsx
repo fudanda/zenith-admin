@@ -21,9 +21,9 @@ import {
   useResolvePaymentDispute,
   useSimulatePaymentDispute,
 } from '@/hooks/queries/payment-disputes';
-import { enumValueOf } from '@zenith/shared/core';
-import { PAYMENT_CHANNEL_LABELS, PAYMENT_CHANNELS, PAYMENT_DISPUTE_ROUTE_LABELS, PAYMENT_DISPUTE_ROUTE_OPTIONS, PAYMENT_DISPUTE_ROUTES, PAYMENT_DISPUTE_STATUS_LABELS, PAYMENT_DISPUTE_STATUS_OPTIONS, PAYMENT_DISPUTE_STATUSES, PAYMENT_DISPUTE_REPLY_AUTHOR_LABELS, PAYMENT_DISPUTE_TYPE_LABELS, PAYMENT_DISPUTE_TYPE_OPTIONS, PAYMENT_DISPUTE_TYPES, PAYMENT_ORDER_STATUS_LABELS, PAYMENT_CHANNEL_OPTIONS } from '@zenith/shared/payment';
-import type { PaymentChannel, PaymentDispute, PaymentDisputeRoute, PaymentDisputeStatus, PaymentDisputeType } from '@zenith/shared/payment';
+import { enumValueOf } from '@arcbase/shared/core';
+import { PAYMENT_CHANNEL_LABELS, PAYMENT_CHANNELS, PAYMENT_DISPUTE_ROUTE_LABELS, PAYMENT_DISPUTE_ROUTE_OPTIONS, PAYMENT_DISPUTE_ROUTES, PAYMENT_DISPUTE_STATUS_LABELS, PAYMENT_DISPUTE_STATUS_OPTIONS, PAYMENT_DISPUTE_STATUSES, PAYMENT_DISPUTE_REPLY_AUTHOR_LABELS, PAYMENT_DISPUTE_TYPE_LABELS, PAYMENT_DISPUTE_TYPE_OPTIONS, PAYMENT_DISPUTE_TYPES, PAYMENT_ORDER_STATUS_LABELS, PAYMENT_CHANNEL_OPTIONS } from '@arcbase/shared/payment';
+import type { PaymentChannel, PaymentDispute, PaymentDisputeRoute, PaymentDisputeStatus, PaymentDisputeType } from '@arcbase/shared/payment';
 import { ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { FilterSelect, KeywordInput, StatusSelect } from '@/components/search-filters';
 import { confirmDanger } from '@/utils/confirm';

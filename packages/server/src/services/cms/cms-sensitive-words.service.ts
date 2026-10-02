@@ -1,6 +1,6 @@
 import { eq, asc } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsSensitiveWordContract, cmsSensitiveWordSchema } from '@zenith/shared/cms';
+import { cmsSensitiveWordContract, cmsSensitiveWordSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsSensitiveWords } from '../../db/schema';
 import type { CmsSensitiveWordRow } from '../../db/schema';

@@ -1,7 +1,7 @@
 import { Button, Form } from '@douyinfe/semi-ui';
 import { Plus } from 'lucide-react';
-import { SMS_PROVIDER_OPTIONS } from '@zenith/shared/messaging';
-import type { SendSmsInput, SendSource, SendStatus, SmsSendLog } from '@zenith/shared/messaging';
+import { SMS_PROVIDER_OPTIONS } from '@arcbase/shared/messaging';
+import type { SendSmsInput, SendSource, SendStatus, SmsSendLog } from '@arcbase/shared/messaging';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
 import ExportButton from '@/components/ExportButton';

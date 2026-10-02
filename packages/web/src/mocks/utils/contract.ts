@@ -6,7 +6,7 @@ import {
   type AnyOperation,
   type MultipartBody,
   type OutputOf,
-} from '@zenith/shared/core';
+} from '@arcbase/shared/core';
 import { badRequest, ok, pageResult } from './handlers';
 
 /**

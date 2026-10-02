@@ -2,8 +2,8 @@ import { lazy, Suspense, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, Tag, Skeleton, Empty, List } from '@douyinfe/semi-ui';
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag';
-import type { Announcement } from '@zenith/shared/messaging';
-import type { MonitorAlertOverview } from '@zenith/shared/platform';
+import type { Announcement } from '@arcbase/shared/messaging';
+import type { MonitorAlertOverview } from '@arcbase/shared/platform';
 import { Megaphone, Siren, Users, Wifi, LogIn, Activity, MapPin, Clock, CalendarDays } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -18,7 +18,7 @@ import { usePermission } from '@/hooks/usePermission';
 import { useDictItems } from '@/hooks/useDictItems';
 const AnnouncementDetailModal = /* @__PURE__ */ lazy(() => import('@/components/AnnouncementDetailModal'));
 import { UserAvatar } from '@/components/UserAvatar';
-import type { DashboardCharts, DashboardStats } from '@zenith/shared/analytics';
+import type { DashboardCharts, DashboardStats } from '@arcbase/shared/analytics';
 import { useDashboardCharts, useDashboardStats } from '@/hooks/queries/dashboard';
 import {
   useMarkMyAnnouncementRead,

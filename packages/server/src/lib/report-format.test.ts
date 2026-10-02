@@ -1,8 +1,8 @@
 /**
- * 报表字段格式化 + 数据源类型谓词单测（@zenith/shared 纯函数）。
+ * 报表字段格式化 + 数据源类型谓词单测（@arcbase/shared 纯函数）。
  */
 import { describe, it, expect } from 'vitest';
-import { formatReportFieldValue, formatReportValue, isExternalDbType, isSqlLikeType } from '@zenith/shared/report';
+import { formatReportFieldValue, formatReportValue, isExternalDbType, isSqlLikeType } from '@arcbase/shared/report';
 
 describe('formatReportValue', () => {
   it('null/undefined → 空串', () => {

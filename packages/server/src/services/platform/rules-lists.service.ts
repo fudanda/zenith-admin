@@ -3,9 +3,9 @@
  */
 import { and, desc, eq, gt, inArray, isNull, or, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { ruleListSchema, type RuleListType, type RuleListCheckResult, type RuleUsageItem } from '@zenith/shared/rules';
-import { ruleListContract } from '@zenith/shared/rules';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { ruleListSchema, type RuleListType, type RuleListCheckResult, type RuleUsageItem } from '@arcbase/shared/rules';
+import { ruleListContract } from '@arcbase/shared/rules';
 import { db } from '../../db';
 import { ruleLists, ruleListItems, paymentRiskRules } from '../../db/schema';
 import { currentUser, currentUserOrNull } from '../../lib/context';

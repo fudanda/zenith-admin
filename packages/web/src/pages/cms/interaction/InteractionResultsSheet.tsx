@@ -14,8 +14,8 @@ import {
 } from '@douyinfe/semi-ui';
 import { Search } from 'lucide-react';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
-import { CMS_INTERACTION_QUESTION_TYPE_LABELS } from '@zenith/shared/cms';
-import type { CmsInteraction, CmsInteractionQuestionStats } from '@zenith/shared/cms';
+import { CMS_INTERACTION_QUESTION_TYPE_LABELS } from '@arcbase/shared/cms';
+import type { CmsInteraction, CmsInteractionQuestionStats } from '@arcbase/shared/cms';
 import {
   cmsInteractionKeys,
   useCmsInteractionCrossStats,

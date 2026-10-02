@@ -1,4 +1,4 @@
-import type { GlobalSearchType } from '@zenith/shared/platform';
+import type { GlobalSearchType } from '@arcbase/shared/platform';
 
 export type GlobalSearchMetricStatus = 'success' | 'failure' | 'timeout';
 

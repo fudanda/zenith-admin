@@ -1,5 +1,5 @@
-import { SEED_MARKETING_CAMPAIGNS, SEED_MARKETING_PRIZES } from '@zenith/shared/seed';
-import type { MarketingCampaign, MarketingParticipation, MarketingPrize } from '@zenith/shared/marketing';
+import { SEED_MARKETING_CAMPAIGNS, SEED_MARKETING_PRIZES } from '@arcbase/shared/seed';
+import type { MarketingCampaign, MarketingParticipation, MarketingPrize } from '@arcbase/shared/marketing';
 import { mockDateTime } from '@/mocks/utils/date';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 

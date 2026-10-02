@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { drivePublicShareContract, drivePublicUploadFieldsSchema } from '@zenith/shared/drive';
+import { drivePublicShareContract, drivePublicUploadFieldsSchema } from '@arcbase/shared/drive';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, errBody, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import { parseRangeHeader, rangeNotSatisfiable, supportsRange } from '../../lib/http-range';

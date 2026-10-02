@@ -1,5 +1,5 @@
-import { SEED_DECISION_FLOWS, SEED_RULE_LISTS, SEED_RULE_LIST_ITEMS, SEED_RULE_SCORECARDS } from '@zenith/shared/seed';
-import type { RuleDecisionFlow, RuleList, RuleListItem, RuleScorecard } from '@zenith/shared/rules';
+import { SEED_DECISION_FLOWS, SEED_RULE_LISTS, SEED_RULE_LIST_ITEMS, SEED_RULE_SCORECARDS } from '@arcbase/shared/seed';
+import type { RuleDecisionFlow, RuleList, RuleListItem, RuleScorecard } from '@arcbase/shared/rules';
 import { mockDateTime } from '@/mocks/utils/date';
 
 export const mockDecisionFlows: RuleDecisionFlow[] = SEED_DECISION_FLOWS.map((f) => ({

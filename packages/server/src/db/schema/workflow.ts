@@ -1,7 +1,7 @@
-import type { SignatureSnapshot } from '@zenith/shared/core';
+import type { SignatureSnapshot } from '@arcbase/shared/core';
 import { pgTable, varchar, timestamp, pgEnum, integer, bigint, boolean, unique, text, uniqueIndex, index, jsonb, smallint, real, foreignKey, check, uuid as pgUuid, type AnyPgColumn } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
-import type { WorkflowAutomationAction, WorkflowDefinitionSnapshot, WorkflowInstanceFormSnapshot, WorkflowAttachment } from '@zenith/shared/workflow';
+import type { WorkflowAutomationAction, WorkflowDefinitionSnapshot, WorkflowInstanceFormSnapshot, WorkflowAttachment } from '@arcbase/shared/workflow';
 import { timestampColumns, idColumn, statusColumn, sortColumn, remarkColumn } from './common';
 import { auditColumns, users, tenantIdColumn } from './core';
 import { managedFiles } from './files';

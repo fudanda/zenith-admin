@@ -1,7 +1,7 @@
 import { sql } from 'drizzle-orm';
 import { db } from '../../db';
 import { systemSettings } from '../../db/schema';
-import { resolveSettings, type SettingsDoc } from '@zenith/shared/settings';
+import { resolveSettings, type SettingsDoc } from '@arcbase/shared/settings';
 import type { RetentionPolicyDefinition, TenantRetentionDays } from './types';
 
 /** system_settings 中 analytics 模块的租户覆盖，平台行作为未覆盖租户的回退。 */

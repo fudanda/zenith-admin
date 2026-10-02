@@ -1,6 +1,6 @@
-import { fillPath } from '@zenith/shared/core';
+import { fillPath } from '@arcbase/shared/core';
 import { mapWorkflowFormAttachments, resolveNodeFieldPermissions, workflowAttachmentContract, workflowTaskAttachmentsSchema,
-  type WorkflowAttachment, type WorkflowFormField, type WorkflowInstance } from '@zenith/shared/workflow';
+  type WorkflowAttachment, type WorkflowFormField, type WorkflowInstance } from '@arcbase/shared/workflow';
 import { mockWorkflowInstances, mockWorkflowTasks } from '../data/workflow';
 import { currentMockSession, mockUserPermissions, type MockSession } from './auth';
 import { MockHttpError } from './contract';

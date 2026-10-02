@@ -3,7 +3,7 @@ import { check, pgTable, varchar, timestamp, pgEnum, integer, boolean, unique, u
 import { sql } from 'drizzle-orm';
 import { auditColumns, users, tenantIdColumn } from './core';
 import { managedFiles } from './files';
-import { EXPORT_JOB_FORMATS } from '@zenith/shared/tasks';
+import { EXPORT_JOB_FORMATS } from '@arcbase/shared/tasks';
 import { entitySubjectRoleEnum } from './entity-relations';
 
 export const exportJobFormatEnum = pgEnum('export_job_format', EXPORT_JOB_FORMATS);

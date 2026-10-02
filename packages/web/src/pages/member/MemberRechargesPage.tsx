@@ -1,10 +1,10 @@
 import { Tag } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { MemberRecharge, MemberRechargeStatus } from '@zenith/shared/member';
-import { MEMBER_RECHARGE_STATUSES } from '@zenith/shared/member';
-import type { PaymentChannel, PaymentOrderStatus } from '@zenith/shared/payment';
+import type { MemberRecharge, MemberRechargeStatus } from '@arcbase/shared/member';
+import { MEMBER_RECHARGE_STATUSES } from '@arcbase/shared/member';
+import type { PaymentChannel, PaymentOrderStatus } from '@arcbase/shared/payment';
 import { PAYMENT_ORDER_STATUS_TAG_COLOR } from '@/utils/payment';
-import { PAYMENT_CHANNEL_LABELS, PAYMENT_METHOD_LABELS, PAYMENT_ORDER_STATUS_LABELS } from '@zenith/shared/payment';
+import { PAYMENT_CHANNEL_LABELS, PAYMENT_METHOD_LABELS, PAYMENT_ORDER_STATUS_LABELS } from '@arcbase/shared/payment';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { ListSearchToolbar } from '@/components/list-page';
 import ExportButton from '@/components/ExportButton';

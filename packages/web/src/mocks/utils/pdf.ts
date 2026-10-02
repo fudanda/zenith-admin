@@ -12,7 +12,7 @@ export function buildDemoPdf(lines: string[]): Uint8Array {
   const content = [
     'BT',
     '/F1 18 Tf 56 780 Td',
-    `(${pdfEscape(lines[0] ?? 'Zenith Admin Demo')}) Tj`,
+    `(${pdfEscape(lines[0] ?? 'ArcBase Demo')}) Tj`,
     '/F1 11 Tf',
     ...lines.slice(1).map((line) => `0 -22 Td (${pdfEscape(line)}) Tj`),
     'ET',

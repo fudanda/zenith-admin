@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { authContract, goAuthContract, enterpriseAuthContract, oauthContract, type OAuthProviderType } from '@zenith/shared/identity';
+import { authContract, goAuthContract, enterpriseAuthContract, oauthContract, type OAuthProviderType } from '@arcbase/shared/identity';
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { api, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 

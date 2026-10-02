@@ -1,4 +1,4 @@
-import { PREFERENCES_KEY } from '@zenith/shared/core';
+import { PREFERENCES_KEY } from '@arcbase/shared/core';
 import {
   defaultPreferencePolicy,
   preferencePolicySchema,
@@ -6,7 +6,7 @@ import {
   userPreferencesDocumentSchema,
   type PreferencePolicy,
   type PreferenceOverrides,
-} from '@zenith/shared/preferences';
+} from '@arcbase/shared/preferences';
 
 /** 仅缓存新模型；服务端仍是策略与个人覆盖的权威来源。 */
 export function readPreferenceCache(): { policy: PreferencePolicy; overrides: PreferenceOverrides } {

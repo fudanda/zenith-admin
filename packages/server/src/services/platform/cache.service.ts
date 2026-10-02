@@ -1,4 +1,4 @@
-import type { CacheOverview } from '@zenith/shared/platform';
+import type { CacheOverview } from '@arcbase/shared/platform';
 import redis from '../../lib/redis';
 import { config } from '../../config';
 import { HTTPException } from 'hono/http-exception';

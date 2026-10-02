@@ -54,7 +54,7 @@ const SEAT_WARN_INTERVAL_MS = 60 * 60 * 1000;
  *  2. 租户级席位：租户 maxUsers 与套餐 quotas.maxUsers 取最小值（仅多租户模式）
  */
 export async function reserveTenantSeats(tx: DbExecutor, tenantId: number | null | undefined, adding = 1): Promise<void> {
-  await tx.execute(sql`SELECT pg_advisory_xact_lock(hashtext('zenith:user_seats'))`);
+  await tx.execute(sql`SELECT pg_advisory_xact_lock(hashtext('arcbase:user_seats'))`);
 
   // ── 1. 部署级 License 席位 ──
   if (config.licenseMode !== 'off') {

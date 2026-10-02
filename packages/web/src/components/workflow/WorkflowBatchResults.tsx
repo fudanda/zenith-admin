@@ -1,5 +1,5 @@
 import { Button, List, Space, Tag, Typography } from '@douyinfe/semi-ui';
-import type { WorkflowBatchActionResponse } from '@zenith/shared/workflow';
+import type { WorkflowBatchActionResponse } from '@arcbase/shared/workflow';
 
 /** 两端都保留逐任务结果，失败原因可以回到对应待办继续处理。 */
 export default function WorkflowBatchResults({ result, titles, onOpenTask }: Readonly<{

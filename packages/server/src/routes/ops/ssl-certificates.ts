@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { sslCertificateContract } from '@zenith/shared/ops';
+import { sslCertificateContract } from '@arcbase/shared/ops';
 import { defineContractRoute } from '../../lib/contract-route';
 import { fileBody, okBody, validationHook } from '../../lib/openapi-schemas';
 import {

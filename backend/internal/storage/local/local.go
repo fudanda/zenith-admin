@@ -1,7 +1,7 @@
 package local
 
 import (
-	"github.com/fudanda/zenith-admin/backend/internal/storage"
+	"github.com/fudanda/arcbase/backend/internal/storage"
 	"os"
 )
 

@@ -1,4 +1,4 @@
-import { directorySyncContract, directorySyncSourceContract, type DirectorySyncSource } from '@zenith/shared/identity';
+import { directorySyncContract, directorySyncSourceContract, type DirectorySyncSource } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

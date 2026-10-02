@@ -1,4 +1,4 @@
-import { createCmsSiteSchema } from '@zenith/shared/cms';
+import { createCmsSiteSchema } from '@arcbase/shared/cms';
 import { HTTPException } from 'hono/http-exception';
 
 export function parseCmsImportSiteCode(value: unknown): string {

@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { iotDeviceGroupContract } from '@zenith/shared/iot';
+import type { QueryOf } from '@arcbase/shared/core';
+import { iotDeviceGroupContract } from '@arcbase/shared/iot';
 import { createResourceQueries } from '@/lib/contract-query';
 import { iotDeviceKeys } from './iot-devices';
 

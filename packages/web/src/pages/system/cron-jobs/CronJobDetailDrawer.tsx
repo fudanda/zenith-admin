@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Descriptions, Empty, SideSheet, Spin, Tag, Typography } from '@douyinfe/semi-ui';
-import type { CronJobDetailStats, CronJobRunPoint } from '@zenith/shared/platform';
-import { CRON_RUN_TRIGGER_LABELS, cronSuccessRatePercent } from '@zenith/shared/platform';
+import type { CronJobDetailStats, CronJobRunPoint } from '@arcbase/shared/platform';
+import { CRON_RUN_TRIGGER_LABELS, cronSuccessRatePercent } from '@arcbase/shared/platform';
 import dayjs from 'dayjs';
 import {
   BarChart,

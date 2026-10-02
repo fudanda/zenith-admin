@@ -7,7 +7,7 @@ import { currentUser } from '../../lib/context';
 import { formatTimestamps } from '../../lib/datetime';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import type { AiHttpToolRow } from '../../db/schema';
-import type { CreateAiHttpToolInput, UpdateAiHttpToolInput } from '@zenith/shared/ai';
+import type { CreateAiHttpToolInput, UpdateAiHttpToolInput } from '@arcbase/shared/ai';
 
 /** 与内置工具冲突的保留名 */
 const RESERVED_TOOL_NAMES = new Set(['get_current_time', 'get_my_ai_usage', 'get_system_overview', 'generate_image']);

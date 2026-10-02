@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { Input, Toast, Typography, List as SemiList } from '@douyinfe/semi-ui';
 import AppModal from '@/components/AppModal';
 import { Search, CheckSquare, Square } from 'lucide-react';
-import { chatContract } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import { UserAvatar } from '@/components/UserAvatar';
 import { useChatUsers } from '@/hooks/queries/chat';
 import { usePinyinReady } from '@/hooks/usePinyinReady';
 import { textMatches } from '@/utils/pinyin';
 import { useDebouncedValue } from '@tanstack/react-pacer';
-import type { ChatConversation } from '@zenith/shared/chat';
+import type { ChatConversation } from '@arcbase/shared/chat';
 import type { ChatUser } from '../types';
 
 const { Text } = Typography;

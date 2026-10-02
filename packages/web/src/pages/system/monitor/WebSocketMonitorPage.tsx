@@ -23,7 +23,7 @@ import {
   type MonitorWsMessage,
   type MonitorWsNode,
   type WsTopicDirectionStat,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import WsTopologyView, { type WsNodeRate } from './WsTopologyView';
 import './WebSocketMonitorPage.css';
 

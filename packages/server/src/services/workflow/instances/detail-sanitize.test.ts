@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { sanitizeDetailFormDataForViewer } from './queries';
-import type { WorkflowFlowData } from '@zenith/shared/workflow';
+import type { WorkflowFlowData } from '@arcbase/shared/workflow';
 
 type Row = Parameters<typeof sanitizeDetailFormDataForViewer>[0];
 

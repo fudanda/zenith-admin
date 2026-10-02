@@ -1,5 +1,5 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { cmsTelemetryPageContextSchema, type CmsTelemetryPageContext, type CmsTelemetryConfig } from '@zenith/shared/cms';
+import { cmsTelemetryPageContextSchema, type CmsTelemetryPageContext, type CmsTelemetryConfig } from '@arcbase/shared/cms';
 import { createSignedTokenCodec } from '../../lib/signed-token';
 
 const codec = createSignedTokenCodec<CmsTelemetryPageContext>({ purpose: 'cms-telemetry-v2-page' });

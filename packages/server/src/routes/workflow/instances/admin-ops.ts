@@ -1,6 +1,6 @@
 import { redactWorkflowSignatureImages } from '../../../services/workflow/instances/signature-audit';
 // ─── 管理员强制操作与令牌运维 ───
-import { workflowInstanceOpsContract, workflowTaskContract } from '@zenith/shared/workflow';
+import { workflowInstanceOpsContract, workflowTaskContract } from '@arcbase/shared/workflow';
 import { setAuditAfterData, setAuditBeforeData } from '../../../middleware/guard';
 import { idempotencyGuard } from '../../../middleware/idempotency';
 import { defineContractRoute } from '../../../lib/contract-route';

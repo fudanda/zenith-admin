@@ -1,6 +1,6 @@
 import { upgradeWebSocket } from '@hono/node-server';
-import { licensingContract } from '@zenith/shared/licensing';
-import { settingsContract } from '@zenith/shared/settings';
+import { licensingContract } from '@arcbase/shared/licensing';
+import { settingsContract } from '@arcbase/shared/settings';
 import {
   cacheContract,
   dataMaskContract,
@@ -21,14 +21,14 @@ import {
   entityRelationsContract,
   entityTimelineContract,
   entityWatchContract,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import {
   decisionFlowContract,
   decisionTableContract,
   ruleExecutionContract,
   ruleListContract,
   ruleScorecardContract,
-} from '@zenith/shared/rules';
+} from '@arcbase/shared/rules';
 import { defineRouteDomain } from '../_kit';
 import cacheRoutes from './cache';
 import dataMaskRoutes from './data-mask';

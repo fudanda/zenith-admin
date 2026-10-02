@@ -1,5 +1,5 @@
-import { resourceKeyOf } from '@zenith/shared/core';
-import { asyncTaskContract, importJobContract } from '@zenith/shared/tasks';
+import { resourceKeyOf } from '@arcbase/shared/core';
+import { asyncTaskContract, importJobContract } from '@arcbase/shared/tasks';
 import { contractKey, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { request } from '@/utils/request';
 import { asyncTaskKeys } from './async-tasks';

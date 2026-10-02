@@ -1,7 +1,7 @@
 import { and, asc, desc, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { paymentChannelAccountContract, paymentChannelAccountSchema } from '@zenith/shared/payment';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { paymentChannelAccountContract, paymentChannelAccountSchema } from '@arcbase/shared/payment';
 import { db } from '../../db';
 import { paymentChannelAccounts, paymentChannelConfigs, type PaymentChannelAccountRow, type PaymentChannelConfigRow } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';

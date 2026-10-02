@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Form, Typography } from '@douyinfe/semi-ui';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { rmbUpper } from '@/utils/rmb';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { ValuesContext } from './contexts';

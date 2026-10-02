@@ -7,7 +7,7 @@
  */
 import { afterEach, beforeEach, describe, it, expect } from 'vitest';
 import { Hono } from 'hono';
-import { REPORTED_CLIENT_LABEL_MAX_LENGTH } from '@zenith/shared/core';
+import { REPORTED_CLIENT_LABEL_MAX_LENGTH } from '@arcbase/shared/core';
 import { getClientInfo, getClientIp, parseUserAgent, resolveReportedClient, resolveRequestClient } from './request-helpers';
 import { config } from '../config';
 
@@ -168,7 +168,7 @@ describe('resolveReportedClient', () => {
     expect(os).toBe('Y');
   });
 
-  it('超长自报值截断到列宽（登录体有契约把关，X-Zenith-Os 头没有）', () => {
+  it('超长自报值截断到列宽（登录体有契约把关，X-ArcBase-Os 头没有）', () => {
     const long = 'W'.repeat(5000);
     // 自报头与登录体最终都汇到这里，构造超长值不能把会话事实撑坏
     const { browser, os } = resolveReportedClient({ browser: long, os: long }, CHROME_WIN_UA);

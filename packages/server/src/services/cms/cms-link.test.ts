@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
-import { buildCmsChannelCodeLink, buildCmsEntityLink, buildCmsInternalLink, isCmsEntityLink, isCmsSiteLink, isValidCmsLink, parseCmsLink, remapCmsEntityLink } from '@zenith/shared/cms';
+import { buildCmsChannelCodeLink, buildCmsEntityLink, buildCmsInternalLink, isCmsEntityLink, isCmsSiteLink, isValidCmsLink, parseCmsLink, remapCmsEntityLink } from '@arcbase/shared/cms';
 
 describe('CMS 链接协议', () => {
   it('按 scheme 分层解析实体引用 / 站内路径 / 站外链接', () => {

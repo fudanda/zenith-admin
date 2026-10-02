@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/apikey"
+	"github.com/fudanda/arcbase/backend/ent/apikey"
 )
 
 // APIKey is the model entity for the APIKey schema.

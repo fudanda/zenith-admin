@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { cmsWorkbenchContract } from '@zenith/shared/cms';
+import { cmsWorkbenchContract } from '@arcbase/shared/cms';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getCmsConfigurationDraftLink, renderCmsWorkbenchPreview } from '../../services/cms/cms-workbench-preview.service';

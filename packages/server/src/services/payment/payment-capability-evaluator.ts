@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { PAYMENT_METHOD_CHANNEL } from '@zenith/shared/payment';
-import type { PaymentMethod } from '@zenith/shared/payment';
+import { PAYMENT_METHOD_CHANNEL } from '@arcbase/shared/payment';
+import type { PaymentMethod } from '@arcbase/shared/payment';
 import { config } from '../../config';
 import { db } from '../../db';
 import { exactTenantCondition } from '../../lib/tenant';

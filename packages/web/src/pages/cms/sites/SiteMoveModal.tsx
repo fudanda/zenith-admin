@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Banner, Select, Toast } from '@douyinfe/semi-ui';
 import AppModal from '@/components/AppModal';
 import { useAllCmsSites, useMoveCmsSite } from '@/hooks/queries/cms';
-import type { CmsSite } from '@zenith/shared/cms';
+import type { CmsSite } from '@arcbase/shared/cms';
 import { collectFlatSiteDescendantIds, siteIndentOptions } from './site-tree-utils';
 
 interface SiteMoveModalProps {

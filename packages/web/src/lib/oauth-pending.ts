@@ -1,6 +1,6 @@
-import type { OAuthPendingState } from '@zenith/shared/identity';
+import type { OAuthPendingState } from '@arcbase/shared/identity';
 
-const STORAGE_KEY = 'zenith_oauth_pending';
+const STORAGE_KEY = 'arcbase_oauth_pending';
 
 /**
  * 第三方登录 / 绑定的往返上下文：跳转到提供方前写入 sessionStorage，回调页读出并与 URL 里的 `state` 比对。

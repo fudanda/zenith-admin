@@ -5,7 +5,7 @@
  * 广播成本可忽略，避免自建订阅注册表）；按「帧类型 × 设备」300ms 节流，
  * 与任务中心推送口径一致。失败静默——实时推送是纯增强，轮询兜底仍在。
  */
-import type { WsMessage } from '@zenith/shared/platform';
+import type { WsMessage } from '@arcbase/shared/platform';
 import { broadcast } from '../../lib/ws-manager';
 import logger from '../../lib/logger';
 

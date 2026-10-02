@@ -1,6 +1,6 @@
 import { and, asc, eq, isNull } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { isOrphanedDriveSpace, type HandoffDriveSpaceInput } from '@zenith/shared/drive';
+import { isOrphanedDriveSpace, type HandoffDriveSpaceInput } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveNodes, driveSpaces, roles, userRoles, users } from '../../db/schema';
 import { requireRow } from '../../lib/db-assert';

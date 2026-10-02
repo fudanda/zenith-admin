@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { cmsTagContract } from '@zenith/shared/cms';
+import type { QueryOf } from '@arcbase/shared/core';
+import { cmsTagContract } from '@arcbase/shared/cms';
 import { contractKey, createResourceQueries, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

@@ -4,8 +4,8 @@ import { Monitor as MonitorIcon } from 'lucide-react';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
-import { TOKEN_KEY } from '@zenith/shared/core';
-import { wsAuthProtocols } from '@zenith/shared/platform';
+import { TOKEN_KEY } from '@arcbase/shared/core';
+import { wsAuthProtocols } from '@arcbase/shared/platform';
 import '@xterm/xterm/css/xterm.css';
 import { config } from '@/config';
 import { usePermission } from '@/hooks/usePermission';
@@ -22,7 +22,7 @@ import {
   useTerminateTerminalSession,
   useTerminalSessionList,
 } from '@/hooks/queries/terminal';
-import type { TerminalSession, TerminalSessionKind } from '@zenith/shared/ops';
+import type { TerminalSession, TerminalSessionKind } from '@arcbase/shared/ops';
 import { FilterSelect, KeywordInput } from '@/components/search-filters';
 import { confirmDanger } from '@/utils/confirm';
 import { useFilterQuery } from '@/hooks/useFilterQuery';

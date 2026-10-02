@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Banner, Button, Empty, Select, Space, Spin, Tag, Typography } from '@douyinfe/semi-ui';
-import type { WorkflowBusinessContext, WorkflowBusinessPreview } from '@zenith/shared/workflow';
+import type { WorkflowBusinessContext, WorkflowBusinessPreview } from '@arcbase/shared/workflow';
 import { formatDateTime } from '@/utils/date';
 import WorkflowProcessLayout from './WorkflowProcessLayout';
 import WorkflowInstanceDetailPanel from './WorkflowInstanceDetailPanel';

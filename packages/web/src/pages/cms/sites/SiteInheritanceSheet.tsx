@@ -5,8 +5,8 @@
 import { useEffect, useState } from 'react';
 import { Banner, SideSheet, Space, Switch, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import { useCmsSiteEffectiveConfig, useCmsSiteInheritanceChain, useUpdateCmsSiteInheritance } from '@/hooks/queries/cms';
-import { CMS_SITE_INHERITABLE_FIELD_LABELS, CMS_SITE_INHERITABLE_FIELDS } from '@zenith/shared/cms';
-import type { CmsSite, CmsSiteInheritanceFlags } from '@zenith/shared/cms';
+import { CMS_SITE_INHERITABLE_FIELD_LABELS, CMS_SITE_INHERITABLE_FIELDS } from '@arcbase/shared/cms';
+import type { CmsSite, CmsSiteInheritanceFlags } from '@arcbase/shared/cms';
 import { displayEffectiveValue } from './site-tree-utils';
 import ModalFooter from '@/components/ModalFooter';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';

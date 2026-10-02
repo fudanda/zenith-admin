@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { TreeSelect } from '@douyinfe/semi-ui';
 import type { CSSProperties } from 'react';
-import type { Department } from '@zenith/shared/identity';
+import type { Department } from '@arcbase/shared/identity';
 import { useDepartmentTree } from '@/hooks/queries/departments';
 
 interface DeptTreeNode {

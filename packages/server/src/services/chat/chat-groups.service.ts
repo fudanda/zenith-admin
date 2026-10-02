@@ -7,7 +7,7 @@ import { currentUser } from '../../lib/context';
 import { requireRow } from '../../lib/db-assert';
 import { formatNullableDateTime, formatTimestamps } from '../../lib/datetime';
 import { HTTPException } from 'hono/http-exception';
-import type { ChatConversation } from '@zenith/shared/chat';
+import type { ChatConversation } from '@arcbase/shared/chat';
 import { fetchUserBrief, getUserNickname, listConversationMemberIds, requireGroupMember } from './chat-shared';
 import { appendSystemMessage } from './chat-messages.service';
 

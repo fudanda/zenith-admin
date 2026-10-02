@@ -1,7 +1,7 @@
 import { ArrayField, Button, Col, Form, Row, Space, Typography, useFormState } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
-import { getByPath } from '@zenith/shared/core';
-import { CMS_COMPONENT_FIELD_TYPES, CMS_FIELD_TYPE_LABELS, type CmsModelField } from '@zenith/shared/cms';
+import { getByPath } from '@arcbase/shared/core';
+import { CMS_COMPONENT_FIELD_TYPES, CMS_FIELD_TYPE_LABELS, type CmsModelField } from '@arcbase/shared/cms';
 import { useAllCmsModels } from '@/hooks/queries/cms-models';
 
 const options = CMS_COMPONENT_FIELD_TYPES.map((type) => ({ value: type, label: CMS_FIELD_TYPE_LABELS[type] }));

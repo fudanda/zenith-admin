@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { licensingContract } from '@zenith/shared/licensing';
+import type { QueryOf } from '@arcbase/shared/core';
+import { licensingContract } from '@arcbase/shared/licensing';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type LicenseEventListParams = NonNullable<QueryOf<typeof licensingContract.events>>;

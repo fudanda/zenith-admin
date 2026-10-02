@@ -1,5 +1,5 @@
-import { smsTemplateContract } from '@zenith/shared/messaging';
-import type { SmsTemplate } from '@zenith/shared/messaging';
+import { smsTemplateContract } from '@arcbase/shared/messaging';
+import type { SmsTemplate } from '@arcbase/shared/messaging';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { mockSmsTemplates } from '@/mocks/data/sms-templates';

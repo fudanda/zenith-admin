@@ -5,7 +5,7 @@ import { listTableProps } from '@/components/list-page';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { useState } from 'react';
 import { Copy, KeyRound, ShieldCheck, Upload } from 'lucide-react';
-import { LICENSE_FEATURE_OPTIONS, LICENSE_STATUS_LABELS, type LicenseEventItem, type LicenseStatus } from '@zenith/shared/licensing';
+import { LICENSE_FEATURE_OPTIONS, LICENSE_STATUS_LABELS, type LicenseEventItem, type LicenseStatus } from '@arcbase/shared/licensing';
 import { usePermission } from '@/hooks/usePermission';
 import { useUrlTabState } from '@/hooks/useUrlTabState';
 import { useActivateLicense, useDeactivateLicense, useLicenseEvents, useLicensingStatus } from '@/hooks/queries/licensing';

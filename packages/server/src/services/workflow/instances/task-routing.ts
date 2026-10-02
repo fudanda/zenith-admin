@@ -13,7 +13,7 @@ import { advanceAndMaterialize, checkNodeCompletion } from './materialize';
 import { emitInstanceEvent, emitNodeEvent, emitTaskEvent, lockInstanceExpecting } from './shared';
 import { assertActionButtonEnabled, assertActionUploadRequirement, getOwnPendingTask, rejectTaskCore } from './task-actions';
 import type { WorkflowTaskAttachment } from './task-actions';
-import { WORKFLOW_RETURN_TO_INITIATOR_KEY } from '@zenith/shared/workflow';
+import { WORKFLOW_RETURN_TO_INITIATOR_KEY } from '@arcbase/shared/workflow';
 import { loadTaskHandledUserIds, recordTaskTransfer, assertAssigneesNotActiveOnNode } from './transfers';
 import logger from '../../../lib/logger';
 import { bridgeReportFillWorkflowOutcome } from '../../report/report-fill-workflow-bridge.service';

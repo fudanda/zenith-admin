@@ -6,7 +6,7 @@ import {
 import { formatDateTime } from '@/utils/date';
 import { downloadBlob } from '@/utils/download';
 import { canWriteClipboardItems, copyText, copyTextWithToast } from '@/utils/clipboard';
-import type { ChatMessage, ChatMessageExtra, ChatCardAction } from '@zenith/shared/chat';
+import type { ChatMessage, ChatMessageExtra, ChatCardAction } from '@arcbase/shared/chat';
 import { getAssetMeta } from '../utils';
 import { UserAvatar } from '@/components/UserAvatar';
 import { CursorContextDropdown } from '@/components/CursorContextDropdown';

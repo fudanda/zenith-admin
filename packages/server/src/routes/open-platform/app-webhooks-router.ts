@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import type { AppWebhookContract } from '@zenith/shared/open-platform';
+import type { AppWebhookContract } from '@arcbase/shared/open-platform';
 import { setAuditAfterData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';

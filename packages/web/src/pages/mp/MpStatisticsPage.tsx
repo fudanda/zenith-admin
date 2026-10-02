@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Spin, Typography, Skeleton, Card, Button, Toast } from '@douyinfe/semi-ui';
 import { Users, UserCheck, UserMinus, Tags, Image, FileText, MessageSquare, Reply, BarChart3 } from 'lucide-react';
-import type { MpStats } from '@zenith/shared/mp';
+import type { MpStats } from '@arcbase/shared/mp';
 import { formatDateForApi, shortDate } from '@/utils/date';
 import { useMpAccounts } from './useMpAccounts';
 import { MpAccountRequiredBanner } from './MpAccountRequiredBanner';

@@ -16,8 +16,8 @@
  */
 import { and, eq } from 'drizzle-orm';
 import { randomUUID } from 'node:crypto';
-import type { CmsOpenWebhookEvent } from '@zenith/shared/cms';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import type { CmsOpenWebhookEvent } from '@arcbase/shared/cms';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import { db } from '../../db';
 import { appWebhookSubscriptions, cmsContents, cmsSites } from '../../db/schema';
 import type { CmsContentRow } from '../../db/schema';

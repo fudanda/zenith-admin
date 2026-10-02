@@ -1,5 +1,5 @@
-import type { MpAccount } from '@zenith/shared/mp';
-import { SEED_MP_ACCOUNTS } from '@zenith/shared/seed';
+import type { MpAccount } from '@arcbase/shared/mp';
+import { SEED_MP_ACCOUNTS } from '@arcbase/shared/seed';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockMpAccounts: MpAccount[] = [
@@ -7,7 +7,7 @@ export const mockMpAccounts: MpAccount[] = [
   {
     id: 3,
     name: '已认证服务号',
-    account: 'gh_zenith_demo',
+    account: 'gh_arcbase_demo',
     appId: 'wxenableddemo0003',
     appSecret: 'EnabledDemoSecret',
     token: 'enableddemotoken',

@@ -1,9 +1,9 @@
 import { FormPasswordInput } from '@/components/PasswordInput';
 import { useEffect, useState } from 'react';
 import { Button, Col, Form, Row, SideSheet, Spin, Toast, useFormState } from '@douyinfe/semi-ui';
-import type { AiModelFallbackRef, AiModelSettings, AiProviderConfig, AiReasoningLevel, SaveUserAiConfigInput, UserAiConfig } from '@zenith/shared/ai';
-import { AI_CUSTOM_PROVIDER_ID, AI_REASONING_LEVELS } from '@zenith/shared/ai';
-import { SECRET_PLACEHOLDER } from '@zenith/shared/core';
+import type { AiModelFallbackRef, AiModelSettings, AiProviderConfig, AiReasoningLevel, SaveUserAiConfigInput, UserAiConfig } from '@arcbase/shared/ai';
+import { AI_CUSTOM_PROVIDER_ID, AI_REASONING_LEVELS } from '@arcbase/shared/ai';
+import { SECRET_PLACEHOLDER } from '@arcbase/shared/core';
 import {
   useAiProviderDetail,
   useSaveAiProvider,

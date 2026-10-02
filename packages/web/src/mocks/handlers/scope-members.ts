@@ -8,7 +8,7 @@ import {
   positionContract,
   roleContract,
   userGroupContract,
-} from '@zenith/shared/identity';
+} from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { mockUsers, type MockUser } from '@/mocks/data/users';
 import { mockUserGroups } from '@/mocks/data/user-groups';

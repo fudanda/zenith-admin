@@ -1,7 +1,7 @@
 import { invalidateCmsCollectionStatus } from './cms-stats';
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { cmsReleaseContract, cmsWorkbenchContract } from '@zenith/shared/cms';
-import type { QueryOf } from '@zenith/shared/core';
+import { cmsReleaseContract, cmsWorkbenchContract } from '@arcbase/shared/cms';
+import type { QueryOf } from '@arcbase/shared/core';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateAfterCmsContentChange } from './cms-contents';
 import { invalidateCmsPublishingViews } from './cms-stage3';

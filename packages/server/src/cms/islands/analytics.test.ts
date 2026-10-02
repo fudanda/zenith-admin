@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { CmsIdentity, CMS_SESSION_IDLE_MS, cmsStoragePrefix } from '@zenith/analytics-sdk/cms-identity';
-import type { CmsTelemetryEvent } from '@zenith/shared/cms';
-import { cmsTelemetryBatchSchema } from '@zenith/shared/cms';
+import { CmsIdentity, CMS_SESSION_IDLE_MS, cmsStoragePrefix } from '@arcbase/analytics-sdk/cms-identity';
+import type { CmsTelemetryEvent } from '@arcbase/shared/cms';
+import { cmsTelemetryBatchSchema } from '@arcbase/shared/cms';
 import { getCmsAttributionContext, runAnalytics, stopCmsAnalytics } from './analytics';
 
 interface Batch { contextToken: string; events: CmsTelemetryEvent[] }

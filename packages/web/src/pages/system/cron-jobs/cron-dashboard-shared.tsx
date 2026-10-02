@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Tooltip } from '@douyinfe/semi-ui';
 import type { TagColor } from '@douyinfe/semi-ui/lib/es/tag/interface';
-import type { CronRunStatus, CronRunTrigger } from '@zenith/shared/platform';
-import { CRON_RUN_STATUS_LABELS } from '@zenith/shared/platform';
+import type { CronRunStatus, CronRunTrigger } from '@arcbase/shared/platform';
+import { CRON_RUN_STATUS_LABELS } from '@arcbase/shared/platform';
 import { cronJobKeys } from '@/hooks/queries/cron-jobs';
 import { useListSearch } from '@/hooks/useListSearch';
 import { makeMixedBarLineSpec, type ChartPalette } from '@/components/charts';

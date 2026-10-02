@@ -19,7 +19,7 @@ import {
   type RateLimitMountSource,
   type RateLimitRule,
   type RateLimitWindowUnit,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import { usePermission } from '@/hooks/usePermission';
 import { useUrlTabState } from '@/hooks/useUrlTabState';
 import { useEditModal } from '@/hooks/useEditModal';

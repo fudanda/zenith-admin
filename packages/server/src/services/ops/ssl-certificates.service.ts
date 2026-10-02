@@ -4,10 +4,10 @@ import path from 'node:path';
 import { promisify } from 'node:util';
 import { and, desc, eq, isNull, type SQL } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { GenerateSelfSignedCertInput } from '@zenith/shared/ops';
-import { sslCertificateContract } from '@zenith/shared/ops';
-import type { UploadCertSchemaInput } from '@zenith/shared/platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { GenerateSelfSignedCertInput } from '@arcbase/shared/ops';
+import { sslCertificateContract } from '@arcbase/shared/ops';
+import type { UploadCertSchemaInput } from '@arcbase/shared/platform';
 import { db } from '../../db';
 import { sslCertificates, users } from '../../db/schema';
 import type { SslCertificateRow } from '../../db/schema';
@@ -70,9 +70,9 @@ async function updateStoredCertificate(
 
 function getPreferredStorageRoot(overrideRoot?: string) {
   if (overrideRoot?.trim()) return overrideRoot.trim();
-  if (process.platform === 'win32') return 'C:\\zenith-ssl';
-  if (process.platform === 'darwin') return '/usr/local/etc/ssl/zenith';
-  return '/etc/ssl/zenith';
+  if (process.platform === 'win32') return 'C:\\arcbase-ssl';
+  if (process.platform === 'darwin') return '/usr/local/etc/ssl/arcbase';
+  return '/etc/ssl/arcbase';
 }
 
 async function ensureDir(dir: string) {

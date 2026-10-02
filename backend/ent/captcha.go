@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/captcha"
+	"github.com/fudanda/arcbase/backend/ent/captcha"
 )
 
 // Captcha is the model entity for the Captcha schema.

@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/userdepartmentscope"
+	"github.com/fudanda/arcbase/backend/ent/userdepartmentscope"
 )
 
 // UserDepartmentScopeCreate is the builder for creating a UserDepartmentScope entity.

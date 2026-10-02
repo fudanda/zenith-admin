@@ -4,8 +4,8 @@
  */
 import { Switch, Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ErrorAlertLog, ErrorAlertRule } from '@zenith/shared/analytics';
-import { ERROR_ALERT_CONDITION_LABELS } from '@zenith/shared/analytics';
+import type { ErrorAlertLog, ErrorAlertRule } from '@arcbase/shared/analytics';
+import { ERROR_ALERT_CONDITION_LABELS } from '@arcbase/shared/analytics';
 import { deleteAction } from '@/components/list-page';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { dateTimeColumn, overflowTagColumn } from '@/utils/table-columns';

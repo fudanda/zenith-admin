@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { cmsDashboardContract } from '@zenith/shared/cms';
+import { cmsDashboardContract } from '@arcbase/shared/cms';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getCmsDashboardStats } from '../../services/cms/cms-dashboard.service';

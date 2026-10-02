@@ -1,4 +1,4 @@
-import { userFeedbackContract, type UserFeedback } from '@zenith/shared/platform';
+import { userFeedbackContract, type UserFeedback } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, notFound } from '@/mocks/utils/handlers';
 import { mockUserFeedbacks, getNextUserFeedbackId } from '../data/user-feedbacks';

@@ -1,5 +1,5 @@
 import { index, integer, jsonb, pgEnum, pgTable, real, text, varchar } from 'drizzle-orm/pg-core';
-import { CMS_MEDIA_PROCESSING_STATUSES, type CmsMediaResult } from '@zenith/shared/cms';
+import { CMS_MEDIA_PROCESSING_STATUSES, type CmsMediaResult } from '@arcbase/shared/cms';
 import { idColumn, timestampColumns } from './common';
 import { auditColumns } from './core';
 import { cmsAssetVersions } from './cms-design';

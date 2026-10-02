@@ -1,8 +1,8 @@
 import { and, eq, inArray, isNull, or, sql } from 'drizzle-orm';
 import type * as z from 'zod';
 import { HTTPException } from 'hono/http-exception';
-import { cmsTelemetrySettingsSchema, type cmsTelemetryBatchSchema, type CmsTelemetryEvent, type CmsTelemetryPageContext, type CmsTelemetryResult } from '@zenith/shared/cms';
-import type { TrackEventInput } from '@zenith/shared/analytics';
+import { cmsTelemetrySettingsSchema, type cmsTelemetryBatchSchema, type CmsTelemetryEvent, type CmsTelemetryPageContext, type CmsTelemetryResult } from '@arcbase/shared/cms';
+import type { TrackEventInput } from '@arcbase/shared/analytics';
 import { db } from '../../db';
 import { cmsSites, cmsDeployments, cmsTelemetryReceipts, userEvents, analyticsSites, cmsContents } from '../../db/schema';
 import { config } from '../../config';

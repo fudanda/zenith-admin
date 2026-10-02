@@ -6,7 +6,7 @@ import type { ChatQuickReplyRow } from '../../db/schema/chat';
 import { currentUser } from '../../lib/context';
 import { requireRow } from '../../lib/db-assert';
 import { formatTimestamps } from '../../lib/datetime';
-import type { ChatQuickReply } from '@zenith/shared/chat';
+import type { ChatQuickReply } from '@arcbase/shared/chat';
 
 const MAX_QUICK_REPLIES = 50;
 

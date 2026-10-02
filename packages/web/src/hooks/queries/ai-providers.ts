@@ -1,7 +1,7 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import { aiChatModelContract, aiProviderContract } from '@zenith/shared/ai';
-import type { CreateAiProviderConfigInput } from '@zenith/shared/ai';
-import { resourceKeyOf, type BodyOf } from '@zenith/shared/core';
+import { aiChatModelContract, aiProviderContract } from '@arcbase/shared/ai';
+import type { CreateAiProviderConfigInput } from '@arcbase/shared/ai';
+import { resourceKeyOf, type BodyOf } from '@arcbase/shared/core';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

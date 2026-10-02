@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Tag, Toast } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { useNavigate } from 'react-router-dom';
-import { WORKFLOW_FORM_STATUS_LABELS, type WorkflowForm, type WorkflowFormStatus } from '@zenith/shared/workflow';
+import { WORKFLOW_FORM_STATUS_LABELS, type WorkflowForm, type WorkflowFormStatus } from '@arcbase/shared/workflow';
 import { usePermission } from '@/hooks/usePermission';
 import { useDictItems } from '@/hooks/useDictItems';
 import { useWorkflowCategories } from '@/hooks/useWorkflowCategories';

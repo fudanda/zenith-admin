@@ -17,8 +17,8 @@ import {
   useSaveReportDatasource,
   useTestReportDatasourceConnection,
 } from '@/hooks/queries/report-datasources';
-import { reportDatasourceContract, type ReportDatasource, type ReportDatasourceType, type ReportApiDatasourceConfig, type ReportExternalDbConfig } from '@zenith/shared/report';
-import { REPORT_DATASOURCE_TYPE_OPTIONS, isExternalDbType } from '@zenith/shared/report';
+import { reportDatasourceContract, type ReportDatasource, type ReportDatasourceType, type ReportApiDatasourceConfig, type ReportExternalDbConfig } from '@arcbase/shared/report';
+import { REPORT_DATASOURCE_TYPE_OPTIONS, isExternalDbType } from '@arcbase/shared/report';
 import { useDictItems } from '@/hooks/useDictItems';
 import { renderReportDatasourceTypeTag } from './report-datasource-ui';
 import { ReportFolderFilter, ReportOwnerFilter } from './report-filters';

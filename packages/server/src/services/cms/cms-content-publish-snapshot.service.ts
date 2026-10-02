@@ -1,5 +1,5 @@
 import { and, eq, sql } from 'drizzle-orm';
-import type { CmsContentPublishSnapshot } from '@zenith/shared/cms';
+import type { CmsContentPublishSnapshot } from '@arcbase/shared/cms';
 import type { DbExecutor } from '../../db/types';
 import {
   asyncTasks,

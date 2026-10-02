@@ -1,5 +1,5 @@
-import { chatContract } from '@zenith/shared/chat';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { chatContract } from '@arcbase/shared/chat';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { searchGlobalMessages } from '../../../chat/chat-messages.service';
 import type { GlobalSearchAdapter } from '../types';
 import { result } from '../helpers';

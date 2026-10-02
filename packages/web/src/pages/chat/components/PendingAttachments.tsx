@@ -2,7 +2,7 @@ import { Button } from '@douyinfe/semi-ui';
 import { X } from 'lucide-react';
 import { getFileTypeIcon } from '@/utils/file-utils';
 import type { PendingFile, PendingImage, Setter } from '../types';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 /** 待发送附件条：图片缩略图 + 文件卡片（自 ChatPage 原样搬移） */
 export function PendingAttachments({

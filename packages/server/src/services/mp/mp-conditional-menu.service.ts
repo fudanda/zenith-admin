@@ -10,7 +10,7 @@ import {
   type WechatMenuMatchRule,
 } from '../../lib/wechat';
 import { mapWechatError } from '../../lib/wechat-error';
-import { mpConditionalMenuSchema, type MpConditionalMenu, type MpMenuButton, type MpMenuMatchRule, type CreateMpConditionalMenuInput, type UpdateMpConditionalMenuInput } from '@zenith/shared/mp';
+import { mpConditionalMenuSchema, type MpConditionalMenu, type MpMenuButton, type MpMenuMatchRule, type CreateMpConditionalMenuInput, type UpdateMpConditionalMenuInput } from '@arcbase/shared/mp';
 import { pickEntity } from '../../lib/entity-map';
 
 export function mapMpConditionalMenu(row: MpConditionalMenuRow): MpConditionalMenu {

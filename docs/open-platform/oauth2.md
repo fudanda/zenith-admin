@@ -18,14 +18,14 @@ OAuth2 标准端点挂载在 `/api/oauth2`。授权码流程强制 PKCE S256，�
 sequenceDiagram
     participant Client as 第三方应用
     participant User as 登录用户
-    participant Zenith as Zenith Admin
+    participant ArcBase as ArcBase
 
-    Client->>Zenith: GET /api/oauth2/authorize/info
-    Zenith-->>Client: 应用与 Scope 展示信息
-    User->>Zenith: POST /api/oauth2/authorize
-    Zenith-->>Client: redirectUrl?code=...
-    Client->>Zenith: POST /api/oauth2/token grant_type=authorization_code
-    Zenith-->>Client: access_token / refresh_token
+    Client->>ArcBase: GET /api/oauth2/authorize/info
+    ArcBase-->>Client: 应用与 Scope 展示信息
+    User->>ArcBase: POST /api/oauth2/authorize
+    ArcBase-->>Client: redirectUrl?code=...
+    Client->>ArcBase: POST /api/oauth2/token grant_type=authorization_code
+    ArcBase-->>Client: access_token / refresh_token
 ```
 
 ### 获取授权页信息

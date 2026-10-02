@@ -3,12 +3,12 @@ import { Button, Card, Switch, TextArea, Toast, Spin, Typography, Tabs, TabPane,
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { ListSearchToolbar } from '@/components/list-page';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { type IpAccessLog, ipAccessLogContract } from '@zenith/shared/platform';
+import { type IpAccessLog, ipAccessLogContract } from '@arcbase/shared/platform';
 import { usePermission } from '@/hooks/usePermission';
 import { dateTimeColumn, renderEllipsis } from '../../../utils/table-columns';
 import { useIpAccessLogs } from '@/hooks/queries/ip-access';
 import { useSaveSettings, useSettings } from '@/hooks/queries/settings';
-import { isIpOrCidr, type IpAccessSettings } from '@zenith/shared/settings';
+import { isIpOrCidr, type IpAccessSettings } from '@arcbase/shared/settings';
 import { ApiError } from '@/lib/query';
 
 import { useUrlTabState } from '@/hooks/useUrlTabState';

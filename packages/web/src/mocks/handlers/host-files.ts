@@ -1,5 +1,5 @@
 import { HttpResponse } from 'msw';
-import { hostFileContract, type SftpFileEntry } from '@zenith/shared/ops';
+import { hostFileContract, type SftpFileEntry } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 import { removeWhere } from '@/mocks/utils/array';
 import { mockDateTime } from '@/mocks/utils/date';

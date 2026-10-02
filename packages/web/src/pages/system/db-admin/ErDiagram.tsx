@@ -14,7 +14,7 @@ import {
 } from '@xyflow/react';
 import { AutoComplete, Button, Switch, Space, Tooltip, Toast } from '@douyinfe/semi-ui';
 import { Download, Search } from 'lucide-react';
-import type { DbAdminErColumn, DbAdminErDiagramFk, DbAdminErSchema, DbAdminErTable } from '@zenith/shared/ops';
+import type { DbAdminErColumn, DbAdminErDiagramFk, DbAdminErSchema, DbAdminErTable } from '@arcbase/shared/ops';
 import { ThemedReactFlow } from '@/components/ThemedReactFlow';
 import { useGraphSelectionHighlight } from '@/hooks/useGraphSelectionHighlight';
 import { layoutWithDagre } from '@/utils/graph-layout';

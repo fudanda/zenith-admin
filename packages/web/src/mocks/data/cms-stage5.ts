@@ -1,6 +1,6 @@
-import type { CmsDistributionRule, CmsDistributionRun } from '@zenith/shared/cms';
-import { SEED_CMS_DISTRIBUTION_RULES, SEED_CMS_DISTRIBUTION_TASK_ITEMS, SEED_CMS_DISTRIBUTION_TASKS } from '@zenith/shared/seed';
-import type { AsyncTaskItem } from '@zenith/shared/tasks';
+import type { CmsDistributionRule, CmsDistributionRun } from '@arcbase/shared/cms';
+import { SEED_CMS_DISTRIBUTION_RULES, SEED_CMS_DISTRIBUTION_TASK_ITEMS, SEED_CMS_DISTRIBUTION_TASKS } from '@arcbase/shared/seed';
+import type { AsyncTaskItem } from '@arcbase/shared/tasks';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockCmsDistributionRules: CmsDistributionRule[] =
@@ -23,9 +23,9 @@ export const mockCmsDistributionRuns: CmsDistributionRun[] =
       ruleId: Number(task.payload.ruleId),
       ruleName: SEED_CMS_DISTRIBUTION_RULES.find((rule) => rule.id === Number(task.payload.ruleId))?.name ?? null,
       sourceSiteId: Number(task.payload.sourceSiteId),
-      sourceSiteName: 'Zenith 官方网站',
+      sourceSiteName: 'ArcBase 官方网站',
       targetSiteId: Number(task.payload.targetSiteId),
-      targetSiteName: 'Zenith 技术子站',
+      targetSiteName: 'ArcBase 技术子站',
       trigger: task.payload.trigger as CmsDistributionRun['trigger'],
       succeeded: Number(result.succeeded),
       skipped: Number(result.skipped),

@@ -2,7 +2,7 @@ import { useCallback, useState, type ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { AppModal } from '@/components/AppModal';
 import { Button, Input, Popconfirm, Space, Tag, Typography } from '@douyinfe/semi-ui';
-import { workflowQuickPhraseContract, type WorkflowQuickPhrase } from '@zenith/shared/workflow';
+import { workflowQuickPhraseContract, type WorkflowQuickPhrase } from '@arcbase/shared/workflow';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { CreateButton } from '@/components/toolbar-controls';
 

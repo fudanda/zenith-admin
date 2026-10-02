@@ -3,7 +3,7 @@ import { useDebouncer } from '@tanstack/react-pacer';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Banner, Button, Checkbox, Input, Modal, Select, Space, TextArea, Toast, Typography } from '@douyinfe/semi-ui';
 import { ArrowLeft, Eye, EyeOff, HardDrive, Save, Send } from 'lucide-react';
-import type { WikiDoc } from '@zenith/shared/wiki';
+import type { WikiDoc } from '@arcbase/shared/wiki';
 import MarkdownPreviewPanel from '@/components/MarkdownPreviewPanel';
 import PageLoading from '@/components/PageLoading';
 import FileAttachment, { type AttachmentItem } from '@/components/FileAttachment';

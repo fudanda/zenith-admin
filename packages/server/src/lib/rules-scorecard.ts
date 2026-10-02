@@ -9,7 +9,7 @@ import type {
   RuleScorecardGrade,
   RuleScorecardVariable,
   RuleScorecardVariableTrace,
-} from '@zenith/shared/rules';
+} from '@arcbase/shared/rules';
 import { evaluateExpression } from './workflow-expression';
 
 export interface ScorecardLike {

@@ -1,5 +1,5 @@
-import { iotOtaTaskContract, iotOtaTaskDeviceSchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotOtaTaskContract, iotOtaTaskDeviceSchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT OTA 升级：任务创建 / 设备状态机 / 协议下发 / 版本确认 / 超时收敛。
  *
@@ -11,8 +11,8 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  */
 import { HTTPException } from 'hono/http-exception';
 import { and, count, desc, eq, inArray, lt, lte, sql, type SQL } from 'drizzle-orm';
-import type { CreateIotOtaTaskInput, IotOtaPayload, IotOtaProgressInput } from '@zenith/shared/iot';
-import { IOT_BATCH_DEVICE_MAX } from '@zenith/shared/iot';
+import type { CreateIotOtaTaskInput, IotOtaPayload, IotOtaProgressInput } from '@arcbase/shared/iot';
+import { IOT_BATCH_DEVICE_MAX } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import {
   iotDevices, iotDeviceState, iotFirmwares, iotOtaTaskDevices, iotOtaTasks, iotProducts,

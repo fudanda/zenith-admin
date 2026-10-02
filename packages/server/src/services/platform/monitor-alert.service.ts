@@ -3,7 +3,7 @@
  * 评估器由 pg-boss 定时任务（默认每 30 秒）调用，针对指标即时值判定阈值，
  * 支持「持续 N 分钟超阈才触发」抑制毛刺，并在指标恢复后自动解除告警。
  *
- * 指标全集与标签/单位/租户口径由 `@zenith/shared/platform` 的 MONITOR_METRIC_META 单点定义，
+ * 指标全集与标签/单位/租户口径由 `@arcbase/shared/platform` 的 MONITOR_METRIC_META 单点定义，
  * 取值由 `monitor-history.service` 汇总各域的告警指标源；新增指标不需要改动本文件。
  */
 import { and, eq, desc, gte, inArray, sql } from 'drizzle-orm';
@@ -11,9 +11,9 @@ import { HTTPException } from 'hono/http-exception';
 import { db } from '../../db';
 import { monitorAlertRules, monitorAlertEvents, users } from '../../db/schema';
 import type { MonitorAlertRuleRow, MonitorAlertEventRow } from '../../db/schema';
-import type { CreateMonitorAlertRuleInput, UpdateMonitorAlertRuleInput, MonitorAlertRuleQuery, MonitorAlertEventQuery, HandleMonitorAlertEventInput, MonitorAlertOverview, MonitorAlertOverviewRange, MonitorMetric, MonitorAlertOperator } from '@zenith/shared/platform';
-import { MONITOR_ALERT_LEVELS, MONITOR_METRIC_META, formatMonitorMetricValue } from '@zenith/shared/platform';
-import { compareNumber, uniquePositiveInts } from '@zenith/shared/core';
+import type { CreateMonitorAlertRuleInput, UpdateMonitorAlertRuleInput, MonitorAlertRuleQuery, MonitorAlertEventQuery, HandleMonitorAlertEventInput, MonitorAlertOverview, MonitorAlertOverviewRange, MonitorMetric, MonitorAlertOperator } from '@arcbase/shared/platform';
+import { MONITOR_ALERT_LEVELS, MONITOR_METRIC_META, formatMonitorMetricValue } from '@arcbase/shared/platform';
+import { compareNumber, uniquePositiveInts } from '@arcbase/shared/core';
 import { tenantScope, currentCreateTenantId } from '../../lib/tenant';
 import { currentUserId, currentUsername } from '../../lib/context';
 import { buildWhere, dateRangeConditions, keywordCondition, withPagination } from '../../lib/where-helpers';

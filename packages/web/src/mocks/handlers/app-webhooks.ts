@@ -1,5 +1,5 @@
-import { appWebhookContract, paymentWebhookContract, OPEN_WEBHOOK_EVENTS, OPEN_WEBHOOK_EVENT_LABELS, PAYMENT_WEBHOOK_EVENTS } from '@zenith/shared/open-platform';
-import type { AppWebhookContract, AppWebhookSubscription, AppWebhookDelivery } from '@zenith/shared/open-platform';
+import { appWebhookContract, paymentWebhookContract, OPEN_WEBHOOK_EVENTS, OPEN_WEBHOOK_EVENT_LABELS, PAYMENT_WEBHOOK_EVENTS } from '@arcbase/shared/open-platform';
+import type { AppWebhookContract, AppWebhookSubscription, AppWebhookDelivery } from '@arcbase/shared/open-platform';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, notFound, nextIdFrom } from '@/mocks/utils/handlers';
 import { mockWebhookSubscriptions, mockWebhookDeliveries } from '@/mocks/data/app-webhooks';
@@ -25,7 +25,7 @@ function policyError(input: {
 }): string | null {
   const reservedHeader = Object.keys(input.headers ?? {}).find((key) => {
     const normalized = key.trim().toLowerCase();
-    return normalized === 'content-type' || normalized.startsWith('x-zenith-');
+    return normalized === 'content-type' || normalized.startsWith('x-arcbase-');
   });
   if (reservedHeader) return `自定义请求头不能覆盖保留头：${reservedHeader}`;
   if ((input.events ?? []).some((event) => sensitiveEvents.has(event)) && input.signMode !== 'hmacSha256') {

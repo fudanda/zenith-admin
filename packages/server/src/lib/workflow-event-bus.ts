@@ -11,7 +11,7 @@
  */
 import { EventEmitter } from 'node:events';
 import { randomUUID } from 'node:crypto';
-import type { WorkflowEvent, WorkflowEventType, WorkflowInstanceEventPayload, WorkflowNodeEventPayload, WorkflowTaskEventPayload } from '@zenith/shared/workflow';
+import type { WorkflowEvent, WorkflowEventType, WorkflowInstanceEventPayload, WorkflowNodeEventPayload, WorkflowTaskEventPayload } from '@arcbase/shared/workflow';
 import logger from './logger';
 import { captureException } from './error-tracking/reporter';
 import { formatDateTime } from './datetime';
@@ -20,8 +20,8 @@ import { currentTraceId } from './context';
 import type { DbExecutor, DbTransaction } from '../db/types';
 import { db } from '../db';
 import { recordDomainEvent } from '../services/platform/relations/events.service';
-import { getDomainEventDefinition, type DomainEventType } from '@zenith/shared/platform';
-import type { SubjectRef } from '@zenith/shared/core';
+import { getDomainEventDefinition, type DomainEventType } from '@arcbase/shared/platform';
+import type { SubjectRef } from '@arcbase/shared/core';
 import { currentWorkflowJobContext, deferWorkflowJobEffect } from './workflow-jobs/execution-context';
 
 type EventHandler<E extends WorkflowEvent = WorkflowEvent> = (event: E) => void | Promise<void>;

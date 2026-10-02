@@ -1,5 +1,5 @@
 import { OpenAPIHono, z } from '@hono/zod-openapi';
-import { ANALYTICS_SITE_KEY_HEADER, analyticsContract } from '@zenith/shared/analytics';
+import { ANALYTICS_SITE_KEY_HEADER, analyticsContract } from '@arcbase/shared/analytics';
 import { optionalAuthMiddleware } from '../../middleware/optional-auth';
 import { namedRateLimit } from '../../middleware/rate-limit';
 import { defineContractRoute } from '../../lib/contract-route';

@@ -1,5 +1,5 @@
 import { and, eq } from 'drizzle-orm';
-import { mpKfAccountContract, mpKfAccountSchema } from '@zenith/shared/mp';
+import { mpKfAccountContract, mpKfAccountSchema } from '@arcbase/shared/mp';
 import { db } from '../../db';
 import { mpKfAccounts } from '../../db/schema';
 import { defineCrudService } from '../../lib/crud-service';

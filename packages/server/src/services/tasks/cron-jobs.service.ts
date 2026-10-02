@@ -2,7 +2,7 @@ import { buildListResult, listRows } from '../../lib/list-query';
 import { requireRow } from '../../lib/db-assert';
 import { eq, and, desc, gte, inArray, lt, sql, type SQL } from 'drizzle-orm';
 import { CronExpressionParser } from 'cron-parser';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import type {
   CronJobAlert,
   CronJobDetailStats,
@@ -12,7 +12,7 @@ import type {
   CronJobStatsPerJob,
   CronJobUpcomingRun,
   CronRunStatus,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import {
   cronJobContract,
   cronJobSchema,
@@ -26,7 +26,7 @@ import {
   isCronRunningTimeout,
   isCronSlowTail,
   toMinuteCron,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import { buildWhere, dateRangeConditions, withPagination, keywordCondition } from '../../lib/where-helpers';
 import { db, readSnapshot } from '../../db';
 import type { DbTransaction } from '../../db/types';

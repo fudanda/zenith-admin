@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useDebouncedValue } from '@tanstack/react-pacer';
-import type { QueryOf } from '@zenith/shared/core';
+import type { QueryOf } from '@arcbase/shared/core';
 import {
   reportCategoryContract,
   reportDashboardContract,
@@ -8,7 +8,7 @@ import {
   reportDatasourceContract,
   reportPrintContract,
   type ReportLookupOption,
-} from '@zenith/shared/report';
+} from '@arcbase/shared/report';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

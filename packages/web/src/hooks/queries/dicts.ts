@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { dictContract } from '@zenith/shared/platform';
+import type { QueryOf } from '@arcbase/shared/core';
+import { dictContract } from '@arcbase/shared/platform';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type DictListParams = NonNullable<QueryOf<typeof dictContract.list>>;

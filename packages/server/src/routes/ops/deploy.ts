@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { deployReleaseContract, deployRunContract, deployTargetContract } from '@zenith/shared/ops';
+import { deployReleaseContract, deployRunContract, deployTargetContract } from '@arcbase/shared/ops';
 import { defineContractRoute } from '../../lib/contract-route';
 import { platformHostOnly } from '../../lib/host-access';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

@@ -1,7 +1,7 @@
 import { eq, inArray, type SQL } from 'drizzle-orm';
 import type { PgColumn, PgTable } from 'drizzle-orm/pg-core';
 import type * as z from 'zod';
-import type { AnyOperation, PaginatedResponse, QueryOutputOf } from '@zenith/shared/core';
+import type { AnyOperation, PaginatedResponse, QueryOutputOf } from '@arcbase/shared/core';
 import { db } from '../db';
 import { requireFirstRow, requireRow } from './db-assert';
 import { toPgUniqueViolationError } from './db-errors';

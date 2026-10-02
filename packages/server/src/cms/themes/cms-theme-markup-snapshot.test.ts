@@ -26,7 +26,7 @@ function base(theme: string): CmsBaseContext {
   return {
     site: {
       id: 1, code: 'main', name: `${theme} Site`, title: `${theme} Title`, keywords: null, description: 'Theme render test',
-      logo: '/logo.png', favicon: null, icp: null, copyright: '© 2026 Zenith', theme, extend: {}, settings: {},
+      logo: '/logo.png', favicon: null, icp: null, copyright: '© 2026 ArcBase', theme, extend: {}, settings: {},
       themeConfig: { ratingField: 'score', slogan: '权威发布', mastheadSubtitle: 'GOV' },
     },
     baseUrl: '',
@@ -36,7 +36,7 @@ function base(theme: string): CmsBaseContext {
     friendLinkGroups: [],
     seo: {
       title: 'Title', keywords: '', description: '', canonical: null, ogTitle: 'Title', ogDescription: '', ogImage: null, ogImageAlt: null,
-      ogType: 'website', ogUrl: null, ogSiteName: 'Zenith', articlePublishedTime: null, articleModifiedTime: null, articleAuthor: null,
+      ogType: 'website', ogUrl: null, ogSiteName: 'ArcBase', articlePublishedTime: null, articleModifiedTime: null, articleAuthor: null,
       twitterCard: 'summary_large_image', twitterSite: null, twitterCreator: null, twitterTitle: 'Title', twitterDescription: '',
       twitterImage: null, twitterImageAlt: null, jsonLd: null,
     },

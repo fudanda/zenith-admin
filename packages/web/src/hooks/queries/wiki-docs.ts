@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { wikiDocContract, type WikiDoc } from '@zenith/shared/wiki';
+import type { QueryOf } from '@arcbase/shared/core';
+import { wikiDocContract, type WikiDoc } from '@arcbase/shared/wiki';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { wikiStatsKeys } from './wiki-query-keys';
 import { invalidateEntityRelations } from '@/lib/entity-relation-cache';

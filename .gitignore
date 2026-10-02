@@ -51,7 +51,7 @@ packages/web/dist-go/
 
 /backend/backups/
 /backend/data/
-/packages/create-zenith/.runtime/
+/packages/create-arcbase/.runtime/
 *.db
 *.db-wal
 *.db-shm

@@ -10,8 +10,8 @@ import { ensureMpAccountExists } from './mp-account.service';
 import { createWechatQrcode } from '../../lib/wechat';
 import { mapWechatError } from '../../lib/wechat-error';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
-import { mpQrcodeSchema, type CreateMpQrcodeInput, type mpQrcodeContract } from '@zenith/shared/mp';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { mpQrcodeSchema, type CreateMpQrcodeInput, type mpQrcodeContract } from '@arcbase/shared/mp';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { pickEntity } from '../../lib/entity-map';
 
 export function mapMpQrcode(row: MpQrcodeRow) {

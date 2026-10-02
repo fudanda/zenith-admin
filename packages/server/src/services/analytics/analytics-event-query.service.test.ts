@@ -21,7 +21,7 @@ vi.mock('../../db', () => ({ db: { select } }));
 vi.mock('./analytics-segments.service', () => ({ ensureSegmentAccessible, segmentMemberDistinctIdSubquery }));
 vi.mock('../../lib/tenant', () => ({ tenantScope }));
 
-import { analyticsEventQuerySchema } from '@zenith/shared/analytics';
+import { analyticsEventQuerySchema } from '@arcbase/shared/analytics';
 import { queryEvents } from './analytics-event-query.service';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -14,7 +14,7 @@ import type {
 import { SeoHead, Breadcrumbs, Pagination, ModelFieldTable, MediaBlock, ArticleNav, RelatedArticles, AttachmentList, ThemeFooterLinks, PublishedDate, SinglePageArticle, externalLinkProps, loadHomeBlocks, SearchResultList } from '../_shared';
 import { defineHomeTemplate } from '../sdk';
 import { renderCmsWidgetHtml } from '../widgets';
-import { CMS_WIDGET_RENDERER_KEYS } from '@zenith/shared/cms';
+import { CMS_WIDGET_RENDERER_KEYS } from '@arcbase/shared/cms';
 
 // ─── 布局 ─────────────────────────────────────────────────────────────────────
 

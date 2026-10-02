@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Banner, Button, Collapse, Empty, Progress, SideSheet, Space, Spin, Tag, Typography } from '@douyinfe/semi-ui';
 import { RefreshCw } from 'lucide-react';
-import type { WorkflowDefinitionHealthIssue, WorkflowDefinitionHealthReport, WorkflowFlowData } from '@zenith/shared/workflow';
+import type { WorkflowDefinitionHealthIssue, WorkflowDefinitionHealthReport, WorkflowFlowData } from '@arcbase/shared/workflow';
 import { useWorkflowDesignerHealthCheck, workflowHealthCheckInput } from '@/hooks/queries/workflow-designer';
 import { WORKFLOW_HEALTH_SEVERITY_META as SEVERITY_META } from '../../constants';
 

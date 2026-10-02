@@ -9,7 +9,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
+	"github.com/fudanda/arcbase/backend/ent/managedfile"
 	"github.com/google/uuid"
 )
 

@@ -6,7 +6,7 @@ import { batchIterable } from '../../excel-export';
 import { defineExport } from '../registry';
 import { RETENTION_7_DAYS } from '../presets';
 import type { ExportColumn } from '../types';
-import { PAYMENT_ORDER_STATUS_LABELS, PAYMENT_CHANNEL_LABELS } from '@zenith/shared/payment';
+import { PAYMENT_ORDER_STATUS_LABELS, PAYMENT_CHANNEL_LABELS } from '@arcbase/shared/payment';
 
 const STATUS_LABELS: Record<string, string> = PAYMENT_ORDER_STATUS_LABELS;
 const CHANNEL_LABELS: Record<string, string> = { ...PAYMENT_CHANNEL_LABELS, mock: '模拟支付' };

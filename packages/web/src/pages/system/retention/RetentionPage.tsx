@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@douyinfe/semi-ui';
 import { Archive, RotateCcw } from 'lucide-react';
-import type { RetentionPolicy } from '@zenith/shared/ops';
+import type { RetentionPolicy } from '@arcbase/shared/ops';
 import { usePermission } from '@/hooks/usePermission';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';

@@ -5,7 +5,7 @@ export const MEMBER_RENEWAL_BIZ_TYPE = 'member_renewal';
  * 会员前台体验分析（埋点）同意状态的 localStorage key 与版本号。
  * 版本号变更（如隐私政策调整）会使历史存量同意状态失效，强制重新征求同意。
  */
-export const MEMBER_ANALYTICS_CONSENT_KEY = 'zenith_member_analytics_consent';
+export const MEMBER_ANALYTICS_CONSENT_KEY = 'arcbase_member_analytics_consent';
 
 export const MEMBER_ANALYTICS_CONSENT_VERSION = 1;
 

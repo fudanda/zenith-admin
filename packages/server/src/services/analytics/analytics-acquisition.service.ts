@@ -11,7 +11,7 @@
  *    因此各渠道用户数之和 = 总用户数，不会重复计数
  *  - 转化 = 在窗口内触发过 conversionEvent 的用户；转化归属于其被选中的那条触点
  */
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import { and, gte, isNotNull, sql } from 'drizzle-orm';
 import { db } from '../../db';
 import { userEvents } from '../../db/schema';
@@ -20,8 +20,8 @@ import type {
   AnalyticsAcquisitionResult,
   AnalyticsAcquisitionRow,
   AnalyticsAttributionModel,
-} from '@zenith/shared/analytics';
-import { ANALYTICS_ACQUISITION_CHANNEL_LABELS } from '@zenith/shared/analytics';
+} from '@arcbase/shared/analytics';
+import { ANALYTICS_ACQUISITION_CHANNEL_LABELS } from '@arcbase/shared/analytics';
 import { clampDays, startOfDaysAgo } from '../../lib/analytics-helpers';
 import { formatDate } from '../../lib/datetime';
 import { tenantScope } from '../../lib/tenant';

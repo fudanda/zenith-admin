@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { Button, Form, Radio, TreeSelect, Row, Col, Tooltip, Banner } from '@douyinfe/semi-ui';
 import type { TreeNodeData } from '@douyinfe/semi-ui/lib/es/tree';
 import { ChevronsDownUp, ChevronsUpDown } from 'lucide-react';
-import type { Menu } from '@zenith/shared/identity';
+import type { Menu } from '@arcbase/shared/identity';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { renderLucideIcon } from '@/utils/icons';
 import IconPicker from '@/components/IconPicker';

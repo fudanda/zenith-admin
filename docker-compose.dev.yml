@@ -1,4 +1,4 @@
-# Zenith Admin — 本地开发基础设施
+# ArcBase — 本地开发基础设施
 #
 # 仅启动 PostgreSQL 和 Redis，供本地 `npm run dev` 使用。
 # 不会构建 Node.js / Nginx 镜像。
@@ -7,17 +7,17 @@
 #   docker compose -f docker-compose.dev.yml up -d
 #   npm run dev
 #
-name: zenith-admin-dev
+name: arcbase-dev
 
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: zenith-dev-postgres
+    container_name: arcbase-dev-postgres
     restart: unless-stopped
     # SQL 监控依赖 pg_stat_statements 在 PostgreSQL 启动时预加载。
     command: ["postgres", "-c", "shared_preload_libraries=pg_stat_statements"]
     environment:
-      POSTGRES_DB: zenith_admin
+      POSTGRES_DB: arcbase_admin
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -25,14 +25,14 @@ services:
     volumes:
       - postgres_dev_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d zenith_admin"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d arcbase_admin"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   redis:
     image: redis:7-alpine
-    container_name: zenith-dev-redis
+    container_name: arcbase-dev-redis
     restart: unless-stopped
     command: redis-server --appendonly yes --appendfsync everysec
     ports:

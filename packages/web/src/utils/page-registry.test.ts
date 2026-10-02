@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { SEED_MENUS } from '@zenith/shared/seed';
+import { SEED_MENUS } from '@arcbase/shared/seed';
 import { hasPageComponent, lazyPageComponent } from './page-registry';
 import { businessFormModules, hasBusinessFormComponent, lazyBusinessFormComponent } from './business-form-registry';
 

@@ -14,15 +14,15 @@ import { getTenantPackageFeatureSet } from '../../lib/tenant-package';
 import { pageOffset } from '../../lib/pagination';
 import { getDataScopeCondition } from '../../lib/data-scope';
 import { buildWhere, dateRangeConditions, keywordCondition } from '../../lib/where-helpers';
-import { validatePassword } from '@zenith/shared/settings';
+import { validatePassword } from '@arcbase/shared/settings';
 import { getSettings } from '../../lib/settings';
 import { unlockUser as clearLoginChallenge, batchLoginChallengeRequired, getOnlineSessions, forceLogoutAllByUsers } from '../../lib/session-manager';
 import { batchIterable, streamToExcel, streamToCsv, formatDateTimeForExcel, type ExcelColumn } from '../../lib/excel-export';
 import { clearUserPermissionCache } from '../../lib/permissions';
 import type { JwtPayload } from '../../middleware/auth';
-import type { AlertRecipientUser, User } from '@zenith/shared/identity';
-import { mostPermissiveDataScope, userContract } from '@zenith/shared/identity';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { AlertRecipientUser, User } from '@arcbase/shared/identity';
+import { mostPermissiveDataScope, userContract } from '@arcbase/shared/identity';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { currentUser } from '../../lib/context';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { formatDateTime, formatNullableDateTime, formatTimestamps } from '../../lib/datetime';
@@ -678,7 +678,7 @@ export async function assignRolesToUser(userId: number, roleIds: number[]) {
 
 // ─── 用户级数据权限 ────────────────────────────────────────────────────────────
 
-/** 取最宽松范围：口径见 `@zenith/shared/identity` 的 `mostPermissiveDataScope`（前端展示与 Mock 同源） */
+/** 取最宽松范围：口径见 `@arcbase/shared/identity` 的 `mostPermissiveDataScope`（前端展示与 Mock 同源） */
 const getMostPermissiveScope = mostPermissiveDataScope;
 
 const groupRolesWith = enabledGroupRolesWith({

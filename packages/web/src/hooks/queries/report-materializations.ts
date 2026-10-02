@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf } from '@zenith/shared/core';
-import { reportMaterializationContract } from '@zenith/shared/report';
+import { resourceKeyOf } from '@arcbase/shared/core';
+import { reportMaterializationContract } from '@arcbase/shared/report';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 /** 快照历史与当前快照互相派生，任何写操作整域失效 */

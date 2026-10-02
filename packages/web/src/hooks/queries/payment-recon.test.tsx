@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
-import { paymentReconContract } from '@zenith/shared/payment';
+import { paymentReconContract } from '@arcbase/shared/payment';
 import { useHandlePaymentReconCase, usePaymentChannelAccounts, usePaymentReconCase, usePaymentReconCases, usePaymentReconRuns, usePaymentReconSummary, usePaymentStatements, useSubmitPaymentStatement } from './payment-recon';
 
 const api = new ApiRecorder();

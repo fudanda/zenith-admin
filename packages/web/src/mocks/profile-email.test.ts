@@ -1,6 +1,6 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 import { setupServer } from 'msw/node';
-import { authContract } from '@zenith/shared/identity';
+import { authContract } from '@arcbase/shared/identity';
 import { authHandlers } from './handlers/auth';
 import { mockUsers } from './data/users';
 import { mockAccessToken } from './utils/auth';

@@ -9,9 +9,9 @@ import { tenantPackages, tenantPackageFeatures, tenants, type TenantPackageRow }
 import { HTTPException } from 'hono/http-exception';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { clearUserPermissionCache } from '../../lib/permissions';
-import { isLicenseFeatureKey, type TenantPackageQuotas } from '@zenith/shared/licensing';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { tenantPackageSchema, type tenantPackageContract } from '@zenith/shared/identity';
+import { isLicenseFeatureKey, type TenantPackageQuotas } from '@arcbase/shared/licensing';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { tenantPackageSchema, type tenantPackageContract } from '@arcbase/shared/identity';
 import { pickEntity } from '../../lib/entity-map';
 
 export function mapTenantPackage(

@@ -1,7 +1,7 @@
 import { Tag, Tooltip, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { CronJobStatsPerJob } from '@zenith/shared/platform';
-import { CRON_HEALTH_RULES, isCronSlowTail } from '@zenith/shared/platform';
+import type { CronJobStatsPerJob } from '@arcbase/shared/platform';
+import { CRON_HEALTH_RULES, isCronSlowTail } from '@arcbase/shared/platform';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { DataBar } from '@/components/data-viz/DataBar';

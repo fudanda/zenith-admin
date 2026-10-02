@@ -1,7 +1,7 @@
 import type { RefObject } from 'react';
 import { Button, Form, Input, Modal, Space, TagInput, Typography } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
-import type { AiPromptTemplate } from '@zenith/shared/ai';
+import type { AiPromptTemplate } from '@arcbase/shared/ai';
 import AppModal from '@/components/AppModal';
 import { extractPromptVariables } from '../chat-utils';
 

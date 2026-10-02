@@ -1,5 +1,5 @@
-import { cmsResourceContract, type CmsMediaProcessing, type CmsMediaResult, type CmsResource } from '@zenith/shared/cms';
-import type { OutputOf } from '@zenith/shared/core';
+import { cmsResourceContract, type CmsMediaProcessing, type CmsMediaResult, type CmsResource } from '@arcbase/shared/cms';
+import type { OutputOf } from '@arcbase/shared/core';
 import { mockCmsResources } from '../data/cms';
 import { mock } from '../utils/contract';
 import { requireItem } from '../utils/crud';

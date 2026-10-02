@@ -1,5 +1,5 @@
-import { workflowCategoryContract } from '@zenith/shared/workflow';
-import type { WorkflowCategory } from '@zenith/shared/workflow';
+import { workflowCategoryContract } from '@arcbase/shared/workflow';
+import type { WorkflowCategory } from '@arcbase/shared/workflow';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

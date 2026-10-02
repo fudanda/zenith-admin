@@ -8,15 +8,15 @@
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone.js';
 import utc from 'dayjs/plugin/utc.js';
-import { CMS_PREVIEW_PREFIX, cmsCustomPagePath, cmsSiteRelativePath, parseCmsLink } from '@zenith/shared/cms';
-import type { CmsChannelDetailPathRule, CmsContentStatus } from '@zenith/shared/cms';
+import { CMS_PREVIEW_PREFIX, cmsCustomPagePath, cmsSiteRelativePath, parseCmsLink } from '@arcbase/shared/cms';
+import type { CmsChannelDetailPathRule, CmsContentStatus } from '@arcbase/shared/cms';
 import { APP_TIME_ZONE } from '../../lib/datetime';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 /** 搭建页 URL / 静态产物路径：设了 path 用它，否则回落 p/{slug}/ */
-export { cmsCustomPagePath as customPagePath } from '@zenith/shared/cms';
+export { cmsCustomPagePath as customPagePath } from '@arcbase/shared/cms';
 
 /**
  * 搭建页 URL。

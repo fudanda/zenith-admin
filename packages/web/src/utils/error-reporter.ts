@@ -1,6 +1,6 @@
-import { configureErrorReporterRuntime as configureSdkErrorReporterRuntime } from '@zenith/analytics-sdk/error-reporter';
-import type { AnalyticsEnvironment } from '@zenith/shared/analytics';
-import type { ErrorReporterRuntimeConfig } from '@zenith/analytics-sdk/error-reporter';
+import { configureErrorReporterRuntime as configureSdkErrorReporterRuntime } from '@arcbase/analytics-sdk/error-reporter';
+import type { AnalyticsEnvironment } from '@arcbase/shared/analytics';
+import type { ErrorReporterRuntimeConfig } from '@arcbase/analytics-sdk/error-reporter';
 import { config } from '@/config';
 
 function resolveDefaultEnvironment(): AnalyticsEnvironment {
@@ -20,7 +20,7 @@ function webRuntimeDefaults(): Pick<ErrorReporterRuntimeConfig, 'apiBase' | 'env
 
 configureSdkErrorReporterRuntime(webRuntimeDefaults());
 
-export * from '@zenith/analytics-sdk/error-reporter';
+export * from '@arcbase/analytics-sdk/error-reporter';
 
 export function configureErrorReporterRuntime(next: Partial<ErrorReporterRuntimeConfig>): void {
   configureSdkErrorReporterRuntime({ ...webRuntimeDefaults(), ...next });

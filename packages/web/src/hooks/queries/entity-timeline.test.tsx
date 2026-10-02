@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { entityTimelineContract } from '@zenith/shared/platform';
+import { entityTimelineContract } from '@arcbase/shared/platform';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
 import { urlOf } from '@/lib/contract-query';
 import { useEntityTimeline, type EntityTimelineFilters } from './entity-timeline';

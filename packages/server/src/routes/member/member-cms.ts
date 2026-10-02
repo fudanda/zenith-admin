@@ -3,7 +3,7 @@
  * 全部按 currentMemberId 过滤防越权；提交走 CMS 统一审核管道。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { memberCmsContract } from '@zenith/shared/cms';
+import { memberCmsContract } from '@arcbase/shared/cms';
 import { memberAuthMiddleware } from '../../middleware/member-auth';
 import { idempotencyGuard } from '../../middleware/idempotency';
 import { defineContractRoute } from '../../lib/contract-route';

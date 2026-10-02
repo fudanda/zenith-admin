@@ -12,7 +12,7 @@
  *  - readonly?:       只读模式
  */
 import { Select, Spin, TreeSelect } from '@douyinfe/semi-ui';
-import type { Department } from '@zenith/shared/identity';
+import type { Department } from '@arcbase/shared/identity';
 import { departmentTreeToTreeData } from '@/hooks/queries/departments';
 
 export const DATA_SCOPE_OPTIONS = [

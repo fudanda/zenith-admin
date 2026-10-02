@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { cronJobContract } from '@zenith/shared/platform';
+import type { QueryOf } from '@arcbase/shared/core';
+import { cronJobContract } from '@arcbase/shared/platform';
 import { useSaveMutation, contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

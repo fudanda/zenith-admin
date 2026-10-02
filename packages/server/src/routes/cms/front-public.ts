@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { publicCmsContract, publicCmsTelemetryContract, submitCmsCommentSchema } from '@zenith/shared/cms';
+import { publicCmsContract, publicCmsTelemetryContract, submitCmsCommentSchema } from '@arcbase/shared/cms';
 import { defineContractRoute } from '../../lib/contract-route';
 import { errBody, okBody, validationHook } from '../../lib/openapi-schemas';
 import { resolveSiteByCode } from '../../services/cms/cms-sites.service';
@@ -29,7 +29,7 @@ import {
 } from '../../services/cms/cms-interactions.service';
 import { optionalMemberSessionMiddleware } from '../../middleware/optional-member-session';
 import { getClientIp } from '../../lib/request-helpers';
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';
 import { safeReturnUrl } from '../../lib/safe-return-url';
 
 /**

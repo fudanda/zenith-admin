@@ -1,5 +1,5 @@
 // ─── 运行时诊断/轨迹/令牌视图/诊断包 ───
-import { workflowInstanceOpsContract } from '@zenith/shared/workflow';
+import { workflowInstanceOpsContract } from '@arcbase/shared/workflow';
 import { defineContractRoute } from '../../../lib/contract-route';
 import { okBody } from '../../../lib/openapi-schemas';
 import { getInstanceRuntimeDiagnostics, getInstanceTrace, getInstanceExecutionTokens, exportInstanceDiagnosticBundle } from '../../../services/workflow/workflow-instances.service';

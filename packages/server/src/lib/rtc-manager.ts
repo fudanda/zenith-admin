@@ -10,7 +10,7 @@
  * 参与者身份由服务端按连接的认证主体写入，不接受客户端声明的 userId。
  * 单进程内存方案；多实例部署需改造为共享存储（与 ws-manager 同等约束）。
  */
-import type { RtcPeerInfo } from '@zenith/shared/chat';
+import type { RtcPeerInfo } from '@arcbase/shared/chat';
 
 interface CallRoom {
   conversationId: number;

@@ -1,5 +1,5 @@
-import { createReportFillTemplateSchema, updateReportFillTemplateSchema } from '@zenith/shared/report';
-import type { CreateReportFillTemplateInput, ReportChatbiMessage, ReportDataResult, ReportFieldType, ReportFillRecord, ReportFillRecordStatus, ReportWidget, ReportWidgetType, UpdateReportFillTemplateInput } from '@zenith/shared/report';
+import { createReportFillTemplateSchema, updateReportFillTemplateSchema } from '@arcbase/shared/report';
+import type { CreateReportFillTemplateInput, ReportChatbiMessage, ReportDataResult, ReportFieldType, ReportFillRecord, ReportFillRecordStatus, ReportWidget, ReportWidgetType, UpdateReportFillTemplateInput } from '@arcbase/shared/report';
 import { ApiError } from '@/lib/query';
 
 const SAFE_CHATBI_CHART_TYPES = new Set<ReportWidgetType>([

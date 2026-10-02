@@ -7,8 +7,8 @@
  * - 天数 daysFromKey：日期区间 驱动 天数字段
  * - 联动赋值 autoFill.targets：源字段 赋值给 目标字段
  */
-import type { WorkflowFormField } from '@zenith/shared/workflow';
-import { collectWorkflowRuleConditions } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
+import { collectWorkflowRuleConditions } from '@arcbase/shared/workflow';
 import { flattenAllFields } from './form-tree';
 
 export type DepKind = '公式' | '显隐' | '必填' | '只读' | '级联' | '天数' | '赋值';

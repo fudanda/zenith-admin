@@ -1,5 +1,5 @@
 import type ExcelJS from 'exceljs';
-import type { ExportJobFormat } from '@zenith/shared/tasks';
+import type { ExportJobFormat } from '@arcbase/shared/tasks';
 import type { JwtPayload } from '../../middleware/auth';
 import type { MaskType, CustomMaskRule } from '../masking';
 

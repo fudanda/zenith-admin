@@ -1,7 +1,7 @@
 import { desc, eq, lt, ne, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { EntityRef } from '@zenith/shared/core';
-import { entityRelationRecordFilters, WORKFLOW_BUSINESS_ENTITY_TYPES, type CanonicalEntityType, type EntityRelationPage, type WorkflowBusinessEntityType } from '@zenith/shared/platform';
+import type { EntityRef } from '@arcbase/shared/core';
+import { entityRelationRecordFilters, WORKFLOW_BUSINESS_ENTITY_TYPES, type CanonicalEntityType, type EntityRelationPage, type WorkflowBusinessEntityType } from '@arcbase/shared/platform';
 import { bizLeaves, workflowInstances } from '../../db/schema';
 import { hasPermission, runWithCurrentUser } from '../../lib/context';
 import { exactTenantCondition, tenantCondition } from '../../lib/tenant';

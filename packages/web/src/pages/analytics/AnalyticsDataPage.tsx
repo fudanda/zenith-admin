@@ -26,10 +26,10 @@ import {
   useRebuildAnalyticsRollup,
   useSaveAnalyticsEventMeta,
 } from '@/hooks/queries/analytics';
-import type { AnalyticsEventMeta, AnalyticsEventMetaReferences, AnalyticsRollupItem, EventListItem, UserBehaviorEventType } from '@zenith/shared/analytics';
-import type { AnalyticsSettings } from '@zenith/shared/settings';
-import { ANALYTICS_DEVICE_TYPES, ANALYTICS_DEVICE_TYPE_OPTIONS, ANALYTICS_EVENT_META_STATUS_LABELS, ANALYTICS_EVENT_META_STATUS_OPTIONS, ANALYTICS_EVENT_PROPERTY_TYPES, USER_BEHAVIOR_EVENT_TYPE_LABELS, USER_BEHAVIOR_EVENT_TYPE_OPTIONS, userBehaviorEventTypeEnum } from '@zenith/shared/analytics';
-import { enumValueOf } from '@zenith/shared/core';
+import type { AnalyticsEventMeta, AnalyticsEventMetaReferences, AnalyticsRollupItem, EventListItem, UserBehaviorEventType } from '@arcbase/shared/analytics';
+import type { AnalyticsSettings } from '@arcbase/shared/settings';
+import { ANALYTICS_DEVICE_TYPES, ANALYTICS_DEVICE_TYPE_OPTIONS, ANALYTICS_EVENT_META_STATUS_LABELS, ANALYTICS_EVENT_META_STATUS_OPTIONS, ANALYTICS_EVENT_PROPERTY_TYPES, USER_BEHAVIOR_EVENT_TYPE_LABELS, USER_BEHAVIOR_EVENT_TYPE_OPTIONS, userBehaviorEventTypeEnum } from '@arcbase/shared/analytics';
+import { enumValueOf } from '@arcbase/shared/core';
 import { usePermission } from '@/hooks/usePermission';
 import { useUrlTabState } from '@/hooks/useUrlTabState';
 import AnalyticsQualityTab from './AnalyticsQualityTab';

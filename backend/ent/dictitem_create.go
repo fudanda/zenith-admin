@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/dictitem"
+	"github.com/fudanda/arcbase/backend/ent/dictitem"
 )
 
 // DictItemCreate is the builder for creating a DictItem entity.

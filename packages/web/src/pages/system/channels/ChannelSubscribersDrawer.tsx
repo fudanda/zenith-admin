@@ -8,7 +8,7 @@
 import { useEffect, useState } from 'react';
 import { Banner, SideSheet, Space, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ChannelAdmin, ChannelSubscriber } from '@zenith/shared/messaging';
+import type { ChannelAdmin, ChannelSubscriber } from '@arcbase/shared/messaging';
 import { usePermission } from '@/hooks/usePermission';
 import { useListSearch } from '@/hooks/useListSearch';
 import ConfigurableTable from '@/components/ConfigurableTable';

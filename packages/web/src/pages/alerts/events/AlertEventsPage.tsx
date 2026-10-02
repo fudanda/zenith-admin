@@ -12,8 +12,8 @@ import { DateRangeFilter, FilterSelect, KeywordInput, StatusSelect } from '@/com
 import { dateTimeColumn, renderEllipsis, EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { formatDateTimeRangeForApi } from '@/utils/date';
 import { usePermission } from '@/hooks/usePermission';
-import type { MonitorAlertEvent, MonitorAlertHandleStatus } from '@zenith/shared/platform';
-import { enumValueOf } from '@zenith/shared/core';
+import type { MonitorAlertEvent, MonitorAlertHandleStatus } from '@arcbase/shared/platform';
+import { enumValueOf } from '@arcbase/shared/core';
 import {
   MONITOR_ALERT_EVENT_STATUSES,
   MONITOR_ALERT_EVENT_STATUS_OPTIONS,
@@ -24,7 +24,7 @@ import {
   MONITOR_ALERT_NOTIFY_STATUSES,
   MONITOR_ALERT_NOTIFY_STATUS_OPTIONS,
   MONITOR_METRICS,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import {
   monitorAlertKeys,
   useBatchHandleMonitorAlertEvents,

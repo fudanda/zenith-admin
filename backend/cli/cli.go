@@ -17,9 +17,9 @@ import (
 	"strconv"
 	"strings"
 
-	zenith "github.com/fudanda/zenith-admin/backend"
-	"github.com/fudanda/zenith-admin/backend/internal/operations"
-	"github.com/fudanda/zenith-admin/backend/internal/storage"
+	arcbase "github.com/fudanda/arcbase/backend"
+	"github.com/fudanda/arcbase/backend/internal/operations"
+	"github.com/fudanda/arcbase/backend/internal/storage"
 	"golang.org/x/term"
 )
 
@@ -27,28 +27,28 @@ type Options struct {
 	Args                []string
 	Input               io.Reader
 	Output, ErrorOutput io.Writer
-	Config              zenith.Config
+	Config              arcbase.Config
 }
 type Migrator interface {
-	Migrate(context.Context, *zenith.Store) error
+	Migrate(context.Context, *arcbase.Store) error
 }
 type Seeder interface {
-	Seed(context.Context, *zenith.Store) error
+	Seed(context.Context, *arcbase.Store) error
 }
 type Checker interface {
-	Check(context.Context, *zenith.Store) error
+	Check(context.Context, *arcbase.Store) error
 }
 
-func ConfigFromEnvironment() (zenith.Config, error) {
+func ConfigFromEnvironment() (arcbase.Config, error) {
 	secure := true
-	if raw := os.Getenv("ZENITH_INSECURE_COOKIES"); raw != "" {
+	if raw := Environment("ARCBASE_INSECURE_COOKIES"); raw != "" {
 		value, err := strconv.ParseBool(raw)
 		if err != nil {
-			return zenith.Config{}, errors.New("ZENITH_INSECURE_COOKIES must be true or false")
+			return arcbase.Config{}, errors.New("ARCBASE_INSECURE_COOKIES must be true or false")
 		}
 		secure = !value
 	}
-	return zenith.Config{DSN: os.Getenv("ZENITH_DATABASE_URL"), Address: os.Getenv("ZENITH_ADDR"), SecureCookies: secure, StorageEncryptionKey: os.Getenv("ZENITH_STORAGE_KEY"), FileStagingPath: os.Getenv("ZENITH_FILE_STAGING_PATH")}, nil
+	return arcbase.Config{DSN: Environment("ARCBASE_DATABASE_URL"), Address: Environment("ARCBASE_ADDR"), SecureCookies: secure, StorageEncryptionKey: Environment("ARCBASE_STORAGE_KEY"), FileStagingPath: Environment("ARCBASE_FILE_STAGING_PATH")}, nil
 }
 func printJSON(output io.Writer, value any) error { return json.NewEncoder(output).Encode(value) }
 
@@ -63,14 +63,14 @@ func Run(ctx context.Context, options Options) error {
 		options.ErrorOutput = os.Stderr
 	}
 	if len(options.Args) == 0 {
-		return errors.New("usage: zenith {serve|version|check|migrate|seed|init-admin|reset-admin|backup|verify-backup|restore|backup-sqlite}")
+		return errors.New("usage: arcbase {serve|version|check|migrate|seed|init-admin|reset-admin|backup|verify-backup|restore|backup-sqlite}")
 	}
 	command, args := options.Args[0], options.Args[1:]
 	if command == "version" {
 		if len(args) > 0 {
 			return errors.New("version accepts no arguments")
 		}
-		return printJSON(options.Output, map[string]any{"version": zenith.Version, "commit": zenith.Commit, "buildTime": zenith.BuildTime, "schemaVersion": zenith.SchemaVersion})
+		return printJSON(options.Output, map[string]any{"version": arcbase.Version, "commit": arcbase.Commit, "buildTime": arcbase.BuildTime, "schemaVersion": arcbase.SchemaVersion})
 	}
 	if command == "verify-backup" {
 		if len(args) != 1 {
@@ -86,7 +86,7 @@ func Run(ctx context.Context, options Options) error {
 		if len(args) > 0 {
 			return errors.New("serve accepts no arguments")
 		}
-		app, err := zenith.New(ctx, options.Config)
+		app, err := arcbase.New(ctx, options.Config)
 		if err != nil {
 			return err
 		}
@@ -134,7 +134,7 @@ func Run(ctx context.Context, options Options) error {
 			address = "127.0.0.1:8080"
 		}
 		if _, _, err := net.SplitHostPort(address); err != nil {
-			return errors.New("ZENITH_ADDR must be HOST:PORT")
+			return errors.New("ARCBASE_ADDR must be HOST:PORT")
 		}
 		if _, err := storage.SecretKey(options.Config.StorageEncryptionKey); err != nil {
 			return err
@@ -145,9 +145,9 @@ func Run(ctx context.Context, options Options) error {
 			}
 		}
 	}
-	store, err := zenith.OpenStore(ctx, options.Config.DSN)
+	store, err := arcbase.OpenStore(ctx, options.Config.DSN)
 	if err != nil {
-		return errors.New("database unavailable; check ZENITH_DATABASE_URL and database service")
+		return errors.New("database unavailable; check ARCBASE_DATABASE_URL and database service")
 	}
 	defer store.Close()
 	if command == "seed" || command == "init-admin" || command == "reset-admin" {
@@ -161,8 +161,8 @@ func Run(ctx context.Context, options Options) error {
 		if err := store.DB.QueryRowContext(ctx, "SELECT COALESCE(MAX(version),0) FROM zenith_schema_versions").Scan(&version); err != nil {
 			return errors.New("database is not initialized; run migrate")
 		}
-		if version != zenith.SchemaVersion {
-			return fmt.Errorf("database migration required: found %d, expected %d", version, zenith.SchemaVersion)
+		if version != arcbase.SchemaVersion {
+			return fmt.Errorf("database migration required: found %d, expected %d", version, arcbase.SchemaVersion)
 		}
 		configs, err := store.Client.FileStorageConfig.Query().All(ctx)
 		if err != nil {
@@ -301,7 +301,7 @@ func checkWritableDirectory(path string) error {
 	if err != nil || !info.IsDir() || info.Mode()&os.ModeSymlink != 0 {
 		return errors.New("file directory is missing or not a real directory")
 	}
-	file, err := os.CreateTemp(path, ".zenith-check-")
+	file, err := os.CreateTemp(path, ".arcbase-check-")
 	if err != nil {
 		return errors.New("file directory is not writable")
 	}
@@ -343,12 +343,12 @@ func writeCredentials(path, username, password string) (func() error, error) {
 	for _, line := range lines {
 		trim := strings.TrimSpace(strings.TrimPrefix(strings.TrimSpace(line), "export "))
 		key, _, found := strings.Cut(trim, "=")
-		if found && (strings.TrimSpace(key) == "ZENITH_ADMIN_USERNAME" || strings.TrimSpace(key) == "ZENITH_ADMIN_PASSWORD") {
+		if found && (strings.TrimSpace(key) == "ARCBASE_ADMIN_USERNAME" || strings.TrimSpace(key) == "ARCBASE_ADMIN_PASSWORD" || strings.TrimSpace(key) == "ZENITH_ADMIN_USERNAME" || strings.TrimSpace(key) == "ZENITH_ADMIN_PASSWORD") {
 			continue
 		}
 		result = append(result, line)
 	}
-	result = append(result, "ZENITH_ADMIN_USERNAME="+strconv.Quote(username), "ZENITH_ADMIN_PASSWORD="+strconv.Quote(password))
+	result = append(result, "ARCBASE_ADMIN_USERNAME="+strconv.Quote(username), "ARCBASE_ADMIN_PASSWORD="+strconv.Quote(password))
 	if err = os.MkdirAll(filepath.Dir(absolute), 0700); err != nil {
 		return nil, err
 	}
@@ -364,7 +364,7 @@ func writeCredentials(path, username, password string) (func() error, error) {
 }
 
 func replacePrivateFile(path string, content []byte) error {
-	file, err := os.CreateTemp(filepath.Dir(path), ".zenith-credentials-")
+	file, err := os.CreateTemp(filepath.Dir(path), ".arcbase-credentials-")
 	if err != nil {
 		return err
 	}

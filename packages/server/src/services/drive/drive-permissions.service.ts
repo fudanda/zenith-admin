@@ -1,6 +1,6 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, asc, eq, gt, inArray, isNull, or } from 'drizzle-orm';
-import type { DriveNodePermission, DriveNodePermissionsResult, SaveDriveNodePermissionsInput, SetDriveNodeInheritInput } from '@zenith/shared/drive';
+import type { DriveNodePermission, DriveNodePermissionsResult, SaveDriveNodePermissionsInput, SetDriveNodeInheritInput } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveNodePermissions, driveNodes, type DriveNodePermissionRow, type DriveNodeRow } from '../../db/schema';
 import { currentUser } from '../../lib/context';

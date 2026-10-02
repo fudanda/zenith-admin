@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button, Col, Descriptions, Dropdown, Form, Row, SideSheet, Space, Spin, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { KeyRound, Radar, RotateCcw } from 'lucide-react';
-import type { CreateOpsHostInput, OpsHost, OpsHostAuthType } from '@zenith/shared/ops';
+import type { CreateOpsHostInput, OpsHost, OpsHostAuthType } from '@arcbase/shared/ops';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import PageLoading from '@/components/PageLoading';
 import { listTableProps, useCrudOperationColumn } from '@/components/list-page';
@@ -26,7 +26,7 @@ import {
   useTestOpsHost,
 } from '@/hooks/queries/ops-hosts';
 import { useSshProfiles } from '@/hooks/queries/terminal';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import { EditFormModal } from '@/components/EditFormModal';
 
 const { Text } = Typography;

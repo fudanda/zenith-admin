@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from 'react';
 import { Button, Spin } from '@douyinfe/semi-ui';
 import { Link2 } from 'lucide-react';
-import { supportsEntityRelations, type CanonicalEntityRef, type CanonicalEntityType } from '@zenith/shared/platform/entity-catalog';
+import { supportsEntityRelations, type CanonicalEntityRef, type CanonicalEntityType } from '@arcbase/shared/platform/entity-catalog';
 
 const EntityContextRuntime = lazy(() => import('./EntityContextRuntime'));
 export const EntityContextSheet = lazy(() => import('./EntityContextRuntime').then((module) => ({ default: module.EntityContextSheet })));

@@ -1,7 +1,7 @@
 import { activateMockCmsRevision, freezeMockCmsRevision, getMockCmsWorkingContent, resetMockCmsRevisions } from './utils/cms-revisions';
 import { afterEach, describe, expect, it } from 'vitest';
-import { CMS_SECRET_MASK } from '@zenith/shared/cms';
-import type { CmsSite } from '@zenith/shared/cms';
+import { CMS_SECRET_MASK } from '@arcbase/shared/cms';
+import type { CmsSite } from '@arcbase/shared/cms';
 import { mockCmsChannels, mockCmsContents, mockCmsSites } from '@/mocks/data/cms';
 import {
   mockCmsDistributionItems,
@@ -72,17 +72,17 @@ describe('CMS Stage 5 MSW handlers', () => {
       resolved: { title: string; webhookSecret: string };
       sources: Record<string, { kind: string; siteId: number }>;
     };
-    expect(config.resolved.title).toBe('Zenith 技术中心');
+    expect(config.resolved.title).toBe('ArcBase 技术中心');
     expect(config.resolved.webhookSecret).toBe(CMS_SECRET_MASK);
     expect(config.sources.webhook).toMatchObject({ kind: 'inherited', siteId: 1 });
 
     await call('PUT', '/api/cms/sites/2/inheritance', { seoTitle: true });
     const inherited = await call('GET', '/api/cms/sites/2/effective-config');
-    expect((inherited.body.data as typeof config).resolved.title).toContain('Zenith Admin');
+    expect((inherited.body.data as typeof config).resolved.title).toContain('ArcBase');
 
     await call('PUT', '/api/cms/sites/2/inheritance', { seoTitle: false });
     const restored = await call('GET', '/api/cms/sites/2/effective-config');
-    expect((restored.body.data as typeof config).resolved.title).toBe('Zenith 技术中心');
+    expect((restored.body.data as typeof config).resolved.title).toBe('ArcBase 技术中心');
   });
 
   it('serves the builtin template catalog for the default theme', async () => {
@@ -130,7 +130,7 @@ describe('CMS Stage 5 MSW handlers', () => {
       filters: {
         statuses: ['published'],
         contentTypes: ['article'],
-        keyword: 'Zenith',
+        keyword: 'ArcBase',
         publishedFrom: null,
         publishedTo: null,
       },

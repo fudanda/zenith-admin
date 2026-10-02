@@ -44,7 +44,7 @@ describe('isInsecureSecretValue', () => {
   it.each([
     '',
     '   ',
-    'zenith-admin-secret',
+    'arcbase-secret',
     'change-me-to-a-strong-random-secret',
     'CHANGE_ME_please_0123456789abcdef',
     'your-strong-secret-key',
@@ -102,7 +102,7 @@ describe('resolveRuntimeSecrets / collectRuntimeSecretErrors', () => {
 
   it('production：把内置开发密钥 / 历史默认值当真实密钥 → 报错', () => {
     expect(collectRuntimeSecretErrors({ nodeEnv: 'production', jwtSecret: DEV_JWT_SECRET, fieldEncryptionKey: DEV_FIELD_ENCRYPTION_KEY })).toHaveLength(2);
-    expect(collectRuntimeSecretErrors({ nodeEnv: 'production', jwtSecret: 'zenith-admin-secret', fieldEncryptionKey: field })).toEqual([
+    expect(collectRuntimeSecretErrors({ nodeEnv: 'production', jwtSecret: 'arcbase-secret', fieldEncryptionKey: field })).toEqual([
       expect.stringMatching(/JWT_SECRET/),
     ]);
   });

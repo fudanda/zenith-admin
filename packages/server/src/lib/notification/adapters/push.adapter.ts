@@ -9,7 +9,7 @@
  * external 收件人无推送形态,恒不可达。
  */
 import { eq } from 'drizzle-orm';
-import type { NotificationRecipient } from '@zenith/shared/messaging';
+import type { NotificationRecipient } from '@arcbase/shared/messaging';
 import { db } from '../../../db';
 import { pushSendLogs } from '../../../db/schema';
 import { findEnabledPushConfigsByAppIds } from '../../../services/messaging/push-configs.service';

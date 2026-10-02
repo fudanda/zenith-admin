@@ -1,6 +1,6 @@
-import type { ApiResponse } from '@zenith/shared/core';
+import type { ApiResponse } from '@arcbase/shared/core';
 import { ClientError } from './errors';
-import type { AnyOperation } from '@zenith/shared/core';
+import type { AnyOperation } from '@arcbase/shared/core';
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 export type ApiEnvelope<T> = ApiResponse<T> & { error?: string; requestId?: string; retryAfterSeconds?: number };
@@ -46,7 +46,7 @@ export class Client {
     this.baseURL = (options.baseURL ?? '').replace(/\/$/, '');
     if (this.baseURL && (!/^https?:\/\//.test(this.baseURL) || new URL(this.baseURL).origin !== this.baseURL)) throw new Error('baseURL must be an HTTP origin');
     this.send = options.transport ?? ((...args) => globalThis.fetch(...args));
-    if (options.apiKey && !/^zen_[a-f0-9]{64}$/.test(options.apiKey)) throw new Error('Invalid Zenith API Key');
+    if (options.apiKey && !/^(?:arc|zen)_[a-f0-9]{64}$/.test(options.apiKey)) throw new Error('Invalid ArcBase API Key');
     this.credentials = options.credentials ?? (options.apiKey ? 'omit' : 'same-origin');
     const routes = new Set<string>();
     for (const op of options.operations ?? []) {

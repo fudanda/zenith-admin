@@ -3,7 +3,7 @@
 前端采用 **Semi Design v2** 作为组件库，图标统一使用 **lucide-react**。页面结构、表格、筛选、弹窗、状态展示与响应式行为优先复用 `packages/web/src/components/`、`packages/web/src/hooks/` 中的公共封装。
 
 ::: tip 硬性约束不在本页
-可机械核对的「必须 / 禁止」规则维护在 [`.agents/skills/zenith/references/constraints-frontend.md`](https://github.com/iwangbowen/zenith-admin/blob/master/.agents/skills/zenith/references/constraints-frontend.md)。可直接复制的 CRUD 页面模板见 [`crud-frontend.md`](https://github.com/iwangbowen/zenith-admin/blob/master/.agents/skills/zenith/references/crud-frontend.md)。本页只描述设计取向与文档入口。
+可机械核对的「必须 / 禁止」规则维护在 [`.agents/skills/arcbase/references/constraints-frontend.md`](https://github.com/iwangbowen/zenith-admin/blob/master/.agents/skills/zenith/references/constraints-frontend.md)。可直接复制的 CRUD 页面模板见 [`crud-frontend.md`](https://github.com/iwangbowen/zenith-admin/blob/master/.agents/skills/zenith/references/crud-frontend.md)。本页只描述设计取向与文档入口。
 :::
 
 ## 规范索引

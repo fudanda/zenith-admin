@@ -1,4 +1,4 @@
-import type { CmsTelemetryEvent } from '@zenith/shared/cms';
+import type { CmsTelemetryEvent } from '@arcbase/shared/cms';
 import { analyticsRequestHeaders } from './http';
 import { cmsLocalStorage, cmsStoragePrefix } from './cms-identity';
 

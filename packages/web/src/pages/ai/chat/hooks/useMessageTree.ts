@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Dispatch, RefObject, SetStateAction } from 'react';
-import type { AiConversation, AiMessage } from '@zenith/shared/ai';
-import { computeBranchInfo, resolveActivePath } from '@zenith/shared/ai';
+import type { AiConversation, AiMessage } from '@arcbase/shared/ai';
+import { computeBranchInfo, resolveActivePath } from '@arcbase/shared/ai';
 import { switchConversationBranch } from '@/hooks/queries/ai-extras';
 import { convertApiMessage, type ChatMessage as Message } from '../message-adapters';
 import type { AIChatDialogueInstance } from '../chat-utils';

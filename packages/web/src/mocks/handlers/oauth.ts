@@ -1,4 +1,4 @@
-import { OAUTH_PROVIDERS, oauthContract } from '@zenith/shared/identity';
+import { OAUTH_PROVIDERS, oauthContract } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 
 export const oauthHandlers = [

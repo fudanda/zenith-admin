@@ -1,6 +1,6 @@
 import { Spin, Typography, List as SemiList } from '@douyinfe/semi-ui';
 import { Pin, PinOff } from 'lucide-react';
-import type { ChatMessage } from '@zenith/shared/chat';
+import type { ChatMessage } from '@arcbase/shared/chat';
 import { getMessageSummary } from '../utils';
 import { WsDisconnectedBanner } from './WsDisconnectedBanner';
 

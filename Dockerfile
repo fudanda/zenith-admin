@@ -29,10 +29,10 @@ COPY packages/web ./packages/web
 
 # Build: shared → analytics-sdk → server → web
 # (server build also subsets the bundled Noto Sans SC into assets/fonts/NotoSansSC-Regular.subset.otf)
-RUN npm run build -w @zenith/shared \
- && npm run build -w @zenith/analytics-sdk \
- && npm run build -w @zenith/server \
- && npm run build -w @zenith/web
+RUN npm run build -w @arcbase/shared \
+ && npm run build -w @arcbase/analytics-sdk \
+ && npm run build -w @arcbase/server \
+ && npm run build -w @arcbase/web
 
 # PDF export font shipped in the server image: `subset` (default, ~2.5MB, GB 2312 ∪ 通用规范汉字表 + common
 # symbols) or `full` (~8MB Noto Sans SC incl. traditional / rare characters). Same script as the GitHub
@@ -45,7 +45,7 @@ RUN node packages/server/scripts/package-server.mjs --pdf-font="$PDF_FONT" --out
 # (版本由根 devDependencies 的 mastra 包管理;同源部署,鉴权由 API 侧强制)
 RUN node docker/build-studio.mjs packages/web/dist/studio
 
-# Patch shared package.json so Node.js can resolve @zenith/shared at runtime.
+# Patch shared package.json so Node.js can resolve @arcbase/shared at runtime.
 # The source package.json exports TypeScript files (for tsx dev), which plain
 # Node.js cannot execute. After the build, we switch exports to the compiled dist
 # (directory entries like "./analytics" map to "./dist/analytics/index.js").

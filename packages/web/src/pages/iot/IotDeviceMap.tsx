@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Empty, Spin, Typography } from '@douyinfe/semi-ui';
 import { LngLatBounds, Map as MapLibreMap, Marker, NavigationControl, Popup, type StyleSpecification } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import type { IotDevice } from '@zenith/shared/iot';
+import type { IotDevice } from '@arcbase/shared/iot';
 
 const { Text } = Typography;
 

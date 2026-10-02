@@ -1,5 +1,5 @@
-import { cronJobContract, systemSchedulerContract } from '@zenith/shared/platform';
-import { asyncTaskContract, exportJobContract, importJobContract, taskDemoContract } from '@zenith/shared/tasks';
+import { cronJobContract, systemSchedulerContract } from '@arcbase/shared/platform';
+import { asyncTaskContract, exportJobContract, importJobContract, taskDemoContract } from '@arcbase/shared/tasks';
 import { defineRouteDomain } from '../_kit';
 import asyncTasksRoutes from './async-tasks';
 import cronJobsRoutes from './cron-jobs';

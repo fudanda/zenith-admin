@@ -12,7 +12,7 @@ import type { ReactNode } from 'react';
 import { Tooltip } from '@douyinfe/semi-ui';
 import { getFileTypeIcon } from '@/utils/file-utils';
 import './FileNameCell.css';
-import { escapeRegExp } from '@zenith/shared/core';
+import { escapeRegExp } from '@arcbase/shared/core';
 
 interface FileNameCellProps {
   name: string;

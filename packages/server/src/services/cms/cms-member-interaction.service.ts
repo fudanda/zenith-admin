@@ -17,14 +17,14 @@ import { changePoints, changePointsInTransaction, ensurePointAccount } from '../
 import { submitCmsComment } from './cms-comments.service';
 import { withPagination } from '../../lib/where-helpers';
 import { pageOffset } from '../../lib/pagination';
-import { CMS_INTERACTION_POINTS, CMS_INTERACTION_DAILY_LIMITS } from '@zenith/shared/cms';
+import { CMS_INTERACTION_POINTS, CMS_INTERACTION_DAILY_LIMITS } from '@arcbase/shared/cms';
 import { resolveCmsResourceCovers } from './cms-resource-refs.service';
 import { invalidateCmsSiteCaches } from './cms-cache.service';
 import { isCmsContentPubliclyVisible } from './cms-content-state';
 import { contentUrl, type CmsUrlChannel } from './cms-urls';
-import type { CmsChannelDetailPathRule } from '@zenith/shared/cms';
-import type { CmsInteractionState, CmsMemberContentItem, CmsMemberComment } from '@zenith/shared/cms';
-import type { PaginatedResponse } from '@zenith/shared/core';
+import type { CmsChannelDetailPathRule } from '@arcbase/shared/cms';
+import type { CmsInteractionState, CmsMemberContentItem, CmsMemberComment } from '@arcbase/shared/cms';
+import type { PaginatedResponse } from '@arcbase/shared/core';
 import { formatDate } from '../../lib/datetime';
 import { getEffectivelyEnabledCmsChannelIds } from './cms-channel-visibility.service';
 import { resolveEffectiveCmsSite } from './cms-site-inheritance.service';

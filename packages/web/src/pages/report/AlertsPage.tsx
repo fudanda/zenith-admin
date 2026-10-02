@@ -22,9 +22,9 @@ import {
 } from '@/hooks/queries/report-alerts';
 import { useReportDatasetDetail, useEnabledReportDatasets } from '@/hooks/queries/report-datasets';
 import { useReportMetricLookup } from '@/hooks/queries/report-metrics';
-import type { CreateReportAlertInput, ReportAlertAggregate, ReportAlertOp, ReportAlertRule, ReportDeliveryRun } from '@zenith/shared/report';
-import { NOTIFY_CHANNEL_LABELS } from '@zenith/shared/messaging';
-import { REPORT_DELIVERY_STATUS_LABELS, REPORT_DELIVERY_TRIGGER_LABELS, REPORT_MISFIRE_POLICY_OPTIONS } from '@zenith/shared/report';
+import type { CreateReportAlertInput, ReportAlertAggregate, ReportAlertOp, ReportAlertRule, ReportDeliveryRun } from '@arcbase/shared/report';
+import { NOTIFY_CHANNEL_LABELS } from '@arcbase/shared/messaging';
+import { REPORT_DELIVERY_STATUS_LABELS, REPORT_DELIVERY_TRIGGER_LABELS, REPORT_MISFIRE_POLICY_OPTIONS } from '@arcbase/shared/report';
 import { useDictItems } from '@/hooks/useDictItems';
 import { switchAlertSource } from './report-platform-utils';
 import { CreateButton } from '@/components/toolbar-controls';

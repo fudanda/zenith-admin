@@ -8,7 +8,7 @@ import { db } from '../../../db';
 import { departments, positions, roles, users } from '../../../db/schema';
 import { tenantCondition, getCreateTenantId } from '../../../lib/tenant';
 import { reserveTenantSeats, getTenantUserLimit } from '../../../lib/tenant-quota';
-import { validatePassword, type PasswordPolicy } from '@zenith/shared/settings';
+import { validatePassword, type PasswordPolicy } from '@arcbase/shared/settings';
 import { getSettings } from '../../../lib/settings';
 import { currentUser } from '../../../lib/context';
 import { setUserRoles, setUserPositions } from '../../../services/identity/users.service';

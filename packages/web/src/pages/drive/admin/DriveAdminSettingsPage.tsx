@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, InputNumber, Spin, Switch, TagInput, Toast, Typography } from '@douyinfe/semi-ui';
-import { driveSettingsSchema, type DriveSettings } from '@zenith/shared/settings';
+import { driveSettingsSchema, type DriveSettings } from '@arcbase/shared/settings';
 import { usePermission } from '@/hooks/usePermission';
 import { useDriveSettings, useSaveDriveSettings } from '@/hooks/queries/drive';
 import { SettingDivider, SettingRow, SettingSection } from '@/components/settings/SettingRow';

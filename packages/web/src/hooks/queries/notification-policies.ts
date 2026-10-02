@@ -2,8 +2,8 @@
  * 通知策略（管理员）域 hooks。
  */
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { notificationPolicyContract } from '@zenith/shared/messaging';
+import type { QueryOf } from '@arcbase/shared/core';
+import { notificationPolicyContract } from '@arcbase/shared/messaging';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { notificationPreferenceKeys } from './notification-preferences';
 import { ENTITY_RELATION_REFRESH_OPTIONS, invalidateEntityRelations } from '@/lib/entity-relation-cache';

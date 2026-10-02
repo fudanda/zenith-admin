@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { wikiTagContract } from '@zenith/shared/wiki';
+import type { QueryOf } from '@arcbase/shared/core';
+import { wikiTagContract } from '@arcbase/shared/wiki';
 import { createResourceQueries } from '@/lib/contract-query';
 
 export type WikiTagListParams = NonNullable<QueryOf<typeof wikiTagContract.list>>;

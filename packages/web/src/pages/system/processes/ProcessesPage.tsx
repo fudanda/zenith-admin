@@ -15,15 +15,15 @@ import { readSseStream } from '@/utils/streaming';
 import DateTimeText from '@/components/DateTimeText';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
-import { PROCESS_KILL_SIGNAL_OPTIONS, PROCESS_KILL_SIGNALS, PROCESS_PRIORITY_CLASS_OPTIONS, PROCESS_PRIORITY_CLASSES, matchesProcessFilter, type ProcessInfo, type ProcessKillSignal, type ProcessListResponse, type SetProcessPriorityInput } from '@zenith/shared/ops';
-import { enumValueOf } from '@zenith/shared/core';
+import { PROCESS_KILL_SIGNAL_OPTIONS, PROCESS_KILL_SIGNALS, PROCESS_PRIORITY_CLASS_OPTIONS, PROCESS_PRIORITY_CLASSES, matchesProcessFilter, type ProcessInfo, type ProcessKillSignal, type ProcessListResponse, type SetProcessPriorityInput } from '@arcbase/shared/ops';
+import { enumValueOf } from '@arcbase/shared/core';
 import { hostQueryOf } from '@/hooks/queries/ops-hosts';
 import { processStreamUrl, useKillProcess, useProcessDetail, useProcessList, useSetProcessPriority } from '@/hooks/queries/processes';
 import { dateTimeColumn, EMPTY_PLACEHOLDER, renderEllipsis } from '@/utils/table-columns';
 import { HostSelector } from '@/components/HostSelector';
 import { deriveInitialHostSelection, useOpsHostSelection } from '@/hooks/useOpsHostSelection';
 import { KeywordInput, StatusSelect } from '@/components/search-filters';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import { useFilterQuery } from '@/hooks/useFilterQuery';
 
 // 自定义进程表格 CSS
@@ -131,7 +131,7 @@ export default function ProcessesPage() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // ─── 客户端过滤（谓词与导出中心共用，见 @zenith/shared/ops matchesProcessFilter）─
+  // ─── 客户端过滤（谓词与导出中心共用，见 @arcbase/shared/ops matchesProcessFilter）─
   // 筛选条件 → 查询参数只映射一次：过滤谓词与导出共用同一份
   const filterQuery = useFilterQuery({ keyword: keyword.trim(), status: filterStatus });
   const filteredProcesses = useMemo(

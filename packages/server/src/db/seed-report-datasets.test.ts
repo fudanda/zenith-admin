@@ -7,7 +7,7 @@
  *  - 看板 widgets 绑定的 datasetId 均能在 SEED_REPORT_DATASETS 中找到
  */
 import { describe, expect, it } from 'vitest';
-import { SEED_REPORT_DATASETS, SEED_REPORT_DASHBOARDS } from '@zenith/shared/seed';
+import { SEED_REPORT_DATASETS, SEED_REPORT_DASHBOARDS } from '@arcbase/shared/seed';
 
 describe('SEED_REPORT_DATASETS — 行为中心报表数据集接入', () => {
   const behaviorDatasets = SEED_REPORT_DATASETS.filter((d) => d.id === 3 || d.id === 4 || d.id === 5);

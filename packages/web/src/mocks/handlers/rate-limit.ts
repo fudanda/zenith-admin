@@ -1,4 +1,4 @@
-import { rateLimitContract, type RateLimitBan, type RateLimitRecentBlock, type RateLimitRule } from '@zenith/shared/platform';
+import { rateLimitContract, type RateLimitBan, type RateLimitRecentBlock, type RateLimitRule } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest, notFound, nextIdFrom } from '@/mocks/utils/handlers';
 import { mockDateTime, mockDateTimeOffset } from '../utils/date';

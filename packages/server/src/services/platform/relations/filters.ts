@@ -1,7 +1,7 @@
 import { sql, type SQL } from 'drizzle-orm';
 import type { PgColumn } from 'drizzle-orm/pg-core';
 import { HTTPException } from 'hono/http-exception';
-import { normalizeEntityRelationFilters, supportsEntityRelationFilters, type EntityRelationFilterCapabilities, type EntityRelationFilters } from '@zenith/shared/platform';
+import { normalizeEntityRelationFilters, supportsEntityRelationFilters, type EntityRelationFilterCapabilities, type EntityRelationFilters } from '@arcbase/shared/platform';
 import { buildWhere, dateRangeConditions, keywordCondition } from '../../../lib/where-helpers';
 
 /** Match the full authorized SQL set, before ordering or LIMIT. */

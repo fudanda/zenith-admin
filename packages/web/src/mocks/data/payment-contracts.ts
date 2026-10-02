@@ -1,6 +1,6 @@
-import { SEED_PAYMENT_DEDUCT_PLANS } from '@zenith/shared/seed';
-import type { MemberVipRenewal } from '@zenith/shared/member';
-import type { PaymentContract, PaymentDeductPlan } from '@zenith/shared/payment';
+import { SEED_PAYMENT_DEDUCT_PLANS } from '@arcbase/shared/seed';
+import type { MemberVipRenewal } from '@arcbase/shared/member';
+import type { PaymentContract, PaymentDeductPlan } from '@arcbase/shared/payment';
 import { PAYMENT_MOCK_SEED_TIME } from './payment';
 
 const SEED = PAYMENT_MOCK_SEED_TIME;

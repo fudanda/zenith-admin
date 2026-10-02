@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import { Badge, Button, Tooltip } from '@douyinfe/semi-ui';
 import { ArrowLeft, Download, ExternalLink, History, Images, MoreHorizontal, Phone, Search, Video, X } from 'lucide-react';
-import type { ChatConversation } from '@zenith/shared/chat';
+import type { ChatConversation } from '@arcbase/shared/chat';
 import { MasterDetailLayout } from '@/components/MasterDetailLayout';
 import type { GroupAvatarMap, Setter } from '../types';
 import type { NotifyPrefs } from '../hooks/useNotifyPrefs';

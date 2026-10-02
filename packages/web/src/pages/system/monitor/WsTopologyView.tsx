@@ -18,7 +18,7 @@ import {
   type WsReconnectLink,
   type WsTopoEdgeKind,
   type WsTopoNode,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import './WebSocketMonitorPage.css';
 
 const { Title, Text } = Typography;

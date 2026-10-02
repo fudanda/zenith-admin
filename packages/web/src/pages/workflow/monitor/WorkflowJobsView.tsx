@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button, Col, Descriptions, Empty, Form, JsonViewer, Modal, Popconfirm, Radio, RadioGroup, Row, SideSheet, Space, Tabs, TabPane, Tag, Timeline, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { ChevronsDownUp, ChevronsUpDown, Download } from 'lucide-react';
-import { workflowEngineContract, type WorkflowJob, type WorkflowJobClusterDimension, type WorkflowJobExecution, type WorkflowJobStatus, type WorkflowJobSummaryItem, type WorkflowJobType } from '@zenith/shared/workflow';
+import { workflowEngineContract, type WorkflowJob, type WorkflowJobClusterDimension, type WorkflowJobExecution, type WorkflowJobStatus, type WorkflowJobSummaryItem, type WorkflowJobType } from '@arcbase/shared/workflow';
 import { WORKFLOW_JOB_STATUS_META as JOB_STATUS_META } from './constants';
 import { api } from '@/lib/contract-query';
 import { downloadBlob } from '@/utils/download';

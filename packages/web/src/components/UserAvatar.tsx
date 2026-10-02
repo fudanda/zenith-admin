@@ -1,2 +1,2 @@
-export { UserAvatar } from '@zenith/elements';
-export type { UserAvatarProps } from '@zenith/elements';
+export { UserAvatar } from '@arcbase/elements';
+export type { UserAvatarProps } from '@arcbase/elements';

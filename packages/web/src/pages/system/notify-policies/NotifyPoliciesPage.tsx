@@ -10,7 +10,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Button, Descriptions, Modal, SideSheet, Spin, Switch, Tabs, Tag, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Lock, RotateCcw, Unlock } from 'lucide-react';
-import { NOTIFICATION_CHANNEL_LABELS, NOTIFICATION_DECISION_LABELS, NOTIFICATION_DECISION_OPTIONS, NOTIFICATION_REASON_CODE_LABELS, NOTIFICATION_SEVERITY_LABELS, type NotificationChannel, type NotificationDecision, type NotificationDispatch, type NotificationPolicyEvent, type NotificationReasonCode, NOTIFICATION_CHANNEL_OPTIONS } from '@zenith/shared/messaging';
+import { NOTIFICATION_CHANNEL_LABELS, NOTIFICATION_DECISION_LABELS, NOTIFICATION_DECISION_OPTIONS, NOTIFICATION_REASON_CODE_LABELS, NOTIFICATION_SEVERITY_LABELS, type NotificationChannel, type NotificationDecision, type NotificationDispatch, type NotificationPolicyEvent, type NotificationReasonCode, NOTIFICATION_CHANNEL_OPTIONS } from '@arcbase/shared/messaging';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { ListSearchToolbar, listTableProps } from '@/components/list-page';

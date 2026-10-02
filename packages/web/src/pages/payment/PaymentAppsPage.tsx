@@ -9,7 +9,7 @@ import { useAllPaymentChannelConfigsLookup } from '@/hooks/queries/payment-chann
 import { useDeletePaymentApp, usePaymentAppList, useSavePaymentApp } from '@/hooks/queries/payment-apps';
 import { useOpenAppOptions } from '@/hooks/queries/open-platform';
 import { EMPTY_PLACEHOLDER, copyableNoColumn, createdAtColumn, renderEllipsis, renderEnabledStatusTag } from '@/utils/table-columns';
-import { paymentAppContract, type CreatePaymentAppInput, type PaymentApp, type PaymentChannel, type PaymentChannelConfig } from '@zenith/shared/payment';
+import { paymentAppContract, type CreatePaymentAppInput, type PaymentApp, type PaymentChannel, type PaymentChannelConfig } from '@arcbase/shared/payment';
 import { useDictItems } from '@/hooks/useDictItems';
 import { CreateButton } from '@/components/toolbar-controls';
 import { deleteAction, ListSearchToolbar } from '@/components/list-page';

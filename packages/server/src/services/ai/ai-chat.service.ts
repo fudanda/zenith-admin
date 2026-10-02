@@ -10,7 +10,7 @@ import { updateConversationTitle } from './ai-conversations.service';
 import logger from '../../lib/logger';
 import type { ChatMessage, StreamChunk } from '../../lib/ai/stream-types';
 import type { ModelChainEntry } from '../../lib/ai/mastra-models';
-import type { AiModelCapabilities, AiModelSettings } from '@zenith/shared/ai';
+import type { AiModelCapabilities, AiModelSettings } from '@arcbase/shared/ai';
 
 export type { StreamChunk };
 

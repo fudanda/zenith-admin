@@ -13,7 +13,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import type { ChatConversation, ChatGroupMember } from '@zenith/shared/chat';
+import type { ChatConversation, ChatGroupMember } from '@arcbase/shared/chat';
 import {
   ApiRecorder,
   createRequestMock,

@@ -1,12 +1,12 @@
 /**
  * WebSocket 升级请求的管理端鉴权，与 HTTP authMiddleware 同一口径：
- * - access token 从 `Sec-WebSocket-Protocol: zenith-auth, <token>` 读取（不接受 URL 查询串，避免落日志）
+ * - access token 从 `Sec-WebSocket-Protocol: arcbase-auth, <token>` 读取（不接受 URL 查询串，避免落日志）
  * - 拒绝会员 / refresh token，要求 roles 数组
  * - 实时校验用户与租户状态（checkAdminJwtSubject）
  * - 黑名单校验；Redis 异常时与 HTTP 一致 fail-open（access token 最长 2h）
  */
 import type { Context } from 'hono';
-import { WS_AUTH_SUBPROTOCOL } from '@zenith/shared/platform';
+import { WS_AUTH_SUBPROTOCOL } from '@arcbase/shared/platform';
 import { verifyToken } from './jwt';
 import { checkAdminJwtSubject, type JwtPayload } from '../middleware/auth';
 import { getSession, isTokenBlacklisted } from './session-manager';
@@ -18,7 +18,7 @@ export interface WsIdentity {
   nickname: string;
 }
 
-/** 从子协议头提取 bearer token：`zenith-auth, <token>` */
+/** 从子协议头提取 bearer token：`arcbase-auth, <token>` */
 export function extractWsBearerToken(c: Context): string | null {
   const header = c.req.header('sec-websocket-protocol');
   if (!header) return null;

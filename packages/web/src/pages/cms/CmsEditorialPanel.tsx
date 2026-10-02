@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Banner, Button, Checkbox, Empty, Input, Select, Space, TabPane, Tabs, Tag, TextArea, Toast, Typography } from '@douyinfe/semi-ui';
-import type { CmsContent, CmsModel } from '@zenith/shared/cms';
+import type { CmsContent, CmsModel } from '@arcbase/shared/cms';
 import { usePermission } from '@/hooks/usePermission';
 import UserSelect from '@/components/UserSelect';
 import { confirmDanger } from '@/utils/confirm';

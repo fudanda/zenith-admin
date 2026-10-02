@@ -1,6 +1,6 @@
 # 快速开始
 
-Zenith Admin 是基于 **Hono v4 + React 19 + Drizzle ORM** 的 npm monorepo 项目，当前版本为 `1.90.0`。本页用于把本地开发环境跑通；生产部署请看 [部署说明](./deployment.md) 与 [Docker 部署](./docker.md)。
+ArcBase 是基于 **Hono v4 + React 19 + Drizzle ORM** 的 npm monorepo 项目，当前版本为 `1.90.0`。本页用于把本地开发环境跑通；生产部署请看 [部署说明](./deployment.md) 与 [Docker 部署](./docker.md)。
 
 ## 环境要求
 
@@ -41,11 +41,11 @@ cp packages/server/.env.example packages/server/.env
 
 ```ini
 PORT=3300
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/zenith_admin
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/arcbase_admin
 REDIS_URL=redis://127.0.0.1:6379
 ```
 
-`JWT_SECRET` 与 `FIELD_ENCRYPTION_KEY` 本地开发可以留空：`npm run dev` 会以 `NODE_ENV=development` 启动并使用内置开发密钥，因此团队成员连接同一个开发库时不需要互相交换密钥。只有在需要自定义时才运行 `npm run secret:generate` 填入（`FIELD_ENCRYPTION_KEY` 按数据库共享，自定义后同库的同事必须使用同一把）。直接用 `tsx src/index.ts` 等方式启动而不设置 `NODE_ENV=development` 时按生产规则校验，两把密钥与 `ZENITH_ROLES` 均必填。
+`JWT_SECRET` 与 `FIELD_ENCRYPTION_KEY` 本地开发可以留空：`npm run dev` 会以 `NODE_ENV=development` 启动并使用内置开发密钥，因此团队成员连接同一个开发库时不需要互相交换密钥。只有在需要自定义时才运行 `npm run secret:generate` 填入（`FIELD_ENCRYPTION_KEY` 按数据库共享，自定义后同库的同事必须使用同一把）。直接用 `tsx src/index.ts` 等方式启动而不设置 `NODE_ENV=development` 时按生产规则校验，两把密钥与 `ARCBASE_ROLES` 均必填。
 
 `packages/server/.env.example` 还列出开放平台、请求限制、CSRF、可信代理、出站私网 allowlist、Mastra Studio、WebRTC、HTTP 流量日志、支付、CMS 与 Webhook 等可选变量。
 
@@ -58,7 +58,7 @@ VITE_API_BASE_URL=
 VITE_WS_BASE_URL=
 VITE_API_PROXY_TARGET=http://localhost:3300
 VITE_PORT=5373
-VITE_APP_TITLE=Zenith Admin
+VITE_APP_TITLE=ArcBase
 VITE_BASE_URL=
 VITE_DEPLOYMENT_ID=local
 ```
@@ -109,4 +109,4 @@ npm run docs:dev
 
 - 了解目录分层：阅读 [项目结构](/guide/project-structure)
 - 查看所有功能：阅读 [功能模块](/product/features)
-- 开发新模块：阅读 [AI 辅助开发](/ai/) 与仓库内 `.agents/skills/zenith/`
+- 开发新模块：阅读 [AI 辅助开发](/ai/) 与仓库内 `.agents/skills/arcbase/`

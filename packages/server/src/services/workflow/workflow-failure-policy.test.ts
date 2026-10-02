@@ -3,8 +3,8 @@
  * 覆盖 resolveFailurePolicy 的兼容映射与显式策略优先级。
  */
 import { describe, it, expect } from 'vitest';
-import { resolveFailurePolicy } from '@zenith/shared/workflow';
-import type { WorkflowNodeConfig } from '@zenith/shared/workflow';
+import { resolveFailurePolicy } from '@arcbase/shared/workflow';
+import type { WorkflowNodeConfig } from '@arcbase/shared/workflow';
 
 const node = (over: Partial<WorkflowNodeConfig>): WorkflowNodeConfig => ({ key: 'n1', type: 'trigger', label: '节点', ...over });
 

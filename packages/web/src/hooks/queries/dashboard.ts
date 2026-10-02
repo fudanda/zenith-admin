@@ -1,4 +1,4 @@
-import { dashboardContract as legacyDashboardContract, goDashboardContract } from '@zenith/shared/analytics';
+import { dashboardContract as legacyDashboardContract, goDashboardContract } from '@arcbase/shared/analytics';
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 

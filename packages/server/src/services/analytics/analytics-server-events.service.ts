@@ -25,9 +25,9 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { db } from '../../db';
 import { userEvents } from '../../db/schema';
-import type { AnalyticsEnvironment, AnalyticsEventSource, AnalyticsIdentityType, TrackEventInput } from '@zenith/shared/analytics';
-import { ANALYTICS_PROPERTIES_MAX_BYTES } from '@zenith/shared/analytics';
-import { isPlainObject, jsonByteLength, jsonDepth } from '@zenith/shared/core';
+import type { AnalyticsEnvironment, AnalyticsEventSource, AnalyticsIdentityType, TrackEventInput } from '@arcbase/shared/analytics';
+import { ANALYTICS_PROPERTIES_MAX_BYTES } from '@arcbase/shared/analytics';
+import { isPlainObject, jsonByteLength, jsonDepth } from '@arcbase/shared/core';
 import { parseDateTimeInput } from '../../lib/datetime';
 import { evaluateEvents, recordSchemaIssues } from './analytics-governance.service';
 import { touchEventMeta } from './analytics-event-meta.service';
@@ -46,7 +46,7 @@ const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{
  * SHA-256 截取 16 字节并打上 v5/RFC4122 标记位，同一稳定 ID 永远映射到同一 UUID。
  */
 function deriveDeterministicUuid(stableId: string): string {
-  const bytes = createHash('sha256').update(`zenith:analytics-server-event:${stableId}`).digest().subarray(0, 16);
+  const bytes = createHash('sha256').update(`arcbase:analytics-server-event:${stableId}`).digest().subarray(0, 16);
   bytes[6] = (bytes[6] & 0x0f) | 0x50;
   bytes[8] = (bytes[8] & 0x3f) | 0x80;
   const hex = bytes.toString('hex');

@@ -27,9 +27,9 @@ import type {
   DeduplicateStrategy,
   NodeRuntimeInfo,
 } from './types';
-import type { WorkflowNodeFailureAction } from '@zenith/shared/workflow';
-import { WORKFLOW_APPROVE_METHOD_LABELS } from '@zenith/shared/workflow';
-import { createLabelOptionsFromMap } from '@zenith/shared/core';
+import type { WorkflowNodeFailureAction } from '@arcbase/shared/workflow';
+import { WORKFLOW_APPROVE_METHOD_LABELS } from '@arcbase/shared/workflow';
+import { createLabelOptionsFromMap } from '@arcbase/shared/core';
 
 // ─── 节点类型注册信息 ────────────────────────────────────────────────
 

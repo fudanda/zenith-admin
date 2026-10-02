@@ -3,7 +3,7 @@ import { Link2 } from 'lucide-react';
 import { useEditModal } from '@/hooks/useEditModal';
 import { usePermission } from '@/hooks/usePermission';
 import { useSaveShortLink } from '@/hooks/queries/short-links';
-import type { CreateShortLinkInput, ShortLink } from '@zenith/shared/short-link';
+import type { CreateShortLinkInput, ShortLink } from '@arcbase/shared/short-link';
 import { EditFormModal } from '@/components/EditFormModal';
 
 interface InsertShortLinkButtonProps {

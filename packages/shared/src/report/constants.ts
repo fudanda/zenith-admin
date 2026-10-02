@@ -21,7 +21,7 @@ export const REPORT_DELIVERY_TRIGGER_TYPES = ['manual', 'scheduled', 'trigger', 
 
 export const REPORT_DELIVERY_STATUSES = ['pending', 'running', 'success', 'partial', 'failed', 'cancelled'] as const;
 
-/** 预警比较运算符：与 `@zenith/shared/core` 的 `NUMERIC_COMPARE_OPS` 同源，判定用 `compareNumber()` */
+/** 预警比较运算符：与 `@arcbase/shared/core` 的 `NUMERIC_COMPARE_OPS` 同源，判定用 `compareNumber()` */
 export const REPORT_ALERT_OPS = NUMERIC_COMPARE_OPS;
 
 /** 预警聚合方式 */

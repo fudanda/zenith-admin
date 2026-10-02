@@ -7,7 +7,7 @@ import { Select, Toast } from '@douyinfe/semi-ui';
 import AppModal from '@/components/AppModal';
 import { useAllUsers } from '@/hooks/queries/users';
 import { useCmsSiteUsers, useSetCmsSiteUsers } from '@/hooks/queries/cms';
-import type { CmsSite } from '@zenith/shared/cms';
+import type { CmsSite } from '@arcbase/shared/cms';
 
 interface SiteUsersModalProps {
   readonly site: CmsSite | null;

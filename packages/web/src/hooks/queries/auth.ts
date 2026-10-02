@@ -1,5 +1,5 @@
 import { queryOptions, type QueryClient } from '@tanstack/react-query';
-import { authContract, goAuthContract, type GoSession, type User } from '@zenith/shared/identity';
+import { authContract, goAuthContract, type GoSession, type User } from '@arcbase/shared/identity';
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { api, contractKey } from '@/lib/contract-query';
 import { ApiError, LOOKUP_STALE_TIME } from '@/lib/query';

@@ -1,6 +1,6 @@
-import { smsConfigContract } from '@zenith/shared/messaging';
-import type { SmsConfig } from '@zenith/shared/messaging';
-import { maskSecret, SECRET_PLACEHOLDER } from '@zenith/shared/core';
+import { smsConfigContract } from '@arcbase/shared/messaging';
+import type { SmsConfig } from '@arcbase/shared/messaging';
+import { maskSecret, SECRET_PLACEHOLDER } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem, removeByIds } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';

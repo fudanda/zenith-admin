@@ -1,7 +1,7 @@
 // ─── 工作流事件发射与流水号上下文（拆分自 workflow-instances.service.ts）───
 import { eq } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { WorkflowTask as WorkflowTaskDto, WorkflowCustomFormConfig, WorkflowDefinitionSnapshot, WorkflowFlowData, WorkflowFormType, WorkflowSerialNoConfig } from '@zenith/shared/workflow';
+import type { WorkflowTask as WorkflowTaskDto, WorkflowCustomFormConfig, WorkflowDefinitionSnapshot, WorkflowFlowData, WorkflowFormType, WorkflowSerialNoConfig } from '@arcbase/shared/workflow';
 import { currentUser, currentUserOrNull, currentUserDetail } from '../../../lib/context';
 import { db } from '../../../db';
 import type { DbExecutor } from '../../../db/types';

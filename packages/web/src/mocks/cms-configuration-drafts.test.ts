@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { cmsChannelContract, cmsPageContract, cmsReleaseContract, cmsSiteContract, type CmsChannel, type CmsPage, type CmsRelease, type CmsReleaseDetail, type CmsSite } from '@zenith/shared/cms';
+import { cmsChannelContract, cmsPageContract, cmsReleaseContract, cmsSiteContract, type CmsChannel, type CmsPage, type CmsRelease, type CmsReleaseDetail, type CmsSite } from '@arcbase/shared/cms';
 import { cmsHandlers, cmsP6Handlers } from './handlers/cms';
 import { cmsStage4Handlers } from './handlers/cms-stage4';
 import { cmsReleaseHandlers, resetMockCmsReleases } from './handlers/cms-releases';

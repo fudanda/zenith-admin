@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { wikiCommentContract, type WikiComment } from '@zenith/shared/wiki';
-import { WIKI_COMMENT_STATUS_LABELS } from '@zenith/shared/wiki';
+import { wikiCommentContract, type WikiComment } from '@arcbase/shared/wiki';
+import { WIKI_COMMENT_STATUS_LABELS } from '@arcbase/shared/wiki';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { deleteAction, ListSearchToolbar } from '@/components/list-page';

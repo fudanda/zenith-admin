@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { reportCategoryContract } from '@zenith/shared/report';
+import { reportCategoryContract } from '@arcbase/shared/report';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import { listCategories, createCategory, updateCategory, deleteCategory, ensureCategoryExists, listCategoryLookup, mapCategory } from '../../services/report/report-ops.service';

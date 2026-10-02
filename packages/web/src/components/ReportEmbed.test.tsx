@@ -2,7 +2,7 @@ import React, { createRef } from 'react';
 import { act, cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { ReportEmbedState, ReportWidget } from '@zenith/shared/report';
+import type { ReportEmbedState, ReportWidget } from '@arcbase/shared/report';
 import { ReportEmbed, type ReportEmbedHandle } from './ReportEmbed';
 
 const mocks = vi.hoisted(() => {

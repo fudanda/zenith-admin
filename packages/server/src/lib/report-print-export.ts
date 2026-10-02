@@ -27,8 +27,8 @@ import type { Font as FontkitFont } from 'fontkit';
 import logger from './logger';
 import { PDF_FONT_SOURCE_TEXT, resolvePdfFont } from './pdf-font';
 import type { ResolvedPdfFont } from './pdf-font';
-import { findPrintMerge, isPrintCellCoveredByMerge } from '@zenith/shared/report';
-import type { ReportPrintBorder, ReportPrintCell, ReportPrintCellStyle, ReportPrintGrid, ReportPrintPageConfig, ReportPrintRenderPage, ReportPrintRenderResult } from '@zenith/shared/report';
+import { findPrintMerge, isPrintCellCoveredByMerge } from '@arcbase/shared/report';
+import type { ReportPrintBorder, ReportPrintCell, ReportPrintCellStyle, ReportPrintGrid, ReportPrintPageConfig, ReportPrintRenderPage, ReportPrintRenderResult } from '@arcbase/shared/report';
 
 // 惰性加载：exceljs / pdfkit 模块图大（实测约 2.4s / 0.7s），仅在导出打印文件时加载；fontkit 是 pdfkit 的字体解析器，同批加载
 const require = createRequire(import.meta.url);
@@ -522,7 +522,7 @@ export async function renderPrintResultToDocx(result: ReportPrintRenderResult): 
   }
 
   const buffer = await Packer.toBuffer(new Document({
-    creator: 'Zenith Admin',
+    creator: 'ArcBase',
     title: '报表打印',
     sections,
   }));
@@ -842,7 +842,7 @@ export async function renderPrintExportFile(result: ReportPrintRenderResult, for
     };
   }
   const workbook = new (loadExcelJS().Workbook)();
-  workbook.creator = 'Zenith Admin';
+  workbook.creator = 'ArcBase';
   await renderPrintResultToWorkbook(workbook, result);
   const buffer = await workbook.xlsx.writeBuffer();
   return {

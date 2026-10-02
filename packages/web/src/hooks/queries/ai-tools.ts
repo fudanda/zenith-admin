@@ -1,6 +1,6 @@
-import { aiHttpToolContract } from '@zenith/shared/ai';
-import type { CreateAiHttpToolInput } from '@zenith/shared/ai';
-import { resourceKeyOf } from '@zenith/shared/core';
+import { aiHttpToolContract } from '@arcbase/shared/ai';
+import type { CreateAiHttpToolInput } from '@arcbase/shared/ai';
+import { resourceKeyOf } from '@arcbase/shared/core';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

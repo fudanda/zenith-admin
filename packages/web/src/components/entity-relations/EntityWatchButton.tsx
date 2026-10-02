@@ -1,6 +1,6 @@
 import { Button, Tooltip } from '@douyinfe/semi-ui';
 import { Bell, BellOff } from 'lucide-react';
-import { isWatchableEntityType, type CanonicalEntityRef } from '@zenith/shared/platform';
+import { isWatchableEntityType, type CanonicalEntityRef } from '@arcbase/shared/platform';
 import { useAuth } from '@/hooks/useAuth';
 import { useEntityWatch, useFollowEntity, useUnfollowEntity } from '@/hooks/queries/entity-watches';
 

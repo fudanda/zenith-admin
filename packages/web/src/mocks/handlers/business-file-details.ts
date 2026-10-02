@@ -1,5 +1,5 @@
-import { fillPath } from '@zenith/shared/core';
-import { businessFileContract } from '@zenith/shared/platform';
+import { fillPath } from '@arcbase/shared/core';
+import { businessFileContract } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { currentMockSession } from '@/mocks/utils/auth';
 import { notFound } from '@/mocks/utils/handlers';

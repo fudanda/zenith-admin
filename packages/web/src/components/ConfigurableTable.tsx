@@ -6,7 +6,7 @@ import { Button, Checkbox, Dropdown, Radio, RadioGroup, Space, Switch, Table } f
 import { RotateCcw, Rows3, Settings, Settings2, Maximize2, Minimize2, RefreshCw } from 'lucide-react';
 import type { ColumnProps, Data, TableProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { TableSizePreference } from '@/hooks/usePreferences';
-import { ZENITH_OPERATION_COLUMN_SYMBOL, type ZenithOperationColumnMarker } from './table-column-meta';
+import { ARCBASE_OPERATION_COLUMN_SYMBOL, type ArcBaseOperationColumnMarker } from './table-column-meta';
 import { resolveFlexColumns, stripFlexColumnProps, type FlexColumnProps } from './table-flex-columns';
 
 type TableRecord = Data;
@@ -14,7 +14,7 @@ type ConfigurableColumn<RecordType extends TableRecord> = Omit<ColumnProps<Recor
   children?: ConfigurableColumn<RecordType>[];
   /** 弹性主列的最小宽度：不设 `width` 的列吸收剩余空间，容器过窄时保底该宽度（见 table-flex-columns.ts） */
   minWidth?: number;
-} & ZenithOperationColumnMarker;
+} & ArcBaseOperationColumnMarker;
 
 interface ColumnOption {
   key: string;
@@ -112,7 +112,7 @@ function isAlwaysVisibleColumn<RecordType extends TableRecord>(
 }
 
 function isOperationColumn<RecordType extends TableRecord>(column: ConfigurableColumn<RecordType>): boolean {
-  return column[ZENITH_OPERATION_COLUMN_SYMBOL] === true;
+  return column[ARCBASE_OPERATION_COLUMN_SYMBOL] === true;
 }
 
 function getColumnLabel<RecordType extends TableRecord>(
@@ -177,7 +177,7 @@ function filterColumns<RecordType extends TableRecord>(
 
 function getDefaultStorageKey(columnKeys: string[]): string {
   const pathname = globalThis.window === undefined ? 'ssr' : globalThis.window.location.pathname;
-  return `zenith:table-columns:${pathname}:${columnKeys.join('|')}`;
+  return `arcbase:table-columns:${pathname}:${columnKeys.join('|')}`;
 }
 
 function readHiddenKeys(storageKey: string): string[] {

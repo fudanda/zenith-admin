@@ -1,12 +1,12 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { BodyOf } from '@zenith/shared/core';
-import { menuContract } from '@zenith/shared/identity';
+import type { BodyOf } from '@arcbase/shared/core';
+import { menuContract } from '@arcbase/shared/identity';
 import { apiQueryOptions, contractKey, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { authKeys } from './auth';
 import { dataMaskKeys } from './data-mask';
 import { IS_GO_FOUNDATION, isPageAvailable } from '@/lib/foundation-mode';
-import type { Menu } from '@zenith/shared/identity';
+import type { Menu } from '@arcbase/shared/identity';
 import { useMemo } from 'react';
 import { hostMenus, useMountedAdminModules } from '@/admin/modules';
 import { usePermission } from '@/hooks/usePermission';

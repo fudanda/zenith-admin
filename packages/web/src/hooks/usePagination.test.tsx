@@ -3,7 +3,7 @@ import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { PreferencesContext } from '@/hooks/usePreferences';
 import { createPreferencesContext } from '@/test-utils/preferences';
-import { defaultPreferencePolicy, type UserPreferences } from '@zenith/shared/preferences';
+import { defaultPreferencePolicy, type UserPreferences } from '@arcbase/shared/preferences';
 import { usePagination, type UsePaginationOptions } from './usePagination';
 
 function setup(options: UsePaginationOptions = {}) {

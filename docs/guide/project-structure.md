@@ -1,10 +1,10 @@
 # 项目结构
 
-Zenith Admin 是 npm workspaces monorepo。当前默认后端为 `backend/` 中的 GoFr + Ent 单组织基础版，原管理台保留在 `packages/web`，shared 维护前后端契约。Go 的目录及拆分进度见 [Go 后端目录与分层](./go-backend-architecture.md)。以下 Hono、多入口和运行时目录属于保留的历史链路。
+ArcBase 是 npm workspaces monorepo。当前默认后端为 `backend/` 中的 GoFr + Ent 单组织基础版，原管理台保留在 `packages/web`，shared 维护前后端契约。Go 的目录及拆分进度见 [Go 后端目录与分层](./go-backend-architecture.md)。以下 Hono、多入口和运行时目录属于保留的历史链路。
 
 ```text
-zenith-admin/
-├── .agents/              # AI 辅助开发资产（Zenith Skill）
+arcbase/
+├── .agents/              # AI 辅助开发资产（ArcBase Skill）
 ├── .github/workflows/    # CI、Pages、Release 工作流
 ├── docs/                 # VitePress 文档站
 ├── docker/               # Nginx、entrypoint、Mastra Studio 构建脚本
@@ -29,7 +29,7 @@ zenith-admin/
 | 目录 / 文件 | 职责 |
 | --- | --- |
 | `src/app.ts` | 创建 Hono 应用、装配中间件、领域路由、OpenAPI、CMS 兜底与全局错误处理 |
-| `src/index.ts` | 进程启动编排：校验密钥与 `ZENITH_ROLES`、遥测、失效总线，按角色启动接入面 / 执行面，后台作业声明、事件订阅与优雅停机 |
+| `src/index.ts` | 进程启动编排：校验密钥与 `ARCBASE_ROLES`、遥测、失效总线，按角色启动接入面 / 执行面，后台作业声明、事件订阅与优雅停机 |
 | `src/bootstrap/` | `run-api.ts`（监听、WebSocket、fan-out 订阅、终端会话）、`run-worker.ts`（存储拓扑自检、探针端点、对账与启动补齐）、`workers.ts`（角色无关的任务 / 队列 / 周期任务声明清单）、`subscribers.ts`（事件订阅者）、`shutdown.ts`、OpenAPI 预热 |
 | `src/routes/` | HTTP 协议边界，当前 18 个领域目录见下方清单 |
 | `src/services/` | 业务规则、事务、数据映射、前置校验 |
@@ -51,7 +51,7 @@ tasks, wiki, workflow
 ## `packages/web`
 
 前端基于 **React 19 + Vite 8 + Semi Design v2**。Vite 多入口，入口清单在 `entries.json`（唯一来源），`npm run build` 由 `scripts/build.mjs`
-对每个入口分别构建（环境变量 `ZENITH_WEB_ENTRY`）并预压缩产物；字体 / wasm / 图片 / CSS 等静态资源各入口共用 `dist/assets/`：
+对每个入口分别构建（环境变量 `ARCBASE_WEB_ENTRY`）并预压缩产物；字体 / wasm / 图片 / CSS 等静态资源各入口共用 `dist/assets/`：
 
 | 入口 | JS 产物目录 | 说明 |
 | --- | --- | --- |
@@ -92,9 +92,9 @@ rules, seed, settings, tasks, wiki, workflow
 每个业务域通常包含 `contracts/`（实体 schema 与操作契约，前后端与 Mock 的唯一真相）、`validation.ts`、`constants.ts`、`types.ts`（无法由 schema 推导的类型）、`index.ts`。`settings` 是横切域：`modules/` 下每个文件是一个运行时设置模块（带默认值的 Zod 文档 + 治理元数据），`registry.ts` 汇总为注册表，服务端读取、前端表单、Mock 与 OpenAPI 都由它派生，见[运行时设置](../backend/settings.md)。业务代码使用域子路径导入，例如：
 
 ```ts
-import type { User } from '@zenith/shared/identity';
-import { createPaymentOrderSchema } from '@zenith/shared/payment';
-import { SEED_MENUS } from '@zenith/shared/seed';
+import type { User } from '@arcbase/shared/identity';
+import { createPaymentOrderSchema } from '@arcbase/shared/payment';
+import { SEED_MENUS } from '@arcbase/shared/seed';
 ```
 
 ## `packages/analytics-sdk`
@@ -119,7 +119,7 @@ Electron 桌面客户端：
 | `product/` | 产品概览与功能全景 |
 | `backend/` | API、安全、数据库、任务中心、支付、Mastra 等后端专题 |
 | `frontend/` | UI、认证、数据获取等前端专题 |
-| `ai/` | AGENTS.md 与 Zenith Skill 协作说明 |
+| `ai/` | AGENTS.md 与 ArcBase Skill 协作说明 |
 | 业务专题目录 | [平台基础能力](/platform/)、[文件与存储](/storage/)（`files` 路由领域）、[企业网盘](/drive/)，以及 `/rules/`、`/wiki/`、`/open-platform/`、`/workflow/`、`/payment/`、`/cms/` 等 |
 | `changelog/` | 版本更新记录 |
 

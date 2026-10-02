@@ -1,7 +1,7 @@
 import React from 'react';
 import { Banner, Button, Card, Space, Tag, Typography, Tabs, TabPane } from '@douyinfe/semi-ui';
 import { useNavigate } from 'react-router-dom';
-import { CMS_WORKSPACE_QUEUE_LABELS } from '@zenith/shared/cms';
+import { CMS_WORKSPACE_QUEUE_LABELS } from '@arcbase/shared/cms';
 import { useCmsEditorialWorkspace } from '@/hooks/queries/cms-operations';
 import { usePermission } from '@/hooks/usePermission';
 import { usePagination } from '@/hooks/usePagination';

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { and, eq, isNull } from 'drizzle-orm';
-import { CMS_PREVIEW_PREFIX } from '@zenith/shared/cms';
+import { CMS_PREVIEW_PREFIX } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsContentPreviewGrants } from '../../db/schema';
 import { formatDateTime } from '../../lib/datetime';

@@ -1,5 +1,5 @@
-import type { BodyOf } from '@zenith/shared/core';
-import { reportPublicContract, type ReportDatasetQueryOptions } from '@zenith/shared/report';
+import type { BodyOf } from '@arcbase/shared/core';
+import { reportPublicContract, type ReportDatasetQueryOptions } from '@arcbase/shared/report';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 import { useReportDashboardBatch } from './report-dashboards';
 

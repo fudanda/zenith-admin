@@ -1,4 +1,4 @@
-import { isPositiveInt } from '@zenith/shared/core';
+import { isPositiveInt } from '@arcbase/shared/core';
 
 /**
  * 导出中心 query 归一化：导出任务的 query 是 `Record<string, unknown>`（来自页面筛选原样透传），

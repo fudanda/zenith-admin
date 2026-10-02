@@ -1,4 +1,4 @@
-import type { ReportResourceType } from '@zenith/shared/report';
+import type { ReportResourceType } from '@arcbase/shared/report';
 
 export const REPORT_RESOURCE_TYPE_OPTIONS = [
   { value: 'datasource', label: '数据源' },

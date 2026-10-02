@@ -1,9 +1,9 @@
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';
 import { badRequest, conflict } from '@/mocks/utils/handlers';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
-import { CMS_DEFAULT_THEME_WIDGET_SLOTS, CMS_WIDGET_HIGH_FANOUT_THRESHOLD, CMS_WIDGET_RENDERER_KEYS, CMS_WIDGET_RENDERER_LABELS, cmsWidgetContract } from '@zenith/shared/cms';
-import type { CmsResolvedWidget, CmsResolvedWidgetItem, CmsWidget, CmsWidgetData, CmsWidgetSlot, CmsWidgetSourceReference } from '@zenith/shared/cms';
+import { CMS_DEFAULT_THEME_WIDGET_SLOTS, CMS_WIDGET_HIGH_FANOUT_THRESHOLD, CMS_WIDGET_RENDERER_KEYS, CMS_WIDGET_RENDERER_LABELS, cmsWidgetContract } from '@arcbase/shared/cms';
+import type { CmsResolvedWidget, CmsResolvedWidgetItem, CmsWidget, CmsWidgetData, CmsWidgetSlot, CmsWidgetSourceReference } from '@arcbase/shared/cms';
 import {
   getNextCmsWidgetId,
   getNextCmsWidgetRefId,

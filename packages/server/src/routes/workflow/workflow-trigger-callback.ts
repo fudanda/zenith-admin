@@ -1,7 +1,7 @@
 /**
  * 触发器回调路由（公开，无需登录）
  *
- * Headers: X-Zenith-Signature: t={ts},v1={hex}（如果节点配置 callbackSignMode=hmacSha256）
+ * Headers: X-ArcBase-Signature: t={ts},v1={hex}（如果节点配置 callbackSignMode=hmacSha256）
  *
  * 流程：
  * 1. 根据 callbackId 找到 waiting 的 trigger 任务
@@ -10,7 +10,7 @@
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { workflowTriggerCallbackContract, type WorkflowTriggerNodeConfig } from '@zenith/shared/workflow';
+import { workflowTriggerCallbackContract, type WorkflowTriggerNodeConfig } from '@arcbase/shared/workflow';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { requireCallbackTaskContext } from '../../services/workflow/workflow-instances.service';
@@ -37,7 +37,7 @@ const callback = defineContractRoute(workflowTriggerCallbackContract.callback, {
     if ((cfg.callbackSignMode ?? 'hmacSha256') === 'hmacSha256') {
       assertWorkflowCallbackSignature({
         secret: cfg.callbackSecret,
-        signatureHeader: c.req.header('X-Zenith-Signature'),
+        signatureHeader: c.req.header('X-ArcBase-Signature'),
         rawBody: getWorkflowCallbackRawBody(c.req.raw, body),
         canonicalBody: JSON.stringify(body),
         missingSecretMessage: '回调未配置 secret',

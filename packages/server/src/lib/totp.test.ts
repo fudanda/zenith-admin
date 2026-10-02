@@ -103,11 +103,11 @@ describe('generateTotpSecret', () => {
 
 describe('buildTotpUri', () => {
   it('生成标准 otpauth:// URI', () => {
-    const uri = buildTotpUri({ issuer: 'Zenith', accountName: 'alice', secret: RFC_SECRET });
-    expect(uri.startsWith('otpauth://totp/Zenith%3Aalice?')).toBe(true);
+    const uri = buildTotpUri({ issuer: 'ArcBase', accountName: 'alice', secret: RFC_SECRET });
+    expect(uri.startsWith('otpauth://totp/ArcBase%3Aalice?')).toBe(true);
     const params = new URLSearchParams(uri.split('?')[1]);
     expect(params.get('secret')).toBe(RFC_SECRET);
-    expect(params.get('issuer')).toBe('Zenith');
+    expect(params.get('issuer')).toBe('ArcBase');
     expect(params.get('algorithm')).toBe('SHA1');
     expect(params.get('digits')).toBe('6');
     expect(params.get('period')).toBe('30');

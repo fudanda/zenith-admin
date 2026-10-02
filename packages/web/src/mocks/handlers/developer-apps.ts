@@ -1,6 +1,6 @@
-import { openCmsContract } from '@zenith/shared/cms';
-import { developerAppContract, openGatewayContract } from '@zenith/shared/open-platform';
-import type { OAuth2Client, OAuth2ClientCreated, OpenApiDebugEndpoint } from '@zenith/shared/open-platform';
+import { openCmsContract } from '@arcbase/shared/cms';
+import { developerAppContract, openGatewayContract } from '@arcbase/shared/open-platform';
+import type { OAuth2Client, OAuth2ClientCreated, OpenApiDebugEndpoint } from '@arcbase/shared/open-platform';
 import { urlOf } from '@/lib/contract-query';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
@@ -137,7 +137,7 @@ export const developerAppsHandlers = [
       },
       stringToSign: `${body.method}\n${body.path}\n${qs}\n...\nmock-body-hash`,
       statusCode: 200,
-      responseHeaders: { 'content-type': 'application/json', 'x-zenith-environment': app.environment },
+      responseHeaders: { 'content-type': 'application/json', 'x-arcbase-environment': app.environment },
       responseBody: JSON.stringify({ code: 0, message: 'success', data: body.body ?? body.query ?? { pong: true } }),
       durationMs: 23,
     });

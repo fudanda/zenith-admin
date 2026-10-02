@@ -1,6 +1,6 @@
 import { Button, Tooltip } from '@douyinfe/semi-ui';
 import { Archive, ArchiveRestore, Download, Inbox, MessageSquarePlus, Pencil, Pin, PinOff, Share2, Tags, Trash2 } from 'lucide-react';
-import type { AiConversation } from '@zenith/shared/ai';
+import type { AiConversation } from '@arcbase/shared/ai';
 import { NavListItem, NavListItemActions, NavListPanel } from '@/components/NavListPanel';
 import { confirmDelete } from '@/utils/confirm';
 import type { ConvRow } from '../chat-utils';

@@ -4,8 +4,8 @@
  * - createMemberNotification()：内部业务发通知统一入口（bizId 配合 type 可防重）
  * - 前台自助：列表 / 未读数 / 标记已读
  */
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { memberSelfContract, memberNotificationSchema } from '@zenith/shared/member';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { memberSelfContract, memberNotificationSchema } from '@arcbase/shared/member';
 import { and, desc, eq, isNull } from 'drizzle-orm';
 import { db } from '../../db';
 import { memberNotifications } from '../../db/schema';

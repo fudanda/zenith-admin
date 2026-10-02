@@ -1,6 +1,6 @@
 // ─── 字段配置面板纯工具函数与常量（拆分自 FieldConfigPanel.tsx）───
 import { pinyin } from 'pinyin-pro';
-import type { WorkflowFormField, WorkflowFormFieldType, WorkflowFormFieldOptionItem } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormFieldType, WorkflowFormFieldOptionItem } from '@arcbase/shared/workflow';
 import { evalFormula } from '../../form-formula';
 import { flattenAllFields } from '../../form-tree';
 import { findValueDependencyCycles } from '../../form-graph';

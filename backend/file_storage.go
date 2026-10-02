@@ -1,8 +1,8 @@
-package zenith
+package arcbase
 
 import (
-	"github.com/fudanda/zenith-admin/backend/internal/storage"
-	"github.com/fudanda/zenith-admin/backend/internal/storage/local"
+	"github.com/fudanda/arcbase/backend/internal/storage"
+	"github.com/fudanda/arcbase/backend/internal/storage/local"
 )
 
 type FileStorage = storage.Provider

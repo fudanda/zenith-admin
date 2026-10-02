@@ -8,7 +8,7 @@
  * 之所以仍然同步等待派发结果，是因为告警列表要展示「有没有真的通知到人」——
  * 只返回「已入队」的话，渠道配错在界面上就完全看不出来了。
  */
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { eq, inArray, or, type SQL } from 'drizzle-orm';
 import type {
   InAppMessageType,
@@ -16,8 +16,8 @@ import type {
   NotificationEventKey,
   NotificationEventVars,
   NotificationRecipient,
-} from '@zenith/shared/messaging';
-import type { MonitorAlertNotifyStatus } from '@zenith/shared/platform';
+} from '@arcbase/shared/messaging';
+import type { MonitorAlertNotifyStatus } from '@arcbase/shared/platform';
 import { db } from '../db';
 import { notificationDispatches, users } from '../db/schema';
 import logger from './logger';

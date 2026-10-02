@@ -72,7 +72,7 @@ function buildBody(rand: () => number, vocab: string[], index: number, targetByt
     const count = 60 + Math.floor(rand() * 60);
     for (let i = 0; i < count; i++) {
       // 每 ~200 词插入检索关键词，保证搜索场景有大量命中
-      words.push(i % 200 === 17 ? 'zenith' : vocab[Math.floor(rand() * vocab.length)]);
+      words.push(i % 200 === 17 ? 'arcbase' : vocab[Math.floor(rand() * vocab.length)]);
     }
     const text = words.join(' ');
     plainParts.push(text);
@@ -302,7 +302,7 @@ async function main(): Promise<void> {
     const [adjacent, related] = await Promise.all([getAdjacentContents(midRow), listRelatedContents(midRow)]);
     return { adjacent, related };
   }, jsonBytes));
-  results.push(await measure('search-page-1', '站内搜索第 1 页（20 行）searchCmsContents', () => searchCmsContents({ siteId: site.id, keyword: 'zenith', page: 1, pageSize: 20, skipAccessCheck: true }), jsonBytes));
+  results.push(await measure('search-page-1', '站内搜索第 1 页（20 行）searchCmsContents', () => searchCmsContents({ siteId: site.id, keyword: 'arcbase', page: 1, pageSize: 20, skipAccessCheck: true }), jsonBytes));
   results.push(await measure('admin-list-page-1', '后台内容列表第 1 页（20 行，即 HTTP 响应体）listCmsContents', () => runWithCurrentUser(admin, () => listCmsContents({ siteId: site.id, page: 1, pageSize: 20 })), jsonBytes));
   results.push(await measure('theme-load-100', '主题 load() 数据门面 contents.list limit=100', () => createCmsThemeDataApi(site, baseUrl).contents.list({ limit: 100 }), jsonBytes));
   results.push(await measure('render-channel', '整页 SSR：栏目列表页（缓存 miss 路径）renderChannelPage', () => renderChannelPage(site, baseUrl, channel, 1), htmlBytes));

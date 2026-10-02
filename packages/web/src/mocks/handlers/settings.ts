@@ -14,7 +14,7 @@ import {
   type SettingsModuleKey,
   type SettingsModuleMeta,
   type SettingsUpdateOperation,
-} from '@zenith/shared/settings';
+} from '@arcbase/shared/settings';
 import { mock } from '@/mocks/utils/contract';
 import { conflict } from '@/mocks/utils/handlers';
 import { getMockSettings, mockSettingsEnvelope, mockSettingsVersion, putMockSettings } from '@/mocks/data/settings';

@@ -1,7 +1,7 @@
 import { and, desc, eq, gte, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { licensingContract } from '@zenith/shared/licensing';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { licensingContract } from '@arcbase/shared/licensing';
 import { db } from '../../db';
 import { licenses, licenseEvents, systemInstallations, systemSchedulerNodes } from '../../db/schema';
 import { config } from '../../config';
@@ -28,7 +28,7 @@ import {
   type LicenseStatus,
   type LicenseEffectiveState,
   type LicenseInstallationInfo,
-} from '@zenith/shared/licensing';
+} from '@arcbase/shared/licensing';
 import { notify } from '../messaging/notification-outbox.service';
 import { listEnabledPlatformSuperAdmins } from '../identity/platform-admins.service';
 import type { LicenseRow } from '../../db/schema/licensing';

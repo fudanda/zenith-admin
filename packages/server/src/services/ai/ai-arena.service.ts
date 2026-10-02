@@ -1,7 +1,7 @@
 import { db } from '../../db';
 import { aiArenaVotes } from '../../db/schema';
 import { currentUser } from '../../lib/context';
-import type { ArenaVoteInput } from '@zenith/shared/ai';
+import type { ArenaVoteInput } from '@arcbase/shared/ai';
 
 /** 记录一次多模型对比投票 */
 export async function recordArenaVote(input: ArenaVoteInput) {

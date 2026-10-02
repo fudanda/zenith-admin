@@ -1,6 +1,6 @@
 import { and, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsHomeSectionsSchema, cmsModelDisplaysSchema, validateCmsHomeSections, validateCmsModelDisplay } from '@zenith/shared/cms';
+import { cmsHomeSectionsSchema, cmsModelDisplaysSchema, validateCmsHomeSections, validateCmsModelDisplay } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import { cmsChannels, cmsModels, cmsModelVersions } from '../../db/schema';

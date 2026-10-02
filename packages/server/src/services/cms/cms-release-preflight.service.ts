@@ -1,6 +1,6 @@
 import { and, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CmsPageBlock } from '@zenith/shared/cms';
+import type { CmsPageBlock } from '@arcbase/shared/cms';
 import type { DbExecutor } from '../../db/types';
 import { cmsChannels, cmsContents, cmsPages, cmsTags, cmsWidgets, cmsWidgetRefs } from '../../db/schema';
 import { resolveEffectivelyEnabledChannelIds } from './cms-channel-visibility.service';

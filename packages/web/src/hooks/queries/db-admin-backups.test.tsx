@@ -8,7 +8,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import type { QueryClient } from '@tanstack/react-query';
-import type { DbBackup } from '@zenith/shared/ops';
+import type { DbBackup } from '@arcbase/shared/ops';
 import {
   ApiRecorder,
   createRequestMock,

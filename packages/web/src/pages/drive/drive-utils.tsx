@@ -1,7 +1,7 @@
 import { Tag } from '@douyinfe/semi-ui';
-import { formatBytes, percentOf } from '@zenith/shared/core';
-import type { ManagedFile } from '@zenith/shared/platform';
-import { DRIVE_ROLE_RANK, DRIVE_SHARE_LINK_STATE_LABELS, driveNodeContract, type DriveNode, type DriveRole, type DriveShareLink, type DriveShareLinkState, type DriveSpaceType } from '@zenith/shared/drive';
+import { formatBytes, percentOf } from '@arcbase/shared/core';
+import type { ManagedFile } from '@arcbase/shared/platform';
+import { DRIVE_ROLE_RANK, DRIVE_SHARE_LINK_STATE_LABELS, driveNodeContract, type DriveNode, type DriveRole, type DriveShareLink, type DriveShareLinkState, type DriveSpaceType } from '@arcbase/shared/drive';
 import { urlOf } from '@/lib/contract-query';
 
 

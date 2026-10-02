@@ -1,5 +1,5 @@
-import type { MpAutoReply } from '@zenith/shared/mp';
-import { SEED_MP_AUTO_REPLIES } from '@zenith/shared/seed';
+import type { MpAutoReply } from '@arcbase/shared/mp';
+import { SEED_MP_AUTO_REPLIES } from '@arcbase/shared/seed';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockMpAutoReplies: MpAutoReply[] = SEED_MP_AUTO_REPLIES.map((r) => ({ ...r }));

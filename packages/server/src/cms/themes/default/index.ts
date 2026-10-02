@@ -1,5 +1,5 @@
 import type { CmsTheme } from '../types';
-import { CMS_DEFAULT_THEME_WIDGET_SLOTS, CMS_SITE_COMPOSITION_SETTING_FIELDS } from '@zenith/shared/cms';
+import { CMS_DEFAULT_THEME_WIDGET_SLOTS, CMS_SITE_COMPOSITION_SETTING_FIELDS } from '@arcbase/shared/cms';
 import { DEFAULT_THEME_DARK_VARS } from './Layout';
 import {
   HomeTemplate, ListTemplate, DetailTemplate, PageTemplate, SearchTemplate, TagTemplate, NotFoundTemplate, CustomPageTemplate,

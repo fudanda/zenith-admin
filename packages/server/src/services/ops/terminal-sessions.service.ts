@@ -11,9 +11,9 @@
 import { and, desc, eq, inArray, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import { v7 as uuidv7 } from 'uuid';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { TerminalEndReason, TerminalSessionKind, TerminalSessionState } from '@zenith/shared/ops';
-import { terminalSessionContract } from '@zenith/shared/ops';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { TerminalEndReason, TerminalSessionKind, TerminalSessionState } from '@arcbase/shared/ops';
+import { terminalSessionContract } from '@arcbase/shared/ops';
 import { config } from '../../config';
 import { db } from '../../db';
 import { terminalSessions } from '../../db/schema';

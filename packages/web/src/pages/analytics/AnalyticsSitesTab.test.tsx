@@ -3,7 +3,7 @@ import { createPreferencesContext } from '@/test-utils/preferences';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { desktopToolbar } from '@/test-utils/toolbar';
-import type { AnalyticsSite } from '@zenith/shared/analytics';
+import type { AnalyticsSite } from '@arcbase/shared/analytics';
 import { PreferencesContext } from '@/hooks/usePreferences';
 
 

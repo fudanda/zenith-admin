@@ -18,7 +18,7 @@ import {
   mpStatsContract,
   mpTagContract,
   mpTemplateContract,
-} from '@zenith/shared/mp';
+} from '@arcbase/shared/mp';
 import { defineRouteDomain } from '../_kit';
 import mpAccountsRoutes from './mp-accounts';
 import mpAutoRepliesRoutes from './mp-auto-replies';

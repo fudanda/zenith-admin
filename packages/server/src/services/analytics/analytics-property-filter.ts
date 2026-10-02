@@ -9,8 +9,8 @@
 import { sql, type SQL } from 'drizzle-orm';
 import type { PgColumn } from 'drizzle-orm/pg-core';
 import { HTTPException } from 'hono/http-exception';
-import type { AnalyticsSegmentPropertyFilter, AnalyticsSegmentCompareOp } from '@zenith/shared/analytics';
-import { ANALYTICS_PROPERTY_KEY_PATTERN } from '@zenith/shared/analytics';
+import type { AnalyticsSegmentPropertyFilter, AnalyticsSegmentCompareOp } from '@arcbase/shared/analytics';
+import { ANALYTICS_PROPERTY_KEY_PATTERN } from '@arcbase/shared/analytics';
 
 /** 属性 key 白名单：与 shared 层同源，禁止各写一份（漂移会造成前端放行、服务端 400） */
 export const PROPERTY_KEY_RE = ANALYTICS_PROPERTY_KEY_PATTERN;

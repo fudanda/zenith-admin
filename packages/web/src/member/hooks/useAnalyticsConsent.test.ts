@@ -10,7 +10,7 @@
  */
 import { describe, it, expect, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { MEMBER_ANALYTICS_CONSENT_KEY, MEMBER_ANALYTICS_CONSENT_VERSION } from '@zenith/shared/member';
+import { MEMBER_ANALYTICS_CONSENT_KEY, MEMBER_ANALYTICS_CONSENT_VERSION } from '@arcbase/shared/member';
 import { useAnalyticsConsent, hasMemberAnalyticsConsent } from './useAnalyticsConsent';
 
 beforeEach(() => {

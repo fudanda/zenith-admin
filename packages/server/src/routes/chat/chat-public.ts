@@ -3,7 +3,7 @@
  * 令牌在路由处理内校验；命中后以 webhook 身份向其目标会话投递一条消息。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { chatWebhookPublicContract } from '@zenith/shared/chat';
+import { chatWebhookPublicContract } from '@arcbase/shared/chat';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import { ingestChatWebhook } from '../../services/chat/chat-webhooks.service';

@@ -4,9 +4,9 @@ import { Banner, Button, Descriptions, Form, Modal, SideSheet, Space, Spin, TabP
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { ClipboardPlus, ExternalLink } from 'lucide-react';
-import { REPORT_FILL_RECORD_STATUS_LABELS, REPORT_FILL_RECORD_STATUS_OPTIONS, REPORT_FILL_SYNC_STATUS_LABELS } from '@zenith/shared/report';
-import type { ReportFillRecord, ReportFillRecordStatus } from '@zenith/shared/report';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import { REPORT_FILL_RECORD_STATUS_LABELS, REPORT_FILL_RECORD_STATUS_OPTIONS, REPORT_FILL_SYNC_STATUS_LABELS } from '@arcbase/shared/report';
+import type { ReportFillRecord, ReportFillRecordStatus } from '@arcbase/shared/report';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import ExportButton from '@/components/ExportButton';

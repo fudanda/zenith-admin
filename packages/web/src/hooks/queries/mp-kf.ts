@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { mpKfAccountContract, mpKfSessionContract } from '@zenith/shared/mp';
+import type { QueryOf } from '@arcbase/shared/core';
+import { mpKfAccountContract, mpKfSessionContract } from '@arcbase/shared/mp';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 // ─── 客服账号 ────────────────────────────────────────────────────────────────

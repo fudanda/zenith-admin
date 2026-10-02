@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Banner, Button, Select, Space, Typography } from '@douyinfe/semi-ui';
-import type { CmsWidgetSlot, CmsWidgetRendererKey } from '@zenith/shared/cms';
-import { CMS_WIDGET_RENDERER_LABELS } from '@zenith/shared/cms';
+import type { CmsWidgetSlot, CmsWidgetRendererKey } from '@arcbase/shared/cms';
+import { CMS_WIDGET_RENDERER_LABELS } from '@arcbase/shared/cms';
 import { useCmsWidgetSlots, usePublishedCmsWidgets, useSaveCmsWidgetSlot } from '@/hooks/queries/cms-widgets';
 import { usePermission } from '@/hooks/usePermission';
 import './site-composition.css';

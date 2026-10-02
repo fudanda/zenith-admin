@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Readable } from 'node:stream';
 import { HTTPException } from 'hono/http-exception';
-import { terminalFileContract } from '@zenith/shared/ops';
+import { terminalFileContract } from '@arcbase/shared/ops';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import { mapAsyncTask, submitAsyncTask } from '../../lib/task-center';

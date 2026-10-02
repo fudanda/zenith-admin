@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Descriptions, JsonViewer, TabPane, Tabs, Tag, Tooltip, Typography } from '@douyinfe/semi-ui';
 import AppModal from '@/components/AppModal';
 import type { ColumnProps, TableProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { OperationLog } from '@zenith/shared/platform';
+import type { OperationLog } from '@arcbase/shared/platform';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { formatDateTime } from '@/utils/date';

@@ -1,8 +1,8 @@
-package zenith
+package arcbase
 
 import (
 	"context"
-	"github.com/fudanda/zenith-admin/backend/migrations"
+	"github.com/fudanda/arcbase/backend/migrations"
 	"testing"
 )
 

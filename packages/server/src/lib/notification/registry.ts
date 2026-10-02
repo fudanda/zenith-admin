@@ -5,7 +5,7 @@
  * 派发器只通过 channel 查表。未注册的渠道不会静默丢消息，而是被记为
  * `channel_unavailable` 留痕——这样「配了渠道却没人收到」在派发日志里一眼可见。
  */
-import type { NotificationChannel } from '@zenith/shared/messaging';
+import type { NotificationChannel } from '@arcbase/shared/messaging';
 import type { NotificationChannelAdapter } from './types';
 
 const adapterRegistry = new Map<NotificationChannel, NotificationChannelAdapter>();

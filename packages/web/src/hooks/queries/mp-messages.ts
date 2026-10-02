@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { keepPreviousData } from '@tanstack/react-query';
-import { mpDraftContract, mpMaterialContract, mpMessageContract, type MpDraft, type MpMaterial } from '@zenith/shared/mp';
+import { mpDraftContract, mpMaterialContract, mpMessageContract, type MpDraft, type MpMaterial } from '@arcbase/shared/mp';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 /** 会话线程固定拉最近 50 条，最新在后 */

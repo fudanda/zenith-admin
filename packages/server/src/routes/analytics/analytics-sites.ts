@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { analyticsSiteContract } from '@zenith/shared/analytics';
+import { analyticsSiteContract } from '@arcbase/shared/analytics';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { createSite, deleteSite, listSites, regenerateSiteKey, updateSite } from '../../services/analytics/analytics-sites.service';

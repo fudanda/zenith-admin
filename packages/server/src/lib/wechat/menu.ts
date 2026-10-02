@@ -1,6 +1,6 @@
 import { wechatApiGet, wechatApiPost } from './api';
 import type { MpCredential } from './api';
-import type { MpMenuButton } from '@zenith/shared/mp';
+import type { MpMenuButton } from '@arcbase/shared/mp';
 
 interface MenuMutateResponse {
   errcode?: number;

@@ -12,7 +12,7 @@ vi.mock('../../lib/redis', () => ({
 }));
 
 vi.mock('../../config', () => ({
-  config: { redis: { keyPrefix: 'zenith:' } },
+  config: { redis: { keyPrefix: 'arcbase:' } },
 }));
 
 vi.mock('../../lib/logger', () => ({
@@ -43,7 +43,7 @@ describe('analytics quota service', () => {
     incrby.mockResolvedValue(12);
     decrby.mockResolvedValue(9);
     await expect(checkAndConsumeSiteQuota(1, 10, 3)).resolves.toEqual({ allowed: false, current: 9 });
-    expect(decrby).toHaveBeenCalledWith(expect.stringContaining('zenith:analytics:quota:1:'), 3);
+    expect(decrby).toHaveBeenCalledWith(expect.stringContaining('arcbase:analytics:quota:1:'), 3);
   });
 
   it('fails open when Redis is unavailable', async () => {
@@ -58,6 +58,6 @@ describe('analytics quota service', () => {
 
   it('refunds consumed quota best-effort', async () => {
     await refundSiteQuota(1, 2);
-    expect(decrby).toHaveBeenCalledWith(expect.stringContaining('zenith:analytics:quota:1:'), 2);
+    expect(decrby).toHaveBeenCalledWith(expect.stringContaining('arcbase:analytics:quota:1:'), 2);
   });
 });

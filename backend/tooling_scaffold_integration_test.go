@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -17,18 +17,18 @@ import (
 )
 
 func TestGeneratedStandaloneBinaryBrowser(t *testing.T) {
-	project, node := os.Getenv("ZENITH_TOOLING_PROJECT_DIR"), os.Getenv("ZENITH_BROWSER_TEST_NODE")
+	project, node := os.Getenv("ARCBASE_TOOLING_PROJECT_DIR"), os.Getenv("ARCBASE_BROWSER_TEST_NODE")
 	if project == "" || node == "" {
 		t.Skip("set generated project directory and browser Node")
 	}
-	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	dsn := os.Getenv("ARCBASE_TEST_DATABASE_URL")
 	if dsn == "" {
-		t.Fatal("ZENITH_TEST_DATABASE_URL required")
+		t.Fatal("ARCBASE_TEST_DATABASE_URL required")
 	}
 	dsn = isolatedTestDSN(t, dsn)
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
 	defer cancel()
-	binary := filepath.Join(project, "backend/bin/zenith")
+	binary := filepath.Join(project, "backend/bin/arcbase")
 	if runtime.GOOS == "windows" {
 		binary += ".exe"
 	}
@@ -45,11 +45,11 @@ func TestGeneratedStandaloneBinaryBrowser(t *testing.T) {
 	}
 	env := []string{}
 	for _, line := range os.Environ() {
-		if !strings.HasPrefix(line, "ZENITH_DATABASE_URL=") && !strings.HasPrefix(line, "ZENITH_ADDR=") && !strings.HasPrefix(line, "ZENITH_STORAGE_KEY=") && !strings.HasPrefix(line, "ZENITH_FILE_STAGING_PATH=") && !strings.HasPrefix(line, "ZENITH_INSECURE_COOKIES=") {
+		if !strings.HasPrefix(line, "ARCBASE_DATABASE_URL=") && !strings.HasPrefix(line, "ARCBASE_ADDR=") && !strings.HasPrefix(line, "ARCBASE_STORAGE_KEY=") && !strings.HasPrefix(line, "ARCBASE_FILE_STAGING_PATH=") && !strings.HasPrefix(line, "ARCBASE_INSECURE_COOKIES=") {
 			env = append(env, line)
 		}
 	}
-	env = append(env, "ZENITH_DATABASE_URL="+dsn, "ZENITH_ADDR="+address, "ZENITH_INSECURE_COOKIES=true", "ZENITH_FILE_STAGING_PATH="+staging, "ZENITH_STORAGE_KEY="+strings.Repeat("a", 64))
+	env = append(env, "ARCBASE_DATABASE_URL="+dsn, "ARCBASE_ADDR="+address, "ARCBASE_INSECURE_COOKIES=true", "ARCBASE_FILE_STAGING_PATH="+staging, "ARCBASE_STORAGE_KEY="+strings.Repeat("a", 64))
 	password := "Generated-browser!123456"
 	cli := func(command string, args ...string) {
 		t.Helper()
@@ -110,11 +110,11 @@ func TestGeneratedStandaloneBinaryBrowser(t *testing.T) {
 		t.Fatal(err)
 	}
 	cmd := exec.CommandContext(ctx, node, script)
-	cmd.Env = append(env, "ZENITH_BROWSER_BASE_URL="+base, "ZENITH_BROWSER_USERNAME=browser-admin", "ZENITH_BROWSER_PASSWORD="+password, "ZENITH_TOOLING_PROJECT_DIR="+project)
+	cmd.Env = append(env, "ARCBASE_BROWSER_BASE_URL="+base, "ARCBASE_BROWSER_USERNAME=browser-admin", "ARCBASE_BROWSER_PASSWORD="+password, "ARCBASE_TOOLING_PROJECT_DIR="+project)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		t.Fatalf("generated browser: %v %s", err, output)
 	}
 	t.Log(string(output))
-	t.Log(fmt.Sprintf("PASS: independent Go binary, %s, original ZenithAdmin and generated CRUD", strings.Split(dsn, ":")[0]))
+	t.Log(fmt.Sprintf("PASS: independent Go binary, %s, original ArcBaseAdmin and generated CRUD", strings.Split(dsn, ":")[0]))
 }

@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { loginLogContract } from '@zenith/shared/identity';
+import type { QueryOf } from '@arcbase/shared/core';
+import { loginLogContract } from '@arcbase/shared/identity';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type LoginLogListParams = NonNullable<QueryOf<typeof loginLogContract.list>>;

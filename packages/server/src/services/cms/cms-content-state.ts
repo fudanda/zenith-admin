@@ -1,5 +1,5 @@
 import type { CmsContentRow } from '../../db/schema';
-import type { CmsContentStatus } from '@zenith/shared/cms';
+import type { CmsContentStatus } from '@arcbase/shared/cms';
 
 export const CMS_CONTENT_STATUS_TRANSITIONS = {
   submit: ['draft', 'rejected'],

@@ -6,8 +6,8 @@ import { batchIterable } from '../../excel-export';
 import { defineExport } from '../registry';
 import { RETENTION_7_DAYS } from '../presets';
 import type { ExportColumn } from '../types';
-import type { WalletTxType } from '@zenith/shared/member';
-import { WALLET_TX_TYPE_LABELS } from '@zenith/shared/member';
+import type { WalletTxType } from '@arcbase/shared/member';
+import { WALLET_TX_TYPE_LABELS } from '@arcbase/shared/member';
 
 const TYPE_LABELS: Record<string, string> = WALLET_TX_TYPE_LABELS;
 

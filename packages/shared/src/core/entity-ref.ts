@@ -4,7 +4,7 @@ import * as z from 'zod';
  * 统一对象引用的基础原语。
  *
  * 这里刻意只描述跨运行时可传输的值，不引用任何 platform 或业务域类型。
- * 具体业务域的 EntityType 注册在 `@zenith/shared/platform`，因此 core 可以被
+ * 具体业务域的 EntityType 注册在 `@arcbase/shared/platform`，因此 core 可以被
  * platform、server、web 和 SDK 同时依赖而不会形成反向依赖。
  */
 

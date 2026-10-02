@@ -8,11 +8,11 @@ import { BadgeCheck } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useEventCallback } from '@/hooks/useEventCallback';
 import { MasterDetailLayout } from '@/components/MasterDetailLayout';
-import { chatContract } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import FilePreviewModal from '@/components/FilePreviewModal';
-import type { ChatConversation, ChatMessage, ChatMessageExtra, ChatGroupMember, ChatMessageSearchItem, ChatMessageContext, ChatReadState } from '@zenith/shared/chat';
-import type { Channel } from '@zenith/shared/messaging';
+import type { ChatConversation, ChatMessage, ChatMessageExtra, ChatGroupMember, ChatMessageSearchItem, ChatMessageContext, ChatReadState } from '@arcbase/shared/chat';
+import type { Channel } from '@arcbase/shared/messaging';
 import './ChatPage.css';
 import type { PendingImage, PendingFile, SearchDatePreset, FailedMessage, UploadingItem, MessageReadReceipt, LeftPaneMode } from './types';
 import { UserAvatar } from '@/components/UserAvatar';
@@ -257,7 +257,7 @@ export default function ChatPage({
   // 初始化时从 localStorage 加载所有草稿
   useEffect(() => {
     try {
-      const raw = localStorage.getItem('zenith_chat_drafts');
+      const raw = localStorage.getItem('arcbase_chat_drafts');
       if (raw) {
         const drafts = JSON.parse(raw) as Record<string, string>;
         const map: Record<number, string> = {};

@@ -3,7 +3,7 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 
-const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'zenith-logviewer-'));
+const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'arcbase-logviewer-'));
 const logDir = path.join(tmpRoot, 'logs');
 const extraRoot = path.join(tmpRoot, 'var-log');
 const outside = path.join(tmpRoot, 'secret.env');

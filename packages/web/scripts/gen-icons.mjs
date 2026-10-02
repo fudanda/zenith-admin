@@ -3,8 +3,8 @@
  * 由 `public/favicon.svg` 生成 PWA / 桌面端所需的透明底 PNG 图标（192×192、512×512）。
  * 图标只包含 logo 本体、无底色，Electron 打包（electron-builder.config.js）与 PWA manifest 共用同一份产物。
  *
- *   npm run icons -w @zenith/web                 # 默认用系统 Chrome（与 smoke 脚本一致）
- *   npm run icons -w @zenith/web -- --channel chromium
+ *   npm run icons -w @arcbase/web                 # 默认用系统 Chrome（与 smoke 脚本一致）
+ *   npm run icons -w @arcbase/web -- --channel chromium
  *
  * 修改 favicon.svg 后重新执行即可；几何与配色比例的唯一来源是 `src/lib/brand-logo.ts`（AppLogo 与运行时 favicon 同源），
  * 静态 favicon.svg 需与之保持一致。

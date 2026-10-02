@@ -5,7 +5,7 @@ import { db } from '../../../db';
 import { workflowJobs, workflowJobExecutions, workflowInstances, workflowTasks, workflowTokens, users } from '../../../db/schema';
 import { tenantCondition } from '../../../lib/tenant';
 import { getDataScopeCondition } from '../../../lib/data-scope';
-import type { WorkflowDefinitionSnapshot, WorkflowInstance, WorkflowRuntimeDiagnostics, WorkflowRuntimeIssue, WorkflowRuntimeOutboxEvent, WorkflowTriggerExecution, WorkflowInstanceTrace, WorkflowEngineExplanation, WorkflowEngineExplanationBlocker, WorkflowEngineTraceEntry, WorkflowJobType, WorkflowExecutionToken, WorkflowExecutionTokenView } from '@zenith/shared/workflow';
+import type { WorkflowDefinitionSnapshot, WorkflowInstance, WorkflowRuntimeDiagnostics, WorkflowRuntimeIssue, WorkflowRuntimeOutboxEvent, WorkflowTriggerExecution, WorkflowInstanceTrace, WorkflowEngineExplanation, WorkflowEngineExplanationBlocker, WorkflowEngineTraceEntry, WorkflowJobType, WorkflowExecutionToken, WorkflowExecutionTokenView } from '@arcbase/shared/workflow';
 import { currentUser } from '../../../lib/context';
 import { mapInstance, mapTask } from './mapping';
 import { mapTriggerExecution } from '../workflow-trigger-executions.service';

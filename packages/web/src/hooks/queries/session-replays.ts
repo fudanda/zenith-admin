@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
-import { sessionReplayContract } from '@zenith/shared/analytics';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
+import { sessionReplayContract } from '@arcbase/shared/analytics';
 import { contractKey, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { request } from '@/utils/request';
 

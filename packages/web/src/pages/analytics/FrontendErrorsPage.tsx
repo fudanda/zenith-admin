@@ -56,7 +56,7 @@ import {
   safeJson,
   type ErrorAlertRuleValues,
 } from '@/components/error-tracking';
-import type { ErrorAlertLog, ErrorAlertRule, ErrorBreadcrumb, ErrorEvent, ErrorGroup, ErrorLevel, ErrorStatus, FrontendErrorType, SourceMapItem, AnalyticsEnvironment } from '@zenith/shared/analytics';
+import type { ErrorAlertLog, ErrorAlertRule, ErrorBreadcrumb, ErrorEvent, ErrorGroup, ErrorLevel, ErrorStatus, FrontendErrorType, SourceMapItem, AnalyticsEnvironment } from '@arcbase/shared/analytics';
 import {
   ANALYTICS_ENVIRONMENT_OPTIONS,
   ERROR_LEVEL_LABELS,
@@ -66,7 +66,7 @@ import {
   ERROR_TYPE_LABELS,
   FRONTEND_ERROR_TYPE_OPTIONS,
   SOURCE_MAP_MAX_BYTES,
-} from '@zenith/shared/analytics';
+} from '@arcbase/shared/analytics';
 import { ConfigurableTable } from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { usePagination } from '@/hooks/usePagination';
@@ -97,7 +97,7 @@ import {
 import { FilterSelect, KeywordInput, StatusSelect } from '@/components/search-filters';
 import { EMPTY_PLACEHOLDER, dateTimeColumn, renderEllipsis } from '@/utils/table-columns';
 import { toUserOptions } from '@/hooks/queries/users';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import { useFilterQuery } from '@/hooks/useFilterQuery';
 
 const { Text, Title, Paragraph } = Typography;

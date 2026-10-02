@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 支付中心门面 Service。
  *
@@ -23,8 +23,8 @@ import { decryptField } from '../../lib/encryption';
 import { isPgUniqueViolation } from '../../lib/db-errors';
 import { getSettings } from '../../lib/settings';
 import logger from '../../lib/logger';
-import { PAYMENT_METHOD_CHANNEL, paymentOrderContract, paymentRefundContract, paymentNotifyLogContract, paymentOrderSchema, paymentRefundSchema, paymentNotifyLogSchema } from '@zenith/shared/payment';
-import type { CreatePaymentInput, CreatePaymentResult, CreateRefundInput, PaymentChannel, PaymentNotifyLog, PaymentOrder, PaymentOrderStatus, PaymentRefund } from '@zenith/shared/payment';
+import { PAYMENT_METHOD_CHANNEL, paymentOrderContract, paymentRefundContract, paymentNotifyLogContract, paymentOrderSchema, paymentRefundSchema, paymentNotifyLogSchema } from '@arcbase/shared/payment';
+import type { CreatePaymentInput, CreatePaymentResult, CreateRefundInput, PaymentChannel, PaymentNotifyLog, PaymentOrder, PaymentOrderStatus, PaymentRefund } from '@arcbase/shared/payment';
 import { getAdapter } from '../../lib/payment';
 import type { AdapterContext, DecryptedSecrets, NotifyResult } from '../../lib/payment';
 import { recordEvent, processEvent } from './payment-outbox.service';

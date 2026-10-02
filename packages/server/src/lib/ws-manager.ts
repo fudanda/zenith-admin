@@ -1,6 +1,6 @@
 import type { WSContext } from 'hono/ws';
-import type { ChatPresence } from '@zenith/shared/chat';
-import { isWsControlMessage, type WsMessage } from '@zenith/shared/platform';
+import type { ChatPresence } from '@arcbase/shared/chat';
+import { isWsControlMessage, type WsMessage } from '@arcbase/shared/platform';
 import { formatDateTime } from './datetime';
 import { PROCESS_ID } from './process-identity';
 import { onWsFanout, publishWsFanout } from './ws-fanout';

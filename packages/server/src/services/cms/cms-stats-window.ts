@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 import { HTTPException } from 'hono/http-exception';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { cmsStatContract, isCmsStatTimeZone, type CmsStatScope } from '@zenith/shared/cms';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { cmsStatContract, isCmsStatTimeZone, type CmsStatScope } from '@arcbase/shared/cms';
 
 dayjs.extend(utc); dayjs.extend(timezone);
 export type CmsStatsQuery = QueryOutputOf<typeof cmsStatContract.overview>;

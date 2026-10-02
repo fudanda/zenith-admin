@@ -1,4 +1,4 @@
-import { tagContract, type Tag } from '@zenith/shared/platform';
+import { tagContract, type Tag } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { mockTags, getTagGroups } from '@/mocks/data/tags';
 import { mockResource } from '@/mocks/utils/resource';

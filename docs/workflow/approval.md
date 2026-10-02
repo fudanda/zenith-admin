@@ -192,13 +192,13 @@ POST /api/workflows/instances/{id}/cc/add
 | 访问口径 | 实例详情可见性（发起人 / 参与人 / 持有 `workflow:instance:monitor` 的监控管理员）**且**持有 `workflow:instance:print`；每次打印写操作日志（不记录二进制响应体） |
 | 版式来源 | 流程定义绑定的打印模板（`printTemplateId`，报表打印设计器中 `sourceType=entity` / `entityKind=workflow_instance` 的实体模板）→ 未绑定时按**表单快照自动生成**版式 |
 | 自动版式 | 标题（流程名称 + 审批单，右上角验真二维码）、编号 / 状态 / 发起时间副标题、基本信息、表单内容（尊重栅格 `row` 并排、`group` / `tabs` / `steps` 分段、`detail` 明细子表（数值列千分位 / 精度 / 单位格式化，勾选「明细汇总」的列出合计行）、`signature` 图片、附件文件名）、审批记录（节点 / 处理人 / 结果 / 意见 / 时间 / 手写签名）、抄送、沟通记录；页脚带每页重复「打印人 / 打印时间 / 页码」 |
-| 数据集 | `instance`（主数据集）、`form`、`form_fields`、`form_<明细 key>`、`tasks`、`cc`、`comments`、`consults`、`attachments`，字段目录见 `describeWorkflowPrintDatasets()`（`@zenith/shared/workflow`） |
+| 数据集 | `instance`（主数据集）、`form`、`form_fields`、`form_<明细 key>`、`tasks`、`cc`、`comments`、`consults`、`attachments`，字段目录见 `describeWorkflowPrintDatasets()`（`@arcbase/shared/workflow`） |
 | 字段格式化 | 选项 → 标签、金额千分位 + 单位、人员 / 部门 / 字典 / 关联审批单 → 名称、附件 → 文件名、富文本 → 纯文本；密码与说明类字段不打印 |
 | 脱敏 | 表单中的手机号 / 邮箱 / 证件号字段按「数据脱敏」策略（实体 `WorkflowForm`）打码，与接口出口同一套规则与豁免权限；超管不打码 |
 | 流程级设置 | 「更多设置 → 审批单打印」：仅通过后可打印（非 `approved` 实例返回 400）、办结自动归档（见下）、打印水印（页面斜向平铺，文本支持 `{printer}` / `{time}` / `{serialNo}`，留空为「打印人 时间」） |
 | 字体 | 服务端随包内置 Noto Sans SC（`packages/server/assets/fonts`），无需运维配置；发布包 / 镜像默认为覆盖 GB 2312 ∪ 通用规范汉字表的子集，人名 / 内容含繁体或生僻字时切全量字体（导出日志会列出缺字），企业自有字体经 `REPORT_PDF_FONT_PATH` 覆盖，见[部署说明 → PDF 字体](../guide/deployment.md#_7-pdf-字体-子集-全量) |
 
-纯逻辑（版式生成、数据集构建、字段格式化）在 `@zenith/shared/workflow` 的 `print.ts`，服务端与设计器共用。
+纯逻辑（版式生成、数据集构建、字段格式化）在 `@arcbase/shared/workflow` 的 `print.ts`，服务端与设计器共用。
 
 ### 归档件（PDF 存证）
 
@@ -208,7 +208,7 @@ POST /api/workflows/instances/{id}/cc/add
 
 | 项 | 说明 |
 | --- | --- |
-| 打印来源 `source` | `auto`（默认）有归档件则直接返回归档原件，否则实时渲染；`live` 强制按当前版式重渲；`archive` 只要归档件（未归档 404）。临时指定 `templateId` 时总是实时渲染。响应头 `X-Zenith-Print-Source: archive \| live` 标明来源，预览面板据此显示「归档原件」标识与「按当前版式重新生成」 |
+| 打印来源 `source` | `auto`（默认）有归档件则直接返回归档原件，否则实时渲染；`live` 强制按当前版式重渲；`archive` 只要归档件（未归档 404）。临时指定 `templateId` 时总是实时渲染。响应头 `X-ArcBase-Print-Source: archive \| live` 标明来源，预览面板据此显示「归档原件」标识与「按当前版式重新生成」 |
 | 脱敏边界 | 归档件是未脱敏原件：查看者对该表单存在需打码字段时，`auto` 回退实时（打码）渲染，`archive` 返回 403，不让归档绕过脱敏策略 |
 | 完整性 | 每次下发归档件都重新计算 SHA-256 与记录值比对，不一致返回 500（文件损坏 / 被替换） |
 | 幂等与并发 | 已归档、非终态、流程未开启自动归档的实例直接跳过；条件更新 `archive_file_id IS NULL` 保证并发只落一份，多余文件交托管文件 GC 回收 |

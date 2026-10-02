@@ -6,7 +6,7 @@ import {
   chartOptions, isEmptyValues, makeAreaSpec, makeBarSpec, makePieSpec, useChartPalette,
 } from '@/components/charts';
 import { useShortLinkStats } from '@/hooks/queries/short-links';
-import type { ShortLink } from '@zenith/shared/short-link';
+import type { ShortLink } from '@arcbase/shared/short-link';
 import { shortDate } from '@/utils/date';
 
 interface ShortLinkStatsDrawerProps {

@@ -14,8 +14,8 @@
  */
 import { HTTPException } from 'hono/http-exception';
 import { eq } from 'drizzle-orm';
-import type { RuleDecision, RuleExecutionSource, RuleFlowStep, RuleRef } from '@zenith/shared/rules';
-import { RULE_REF_KIND_LABELS } from '@zenith/shared/rules';
+import type { RuleDecision, RuleExecutionSource, RuleFlowStep, RuleRef } from '@arcbase/shared/rules';
+import { RULE_REF_KIND_LABELS } from '@arcbase/shared/rules';
 import { db } from '../../db';
 import { ruleDecisionFlows, ruleScorecards } from '../../db/schema';
 import { currentUserOrNull } from '../../lib/context';

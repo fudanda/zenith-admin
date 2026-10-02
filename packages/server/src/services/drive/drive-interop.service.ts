@@ -1,5 +1,5 @@
-import { formatBytes } from '@zenith/shared/core';
-import { DRIVE_NODE_TYPE_LABELS, type SendDriveNodeToChatInput } from '@zenith/shared/drive';
+import { formatBytes } from '@arcbase/shared/core';
+import { DRIVE_NODE_TYPE_LABELS, type SendDriveNodeToChatInput } from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveSpaces } from '../../db/schema';
 import { eq } from 'drizzle-orm';

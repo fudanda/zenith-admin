@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import {
   findField,
   updateField,

@@ -1,4 +1,4 @@
-import { LICENSE_FEATURES, licensingContract, type LicenseEventItem, type LicensingStatus } from '@zenith/shared/licensing';
+import { LICENSE_FEATURES, licensingContract, type LicenseEventItem, type LicensingStatus } from '@arcbase/shared/licensing';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest } from '@/mocks/utils/handlers';
 import { mockDateTime } from '@/mocks/utils/date';

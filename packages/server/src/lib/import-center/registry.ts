@@ -2,7 +2,7 @@
  * 导入 Definition 注册表（与 export-center/registry 对偶）。
  */
 import { requireRow } from '../db-assert';
-import type { ImportEntityMeta } from '@zenith/shared/tasks';
+import type { ImportEntityMeta } from '@arcbase/shared/tasks';
 import { hasPermission } from '../context';
 import { DEFAULT_MAX_ROWS, type ImportDefinition } from './types';
 

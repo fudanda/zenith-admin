@@ -11,9 +11,9 @@ import SftpExplorer from './SftpExplorer';
 import DockerExplorer from './DockerExplorer';
 import { useTerminalPreferences } from './useTerminalPreferences';
 import { usePreferences } from '@/hooks/usePreferences';
-import { terminalFileContract, type TerminalShellInfo } from '@zenith/shared/ops';
+import { terminalFileContract, type TerminalShellInfo } from '@arcbase/shared/ops';
 import { api } from '@/lib/contract-query';
-import { TOKEN_KEY } from '@zenith/shared/core';
+import { TOKEN_KEY } from '@arcbase/shared/core';
 import { getShellIcon } from '@/utils/fileIcons';
 import { CursorContextDropdown } from '@/components/CursorContextDropdown';
 import { terminalSessionStore } from './terminalSessionStore';
@@ -55,7 +55,7 @@ function nextTabId(): string {
 
 // 键名带版本：v1 布局里的 stableSessionId 是会跨用户撞号的 pane-N 计数器，
 // 必须整体作废而不是继续恢复。
-const LAYOUT_STORAGE_KEY = 'zenith_terminal_layout_v2';
+const LAYOUT_STORAGE_KEY = 'arcbase_terminal_layout_v2';
 
 interface PersistedLayout {
   sessions: Session[];

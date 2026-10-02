@@ -1,7 +1,7 @@
 import { requireRow } from '../../lib/db-assert';
 import { buildListResult } from '../../lib/list-query';
 import { HTTPException } from 'hono/http-exception';
-import { aggregateReportRows, compare as compareReportValue, reportAlertContract, reportAlertRuleSchema } from '@zenith/shared/report';
+import { aggregateReportRows, compare as compareReportValue, reportAlertContract, reportAlertRuleSchema } from '@arcbase/shared/report';
 import { and, desc, eq, inArray, isNotNull, lte } from 'drizzle-orm';
 import { db } from '../../db';
 import { reportAlertRules, reportDeliveryRuns } from '../../db/schema';
@@ -10,8 +10,8 @@ import { buildWhere, keywordCondition } from '../../lib/where-helpers';
 import { formatDateTime, formatNullableDateTime } from '../../lib/datetime';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { currentUserOrNull } from '../../lib/context';
-import { escapeHtml } from '@zenith/shared/core';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { trimNullableText } from '../../lib/text-utils';
 import { assertDatasetEvaluableGlobally, ensureDatasetExists, getDatasetData } from './report-dataset.service';
 import { ensureReportMetricExists, evaluateReportMetric } from './report-metric.service';
@@ -36,7 +36,7 @@ import { dispatchReportNotification } from './report-delivery-dispatch';
 import { reportCreateTenantId, reportScopedWhere, reportTenantScope } from './report-access';
 import { maskReportSecret, prepareReportSecret } from './report-secrets';
 import type { ReportAlertRuleRow, ReportDeliveryRunRow } from '../../db/schema';
-import type { CreateReportAlertInput, ReportAlertAggregate, ReportAlertEvalHit, ReportAlertEvalResult, ReportAlertOp, ReportAlertRule, ReportDeliveryStatus, ReportNotifyChannel, UpdateReportAlertInput } from '@zenith/shared/report';
+import type { CreateReportAlertInput, ReportAlertAggregate, ReportAlertEvalHit, ReportAlertEvalResult, ReportAlertOp, ReportAlertRule, ReportDeliveryStatus, ReportNotifyChannel, UpdateReportAlertInput } from '@arcbase/shared/report';
 import {
   buildReportFieldMetadataMap,
   isNumericReportField,

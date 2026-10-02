@@ -6,9 +6,9 @@ import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
-import { enumValueOf, USER_STATUSES } from '@zenith/shared/core';
-import { PAYMENT_CHANNEL_LABELS, PAYMENT_CHANNEL_OPTIONS, PAYMENT_CHANNELS } from '@zenith/shared/payment';
-import type { PaymentChannel, PaymentChannelConfig } from '@zenith/shared/payment';
+import { enumValueOf, USER_STATUSES } from '@arcbase/shared/core';
+import { PAYMENT_CHANNEL_LABELS, PAYMENT_CHANNEL_OPTIONS, PAYMENT_CHANNELS } from '@arcbase/shared/payment';
+import type { PaymentChannel, PaymentChannelConfig } from '@arcbase/shared/payment';
 import {
   paymentChannelKeys,
   useDeletePaymentChannels,

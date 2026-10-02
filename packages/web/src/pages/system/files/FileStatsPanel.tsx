@@ -12,10 +12,10 @@ import {
 } from '@/components/charts';
 import { FileImage, Video, Music, FileText, File } from 'lucide-react';
 import { useFileStats } from '@/hooks/queries/files';
-import { FILE_STORAGE_PROVIDER_LABELS } from '@zenith/shared/platform';
+import { FILE_STORAGE_PROVIDER_LABELS } from '@arcbase/shared/platform';
 import { DataBar } from '@/components/data-viz/DataBar';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 const PROVIDER_LABELS: Record<string, string> = FILE_STORAGE_PROVIDER_LABELS;
 

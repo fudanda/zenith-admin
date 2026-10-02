@@ -1,5 +1,5 @@
 import { OpenAPIHono, z } from '@hono/zod-openapi';
-import { reportDashboardContract, reportDashboardRevisionConflictSchema, type ReportWidget } from '@zenith/shared/report';
+import { reportDashboardContract, reportDashboardRevisionConflictSchema, type ReportWidget } from '@arcbase/shared/report';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook, errBody } from '../../lib/openapi-schemas';

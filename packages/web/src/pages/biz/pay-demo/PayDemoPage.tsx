@@ -10,10 +10,10 @@ import { Banner, Collapse, Form, Modal, Space, Tag, Toast, Tooltip, Typography }
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Info } from 'lucide-react';
-import { enumValueOf } from '@zenith/shared/core';
-import { PAYMENT_CASHIER_METHODS, PAYMENT_METHOD_CHANNEL, PAYMENT_METHOD_LABELS } from '@zenith/shared/payment';
-import { BIZ_PAY_DEMO_STATUS_LABELS, type BizPayDemo, type BizPayDemoStatus, type CreateBizPayDemoInput, bizPayDemoContract } from '@zenith/shared/biz';
-import type { CreatePaymentResult, PaymentMethod } from '@zenith/shared/payment';
+import { enumValueOf } from '@arcbase/shared/core';
+import { PAYMENT_CASHIER_METHODS, PAYMENT_METHOD_CHANNEL, PAYMENT_METHOD_LABELS } from '@arcbase/shared/payment';
+import { BIZ_PAY_DEMO_STATUS_LABELS, type BizPayDemo, type BizPayDemoStatus, type CreateBizPayDemoInput, bizPayDemoContract } from '@arcbase/shared/biz';
+import type { CreatePaymentResult, PaymentMethod } from '@arcbase/shared/payment';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { createdAtColumn, dateTimeColumn } from '@/utils/table-columns';
@@ -89,7 +89,7 @@ await db.update(bizPayDemos)
   .where(and(eq(bizPayDemos.id, Number(bizId)), eq(bizPayDemos.status, 'paying')));`;
 
 const SNIPPET_FRONTEND = `// 前端 · 发起支付并展示二维码（pages/biz/pay-demo/PayDemoPage.tsx）
-const payMutation = useApiMutation(bizPayDemoContract.pay);   // 契约驱动：URL / 入参 / 响应类型均来自 @zenith/shared/biz
+const payMutation = useApiMutation(bizPayDemoContract.pay);   // 契约驱动：URL / 入参 / 响应类型均来自 @arcbase/shared/biz
 const { payParams } = await payMutation.mutateAsync({ params: { id }, body: { applicationId, payMethod: 'wechat_native' } });
 // payParams: { orderNo, codeUrl?, payUrl?, ... }
 

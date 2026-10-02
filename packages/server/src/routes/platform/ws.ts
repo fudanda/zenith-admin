@@ -18,8 +18,8 @@ import { getClientIp } from '../../lib/request-helpers';
 import { registerConnection, removeConnection, sendToUser, sendWsControl, incWsRecv, isUserOnline } from '../../lib/ws-manager';
 import { getCallConversation, joinRoom, leaveAllRooms, leaveRoom } from '../../lib/rtc-manager';
 import { getConversationMemberIds } from '../../lib/chat-member-cache';
-import type { RtcPeerInfo } from '@zenith/shared/chat';
-import type { WsMessage } from '@zenith/shared/platform';
+import type { RtcPeerInfo } from '@arcbase/shared/chat';
+import type { WsMessage } from '@arcbase/shared/platform';
 
 // ─── 入站帧 schema ────────────────────────────────────────────────────────────
 

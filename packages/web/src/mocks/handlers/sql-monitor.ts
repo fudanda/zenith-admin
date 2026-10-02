@@ -1,4 +1,4 @@
-import { sqlMonitorContract } from '@zenith/shared/platform';
+import { sqlMonitorContract } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { sqlMonitorHistory, sqlMonitorLocks, sqlMonitorQueries, sqlMonitorSessions, getSqlMonitorOverview } from '@/mocks/data/sql-monitor';
 

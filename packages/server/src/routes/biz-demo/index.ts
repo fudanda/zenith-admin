@@ -1,4 +1,4 @@
-import { bizLeaveContract } from '@zenith/shared/biz';
+import { bizLeaveContract } from '@arcbase/shared/biz';
 import { defineRouteDomain } from '../_kit';
 import bizLeaveRoutes from './biz-leave';
 

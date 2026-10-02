@@ -1,8 +1,8 @@
-import type { WorkflowSignaturePolicy } from '@zenith/shared/workflow';
+import type { WorkflowSignaturePolicy } from '@arcbase/shared/workflow';
 // ─── 实例/任务数据映射与定义快照辅助（拆分自 workflow-instances.service.ts）───
 import { formatDateTime, formatNullableDateTime, formatTimestamps } from '../../../lib/datetime';
 import { workflowInstances, workflowTasks, workflowDefinitions } from '../../../db/schema';
-import { normalizeWorkflowFormSnapshot, type WorkflowDefinitionSnapshot, type WorkflowFlowData, type WorkflowActionButtonKey, type WorkflowActionButtonConfig, type WorkflowFormField, type WorkflowFormSettings, type WorkflowCustomFormConfig, type WorkflowFormType, type WorkflowInstanceFormSnapshot } from '@zenith/shared/workflow';
+import { normalizeWorkflowFormSnapshot, type WorkflowDefinitionSnapshot, type WorkflowFlowData, type WorkflowActionButtonKey, type WorkflowActionButtonConfig, type WorkflowFormField, type WorkflowFormSettings, type WorkflowCustomFormConfig, type WorkflowFormType, type WorkflowInstanceFormSnapshot } from '@arcbase/shared/workflow';
 import { type TaskAction } from '../../../lib/workflow-engine';
 import { HTTPException } from 'hono/http-exception';
 
@@ -25,7 +25,7 @@ export function mapTask(
   assigneeAvatar?: string | null,
   actionButtons?: Partial<Record<WorkflowActionButtonKey, WorkflowActionButtonConfig>> | null,
   signaturePolicy?: WorkflowSignaturePolicy,
-  transfers?: import('@zenith/shared').WorkflowTaskTransfer[] | null,
+  transfers?: import('@arcbase/shared').WorkflowTaskTransfer[] | null,
 ) {
   return {
     id: row.id,
@@ -69,8 +69,8 @@ export function mapInstance(
     currentNodeNames?: string[];
     tasks?: ReturnType<typeof mapTask>[];
     childInstances?: Array<{ id: number; title: string; status: typeof workflowInstances.$inferSelect['status']; parentTaskNodeKey?: string | null; createdAt: string }>;
-    comments?: import('@zenith/shared').WorkflowComment[];
-    consults?: import('@zenith/shared').WorkflowTaskConsult[];
+    comments?: import('@arcbase/shared').WorkflowComment[];
+    consults?: import('@arcbase/shared').WorkflowTaskConsult[];
     myTaskStatus?: typeof workflowTasks.$inferSelect['status'] | null;
     myActionAt?: Date | string | null;
     ccTaskId?: number | null;
@@ -97,7 +97,7 @@ export function mapInstance(
     categoryName: extras.categoryName ?? null,
     title: row.title,
     serialNo: row.serialNo ?? null,
-    priority: (row.priority ?? 'normal') as import('@zenith/shared').WorkflowInstancePriority,
+    priority: (row.priority ?? 'normal') as import('@arcbase/shared').WorkflowInstancePriority,
     allowWithdraw: snapshotSettings?.allowWithdraw !== false,
     allowResubmit: snapshotSettings?.allowResubmit !== false,
     allowComment: snapshotSettings?.allowComment !== false,

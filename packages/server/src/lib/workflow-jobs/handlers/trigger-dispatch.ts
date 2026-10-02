@@ -1,8 +1,8 @@
 import { runWorkflowJobStep } from '../steps';
 import { throwIfWorkflowExternalEffectUncertain } from '../external-effects';
 import { eq } from 'drizzle-orm';
-import type { WorkflowTriggerNodeConfig } from '@zenith/shared/workflow';
-import { isGatedTrigger } from '@zenith/shared/workflow';
+import type { WorkflowTriggerNodeConfig } from '@arcbase/shared/workflow';
+import { isGatedTrigger } from '@arcbase/shared/workflow';
 import { config } from '../../../config';
 import { db } from '../../../db';
 import { workflowTasks, workflowInstances } from '../../../db/schema';

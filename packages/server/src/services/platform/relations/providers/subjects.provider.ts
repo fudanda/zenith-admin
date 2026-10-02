@@ -1,5 +1,5 @@
 import { and, desc, eq, exists, gte, inArray, lt, or, sql } from 'drizzle-orm';
-import { entityRelationRecordFilters, type CanonicalEntityType, type EntityRelationItem } from '@zenith/shared/platform';
+import { entityRelationRecordFilters, type CanonicalEntityType, type EntityRelationItem } from '@arcbase/shared/platform';
 import { operationLogs, operationLogSubjects, notificationOutbox, notificationOutboxSubjects, asyncTasks, asyncTaskSubjects } from '../../../../db/schema';
 import { exactTenantCondition, tenantCondition } from '../../../../lib/tenant';
 import { buildWhere, keywordCondition } from '../../../../lib/where-helpers';
@@ -7,7 +7,7 @@ import { hasPermission } from '../../../../lib/context';
 import type { EntityAnchorResolver, RelationAccessContext, RelationProvider, VisibleEntityAnchor } from '../types';
 import { decodeRelationCursor } from '../cursor';
 import { relationPage } from '../page';
-import { getNotificationEvent, isNotificationEventKey, NOTIFICATION_EVENT_KEYS } from '@zenith/shared/messaging';
+import { getNotificationEvent, isNotificationEventKey, NOTIFICATION_EVENT_KEYS } from '@arcbase/shared/messaging';
 import { relationSummaryQuery } from '../summary-query';
 import { relationFilterWhere } from '../filters';
 import { formatDateTime } from '../../../../lib/datetime';

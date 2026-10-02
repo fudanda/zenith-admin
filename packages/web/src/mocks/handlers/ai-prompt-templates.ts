@@ -1,6 +1,6 @@
-import { aiPromptTemplateContract } from '@zenith/shared/ai';
-import type { AiPromptTemplate } from '@zenith/shared/ai';
-import { SEED_AI_PROMPT_TEMPLATES } from '@zenith/shared/seed';
+import { aiPromptTemplateContract } from '@arcbase/shared/ai';
+import type { AiPromptTemplate } from '@arcbase/shared/ai';
+import { SEED_AI_PROMPT_TEMPLATES } from '@arcbase/shared/seed';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest, notFound, nextIdFrom } from '@/mocks/utils/handlers';

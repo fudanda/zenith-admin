@@ -1,5 +1,5 @@
 import { eq, asc, desc, and, inArray } from 'drizzle-orm';
-import { dictContract, dictSchema } from '@zenith/shared/platform';
+import { dictContract, dictSchema } from '@arcbase/shared/platform';
 import { keywordCondition, dateRangeConditions } from '../../lib/where-helpers';
 import { db } from '../../db';
 import { dicts, dictItems } from '../../db/schema';

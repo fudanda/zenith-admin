@@ -13,11 +13,11 @@ import { createHash } from 'node:crypto';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { HTTPException } from 'hono/http-exception';
-import { UPLOAD_CHUNK_MAX_BYTES, UPLOAD_CHUNK_MIN_BYTES, UPLOAD_MAX_CHUNKS } from '@zenith/shared/platform';
+import { UPLOAD_CHUNK_MAX_BYTES, UPLOAD_CHUNK_MIN_BYTES, UPLOAD_MAX_CHUNKS } from '@arcbase/shared/platform';
 
 const TEMP_ROOT = vi.hoisted(() => {
   // config 在模块加载时读取环境变量，必须在任何 import 求值前设置
-  const dir = `${process.env.TMPDIR ?? process.env.TEMP ?? process.env.TMP ?? '/tmp'}/zenith-upload-sessions-test-${process.pid}`;
+  const dir = `${process.env.TMPDIR ?? process.env.TEMP ?? process.env.TMP ?? '/tmp'}/arcbase-upload-sessions-test-${process.pid}`;
   process.env.UPLOAD_TEMP_DIR = dir;
   return dir;
 });

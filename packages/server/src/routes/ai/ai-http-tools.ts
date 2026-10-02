@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { aiHttpToolContract } from '@zenith/shared/ai';
+import { aiHttpToolContract } from '@arcbase/shared/ai';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { listHttpTools, createHttpTool, updateHttpTool, deleteHttpTool } from '../../services/ai/ai-http-tools.service';

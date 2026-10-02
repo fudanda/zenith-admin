@@ -1,7 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query';
-import { bizLeaveContract, type BizLeave } from '@zenith/shared/biz';
-import { cmsContentContract } from '@zenith/shared/cms';
-import { workflowInstanceContract, type WorkflowBusinessContext, type WorkflowInstance } from '@zenith/shared/workflow';
+import { bizLeaveContract, type BizLeave } from '@arcbase/shared/biz';
+import { cmsContentContract } from '@arcbase/shared/cms';
+import { workflowInstanceContract, type WorkflowBusinessContext, type WorkflowInstance } from '@arcbase/shared/workflow';
 import { contractKey } from '@/lib/contract-query';
 
 type BusinessRef = { type: 'biz_leave' | 'cms_content'; id: number };

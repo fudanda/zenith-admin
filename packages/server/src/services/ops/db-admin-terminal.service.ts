@@ -9,7 +9,7 @@
  * 拿到服务器 shell：权限边界与主机终端对齐，要求 system:terminal:execute + system:db-admin:terminal
  * （读写额外要求 system:db-admin:write）。
  *
- * 只读模式通过 PGOPTIONS 设置 default_transaction_read_only=on 并切换到 zenith_readonly 角色——
+ * 只读模式通过 PGOPTIONS 设置 default_transaction_read_only=on 并切换到 arcbase_readonly 角色——
  * 这是防误操作的安全默认值，不是权限边界（会话内可被 SET / RESET ROLE 覆盖）。
  */
 import { execFile } from 'node:child_process';
@@ -44,7 +44,7 @@ export function buildPsqlLaunch(
   params: DbConnectionParams,
   options: { readonlyRole?: boolean } = {},
 ): PsqlLaunch {
-  const env = pgClientEnv(params, 'zenith_db_terminal');
+  const env = pgClientEnv(params, 'arcbase_db_terminal');
   if (mode === 'ro') {
     const opts = ['-c default_transaction_read_only=on'];
     if (options.readonlyRole) opts.push(`-c role=${DB_READONLY_ROLE}`);

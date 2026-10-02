@@ -1,6 +1,6 @@
 import { Tag, Form, Typography, Row, Col, Space } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { ratePlanContract, type CreateRatePlanInput, type RatePlan } from '@zenith/shared/open-platform';
+import { ratePlanContract, type CreateRatePlanInput, type RatePlan } from '@arcbase/shared/open-platform';
 import { copyableNoColumn, createdAtColumn, renderEnabledStatusTag } from '@/utils/table-columns';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { ListSearchToolbar, useCrudOperationColumn } from '@/components/list-page';

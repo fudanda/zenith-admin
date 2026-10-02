@@ -1,7 +1,7 @@
 import { assertMockCmsCas, freezeMockCmsRevision } from '@/mocks/utils/cms-revisions';
 import { stageMockCmsConfigurationDraft, submitMockCmsContentRelease } from './cms-releases';
 import { assertMockCmsManualAudit } from '@/mocks/utils/workflow-business';
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import { http, HttpResponse } from 'msw';
 import type * as z from 'zod';
 import { badRequest, unauthorized, forbidden, notFound, conflict, nextIdFrom } from '@/mocks/utils/handlers';
@@ -15,7 +15,7 @@ import {
   cmsSubscriptionContract,
   memberCmsContract,
   publicCmsContract,
-} from '@zenith/shared/cms';
+} from '@arcbase/shared/cms';
 import type {
   CmsInteraction,
   CmsInteractionPublicState,
@@ -28,7 +28,7 @@ import type {
   CmsMemberSubscription,
   cmsInteractionQuestionSchema,
   submitCmsInteractionSchema,
-} from '@zenith/shared/cms';
+} from '@arcbase/shared/cms';
 import {
   buildMockAnswerDetails,
   getNextCmsAdEventId,

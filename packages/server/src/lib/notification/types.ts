@@ -10,7 +10,7 @@ import type {
   NotificationEventDef,
   NotificationEventKey,
   NotificationRecipient,
-} from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
 
 /** 已解析出可达地址的收件人。 */
 export interface ResolvedRecipient {

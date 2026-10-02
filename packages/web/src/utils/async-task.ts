@@ -1,4 +1,4 @@
-import type { AsyncTaskItemStatus, AsyncTaskStatus } from '@zenith/shared/tasks';
+import type { AsyncTaskItemStatus, AsyncTaskStatus } from '@arcbase/shared/tasks';
 
 /** 异步任务状态 → Tag 颜色/文案（任务中心与业务 Demo 页共用） */
 export const ASYNC_TASK_STATUS_TAG_MAP = {

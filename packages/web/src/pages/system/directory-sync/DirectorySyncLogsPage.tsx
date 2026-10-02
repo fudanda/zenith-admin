@@ -14,14 +14,14 @@ import {
   directorySyncRunKeys, useDirectorySyncRunList, useDirectorySyncRunItems,
   useRetryDirectorySyncRun, useDirectorySyncSourceList,
 } from '@/hooks/queries/directory-sync';
-import type { DirectorySyncRun, DirectorySyncRunItem } from '@zenith/shared/identity';
-import { enumValueOf } from '@zenith/shared/core';
+import type { DirectorySyncRun, DirectorySyncRunItem } from '@arcbase/shared/identity';
+import { enumValueOf } from '@arcbase/shared/core';
 import {
   DIRECTORY_SYNC_RUN_STATUSES, DIRECTORY_SYNC_RUN_STATUS_LABELS,
   DIRECTORY_SYNC_TRIGGER_TYPE_LABELS,
   DIRECTORY_SYNC_ITEM_ACTIONS, DIRECTORY_SYNC_ITEM_ACTION_LABELS,
   DIRECTORY_SYNC_ENTITY_TYPE_LABELS,
-} from '@zenith/shared/identity';
+} from '@arcbase/shared/identity';
 import { DIRECTORY_SYNC_RUN_STATUS_TAG_COLOR } from './directory-sync-tag-colors';
 
 interface SearchParams {

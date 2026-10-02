@@ -1,4 +1,4 @@
-import { POINT_TX_TYPE_LABELS, memberSelfContract } from '@zenith/shared/member';
+import { POINT_TX_TYPE_LABELS, memberSelfContract } from '@arcbase/shared/member';
 import { Coins } from 'lucide-react';
 import { MemberPage } from '../../components/MemberPage';
 import { StatCard } from '../../components/StatCard';

@@ -44,7 +44,7 @@ import { getHostSshConnectionOptions, shellQuoteArg } from '../../lib/host-exec'
 const MONITOR_PERMISSION = 'system:terminal:monitor';
 
 const POWERSHELL_CWD_PROMPT = [
-  "$global:__zenith_original_prompt = if (Test-Path function:\\prompt) { (Get-Command prompt).ScriptBlock } else { { 'PS ' + (Get-Location) + '> ' } };",
+  "$global:__arcbase_original_prompt = if (Test-Path function:\\prompt) { (Get-Command prompt).ScriptBlock } else { { 'PS ' + (Get-Location) + '> ' } };",
   'function global:prompt {',
   'try {',
   '$p = (Get-Location).ProviderPath;',
@@ -52,23 +52,23 @@ const POWERSHELL_CWD_PROMPT = [
   "$u = [Uri]::EscapeDataString(($p -replace '\\\\', '/')).Replace('%2F', '/');",
   '[Console]::Write("$([char]27)]7;file://localhost/$u$([char]7)");',
   '} catch {}',
-  '& $global:__zenith_original_prompt',
+  '& $global:__arcbase_original_prompt',
   '}',
 ].join(' ');
 
 const WSL_BASH_CWD_BOOTSTRAP = [
-  'tmp="${TMPDIR:-/tmp}/zenith-terminal-rc-$$.bashrc"',
-  'export ZENITH_TERMINAL_RC="$tmp"',
-  "cat > \"$tmp\" <<'__ZENITH_RC__'",
+  'tmp="${TMPDIR:-/tmp}/arcbase-terminal-rc-$$.bashrc"',
+  'export ARCBASE_TERMINAL_RC="$tmp"',
+  "cat > \"$tmp\" <<'__ARCBASE_RC__'",
   'if [ -f /etc/bash.bashrc ]; then . /etc/bash.bashrc; fi',
   'if [ -f ~/.bashrc ]; then . ~/.bashrc; fi',
-  "__zenith_emit_cwd() { printf '\\033]7;file://wsl%s\\007' \"$PWD\"; }",
+  "__arcbase_emit_cwd() { printf '\\033]7;file://wsl%s\\007' \"$PWD\"; }",
   'case ";${PROMPT_COMMAND:-};" in',
-  '  *";__zenith_emit_cwd;"*) ;;',
-  '  *) PROMPT_COMMAND="__zenith_emit_cwd${PROMPT_COMMAND:+;$PROMPT_COMMAND}" ;;',
+  '  *";__arcbase_emit_cwd;"*) ;;',
+  '  *) PROMPT_COMMAND="__arcbase_emit_cwd${PROMPT_COMMAND:+;$PROMPT_COMMAND}" ;;',
   'esac',
-  'if [ -n "${ZENITH_TERMINAL_RC:-}" ]; then rm -f "$ZENITH_TERMINAL_RC"; unset ZENITH_TERMINAL_RC; fi',
-  '__ZENITH_RC__',
+  'if [ -n "${ARCBASE_TERMINAL_RC:-}" ]; then rm -f "$ARCBASE_TERMINAL_RC"; unset ARCBASE_TERMINAL_RC; fi',
+  '__ARCBASE_RC__',
   'exec bash --rcfile "$tmp" -i',
 ].join('\n');
 
@@ -166,7 +166,7 @@ async function resolveShell(type: string | undefined): Promise<{
 /**
  * Web 终端 WebSocket 路由
  *
- * 端点：GET /api/ws/terminal?shell=<type>[&sessionId=<id>]（access token 经 Sec-WebSocket-Protocol: zenith-auth, <token> 传递）
+ * 端点：GET /api/ws/terminal?shell=<type>[&sessionId=<id>]（access token 经 Sec-WebSocket-Protocol: arcbase-auth, <token> 传递）
  *
  * 会话标识由服务端生成：
  * - 不带 sessionId ⇒ 新建会话，服务端下发 `terminal:session` 告知权威 ID。

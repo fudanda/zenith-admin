@@ -1,5 +1,5 @@
 // ─── 评论与征询 ───
-import { workflowInstanceContract, workflowTaskContract } from '@zenith/shared/workflow';
+import { workflowInstanceContract, workflowTaskContract } from '@arcbase/shared/workflow';
 import { setAuditAfterData, setAuditBeforeData } from '../../../middleware/guard';
 import { defineContractRoute } from '../../../lib/contract-route';
 import { okBody } from '../../../lib/openapi-schemas';

@@ -3,7 +3,7 @@ import { buildDemoPdf } from './pdf';
 
 describe('buildDemoPdf', () => {
   it('生成交叉引用偏移正确的最小 PDF，非 ASCII 字符降级为 ?', () => {
-    const bytes = buildDemoPdf(['Zenith Demo', '审批单 #1 (test)']);
+    const bytes = buildDemoPdf(['ArcBase Demo', '审批单 #1 (test)']);
     const text = new TextDecoder().decode(bytes);
     expect(text.startsWith('%PDF-1.4')).toBe(true);
     expect(text).toContain('(??? #1 \\(test\\)) Tj');

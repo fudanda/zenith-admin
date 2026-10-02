@@ -1,6 +1,6 @@
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
-import { foundationProfileContract } from '@zenith/shared/foundation-transfer';
-import { fileContract } from '@zenith/shared/platform';
+import { foundationProfileContract } from '@arcbase/shared/foundation-transfer';
+import { fileContract } from '@arcbase/shared/platform';
 import { api } from '@/lib/contract-query';
 
 /**
@@ -8,7 +8,7 @@ import { api } from '@/lib/contract-query';
  * 供 `AvatarSelectModal` 的管理后台调用方传入 `uploadBlob`。
  *
  * 注意：会员前台走独立上传通道，不要引用本模块——静态引入会把
- * `@zenith/shared/platform` 契约图拖入 member 入口，触发产物预算
+ * `@arcbase/shared/platform` 契约图拖入 member 入口，触发产物预算
  *（`bundle-budget.json` 的 member.html chunk 数）。
  */
 export async function uploadAvatarBlobToFileCenter(blob: Blob): Promise<string> {

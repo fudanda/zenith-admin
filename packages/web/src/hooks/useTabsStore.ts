@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { TABS_STORAGE_KEY } from '@zenith/shared/core';
+import { TABS_STORAGE_KEY } from '@arcbase/shared/core';
 
 export interface TabItem {
   key: string;

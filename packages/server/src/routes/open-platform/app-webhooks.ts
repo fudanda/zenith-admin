@@ -1,4 +1,4 @@
-import { appWebhookContract } from '@zenith/shared/open-platform';
+import { appWebhookContract } from '@arcbase/shared/open-platform';
 import { createAppWebhookRouter } from './app-webhooks-router';
 
 export default createAppWebhookRouter(appWebhookContract, {

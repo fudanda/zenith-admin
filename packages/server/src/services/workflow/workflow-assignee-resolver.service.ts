@@ -4,9 +4,9 @@
  * 将节点配置中的 assigneeType + 多源 IDs 解析为具体的用户 ID 列表，
  * 用于在创建审批任务时展开为多个 workflow_tasks 行。
  */
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { and, eq, inArray, isNotNull, type SQL } from 'drizzle-orm';
-import type { WorkflowAssigneeType, WorkflowNodeConfig, WorkflowStarterContext } from '@zenith/shared/workflow';
+import type { WorkflowAssigneeType, WorkflowNodeConfig, WorkflowStarterContext } from '@arcbase/shared/workflow';
 import { db } from '../../db';
 import {
   departments,

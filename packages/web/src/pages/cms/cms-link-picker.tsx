@@ -2,7 +2,7 @@ import { ContentPickerModal, ChannelPickerModal } from './CmsLinkPickerModals';
 import { useState } from 'react';
 import { Button, Dropdown, Tag, Typography } from '@douyinfe/semi-ui';
 import { ChevronDown, Link2 } from 'lucide-react';
-import { buildCmsEntityLink, buildCmsChannelCodeLink, parseCmsLink } from '@zenith/shared/cms';
+import { buildCmsEntityLink, buildCmsChannelCodeLink, parseCmsLink } from '@arcbase/shared/cms';
 import { useCmsLinkTarget } from '@/hooks/queries/cms';
 
 type PickerMode = 'content' | 'channel' | null;

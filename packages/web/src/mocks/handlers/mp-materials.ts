@@ -1,4 +1,4 @@
-import { MP_MATERIAL_TYPES, mpMaterialContract, type MpMaterial, type MpMaterialType } from '@zenith/shared/mp';
+import { MP_MATERIAL_TYPES, mpMaterialContract, type MpMaterial, type MpMaterialType } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';

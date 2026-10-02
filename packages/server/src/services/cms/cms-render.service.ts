@@ -3,7 +3,7 @@ import { verifyCmsTelemetryPageToken } from './cms-telemetry-context';
 import { cmsGenerationNow } from './cms-generation-context';
 import { frozenCmsImageAttributes, frozenCmsMediaForUrl, renderCmsFrozenBody, cmsDurationLabel } from './cms-frozen-media';
 import { createElement, type ComponentType } from 'react';
-import { cmsModelDisplayFor } from '@zenith/shared/cms';
+import { cmsModelDisplayFor } from '@arcbase/shared/cms';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { eq, and, desc, gt, isNull, inArray, or } from 'drizzle-orm';
 import { db } from '../../db';
@@ -49,8 +49,8 @@ import {
   resolveCmsWidgetPlacements,
   resolveCmsThemeSlotsForRender,
 } from './cms-widgets.service';
-import type { CmsChannel, CmsFormField, CmsPageBlock, CmsResolvedWidget, CmsSiteTemplateDefaults } from '@zenith/shared/cms';
-import { CMS_CONTENT_STATUS_LABELS, isValidCmsAssetUrl, isValidCmsLink } from '@zenith/shared/cms';
+import type { CmsChannel, CmsFormField, CmsPageBlock, CmsResolvedWidget, CmsSiteTemplateDefaults } from '@arcbase/shared/cms';
+import { CMS_CONTENT_STATUS_LABELS, isValidCmsAssetUrl, isValidCmsLink } from '@arcbase/shared/cms';
 import { stripCmsPreviewScripts } from './cms-preview';
 import { getEffectivelyEnabledCmsChannelIds } from './cms-channel-visibility.service';
 import { sanitizeCmsHtml } from './cms-html-sanitizer';
@@ -488,7 +488,7 @@ export async function renderCustomPage(
     audience: { dynamic: pageRow.requiresDynamic, member: opts?.member === true },
   };
   const resourceResolvedBlocks = await resolveCmsResourcePayload(filterCmsPageBlocksForViewer(
-    (pageRow.blocks ?? []) as import('@zenith/shared').CmsPageBlock[],
+    (pageRow.blocks ?? []) as import('@arcbase/shared').CmsPageBlock[],
     { member: opts?.member === true },
   ), site.id);
   const blocks = await resolveCmsPageBlockUrls(resourceResolvedBlocks, site.id, baseUrl);
@@ -518,7 +518,7 @@ export async function renderCustomPage(
           key: block.id,
           widgetId: Number(block.props.widgetId),
           rendererKey: typeof block.props.rendererKey === 'string'
-            ? block.props.rendererKey as import('@zenith/shared').CmsWidgetRendererKey
+            ? block.props.rendererKey as import('@arcbase/shared').CmsWidgetRendererKey
             : undefined,
         }]
       : []),

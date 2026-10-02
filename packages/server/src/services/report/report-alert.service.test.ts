@@ -2,9 +2,9 @@
  * 报表预警纯函数单测：行集聚合 + 阈值比较 + 静默窗口判定。
  */
 import { describe, it, expect } from 'vitest';
-import { aggregateReportRows, compare } from '@zenith/shared/report';
+import { aggregateReportRows, compare } from '@arcbase/shared/report';
 import { shouldNotifyTrigger, evaluateGroups } from './report-alert.service';
-import type { ReportAlertAggregate, ReportAlertOp } from '@zenith/shared/report';
+import type { ReportAlertAggregate, ReportAlertOp } from '@arcbase/shared/report';
 
 const rows = [{ v: 10 }, { v: 20 }, { v: 30 }];
 const agg = (a: ReportAlertAggregate, field: string | null = 'v') => aggregateReportRows(rows, field, a);

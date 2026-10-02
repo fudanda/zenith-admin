@@ -1,10 +1,10 @@
 import { createContext, useContext, useCallback } from 'react';
-import type { ZenithAdminProps } from './types';
+import type { ArcBaseAdminProps } from './types';
 import { config } from '../config';
 
 export interface AdminPaths { basePath: string; assetBasePath: string }
 export const AdminPathsContext = createContext<AdminPaths | null>(null);
-export type AdminOptions = Pick<ZenithAdminProps, 'brand' | 'locale' | 'theme' | 'navigateExternal' | 'authSession' | 'modules'>;
+export type AdminOptions = Pick<ArcBaseAdminProps, 'brand' | 'locale' | 'theme' | 'navigateExternal' | 'authSession' | 'modules'>;
 export const AdminOptionsContext = createContext<AdminOptions>({});
 export function useAdminOptions() { return useContext(AdminOptionsContext); }
 export function useAdminTitle() { return useAdminOptions().brand?.name ?? config.appTitle; }

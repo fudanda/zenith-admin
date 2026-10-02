@@ -1,4 +1,4 @@
-import { marketingCampaignContract, memberMarketingContract } from '@zenith/shared/marketing';
+import { marketingCampaignContract, memberMarketingContract } from '@arcbase/shared/marketing';
 import { defineRouteDomain } from '../_kit';
 import marketingCampaignsRoutes from './marketing-campaigns';
 import memberMarketingRoutes from './member-marketing';

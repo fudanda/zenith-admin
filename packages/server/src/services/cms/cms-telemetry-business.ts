@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { and, eq, isNull, sql } from 'drizzle-orm';
-import { cmsTelemetryConversionContextSchema, type CmsTelemetryBusinessPayload, type CmsTelemetryConversionContext, type CmsTelemetryPageContext } from '@zenith/shared/cms';
+import { cmsTelemetryConversionContextSchema, type CmsTelemetryBusinessPayload, type CmsTelemetryConversionContext, type CmsTelemetryPageContext } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import type { DbTransaction } from '../../db/types';
 import { analyticsSites, cmsDeployments, cmsSites, cmsTelemetryOutbox, cmsTelemetryReceipts, userEvents } from '../../db/schema';

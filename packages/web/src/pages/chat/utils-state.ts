@@ -1,5 +1,5 @@
-import type { ChatConversation, ChatGroupMember, ChatMessage, ChatPresence, ChatVoteData } from '@zenith/shared/chat';
-import type { Channel } from '@zenith/shared/messaging';
+import type { ChatConversation, ChatGroupMember, ChatMessage, ChatPresence, ChatVoteData } from '@arcbase/shared/chat';
+import type { Channel } from '@arcbase/shared/messaging';
 import type { FailedMessage, LeftListItem } from './types';
 import { textMatches } from '@/utils/pinyin';
 import { getAssetMeta } from './utils';

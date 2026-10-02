@@ -2,7 +2,7 @@
  * IoT 产品管理：产品 CRUD + 物模型（属性/服务/事件）与 TSL 导入导出
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { iotProductContract } from '@zenith/shared/iot';
+import { iotProductContract } from '@arcbase/shared/iot';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

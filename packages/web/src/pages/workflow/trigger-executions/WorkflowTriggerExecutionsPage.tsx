@@ -18,7 +18,7 @@ import {
   type WorkflowTriggerExecution,
   type WorkflowTriggerExecutionStatus,
   type WorkflowTriggerType,
-} from '@zenith/shared/workflow';
+} from '@arcbase/shared/workflow';
 import {
   useWorkflowTriggerExecutionDetail,
   useWorkflowTriggerExecutionList,

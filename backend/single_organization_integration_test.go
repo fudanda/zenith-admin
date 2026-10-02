@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -14,9 +14,9 @@ import (
 
 func legacyFixture(t *testing.T, version int) *Store {
 	t.Helper()
-	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	dsn := os.Getenv("ARCBASE_TEST_DATABASE_URL")
 	if dsn == "" {
-		t.Fatal("ZENITH_TEST_DATABASE_URL is required")
+		t.Fatal("ARCBASE_TEST_DATABASE_URL is required")
 	}
 	s, err := OpenStore(context.Background(), isolatedTestDSN(t, dsn))
 	if err != nil {
@@ -81,13 +81,13 @@ func assertSingleSchema(t *testing.T, s *Store) {
 }
 
 func TestPostgresVersionedMigrations(t *testing.T) {
-	if strings.HasPrefix(os.Getenv("ZENITH_TEST_DATABASE_URL"), "sqlite:") {
+	if strings.HasPrefix(os.Getenv("ARCBASE_TEST_DATABASE_URL"), "sqlite:") {
 		t.Skip("historical PostgreSQL upgrade paths; SQLite baseline is tested separately")
 	}
 	ctx := context.Background()
-	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	dsn := os.Getenv("ARCBASE_TEST_DATABASE_URL")
 	if dsn == "" {
-		t.Fatal("ZENITH_TEST_DATABASE_URL is required")
+		t.Fatal("ARCBASE_TEST_DATABASE_URL is required")
 	}
 	t.Run("empty", func(t *testing.T) {
 		s, err := OpenStore(ctx, isolatedTestDSN(t, dsn))
@@ -146,7 +146,7 @@ func TestPostgresVersionedMigrations(t *testing.T) {
 }
 
 func TestSingleOrganizationMigrationRefusesTenantData(t *testing.T) {
-	if strings.HasPrefix(os.Getenv("ZENITH_TEST_DATABASE_URL"), "sqlite:") {
+	if strings.HasPrefix(os.Getenv("ARCBASE_TEST_DATABASE_URL"), "sqlite:") {
 		t.Skip("historical PostgreSQL tenant migration; SQLite has no tenant baseline")
 	}
 	s := legacyFixture(t, 6)

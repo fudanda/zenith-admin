@@ -1,7 +1,7 @@
 import { ListSearchToolbar, useCrudOperationColumn } from '@/components/list-page';
 import { Avatar, Button, Form, Space, Tag, Toast } from '@douyinfe/semi-ui';
 import { RefreshCw } from 'lucide-react';
-import { mpKfAccountContract, type CreateMpKfAccountInput, type MpKfAccount } from '@zenith/shared/mp';
+import { mpKfAccountContract, type CreateMpKfAccountInput, type MpKfAccount } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
 import ConfigurableTable from '@/components/ConfigurableTable';

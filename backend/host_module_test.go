@@ -1,4 +1,4 @@
-package zenith_test
+package arcbase_test
 
 import (
 	"bytes"
@@ -19,16 +19,16 @@ import (
 	"testing"
 	"testing/fstest"
 
-	zenith "github.com/fudanda/zenith-admin/backend"
-	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
-	"github.com/fudanda/zenith-admin/backend/ent/menu"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
-	"github.com/fudanda/zenith-admin/backend/ent/userrole"
-	"github.com/fudanda/zenith-admin/backend/examples/hostmodule"
+	arcbase "github.com/fudanda/arcbase/backend"
+	"github.com/fudanda/arcbase/backend/ent/auditlog"
+	"github.com/fudanda/arcbase/backend/ent/menu"
+	"github.com/fudanda/arcbase/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/ent/userrole"
+	"github.com/fudanda/arcbase/backend/examples/hostmodule"
 )
 
 type hostFixture struct {
-	framework *zenith.Framework
+	framework *arcbase.Framework
 	server    *httptest.Server
 	password  string
 }
@@ -37,14 +37,14 @@ func hostFixtureNew(t *testing.T) *hostFixture {
 	t.Helper()
 	ctx := context.Background()
 	dsn := "sqlite:" + filepath.Join(t.TempDir(), "host.db")
-	if value := os.Getenv("ZENITH_TEST_DATABASE_URL"); strings.HasPrefix(value, "postgres") {
-		database, err := zenith.OpenStore(ctx, value)
+	if value := os.Getenv("ARCBASE_TEST_DATABASE_URL"); strings.HasPrefix(value, "postgres") {
+		database, err := arcbase.OpenStore(ctx, value)
 		if err != nil {
 			t.Fatal(err)
 		}
 		raw := make([]byte, 8)
 		rand.Read(raw)
-		schema := "zenith_host_" + hex.EncodeToString(raw)
+		schema := "arcbase_host_" + hex.EncodeToString(raw)
 		if _, err = database.DB.ExecContext(ctx, `CREATE SCHEMA "`+schema+`"`); err != nil {
 			t.Fatal(err)
 		}
@@ -61,7 +61,7 @@ func hostFixtureNew(t *testing.T) *hostFixture {
 		parsed.RawQuery = query.Encode()
 		dsn = parsed.String()
 	}
-	store, err := zenith.OpenStore(ctx, dsn)
+	store, err := arcbase.OpenStore(ctx, dsn)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -91,7 +91,7 @@ func hostFixtureNew(t *testing.T) *hostFixture {
 		t.Fatal(err)
 	}
 	store.Close()
-	f, err := zenith.New(ctx, zenith.Config{DSN: dsn, Modules: []zenith.Module{&hostmodule.Module{}}, SecureCookies: false, DashboardFS: fstest.MapFS{"index.html": &fstest.MapFile{Data: []byte("<html>host route fixture</html>")}}})
+	f, err := arcbase.New(ctx, arcbase.Config{DSN: dsn, Modules: []arcbase.Module{&hostmodule.Module{}}, SecureCookies: false, DashboardFS: fstest.MapFS{"index.html": &fstest.MapFile{Data: []byte("<html>host route fixture</html>")}}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -202,7 +202,7 @@ func TestHostModuleAuthorizationValidationAndAudit(t *testing.T) {
 	if status, _ := hostCall(t, reader, "GET", endpoint, nil, ""); status != 403 {
 		t.Fatalf("revoked permission %d", status)
 	}
-	if _, err := x.framework.HostServices().Positions.List(context.Background(), zenith.PositionFilter{}, 1, 10); err != zenith.ErrUnauthenticated {
+	if _, err := x.framework.HostServices().Positions.List(context.Background(), arcbase.PositionFilter{}, 1, 10); err != arcbase.ErrUnauthenticated {
 		t.Fatal("service bypass accepted", err)
 	}
 	for path, status := range map[string]int{"/dash/extensions/position-host/positions": 200, "/dash/extensions/position-host/missing": 404, "/dash/extensions/position-host/missing.js": 404} {
@@ -218,8 +218,8 @@ func TestHostModuleAuthorizationValidationAndAudit(t *testing.T) {
 }
 
 func TestIndependentPackageHostBrowser(t *testing.T) {
-	node := os.Getenv("ZENITH_BROWSER_TEST_NODE")
-	directory := os.Getenv("ZENITH_EXTERNAL_HOST_DIR")
+	node := os.Getenv("ARCBASE_BROWSER_TEST_NODE")
+	directory := os.Getenv("ARCBASE_EXTERNAL_HOST_DIR")
 	if node == "" || directory == "" {
 		t.Skip("set browser Node and independently installed host directory")
 	}
@@ -229,7 +229,7 @@ func TestIndependentPackageHostBrowser(t *testing.T) {
 		t.Fatal(err)
 	}
 	cmd := exec.Command(node, script)
-	cmd.Env = append(os.Environ(), "ZENITH_EXTERNAL_HOST_DIR="+directory, "ZENITH_BROWSER_API_URL="+x.server.URL, "ZENITH_BROWSER_USERNAME=host-admin", "ZENITH_BROWSER_PASSWORD="+x.password)
+	cmd.Env = append(os.Environ(), "ARCBASE_EXTERNAL_HOST_DIR="+directory, "ARCBASE_BROWSER_API_URL="+x.server.URL, "ARCBASE_BROWSER_USERNAME=host-admin", "ARCBASE_BROWSER_PASSWORD="+x.password)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		t.Fatalf("external host browser: %v\n%s", err, output)

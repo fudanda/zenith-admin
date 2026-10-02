@@ -1,13 +1,13 @@
 import type { QueryClient } from '@tanstack/react-query';
-import { TOKEN_KEY } from '@zenith/shared/core';
-import { settingsContract } from '@zenith/shared/settings';
+import { TOKEN_KEY } from '@arcbase/shared/core';
+import { settingsContract } from '@arcbase/shared/settings';
 import { apiQueryOptions } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { userMenuTreeQueryOptions } from '@/hooks/queries/menus';
 import { preferencesQueryOptions } from '@/hooks/queries/preferences';
 import { prewarmLucideIcons } from '@/utils/icons';
 import { IS_GO_FOUNDATION } from './foundation-mode';
-import { goAuthContract } from '@zenith/shared/identity';
+import { goAuthContract } from '@arcbase/shared/identity';
 
 /**
  * 已登录用户冷启动的投机预取。

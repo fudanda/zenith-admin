@@ -1,4 +1,4 @@
-import { CMS_SEARCH_DICTIONARY_WORD_PATTERN } from '@zenith/shared/cms';
+import { CMS_SEARCH_DICTIONARY_WORD_PATTERN } from '@arcbase/shared/cms';
 import { HTTPException } from 'hono/http-exception';
 
 export function normalizeCmsSearchDictionaryWord(word: string): string | null {

@@ -2,7 +2,7 @@ import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button, Empty, Input, List, Select, Space, Spin, Tag, Typography } from '@douyinfe/semi-ui';
 import { Search, Bookmark } from 'lucide-react';
-import { globalSearchTypes, SEARCH_TYPE_ENTITY_TYPES, supportsEntityRelations, type CanonicalEntityRef, type GlobalSearchType } from '@zenith/shared/platform';
+import { globalSearchTypes, SEARCH_TYPE_ENTITY_TYPES, supportsEntityRelations, type CanonicalEntityRef, type GlobalSearchType } from '@arcbase/shared/platform';
 import EntityRelationButton, { EntityContextSheet } from '@/components/entity-relations/EntityRelationButton';
 import { useGlobalSearch } from '@/hooks/queries/global-search';
 import { renderLucideIcon } from '@/utils/icons';
@@ -12,8 +12,8 @@ import { useListDeepLink } from '@/hooks/useListDeepLink';
 
 const TYPE_LABELS = GLOBAL_SEARCH_TYPE_LABELS;
 const TYPE_OPTIONS = GLOBAL_SEARCH_TYPE_OPTIONS;
-const SAVED_KEY = 'zenith:global-search:saved';
-const RECENT_KEY = 'zenith:global-search:recent';
+const SAVED_KEY = 'arcbase:global-search:saved';
+const RECENT_KEY = 'arcbase:global-search:recent';
 type SavedSearch = { q: string; type?: GlobalSearchType; label: string };
 
 function loadStored(key: string): SavedSearch[] {

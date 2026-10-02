@@ -15,7 +15,7 @@ import {
   appReleaseStatsContract,
   clientAppContract,
   clientDeviceContract,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { setAuditBeforeData } from '../../middleware/guard';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, errBody, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

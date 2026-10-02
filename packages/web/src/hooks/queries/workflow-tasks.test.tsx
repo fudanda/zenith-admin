@@ -5,7 +5,7 @@
  */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import { workflowDefinitionContract, workflowInstanceContract, workflowTaskContract } from '@zenith/shared/workflow';
+import { workflowDefinitionContract, workflowInstanceContract, workflowTaskContract } from '@arcbase/shared/workflow';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper, getCacheEntry, isFresh, observeFetches } from '@/test-utils/query-harness';
 
 const recorder = new ApiRecorder();

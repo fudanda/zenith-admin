@@ -1,8 +1,8 @@
 // ─── 显隐规则编辑器（含条件值编辑，支持一层嵌套条件组）（拆分自 FieldConfigPanel.tsx）───
 import { Button, Input, InputNumber, Select, Switch, Typography, RadioGroup, Radio } from '@douyinfe/semi-ui';
 import { Plus, Trash2, FolderPlus } from 'lucide-react';
-import type { WorkflowFormField, WorkflowFieldVisibilityCondition, WorkflowFieldVisibilityRule } from '@zenith/shared/workflow';
-import { isWorkflowRuleGroup } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFieldVisibilityCondition, WorkflowFieldVisibilityRule } from '@arcbase/shared/workflow';
+import { isWorkflowRuleGroup } from '@arcbase/shared/workflow';
 import { NO_VALUE_OPERATORS, formatVisibilityValue, operatorsForField } from './helpers';
 
 // 根据依赖字段类型与操作符渲染合适的「值」编辑器

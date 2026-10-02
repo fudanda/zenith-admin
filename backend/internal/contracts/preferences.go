@@ -21,7 +21,7 @@ var preferenceValidator = sync.OnceValues(func() (*jsonschema.Schema, error) {
 		return nil, err
 	}
 	c := jsonschema.NewCompiler()
-	const name = "urn:zenith:preference-overrides"
+	const name = "urn:arcbase:preference-overrides"
 	if err := c.AddResource(name, doc); err != nil {
 		return nil, err
 	}

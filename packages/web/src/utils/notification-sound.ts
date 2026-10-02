@@ -4,8 +4,8 @@
  * 浏览器自动播放策略要求 AudioContext 在用户手势后才可出声：首次交互后 `resume()` 即可，
  * 通知设置里的「试听」按钮同时充当解锁手势。播放失败一律静默，不影响通知本身。
  */
-import { DEFAULT_NOTIFICATION_SOUND_STYLE, type NotificationSoundStyle } from '@zenith/shared/preferences';
-export { NOTIFICATION_SOUND_STYLES, NOTIFICATION_SOUND_STYLE_LABELS, NOTIFICATION_SOUND_STYLE_OPTIONS, DEFAULT_NOTIFICATION_SOUND_STYLE, type NotificationSoundStyle } from '@zenith/shared/preferences';
+import { DEFAULT_NOTIFICATION_SOUND_STYLE, type NotificationSoundStyle } from '@arcbase/shared/preferences';
+export { NOTIFICATION_SOUND_STYLES, NOTIFICATION_SOUND_STYLE_LABELS, NOTIFICATION_SOUND_STYLE_OPTIONS, DEFAULT_NOTIFICATION_SOUND_STYLE, type NotificationSoundStyle } from '@arcbase/shared/preferences';
 
 /** 一个音符：起止频率（Hz）、起始时刻与时长（秒）、波形与峰值音量 */
 interface Tone {

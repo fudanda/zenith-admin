@@ -14,7 +14,7 @@ vi.mock('./registry', () => ({
   hasNotificationAdapter: vi.fn(),
 }));
 
-import type { NotificationEventDef } from '@zenith/shared/messaging';
+import type { NotificationEventDef } from '@arcbase/shared/messaging';
 import { db } from '../../db';
 import { hasNotificationAdapter } from './registry';
 import { resolveDispatchPlan } from './resolver';

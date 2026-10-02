@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { focusManager } from '@tanstack/react-query';
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { entityRelationsContract, entityTimelineContract } from '@zenith/shared/platform';
+import { entityRelationsContract, entityTimelineContract } from '@arcbase/shared/platform';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper } from '@/test-utils/query-harness';
 import { contractKey, urlOf } from '@/lib/contract-query';
 import { ENTITY_RELATION_QUERY_META } from '@/lib/entity-relation-cache';

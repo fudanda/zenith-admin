@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"go/ast"
@@ -15,7 +15,7 @@ import (
 // Domain services, HTTP adapters and infrastructure have separate ownership.
 // Generated Ent/contracts and released SQL retain their original locations.
 func TestBackendPackageBoundaries(t *testing.T) {
-	const module = "github.com/fudanda/zenith-admin/backend"
+	const module = "github.com/fudanda/arcbase/backend"
 	err := filepath.WalkDir("internal", func(path string, entry fs.DirEntry, err error) error {
 		if err != nil {
 			return err

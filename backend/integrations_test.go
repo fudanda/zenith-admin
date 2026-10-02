@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"bufio"
@@ -14,11 +14,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent/apikey"
-	"github.com/fudanda/zenith-admin/backend/ent/auditlog"
-	"github.com/fudanda/zenith-admin/backend/ent/role"
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/ent/apikey"
+	"github.com/fudanda/arcbase/backend/ent/auditlog"
+	"github.com/fudanda/arcbase/backend/ent/role"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
@@ -70,15 +70,15 @@ func extensionFixtureDSN(t *testing.T, dsn string) *extensionFixture {
 }
 func (x *extensionFixture) call(method, path string, body any, key string) *httptest.ResponseRecorder {
 	raw, _ := json.Marshal(body)
-	request := httptest.NewRequest(method, "http://zenith.test"+path, bytes.NewReader(raw))
+	request := httptest.NewRequest(method, "http://arcbase.test"+path, bytes.NewReader(raw))
 	request.Header.Set("Content-Type", "application/json")
 	if key == "" {
-		request.AddCookie(&http.Cookie{Name: "zenith_session", Value: x.token})
+		request.AddCookie(&http.Cookie{Name: "arcbase_session", Value: x.token})
 		request.Header.Set("X-CSRF-Token", x.csrf)
 	} else {
 		request.Header.Set("Authorization", "Bearer "+key)
 	}
-	request.Header.Set("Origin", "http://zenith.test")
+	request.Header.Set("Origin", "http://arcbase.test")
 	response := httptest.NewRecorder()
 	x.f.Handler().ServeHTTP(response, request)
 	return response
@@ -192,7 +192,7 @@ func testReadOnlyMCP(t *testing.T, x *extensionFixture) {
 	defer server.Close()
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
-	client := mcp.NewClient(&mcp.Implementation{Name: "zenith-test", Version: "1.0.0"}, nil)
+	client := mcp.NewClient(&mcp.Implementation{Name: "arcbase-test", Version: "1.0.0"}, nil)
 	session, err := client.Connect(ctx, &mcp.StreamableClientTransport{Endpoint: server.URL + "/api/v1/mcp", HTTPClient: &http.Client{Transport: keyTransport{http.DefaultTransport, key}}, DisableStandaloneSSE: true}, nil)
 	if err != nil {
 		t.Fatal(err)

@@ -3,7 +3,7 @@ import { Banner, Button, Form, Select, Space, Toast, SideSheet, Empty, Tag, Spin
 import { RefreshCw, Users } from 'lucide-react';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { TreeNodeData } from '@douyinfe/semi-ui/lib/es/tree';
-import { userGroupContract, type CreateUserGroupInput, type User, type UserGroup, type UserGroupMemberRule, type UserGroupRulePreview } from '@zenith/shared/identity';
+import { userGroupContract, type CreateUserGroupInput, type User, type UserGroup, type UserGroupMemberRule, type UserGroupRulePreview } from '@arcbase/shared/identity';
 import { usePermission } from '@/hooks/usePermission';
 import type { UserTransferUser } from '@/components/UserTransferSelect';
 import { AppModal } from '@/components/AppModal';

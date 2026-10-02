@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { wikiStatsContract } from '@zenith/shared/wiki';
+import { wikiStatsContract } from '@arcbase/shared/wiki';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody } from '../../lib/openapi-schemas';
 import { getWikiStatsOverview, listWikiContributors, listWikiHotDocs, listWikiStaleDocs } from '../../services/wiki/stats.service';

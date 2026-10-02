@@ -1,6 +1,6 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { HTTPException } from 'hono/http-exception';
-import { dbAdminContract } from '@zenith/shared/ops';
+import { dbAdminContract } from '@arcbase/shared/ops';
 import { setAuditAfterData, setAuditBeforeData } from '../../middleware/guard';
 import { isSuperAdmin, getUserPermissions } from '../../lib/permissions';
 import { defineContractRoute } from '../../lib/contract-route';

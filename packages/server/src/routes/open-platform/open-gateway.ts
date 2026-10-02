@@ -9,7 +9,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import type { Context } from 'hono';
 import { HTTPException } from 'hono/http-exception';
-import { openGatewayContract } from '@zenith/shared/open-platform';
+import { openGatewayContract } from '@arcbase/shared/open-platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, errBody, validationHook } from '../../lib/openapi-schemas';
 import { formatDateTime } from '../../lib/datetime';

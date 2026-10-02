@@ -10,8 +10,8 @@ import { Banner, Button, Col, Form, Row, Toast, Typography } from '@douyinfe/sem
 import { RefreshCw } from 'lucide-react';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import dayjs from 'dayjs';
-import type { WorkflowDefinition, WorkflowInstancePriority } from '@zenith/shared/workflow';
-import { applyFieldPermissionsToFields } from '@zenith/shared/workflow';
+import type { WorkflowDefinition, WorkflowInstancePriority } from '@arcbase/shared/workflow';
+import { applyFieldPermissionsToFields } from '@arcbase/shared/workflow';
 import { useAuth } from '@/hooks/useAuth';
 import { useWorkflowUserOptions } from '@/hooks/queries/workflow-shared';
 import WorkflowFormRenderer from '@/pages/workflow/designer/components/WorkflowFormRenderer';

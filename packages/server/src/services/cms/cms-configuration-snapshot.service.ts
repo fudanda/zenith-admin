@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CmsConfigurationSnapshot, CmsRelease, CmsPublishSubmitInput } from '@zenith/shared/cms';
+import type { CmsConfigurationSnapshot, CmsRelease, CmsPublishSubmitInput } from '@arcbase/shared/cms';
 import type { DbTransaction } from '../../db/types';
 import { CMS_CONFIGURATION_TABLES, CMS_PUBLIC_SITE_SETTINGS } from './cms-public-settings';
 import { extractCmsResourceIds, resolveCmsResourceUris } from '../../lib/cms-resource-uri';

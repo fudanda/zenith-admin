@@ -1,9 +1,9 @@
-import { workflowInstanceOpsContract } from '@zenith/shared/workflow';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { workflowInstanceOpsContract } from '@arcbase/shared/workflow';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { workflowTransaction } from '../../lib/workflow-jobs/lease';
 import { and, eq, asc, desc } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { WorkflowCompensationActionStatus, WorkflowCompensationAction } from '@zenith/shared/workflow';
+import type { WorkflowCompensationActionStatus, WorkflowCompensationAction } from '@arcbase/shared/workflow';
 import { db } from '../../db';
 import { workflowCompensations, workflowCompensationLogs, workflowInstances, workflowTasks, workflowTokens, users } from '../../db/schema';
 import type { DbExecutor } from '../../db/types';

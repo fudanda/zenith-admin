@@ -1,5 +1,5 @@
-// Package zenith exposes an embeddable Go backend for Zenith Admin.
-package zenith
+// Package arcbase exposes an embeddable Go backend for ArcBase.
+package arcbase
 
 import (
 	"context"
@@ -10,11 +10,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/internal/app"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/modules/audit"
-	"github.com/fudanda/zenith-admin/backend/internal/storage"
-	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
+	"github.com/fudanda/arcbase/backend/internal/app"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/modules/audit"
+	"github.com/fudanda/arcbase/backend/internal/storage"
+	httptransport "github.com/fudanda/arcbase/backend/internal/transport/http"
 )
 
 type Config struct {
@@ -65,7 +65,7 @@ func New(ctx context.Context, config Config) (*Framework, error) {
 	var version int
 	if err = store.DB.QueryRowContext(ctx, "SELECT COALESCE(MAX(version),0) FROM zenith_schema_versions").Scan(&version); err != nil || version != foundationSchemaVersion {
 		store.Close()
-		return nil, fmt.Errorf("database migration required: run zenith migrate (expected version %d)", foundationSchemaVersion)
+		return nil, fmt.Errorf("database migration required: run arcbase migrate (expected version %d)", foundationSchemaVersion)
 	}
 	idle := make(chan struct{})
 	if err = store.AcquireLease(ctx, false); err != nil {

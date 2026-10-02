@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { fileContract } from '@zenith/shared/platform';
-import { workflowAttachmentContract, type WorkflowFormField } from '@zenith/shared/workflow';
+import { fileContract } from '@arcbase/shared/platform';
+import { workflowAttachmentContract, type WorkflowFormField } from '@arcbase/shared/workflow';
 import WorkflowFormRenderer from './WorkflowFormRenderer';
 
 vi.mock('@/components/FileAttachment', () => ({

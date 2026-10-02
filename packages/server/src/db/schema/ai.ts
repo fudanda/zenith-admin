@@ -1,6 +1,6 @@
 import { timestampColumns, idColumn, sortColumn } from './common';
 import { pgTable, varchar, timestamp, pgEnum, integer, boolean, text, jsonb, uniqueIndex, index } from 'drizzle-orm/pg-core';
-import type { AiModelSettings, AiModelFallbackRef, AiUserSettingsPatch } from '@zenith/shared/ai';
+import type { AiModelSettings, AiModelFallbackRef, AiUserSettingsPatch } from '@arcbase/shared/ai';
 import { auditColumns, users, tenantIdColumn } from './core';
 
 export const aiMessageRoleEnum = pgEnum('ai_message_role', ['system', 'user', 'assistant']);

@@ -1,5 +1,5 @@
 import { useRef, type ReactNode } from 'react';
-import type { AsyncTask } from '@zenith/shared/tasks';
+import type { AsyncTask } from '@arcbase/shared/tasks';
 import { useUploadFile } from '@/hooks/queries/files';
 import { useSubmitImportJob } from '@/hooks/queries/import-jobs';
 

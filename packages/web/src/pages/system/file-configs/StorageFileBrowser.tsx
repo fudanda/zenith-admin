@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@douyinfe/semi-ui';
 import { Folder, ChevronLeft, ChevronRight, LayoutGrid, List as ListIcon } from 'lucide-react';
-import type { FileStorageConfig, FolderEntry, ManagedFile } from '@zenith/shared/platform';
+import type { FileStorageConfig, FolderEntry, ManagedFile } from '@arcbase/shared/platform';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import DateTimeText from '@/components/DateTimeText';
 import { getFileFullUrl, canPreviewFile } from '@/utils/file-utils';
@@ -28,7 +28,7 @@ import { FileGridCard } from '../files/components/FileGridCard';
 import { FileNameCell } from '@/components/FileNameCell';
 import { useDeleteFiles, useFileDetail } from '@/hooks/queries/files';
 import { useStorageBrowse } from '@/hooks/queries/file-storage-configs';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import './StorageFileBrowser.css';
 
 const { Text } = Typography;

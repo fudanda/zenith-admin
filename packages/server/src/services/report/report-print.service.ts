@@ -2,12 +2,12 @@
  * 类 Excel 打印报表模板 Service
  * CRUD + 取数渲染（复用数据集取数 + shared 填充引擎 renderPrintContent）。
  */
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { requireRow } from '../../lib/db-assert';
 import { buildListResult, emptyListResult } from '../../lib/list-query';
 import { HTTPException } from 'hono/http-exception';
 import { desc, eq, inArray, isNull, or } from 'drizzle-orm';
-import { reportPrintContract, ReportPrintValidationError, renderPrintContent, reportPrintTemplateSchema } from '@zenith/shared/report';
+import { reportPrintContract, ReportPrintValidationError, renderPrintContent, reportPrintTemplateSchema } from '@arcbase/shared/report';
 import { db } from '../../db';
 import { reportDatasets, reportPrintTemplates } from '../../db/schema';
 import { pageOffset } from '../../lib/pagination';
@@ -27,7 +27,7 @@ import {
   validateReportResourcePlacement,
 } from './report-resource.service';
 import type { ReportPrintTemplateRow } from '../../db/schema';
-import type { ReportPrintTemplate, ReportPrintContent, ReportPrintPageConfig, ReportDatasetParam, ReportPrintDatasetBinding, ReportPrintDatasetRows, ReportPrintRenderResult, ReportPrintResolvedSubreport, ReportPrintSubreportCell, CreateReportPrintTemplateInput, UpdateReportPrintTemplateInput, ReportPrintRenderInput, ReportLookupOption, ReportPrintEntityKind, ReportPrintSourceType } from '@zenith/shared/report';
+import type { ReportPrintTemplate, ReportPrintContent, ReportPrintPageConfig, ReportDatasetParam, ReportPrintDatasetBinding, ReportPrintDatasetRows, ReportPrintRenderResult, ReportPrintResolvedSubreport, ReportPrintSubreportCell, CreateReportPrintTemplateInput, UpdateReportPrintTemplateInput, ReportPrintRenderInput, ReportLookupOption, ReportPrintEntityKind, ReportPrintSourceType } from '@arcbase/shared/report';
 import { pickEntity } from '../../lib/entity-map';
 
 type PrintRowExt = ReportPrintTemplateRow & {

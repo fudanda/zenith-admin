@@ -1,7 +1,7 @@
 /**
  * 列表摘要行：待办 / 我的申请列表在标题下展示流程配置的摘要字段值（钉钉式卡片摘要）
  */
-import type { WorkflowInstanceSummaryItem } from '@zenith/shared/workflow';
+import type { WorkflowInstanceSummaryItem } from '@arcbase/shared/workflow';
 
 export default function WorkflowSummaryLine({ items }: Readonly<{ items?: WorkflowInstanceSummaryItem[] | null }>) {
   if (!items || items.length === 0) return null;

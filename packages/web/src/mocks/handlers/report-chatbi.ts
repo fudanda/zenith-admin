@@ -1,5 +1,5 @@
-import type { ReportChatbiMessage, ReportChatbiSession, ReportChatbiSessionDetail } from '@zenith/shared/report';
-import { reportChatbiContract } from '@zenith/shared/report';
+import type { ReportChatbiMessage, ReportChatbiSession, ReportChatbiSessionDetail } from '@arcbase/shared/report';
+import { reportChatbiContract } from '@arcbase/shared/report';
 import {
   getNextReportDashboardId,
   getNextReportDatasetId,

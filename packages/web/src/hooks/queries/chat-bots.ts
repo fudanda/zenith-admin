@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { chatBotContract, chatContract, type ChatConversation } from '@zenith/shared/chat';
-import { resourceKeyOf, type BodyOf, type QueryOf } from '@zenith/shared/core';
+import { chatBotContract, chatContract, type ChatConversation } from '@arcbase/shared/chat';
+import { resourceKeyOf, type BodyOf, type QueryOf } from '@arcbase/shared/core';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

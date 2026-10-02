@@ -11,17 +11,15 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 	"github.com/gorilla/mux"
 )
 
 func ReadInput(w http.ResponseWriter, r *http.Request) (kernel.Input, error) {
 	p := mux.Vars(r)
 	in := kernel.Input{Id: p["id"], ItemId: p["itemId"], TokenId: p["tokenId"], Code: p["code"], Entity: p["entity"], Type: p["type"], Key: p["key"], SectionKey: p["sectionKey"], UploadId: p["uploadId"], Filter: kernel.Values(r.URL.Query()), Update: r.Method == http.MethodPut, Remove: r.Method == http.MethodDelete, IP: ClientIP(r), UserAgent: r.UserAgent(), TraceID: kernel.TraceID(r.Context()), SourceValid: SameOrigin(r)}
-	if cookie, err := r.Cookie("zenith_session"); err == nil {
-		in.SessionToken = cookie.Value
-	}
+	in.SessionToken = SessionToken(r)
 	in.Flat = strings.HasSuffix(r.URL.Path, "/flat")
 	in.Personal = strings.HasSuffix(r.URL.Path, "/me")
 	for key, def := range contracts.Settings {
@@ -67,7 +65,8 @@ func WriteOutcome(w http.ResponseWriter, r *http.Request, result kernel.Outcome,
 		if result.Cookie.Clear {
 			ExpireCookie(w, secure)
 		} else {
-			http.SetCookie(w, &http.Cookie{Name: "zenith_session", Value: result.Cookie.Token, Path: "/", HttpOnly: true, Secure: secure, SameSite: http.SameSiteLaxMode, Expires: result.Cookie.Expires})
+			http.SetCookie(w, &http.Cookie{Name: "arcbase_session", Value: result.Cookie.Token, Path: "/", HttpOnly: true, Secure: secure, SameSite: http.SameSiteLaxMode, Expires: result.Cookie.Expires})
+			expireLegacyCookie(w, secure)
 		}
 	}
 	if result.CSV != nil {

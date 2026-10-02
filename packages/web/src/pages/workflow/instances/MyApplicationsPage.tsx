@@ -15,9 +15,9 @@ import {
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { ExternalLink, Megaphone, Plus, Undo2 } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { WORKFLOW_INSTANCE_PRIORITIES, WORKFLOW_INSTANCE_STATUSES, workflowInstanceContract, type WorkflowDefinition, type WorkflowInstance } from '@zenith/shared/workflow';
-import { buildWorkflowSummaryItems } from '@zenith/shared/workflow';
-import { enumValueOf } from '@zenith/shared/core';
+import { WORKFLOW_INSTANCE_PRIORITIES, WORKFLOW_INSTANCE_STATUSES, workflowInstanceContract, type WorkflowDefinition, type WorkflowInstance } from '@arcbase/shared/workflow';
+import { buildWorkflowSummaryItems } from '@arcbase/shared/workflow';
+import { enumValueOf } from '@arcbase/shared/core';
 import SavedViewsBar from '@/components/workflow/SavedViewsBar';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import ExportButton from '@/components/ExportButton';

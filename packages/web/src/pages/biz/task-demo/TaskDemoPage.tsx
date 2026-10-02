@@ -9,7 +9,7 @@ import { useMemo, useState, type CSSProperties } from 'react';
 import { Banner, Button, Collapse, InputNumber, Modal, Select, SideSheet, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { Info, Play, RefreshCw } from 'lucide-react';
-import { isAsyncTaskTerminal, type AsyncTask, type AsyncTaskItem } from '@zenith/shared/tasks';
+import { isAsyncTaskTerminal, type AsyncTask, type AsyncTaskItem } from '@arcbase/shared/tasks';
 import { SearchToolbar } from '@/components/SearchToolbar';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import AsyncTaskProgress from '@/components/AsyncTaskProgress';

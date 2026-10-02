@@ -16,14 +16,14 @@ import { randomBytes } from 'node:crypto';
 export const JWT_SECRET_MIN_LENGTH = 32;
 
 /** 内置开发 JWT 密钥：仅 NODE_ENV=development 且未显式配置时使用 */
-export const DEV_JWT_SECRET = 'zenith-dev-only-jwt-secret-do-not-use-in-production';
+export const DEV_JWT_SECRET = 'arcbase-dev-only-jwt-secret-do-not-use-in-production';
 
 /** 内置开发字段加密密钥（64 位 hex = 32 字节）：仅 NODE_ENV=development 且未显式配置时使用 */
-export const DEV_FIELD_ENCRYPTION_KEY = Buffer.from('zenith-dev-only-field-key-00000!', 'utf8').toString('hex');
+export const DEV_FIELD_ENCRYPTION_KEY = Buffer.from('arcbase-dev-only-field-key-00000!', 'utf8').toString('hex');
 
 /** 历史默认值、模板占位值与内置开发密钥：任何非开发环境都不接受为真实密钥 */
 const INSECURE_SECRET_VALUES: ReadonlySet<string> = new Set([
-  'zenith-admin-secret',
+  'arcbase-secret',
   'change-me-to-a-strong-random-secret',
   'your-strong-secret-key',
   'your-secret-key',

@@ -17,8 +17,8 @@ import type {
   AnalyticsDrillUsersResult,
   AnalyticsRetentionMode,
   AnalyticsRetentionPeriodType,
-} from '@zenith/shared/analytics';
-import { ANALYTICS_RETENTION_PERIOD_LIMITS, ANALYTICS_RETENTION_PERIOD_TYPES, analyticsDrillUsersSchema } from '@zenith/shared/analytics';
+} from '@arcbase/shared/analytics';
+import { ANALYTICS_RETENTION_PERIOD_LIMITS, ANALYTICS_RETENTION_PERIOD_TYPES, analyticsDrillUsersSchema } from '@arcbase/shared/analytics';
 import type * as z from 'zod';
 import { clampDays, startOfDaysAgo } from '../../lib/analytics-helpers';
 import { APP_TIME_ZONE, formatNullableDateTime } from '../../lib/datetime';

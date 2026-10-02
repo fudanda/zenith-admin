@@ -1,7 +1,7 @@
 import type React from 'react';
 import { useCallback } from 'react';
 import type { CellPos, SelectionAction, SelectionState } from './types';
-import { clamp } from '@zenith/shared/core';
+import { clamp } from '@arcbase/shared/core';
 
 interface KeyboardOptions {
   rowCount: number;

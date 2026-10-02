@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ListSearchToolbar, useCrudOperationColumn } from '@/components/list-page';
 import { Button, Input, Space, Spin, Tag, Toast, Typography, TextArea } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
-import { mpDraftContract, type MpDraft, type MpArticle } from '@zenith/shared/mp';
+import { mpDraftContract, type MpDraft, type MpArticle } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import { AppModal } from '@/components/AppModal';
 import ConfigurableTable from '@/components/ConfigurableTable';

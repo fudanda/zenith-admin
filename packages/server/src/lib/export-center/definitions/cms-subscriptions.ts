@@ -1,7 +1,7 @@
 import { db } from '../../../db';
 import { cmsMemberSubscriptions } from '../../../db/schema';
-import { enumValueOf } from '@zenith/shared/core';
-import { CMS_SUBSCRIPTION_SUBJECT_TYPE_LABELS, CMS_SUBSCRIPTION_SUBJECT_TYPES } from '@zenith/shared/cms';
+import { enumValueOf } from '@arcbase/shared/core';
+import { CMS_SUBSCRIPTION_SUBJECT_TYPE_LABELS, CMS_SUBSCRIPTION_SUBJECT_TYPES } from '@arcbase/shared/cms';
 import {
   buildCmsSubscriptionWhere,
   streamCmsSubscriptions,

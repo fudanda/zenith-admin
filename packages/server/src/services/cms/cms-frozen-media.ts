@@ -1,5 +1,5 @@
 import { load } from 'cheerio';
-import { isValidCmsAssetUrl, type CmsFrozenMedia } from '@zenith/shared/cms';
+import { isValidCmsAssetUrl, type CmsFrozenMedia } from '@arcbase/shared/cms';
 
 export function frozenCmsMediaForUrl(url: string | null | undefined, media: Record<string, CmsFrozenMedia> | undefined) {
   if (!url) return undefined;

@@ -10,8 +10,8 @@ import redis from '../../lib/redis';
 import { config } from '../../config';
 import { completeLoginWithMfa, type DeviceInfo } from './auth.service';
 import { userHasPlatformSuperRole } from './role-grant';
-import { OAUTH_PROVIDERS } from '@zenith/shared/identity';
-import type { OAuthProviderType, SessionClientKind } from '@zenith/shared/identity';
+import { OAUTH_PROVIDERS } from '@arcbase/shared/identity';
+import type { OAuthProviderType, SessionClientKind } from '@arcbase/shared/identity';
 import { formatDateTime } from '../../lib/datetime';
 
 const VALID_PROVIDERS = new Set<string>(OAUTH_PROVIDERS);

@@ -9,7 +9,7 @@
 import { describe, it, expect } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import type { Permission } from '@zenith/shared/core';
+import type { Permission } from '@arcbase/shared/core';
 import { PermissionContext, usePermission } from './usePermission';
 
 // ─── 工具：构造带权限上下文的 Wrapper ─────────────────────────────────────────

@@ -1,6 +1,6 @@
 import { and, eq, inArray, isNull, notInArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { SUPER_ADMIN_CODE } from '@zenith/shared/identity';
+import { SUPER_ADMIN_CODE } from '@arcbase/shared/identity';
 import { db } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import { roles, userRoles } from '../../db/schema';

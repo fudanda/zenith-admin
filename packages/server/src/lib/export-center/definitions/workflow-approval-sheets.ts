@@ -3,8 +3,8 @@
  * 每份都走 renderWorkflowInstancePrintDocument：沿用查看者的访问控制、脱敏、模板绑定与水印，
  * 与单份打印结果一致；无权查看的实例按 403 中止整批，不产出残缺文件。
  */
-import { workflowBatchPrintQuerySchema } from '@zenith/shared/workflow';
-import type { WorkflowBatchPrintQueryInput } from '@zenith/shared/workflow';
+import { workflowBatchPrintQuerySchema } from '@arcbase/shared/workflow';
+import type { WorkflowBatchPrintQueryInput } from '@arcbase/shared/workflow';
 import { renderWorkflowInstancesBatchPdf } from '../../../services/workflow/workflow-print.service';
 import { defineExport } from '../registry';
 

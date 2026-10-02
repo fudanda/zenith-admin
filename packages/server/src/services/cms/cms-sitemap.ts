@@ -1,4 +1,4 @@
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';
 export const CMS_SITEMAP_PART_SIZE = 45_000;
 type SitemapEntry = { loc: string; lastmod: string | null; priority: string };
 

@@ -79,7 +79,7 @@ export default function EmailConfigPage() {
               encryption: config.encryption,
               status: config.status,
             }
-          : { encryption: 'ssl', smtpPort: 465, status: 'enabled', fromName: 'Zenith Admin' }}
+          : { encryption: 'ssl', smtpPort: 465, status: 'enabled', fromName: 'ArcBase' }}
       >
         <Form.Input
           field="smtpHost"
@@ -114,7 +114,7 @@ export default function EmailConfigPage() {
         />
         <FormPasswordInput field="smtpPassword" label="授权密码" placeholder="请输入邮箱授权码或密码" />
         <Divider margin="16px 0" />
-        <Form.Input field="fromName" label="发件人名称" placeholder="例如: Zenith Admin" />
+        <Form.Input field="fromName" label="发件人名称" placeholder="例如: ArcBase" />
         <Form.Input field="fromEmail" label="发件人邮箱" placeholder="留空则使用发件邮箱" />
         <Form.Select
           field="status"

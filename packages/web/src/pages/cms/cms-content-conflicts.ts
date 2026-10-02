@@ -1,6 +1,6 @@
 import DOMPurify from 'dompurify';
-import type { CmsModelField } from '@zenith/shared/cms';
-import { formatBytes } from '@zenith/shared/core';
+import type { CmsModelField } from '@arcbase/shared/cms';
+import { formatBytes } from '@arcbase/shared/core';
 import { formatDate, formatDateTimeForApi } from '@/utils/date';
 import { cmsFieldDisplayText } from './cms-field-display';
 

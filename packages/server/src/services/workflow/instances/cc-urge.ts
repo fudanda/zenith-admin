@@ -1,5 +1,5 @@
 // ─── 催办与抄送（转发/已读）（拆分自 workflow-instances.service.ts）───
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { randomUUID } from 'node:crypto';
 import { formatDateTime } from '../../../lib/datetime';
 import { eq, and, desc, inArray } from 'drizzle-orm';
@@ -74,7 +74,7 @@ export async function forwardInstance(instanceId: number, userIds: number[], not
 /** 同一任务两次催办的最小间隔（毫秒） */
 const URGE_MIN_INTERVAL_MS = 5 * 60 * 1000;
 
-function mapTaskUrge(row: typeof workflowTaskUrges.$inferSelect): import('@zenith/shared').WorkflowTaskUrge {
+function mapTaskUrge(row: typeof workflowTaskUrges.$inferSelect): import('@arcbase/shared').WorkflowTaskUrge {
   return {
     id: row.id,
     taskId: row.taskId,
@@ -164,7 +164,7 @@ export async function urgeInstance(instanceId: number, message?: string) {
     .where(and(eq(workflowTasks.instanceId, instanceId), eq(workflowTasks.status, 'pending')));
   if (pendings.length === 0) throw new HTTPException(400, { message: '没有待办任务可催办' });
 
-  const created: import('@zenith/shared').WorkflowTaskUrge[] = [];
+  const created: import('@arcbase/shared').WorkflowTaskUrge[] = [];
   // 一次查出每个任务的最近催办时间做节流判断，再批量插入，避免逐任务 2N 次往返
   const lastUrges = await db.selectDistinctOn([workflowTaskUrges.taskId], {
     taskId: workflowTaskUrges.taskId,

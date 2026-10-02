@@ -2,19 +2,19 @@
  * 行为中心阶段 1：有序转化漏斗 + 双口径留存分析。
  *
  * 从 analytics.service.ts 抽出（原实现为集合交集漏斗 + 单口径留存），
- * 遵循 Zenith 重构边界约定：新增查询不再继续塞入越来越臃肿的 analytics.service.ts。
+ * 遵循 ArcBase 重构边界约定：新增查询不再继续塞入越来越臃肿的 analytics.service.ts。
  *
  * 安全设计：
  *  - 漏斗/留存均强制 tenantScope，参数化查询，禁止 sql.raw(用户输入)
  *  - 漏斗 segmentId 仅作用于首步，调用前经 ensureSegmentAccessible 校验分群 tenant 归属
  *  - 漏斗步骤属性过滤复用 analytics-property-filter 的白名单 key 正则 + 绑定参数比较
  */
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import { and, eq, gte, isNotNull, sql, type SQL } from 'drizzle-orm';
 import { db } from '../../db';
 import { userEvents } from '../../db/schema';
-import type { AnalyticsBreakdownDimension, AnalyticsComparison, FunnelQuery, FunnelResult, FunnelStepResult, RetentionCohort, RetentionResult, AnalyticsRetentionMode, AnalyticsRetentionPeriodType } from '@zenith/shared/analytics';
-import { ANALYTICS_RETENTION_PERIOD_LIMITS, ANALYTICS_RETENTION_PERIOD_TYPES } from '@zenith/shared/analytics';
+import type { AnalyticsBreakdownDimension, AnalyticsComparison, FunnelQuery, FunnelResult, FunnelStepResult, RetentionCohort, RetentionResult, AnalyticsRetentionMode, AnalyticsRetentionPeriodType } from '@arcbase/shared/analytics';
+import { ANALYTICS_RETENTION_PERIOD_LIMITS, ANALYTICS_RETENTION_PERIOD_TYPES } from '@arcbase/shared/analytics';
 import { tenantScope } from '../../lib/tenant';
 import { buildWhere } from '../../lib/where-helpers';
 import { clampDays, startOfDaysAgo } from '../../lib/analytics-helpers';

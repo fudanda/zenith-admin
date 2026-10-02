@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
-import { TOKEN_KEY } from '@zenith/shared/core';
-import { wsAuthProtocols, type WsMessage } from '@zenith/shared/platform';
+import { TOKEN_KEY } from '@arcbase/shared/core';
+import { wsAuthProtocols, type WsMessage } from '@arcbase/shared/platform';
 import { config } from '@/config';
 
 type MessageHandler = (message: WsMessage) => void;

@@ -10,8 +10,8 @@
  */
 import { and, desc, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { WorkflowInstance, WorkflowInstancePriority, WorkflowInstanceStatus } from '@zenith/shared/workflow';
-import type { WorkflowFormType } from '@zenith/shared/workflow';
+import type { WorkflowInstance, WorkflowInstancePriority, WorkflowInstanceStatus } from '@arcbase/shared/workflow';
+import type { WorkflowFormType } from '@arcbase/shared/workflow';
 import { db } from '../db';
 import { workflowDefinitions, workflowInstances } from '../db/schema';
 import { workflowEventBus } from './workflow-event-bus';

@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { authContract } from '@zenith/shared/identity';
+import { authContract } from '@arcbase/shared/identity';
 import { authRateLimit, captchaRateLimit, sensitiveRateLimit } from '../../middleware/rate-limit';
 import { generateCaptcha, resolveCaptchaComplexity } from '../../lib/captcha';
 import { getSettings } from '../../lib/settings';

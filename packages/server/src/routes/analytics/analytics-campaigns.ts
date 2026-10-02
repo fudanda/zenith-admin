@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { analyticsCampaignContract } from '@zenith/shared/analytics';
+import { analyticsCampaignContract } from '@arcbase/shared/analytics';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { listCampaigns, createCampaign, updateCampaign, deleteCampaign, executeCampaign } from '../../services/analytics/analytics-campaigns.service';

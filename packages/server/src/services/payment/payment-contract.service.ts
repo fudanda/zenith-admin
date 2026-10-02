@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 签约代扣 Service（周期扣款/订阅）。
  *
@@ -34,8 +34,8 @@ import { resolveApplicationChannelConfig } from './payment-apps.service';
 import { assertEffectivePaymentOperation } from './payment-capability-evaluator';
 import { pageOffset } from '../../lib/pagination';
 import logger from '../../lib/logger';
-import { paymentDeductPlanSchema, paymentContractSchema, type CreatePaymentContractInput, type CreatePaymentDeductPlanInput, type PaymentContract, type PaymentContractStatus, type PaymentDeductMethod, type PaymentDeductPlan, type UpdatePaymentDeductPlanInput } from '@zenith/shared/payment';
-import { PAYMENT_METHOD_CHANNEL, paymentDeductPlanContract, paymentSigningContract } from '@zenith/shared/payment';
+import { paymentDeductPlanSchema, paymentContractSchema, type CreatePaymentContractInput, type CreatePaymentDeductPlanInput, type PaymentContract, type PaymentContractStatus, type PaymentDeductMethod, type PaymentDeductPlan, type UpdatePaymentDeductPlanInput } from '@arcbase/shared/payment';
+import { PAYMENT_METHOD_CHANNEL, paymentDeductPlanContract, paymentSigningContract } from '@arcbase/shared/payment';
 import { pickEntity } from '../../lib/entity-map';
 
 const ACTIVE_CONTRACT_STATUSES: PaymentContractStatus[] = ['pending', 'unknown', 'signed', 'paused'];

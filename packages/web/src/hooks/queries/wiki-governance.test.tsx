@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import type { WikiDoc, WikiOpsStats } from '@zenith/shared/wiki';
-import type { SettingsEnvelope, WikiSettings } from '@zenith/shared/settings';
+import type { WikiDoc, WikiOpsStats } from '@arcbase/shared/wiki';
+import type { SettingsEnvelope, WikiSettings } from '@arcbase/shared/settings';
 import {
   ApiRecorder,
   createRequestMock,

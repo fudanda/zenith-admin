@@ -1,5 +1,5 @@
 import { Col, Form, Row, Tag } from '@douyinfe/semi-ui';
-import { inAppTemplateContract, type CreateInAppTemplateInput, type InAppMessageType, type InAppTemplate } from '@zenith/shared/messaging';
+import { inAppTemplateContract, type CreateInAppTemplateInput, type InAppMessageType, type InAppTemplate } from '@arcbase/shared/messaging';
 import { usePermission } from '@/hooks/usePermission';
 import { useDictItems } from '@/hooks/useDictItems';
 import { useEditModal } from '@/hooks/useEditModal';

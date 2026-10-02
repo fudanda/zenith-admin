@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Divider, Modal, Spin, Tag, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { LogOut, UserPlus, X } from 'lucide-react';
 import type { NavigateFunction } from 'react-router-dom';
-import { MAX_STORED_ACCOUNTS } from '@zenith/shared/core';
+import { MAX_STORED_ACCOUNTS } from '@arcbase/shared/core';
 import { useAuth } from '@/hooks/useAuth';
 import { UserAvatar } from '@/components/UserAvatar';
 import { prepareTrackerLogout } from '@/utils/tracker';

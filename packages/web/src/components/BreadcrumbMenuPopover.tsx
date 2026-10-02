@@ -1,7 +1,7 @@
 import { useState, useCallback, createContext, useContext } from 'react';
 import { Popover } from '@douyinfe/semi-ui';
 import { ChevronRight } from 'lucide-react';
-import type { Menu } from '@zenith/shared/identity';
+import type { Menu } from '@arcbase/shared/identity';
 import { renderLucideIcon } from '@/utils/icons';
 
 /** 用于向子菜单传递"立即关闭整棵 Popover 树"的稳定回调 */

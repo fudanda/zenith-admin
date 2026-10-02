@@ -3,10 +3,10 @@ import { createElement, type ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import BaseDatePicker from '@douyinfe/semi-ui/lib/es/datePicker/datePicker';
 import { ApiRecorder, createRequestMock, createTestQueryClient, createWrapper, type RecordedCall } from '@/test-utils/query-harness';
-import { authContract } from '@zenith/shared/identity';
-import { settingsContract } from '@zenith/shared/settings';
-import { preferencePolicySchema, type UserPreferencesDocument } from '@zenith/shared/preferences';
-import type { WsMessage } from '@zenith/shared/platform';
+import { authContract } from '@arcbase/shared/identity';
+import { settingsContract } from '@arcbase/shared/settings';
+import { preferencePolicySchema, type UserPreferencesDocument } from '@arcbase/shared/preferences';
+import type { WsMessage } from '@arcbase/shared/platform';
 
 const api = new ApiRecorder();
 vi.mock('@/utils/request', () => ({ request: createRequestMock(() => api) }));

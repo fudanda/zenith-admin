@@ -9,7 +9,7 @@ import { formatDate, formatNullableDateTime, startOfRecentDays, startOfToday } f
 import { assertSiteAccess } from './cms-sites.service';
 import { ensureCmsSiteExists } from './cms-sites.service';
 import { getAccessibleChannelIds } from './cms-channels.service';
-import type { CmsContentType } from '@zenith/shared/cms';
+import type { CmsContentType } from '@arcbase/shared/cms';
 
 export interface CmsDashboardStats {
   totals: {

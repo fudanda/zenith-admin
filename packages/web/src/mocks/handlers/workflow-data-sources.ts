@@ -1,5 +1,5 @@
-import { workflowDataSourceContract } from '@zenith/shared/workflow';
-import type { WorkflowDataSource } from '@zenith/shared/workflow';
+import { workflowDataSourceContract } from '@arcbase/shared/workflow';
+import type { WorkflowDataSource } from '@arcbase/shared/workflow';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { mockWorkflowDataSources, MOCK_DATA_SOURCE_OPTIONS } from '@/mocks/data/workflow-data-sources';

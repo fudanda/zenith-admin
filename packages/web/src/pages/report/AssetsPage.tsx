@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Banner, Col, Empty, Form, Input, Modal, Row, Select, SideSheet, Space, TabPane, Tabs, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { ReportAssetCatalogItem, ReportAssetTemplate, ReportAssetTemplateType, ReportAssetUsageSummary, ReportAssetUsageTrendPoint, ReportDeprecationNotice, ReportResourceType } from '@zenith/shared/report';
-import { REPORT_DASHBOARD_LIFECYCLE_LABELS } from '@zenith/shared/report';
+import type { ReportAssetCatalogItem, ReportAssetTemplate, ReportAssetTemplateType, ReportAssetUsageSummary, ReportAssetUsageTrendPoint, ReportDeprecationNotice, ReportResourceType } from '@arcbase/shared/report';
+import { REPORT_DASHBOARD_LIFECYCLE_LABELS } from '@arcbase/shared/report';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import ExportButton from '@/components/ExportButton';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

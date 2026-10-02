@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from 'react';
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { useMutation, useQueries, useQueryClient } from '@tanstack/react-query';
-import type { BodyOf } from '@zenith/shared/core';
-import { dictContract } from '@zenith/shared/platform';
+import type { BodyOf } from '@arcbase/shared/core';
+import { dictContract } from '@arcbase/shared/platform';
 import {
   reportDashboardContract,
   reportDatasetContract,
@@ -13,7 +13,7 @@ import {
   type ReportFilter,
   type ReportLookupOption,
   type ReportWidget,
-} from '@zenith/shared/report';
+} from '@arcbase/shared/report';
 import { api, apiQueryOptions, apiRaw, contractKey, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { dictKeys } from './dicts';

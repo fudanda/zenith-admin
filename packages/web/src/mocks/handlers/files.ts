@@ -1,6 +1,6 @@
-import type { FileStorageConfig, FolderEntry, ManagedFile, StorageBrowseResult } from '@zenith/shared/platform';
-import { fillPath } from '@zenith/shared/core';
-import { fileContract, fileStorageConfigContract } from '@zenith/shared/platform';
+import type { FileStorageConfig, FolderEntry, ManagedFile, StorageBrowseResult } from '@arcbase/shared/platform';
+import { fillPath } from '@arcbase/shared/core';
+import { fileContract, fileStorageConfigContract } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest, notFound, nextIdFrom } from '@/mocks/utils/handlers';

@@ -1,6 +1,6 @@
 import { HTTPException } from 'hono/http-exception';
 import { eq, inArray } from 'drizzle-orm';
-import type { ReportResourceType } from '@zenith/shared/report';
+import type { ReportResourceType } from '@arcbase/shared/report';
 import { config } from '../../config';
 import { db } from '../../db';
 import {

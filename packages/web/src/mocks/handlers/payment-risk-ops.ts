@@ -2,7 +2,7 @@ import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { mockDateTime } from '@/mocks/utils/date';
 import { badRequest } from '@/mocks/utils/handlers';
-import { paymentRiskOpsContract, type PaymentRiskHit, type PaymentRiskReview } from '@zenith/shared/payment';
+import { paymentRiskOpsContract, type PaymentRiskHit, type PaymentRiskReview } from '@arcbase/shared/payment';
 import dayjs from 'dayjs';
 import { includesKeyword, matchesFilter, withinDateRange } from '@/mocks/utils/filter';
 

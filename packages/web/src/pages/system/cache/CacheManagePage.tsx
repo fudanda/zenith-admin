@@ -12,7 +12,7 @@ import { createOperationColumn } from '@/components/ResponsiveTableActions';
 import { confirmAndDelete, deleteAction } from '@/components/list-page';
 import { MasterDetailLayout } from '@/components/MasterDetailLayout';
 import { NavListPanel, NavListItem } from '@/components/NavListPanel';
-import type { CacheItem, CacheOverview } from '@zenith/shared/platform';
+import type { CacheItem, CacheOverview } from '@arcbase/shared/platform';
 import {
   cacheKeys,
   useBatchDeleteCacheKeys,

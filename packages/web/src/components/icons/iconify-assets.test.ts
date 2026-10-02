@@ -17,7 +17,7 @@ const srcDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 
 const fileIconsDir = path.join(srcDir, 'assets', 'file-icons');
 const manifestPath = path.join(fileIconsDir, 'manifest.json');
 const monoModulePath = path.join(srcDir, 'components', 'icons', 'generated', 'mono-icons.ts');
-const REGEN_HINT = '运行 `npm run icons:iconify -w @zenith/web` 重新生成并提交';
+const REGEN_HINT = '运行 `npm run icons:iconify -w @arcbase/web` 重新生成并提交';
 
 describe('Iconify 静态资产', () => {
   const { ids, unregistered } = scanIconLiterals(srcDir);

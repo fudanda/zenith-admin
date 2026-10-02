@@ -1,5 +1,5 @@
-import { paymentOpsContract, paymentOutboxEventSchema } from '@zenith/shared/payment';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { paymentOpsContract, paymentOutboxEventSchema } from '@arcbase/shared/payment';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 支付运营排障 Service。
  * Outbox 事件查看与手动重投、模拟支付成功回调（演示/联调用），
@@ -18,7 +18,7 @@ import { formatDateTime } from '../../lib/datetime';
 import { buildSandboxNotifyRequest } from '../../lib/payment/sandbox-notify';
 import { processEvent } from './payment-outbox.service';
 import { buildAdapterContext, handleNotify, mapOrder, loadOrderConfig } from './payment.service';
-import type { PaymentOrder, PaymentOutboxEvent } from '@zenith/shared/payment';
+import type { PaymentOrder, PaymentOutboxEvent } from '@arcbase/shared/payment';
 import { pickEntity } from '../../lib/entity-map';
 
 export function mapOutboxEvent(row: PaymentEventRow): PaymentOutboxEvent {

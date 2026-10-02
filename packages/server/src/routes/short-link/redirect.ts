@@ -121,4 +121,4 @@ redirectRouter.get('/:code', async (c) => {
 });
 
 export default redirectRouter;
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';

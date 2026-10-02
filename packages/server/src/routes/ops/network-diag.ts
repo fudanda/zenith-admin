@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { stream } from 'hono/streaming';
 import { HTTPException } from 'hono/http-exception';
-import { networkDiagContract } from '@zenith/shared/ops';
+import { networkDiagContract } from '@arcbase/shared/ops';
 import { defineContractRoute } from '../../lib/contract-route';
 import { errBody, okBody, validationHook } from '../../lib/openapi-schemas';
 import { spawnNetDiag, runNslookup, checkPort, validateHost, resolveDns, reverseDns, httpProbe, getInterfaces } from '../../services/ops/network-diag.service';

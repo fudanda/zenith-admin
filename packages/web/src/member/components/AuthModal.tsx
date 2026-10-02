@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Input, Button, PinCode, Toast } from '@douyinfe/semi-ui';
 import { Crown } from 'lucide-react';
-import type { LoginCaptchaChallenge } from '@zenith/shared/identity';
+import type { LoginCaptchaChallenge } from '@arcbase/shared/identity';
 import { useMemberAuth } from '../hooks/useMemberAuth';
 import { useSmsCode } from '../hooks/useSmsCode';
 import { CaptchaChallengeField } from './CaptchaChallengeField';

@@ -1,5 +1,5 @@
-import { CMS_SECRET_MASK, CMS_SITE_OPS_DEFAULTS } from '@zenith/shared/cms';
-import type { CmsSiteOpsSettings } from '@zenith/shared/cms';
+import { CMS_SECRET_MASK, CMS_SITE_OPS_DEFAULTS } from '@arcbase/shared/cms';
+import type { CmsSiteOpsSettings } from '@arcbase/shared/cms';
 
 export { CMS_SECRET_MASK };
 

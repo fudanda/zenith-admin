@@ -1,5 +1,5 @@
-import { bizPayDemoContract } from '@zenith/shared/biz';
-import { paymentWebhookContract } from '@zenith/shared/open-platform';
+import { bizPayDemoContract } from '@arcbase/shared/biz';
+import { paymentWebhookContract } from '@arcbase/shared/open-platform';
 import {
   paymentAppContract,
   paymentChannelAccountContract,
@@ -21,7 +21,7 @@ import {
   paymentSharingContract,
   paymentSigningContract,
   paymentTransferContract,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { defineRouteDomain } from '../_kit';
 import bizPayDemoRoutes from './biz-pay-demo';
 import paymentChannelAccountRoutes from './payment-channel-accounts';

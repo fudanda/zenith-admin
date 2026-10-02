@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { healthContract, type HealthCheckResult } from '@zenith/shared/platform';
+import { healthContract, type HealthCheckResult } from '@arcbase/shared/platform';
 import { config } from '../../config';
 import { defineContractRoute } from '../../lib/contract-route';
 import { checkInfraHealth, overallHealthStatus } from '../../lib/health-checks';

@@ -7,7 +7,7 @@ import {
 } from '@douyinfe/semi-ui';
 import { usePagination } from '@/hooks/usePagination';
 import { CheckCheck, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
-import { IN_APP_MESSAGE_TYPE_LABELS, type InAppMessage } from '@zenith/shared/messaging';
+import { IN_APP_MESSAGE_TYPE_LABELS, type InAppMessage } from '@arcbase/shared/messaging';
 import DateTimeText from '@/components/DateTimeText';
 import { BatchDeleteButton, RefreshButton } from '@/components/toolbar-controls';
 import { emptyIllustration } from '@/components/EmptyIllustration';

@@ -8,9 +8,9 @@ import { Button, Form, SideSheet, Tag, Toast, Typography } from '@douyinfe/semi-
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form/interface';
 import { Eye } from 'lucide-react';
-import type { ChannelAutoReply, ChannelMessageType, ChannelRichReplyExtra, CreateChannelAutoReplyInput } from '@zenith/shared/messaging';
-import { CHANNEL_AUTO_REPLY_MATCH_LABELS, CHANNEL_AUTO_REPLY_KEYWORD_MODE_LABELS, CHANNEL_MESSAGE_TYPE_LABELS as REPLY_TYPE_LABELS } from '@zenith/shared/messaging';
-import { enumValueOf } from '@zenith/shared/core';
+import type { ChannelAutoReply, ChannelMessageType, ChannelRichReplyExtra, CreateChannelAutoReplyInput } from '@arcbase/shared/messaging';
+import { CHANNEL_AUTO_REPLY_MATCH_LABELS, CHANNEL_AUTO_REPLY_KEYWORD_MODE_LABELS, CHANNEL_MESSAGE_TYPE_LABELS as REPLY_TYPE_LABELS } from '@arcbase/shared/messaging';
+import { enumValueOf } from '@arcbase/shared/core';
 import { usePermission } from '@/hooks/usePermission';
 import { useDictItems } from '@/hooks/useDictItems';
 import { AppModal } from '@/components/AppModal';

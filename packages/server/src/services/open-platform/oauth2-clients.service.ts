@@ -3,8 +3,8 @@ import { buildListResult, listRows } from '../../lib/list-query';
 import { requireFirstRow, requireRow } from '../../lib/db-assert';
 import { isIP } from 'node:net';
 import { and, eq, desc, inArray } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import { oauth2ClientContract } from '@zenith/shared/open-platform';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import { oauth2ClientContract } from '@arcbase/shared/open-platform';
 import { db } from '../../db';
 import {
   appWebhookDeliveries,
@@ -23,7 +23,7 @@ import { HTTPException } from 'hono/http-exception';
 import { formatDateTime, formatNullableDateTime, formatTimestamps } from '../../lib/datetime';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { encryptField, decryptField } from '../../lib/encryption';
-import type { CreateOAuth2ClientInput, UpdateOAuth2ClientInput } from '@zenith/shared/open-platform';
+import type { CreateOAuth2ClientInput, UpdateOAuth2ClientInput } from '@arcbase/shared/open-platform';
 import { config } from '../../config';
 import { buildWhere, keywordCondition, withPagination } from '../../lib/where-helpers';
 

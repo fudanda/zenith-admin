@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Banner, Button, InputNumber, Select, Spin, Switch, Toast, Typography } from '@douyinfe/semi-ui';
-import type { WikiSpaceVisibility } from '@zenith/shared/wiki';
-import { WIKI_SPACE_VISIBILITY_OPTIONS } from '@zenith/shared/wiki';
+import type { WikiSpaceVisibility } from '@arcbase/shared/wiki';
+import { WIKI_SPACE_VISIBILITY_OPTIONS } from '@arcbase/shared/wiki';
 import { usePermission } from '@/hooks/usePermission';
 import { useAvailableKnowledgeBases } from '@/hooks/queries/ai-extras';
 import { useUpdateWikiSettings, useWikiSettings } from '@/hooks/queries/wiki-stats';

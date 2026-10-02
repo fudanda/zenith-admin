@@ -1,5 +1,5 @@
-import type { Dict, DictItem } from '@zenith/shared/platform';
-import { SEED_DICTS, SEED_DICT_ITEMS } from '@zenith/shared/seed';
+import type { Dict, DictItem } from '@arcbase/shared/platform';
+import { SEED_DICTS, SEED_DICT_ITEMS } from '@arcbase/shared/seed';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockDicts: Dict[] = SEED_DICTS.map((d) => ({ ...d }));

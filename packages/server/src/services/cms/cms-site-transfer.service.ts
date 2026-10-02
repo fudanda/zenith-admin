@@ -1,4 +1,4 @@
-import { CMS_SITE_BLUEPRINTS, buildCmsSiteBlueprint, remapCmsSiteComposition, type CmsSiteBlueprintInput } from '@zenith/shared/cms';
+import { CMS_SITE_BLUEPRINTS, buildCmsSiteBlueprint, remapCmsSiteComposition, type CmsSiteBlueprintInput } from '@arcbase/shared/cms';
 import { captureCmsModelVersion } from './cms-design-versions.service';
 import { assertCmsSiteComposition } from './cms-site-composition.service';
 import { initializeCmsContentWorkingCopy } from './cms-content-revisions.service';
@@ -21,8 +21,8 @@ import { ensureCmsSiteExists, assertSiteAccess, invalidateSiteCache } from './cm
 import { isCmsPlatformAdmin } from './cms-access';
 import { normalizeNewCmsSiteSettings, redactCmsSiteSettings } from './cms-site-settings';
 import { sanitizeCmsHtml } from './cms-html-sanitizer';
-import { CMS_SECRET_MASK, cmsPagePathSchema, cmsSlugRegex, cmsStaticPathSchema, cmsWidgetDataSchema, createCmsFormSchema, createCmsInteractionSchema, isValidCmsAssetUrl, isValidCmsLink, parseCmsLink, remapCmsEntityLink } from '@zenith/shared/cms';
-import type { CmsPageBlock, CmsWidgetData } from '@zenith/shared/cms';
+import { CMS_SECRET_MASK, cmsPagePathSchema, cmsSlugRegex, cmsStaticPathSchema, cmsWidgetDataSchema, createCmsFormSchema, createCmsInteractionSchema, isValidCmsAssetUrl, isValidCmsLink, parseCmsLink, remapCmsEntityLink } from '@arcbase/shared/cms';
+import type { CmsPageBlock, CmsWidgetData } from '@arcbase/shared/cms';
 import { parseCmsImportSiteCode } from './cms-import-security';
 import { currentUser } from '../../lib/context';
 import { assertAllCmsSiteChannelsAccess } from './cms-channels.service';

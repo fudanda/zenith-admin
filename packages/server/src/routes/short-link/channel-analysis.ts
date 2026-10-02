@@ -2,7 +2,7 @@
  * 渠道推广分析（纯读）
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { channelAnalysisContract } from '@zenith/shared/short-link';
+import { channelAnalysisContract } from '@arcbase/shared/short-link';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getChannelAnalysis } from '../../services/short-link/channel-analysis.service';

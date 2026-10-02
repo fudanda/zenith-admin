@@ -12,9 +12,9 @@ import { clearDefaultFlag } from '../../lib/default-flag';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { refreshMpAccessToken, clearMpAccessToken, WechatApiError } from '../../lib/wechat';
 import type { DbExecutor } from '../../db/types';
-import type { CreateMpAccountInput, UpdateMpAccountInput, mpAccountContract } from '@zenith/shared/mp';
-import { SECRET_PLACEHOLDER } from '@zenith/shared/core';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { CreateMpAccountInput, UpdateMpAccountInput, mpAccountContract } from '@arcbase/shared/mp';
+import { SECRET_PLACEHOLDER } from '@arcbase/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 
 /** 列表 / 详情 / 写操作返回：appSecret 脱敏 */
 export function mapMpAccountSafe(row: MpAccountRow) {

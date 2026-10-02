@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const THEME_COLOR_KEY = 'zenith_member_theme_color';
+const THEME_COLOR_KEY = 'arcbase_member_theme_color';
 export const DEFAULT_THEME_COLOR = '#07c160';
 
 export interface ThemePreset {

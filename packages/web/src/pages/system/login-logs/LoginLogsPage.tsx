@@ -7,8 +7,8 @@ import { useClearLogs } from '@/hooks/useClearLogs';
 import { formatDateTimeRangeForApi, parseDateTimeParam } from '@/utils/date';
 import LoginLogStatsPanel from './LoginLogStatsPanel';
 import { loginLogKeys, useCleanLoginLogs, useLoginLogList } from '@/hooks/queries/login-logs';
-import { enumValueOf } from '@zenith/shared/core';
-import { LOGIN_EVENT_TYPE_OPTIONS, LOGIN_EVENT_TYPES, LOGIN_STATUS_OPTIONS, LOGIN_STATUSES } from '@zenith/shared/identity';
+import { enumValueOf } from '@arcbase/shared/core';
+import { LOGIN_EVENT_TYPE_OPTIONS, LOGIN_EVENT_TYPES, LOGIN_STATUS_OPTIONS, LOGIN_STATUSES } from '@arcbase/shared/identity';
 import { useListSearch } from '@/hooks/useListSearch';
 import { DateRangeFilter, FilterSelect, KeywordInput, StatusSelect } from '@/components/search-filters';
 

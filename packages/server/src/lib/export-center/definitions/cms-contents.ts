@@ -1,6 +1,6 @@
 import { and, desc, eq } from 'drizzle-orm';
-import { enumValueOf } from '@zenith/shared/core';
-import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_STATUSES, CMS_CONTENT_TYPES } from '@zenith/shared/cms';
+import { enumValueOf } from '@arcbase/shared/core';
+import { CMS_CONTENT_STATUS_LABELS, CMS_CONTENT_STATUSES, CMS_CONTENT_TYPES } from '@arcbase/shared/cms';
 import { db } from '../../../db';
 import { cmsContents, cmsChannels } from '../../../db/schema';
 import { formatDateTime, formatNullableDateTime } from '../../datetime';

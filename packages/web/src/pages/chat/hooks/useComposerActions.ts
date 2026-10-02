@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
 import type { VirtuosoHandle } from 'react-virtuoso';
-import { chatContract } from '@zenith/shared/chat';
-import type { ChatConversation, ChatLinkPreview, ChatMessage, ChatMessageContext, ChatMessageExtra, ChatGroupMember, SendChatMessageInput } from '@zenith/shared/chat';
+import { chatContract } from '@arcbase/shared/chat';
+import type { ChatConversation, ChatLinkPreview, ChatMessage, ChatMessageContext, ChatMessageExtra, ChatGroupMember, SendChatMessageInput } from '@arcbase/shared/chat';
 import { api } from '@/lib/contract-query';
 import { extractFirstUrl } from '../utils';
 import { VIRTUOSO_FIRST_INDEX_BUFFER, makeProgressHandler, removeUploadingItemById } from '../utils-state';

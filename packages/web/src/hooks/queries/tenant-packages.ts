@@ -1,4 +1,4 @@
-import { tenantPackageContract } from '@zenith/shared/identity';
+import { tenantPackageContract } from '@arcbase/shared/identity';
 import { createResourceQueries, useApiMutation } from '@/lib/contract-query';
 import { invalidateCurrentUserAccess } from './menus';
 

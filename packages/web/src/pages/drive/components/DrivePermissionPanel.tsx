@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Button, Switch, Toast, Typography } from '@douyinfe/semi-ui';
 import { Save } from 'lucide-react';
-import { DRIVE_ROLE_LABELS, DRIVE_SUBJECT_TYPE_LABELS, type DriveNode } from '@zenith/shared/drive';
+import { DRIVE_ROLE_LABELS, DRIVE_SUBJECT_TYPE_LABELS, type DriveNode } from '@arcbase/shared/drive';
 import { useDriveNodePermissions, useSaveDriveNodePermissions, useSetDriveNodeInherit } from '@/hooks/queries/drive';
 import { usePermission } from '@/hooks/usePermission';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';

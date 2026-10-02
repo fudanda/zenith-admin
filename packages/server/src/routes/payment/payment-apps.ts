@@ -3,7 +3,7 @@
  * 外部身份由开放平台客户端管理，本模块只维护支付渠道路由。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { paymentAppContract } from '@zenith/shared/payment';
+import { paymentAppContract } from '@arcbase/shared/payment';
 import { validationHook } from '../../lib/openapi-schemas';
 import { listApps, getApp, createApp, updateApp, deleteApp } from '../../services/payment/payment-apps.service';
 import { mountCrud } from '../_crud';

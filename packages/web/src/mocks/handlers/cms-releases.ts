@@ -1,12 +1,12 @@
 import { matchesFilter } from '../utils/filter';
-import { cmsReleaseContract, cmsWorkbenchContract, CMS_PREVIEW_MODE_LABELS, cmsReleaseFieldDiffs, mergeCmsConfigurationSnapshots, type CmsReleaseChange, type CmsConfigurationSnapshot, type CmsRelease, type CmsDeployment, type CreateCmsReleaseInput } from '@zenith/shared/cms';
+import { cmsReleaseContract, cmsWorkbenchContract, CMS_PREVIEW_MODE_LABELS, cmsReleaseFieldDiffs, mergeCmsConfigurationSnapshots, type CmsReleaseChange, type CmsConfigurationSnapshot, type CmsRelease, type CmsDeployment, type CreateCmsReleaseInput } from '@arcbase/shared/cms';
 import { mock, MockHttpError } from '../utils/contract';
 import { requireItem, updateItem } from '../utils/crud';
 import { badRequest, conflict, nextIdFrom } from '../utils/handlers';
 import { mockDateTime } from '../utils/date';
 import { mockCmsContents, mockCmsSites, mockCmsPages, mockCmsWidgets, mockCmsChannels, mockCmsWidgetRefs, mockCmsFriendLinkGroups, mockCmsFriendLinks, mockCmsLinkWords, mockCmsRedirects, mockCmsSearchWords, mockCmsResources } from '../data/cms';
 import { activateMockCmsRevision, getMockCmsPublishedContent, getMockCmsRevision, getMockCmsRevisionContent, getMockCmsWorkingContent, withdrawMockCmsContent } from '../utils/cms-revisions';
-import { escapeHtml, stableStringify, type OutputOf } from '@zenith/shared/core';
+import { escapeHtml, stableStringify, type OutputOf } from '@arcbase/shared/core';
 
 const releases: CmsRelease[] = [];
 const deployments: (CmsDeployment & { siteId: number; revisions: Map<number, number> })[] = [];

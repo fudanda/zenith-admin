@@ -1,12 +1,12 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { keepPreviousData, useMutation, useQueryClient, type QueryClient } from '@tanstack/react-query';
-import type { BodyOf, OutputOf, QueryOf } from '@zenith/shared/core';
-import { CMS_RESOURCE_URI_PREFIX, cmsResourceContract, type CmsResource } from '@zenith/shared/cms';
+import type { BodyOf, OutputOf, QueryOf } from '@arcbase/shared/core';
+import { CMS_RESOURCE_URI_PREFIX, cmsResourceContract, type CmsResource } from '@arcbase/shared/cms';
 import { useSaveMutation, contractKey, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { unwrap } from '@/lib/query';
 import { request } from '@/utils/request';
 import { useEffect } from 'react';
-import { asyncTaskContract, isAsyncTaskTerminal } from '@zenith/shared/tasks';
+import { asyncTaskContract, isAsyncTaskTerminal } from '@arcbase/shared/tasks';
 import { useTaskProgressEvents } from '@/hooks/useAsyncTasks';
 
 export type CmsResourceListParams = NonNullable<QueryOf<typeof cmsResourceContract.list>>;

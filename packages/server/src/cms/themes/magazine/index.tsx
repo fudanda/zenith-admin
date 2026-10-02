@@ -15,7 +15,7 @@ import type {
 import { SeoHead, Breadcrumbs, Pagination, MediaBlock, ArticleNav, RelatedArticles, AttachmentList, ThemeFooterLinks, PublishedDate, SinglePageArticle, TagLinks, externalLinkProps, loadHomeBlocks, SearchResultList } from '../_shared';
 import { defineHomeTemplate } from '../sdk';
 import { renderCmsWidgetHtml } from '../widgets';
-import { CMS_WIDGET_RENDERER_KEYS } from '@zenith/shared/cms';
+import { CMS_WIDGET_RENDERER_KEYS } from '@arcbase/shared/cms';
 
 const TYPE_LABELS: Record<string, string | null> = { article: null, album: '图集', media: '视频', link: '外链' };
 

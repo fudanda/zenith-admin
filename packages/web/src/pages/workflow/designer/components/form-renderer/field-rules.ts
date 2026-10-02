@@ -2,8 +2,8 @@
  * 字段校验规则构建：静态 required / 长度 / 正则 / 数值范围，叠加条件必填、跨字段比较与自定义校验公式。
  * 规则对象直接交给 Semi Form 字段的 `rules`，validator 闭包捕获调用时的表单值快照。
  */
-import type { WorkflowFormField } from '@zenith/shared/workflow';
-import { evalWorkflowCompareRule, evalWorkflowFieldRuleGroup as evalRuleGroup, isWorkflowFieldVisible as isFieldVisible, WORKFLOW_COMPARE_OP_TEXT } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
+import { evalWorkflowCompareRule, evalWorkflowFieldRuleGroup as evalRuleGroup, isWorkflowFieldVisible as isFieldVisible, WORKFLOW_COMPARE_OP_TEXT } from '@arcbase/shared/workflow';
 import { evalFormula } from '../../form-formula';
 
 export type FieldRule = Record<string, unknown>;

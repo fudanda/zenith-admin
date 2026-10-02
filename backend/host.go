@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -8,13 +8,13 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/fudanda/zenith-admin/backend/internal/contracts"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/modules/authorization"
-	"github.com/fudanda/zenith-admin/backend/internal/modules/integrations"
-	"github.com/fudanda/zenith-admin/backend/internal/modules/organization/positions"
-	"github.com/fudanda/zenith-admin/backend/internal/security"
-	httptransport "github.com/fudanda/zenith-admin/backend/internal/transport/http"
+	"github.com/fudanda/arcbase/backend/internal/contracts"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/modules/authorization"
+	"github.com/fudanda/arcbase/backend/internal/modules/integrations"
+	"github.com/fudanda/arcbase/backend/internal/modules/organization/positions"
+	"github.com/fudanda/arcbase/backend/internal/security"
+	httptransport "github.com/fudanda/arcbase/backend/internal/transport/http"
 )
 
 // Extension declarations permit host menus and deep links only for mounted modules.

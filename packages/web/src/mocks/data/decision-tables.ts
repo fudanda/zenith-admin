@@ -1,5 +1,5 @@
-import { SEED_DECISION_TABLES } from '@zenith/shared/seed';
-import type { RuleDecisionTable, RuleDecisionTableVersion, RuleExecution, RuleTestCase } from '@zenith/shared/rules';
+import { SEED_DECISION_TABLES } from '@arcbase/shared/seed';
+import type { RuleDecisionTable, RuleDecisionTableVersion, RuleExecution, RuleTestCase } from '@arcbase/shared/rules';
 import { mockDateTime } from '@/mocks/utils/date';
 
 export const mockDecisionTables: RuleDecisionTable[] = SEED_DECISION_TABLES.map((t) => ({

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { Banner, Button, Checkbox, DatePicker, Descriptions, Input, Select, SideSheet, Space, Switch, Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import { cmsContentContract, cmsReleaseContract, type CmsRelease } from '@zenith/shared/cms';
+import { cmsContentContract, cmsReleaseContract, type CmsRelease } from '@arcbase/shared/cms';
 import { apiQueryOptions } from '@/lib/contract-query';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

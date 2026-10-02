@@ -41,7 +41,7 @@ import type {
   WorkflowSimulationResult,
   WorkflowTask,
   WorkflowTaskUrge,
-} from '@zenith/shared/workflow';
+} from '@arcbase/shared/workflow';
 import {
   buildWorkflowEngineIssues,
   buildWorkflowEngineQueueSnapshot,
@@ -65,7 +65,7 @@ import {
   workflowInstanceOpsContract,
   workflowSimulationCaseContract,
   workflowTaskContract,
-} from '@zenith/shared/workflow';
+} from '@arcbase/shared/workflow';
 import {
   buildFirstApproveTask,
   mockWorkflowDefinitions,
@@ -2196,13 +2196,13 @@ export const workflowHandlers = [
     const fromArchive = source !== 'live' && !query.templateId && !!inst.archive;
     const tasks = mockWorkflowTasks.filter(t => t.instanceId === inst.id);
     return demoPdfResponse([
-      fromArchive ? 'Zenith Admin Demo - Archived Approval Sheet' : 'Zenith Admin Demo - Approval Sheet',
+      fromArchive ? 'ArcBase Demo - Archived Approval Sheet' : 'ArcBase Demo - Approval Sheet',
       `Instance #${inst.id}  Serial: ${inst.serialNo ?? '-'}  Status: ${inst.status}`,
       `Created: ${inst.createdAt}`,
       `Approval records: ${tasks.length}`,
       fromArchive ? `Archived at ${inst.archive?.archivedAt}  SHA-256 ${inst.archive?.sha256.slice(0, 16)}...` : 'Rendered live from the current snapshot.',
       'Demo mode renders a placeholder; the real server generates the full sheet as PDF.',
-    ], `${inst.serialNo ?? `approval-${inst.id}`}.pdf`, { 'X-Zenith-Print-Source': fromArchive ? 'archive' : 'live' });
+    ], `${inst.serialNo ?? `approval-${inst.id}`}.pdf`, { 'X-ArcBase-Print-Source': fromArchive ? 'archive' : 'live' });
   }),
 
   // 审批单验真页：Demo 令牌格式 `demo-{instanceId}`，其余视为无效

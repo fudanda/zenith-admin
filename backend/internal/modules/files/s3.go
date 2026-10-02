@@ -10,13 +10,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/filestorageconfig"
-	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
-	"github.com/fudanda/zenith-admin/backend/ent/uploadsession"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/storage"
-	objectstore "github.com/fudanda/zenith-admin/backend/internal/storage/s3"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/filestorageconfig"
+	"github.com/fudanda/arcbase/backend/ent/managedfile"
+	"github.com/fudanda/arcbase/backend/ent/uploadsession"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/storage"
+	objectstore "github.com/fudanda/arcbase/backend/internal/storage/s3"
 )
 
 func (f *Service) objects(row *ent.FileStorageConfig) (*objectstore.Client, error) {

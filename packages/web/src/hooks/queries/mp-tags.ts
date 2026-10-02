@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { mpTagContract } from '@zenith/shared/mp';
+import type { QueryOf } from '@arcbase/shared/core';
+import { mpTagContract } from '@arcbase/shared/mp';
 import { createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type MpTagListParams = QueryOf<typeof mpTagContract.list>;

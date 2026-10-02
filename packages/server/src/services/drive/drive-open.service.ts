@@ -1,6 +1,6 @@
 import { HTTPException } from 'hono/http-exception';
 import { and, asc, desc, eq, inArray, isNull, sql, type SQL } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import {
   driveRoleAtLeast,
   openDriveContract,
@@ -9,7 +9,7 @@ import {
   type DriveRole,
   type OpenDriveNode,
   type OpenDriveSpace,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveNodes, driveOpenAppGrants, driveSpaces, oauth2Clients, type DriveNodeRow, type DriveOpenAppGrantRow, type DriveSpaceRow } from '../../db/schema';
 import { currentUser, runWithCurrentUser } from '../../lib/context';

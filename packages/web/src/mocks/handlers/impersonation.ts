@@ -1,4 +1,4 @@
-import { impersonationContract, type ImpersonationSession } from '@zenith/shared/identity';
+import { impersonationContract, type ImpersonationSession } from '@arcbase/shared/identity';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { badRequest, forbidden, notFound, nextIdFrom, unauthorized } from '@/mocks/utils/handlers';

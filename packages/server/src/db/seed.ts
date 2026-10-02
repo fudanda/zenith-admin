@@ -8,22 +8,22 @@ import { and, eq, isNull, inArray, sql } from 'drizzle-orm';
 import { createRequire } from 'node:module';
 import logger from '../lib/logger';
 import { runAsUser } from '../lib/audit-context';
-import { SEED_MENUS, SEED_ROLES, SEED_DEPARTMENTS, SEED_POSITIONS, SEED_DICTS, SEED_DICT_ITEMS, SEED_CRON_JOBS, SEED_RATE_LIMIT_RULES, SEED_TAGS, SEED_DATA_MASK_POLICIES, SEED_MONITOR_ALERT_RULES, SEED_CLIENT_APPS, SEED_MEMBER_LEVELS, SEED_MEMBER_TAGS, SEED_COUPONS, SEED_EMAIL_TEMPLATES, SEED_SMS_TEMPLATES, SEED_INAPP_TEMPLATES, SEED_TENANTS, SEED_TENANT_PACKAGES, SEED_WORKFLOW_FORMS, SEED_WORKFLOW_DATA_SOURCES, SEED_WORKFLOW_CONNECTORS, SEED_WORKFLOW_TEMPLATES, SEED_WORKFLOW_DEFINITIONS, SEED_AI_PROMPT_TEMPLATES, SEED_PAYMENT_METHOD_CONFIGS, SEED_CHECKIN_MILESTONES, SEED_MP_ACCOUNTS, SEED_MP_TAGS, SEED_MP_FANS, SEED_MP_MESSAGES, SEED_MP_AUTO_REPLIES, SEED_MP_MENUS, SEED_MP_MATERIALS, SEED_MP_DRAFTS, SEED_MP_MESSAGE_TEMPLATES, SEED_MP_BROADCASTS, SEED_MP_QRCODES, SEED_MP_KF_ACCOUNTS, SEED_MP_KF_ROUTING_CONFIGS, SEED_MP_KF_SESSIONS, SEED_MP_KF_SESSION_EVENTS, SEED_MP_CONDITIONAL_MENUS, SEED_CHANNELS, SEED_CHANNEL_QUICK_REPLIES, SEED_REPORT_DATASOURCES, SEED_REPORT_DATASETS, SEED_REPORT_DASHBOARDS, SEED_API_SCOPES, SEED_RATE_PLANS, SEED_REPORT_PRINT_TEMPLATES, SEED_DECISION_TABLES, SEED_DECISION_FLOWS, SEED_RULE_LISTS, SEED_RULE_LIST_ITEMS, SEED_RULE_SCORECARDS, SEED_REPORT_FOLDERS, SEED_REPORT_ENVIRONMENTS, SEED_REPORT_METRICS, SEED_REPORT_DQ_RULES, SEED_REPORT_QUERY_QUOTAS, SEED_REPORT_SLA_RULES, SEED_REPORT_ASSET_TEMPLATES, SEED_REPORT_FILL_TEMPLATES, SEED_ANALYTICS_EVENT_META, SEED_ANALYTICS_SITES } from '@zenith/shared/seed';
-import type { PaymentChannel, PaymentMethod } from '@zenith/shared/payment';
-import { SEED_PAYMENT_DEDUCT_PLANS, SEED_CMS_EDITOR_USER, SEED_CMS_SITES, SEED_CMS_SITE_INHERITANCES, SEED_CMS_MODELS, SEED_CMS_CHANNELS, SEED_CMS_DISTRIBUTION_RULES, SEED_CMS_CONTENTS, SEED_CMS_CONTENT_CHANNELS, SEED_CMS_CONTENT_RELATIONS, SEED_CMS_CONTENT_VERSIONS, SEED_CMS_TAGS, SEED_CMS_FRIEND_LINK_GROUPS, SEED_CMS_FRIEND_LINKS, SEED_CMS_AD_SLOTS, SEED_CMS_ADS, SEED_CMS_AD_EVENTS, SEED_CMS_FORMS, SEED_CMS_SENSITIVE_WORDS, SEED_CMS_ERROR_PRONE_WORDS, SEED_CMS_LINK_WORDS, SEED_CMS_COMMENTS, SEED_CMS_INTERACTIONS, SEED_CMS_INTERACTION_RESPONSES, SEED_CMS_INTERACTION_ANSWERS, SEED_CMS_SUBSCRIPTIONS, SEED_CMS_RESOURCES, SEED_CMS_RESOURCE_FOLDERS, SEED_CMS_SEARCH_WORDS, SEED_CMS_HOTWORD_GROUPS, SEED_CMS_HOTWORDS, SEED_CMS_COLLECT_RULES, SEED_CMS_COLLECT_ITEMS, SEED_CMS_WIDGETS, SEED_CMS_WIDGET_REFS, SEED_CMS_WIDGET_SOURCE_REFS, SEED_CMS_PAGES, SEED_CMS_PAGE_BLOCK_ACLS, SEED_CMS_PUBLISH_TASKS, SEED_CMS_PUBLISH_ARTIFACTS, SEED_CMS_DISTRIBUTION_TASKS, SEED_CMS_DISTRIBUTION_TASK_ITEMS } from '@zenith/shared/seed';
-import { SEED_WIKI_SPACES, SEED_WIKI_SPACE_MEMBERS, SEED_WIKI_TAGS, SEED_WIKI_TEMPLATES, SEED_WIKI_DOCS, SEED_WIKI_COMMENTS } from '@zenith/shared/seed';
-import { SEED_SHORT_LINKS } from '@zenith/shared/seed';
+import { SEED_MENUS, SEED_ROLES, SEED_DEPARTMENTS, SEED_POSITIONS, SEED_DICTS, SEED_DICT_ITEMS, SEED_CRON_JOBS, SEED_RATE_LIMIT_RULES, SEED_TAGS, SEED_DATA_MASK_POLICIES, SEED_MONITOR_ALERT_RULES, SEED_CLIENT_APPS, SEED_MEMBER_LEVELS, SEED_MEMBER_TAGS, SEED_COUPONS, SEED_EMAIL_TEMPLATES, SEED_SMS_TEMPLATES, SEED_INAPP_TEMPLATES, SEED_TENANTS, SEED_TENANT_PACKAGES, SEED_WORKFLOW_FORMS, SEED_WORKFLOW_DATA_SOURCES, SEED_WORKFLOW_CONNECTORS, SEED_WORKFLOW_TEMPLATES, SEED_WORKFLOW_DEFINITIONS, SEED_AI_PROMPT_TEMPLATES, SEED_PAYMENT_METHOD_CONFIGS, SEED_CHECKIN_MILESTONES, SEED_MP_ACCOUNTS, SEED_MP_TAGS, SEED_MP_FANS, SEED_MP_MESSAGES, SEED_MP_AUTO_REPLIES, SEED_MP_MENUS, SEED_MP_MATERIALS, SEED_MP_DRAFTS, SEED_MP_MESSAGE_TEMPLATES, SEED_MP_BROADCASTS, SEED_MP_QRCODES, SEED_MP_KF_ACCOUNTS, SEED_MP_KF_ROUTING_CONFIGS, SEED_MP_KF_SESSIONS, SEED_MP_KF_SESSION_EVENTS, SEED_MP_CONDITIONAL_MENUS, SEED_CHANNELS, SEED_CHANNEL_QUICK_REPLIES, SEED_REPORT_DATASOURCES, SEED_REPORT_DATASETS, SEED_REPORT_DASHBOARDS, SEED_API_SCOPES, SEED_RATE_PLANS, SEED_REPORT_PRINT_TEMPLATES, SEED_DECISION_TABLES, SEED_DECISION_FLOWS, SEED_RULE_LISTS, SEED_RULE_LIST_ITEMS, SEED_RULE_SCORECARDS, SEED_REPORT_FOLDERS, SEED_REPORT_ENVIRONMENTS, SEED_REPORT_METRICS, SEED_REPORT_DQ_RULES, SEED_REPORT_QUERY_QUOTAS, SEED_REPORT_SLA_RULES, SEED_REPORT_ASSET_TEMPLATES, SEED_REPORT_FILL_TEMPLATES, SEED_ANALYTICS_EVENT_META, SEED_ANALYTICS_SITES } from '@arcbase/shared/seed';
+import type { PaymentChannel, PaymentMethod } from '@arcbase/shared/payment';
+import { SEED_PAYMENT_DEDUCT_PLANS, SEED_CMS_EDITOR_USER, SEED_CMS_SITES, SEED_CMS_SITE_INHERITANCES, SEED_CMS_MODELS, SEED_CMS_CHANNELS, SEED_CMS_DISTRIBUTION_RULES, SEED_CMS_CONTENTS, SEED_CMS_CONTENT_CHANNELS, SEED_CMS_CONTENT_RELATIONS, SEED_CMS_CONTENT_VERSIONS, SEED_CMS_TAGS, SEED_CMS_FRIEND_LINK_GROUPS, SEED_CMS_FRIEND_LINKS, SEED_CMS_AD_SLOTS, SEED_CMS_ADS, SEED_CMS_AD_EVENTS, SEED_CMS_FORMS, SEED_CMS_SENSITIVE_WORDS, SEED_CMS_ERROR_PRONE_WORDS, SEED_CMS_LINK_WORDS, SEED_CMS_COMMENTS, SEED_CMS_INTERACTIONS, SEED_CMS_INTERACTION_RESPONSES, SEED_CMS_INTERACTION_ANSWERS, SEED_CMS_SUBSCRIPTIONS, SEED_CMS_RESOURCES, SEED_CMS_RESOURCE_FOLDERS, SEED_CMS_SEARCH_WORDS, SEED_CMS_HOTWORD_GROUPS, SEED_CMS_HOTWORDS, SEED_CMS_COLLECT_RULES, SEED_CMS_COLLECT_ITEMS, SEED_CMS_WIDGETS, SEED_CMS_WIDGET_REFS, SEED_CMS_WIDGET_SOURCE_REFS, SEED_CMS_PAGES, SEED_CMS_PAGE_BLOCK_ACLS, SEED_CMS_PUBLISH_TASKS, SEED_CMS_PUBLISH_ARTIFACTS, SEED_CMS_DISTRIBUTION_TASKS, SEED_CMS_DISTRIBUTION_TASK_ITEMS } from '@arcbase/shared/seed';
+import { SEED_WIKI_SPACES, SEED_WIKI_SPACE_MEMBERS, SEED_WIKI_TAGS, SEED_WIKI_TEMPLATES, SEED_WIKI_DOCS, SEED_WIKI_COMMENTS } from '@arcbase/shared/seed';
+import { SEED_SHORT_LINKS } from '@arcbase/shared/seed';
 import { shortLinks } from './schema';
-import { SEED_MARKETING_CAMPAIGNS, SEED_MARKETING_PRIZES } from '@zenith/shared/seed';
+import { SEED_MARKETING_CAMPAIGNS, SEED_MARKETING_PRIZES } from '@arcbase/shared/seed';
 import { marketingCampaigns, marketingPrizes } from './schema';
-import { SEED_ANALYTICS_SEGMENTS } from '@zenith/shared/seed';
+import { SEED_ANALYTICS_SEGMENTS } from '@arcbase/shared/seed';
 import { analyticsUserSegments } from './schema';
 import {
   SEED_IOT_PRODUCTS, SEED_IOT_DEVICES, SEED_IOT_PRODUCT_PROPERTIES, SEED_IOT_PRODUCT_SERVICES,
   SEED_IOT_PRODUCT_EVENTS, SEED_IOT_DEVICE_GROUPS, SEED_IOT_ALARM_RULES, SEED_IOT_ALARMS, SEED_IOT_DEVICE_EVENTS,
   SEED_IOT_AUTOMATIONS, SEED_IOT_FORWARD_RULES, SEED_IOT_DEVICE_LOGS,
   SEED_IOT_SCHEDULES, SEED_IOT_SCHEDULE_RUNS, SEED_IOT_MAINTENANCE_WINDOWS, SEED_IOT_WHITELIST,
-} from '@zenith/shared/seed';
+} from '@arcbase/shared/seed';
 import {
   iotProducts, iotDevices, iotTelemetry, iotProductProperties, iotProductServices, iotProductEvents,
   iotDeviceGroups, iotDeviceGroupMembers, iotAlarmRules, iotAlarms, iotAutomations, iotDeviceEvents, iotDeviceState,
@@ -64,14 +64,14 @@ async function seed() {
     await db.insert(users).values({
       username: 'admin',
       nickname: '管理员',
-      email: 'admin@zenith.dev',
+      email: 'admin@arcbase.dev',
       password: hashedPassword,
       status: 'enabled',
     });
   }
   logger.info('  ✔ Admin user seeded (skip if exists)');
 
-  // 内置系统号「Zenith 助手」（工作流/告警/卡片消息的发送者）
+  // 内置系统号「ArcBase 助手」（工作流/告警/卡片消息的发送者）
   for (const ch of SEED_CHANNELS) {
     const existing = await db.select({ id: channels.id }).from(channels)
       .where(eq(channels.code, ch.code)).limit(1);
@@ -116,7 +116,7 @@ async function seed() {
 }
 
 async function seedRest() {
-  // ─── 2. 菜单数据（数据来源：@zenith/shared SEED_MENUS）─────────────────────
+  // ─── 2. 菜单数据（数据来源：@arcbase/shared SEED_MENUS）─────────────────────
   // 只新增不更新：SEED_MENUS 决定新菜单的初始定义，已存在的行（含页面上的改名 / 换图标 /
   // 排序 / 禁用 / 隐藏 / 换父级）不被回写；手工创建的菜单及 role_menus / user_menus 授权、收藏原样保留。
   // 修改既有内置菜单的定义（如迁移 path / component / 权限码）需要单独的数据迁移，seed 不负责同步。
@@ -142,7 +142,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('menus_id_seq', GREATEST((SELECT MAX(id) FROM menus), ${MENU_CUSTOM_ID_START}))`);
   logger.info(`  ✔ Menus seeded (onConflictDoNothing) — ${menuRows.length} defined, ${insertedMenus.length} inserted`);
 
-  // ─── 3. 角色数据（数据来源：@zenith/shared SEED_ROLES）────────────────────
+  // ─── 3. 角色数据（数据来源：@arcbase/shared SEED_ROLES）────────────────────
   const roleRows = SEED_ROLES.map(({ id, name, code, description, status, dataScope }) => ({ id, name, code, description, status, dataScope }));
   await db.insert(roles).overridingSystemValue().values(roleRows).onConflictDoNothing();
   await db.execute(sql`SELECT setval('roles_id_seq', GREATEST((SELECT MAX(id) FROM roles), 1))`);
@@ -167,7 +167,7 @@ async function seedRest() {
   }
   logger.info('  ✔ Role-menu bindings seeded');
 
-  // ─── 4. 部门数据（数据来源：@zenith/shared SEED_DEPARTMENTS）──────────────
+  // ─── 4. 部门数据（数据来源：@arcbase/shared SEED_DEPARTMENTS）──────────────
   // 只插入不存在的部门，不覆盖用户修改的数据
   const existingDeptIds = new Set(
     (await db.select({ id: departments.id }).from(departments)).map((r) => r.id),
@@ -192,7 +192,7 @@ async function seedRest() {
     logger.info('  ✔ Departments up-to-date');
   }
 
-  // ─── 5. 岗位数据（数据来源：@zenith/shared SEED_POSITIONS）────────────────
+  // ─── 5. 岗位数据（数据来源：@arcbase/shared SEED_POSITIONS）────────────────
   // 只插入不存在的岗位，不覆盖用户修改的数据
   const existingPositionIds = new Set(
     (await db.select({ id: positions.id }).from(positions)).map((r) => r.id),
@@ -252,7 +252,7 @@ async function seedRest() {
     logger.info('  ✔ Admin user-role binding seeded');
   }
 
-  // ─── 6. 字典数据（数据来源：@zenith/shared SEED_DICTS）────────────────────
+  // ─── 6. 字典数据（数据来源：@arcbase/shared SEED_DICTS）────────────────────
   const dictRows = SEED_DICTS.map(({ id, name, code, description, status }) => ({ id, name, code, description, status }));
   await db.insert(dicts).overridingSystemValue().values(dictRows).onConflictDoNothing();
   await db.execute(sql`SELECT setval('dicts_id_seq', GREATEST((SELECT MAX(id) FROM dicts), 1))`);
@@ -272,7 +272,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('file_storage_configs_id_seq', GREATEST((SELECT MAX(id) FROM file_storage_configs), 1))`);
   logger.info('  ✔ File storage configs seeded (onConflictDoNothing)');
 
-  // ─── 7. 字典项数据（数据来源：@zenith/shared SEED_DICT_ITEMS）─────────────
+  // ─── 7. 字典项数据（数据来源：@arcbase/shared SEED_DICT_ITEMS）─────────────
   // 只插入不存在的字典项，不覆盖用户修改的数据
   const existingDictItems = await db.select({ dictId: dictItems.dictId, value: dictItems.value }).from(dictItems);
   const existingDictItemKeys = new Set(existingDictItems.map((r) => `${r.dictId}:${r.value}`));
@@ -288,14 +288,14 @@ async function seedRest() {
     logger.info('  ✔ Dict items up-to-date');
   }
 
-  // ─── 9. 定时任务种子数据（数据来源：@zenith/shared SEED_CRON_JOBS）─────────
+  // ─── 9. 定时任务种子数据（数据来源：@arcbase/shared SEED_CRON_JOBS）─────────
   const cronJobRows = SEED_CRON_JOBS.map(({ name, cronExpression, handler, status, description }) => ({ name, cronExpression, handler, status, description }));
   await db.insert(cronJobs)
     .values(cronJobRows)
     .onConflictDoNothing();
   logger.info('  ✔ Cron jobs seeded (onConflictDoNothing)');
 
-  // ─── 10. 限流规则种子数据（数据来源：@zenith/shared SEED_RATE_LIMIT_RULES）──
+  // ─── 10. 限流规则种子数据（数据来源：@arcbase/shared SEED_RATE_LIMIT_RULES）──
   await db.insert(rateLimitRules)
     .values(SEED_RATE_LIMIT_RULES.map(({ name, description, windowMs, limit, keyType, enabled, blockedMessage, pathPatterns }) => ({
       name,
@@ -310,14 +310,14 @@ async function seedRest() {
     .onConflictDoNothing();
   logger.info('  ✔ Rate limit rules seeded (onConflictDoNothing)');
 
-  // ─── 开放平台：API Scope 注册表（来源：@zenith/shared SEED_API_SCOPES）──────
+  // ─── 开放平台：API Scope 注册表（来源：@arcbase/shared SEED_API_SCOPES）──────
   await db.insert(apiScopes).overridingSystemValue().values(
     SEED_API_SCOPES.map(({ id, code, name, description, scopeGroup, status }) => ({ id, code, name, description, scopeGroup, status })),
   ).onConflictDoNothing();
   await db.execute(sql`SELECT setval('api_scopes_id_seq', GREATEST((SELECT MAX(id) FROM api_scopes), 1))`);
   logger.info('  ✔ API scopes seeded (onConflictDoNothing)');
 
-  // ─── 开放平台：限流套餐（来源：@zenith/shared SEED_RATE_PLANS）──────────────
+  // ─── 开放平台：限流套餐（来源：@arcbase/shared SEED_RATE_PLANS）──────────────
   await db.insert(ratePlans).overridingSystemValue().values(
     SEED_RATE_PLANS.map(({ id, code, name, description, qpsLimit, dailyQuota, monthlyQuota, isDefault, status }) => ({
       id, code, name, description, qpsLimit, dailyQuota, monthlyQuota, isDefault, status,
@@ -363,7 +363,7 @@ async function seedRest() {
   }
   logger.info(`  ✔ Regions seeded (onConflictDoNothing) — ${inserted} records`);
 
-  // ─── 租户套餐示例数据（数据来源：@zenith/shared SEED_TENANT_PACKAGES）─────────────────────────
+  // ─── 租户套餐示例数据（数据来源：@arcbase/shared SEED_TENANT_PACKAGES）─────────────────────────
   await db.insert(tenantPackages).overridingSystemValue().values(
     SEED_TENANT_PACKAGES.map(({ id, name, status, quotas, remark }) => ({ id, name, status, quotas: quotas ?? null, remark })),
   ).onConflictDoNothing();
@@ -374,19 +374,19 @@ async function seedRest() {
   }
   logger.info('  ✔ Tenant packages seeded (onConflictDoNothing)');
 
-  // ─── 租户示例数据（数据来源：@zenith/shared SEED_TENANTS）───────────────────────────────────
+  // ─── 租户示例数据（数据来源：@arcbase/shared SEED_TENANTS）───────────────────────────────────
   await db.insert(tenants).values(
     SEED_TENANTS.map(({ name, code, contactName, contactPhone, status, maxUsers, packageId, remark }) => ({ name, code, contactName, contactPhone, status, maxUsers, packageId, remark })),
   ).onConflictDoNothing();
   logger.info('  ✔ Tenants seeded (onConflictDoNothing)');
 
-  // ─── 邮件模板示例数据（数据来源：@zenith/shared SEED_EMAIL_TEMPLATES）─────────────────────────
+  // ─── 邮件模板示例数据（数据来源：@arcbase/shared SEED_EMAIL_TEMPLATES）─────────────────────────
   await db.insert(emailTemplates).values(
     SEED_EMAIL_TEMPLATES.map(({ name, code, subject, content, variables, status, remark }) => ({ name, code, subject, content, variables, status, remark })),
   ).onConflictDoNothing();
   logger.info('  ✔ Email templates seeded (onConflictDoNothing)');
 
-  // ─── 短信模板示例数据（数据来源：@zenith/shared SEED_SMS_TEMPLATES）──────────────────────
+  // ─── 短信模板示例数据（数据来源：@arcbase/shared SEED_SMS_TEMPLATES）──────────────────────
   await db.insert(smsTemplates).values(
     SEED_SMS_TEMPLATES.map(({ name, code, templateCode, signName, content, variables, provider, status, remark }) => ({ name, code, templateCode, signName, content, variables, provider, status, remark })),
   ).onConflictDoNothing();
@@ -402,7 +402,7 @@ async function seedRest() {
         accessKeyId: 'LTAI5tDemoAccessKeyId',
         accessKeySecret: 'DemoAccessKeySecretReplaceMe',
         region: 'cn-hangzhou',
-        signName: 'Zenith',
+        signName: 'ArcBase',
         isDefault: true,
         status: 'disabled',
         remark: '初始环境占位配置，需填实际凭证后启用',
@@ -411,7 +411,7 @@ async function seedRest() {
   }
   logger.info('  ✔ SMS configs seeded (skip if exists)');
 
-  // ─── 公众号账号示例数据（数据来源：@zenith/shared SEED_MP_ACCOUNTS）──────────────
+  // ─── 公众号账号示例数据（数据来源：@arcbase/shared SEED_MP_ACCOUNTS）──────────────
   await db.insert(mpAccounts).overridingSystemValue().values(
     SEED_MP_ACCOUNTS.map(({ id, name, account, appId, appSecret, token, encodingAesKey, encryptMode, type, qrCodeUrl, isDefault, autoCreateMember, status, remark }) =>
       ({ id, name, account, appId, appSecret, token, encodingAesKey, encryptMode, type, qrCodeUrl, isDefault, autoCreateMember, status, remark })),
@@ -419,14 +419,14 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('mp_accounts_id_seq', GREATEST((SELECT MAX(id) FROM mp_accounts), 1))`);
   logger.info('  ✔ MP accounts seeded (onConflictDoNothing)');
 
-  // ─── 公众号标签示例数据（数据来源：@zenith/shared SEED_MP_TAGS）──────────────────
+  // ─── 公众号标签示例数据（数据来源：@arcbase/shared SEED_MP_TAGS）──────────────────
   await db.insert(mpTags).overridingSystemValue().values(
     SEED_MP_TAGS.map(({ id, accountId, wechatTagId, name, fansCount }) => ({ id, accountId, wechatTagId, name, fansCount })),
   ).onConflictDoNothing();
   await db.execute(sql`SELECT setval('mp_tags_id_seq', GREATEST((SELECT MAX(id) FROM mp_tags), 1))`);
   logger.info('  ✔ MP tags seeded (onConflictDoNothing)');
 
-  // ─── 公众号粉丝示例数据（数据来源：@zenith/shared SEED_MP_FANS）──────────────────
+  // ─── 公众号粉丝示例数据（数据来源：@arcbase/shared SEED_MP_FANS）──────────────────
   await db.insert(mpFans).overridingSystemValue().values(
     SEED_MP_FANS.map(({ id, accountId, openid, nickname, avatar, sex, country, province, city, language, subscribe, remark, tagIds }) =>
       ({ id, accountId, openid, nickname, avatar, sex, country, province, city, language, subscribe, remark, tagIds })),
@@ -434,7 +434,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('mp_fans_id_seq', GREATEST((SELECT MAX(id) FROM mp_fans), 1))`);
   logger.info('  ✔ MP fans seeded (onConflictDoNothing)');
 
-  // ─── 公众号消息示例数据（数据来源：@zenith/shared SEED_MP_MESSAGES）──────────────
+  // ─── 公众号消息示例数据（数据来源：@arcbase/shared SEED_MP_MESSAGES）──────────────
   await db.insert(mpMessages).overridingSystemValue().values(
     SEED_MP_MESSAGES.map(({ id, accountId, openid, direction, msgType, content, mediaId, mediaUrl, event, msgId, status, createdAt }) =>
       ({ id, accountId, openid, direction, msgType, content, mediaId, mediaUrl, event, msgId, status, createdAt: new Date(createdAt) })),
@@ -475,7 +475,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('mp_message_templates_id_seq', GREATEST((SELECT MAX(id) FROM mp_message_templates), 1))`);
   logger.info('  ✔ MP message templates seeded (onConflictDoNothing)');
 
-  // ─── 公众号群发 / 带参二维码示例数据（数据来源：@zenith/shared）─────────────────────
+  // ─── 公众号群发 / 带参二维码示例数据（数据来源：@arcbase/shared）─────────────────────
   await db.insert(mpBroadcasts).overridingSystemValue().values(
     SEED_MP_BROADCASTS.map(({ id, accountId, msgType, target, tagId, content, mediaId, status }) => ({ id, accountId, msgType, target, tagId, content, mediaId, status })),
   ).onConflictDoNothing();
@@ -524,20 +524,20 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('mp_conditional_menus_id_seq', GREATEST((SELECT MAX(id) FROM mp_conditional_menus), 1))`);
   logger.info('  ✔ MP conditional menus seeded (onConflictDoNothing)');
 
-  // ─── 站内信模板示例数据（数据来源：@zenith/shared SEED_INAPP_TEMPLATES）─────────────────────
+  // ─── 站内信模板示例数据（数据来源：@arcbase/shared SEED_INAPP_TEMPLATES）─────────────────────
   await db.insert(inAppTemplates).values(
     SEED_INAPP_TEMPLATES.map(({ name, code, title, content, type, variables, status, remark }) => ({ name, code, title, content, type, variables, status, remark })),
   ).onConflictDoNothing();
   logger.info('  ✔ In-app templates seeded (onConflictDoNothing)');
 
-  // ─── AI 提示词模板内置预设（数据来源：@zenith/shared SEED_AI_PROMPT_TEMPLATES）─────
+  // ─── AI 提示词模板内置预设（数据来源：@arcbase/shared SEED_AI_PROMPT_TEMPLATES）─────
   await db.insert(aiPromptTemplates).overridingSystemValue().values(
     SEED_AI_PROMPT_TEMPLATES.map(({ id, name, content, description, category, scope, userId, isBuiltin, sort, isEnabled }) => ({ id, name, content, description, category, scope, userId, isBuiltin, sort, isEnabled })),
   ).onConflictDoNothing();
   await db.execute(sql`SELECT setval('ai_prompt_templates_id_seq', GREATEST((SELECT MAX(id) FROM ai_prompt_templates), 1))`);
   logger.info('  ✔ AI prompt templates seeded (onConflictDoNothing)');
 
-  // ─── 支付方式配置（数据来源：@zenith/shared SEED_PAYMENT_METHOD_CONFIGS）─────────
+  // ─── 支付方式配置（数据来源：@arcbase/shared SEED_PAYMENT_METHOD_CONFIGS）─────────
   const paymentTenantIds = [null, ...(await db.select({ id: tenants.id }).from(tenants)).map((row) => row.id)];
   await db.insert(paymentMethodConfigs).values(
     paymentTenantIds.flatMap((tenantId) => SEED_PAYMENT_METHOD_CONFIGS.map(({ method, channel, label, icon, enabled, sort }) => ({
@@ -552,7 +552,7 @@ async function seedRest() {
   ).onConflictDoNothing();
   logger.info('  ✔ Payment method configs seeded (onConflictDoNothing)');
 
-  // ─── 扣款计划（数据来源：@zenith/shared SEED_PAYMENT_DEDUCT_PLANS）──────────────
+  // ─── 扣款计划（数据来源：@arcbase/shared SEED_PAYMENT_DEDUCT_PLANS）──────────────
   await db.insert(paymentDeductPlans).overridingSystemValue().values(
     SEED_PAYMENT_DEDUCT_PLANS.map(({ id, name, period, customDays, amount, maxRetries, status, remark }) => ({
       id,
@@ -634,7 +634,7 @@ async function seedRest() {
   await db.insert(checkinSettings).overridingSystemValue().values({ id: 1, makeupEnabled: true, makeupCostPoints: 20, makeupMaxDays: 7 }).onConflictDoNothing();
   logger.info('  ✔ Checkin settings seeded (onConflictDoNothing)');
 
-  // ── 签到里程碑（数据来源：@zenith/shared SEED_CHECKIN_MILESTONES）──
+  // ── 签到里程碑（数据来源：@arcbase/shared SEED_CHECKIN_MILESTONES）──
   await db.insert(checkinMilestones).overridingSystemValue().values(
     SEED_CHECKIN_MILESTONES.map(({ id, title, cumulativeDays, rewardType, rewardPoints, couponId, enabled, remark }) => ({
       id, title, cumulativeDays, rewardType, rewardPoints, couponId, enabled, remark,
@@ -642,7 +642,7 @@ async function seedRest() {
   ).onConflictDoNothing();
   logger.info('  ✔ Checkin milestones seeded (onConflictDoNothing)');
 
-  // ── 流程表单库（数据来源：@zenith/shared SEED_WORKFLOW_FORMS）────────────────
+  // ── 流程表单库（数据来源：@arcbase/shared SEED_WORKFLOW_FORMS）────────────────
   // tenantId 留空（平台级），由超管可见；created_by/updated_by 由 db Proxy 注入。
   await db.insert(workflowForms).overridingSystemValue().values(
     SEED_WORKFLOW_FORMS.map(({ id, name, code, description, categoryId, schema, status }) =>
@@ -651,7 +651,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('workflow_forms_id_seq', GREATEST((SELECT MAX(id) FROM workflow_forms), 1))`);
   logger.info('  ✔ Workflow forms seeded (onConflictDoNothing)');
 
-  // ── 流程远程数据源（数据来源：@zenith/shared SEED_WORKFLOW_DATA_SOURCES）──────
+  // ── 流程远程数据源（数据来源：@arcbase/shared SEED_WORKFLOW_DATA_SOURCES）──────
   await db.insert(workflowDataSources).overridingSystemValue().values(
     SEED_WORKFLOW_DATA_SOURCES.map(({ id, name, method, url, itemsPath, valueField, labelField, keywordParam, status, remark }) =>
       ({ id, name, method, url, headersEncrypted: null, itemsPath: itemsPath ?? undefined, valueField, labelField, keywordParam: keywordParam ?? undefined, status, remark: remark ?? undefined })),
@@ -659,7 +659,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('workflow_data_sources_id_seq', GREATEST((SELECT MAX(id) FROM workflow_data_sources), 1))`);
   logger.info('  ✔ Workflow data sources seeded (onConflictDoNothing)');
 
-  // ── 流程连接器（数据来源：@zenith/shared SEED_WORKFLOW_CONNECTORS）──────────────
+  // ── 流程连接器（数据来源：@arcbase/shared SEED_WORKFLOW_CONNECTORS）──────────────
   await db.insert(workflowConnectors).overridingSystemValue().values(
     SEED_WORKFLOW_CONNECTORS.map(({ id, name, code, description, type, config, timeoutMs, retryMax, circuitBreakerEnabled, failureThreshold, cooldownSec, rateLimitEnabled, rateLimitWindowSec, rateLimitMax, status }) =>
       ({ id, name, code, description, type, config, credentialsEncrypted: null, timeoutMs, retryMax, circuitBreakerEnabled, failureThreshold, cooldownSec, rateLimitEnabled, rateLimitWindowSec, rateLimitMax, status, tenantId: null })),
@@ -667,7 +667,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('workflow_connectors_id_seq', GREATEST((SELECT MAX(id) FROM workflow_connectors), 1))`);
   logger.info('  ✔ Workflow connectors seeded (onConflictDoNothing)');
 
-  // ── 规则中心决策表（数据来源：@zenith/shared SEED_DECISION_TABLES）──────────────
+  // ── 规则中心决策表（数据来源：@arcbase/shared SEED_DECISION_TABLES）──────────────
   await db.insert(ruleDecisionTables).overridingSystemValue().values(
     SEED_DECISION_TABLES.map(({ id, key, name, description, hitPolicy, inputs, outputs, rules }) =>
       ({ id, key, name, description, hitPolicy, inputs, outputs, rules, tenantId: null })),
@@ -675,7 +675,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('rule_decision_tables_id_seq', GREATEST((SELECT MAX(id) FROM rule_decision_tables), 1))`);
   logger.info('  ✔ Decision tables seeded (onConflictDoNothing)');
 
-  // ── 规则中心决策流（数据来源：@zenith/shared SEED_DECISION_FLOWS）──────────────
+  // ── 规则中心决策流（数据来源：@arcbase/shared SEED_DECISION_FLOWS）──────────────
   await db.insert(ruleDecisionFlows).overridingSystemValue().values(
     SEED_DECISION_FLOWS.map(({ id, key, name, description, steps }) =>
       ({ id, key, name, description, steps, tenantId: null })),
@@ -683,7 +683,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('rule_decision_flows_id_seq', GREATEST((SELECT MAX(id) FROM rule_decision_flows), 1))`);
   logger.info('  ✔ Decision flows seeded (onConflictDoNothing)');
 
-  // ── 规则中心名单库（数据来源：@zenith/shared SEED_RULE_LISTS / SEED_RULE_LIST_ITEMS）─
+  // ── 规则中心名单库（数据来源：@arcbase/shared SEED_RULE_LISTS / SEED_RULE_LIST_ITEMS）─
   await db.insert(ruleLists).overridingSystemValue().values(
     SEED_RULE_LISTS.map(({ id, key, name, type, description, status }) =>
       ({ id, key, name, type, description, status, tenantId: null })),
@@ -696,7 +696,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('rule_list_items_id_seq', GREATEST((SELECT MAX(id) FROM rule_list_items), 1))`);
   logger.info('  ✔ Rule lists seeded (onConflictDoNothing)');
 
-  // ── 规则中心评分卡（数据来源：@zenith/shared SEED_RULE_SCORECARDS）──────────────
+  // ── 规则中心评分卡（数据来源：@arcbase/shared SEED_RULE_SCORECARDS）──────────────
   await db.insert(ruleScorecards).overridingSystemValue().values(
     SEED_RULE_SCORECARDS.map(({ id, key, name, description, baseScore, variables, grades }) =>
       ({ id, key, name, description, baseScore, variables, grades, tenantId: null })),
@@ -705,7 +705,7 @@ async function seedRest() {
   logger.info('  ✔ Rule scorecards seeded (onConflictDoNothing)');
 
 
-  // ── 流程内置模板（数据来源：@zenith/shared SEED_WORKFLOW_TEMPLATES）──────────
+  // ── 流程内置模板（数据来源：@arcbase/shared SEED_WORKFLOW_TEMPLATES）──────────
   // builtin=true 系统模板，tenantId 留空（平台级），供「从模板新建」直接克隆为草稿。
   await db.insert(workflowTemplates).overridingSystemValue().values(
     SEED_WORKFLOW_TEMPLATES.map(({ id, name, code, description, categoryName, icon, color, flowData, formSchema, sort, builtin, tenantId }) =>
@@ -751,7 +751,7 @@ async function seedRest() {
     logger.info('  ✔ Demo member seeded (13800138000 / 123456)');
   }
 
-  // ─── 报表中心示例数据（数据来源：@zenith/shared SEED_REPORT_*）──────────────
+  // ─── 报表中心示例数据（数据来源：@arcbase/shared SEED_REPORT_*）──────────────
   await db.insert(reportFolders).overridingSystemValue().values(
     SEED_REPORT_FOLDERS.map(({ id, tenantId, parentId, name, resourceType, sort, status }) => ({
       id, tenantId, parentId, name, resourceType, ownerId: adminUser?.id ?? null, sort, status,
@@ -860,7 +860,7 @@ async function seedRest() {
 
   // ─── 意见反馈：不再预置示例数据（历史库 admin id 不固定，硬编码 userId 会触发 FK 失败）──
 
-  // ─── 行为中心：服务端权威事件 Tracking Plan 初始种子（数据来源：@zenith/shared SEED_ANALYTICS_EVENT_META）──
+  // ─── 行为中心：服务端权威事件 Tracking Plan 初始种子（数据来源：@arcbase/shared SEED_ANALYTICS_EVENT_META）──
   // 冲突目标为 eventName（业务唯一键），不写 id（由数据库自增），避免覆盖治理侧已运行时调整的字段
   await db.insert(analyticsEventMeta).values(
     SEED_ANALYTICS_EVENT_META.map(({ eventName, displayName, category, description, propertySchema, strictMode }) => ({
@@ -869,7 +869,7 @@ async function seedRest() {
   ).onConflictDoNothing();
   logger.info('  ✔ Analytics event meta (tracking plan) seeded (onConflictDoNothing)');
 
-  // ─── 行为中心：站点模型初始种子（数据来源：@zenith/shared SEED_ANALYTICS_SITES）──
+  // ─── 行为中心：站点模型初始种子（数据来源：@arcbase/shared SEED_ANALYTICS_SITES）──
   await db.insert(analyticsSites).overridingSystemValue().values(
     SEED_ANALYTICS_SITES.map(({ id, tenantId, siteKey, name, appId, allowedOrigins, dailyEventQuota, status, remark }) => ({
       id, tenantId, siteKey, name, appId, allowedOrigins, dailyEventQuota, status, remark,
@@ -878,7 +878,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('analytics_sites_id_seq', GREATEST((SELECT MAX(id) FROM analytics_sites), 1))`);
   logger.info('  ✔ Analytics sites seeded (onConflictDoNothing)');
 
-  // ─── 行为中心：内置用户分群（数据来源：@zenith/shared SEED_ANALYTICS_SEGMENTS）──
+  // ─── 行为中心：内置用户分群（数据来源：@arcbase/shared SEED_ANALYTICS_SEGMENTS）──
   // 名称冲突（用户已手建同名分群）时跳过：全局分群 name 唯一约束 + onConflictDoNothing
   await db.insert(analyticsUserSegments).overridingSystemValue().values(
     SEED_ANALYTICS_SEGMENTS.map(({ id, tenantId, name, description, rules, status }) => ({
@@ -888,7 +888,7 @@ async function seedRest() {
   await db.execute(sql`SELECT setval('analytics_user_segments_id_seq', GREATEST((SELECT MAX(id) FROM analytics_user_segments), 1))`);
   logger.info('  ✔ Analytics segments seeded (onConflictDoNothing)');
 
-  // ─── CMS：站点 / 模型 / 栏目 / 内容 / 标签 / 友链（数据来源：@zenith/shared SEED_CMS_*）──
+  // ─── CMS：站点 / 模型 / 栏目 / 内容 / 标签 / 友链（数据来源：@arcbase/shared SEED_CMS_*）──
   await db.insert(cmsSites).overridingSystemValue().values(
     SEED_CMS_SITES.map(({ id, parentId, name, code, domain, aliasDomains, isDefault, title, keywords, description, logo, favicon, icp, copyright, theme, themeRevision, templateRefsRevision, staticMode, robots, settings, status, sort, remark }) => ({
       id, parentId, name, code, domain, aliasDomains, isDefault, title, keywords, description, logo, favicon, icp, copyright, theme, themeRevision, templateRefsRevision, staticMode, robots, settings, status, sort, remark,

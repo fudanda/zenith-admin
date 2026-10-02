@@ -7,7 +7,7 @@
  */
 import { HTTPException } from 'hono/http-exception';
 import { and, asc, desc, eq, inArray } from 'drizzle-orm';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import {
   deployTargetSchema,
   validateDeployRestartConfig,
@@ -19,7 +19,7 @@ import {
   type DeployTargetHost,
   type UpdateDeployTargetInput,
   type deployTargetContract,
-} from '@zenith/shared/ops';
+} from '@arcbase/shared/ops';
 import { db } from '../../db';
 import {
   clientApps,

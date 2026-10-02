@@ -10,8 +10,8 @@
  * 调用方一律保持 pending，由持有连接的进程或设备心跳收敛状态。
  */
 import type { WSContext } from 'hono/ws';
-import type { IotCommandPayload, IotDesiredPayload, IotOtaPayload } from '@zenith/shared/iot';
-import { IOT_WS_FRAME_TYPES } from '@zenith/shared/iot';
+import type { IotCommandPayload, IotDesiredPayload, IotOtaPayload } from '@arcbase/shared/iot';
+import { IOT_WS_FRAME_TYPES } from '@arcbase/shared/iot';
 import logger from '../../lib/logger';
 import { onWsFanout, publishWsFanout } from '../../lib/ws-fanout';
 import { acknowledgeDeviceDelivery } from './iot-delivery-ack';

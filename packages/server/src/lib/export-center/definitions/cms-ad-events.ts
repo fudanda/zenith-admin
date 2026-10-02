@@ -1,7 +1,7 @@
 import { db } from '../../../db';
 import { cmsAdEvents } from '../../../db/schema';
-import { enumValueOf } from '@zenith/shared/core';
-import { CMS_AD_EVENT_TYPE_LABELS, CMS_AD_EVENT_TYPES, CMS_DEVICE_TYPES } from '@zenith/shared/cms';
+import { enumValueOf } from '@arcbase/shared/core';
+import { CMS_AD_EVENT_TYPE_LABELS, CMS_AD_EVENT_TYPES, CMS_DEVICE_TYPES } from '@arcbase/shared/cms';
 import {
   buildCmsAdEventWhere,
   streamCmsAdEvents,

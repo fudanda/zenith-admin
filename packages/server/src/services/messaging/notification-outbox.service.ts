@@ -12,9 +12,9 @@ import type {
   NotificationEventKey,
   NotificationEventVars,
   NotificationRecipient,
-} from '@zenith/shared/messaging';
-import type { SubjectRef } from '@zenith/shared/core';
-import { isNotificationEventKey, getNotificationEvent } from '@zenith/shared/messaging';
+} from '@arcbase/shared/messaging';
+import type { SubjectRef } from '@arcbase/shared/core';
+import { isNotificationEventKey, getNotificationEvent } from '@arcbase/shared/messaging';
 import { db } from '../../db';
 import { notificationOutbox, notificationOutboxSubjects } from '../../db/schema';
 import type { NotificationOutboxRow } from '../../db/schema';
@@ -22,14 +22,14 @@ import type { DbExecutor, DbTransaction } from '../../db/types';
 import { mapWithConcurrency } from '../../lib/concurrency';
 import { currentTraceId, currentParentRef } from '../../lib/context';
 import { formatDateTime } from '../../lib/datetime';
-import { escapeHtml } from '@zenith/shared/core';
+import { escapeHtml } from '@arcbase/shared/core';
 import { deliverOutboxRow, type DeliverSummary } from '../../lib/notification/dispatch';
 import { normalizeTemplateVars } from '../../lib/notification/template-vars';
 import logger from '../../lib/logger';
 import { renderTemplate } from '../../lib/sms-sender';
 import { buildWhere } from '../../lib/where-helpers';
 import { normalizeAuditSubjects } from '../../lib/audit-subject';
-import { isCanonicalEntityType } from '@zenith/shared/platform';
+import { isCanonicalEntityType } from '@arcbase/shared/platform';
 import { recordDomainEvent } from '../platform/relations/events.service';
 import { recordNotificationOutcome } from './notification-delivery-events';
 import { exactTenantCondition } from '../../lib/tenant';

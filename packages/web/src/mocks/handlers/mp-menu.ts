@@ -1,4 +1,4 @@
-import { mpMenuContract, type MpMenu } from '@zenith/shared/mp';
+import { mpMenuContract, type MpMenu } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest } from '@/mocks/utils/handlers';
 import { mockMpMenus } from '@/mocks/data/mp-menus';

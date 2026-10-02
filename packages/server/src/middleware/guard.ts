@@ -12,8 +12,8 @@ import { getClientIp, getPlatformVersion, resolveRequestClient } from '../lib/re
 import { lookupIpLocation } from '../lib/ip-location';
 import { getEffectiveTenantId } from '../lib/tenant';
 import { assertFeatureEnabled } from '../lib/licensing';
-import type { LicenseFeatureKey } from '@zenith/shared/licensing';
-import { permissionList, type Permission } from '@zenith/shared/core';
+import type { LicenseFeatureKey } from '@arcbase/shared/licensing';
+import { permissionList, type Permission } from '@arcbase/shared/core';
 import { tagMiddleware } from '../lib/route-facts';
 import type { NormalizedAuditSubjectRef } from '../lib/audit-subject';
 import logger from '../lib/logger';
@@ -38,7 +38,7 @@ export function setAuditAfterData(_c: Context, data: unknown): void {
 }
 
 export interface GuardOptions {
-  /** 需要的权限码，传单个或数组（满足其一即可）；只接受注册表里的码（`@zenith/shared/core` 的 `Permission`） */
+  /** 需要的权限码，传单个或数组（满足其一即可）；只接受注册表里的码（`@arcbase/shared/core` 的 `Permission`） */
   permission?: Permission | readonly Permission[];
   /** 所属可授权功能：License 检查不豁免超管（授权是部署级商业约束，不是权限问题） */
   feature?: LicenseFeatureKey;

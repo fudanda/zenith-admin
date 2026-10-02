@@ -1,7 +1,7 @@
 // ─── 级联选择（cascader）树形选项编辑器：缩进文本模式（拆分自 TypeSpecificSection）───
 import { useEffect, useState } from 'react';
 import { Switch, TextArea, Typography } from '@douyinfe/semi-ui';
-import type { WorkflowFormField, WorkflowFormCascaderNode } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormCascaderNode } from '@arcbase/shared/workflow';
 
 /**
  * 树 → 缩进文本：每行一个节点，两个空格表示一级缩进；「值|显示名」可分离。

@@ -19,9 +19,9 @@ import {
   useRecoverPaymentPreauth,
   useReleasePaymentPreauth,
 } from '@/hooks/queries/payment-preauths';
-import { enumValueOf } from '@zenith/shared/core';
-import { PAYMENT_CHANNELS, PAYMENT_PREAUTH_METHOD_OPTIONS, PAYMENT_PREAUTH_STATUS_LABELS, PAYMENT_PREAUTH_STATUS_OPTIONS, PAYMENT_PREAUTH_STATUSES, PAYMENT_CHANNEL_OPTIONS } from '@zenith/shared/payment';
-import type { CreatePaymentPreauthInput, PaymentChannel, PaymentPreauth, PaymentPreauthMethod, PaymentPreauthStatus } from '@zenith/shared/payment';
+import { enumValueOf } from '@arcbase/shared/core';
+import { PAYMENT_CHANNELS, PAYMENT_PREAUTH_METHOD_OPTIONS, PAYMENT_PREAUTH_STATUS_LABELS, PAYMENT_PREAUTH_STATUS_OPTIONS, PAYMENT_PREAUTH_STATUSES, PAYMENT_CHANNEL_OPTIONS } from '@arcbase/shared/payment';
+import type { CreatePaymentPreauthInput, PaymentChannel, PaymentPreauth, PaymentPreauthMethod, PaymentPreauthStatus } from '@arcbase/shared/payment';
 import { FilterSelect, KeywordInput, StatusSelect } from '@/components/search-filters';
 import { listTableProps, ListSearchToolbar } from '@/components/list-page';
 import { PaymentChannelTag, paymentMoneyColumn } from './payment-display';

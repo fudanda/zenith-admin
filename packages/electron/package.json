@@ -1,9 +1,9 @@
 {
-  "name": "@zenith/electron",
+  "name": "@arcbase/electron",
   "version": "2.58.0",
   "private": true,
-  "description": "Zenith Admin Electron Client",
-  "author": "Zenith Admin",
+  "description": "ArcBase Electron Client",
+  "author": "ArcBase",
   "repository": {
     "type": "git",
     "url": "https://github.com/iwangbowen/zenith-admin.git"
@@ -14,7 +14,7 @@
     "yauzl": "^3.4.0"
   },
   "scripts": {
-    "dev": "tsc && concurrently \"npm run dev -w @zenith/web\" \"tsc --watch --preserveWatchOutput\" \"wait-on http://localhost:5373 && electron .\"",
+    "dev": "tsc && concurrently \"npm run dev -w @arcbase/web\" \"tsc --watch --preserveWatchOutput\" \"wait-on http://localhost:5373 && electron .\"",
     "build": "tsc && electron-builder",
     "build:win": "tsc && electron-builder --win",
     "build:mac": "tsc && electron-builder --mac",

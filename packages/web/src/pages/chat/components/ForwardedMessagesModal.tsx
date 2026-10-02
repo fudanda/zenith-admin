@@ -1,7 +1,7 @@
 import { Typography, List as SemiList } from '@douyinfe/semi-ui';
 import AppModal from '@/components/AppModal';
 import { getFileTypeIcon } from '@/utils/file-utils';
-import type { ChatMessageExtra } from '@zenith/shared/chat';
+import type { ChatMessageExtra } from '@arcbase/shared/chat';
 import { safeLinkUrl } from '@/utils/safe-url';
 
 const { Text } = Typography;

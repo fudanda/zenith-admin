@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { REPORT_EMBED_BRIDGE_CHANNEL, REPORT_EMBED_BRIDGE_MAX_MESSAGE_BYTES, REPORT_EMBED_BRIDGE_VERSION, REPORT_EMBED_COMMANDS } from '@zenith/shared/report';
-import type { ReportEmbedCommand, ReportEmbedEvent, ReportEmbedEventName, ReportEmbedFilterValue, ReportEmbedFilterValues, ReportEmbedState } from '@zenith/shared/report';
+import { REPORT_EMBED_BRIDGE_CHANNEL, REPORT_EMBED_BRIDGE_MAX_MESSAGE_BYTES, REPORT_EMBED_BRIDGE_VERSION, REPORT_EMBED_COMMANDS } from '@arcbase/shared/report';
+import type { ReportEmbedCommand, ReportEmbedEvent, ReportEmbedEventName, ReportEmbedFilterValue, ReportEmbedFilterValues, ReportEmbedState } from '@arcbase/shared/report';
 
 const COMMANDS = new Set<string>(REPORT_EMBED_COMMANDS);
 const MAX_FILTER_IDS = 100;

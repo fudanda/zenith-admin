@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { wikiTemplateContract } from '@zenith/shared/wiki';
+import type { QueryOf } from '@arcbase/shared/core';
+import { wikiTemplateContract } from '@arcbase/shared/wiki';
 import { createResourceQueries } from '@/lib/contract-query';
 
 export type WikiTemplateListParams = NonNullable<QueryOf<typeof wikiTemplateContract.list>>;

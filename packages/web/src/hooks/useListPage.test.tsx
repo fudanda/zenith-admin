@@ -11,7 +11,7 @@ import { createTestQueryClient, isInvalidated } from '@/test-utils/query-harness
 import { PreferencesContext } from '@/hooks/usePreferences';
 import * as z from 'zod';
 import { contractKey } from '@/lib/contract-query';
-import { dateRangeQuery, defineContract, entityStatusQuery, idParam, keywordQuery, op, paginated, paginationQuery } from '@zenith/shared/core';
+import { dateRangeQuery, defineContract, entityStatusQuery, idParam, keywordQuery, op, paginated, paginationQuery } from '@arcbase/shared/core';
 import { useListPage } from './useListPage';
 
 interface Row { id: number; name: string }

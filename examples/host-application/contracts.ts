@@ -1,5 +1,5 @@
-import { defineContract, op } from '@zenith/shared/core';
-import { positionContract } from '@zenith/shared/identity';
+import { defineContract, op } from '@arcbase/shared/core';
+import { positionContract } from '@arcbase/shared/identity';
 import { hostPermissions } from './permissions';
 
 export const hostPositionContract = defineContract('/api/v1/extensions/position-host/positions', {

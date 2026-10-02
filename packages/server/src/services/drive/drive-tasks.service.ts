@@ -6,13 +6,13 @@ import { createWriteStream, openAsBlob } from 'node:fs';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import {
   DRIVE_SYNC_ZIP_MAX_BYTES,
   DRIVE_SYNC_ZIP_MAX_FILES,
   driveRoleAtLeast,
   type DriveBatchDownloadResult,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { db } from '../../db';
 import { driveNodes, driveSpaces, fileStorageConfigs, managedFiles, type DriveNodeRow, type DriveSpaceRow } from '../../db/schema';
 import { currentUser, currentUserId } from '../../lib/context';
@@ -166,7 +166,7 @@ export function registerDriveTaskHandlers(): void {
         if (cancelRequested) throw new TaskCancelledError('用户取消打包');
       });
       const user = currentUser();
-      const directory = await mkdtemp(join(tmpdir(), 'zenith-drive-'));
+      const directory = await mkdtemp(join(tmpdir(), 'arcbase-drive-'));
       let file;
       try {
         const path = join(directory, 'archive.zip');

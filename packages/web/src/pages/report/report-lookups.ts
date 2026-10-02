@@ -4,7 +4,7 @@
  * 仪表盘、数据集、数据源、打印模板、填报模板、指标、资产目录七个页面的搜索栏与编辑表单
  * 都需要同一份「全量用户 + 某资源类型的目录树平铺」下拉源，这里收口取数与选项映射。
  */
-import type { ReportResourceType } from '@zenith/shared/report';
+import type { ReportResourceType } from '@arcbase/shared/report';
 import type { FilterOption } from '@/components/search-filters';
 import { flattenReportFolders, useReportFolderTree } from '@/hooks/queries/report-folders';
 import { toUserOptions, useAllUsers } from '@/hooks/queries/users';

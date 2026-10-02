@@ -117,7 +117,7 @@
 ## 数据链路
 
 ```text
-tracker.ts / error-reporter.ts / replay.ts（@zenith/analytics-sdk）
+tracker.ts / error-reporter.ts / replay.ts（@arcbase/analytics-sdk）
   ↓ POST /api/analytics/events 或 POST /api/frontend-errors 或 POST /api/session-replays/segments
 routes/analytics/analytics.ts / frontend-errors.ts / session-replays.ts
   ↓ 站点 siteKey 解析（匿名）→ 来源白名单校验

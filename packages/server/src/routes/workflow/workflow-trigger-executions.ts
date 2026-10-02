@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { workflowTriggerExecutionContract } from '@zenith/shared/workflow';
+import { workflowTriggerExecutionContract } from '@arcbase/shared/workflow';
 import { validationHook } from '../../lib/openapi-schemas';
 import { listTriggerExecutions, getTriggerExecution } from '../../services/workflow/workflow-trigger-executions.service';
 import { mountCrud } from '../_crud';

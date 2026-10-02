@@ -1,4 +1,4 @@
-import { firewallContract, type FirewallRule, type FirewallStatus } from '@zenith/shared/ops';
+import { firewallContract, type FirewallRule, type FirewallStatus } from '@arcbase/shared/ops';
 import { mock } from '@/mocks/utils/contract';
 
 const mockStatus: FirewallStatus = {

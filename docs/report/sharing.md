@@ -95,7 +95,7 @@ Token 不放在日志或 URL 查询参数中，不等价于后台 JWT；吊销�
 
 ```ts
 type Command = {
-  channel: 'zenith.report.embed';
+  channel: 'arcbase.report.embed';
   version: '1.0';
   type: 'command';
   command: 'setFilter' | 'setFilters' | 'resetFilters' | 'refresh' | 'getState' | 'exportPng';
@@ -122,7 +122,7 @@ const frame = document.querySelector<HTMLIFrameElement>('#report-frame')!;
 
 frame.addEventListener('load', () => {
   frame.contentWindow?.postMessage({
-    channel: 'zenith.report.embed',
+    channel: 'arcbase.report.embed',
     version: '1.0',
     type: 'command',
     command: 'setFilter',
@@ -134,7 +134,7 @@ frame.addEventListener('load', () => {
 window.addEventListener('message', (event) => {
   if (event.origin !== reportOrigin || event.source !== frame.contentWindow) return;
   const message = event.data;
-  if (message?.channel !== 'zenith.report.embed' || message?.version !== '1.0') return;
+  if (message?.channel !== 'arcbase.report.embed' || message?.version !== '1.0') return;
   if (message.type === 'event' && message.event === 'drilldown') {
     // 由宿主执行经过自身路由白名单验证的跳转。
   }

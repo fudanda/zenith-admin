@@ -1,7 +1,7 @@
 import { Typography } from '@douyinfe/semi-ui';
 import { useNavigate } from 'react-router-dom';
 import { ClipboardCheck, FileEdit, Hourglass, MessageSquareText, Send, Undo2 } from 'lucide-react';
-import type { WorkflowWorkbenchSummary } from '@zenith/shared/workflow';
+import type { WorkflowWorkbenchSummary } from '@arcbase/shared/workflow';
 import { StatCard, StatGrid } from '@/components/charts/StatCard';
 import { useWorkflowWorkbenchSummary } from '@/hooks/queries/workflow-instances';
 

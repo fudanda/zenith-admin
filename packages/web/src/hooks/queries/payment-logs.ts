@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { paymentNotifyLogContract } from '@zenith/shared/payment';
+import type { QueryOf } from '@arcbase/shared/core';
+import { paymentNotifyLogContract } from '@arcbase/shared/payment';
 import { keepPreviousData } from '@tanstack/react-query';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 

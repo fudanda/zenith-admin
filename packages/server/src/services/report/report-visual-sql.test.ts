@@ -3,8 +3,8 @@
  * 标识符白名单/转义、值转义、维度/指标/筛选/排序/限行组装。
  */
 import { describe, it, expect } from 'vitest';
-import { buildVisualSql, visualMetricAlias } from '@zenith/shared/report';
-import type { ReportVisualModel } from '@zenith/shared/report';
+import { buildVisualSql, visualMetricAlias } from '@arcbase/shared/report';
+import type { ReportVisualModel } from '@arcbase/shared/report';
 
 const base: ReportVisualModel = { table: 'orders', dimensions: [], metrics: [], filters: [], orderBy: null, limit: null };
 

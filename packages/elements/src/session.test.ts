@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { Client } from '@zenith/client';
+import { Client } from '@arcbase/client';
 import { createCookieSession } from './session';
 
 const data = { user: { id: 1, username: 'admin', nickname: '管理员', status: 'enabled', email: null, roles: [], passwordUpdatedAt: '2026-09-30T00:00:00Z', createdAt: '2026-09-30T00:00:00Z', updatedAt: '2026-09-30T00:00:00Z' }, permissions: ['*'], csrfToken: 'test-csrf', superAdmin: true };

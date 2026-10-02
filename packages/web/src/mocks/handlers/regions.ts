@@ -1,4 +1,4 @@
-import { buildRegionTree, filterRegionTree, regionContract, validateRegionLevelHierarchy, type Region } from '@zenith/shared/platform';
+import { buildRegionTree, filterRegionTree, regionContract, validateRegionLevelHierarchy, type Region } from '@arcbase/shared/platform';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

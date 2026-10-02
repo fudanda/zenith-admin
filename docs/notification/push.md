@@ -82,7 +82,7 @@ flowchart LR
 
 ```json
 {
-  "app": "zenith-mobile",
+  "app": "arcbase-mobile",
   "deviceId": "客户端持久化的匿名设备标识",
   "provider": "jpush",
   "registrationId": "极光 SDK 返回的 RegistrationID",

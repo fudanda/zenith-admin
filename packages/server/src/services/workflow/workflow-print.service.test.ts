@@ -3,7 +3,7 @@
  * 以及模板选择优先级（请求指定 > 流程绑定 > 自动生成）与文件名。
  */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { WorkflowInstance } from '@zenith/shared/workflow';
+import type { WorkflowInstance } from '@arcbase/shared/workflow';
 
 const mocks = vi.hoisted(() => ({
   getInstanceDetail: vi.fn(),

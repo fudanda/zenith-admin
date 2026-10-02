@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CMS_SECRET_MASK } from '@zenith/shared/cms';
+import { CMS_SECRET_MASK } from '@arcbase/shared/cms';
 import {
   mergeCmsSiteSettings, normalizeNewCmsSiteSettings, redactCmsSiteSettings,
 } from './cms-site-settings';

@@ -2,7 +2,7 @@
  * IoT 告警：告警记录 / 告警规则 / 维护窗口
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { iotAlarmContract, iotAlarmRuleContract, iotMaintenanceWindowContract } from '@zenith/shared/iot';
+import { iotAlarmContract, iotAlarmRuleContract, iotMaintenanceWindowContract } from '@arcbase/shared/iot';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import {

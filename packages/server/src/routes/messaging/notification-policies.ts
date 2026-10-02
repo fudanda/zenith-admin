@@ -2,7 +2,7 @@
  * 通知策略路由（管理员）：事件目录 / 作用域覆盖 / 派发日志。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { notificationPolicyContract } from '@zenith/shared/messaging';
+import { notificationPolicyContract } from '@arcbase/shared/messaging';
 import { currentUser } from '../../lib/context';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

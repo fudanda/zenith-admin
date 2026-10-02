@@ -228,7 +228,7 @@
           "kb": 15.3
         },
         {
-          "source": "workspace/zenith-admin/packages/analytics-sdk/src/tracker.ts",
+          "source": "workspace/arcbase/packages/analytics-sdk/src/tracker.ts",
           "kb": 15
         },
         {
@@ -276,7 +276,7 @@
           "kb": 6.6
         },
         {
-          "source": "/workspace/zenith-admin/packages/analytics-sdk/src/replay.ts",
+          "source": "/workspace/arcbase/packages/analytics-sdk/src/replay.ts",
           "kb": 4.8
         },
         {
@@ -530,7 +530,7 @@
           "kb": 15.5
         },
         {
-          "source": "workspace/zenith-admin/packages/analytics-sdk/src/tracker.ts",
+          "source": "workspace/arcbase/packages/analytics-sdk/src/tracker.ts",
           "kb": 15
         },
         {

@@ -1,6 +1,6 @@
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
-import { aiConversationContract } from '@zenith/shared/ai';
-import { resourceKeyOf, type QueryOf } from '@zenith/shared/core';
+import { aiConversationContract } from '@arcbase/shared/ai';
+import { resourceKeyOf, type QueryOf } from '@arcbase/shared/core';
 import { api, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 /** 侧栏列表的筛选条件；分页参数（limit / offset）由无限加载自行补充 */

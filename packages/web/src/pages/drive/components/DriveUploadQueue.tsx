@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Checkbox, Modal, Progress, Tag, Typography } from '@douyinfe/semi-ui';
 import { CheckCircle2, ChevronDown, ChevronUp, CircleX, Loader2, X, Zap } from 'lucide-react';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 import type { UploadConflict, UploadItem } from '../hooks/useDriveUploader';
 
 interface DriveUploadQueueProps {

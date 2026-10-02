@@ -7,7 +7,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import type { PushConfig } from '@zenith/shared/messaging';
+import type { PushConfig } from '@arcbase/shared/messaging';
 import {
   ApiRecorder,
   createRequestMock,
@@ -29,7 +29,7 @@ import {
 } from './push';
 
 const CONFIG: PushConfig = {
-  id: 1, appId: 2, appName: 'Zenith 移动端', name: '极光-生产', provider: 'jpush', appKey: 'a1b2******c3d4',
+  id: 1, appId: 2, appName: 'ArcBase 移动端', name: '极光-生产', provider: 'jpush', appKey: 'a1b2******c3d4',
   apnsProduction: false, status: 'enabled', remark: null,
   createdAt: '2026-08-26 10:00:00', updatedAt: '2026-08-26 10:00:00',
 };

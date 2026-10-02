@@ -9,8 +9,8 @@ import { TtlCache } from '../../lib/ttl-cache';
 import type { JwtPayload } from '../../middleware/auth';
 import { formatDateTime, resolveStatsWindow } from '../../lib/datetime';
 import { getNicknameMap, findUsernamesByNickname } from '../../lib/user-nicknames';
-import type { QueryOutputOf } from '@zenith/shared/core';
-import type { loginLogContract } from '@zenith/shared/identity';
+import type { QueryOutputOf } from '@arcbase/shared/core';
+import type { loginLogContract } from '@arcbase/shared/identity';
 
 export type LoginLogListFilter = Omit<QueryOutputOf<typeof loginLogContract.list>, 'page' | 'pageSize'>;
 

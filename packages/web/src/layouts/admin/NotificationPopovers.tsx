@@ -2,7 +2,7 @@ import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { Badge, Button, Empty, List, Popover, Typography } from '@douyinfe/semi-ui';
 import { Bell, Megaphone } from 'lucide-react';
 import type { NavigateFunction } from 'react-router-dom';
-import type { InAppMessage, Announcement } from '@zenith/shared/messaging';
+import type { InAppMessage, Announcement } from '@arcbase/shared/messaging';
 import DateTimeText from '@/components/DateTimeText';
 import { emptyIllustration } from '@/components/EmptyIllustration';
 

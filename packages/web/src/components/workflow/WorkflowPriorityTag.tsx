@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Tag } from '@douyinfe/semi-ui';
-import type { WorkflowInstancePriority } from '@zenith/shared/workflow';
+import type { WorkflowInstancePriority } from '@arcbase/shared/workflow';
 
 export const WORKFLOW_PRIORITY_OPTIONS: Array<{ label: string; value: WorkflowInstancePriority }> = [
   { label: '低', value: 'low' },

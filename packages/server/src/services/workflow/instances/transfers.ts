@@ -1,7 +1,7 @@
 // ─── 任务转办明细（谁在何时因何把任务交给了谁）────────────────────────────────
 // 转办/委派/管理员改派/离职交接/超时升级 5 类流转的统一留痕，
 // 同时支撑「禁止折返」校验与详情页转办时间线。
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { and, eq, inArray, ne, or } from 'drizzle-orm';
 import { buildWhere } from '../../../lib/where-helpers';
 import { HTTPException } from 'hono/http-exception';
@@ -9,7 +9,7 @@ import { db } from '../../../db';
 import { workflowTaskTransfers, workflowTasks } from '../../../db/schema';
 import type { DbExecutor } from '../../../db/types';
 import { formatDateTime } from '../../../lib/datetime';
-import type { WorkflowTaskTransfer } from '@zenith/shared/workflow';
+import type { WorkflowTaskTransfer } from '@arcbase/shared/workflow';
 import { resolveUserNames } from '../../../lib/user-nicknames';
 
 export type WorkflowTaskTransferAction = 'transfer' | 'delegate' | 'reassign' | 'handover' | 'timeout';

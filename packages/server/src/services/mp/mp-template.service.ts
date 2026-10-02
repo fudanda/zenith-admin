@@ -11,9 +11,9 @@ import { tenantScope, currentCreateTenantId } from '../../lib/tenant';
 import { ensureMpAccountExists } from './mp-account.service';
 import { getAllPrivateTemplates, sendTemplateMessage, setTemplateIndustry, getTemplateIndustry, WechatApiError } from '../../lib/wechat';
 import { mapWechatError } from '../../lib/wechat-error';
-import type { SendMpTemplateInput } from '@zenith/shared/messaging';
-import { mpTemplateSendLogSchema, type MpTemplateSendStatus, type mpTemplateContract } from '@zenith/shared/mp';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { SendMpTemplateInput } from '@arcbase/shared/messaging';
+import { mpTemplateSendLogSchema, type MpTemplateSendStatus, type mpTemplateContract } from '@arcbase/shared/mp';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { pickEntity } from '../../lib/entity-map';
 
 export function mapMpTemplate(row: MpMessageTemplateRow) {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tag } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { WorkflowInstance } from '@zenith/shared/workflow';
+import type { WorkflowInstance } from '@arcbase/shared/workflow';
 import SavedViewsBar from '@/components/workflow/SavedViewsBar';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { createOperationColumn } from '@/components/ResponsiveTableActions';

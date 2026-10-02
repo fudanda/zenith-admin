@@ -24,8 +24,8 @@ import {
   SHORT_LINK_BIZ_TYPE_LABELS,
   SHORT_LINK_REDIRECT_TYPE_OPTIONS,
   shortLinkContract,
-} from '@zenith/shared/short-link';
-import type { CreateShortLinkInput, ShortLink } from '@zenith/shared/short-link';
+} from '@arcbase/shared/short-link';
+import type { CreateShortLinkInput, ShortLink } from '@arcbase/shared/short-link';
 import ShortLinkStatsDrawer from './ShortLinkStatsDrawer';
 import { useListPage } from '@/hooks/useListPage';
 import { EditFormSheet } from '@/components/EditFormModal';

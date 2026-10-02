@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Tag, Modal, Form, Toast, Typography, Checkbox, Banner, Row, Col, TextArea } from '@douyinfe/semi-ui';
-import { enumValueOf } from '@zenith/shared/core';
-import { OAUTH2_GRANT_TYPE_LABELS, OAUTH2_GRANT_TYPES, OAUTH2_SCOPE_LABELS, OAUTH2_SCOPES, OPEN_APP_ENVIRONMENT_OPTIONS, oauth2ClientContract } from '@zenith/shared/open-platform';
-import type { OAuth2Client, OAuth2GrantType } from '@zenith/shared/open-platform';
+import { enumValueOf } from '@arcbase/shared/core';
+import { OAUTH2_GRANT_TYPE_LABELS, OAUTH2_GRANT_TYPES, OAUTH2_SCOPE_LABELS, OAUTH2_SCOPES, OPEN_APP_ENVIRONMENT_OPTIONS, oauth2ClientContract } from '@arcbase/shared/open-platform';
+import type { OAuth2Client, OAuth2GrantType } from '@arcbase/shared/open-platform';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { copyableNoColumn, createdAtColumn, overflowTagColumn } from '@/utils/table-columns';
 import { openAppEnvironmentColumn, openAppReviewStatusColumn, openAppScopesColumn } from '../../open-platform/open-app-columns';

@@ -56,7 +56,7 @@ export function assertWorkflowCallbackSignature(input: {
 }): void {
   if (!input.secret) throw new HTTPException(500, { message: input.missingSecretMessage });
   const sig = parseSignature(input.signatureHeader);
-  if (!sig) throw new HTTPException(401, { message: '缺少签名头 X-Zenith-Signature' });
+  if (!sig) throw new HTTPException(401, { message: '缺少签名头 X-ArcBase-Signature' });
   const tsNum = Number.parseInt(sig.ts, 10);
   if (!Number.isFinite(tsNum) || Math.abs(Date.now() / 1000 - tsNum) > 300) {
     throw new HTTPException(401, { message: '签名时间戳过期' });

@@ -13,7 +13,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Hono } from 'hono';
 import { sign } from 'hono/jwt';
 import { contextStorage } from 'hono/context-storage';
-import { SETTINGS_MODULES, SETTINGS_MODULE_KEYS, settingsGetOp, settingsUpdateOp } from '@zenith/shared/settings';
+import { SETTINGS_MODULES, SETTINGS_MODULE_KEYS, settingsGetOp, settingsUpdateOp } from '@arcbase/shared/settings';
 
 const { guardCalls } = vi.hoisted(() => ({ guardCalls: [] as unknown[] }));
 

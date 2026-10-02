@@ -3,7 +3,7 @@ import { Space, Tag, Toast } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import { LayoutTemplate } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import type { WorkflowTemplate } from '@zenith/shared/workflow';
+import type { WorkflowTemplate } from '@arcbase/shared/workflow';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { usePermission } from '@/hooks/usePermission';
 import { useListSearch } from '@/hooks/useListSearch';

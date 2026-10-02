@@ -1,4 +1,4 @@
-import { mpAutoReplyContract, type MpAutoReply, type MpUnmatchedKeyword } from '@zenith/shared/mp';
+import { mpAutoReplyContract, type MpAutoReply, type MpUnmatchedKeyword } from '@arcbase/shared/mp';
 import { mock } from '@/mocks/utils/contract';
 import { badRequest } from '@/mocks/utils/handlers';
 import { mockMpAutoReplies, getNextMpAutoReplyId } from '@/mocks/data/mp-auto-replies';

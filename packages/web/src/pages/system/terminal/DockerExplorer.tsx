@@ -26,10 +26,10 @@ import { setTreeChildren, sortEntriesDirFirst } from './fileTree';
 import { fileIcon } from './fileIcon';
 import { fetchDockerDir, useDockerExplorerAction } from '@/hooks/queries/terminal-files';
 import { fetchDockerContainerLogs, useDockerContainers, useDockerFetchStats } from '@/hooks/queries/docker';
-import type { DockerContainer, DockerFileEntry } from '@zenith/shared/ops';
+import type { DockerContainer, DockerFileEntry } from '@arcbase/shared/ops';
 import { groupContainersByCompose } from '@/pages/system/docker/docker-grouping';
 import { MetricMeter } from '@/components/data-viz/MetricMeter';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 

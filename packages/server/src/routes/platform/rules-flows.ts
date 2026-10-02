@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { decisionFlowContract } from '@zenith/shared/rules';
+import { decisionFlowContract } from '@arcbase/shared/rules';
 import { sensitiveRateLimit } from '../../middleware/rate-limit';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';

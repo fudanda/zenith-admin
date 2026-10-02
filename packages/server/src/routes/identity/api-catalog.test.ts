@@ -1,6 +1,6 @@
 import { gunzipSync } from 'node:zlib';
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { apiCatalogContract, apiCatalogSchema } from '@zenith/shared/identity';
+import { apiCatalogContract, apiCatalogSchema } from '@arcbase/shared/identity';
 import { contextStorage } from 'hono/context-storage';
 import { sign } from 'hono/jwt';
 import { beforeEach, describe, expect, it, vi } from 'vitest';

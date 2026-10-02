@@ -8,7 +8,7 @@
  */
 import { createHash } from 'node:crypto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { WorkflowInstance } from '@zenith/shared/workflow';
+import type { WorkflowInstance } from '@arcbase/shared/workflow';
 
 const mocks = vi.hoisted(() => ({
   getInstanceDetail: vi.fn(),

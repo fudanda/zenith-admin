@@ -1,11 +1,11 @@
 /**
  * 文件管理器页面内共享类型。
  *
- * FsEntry 等服务端实体类型的单一来源是 ops 契约（`@zenith/shared/ops`），
+ * FsEntry 等服务端实体类型的单一来源是 ops 契约（`@arcbase/shared/ops`），
  * 此处仅 re-export + 定义页面私有的视图状态类型。
  */
-export type { FsEntry, FsDirListing as DirListing, FsRootInfo as RootInfo } from '@zenith/shared/ops';
-import type { FsEntry } from '@zenith/shared/ops';
+export type { FsEntry, FsDirListing as DirListing, FsRootInfo as RootInfo } from '@arcbase/shared/ops';
+import type { FsEntry } from '@arcbase/shared/ops';
 
 export type ViewMode = 'list' | 'grid';
 export type ClipOp = 'copy' | 'cut';

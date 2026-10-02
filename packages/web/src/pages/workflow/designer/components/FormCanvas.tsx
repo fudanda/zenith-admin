@@ -6,7 +6,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { useThrottledCallback } from '@tanstack/react-pacer';
 import { Divider, Popconfirm, Tag, Typography } from '@douyinfe/semi-ui';
 import { GripVertical, Trash2, Asterisk, Copy } from 'lucide-react';
-import type { WorkflowFormField, WorkflowFormFieldType } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormFieldType } from '@arcbase/shared/workflow';
 import { FORM_FIELD_TYPES } from '../form-types';
 import { isContainerType, flattenAllFields, type DropTarget } from '../form-tree';
 import CanvasFieldPreview from './CanvasFieldPreview';

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cmsStatsQuery } from '@zenith/shared/cms';
+import { cmsStatsQuery } from '@arcbase/shared/cms';
 import { resolveCmsStatsWindow } from './cms-stats-window';
 
 const scope = (values: Record<string, unknown>, now='2026-09-28T10:00:00Z') => resolveCmsStatsWindow(cmsStatsQuery.parse({ siteId: 1,...values }),new Date(now));

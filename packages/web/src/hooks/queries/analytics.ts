@@ -1,5 +1,5 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import { resourceKeyOf, type AnyOperation, type BodyOf, type QueryOf } from '@zenith/shared/core';
+import { resourceKeyOf, type AnyOperation, type BodyOf, type QueryOf } from '@arcbase/shared/core';
 import {
   analyticsCampaignContract,
   analyticsContract,
@@ -10,8 +10,8 @@ import {
   type AnalyticsDrillUsersInput,
   type AnalyticsEventQueryInput,
   type AnalyticsEventSource,
-} from '@zenith/shared/analytics';
-import { userContract } from '@zenith/shared/identity';
+} from '@arcbase/shared/analytics';
+import { userContract } from '@arcbase/shared/identity';
 import { useSaveMutation, apiQueryOptions, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 // ─── 查询参数类型（均由契约推导）────────────────────────────────────────────

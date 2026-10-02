@@ -1,5 +1,5 @@
-export const ZENITH_OPERATION_COLUMN_SYMBOL = Symbol('zenith.operationColumn');
+export const ARCBASE_OPERATION_COLUMN_SYMBOL = Symbol('arcbase.operationColumn');
 
-export interface ZenithOperationColumnMarker {
-  [ZENITH_OPERATION_COLUMN_SYMBOL]?: true;
+export interface ArcBaseOperationColumnMarker {
+  [ARCBASE_OPERATION_COLUMN_SYMBOL]?: true;
 }

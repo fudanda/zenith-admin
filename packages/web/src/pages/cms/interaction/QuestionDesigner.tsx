@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Button, Input, InputNumber, Modal, Select, Switch, Tag, TextArea, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { ArrowDown, ArrowUp, ClipboardPaste, Copy, Plus, Trash2 } from 'lucide-react';
-import { CMS_INTERACTION_NPS_MAX, CMS_INTERACTION_QUESTION_TYPE_OPTIONS, CMS_INTERACTION_RATING_MAX_LIMIT, CMS_INTERACTION_CONDITION_OP_OPTIONS } from '@zenith/shared/cms';
-import type { CmsInteractionConditionOp, CmsInteractionKind, CmsInteractionQuestionType } from '@zenith/shared/cms';
+import { CMS_INTERACTION_NPS_MAX, CMS_INTERACTION_QUESTION_TYPE_OPTIONS, CMS_INTERACTION_RATING_MAX_LIMIT, CMS_INTERACTION_CONDITION_OP_OPTIONS } from '@arcbase/shared/cms';
+import type { CmsInteractionConditionOp, CmsInteractionKind, CmsInteractionQuestionType } from '@arcbase/shared/cms';
 import {
   applyQuestionType,
   createMatrixRow,

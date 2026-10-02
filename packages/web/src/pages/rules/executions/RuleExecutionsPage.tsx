@@ -1,8 +1,8 @@
 import { ListSearchToolbar, listTableProps } from '@/components/list-page';
 import { Space, Tag, Typography } from '@douyinfe/semi-ui';
 import type { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import type { RuleExecution, RuleExecutionSource, RuleRefKind } from '@zenith/shared/rules';
-import { RULE_EXECUTION_SOURCE_LABELS, RULE_REF_KIND_LABELS, RULE_EXECUTION_SOURCES, RULE_REF_KINDS } from '@zenith/shared/rules';
+import type { RuleExecution, RuleExecutionSource, RuleRefKind } from '@arcbase/shared/rules';
+import { RULE_EXECUTION_SOURCE_LABELS, RULE_REF_KIND_LABELS, RULE_EXECUTION_SOURCES, RULE_REF_KINDS } from '@arcbase/shared/rules';
 import ConfigurableTable from '@/components/ConfigurableTable';
 import { useListSearch } from '@/hooks/useListSearch';
 import { ruleKeys, useRuleExecutions } from '@/hooks/queries/rules';

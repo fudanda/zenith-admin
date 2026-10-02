@@ -1,6 +1,6 @@
 import { Button, Typography } from '@douyinfe/semi-ui';
 import { ShieldAlert } from 'lucide-react';
-import { SESSION_CLIENT_KIND_LABELS, type SessionConflict } from '@zenith/shared/identity';
+import { SESSION_CLIENT_KIND_LABELS, type SessionConflict } from '@arcbase/shared/identity';
 import AppModal from '@/components/AppModal';
 import DateTimeText from '@/components/DateTimeText';
 import { SessionClientIcon } from '@/components/SessionClientTag';

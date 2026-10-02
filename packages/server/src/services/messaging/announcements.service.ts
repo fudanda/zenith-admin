@@ -9,8 +9,8 @@ import { requireFirstRow, requireRow } from '../../lib/db-assert';
 import { buildListResult, emptyListResult } from '../../lib/list-query';
 import { HTTPException } from 'hono/http-exception';
 import { currentUser } from '../../lib/context';
-import type { AnnouncementAttachment, announcementContract } from '@zenith/shared/messaging';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { AnnouncementAttachment, announcementContract } from '@arcbase/shared/messaging';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { listBusinessFiles, saveBusinessFiles } from '../files/business-files.service';
 import { formatNullableDateTime, formatTimestamps, parseDateTimeInput } from '../../lib/datetime';
 import { sanitizeCmsHtml } from '../cms/cms-html-sanitizer';
@@ -90,7 +90,7 @@ async function listAnnouncementAttachments(announcementId: number): Promise<Anno
 
 // ─── WebSocket 广播 ───────────────────────────────────────────────────────────
 
-import type { WsMessage } from '@zenith/shared/platform';
+import type { WsMessage } from '@arcbase/shared/platform';
 
 async function resolveAnnouncementAudience(announcementId: number, targetType: string, tenantId: number | null): Promise<'all' | Set<number>> {
   if (targetType === 'all') return 'all';

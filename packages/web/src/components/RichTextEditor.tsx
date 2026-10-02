@@ -3,7 +3,7 @@ import './RichTextEditor.css';
 import { Editor, Toolbar } from '@wangeditor/editor-for-react';
 import type { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor';
 import { useEffect, useState } from 'react';
-import { fileContract, type ManagedFile } from '@zenith/shared/platform';
+import { fileContract, type ManagedFile } from '@arcbase/shared/platform';
 import { config as appConfig } from '@/config';
 import { urlOf } from '@/lib/contract-query';
 import { request } from '@/utils/request';

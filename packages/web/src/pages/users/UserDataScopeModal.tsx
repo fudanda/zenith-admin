@@ -10,8 +10,8 @@
 import { useState, useEffect } from 'react';
 import { Typography, Divider, Toast, Tag } from '@douyinfe/semi-ui';
 import AppModal from '@/components/AppModal';
-import { DATA_SCOPES, mostPermissiveDataScope, type Department } from '@zenith/shared/identity';
-import { enumValueOf } from '@zenith/shared/core';
+import { DATA_SCOPES, mostPermissiveDataScope, type Department } from '@arcbase/shared/identity';
+import { enumValueOf } from '@arcbase/shared/core';
 import { DataScopePanel, DATA_SCOPE_OPTIONS } from '@/components/permissions/DataScopePanel';
 import { useSaveUserDataPermission, useUserDataPermission } from '@/hooks/queries/users';
 

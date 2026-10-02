@@ -1,7 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { Readable } from 'node:stream';
 import { HTTPException } from 'hono/http-exception';
-import { sshSftpContract } from '@zenith/shared/ops';
+import { sshSftpContract } from '@arcbase/shared/ops';
 import { currentUser } from '../../lib/context';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

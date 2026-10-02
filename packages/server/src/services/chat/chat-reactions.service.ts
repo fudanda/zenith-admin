@@ -4,7 +4,7 @@ import { chatMessages, users, chatMessageReactions } from '../../db/schema';
 import { scheduleSendToUsers } from '../../lib/ws-manager';
 import { currentUser } from '../../lib/context';
 import { HTTPException } from 'hono/http-exception';
-import type { ChatMessage, ChatMessageExtra, ChatReactionGroup, ChatVoteData } from '@zenith/shared/chat';
+import type { ChatMessage, ChatMessageExtra, ChatReactionGroup, ChatVoteData } from '@arcbase/shared/chat';
 import { mapChatMessage, fetchUserBrief, listConversationMemberIds, ensureMessageAccessible } from './chat-shared';
 
 // ─── 消息表情回应 ─────────────────────────────────────────────────────────────

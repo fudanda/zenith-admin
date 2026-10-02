@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/fudanda/zenith-admin/backend/ent/apikey"
+	"github.com/fudanda/arcbase/backend/ent/apikey"
 )
 
 // APIKeyCreate is the builder for creating a APIKey entity.

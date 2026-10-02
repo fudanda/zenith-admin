@@ -1,8 +1,8 @@
 import { listRows } from '../../lib/list-query';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { eq, desc } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { cmsSeoContract, cmsPushLogSchema } from '@zenith/shared/cms';
+import { cmsSeoContract, cmsPushLogSchema } from '@arcbase/shared/cms';
 import { db } from '../../db';
 import { cmsPushLogs } from '../../db/schema';
 import type { CmsSiteRow, CmsPushLogRow } from '../../db/schema';

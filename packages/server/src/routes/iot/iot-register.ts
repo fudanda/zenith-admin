@@ -4,7 +4,7 @@
  * 设备侧注册端点在 ingest 路由（`iotIngestContract.register`，产品注册密钥签名）。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { iotWhitelistContract } from '@zenith/shared/iot';
+import { iotWhitelistContract } from '@arcbase/shared/iot';
 import { defineContractRoute } from '../../lib/contract-route';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';
 import {

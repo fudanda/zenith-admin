@@ -36,7 +36,7 @@ func init() {
 			panic(err)
 		}
 		c := jsonschema.NewCompiler()
-		name := "urn:zenith:settings:" + key
+		name := "urn:arcbase:settings:" + key
 		if err = c.AddResource(name, doc); err != nil {
 			panic(err)
 		}

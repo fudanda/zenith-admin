@@ -1,6 +1,6 @@
 import { pgTable, varchar, timestamp, pgEnum, integer, boolean, unique, text, index, jsonb, type AnyPgColumn } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
-import { PROCESS_ROLES } from '@zenith/shared/platform';
+import { PROCESS_ROLES } from '@arcbase/shared/platform';
 import { timestampColumns, idColumn, statusColumn, sortColumn } from './common';
 import { auditColumns, users, tenantIdColumn } from './core';
 
@@ -10,12 +10,12 @@ export const systemSchedulerRunStatusEnum = pgEnum('system_scheduler_run_status'
 
 export const systemSchedulerTriggerTypeEnum = pgEnum('system_scheduler_trigger_type', ['schedule', 'manual', 'queue']);
 
-/** 服务进程角色（与 `@zenith/shared/platform` 的 PROCESS_ROLES / Zod enum 三端同步） */
+/** 服务进程角色（与 `@arcbase/shared/platform` 的 PROCESS_ROLES / Zod enum 三端同步） */
 export const processRoleEnum = pgEnum('process_role', PROCESS_ROLES);
 
 // ─── 运行时设置 ──────────────────────────────────────────────────────────────
 /**
- * 运行时设置：一行 = 一个模块（`@zenith/shared/settings` 注册表的 key）在一个作用域的**显式覆盖**，
+ * 运行时设置：一行 = 一个模块（`@arcbase/shared/settings` 注册表的 key）在一个作用域的**显式覆盖**，
  * `data` 是稀疏文档，缺失字段继承上级（租户行 → 平台行 → schema 默认值）。
  * 读写一律经 `lib/settings`，禁止业务代码直查本表；写入触发 `cache_invalidate` 通知（触发器见 0001_extensions.sql）。
  */
@@ -181,7 +181,7 @@ export const systemSchedulerNodes = pgTable('system_scheduler_nodes', {
   nodeId: varchar({ length: 128 }).primaryKey(),
   hostname: varchar({ length: 128 }).notNull(),
   pid: integer().notNull(),
-  /** 该进程承担的角色（ZENITH_ROLES）；只含 api 的节点仅声明任务，不执行 */
+  /** 该进程承担的角色（ARCBASE_ROLES）；只含 api 的节点仅声明任务，不执行 */
   roles: processRoleEnum().array().notNull(),
   version: varchar({ length: 64 }),
   startedAt: timestamp({ withTimezone: true }).notNull(),

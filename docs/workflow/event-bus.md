@@ -62,11 +62,11 @@
 Webhook 投递使用 `POST`，请求体为完整工作流事件。
 
 ```http
-X-Zenith-Event: task.approved
-X-Zenith-Event-Id: {eventId}
-X-Zenith-Delivery-Job: {jobId}
-X-Zenith-Attempt: {attempt}
-X-Zenith-Signature: t={timestamp},v1={hex_hmac}
+X-ArcBase-Event: task.approved
+X-ArcBase-Event-Id: {eventId}
+X-ArcBase-Delivery-Job: {jobId}
+X-ArcBase-Attempt: {attempt}
+X-ArcBase-Signature: t={timestamp},v1={hex_hmac}
 ```
 
 签名内容为 `${timestamp}.${rawBody}`，算法为 HMAC-SHA256。接收方应校验时间戳偏差并使用相同 Secret 重算 `v1`。

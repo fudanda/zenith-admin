@@ -7,7 +7,7 @@ import type { RefObject } from 'react';
 import { Toast } from '@douyinfe/semi-ui';
 import type { FormApi } from '@douyinfe/semi-ui/lib/es/form';
 import dayjs from 'dayjs';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { evalFormula } from '../../form-formula';
 import { fetchWorkflowDataSourceRecord } from '@/hooks/queries/workflow-designer';
 import { getCascadeAllowedOptions } from './field-utils';

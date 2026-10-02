@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { paymentFeeRuleContract } from '@zenith/shared/payment';
+import { paymentFeeRuleContract } from '@arcbase/shared/payment';
 import { validationHook } from '../../lib/openapi-schemas';
 import { paymentFeeRuleService } from '../../services/payment/payment-fee.service';
 import { mountCrud } from '../_crud';

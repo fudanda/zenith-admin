@@ -2,7 +2,7 @@ import { Button, Empty, Input, Typography, List as SemiList } from '@douyinfe/se
 import { Search } from 'lucide-react';
 import { AppModal } from '@/components/AppModal';
 import { UserAvatar } from '@/components/UserAvatar';
-import type { Channel } from '@zenith/shared/messaging';
+import type { Channel } from '@arcbase/shared/messaging';
 import type { Setter } from '../types';
 
 const { Text } = Typography;

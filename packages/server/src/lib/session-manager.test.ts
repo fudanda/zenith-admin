@@ -58,7 +58,7 @@ vi.mock('./redis', () => ({
 // ─── Mock config ─────────────────────────────────────────────────────────────
 vi.mock('../config', () => ({
   config: {
-    redis: { keyPrefix: 'zenith:' },
+    redis: { keyPrefix: 'arcbase:' },
   },
 }));
 
@@ -120,10 +120,10 @@ describe('registerSession', () => {
     await registerSession(makeSessionInfo());
 
     expect(commandsNamed('set')).toEqual([
-      ['set', 'zenith:session:test-token-id', expect.any(String), 'EX', 8 * 60 * 60],
+      ['set', 'arcbase:session:test-token-id', expect.any(String), 'EX', 8 * 60 * 60],
     ]);
-    expect(commandsNamed('sadd')).toEqual([['sadd', 'zenith:user-sessions:1', 'test-token-id']]);
-    expect(commandsNamed('expire')).toEqual([['expire', 'zenith:user-sessions:1', 30 * 24 * 60 * 60]]);
+    expect(commandsNamed('sadd')).toEqual([['sadd', 'arcbase:user-sessions:1', 'test-token-id']]);
+    expect(commandsNamed('expire')).toEqual([['expire', 'arcbase:user-sessions:1', 30 * 24 * 60 * 60]]);
   });
 
   it('写入的 JSON 包含 lastActiveAt 字段', async () => {
@@ -144,7 +144,7 @@ describe('touchSession', () => {
     const result = await touchSession('xyz');
 
     expect(result).toBe(true);
-    expect(redisMock.getex).toHaveBeenCalledWith('zenith:session:xyz', 'EX', 8 * 60 * 60);
+    expect(redisMock.getex).toHaveBeenCalledWith('arcbase:session:xyz', 'EX', 8 * 60 * 60);
     // lastActiveAt 新鲜（< 60s）时不回写 JSON，节流生效
     expect(commands).toEqual([]);
   });
@@ -156,10 +156,10 @@ describe('touchSession', () => {
 
     await touchSession('xyz');
 
-    expect(commandsNamed('set')).toEqual([['set', 'zenith:session:xyz', expect.any(String), 'EX', 8 * 60 * 60, 'XX']]);
+    expect(commandsNamed('set')).toEqual([['set', 'arcbase:session:xyz', expect.any(String), 'EX', 8 * 60 * 60, 'XX']]);
     const updated = JSON.parse(commandsNamed('set')[0][2] as string);
     expect(new Date(updated.lastActiveAt).getTime()).toBeGreaterThan(staleActiveAt.getTime());
-    expect(commandsNamed('sadd')).toEqual([['sadd', 'zenith:user-sessions:4', 'xyz']]);
+    expect(commandsNamed('sadd')).toEqual([['sadd', 'arcbase:user-sessions:4', 'xyz']]);
   });
 
   it('session 不存在时为 no-op（不写 Redis）', async () => {
@@ -176,7 +176,7 @@ describe('isTokenBlacklisted / getTokenRevocation', () => {
   it('Redis 返回 1 时认为已拉黑', async () => {
     redisMock.exists.mockResolvedValueOnce(1);
     expect(await isTokenBlacklisted('bad-token')).toBe(true);
-    expect(redisMock.exists).toHaveBeenCalledWith('zenith:blacklist:bad-token');
+    expect(redisMock.exists).toHaveBeenCalledWith('arcbase:blacklist:bad-token');
   });
 
   it('Redis 返回 0 时认为未拉黑', async () => {
@@ -194,7 +194,7 @@ describe('isTokenBlacklisted / getTokenRevocation', () => {
     expect(await getTokenRevocation('b')).toBe('force-logout');
     expect(await getTokenRevocation('c')).toBe('force-logout');
     expect(await getTokenRevocation('d')).toBeNull();
-    expect(redisMock.get).toHaveBeenCalledWith('zenith:blacklist:a');
+    expect(redisMock.get).toHaveBeenCalledWith('arcbase:blacklist:a');
   });
 });
 
@@ -208,10 +208,10 @@ describe('forceLogout', () => {
 
     expect(result).toBe(true);
     // 黑名单 key 正确，值为原因，TTL = 2h
-    expect(commandsNamed('set')).toEqual([['set', 'zenith:blacklist:force-id', 'force-logout', 'EX', 2 * 60 * 60]]);
+    expect(commandsNamed('set')).toEqual([['set', 'arcbase:blacklist:force-id', 'force-logout', 'EX', 2 * 60 * 60]]);
     // session 与 refresh 授权 key 一并删除，索引摘出
-    expect(commandsNamed('del')).toEqual([['del', 'zenith:session:force-id', 'zenith:refresh:force-id']]);
-    expect(commandsNamed('srem')).toEqual([['srem', 'zenith:user-sessions:7', 'force-id']]);
+    expect(commandsNamed('del')).toEqual([['del', 'arcbase:session:force-id', 'arcbase:refresh:force-id']]);
+    expect(commandsNamed('srem')).toEqual([['srem', 'arcbase:user-sessions:7', 'force-id']]);
   });
 
   it('session 不存在但 refresh 授权仍在时同样吊销（无主体可摘，不发 SREM）', async () => {
@@ -219,7 +219,7 @@ describe('forceLogout', () => {
     redisMock.exists.mockResolvedValueOnce(1);
 
     expect(await forceLogout('rotated-away')).toBe(true);
-    expect(commandsNamed('del')).toEqual([['del', 'zenith:session:rotated-away', 'zenith:refresh:rotated-away']]);
+    expect(commandsNamed('del')).toEqual([['del', 'arcbase:session:rotated-away', 'arcbase:refresh:rotated-away']]);
     expect(commandsNamed('srem')).toEqual([]);
   });
 
@@ -245,9 +245,9 @@ describe('removeSession', () => {
   it('登出即吊销：拉黑 access token（原因 logout）并删除 session 与 refresh 授权', async () => {
     redisMock.get.mockResolvedValueOnce(JSON.stringify({ ...makeSessionInfo({ tokenId: 'logout-token', userId: 3 }), lastActiveAt: new Date() }));
     await removeSession('logout-token');
-    expect(commandsNamed('set')).toEqual([['set', 'zenith:blacklist:logout-token', 'logout', 'EX', 2 * 60 * 60]]);
-    expect(commandsNamed('del')).toEqual([['del', 'zenith:session:logout-token', 'zenith:refresh:logout-token']]);
-    expect(commandsNamed('srem')).toEqual([['srem', 'zenith:user-sessions:3', 'logout-token']]);
+    expect(commandsNamed('set')).toEqual([['set', 'arcbase:blacklist:logout-token', 'logout', 'EX', 2 * 60 * 60]]);
+    expect(commandsNamed('del')).toEqual([['del', 'arcbase:session:logout-token', 'arcbase:refresh:logout-token']]);
+    expect(commandsNamed('srem')).toEqual([['srem', 'arcbase:user-sessions:3', 'logout-token']]);
   });
 
   it('续签轮换淘汰旧 jti 时原因为 rotated', async () => {
@@ -267,11 +267,11 @@ describe('按用户索引取会话', () => {
 
     const sessions = await listUserSessions(9);
 
-    expect(redisMock.smembers).toHaveBeenCalledWith('zenith:user-sessions:9');
-    expect(redisMock.mget).toHaveBeenCalledWith('zenith:session:t1', 'zenith:session:t2', 'zenith:session:gone');
+    expect(redisMock.smembers).toHaveBeenCalledWith('arcbase:user-sessions:9');
+    expect(redisMock.mget).toHaveBeenCalledWith('arcbase:session:t1', 'arcbase:session:t2', 'arcbase:session:gone');
     expect(sessions.map((s) => s.tokenId)).toEqual(['t2', 't1']);
     expect(sessions[0].loginAt).toBeInstanceOf(Date);
-    expect(redisMock.srem).toHaveBeenCalledWith('zenith:user-sessions:9', 'gone');
+    expect(redisMock.srem).toHaveBeenCalledWith('arcbase:user-sessions:9', 'gone');
   });
 
   it('索引为空时不 MGET', async () => {
@@ -287,21 +287,21 @@ describe('按用户索引取会话', () => {
     const kicked = await forceLogoutAllByUserExcept(9, 'keep');
 
     expect(kicked.sort()).toEqual(['a', 'b']);
-    expect(commandsNamed('set').map((c) => c[1]).sort()).toEqual(['zenith:blacklist:a', 'zenith:blacklist:b']);
+    expect(commandsNamed('set').map((c) => c[1]).sort()).toEqual(['arcbase:blacklist:a', 'arcbase:blacklist:b']);
     expect(commandsNamed('set').every((c) => c[2] === 'password-changed')).toBe(true);
     expect(commandsNamed('srem').map((c) => c[2]).sort()).toEqual(['a', 'b']);
     expect(redisMock.pipeline).toHaveBeenCalledTimes(1);
   });
 
   it('rebuildUserSessionIndex：SCAN 全部在线会话，按 userId 补挂到各自索引并续期', async () => {
-    redisMock.scan.mockResolvedValueOnce(['0', ['zenith:session:x', 'zenith:session:y']]);
+    redisMock.scan.mockResolvedValueOnce(['0', ['arcbase:session:x', 'arcbase:session:y']]);
     redisMock.mget.mockResolvedValueOnce([
       JSON.stringify({ ...makeSessionInfo({ tokenId: 'x', userId: 1 }), lastActiveAt: new Date() }),
       JSON.stringify({ ...makeSessionInfo({ tokenId: 'y', userId: 2 }), lastActiveAt: new Date() }),
     ]);
 
     expect(await rebuildUserSessionIndex()).toBe(2);
-    expect(commandsNamed('sadd').sort()).toEqual([['sadd', 'zenith:user-sessions:1', 'x'], ['sadd', 'zenith:user-sessions:2', 'y']]);
+    expect(commandsNamed('sadd').sort()).toEqual([['sadd', 'arcbase:user-sessions:1', 'x'], ['sadd', 'arcbase:user-sessions:2', 'y']]);
     expect(commandsNamed('expire')).toHaveLength(2);
   });
 });
@@ -309,13 +309,13 @@ describe('按用户索引取会话', () => {
 describe('refresh 授权', () => {
   it('grantRefresh 以 30d TTL 写入 refresh key', async () => {
     await grantRefresh('jti-1');
-    expect(redisMock.set).toHaveBeenCalledWith('zenith:refresh:jti-1', '1', 'EX', 30 * 24 * 60 * 60);
+    expect(redisMock.set).toHaveBeenCalledWith('arcbase:refresh:jti-1', '1', 'EX', 30 * 24 * 60 * 60);
   });
 
   it('consumeRefreshGrant 通过 GETDEL 一次性消费：存在返回 true，之后再消费返回 false', async () => {
     redisMock.getdel.mockResolvedValueOnce('1').mockResolvedValueOnce(null);
     expect(await consumeRefreshGrant('jti-1')).toBe(true);
     expect(await consumeRefreshGrant('jti-1')).toBe(false);
-    expect(redisMock.getdel).toHaveBeenCalledWith('zenith:refresh:jti-1');
+    expect(redisMock.getdel).toHaveBeenCalledWith('arcbase:refresh:jti-1');
   });
 });

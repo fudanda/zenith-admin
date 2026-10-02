@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/fudanda/zenith-admin/backend/ent/user"
+	"github.com/fudanda/arcbase/backend/ent/user"
 )
 
 // User is the model entity for the User schema.

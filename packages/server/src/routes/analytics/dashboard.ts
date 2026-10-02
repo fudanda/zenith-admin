@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { dashboardContract } from '@zenith/shared/analytics';
+import { dashboardContract } from '@arcbase/shared/analytics';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { getDashboardStats, getDashboardCharts } from '../../services/analytics/dashboard.service';

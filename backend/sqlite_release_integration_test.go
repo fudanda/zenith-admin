@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -14,19 +14,19 @@ import (
 	"testing"
 	"time"
 
-	"github.com/fudanda/zenith-admin/backend/ent/position"
+	"github.com/fudanda/arcbase/backend/ent/position"
 )
 
 func TestSQLiteReleaseCLI(t *testing.T) {
-	binary := os.Getenv("ZENITH_DEPLOYMENT_BINARY")
+	binary := os.Getenv("ARCBASE_DEPLOYMENT_BINARY")
 	if binary == "" {
-		t.Skip("set ZENITH_DEPLOYMENT_BINARY to test external SQLite release commands")
+		t.Skip("set ARCBASE_DEPLOYMENT_BINARY to test external SQLite release commands")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 45*time.Second)
 	defer cancel()
 	root := t.TempDir()
 	dsn := "sqlite:" + filepath.Join(root, "source.db")
-	env := append(os.Environ(), "ZENITH_DATABASE_URL="+dsn, "ZENITH_INSECURE_COOKIES=true")
+	env := append(os.Environ(), "ARCBASE_DATABASE_URL="+dsn, "ARCBASE_INSECURE_COOKIES=true")
 	cli := func(stdin string, args ...string) {
 		t.Helper()
 		cmd := exec.CommandContext(ctx, binary, args...)
@@ -66,7 +66,7 @@ func TestSQLiteReleaseCLI(t *testing.T) {
 		addr := listener.Addr().String()
 		listener.Close()
 		cmd := exec.CommandContext(ctx, binary, "serve")
-		cmd.Env = append(env, "ZENITH_ADDR="+addr)
+		cmd.Env = append(env, "ARCBASE_ADDR="+addr)
 		log, err := os.CreateTemp(root, "serve-*.log")
 		if err != nil {
 			t.Fatal(err)

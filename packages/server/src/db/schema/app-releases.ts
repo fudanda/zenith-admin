@@ -6,7 +6,7 @@
  * app_release_events 是追加型日志（检查 / 下载 / 安装回执），供升级看板统计。
  */
 import { pgTable, pgEnum, varchar, text, integer, smallint, bigint, boolean, timestamp, unique, index, uuid, uniqueIndex } from 'drizzle-orm/pg-core';
-import { APP_ARCHES, APP_ARTIFACT_KINDS, APP_KINDS, APP_PLATFORMS, APP_RELEASE_CHANNELS, APP_RELEASE_STATUSES } from '@zenith/shared/ops';
+import { APP_ARCHES, APP_ARTIFACT_KINDS, APP_KINDS, APP_PLATFORMS, APP_RELEASE_CHANNELS, APP_RELEASE_STATUSES } from '@arcbase/shared/ops';
 import { pushProviderEnum, timestampColumns, idColumn, statusColumn } from './common';
 import { auditColumns } from './core';
 import { managedFiles } from './files';
@@ -23,7 +23,7 @@ export const appReleaseEventTypeEnum = pgEnum('app_release_event_type', ['check'
 // ─── 应用 ────────────────────────────────────────────────────────────────────
 export const clientApps = pgTable('client_apps', {
   id: idColumn(),
-  /** 客户端侧标识（如 zenith-desktop），公开 check API 用它定位应用 */
+  /** 客户端侧标识（如 arcbase-desktop），公开 check API 用它定位应用 */
   appKey: varchar({ length: 64 }).notNull().unique('client_apps_app_key_unique'),
   name: varchar({ length: 100 }).notNull(),
   description: text(),

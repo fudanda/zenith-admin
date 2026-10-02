@@ -2,7 +2,7 @@
  * 支付域告警指标源：供监控告警评估器（monitor-alert）实时采集的派生指标。
  *
  * 全部为轻量计数 / 比率查询，随评估周期（默认 30 秒）执行，因此只走带索引的状态列 + 时间窗口，
- * 不做任何跨表大范围扫描。指标口径与阈值含义见 `@zenith/shared/platform` 的 MONITOR_METRIC_META。
+ * 不做任何跨表大范围扫描。指标口径与阈值含义见 `@arcbase/shared/platform` 的 MONITOR_METRIC_META。
  */
 import { and, eq, gte, inArray, like, lte, or } from 'drizzle-orm';
 import { db } from '../../db';

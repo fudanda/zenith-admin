@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { getTableConfig } from 'drizzle-orm/pg-core';
-import { ANALYTICS_PROPERTIES_MAX_BYTES, createErrorAlertRuleSchema, funnelStepSchema, trackEventInputSchema } from '@zenith/shared/analytics';
-import { SEED_MENUS, SEED_RATE_LIMIT_RULES } from '@zenith/shared/seed';
-import type { TrackEventInput } from '@zenith/shared/analytics';
+import { ANALYTICS_PROPERTIES_MAX_BYTES, createErrorAlertRuleSchema, funnelStepSchema, trackEventInputSchema } from '@arcbase/shared/analytics';
+import { SEED_MENUS, SEED_RATE_LIMIT_RULES } from '@arcbase/shared/seed';
+import type { TrackEventInput } from '@arcbase/shared/analytics';
 import { userEvents } from '../../db/schema';
 import { getLegacyEventsWithoutIdCount, resolveDistinctId } from './analytics.service';
 

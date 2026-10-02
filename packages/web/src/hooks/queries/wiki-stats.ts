@@ -1,5 +1,5 @@
-import { wikiStatsContract } from '@zenith/shared/wiki';
-import type { SettingsEnvelope } from '@zenith/shared/settings';
+import { wikiStatsContract } from '@arcbase/shared/wiki';
+import type { SettingsEnvelope } from '@arcbase/shared/settings';
 import { settingsKeys, useSaveSettings, useSettings } from './settings';
 import { useApiQuery } from '@/lib/contract-query';
 import { wikiDocDetailPrefix } from './wiki-docs';

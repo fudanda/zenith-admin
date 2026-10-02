@@ -1,5 +1,5 @@
-import { iotWhitelistContract, iotWhitelistEntrySchema } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotWhitelistContract, iotWhitelistEntrySchema } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 一型一密动态注册。
  *
@@ -12,8 +12,8 @@ import type { QueryOutputOf } from '@zenith/shared/core';
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, type SQL } from 'drizzle-orm';
-import type { CreateIotWhitelistInput, IotRegisterDeviceInput } from '@zenith/shared/iot';
-import { IOT_REGISTER_MAX_SKEW_SECONDS } from '@zenith/shared/iot';
+import type { CreateIotWhitelistInput, IotRegisterDeviceInput } from '@arcbase/shared/iot';
+import { IOT_REGISTER_MAX_SKEW_SECONDS } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import {
   iotDevices, iotDeviceState, iotDeviceWhitelist, iotProducts,

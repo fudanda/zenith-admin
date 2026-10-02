@@ -1,5 +1,5 @@
-import { bizLeaveContract, bizLeaveSchema } from '@zenith/shared/biz';
-import type { QueryOutputOf, BodyOf } from '@zenith/shared/core';
+import { bizLeaveContract, bizLeaveSchema } from '@arcbase/shared/biz';
+import type { QueryOutputOf, BodyOf } from '@arcbase/shared/core';
 /**
  * 业务接入示例：请假 Service
  *
@@ -9,10 +9,10 @@ import type { QueryOutputOf, BodyOf } from '@zenith/shared/core';
  */
 import { and, desc, eq, isNull, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { BizLeave } from '@zenith/shared/biz';
-import { BIZ_LEAVE_STATUSES } from '@zenith/shared/biz';
-import type { WorkflowInstanceStatus } from '@zenith/shared/workflow';
-import { WORKFLOW_ACTIVE_INSTANCE_STATUSES } from '@zenith/shared/workflow';
+import type { BizLeave } from '@arcbase/shared/biz';
+import { BIZ_LEAVE_STATUSES } from '@arcbase/shared/biz';
+import type { WorkflowInstanceStatus } from '@arcbase/shared/workflow';
+import { WORKFLOW_ACTIVE_INSTANCE_STATUSES } from '@arcbase/shared/workflow';
 import { db } from '../../db';
 import { bizLeaves, workflowInstances, type BizLeaveRow } from '../../db/schema';
 import { currentUser } from '../../lib/context';

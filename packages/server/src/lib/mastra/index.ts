@@ -23,9 +23,9 @@ import type { AiModelSource } from '../ai/mastra-models';
 const MASTRA_SCHEMA = 'mastra';
 
 /** 聊天 Agent 动态参数的 requestContext 键 */
-export const CHAT_MODEL_CHAIN_KEY = 'zenith-chat-model-chain';
-export const CHAT_SYSTEM_PROMPT_KEY = 'zenith-chat-system-prompt';
-export const CHAT_TOOLS_KEY = 'zenith-chat-tools';
+export const CHAT_MODEL_CHAIN_KEY = 'arcbase-chat-model-chain';
+export const CHAT_SYSTEM_PROMPT_KEY = 'arcbase-chat-system-prompt';
+export const CHAT_TOOLS_KEY = 'arcbase-chat-tools';
 
 let storagePromise: Promise<PostgresStore> | null = null;
 
@@ -39,7 +39,7 @@ export function getMastraStorage(): Promise<PostgresStore> {
   storagePromise ??= (async () => {
     const { PostgresStoreVNext } = await import('@mastra/pg');
     const store = new PostgresStoreVNext({
-      id: 'zenith-mastra-storage',
+      id: 'arcbase-mastra-storage',
       connectionString: config.databaseUrl,
       schemaName: MASTRA_SCHEMA,
       max: 10,
@@ -59,7 +59,7 @@ export function getMastraVector(): Promise<PgVector> {
   vectorPromise ??= (async () => {
     const { PgVector } = await import('@mastra/pg');
     return new PgVector({
-      id: 'zenith-mastra-vector',
+      id: 'arcbase-mastra-vector',
       connectionString: config.databaseUrl,
       schemaName: MASTRA_SCHEMA,
       max: 5,
@@ -166,7 +166,7 @@ let mastraPromise: Promise<Mastra> | null = null;
 
 /**
  * 注册式 Mastra 实例(进程内单例):
- * - `zenith-chat`:聊天 Agent,模型链/提示词/工具经 requestContext 每次调用动态注入
+ * - `arcbase-chat`:聊天 Agent,模型链/提示词/工具经 requestContext 每次调用动态注入
  * - `agent-{id}`:业务智能体(ai_agents),CRUD 时同步注册,可被实验评测与 Studio 调试
  * - storage / vectors / observability(traces+metrics 自动采集,敏感数据自动脱敏)
  */
@@ -186,11 +186,11 @@ async function buildMastra(): Promise<Mastra> {
     getMastraVector(),
   ]);
   const { Observability, MastraStorageExporter, SensitiveDataFilter } = await import('@mastra/observability');
-  const { ZenithMastraLogger } = await import('./logger');
+  const { ArcBaseMastraLogger } = await import('./logger');
 
   const chatAgent = new Agent({
-    id: 'zenith-chat',
-    name: 'Zenith Chat',
+    id: 'arcbase-chat',
+    name: 'ArcBase Chat',
     instructions: ({ requestContext }) =>
       (requestContext.get(CHAT_SYSTEM_PROMPT_KEY) as string | undefined)?.trim() || '你是一个乐于助人的智能助手。',
     // 业务聊天每次经 requestContext 注入模型链;无注入(Studio 详情/调试、评测 target)
@@ -212,17 +212,17 @@ async function buildMastra(): Promise<Mastra> {
   });
 
   const mastra = new Mastra({
-    agents: { 'zenith-chat': chatAgent },
+    agents: { 'arcbase-chat': chatAgent },
     storage: storage as never,
     vectors: { default: vector as never },
     // 系统 pino 适配器(见 ./logger):原生日志统一进主日志体系(文件轮转/告警计数/reqId),
     // 按系统级别(默认 info)输出;observability 导出独立于该级别,
     // 观测存储收 debug 全量(聊天链路的 Mastra 内部日志均为 debug 级),Studio /logs 页据此可查
-    logger: new ZenithMastraLogger(),
+    logger: new ArcBaseMastraLogger(),
     observability: new Observability({
       configs: {
         default: {
-          serviceName: 'zenith-ai',
+          serviceName: 'arcbase-ai',
           exporters: [new MastraStorageExporter()],
           spanOutputProcessors: [new SensitiveDataFilter()],
           logging: { enabled: true, level: 'debug' },

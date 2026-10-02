@@ -231,7 +231,7 @@ export async function renderExportWorkbook(
   // custom：定义方直接操作内存 Workbook（报表打印等自带单元格/字节预算），保留 Buffer 路径
   if (definition.renderMode === 'custom' && definition.renderWorkbook) {
     const workbook = new (loadExcelJS().Workbook)();
-    workbook.creator = 'Zenith Admin';
+    workbook.creator = 'ArcBase';
     workbook.created = ctx.exportedAt;
     await definition.renderWorkbook(workbook, ctx);
     appendMetadataSheet(workbook, ctx);
@@ -248,7 +248,7 @@ export async function renderExportWorkbook(
     passThrough.on('error', reject);
   });
   const workbook = new (loadExcelJS().stream.xlsx.WorkbookWriter)({ stream: passThrough, useStyles: true });
-  workbook.creator = 'Zenith Admin';
+  workbook.creator = 'ArcBase';
   workbook.created = ctx.exportedAt;
   try {
     await writeTableSheetStreaming(workbook, definition, rows, ctx);

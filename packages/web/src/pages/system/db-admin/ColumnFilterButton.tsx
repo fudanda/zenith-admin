@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Input, Popover, Select, Space } from '@douyinfe/semi-ui';
 import { Filter } from 'lucide-react';
-import { BASIC_COMPARISON_OPERATOR_OPTIONS } from '@zenith/shared/core';
+import { BASIC_COMPARISON_OPERATOR_OPTIONS } from '@arcbase/shared/core';
 
 const OPS = [
   { label: '包含 (ILIKE)', value: 'ilike' },

@@ -1,5 +1,5 @@
-import type { ReplaySession, ReplaySessionDetail } from '@zenith/shared/analytics';
-import { sessionReplayContract } from '@zenith/shared/analytics';
+import type { ReplaySession, ReplaySessionDetail } from '@arcbase/shared/analytics';
+import { sessionReplayContract } from '@arcbase/shared/analytics';
 import { mock } from '@/mocks/utils/contract';
 import { mockDateTimeOffset } from '../utils/date';
 
@@ -21,7 +21,7 @@ const sessions: ReplaySession[] = [
     clickCount: 14,
     pagePaths: ['/orders', '/orders/detail'],
     clickLabels: ['查询', '导出', '提交订单'],
-    entryPageUrl: 'https://demo.zenith.local/orders',
+    entryPageUrl: 'https://demo.arcbase.local/orders',
     source: 'web_admin',
     appId: 'admin',
     environment: 'production',
@@ -51,7 +51,7 @@ const sessions: ReplaySession[] = [
     clickCount: 42,
     pagePaths: ['/dashboard', '/member/points'],
     clickLabels: ['签到', '兑换'],
-    entryPageUrl: 'https://demo.zenith.local/dashboard',
+    entryPageUrl: 'https://demo.arcbase.local/dashboard',
     source: 'web_member',
     appId: 'member',
     environment: 'production',

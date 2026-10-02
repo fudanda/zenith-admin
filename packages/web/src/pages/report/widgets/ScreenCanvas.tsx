@@ -8,7 +8,7 @@ import '../report-screen.css';
 import { WidgetRenderer } from './WidgetRenderer';
 import { useIsMobile, useMediaQuery } from '@/hooks/useMediaQuery';
 import { useEventCallback } from '@/hooks/useEventCallback';
-import type { ReportWidget, ReportGridItem, ReportCanvasItem, ReportDashboardConfig, ReportDataResult, ReportDatasetQueryOptions, ReportScreenConfig } from '@zenith/shared/report';
+import type { ReportWidget, ReportGridItem, ReportCanvasItem, ReportDashboardConfig, ReportDataResult, ReportDatasetQueryOptions, ReportScreenConfig } from '@arcbase/shared/report';
 
 const GridLayout = WidthProvider(RGL);
 

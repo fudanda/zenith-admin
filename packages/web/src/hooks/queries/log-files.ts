@@ -1,5 +1,5 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { logFileContract } from '@zenith/shared/ops';
+import type { QueryOf } from '@arcbase/shared/core';
+import { logFileContract } from '@arcbase/shared/ops';
 import { contractKey, urlOf, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type LogFileContentParams = NonNullable<QueryOf<typeof logFileContract.content>>;

@@ -1,5 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query';
-import { userGroupContract } from '@zenith/shared/identity';
+import { userGroupContract } from '@arcbase/shared/identity';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { invalidateCurrentUserAccess } from './menus';
 import { scopeMemberKeys } from './scope-members';

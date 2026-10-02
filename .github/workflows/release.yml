@@ -64,23 +64,23 @@ jobs:
           CGO_ENABLED: '0'
         run: |
           VERSION="$(node -p "require('./package.json').version")"
-          PREFIX=github.com/fudanda/zenith-admin/backend
+          PREFIX=github.com/fudanda/arcbase/backend
           COMMIT="$(git rev-parse HEAD)"
           BUILT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           for TARGET in linux-amd64 windows-amd64; do
             OS="${TARGET%-*}"
             ARCH="${TARGET#*-}"
-            DIR="$PWD/release_artifacts/zenith-admin-${TARGET}"
+            DIR="$PWD/release_artifacts/arcbase-${TARGET}"
             mkdir -p "$DIR"
-            EXECUTABLE=zenith
-            if [ "$OS" = windows ]; then EXECUTABLE=zenith.exe; fi
-            (cd backend && GOOS="$OS" GOARCH="$ARCH" go build -trimpath -ldflags "-X $PREFIX.Version=$VERSION -X $PREFIX.Commit=$COMMIT -X $PREFIX.BuildTime=$BUILT" -o "$DIR/$EXECUTABLE" ./cmd/zenith)
+            EXECUTABLE=arcbase
+            if [ "$OS" = windows ]; then EXECUTABLE=arcbase.exe; fi
+            (cd backend && GOOS="$OS" GOARCH="$ARCH" go build -trimpath -ldflags "-X $PREFIX.Version=$VERSION -X $PREFIX.Commit=$COMMIT -X $PREFIX.BuildTime=$BUILT" -o "$DIR/$EXECUTABLE" ./cmd/arcbase)
             cp .env.production.example "$DIR/env.example"
             cp docs/guide/go-foundation.md "$DIR/README.md"
             cp docs/guide/go-integrations.md "$DIR/go-integrations.md"
             cp docs/guide/go-tooling.md "$DIR/go-tooling.md"
             cp -r backend/migrations "$DIR/migrations"
-            (cd release_artifacts && zip -r "../zenith-admin-${TARGET}-${RELEASE_TAG}.zip" "zenith-admin-${TARGET}")
+            (cd release_artifacts && zip -r "../arcbase-${TARGET}-${RELEASE_TAG}.zip" "arcbase-${TARGET}")
           done
 
       - name: Extract release notes from CHANGELOG
@@ -92,7 +92,7 @@ jobs:
             const content = fs.readFileSync('docs/changelog/index.md', 'utf-8');
             const start = content.indexOf('## ' + tag);
             if (start < 0) {
-              fs.writeFileSync('RELEASE_NOTES.md', '请查阅 [CHANGELOG](https://iwangbowen.github.io/zenith-admin/changelog/) 获取完整变更信息。');
+              fs.writeFileSync('RELEASE_NOTES.md', '请查阅仓库中的 docs/changelog/index.md 获取完整变更信息。');
               process.exit(0);
             }
             const end = content.indexOf('\n## ', start + 1);
@@ -111,8 +111,8 @@ jobs:
           draft: false
           prerelease: ${{ contains(steps.tag.outputs.name, '-beta') || contains(steps.tag.outputs.name, '-rc') || contains(steps.tag.outputs.name, '-alpha') }}
           files: |
-            zenith-admin-linux-amd64-${{ steps.tag.outputs.name }}.zip
-            zenith-admin-windows-amd64-${{ steps.tag.outputs.name }}.zip
+            arcbase-linux-amd64-${{ steps.tag.outputs.name }}.zip
+            arcbase-windows-amd64-${{ steps.tag.outputs.name }}.zip
             release_artifacts/packages/*.tgz
             release_artifacts/packages/index.json
             release_artifacts/packages/scaffold.json

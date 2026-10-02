@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button, Select, Typography, Empty, Spin } from '@douyinfe/semi-ui';
 import { RefreshCw, Pencil } from 'lucide-react';
-import type { WorkflowForm } from '@zenith/shared/workflow';
+import type { WorkflowForm } from '@arcbase/shared/workflow';
 import WorkflowFormRenderer from './WorkflowFormRenderer';
 import WorkflowFormInlineEditor from '../../forms/WorkflowFormInlineEditor';
 import { useWorkflowDesignerFormOptions, workflowDesignerKeys } from '@/hooks/queries/workflow-designer';

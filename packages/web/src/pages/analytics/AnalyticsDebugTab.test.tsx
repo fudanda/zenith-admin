@@ -11,7 +11,7 @@ import { createPreferencesContext } from '@/test-utils/preferences';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { QueryClientProvider } from '@tanstack/react-query';
-import type { AnalyticsDebugEvent } from '@zenith/shared/analytics';
+import type { AnalyticsDebugEvent } from '@arcbase/shared/analytics';
 import { PreferencesContext } from '@/hooks/usePreferences';
 import { createTestQueryClient } from '@/test-utils/query-harness';
 import { desktopToolbar } from '@/test-utils/toolbar';

@@ -151,7 +151,7 @@ describe.each(['request', 'fetchRaw'] as const)('HttpClient.%s headers', (method
 
     await client[method]('/resource');
 
-    expect(fetchMock.mock.calls.map(([, options]) => new Headers(options?.headers).get('x-zenith-client'))).toEqual(['desktop', 'desktop', 'desktop']);
+    expect(fetchMock.mock.calls.map(([, options]) => new Headers(options?.headers).get('x-arcbase-client'))).toEqual(['desktop', 'desktop', 'desktop']);
   });
 
   it('keeps the first 401 revocation reason and the kicked username for the login page when refresh is rejected', async () => {

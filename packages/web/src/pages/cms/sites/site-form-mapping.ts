@@ -5,8 +5,8 @@
  * 键名手写、无 schema 约束，任何键名笔误都会悄悄丢配置。抽成纯函数后由
  * site-form-mapping.test.ts 的往返测试锁定行为。
  */
-import { CMS_SITE_OPS_DEFAULTS } from '@zenith/shared/cms';
-import type { CmsSite, CmsSiteTemplateDefaults, CreateCmsSiteInput } from '@zenith/shared/cms';
+import { CMS_SITE_OPS_DEFAULTS } from '@arcbase/shared/cms';
+import type { CmsSite, CmsSiteTemplateDefaults, CreateCmsSiteInput } from '@arcbase/shared/cms';
 import { cmsCredentialWriteValue } from '../cms-site-credentials';
 
 export interface TemplateDefaultsState {

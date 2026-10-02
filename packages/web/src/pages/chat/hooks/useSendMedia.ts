@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { useThrottledCallback } from '@tanstack/react-pacer';
 import { Toast } from '@douyinfe/semi-ui';
-import { chatContract } from '@zenith/shared/chat';
-import { fileContract, type ManagedFile } from '@zenith/shared/platform';
+import { chatContract } from '@arcbase/shared/chat';
+import { fileContract, type ManagedFile } from '@arcbase/shared/platform';
 import { api, urlOf } from '@/lib/contract-query';
 import { request } from '@/utils/request';
 import { sendWsMessage } from '@/hooks/useWebSocket';
 import { useAddChatCustomEmoji } from '@/hooks/queries/chat';
-import type { ChatAssetMeta, ChatCustomEmoji, ChatLinkPreview, ChatMessage } from '@zenith/shared/chat';
+import type { ChatAssetMeta, ChatCustomEmoji, ChatLinkPreview, ChatMessage } from '@arcbase/shared/chat';
 import { getFileExtension, getImageDimensions } from '../utils';
 import type { Setter } from '../types';
 import { useVoiceRecorder } from '../useVoiceRecorder';

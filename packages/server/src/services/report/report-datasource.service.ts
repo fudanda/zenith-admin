@@ -1,4 +1,4 @@
-import type { QueryOutputOf } from '@zenith/shared/core';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 报表数据源 Service
  * CRUD + 连接配置规整/校验。
@@ -41,9 +41,9 @@ import {
   defaultReportOwnerId,
   validateReportResourcePlacement,
 } from './report-resource.service';
-import { isExternalDbType, reportDatasourceContract } from '@zenith/shared/report';
+import { isExternalDbType, reportDatasourceContract } from '@arcbase/shared/report';
 import type { ReportDatasourceRow } from '../../db/schema';
-import type { ReportDatasource, ReportDatasourceConfig, ReportDatasourceType, ReportExternalDbConfig, ReportApiDatasourceConfig, CreateReportDatasourceInput, UpdateReportDatasourceInput, ReportDatasourceTestInput, ReportLookupOption } from '@zenith/shared/report';
+import type { ReportDatasource, ReportDatasourceConfig, ReportDatasourceType, ReportExternalDbConfig, ReportApiDatasourceConfig, CreateReportDatasourceInput, UpdateReportDatasourceInput, ReportDatasourceTestInput, ReportLookupOption } from '@arcbase/shared/report';
 
 type DatasourceRowExt = ReportDatasourceRow & {
   folder?: { name: string } | null;

@@ -5,14 +5,14 @@
  * 在发起事务内调用，确保并发下编号唯一、连续。
  *
  * 计数器仅存储「原始 1-based 序数」，序号起始值 / 步长 / 前后缀 / 日期 / 模板占位符等
- * 展示规则全部委托给 `@zenith/shared` 的 `renderWorkflowSerialNo` 纯函数（前后端共用，杜绝漂移）。
+ * 展示规则全部委托给 `@arcbase/shared` 的 `renderWorkflowSerialNo` 纯函数（前后端共用，杜绝漂移）。
  */
 import { sql } from 'drizzle-orm';
 import dayjs from 'dayjs';
 import { workflowSerialCounters } from '../../db/schema';
 import type { DbTransaction } from '../../db/types';
-import type { WorkflowSerialNoConfig, WorkflowSerialVars } from '@zenith/shared/workflow';
-import { renderWorkflowSerialNo, resolveSerialPeriodKey } from '@zenith/shared/workflow';
+import type { WorkflowSerialNoConfig, WorkflowSerialVars } from '@arcbase/shared/workflow';
+import { renderWorkflowSerialNo, resolveSerialPeriodKey } from '@arcbase/shared/workflow';
 
 /** 生成业务编号所需的上下文（动态变量 / 表单数据 / 生成时刻） */
 export interface SerialNoGenContext {

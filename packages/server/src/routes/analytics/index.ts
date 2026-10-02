@@ -6,7 +6,7 @@ import {
   dashboardContract,
   frontendErrorContract,
   sessionReplayContract,
-} from '@zenith/shared/analytics';
+} from '@arcbase/shared/analytics';
 import { defineRouteDomain } from '../_kit';
 import analyticsCampaignsRoutes from './analytics-campaigns';
 import analyticsExperimentsRoutes from './analytics-experiments';

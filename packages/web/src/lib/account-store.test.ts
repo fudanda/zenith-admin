@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { ACCOUNTS_STORE_KEY, MAX_STORED_ACCOUNTS } from '@zenith/shared/core';
+import { ACCOUNTS_STORE_KEY, MAX_STORED_ACCOUNTS } from '@arcbase/shared/core';
 import {
   clearParkedAccounts,
   getParkedAccount,

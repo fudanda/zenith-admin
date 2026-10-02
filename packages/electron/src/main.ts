@@ -7,7 +7,7 @@ const DEV_SERVER_ORIGIN = 'http://localhost:5373';
 
 const SAFE_EXTERNAL_PROTOCOLS = new Set(['http:', 'https:', 'mailto:']);
 
-/** 允许交给系统打开的外部地址（与 @zenith/shared/core 的 isSafeExternalUrl 保持一致，主进程不依赖 shared 包） */
+/** 允许交给系统打开的外部地址（与 @arcbase/shared/core 的 isSafeExternalUrl 保持一致，主进程不依赖 shared 包） */
 function isSafeExternalUrl(value: string): boolean {
   if (/[\u0000-\u001F\u007F]/.test(value)) return false;
   try {

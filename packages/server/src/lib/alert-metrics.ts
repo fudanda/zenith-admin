@@ -4,7 +4,7 @@
  * 各域的「告警指标源」函数（getXxxAlertMetrics）都返回 `Record<指标名, number>`，
  * 由 monitor-history 的快照采集统一汇总后交给告警评估器比对阈值。
  */
-import { percentOf } from '@zenith/shared/core';
+import { percentOf } from '@arcbase/shared/core';
 import { eq, type SQL } from 'drizzle-orm';
 import type { AnyPgColumn } from 'drizzle-orm/pg-core';
 

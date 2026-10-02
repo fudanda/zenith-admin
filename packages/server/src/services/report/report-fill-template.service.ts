@@ -1,5 +1,5 @@
-import { reportFillContract } from '@zenith/shared/report';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { reportFillContract } from '@arcbase/shared/report';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { requireRow } from '../../lib/db-assert';
 import { emptyListResult, listRows } from '../../lib/list-query';
 import { HTTPException } from 'hono/http-exception';
@@ -11,7 +11,7 @@ import { formatDateTime, formatTimestamps } from '../../lib/datetime';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
 import { tenantCondition } from '../../lib/tenant';
 import { buildWhere, keywordCondition } from '../../lib/where-helpers';
-import type { CloneReportFillTemplateInput, CreateReportFillTemplateInput, ReportFillTemplate, ReportFillTemplateLifecycleActionInput, UpdateReportFillTemplateInput } from '@zenith/shared/report';
+import type { CloneReportFillTemplateInput, CreateReportFillTemplateInput, ReportFillTemplate, ReportFillTemplateLifecycleActionInput, UpdateReportFillTemplateInput } from '@arcbase/shared/report';
 import { reportCreateTenantId, reportScopedWhere, reportTenantScope } from './report-access';
 import {
   ensureReportResourceAccess,

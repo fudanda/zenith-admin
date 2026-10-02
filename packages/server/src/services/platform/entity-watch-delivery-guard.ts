@@ -1,7 +1,7 @@
 import { and, eq, sql } from 'drizzle-orm';
-import type { NotificationRecipient } from '@zenith/shared/messaging';
-import { ENTITY_TIMELINE_EVENT_LABELS, isWatchableDomainEvent } from '@zenith/shared/platform';
-import { SUBJECT_REF_LIMIT } from '@zenith/shared/core';
+import type { NotificationRecipient } from '@arcbase/shared/messaging';
+import { ENTITY_TIMELINE_EVENT_LABELS, isWatchableDomainEvent } from '@arcbase/shared/platform';
+import { SUBJECT_REF_LIMIT } from '@arcbase/shared/core';
 import { db } from '../../db';
 import { domainEvents, entityWatches, type NotificationOutboxRow } from '../../db/schema';
 import { createConcurrencyLimiter } from '../../lib/concurrency';

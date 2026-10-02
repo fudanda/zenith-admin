@@ -1,13 +1,13 @@
 import { bindWorkflowFormAttachments } from './workflow-attachments.service';
-import { workflowAutomationContract } from '@zenith/shared/workflow';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { workflowAutomationContract } from '@arcbase/shared/workflow';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 流程级自动化规则 service
  *
  * 当某个流程定义的实例进入终结状态（approved/rejected/withdrawn）时，
  * 触发其上配置的自动化动作（如发起新审批流程、发送站内消息）。
  */
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { and, asc, desc, eq, inArray } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
 import { db } from '../../db';
@@ -32,7 +32,7 @@ import redis from '../../lib/redis';
 import { config } from '../../config';
 import logger from '../../lib/logger';
 import { notify } from '../messaging/notification-outbox.service';
-import type { WorkflowAutomationTrigger, WorkflowInstance } from '@zenith/shared/workflow';
+import type { WorkflowAutomationTrigger, WorkflowInstance } from '@arcbase/shared/workflow';
 import { buildWhere } from '../../lib/where-helpers';
 import { buildListResult, listRows } from '../../lib/list-query';
 import { requireFirstRow, requireRow } from '../../lib/db-assert';

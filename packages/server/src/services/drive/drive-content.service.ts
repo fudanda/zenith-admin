@@ -2,7 +2,7 @@ import { HTTPException } from 'hono/http-exception';
 import { and, eq } from 'drizzle-orm';
 import { db } from '../../db';
 import { driveNodeRenditions } from '../../db/schema';
-import type { DriveRole } from '@zenith/shared/drive';
+import type { DriveRole } from '@arcbase/shared/drive';
 import type { DriveNodeRow, FileStorageConfigRow, ManagedFileRow } from '../../db/schema';
 import { formatDateTime } from '../../lib/datetime';
 import { readStoredFile, resolveFileAccessUrl } from '../../lib/file-storage';

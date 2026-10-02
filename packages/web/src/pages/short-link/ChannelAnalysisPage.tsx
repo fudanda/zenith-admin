@@ -13,7 +13,7 @@ import { useChannelAnalysis } from '@/hooks/queries/short-links';
 import {
   CHANNEL_ANALYSIS_DIMENSION_OPTIONS,
   type ChannelAnalysisDimension, type ChannelAnalysisRow,
-} from '@zenith/shared/short-link';
+} from '@arcbase/shared/short-link';
 import { EMPTY_PLACEHOLDER } from '@/utils/table-columns';
 import { shortDate } from '@/utils/date';
 

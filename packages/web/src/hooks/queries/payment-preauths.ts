@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { paymentPreauthContract } from '@zenith/shared/payment';
+import type { QueryOf } from '@arcbase/shared/core';
+import { paymentPreauthContract } from '@arcbase/shared/payment';
 import { createResourceQueries, useApiMutation } from '@/lib/contract-query';
 
 export type PaymentPreauthListParams = NonNullable<QueryOf<typeof paymentPreauthContract.list>>;

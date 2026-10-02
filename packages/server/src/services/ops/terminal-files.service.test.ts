@@ -18,7 +18,7 @@ import { copyEntry, createEntry, moveEntry, renameEntry } from './terminal-files
 let root = '';
 
 beforeEach(async () => {
-  root = await fs.mkdtemp(path.join(os.tmpdir(), 'zenith-terminal-files-'));
+  root = await fs.mkdtemp(path.join(os.tmpdir(), 'arcbase-terminal-files-'));
 });
 
 afterEach(async () => {

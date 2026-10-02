@@ -1,4 +1,4 @@
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -9,16 +9,16 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect"
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/loginattempt"
-	"github.com/fudanda/zenith-admin/backend/ent/position"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
-	"github.com/fudanda/zenith-admin/backend/internal/modules/identity"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/loginattempt"
+	"github.com/fudanda/arcbase/backend/ent/position"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/internal/modules/identity"
 )
 
 func sqliteStore(t *testing.T) *Store {
 	t.Helper()
-	s, err := OpenStore(context.Background(), "sqlite:"+filepath.Join(t.TempDir(), "data", "zenith.db"))
+	s, err := OpenStore(context.Background(), "sqlite:"+filepath.Join(t.TempDir(), "data", "arcbase.db"))
 	if err != nil {
 		t.Fatal(err)
 	}

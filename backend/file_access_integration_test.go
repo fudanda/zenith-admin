@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"bytes"
@@ -15,9 +15,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/fudanda/zenith-admin/backend/ent"
-	"github.com/fudanda/zenith-admin/backend/ent/managedfile"
-	"github.com/fudanda/zenith-admin/backend/internal/kernel"
+	"github.com/fudanda/arcbase/backend/ent"
+	"github.com/fudanda/arcbase/backend/ent/managedfile"
+	"github.com/fudanda/arcbase/backend/internal/kernel"
 	"github.com/google/uuid"
 )
 
@@ -42,10 +42,10 @@ func (a *apiFixture) multipart(path, field, filename string, content []byte, fie
 	}
 	part.Write(content)
 	writer.Close()
-	r := httptest.NewRequest("POST", "http://zenith.test"+path, &body)
+	r := httptest.NewRequest("POST", "http://arcbase.test"+path, &body)
 	r.RemoteAddr = "192.0.2.1:12345"
 	r.Header.Set("Content-Type", writer.FormDataContentType())
-	r.Header.Set("Origin", "http://zenith.test")
+	r.Header.Set("Origin", "http://arcbase.test")
 	r.Header.Set("X-CSRF-Token", csrf)
 	r.AddCookie(cookie)
 	w := httptest.NewRecorder()

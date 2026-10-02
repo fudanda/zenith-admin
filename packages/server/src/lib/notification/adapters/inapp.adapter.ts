@@ -5,7 +5,7 @@
  * 只要收件人有账号就一定能投递，因此不做地址探测。
  */
 import { eq } from 'drizzle-orm';
-import type { InAppMessageType, NotificationRecipient } from '@zenith/shared/messaging';
+import type { InAppMessageType, NotificationRecipient } from '@arcbase/shared/messaging';
 import { db } from '../../../db';
 import { inAppMessages, users } from '../../../db/schema';
 import { formatDateTime } from '../../datetime';

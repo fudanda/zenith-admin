@@ -1,4 +1,4 @@
-import { chatBotContract, chatContract, chatWebhookPublicContract } from '@zenith/shared/chat';
+import { chatBotContract, chatContract, chatWebhookPublicContract } from '@arcbase/shared/chat';
 import { defineRouteDomain } from '../_kit';
 import chatBotsRoutes from './chat-bots';
 import chatPublicRoutes from './chat-public';

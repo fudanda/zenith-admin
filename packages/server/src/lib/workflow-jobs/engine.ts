@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { hostname } from 'node:os';
 import { and, asc, eq, gt, inArray, isNull, lte, ne, notInArray, or, sql, type SQL } from 'drizzle-orm';
-import type { WorkflowJobType } from '@zenith/shared/workflow';
+import type { WorkflowJobType } from '@arcbase/shared/workflow';
 import { db } from '../../db';
 import { workflowJobs, workflowJobExecutions, type WorkflowJobRow, type NewWorkflowJob } from '../../db/schema';
 import type { DbExecutor, DbTransaction } from '../../db/types';
@@ -17,7 +17,7 @@ import { currentWorkflowJobContext, ownedJobCondition, runWithWorkflowJobContext
 import { flushWorkflowJobEffects } from './execution-context';
 import { publishWorkflowJobPickup, rememberWorkflowJobPickup, scheduleJobPickup } from './publication';
 export { scheduleJobPickup, flushWorkflowJobPickups } from './publication';
-export { WORKFLOW_ADVANCING_JOB_TYPES } from '@zenith/shared/workflow';
+export { WORKFLOW_ADVANCING_JOB_TYPES } from '@arcbase/shared/workflow';
 
 const WORKER_ID = `${hostname()}:${process.pid}`.slice(0, 64);
 const clearedLease = { leaseToken: null, leaseUntil: null, executionDeadline: null, lockedAt: null, lockedBy: null };

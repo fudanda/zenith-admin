@@ -12,11 +12,11 @@ import {
   makeLineSpec,
   useChartPalette,
 } from '@/components/charts';
-import type { MonitorAlertOverviewRange } from '@zenith/shared/platform';
+import type { MonitorAlertOverviewRange } from '@arcbase/shared/platform';
 import {
   MONITOR_ALERT_LEVEL_LABELS,
   MONITOR_ALERT_OVERVIEW_RANGE_OPTIONS,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 import { SearchToolbar } from '@/components/SearchToolbar';
 import { RefreshButton } from '@/components/toolbar-controls';
 import { useMonitorAlertOverview } from '@/hooks/queries/monitor-alerts';

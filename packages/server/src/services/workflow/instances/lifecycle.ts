@@ -2,7 +2,7 @@ import { bindWorkflowFormAttachments, releaseWorkflowAttachments } from '../work
 import { lockUnchangedWorkflowDraft } from './signature-concurrency';
 import { clearWorkflowFormSignatures, resolveWorkflowFormSignatures } from './signatures';
 // ─── 实例生命周期：创建/撤回/取消/删除/草稿/重新提交（拆分自 workflow-instances.service.ts）───
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { randomUUID } from 'node:crypto';
 import { eq, and, desc, inArray } from 'drizzle-orm';
 import { db } from '../../../db';
@@ -13,8 +13,8 @@ import { tenantCondition, getCreateTenantId } from '../../../lib/tenant';
 import { buildWhere } from '../../../lib/where-helpers';
 import { validateFlowData } from '../../../lib/workflow-engine';
 import { cancelJobs, WORKFLOW_ADVANCING_JOB_TYPES } from '../../../lib/workflow-jobs/engine';
-import type { WorkflowFlowData, WorkflowInstanceFormSnapshot } from '@zenith/shared/workflow';
-import { collectWorkflowFormValidationErrors, WORKFLOW_ACTIVE_INSTANCE_STATUSES } from '@zenith/shared/workflow';
+import type { WorkflowFlowData, WorkflowInstanceFormSnapshot } from '@arcbase/shared/workflow';
+import { collectWorkflowFormValidationErrors, WORKFLOW_ACTIVE_INSTANCE_STATUSES } from '@arcbase/shared/workflow';
 import { HTTPException } from 'hono/http-exception';
 import { currentUser } from '../../../lib/context';
 import { buildStarterContext } from '../workflow-assignee-resolver.service';
@@ -59,7 +59,7 @@ function assertRequiredFormFields(
   throw new HTTPException(400, { message: `${errors[0].message}${rest}` });
 }
 
-export async function createInstance(data: { definitionId: number; title: string; formData?: Record<string, unknown> | null; asDraft?: boolean; priority?: import('@zenith/shared').WorkflowInstancePriority; ccUserIds?: number[]; selectedInitiatorApprovers?: SelectedApproverMap; bizType?: string | null; bizId?: string | null }, callerOverride?: { userId: number; username: string; tenantId: number | null; roles?: string[] }, copyAttachmentSourceIds: readonly number[] = []) {
+export async function createInstance(data: { definitionId: number; title: string; formData?: Record<string, unknown> | null; asDraft?: boolean; priority?: import('@arcbase/shared').WorkflowInstancePriority; ccUserIds?: number[]; selectedInitiatorApprovers?: SelectedApproverMap; bizType?: string | null; bizId?: string | null }, callerOverride?: { userId: number; username: string; tenantId: number | null; roles?: string[] }, copyAttachmentSourceIds: readonly number[] = []) {
   const user = callerOverride
     ? { userId: callerOverride.userId, username: callerOverride.username, roles: callerOverride.roles ?? [], tenantId: callerOverride.tenantId }
     : currentUser();
@@ -348,7 +348,7 @@ async function loadOwnDraft(id: number) {
   return inst;
 }
 
-export async function updateInstanceDraft(id: number, input: { title?: string; formData?: Record<string, unknown> | null; priority?: import('@zenith/shared').WorkflowInstancePriority }) {
+export async function updateInstanceDraft(id: number, input: { title?: string; formData?: Record<string, unknown> | null; priority?: import('@arcbase/shared').WorkflowInstancePriority }) {
   const inst = await loadOwnDraft(id);
   if (inst.status !== 'draft' && inst.status !== 'returned') throw new HTTPException(400, { message: '仅草稿或已退回的申请可编辑' });
   const patch: Partial<typeof workflowInstances.$inferInsert> = {};
@@ -469,7 +469,7 @@ export async function resubmitInstance(id: number) {
     definitionId: inst.definitionId,
     title: inst.title,
     formData: clearWorkflowFormSignatures(inst.formSnapshot, recordFormData(inst.formData)),
-    priority: inst.priority as import('@zenith/shared').WorkflowInstancePriority,
+    priority: inst.priority as import('@arcbase/shared').WorkflowInstancePriority,
     asDraft: true,
   }, undefined, [inst.id]);
 }

@@ -5,7 +5,7 @@
  *  - 成功：code = 0
  *  - 失败：code 为非零（400/401/403/404/500 等）
  *
- * 入参 schema 积木（分页 / 时间范围 / 查询串布尔与枚举 / 批量 ID）见 `@zenith/shared/core` 的 api-schemas。
+ * 入参 schema 积木（分页 / 时间范围 / 查询串布尔与枚举 / 批量 ID）见 `@arcbase/shared/core` 的 api-schemas。
  */
 import { z, type Hook } from '@hono/zod-openapi';
 import type { Context } from 'hono';

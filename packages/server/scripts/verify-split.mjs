@@ -1,9 +1,9 @@
 // 本地验证 api / worker 角色拆分（替代 CI 中的基础设施集成测试；需要 .env 指向可用的 PostgreSQL 与 Redis，
 // 例如 `docker compose -f docker-compose.dev.yml up -d`）。
 //
-//   npm run verify:split -w @zenith/server
+//   npm run verify:split -w @arcbase/server
 //
-// 步骤：迁移 → 起 api（ZENITH_ROLES=api, 业务端口）与 worker（ZENITH_ROLES=worker, 健康端口）两个进程 →
+// 步骤：迁移 → 起 api（ARCBASE_ROLES=api, 业务端口）与 worker（ARCBASE_ROLES=worker, 健康端口）两个进程 →
 // 断言：api 健康信息 roles=['api'] 且 workers=ok（看见 worker 心跳）、fan-out 已订阅；worker /ready 200、
 // /metrics 带 process_role="worker"；管理员登录后提交演示任务 → 必须由 worker 执行到终态（api 不执行）。
 // 任一断言失败以非零码退出。可用 VERIFY_ADMIN_USER / VERIFY_ADMIN_PASSWORD 覆盖登录账号（默认种子 admin / 123456）。
@@ -78,8 +78,8 @@ async function main() {
   if (migrate.status !== 0) throw new Error('迁移失败');
 
   console.log('▶ 2/4 启动 api 与 worker 两个进程');
-  start('api', { ZENITH_ROLES: 'api', PORT: String(API_PORT) });
-  start('worker', { ZENITH_ROLES: 'worker', WORKER_HEALTH_PORT: String(WORKER_PORT), STORAGE_SHARED: 'true' });
+  start('api', { ARCBASE_ROLES: 'api', PORT: String(API_PORT) });
+  start('worker', { ARCBASE_ROLES: 'worker', WORKER_HEALTH_PORT: String(WORKER_PORT), STORAGE_SHARED: 'true' });
 
   const health = await waitFor(`${API}/api/health`, (res, body) => res.status === 200 && body?.data?.checks?.workers === 'ok', 90_000);
   assert(JSON.stringify(health.data.roles) === '["api"]', 'api 进程只声明 api 角色');

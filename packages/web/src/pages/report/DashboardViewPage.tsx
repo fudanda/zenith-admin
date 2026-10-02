@@ -16,7 +16,7 @@ import { MobileDashboardHeader, type MobileDashboardAction } from './widgets/Mob
 import { filterValuesFromSearch, withFilterParam } from './widgets/filter-url';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { COMPACT_PAGINATION_PROPS } from '@/hooks/usePagination';
-import type { ReportWidget, ReportFilter, ReportGridItem, ReportCanvasItem, ReportDatasetQueryOptions } from '@zenith/shared/report';
+import type { ReportWidget, ReportFilter, ReportGridItem, ReportCanvasItem, ReportDatasetQueryOptions } from '@arcbase/shared/report';
 import {
   useCreateReportDashboardComment,
   useDeleteReportDashboardComment,

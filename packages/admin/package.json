@@ -1,9 +1,9 @@
 {
-  "name": "@zenith/admin",
+  "name": "@arcbase/admin",
   "version": "2.58.0",
   "private": true,
   "type": "module",
-  "description": "Original Zenith admin as an embeddable React component.",
+  "description": "Original ArcBase admin as an embeddable React component.",
   "sideEffects": [
     "./dist/**/*.js",
     "**/*.css"
@@ -32,14 +32,14 @@
     "build:example": "node scripts/build-example.mjs"
   },
   "peerDependencies": {
-    "@zenith/client": "^2.58.0",
+    "@arcbase/client": "^2.58.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@tanstack/react-query": "^5.102.8",
-    "@zenith/elements": "^2.58.0"
+    "@arcbase/elements": "^2.58.0"
   },
   "devDependencies": {
-    "@zenith/web": "^2.58.0",
+    "@arcbase/web": "^2.58.0",
     "@testing-library/react": "^16.3.3",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.10.0",
@@ -52,6 +52,6 @@
     "@types/react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@zenith/shared": "^2.58.0"
+    "@arcbase/shared": "^2.58.0"
   }
 }

@@ -12,7 +12,7 @@ import { httpRequest } from '../../lib/http-client';
 import { AI_SSRF_OPTIONS } from '../../lib/ai/outbound';
 import { HTTPException } from 'hono/http-exception';
 import logger from '../../lib/logger';
-import type { CreateAiKnowledgeBaseInput, UpdateAiKnowledgeBaseInput, AddAiKbDocumentInput, ImportAiKbUrlInput } from '@zenith/shared/ai';
+import type { CreateAiKnowledgeBaseInput, UpdateAiKnowledgeBaseInput, AddAiKbDocumentInput, ImportAiKbUrlInput } from '@arcbase/shared/ai';
 
 /** 分块目标大小（字符,recursive 策略段落边界优先） */
 const CHUNK_SIZE = 800;

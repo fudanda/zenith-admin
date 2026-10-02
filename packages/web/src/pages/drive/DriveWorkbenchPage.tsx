@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Button, Empty, Progress, Spin, Switch, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { Building2, Clock, HardDrive, Link2, Plus, Share2, Star, Trash2, Users } from 'lucide-react';
-import { formatBytes } from '@zenith/shared/core';
-import { DRIVE_VIEW_LABELS, type DriveAccessRequest, type DriveSpace, type DriveSpaceType, type DriveView } from '@zenith/shared/drive';
+import { formatBytes } from '@arcbase/shared/core';
+import { DRIVE_VIEW_LABELS, type DriveAccessRequest, type DriveSpace, type DriveSpaceType, type DriveView } from '@arcbase/shared/drive';
 import { MasterDetailLayout } from '@/components/MasterDetailLayout';
 import { KeywordInput } from '@/components/search-filters';
 import { useUrlSelectionParams } from '@/hooks/useUrlSelectionState';

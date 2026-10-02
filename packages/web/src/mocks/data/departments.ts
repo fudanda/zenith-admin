@@ -1,5 +1,5 @@
-import type { Department } from '@zenith/shared/identity';
-import { SEED_DEPARTMENTS } from '@zenith/shared/seed';
+import type { Department } from '@arcbase/shared/identity';
+import { SEED_DEPARTMENTS } from '@arcbase/shared/seed';
 
 export const mockDepartments: Department[] = SEED_DEPARTMENTS.map((d) => ({ ...d }));
 

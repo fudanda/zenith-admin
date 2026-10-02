@@ -3,7 +3,7 @@
  * 可选计划 / 我的续费状态 / 签约 / 解约 / 手动续费一期。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { memberRenewalContract } from '@zenith/shared/member';
+import { memberRenewalContract } from '@arcbase/shared/member';
 import { memberAuthMiddleware } from '../../middleware/member-auth';
 import { idempotencyGuard } from '../../middleware/idempotency';
 import { defineContractRoute } from '../../lib/contract-route';

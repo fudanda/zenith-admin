@@ -16,11 +16,11 @@ import {
   useDirectorySyncSourceList,
 } from '@/hooks/queries/directory-sync';
 import { useAllUsers } from '@/hooks/queries/users';
-import { directorySyncContract, type DirectorySyncConflict, type DirectorySyncResolution } from '@zenith/shared/identity';
+import { directorySyncContract, type DirectorySyncConflict, type DirectorySyncResolution } from '@arcbase/shared/identity';
 import {
   DIRECTORY_SYNC_CONFLICT_STATUSES, DIRECTORY_SYNC_CONFLICT_STATUS_LABELS,
   DIRECTORY_SYNC_CONFLICT_TYPE_LABELS, DIRECTORY_SYNC_ENTITY_TYPE_LABELS,
-} from '@zenith/shared/identity';
+} from '@arcbase/shared/identity';
 import { useListPage } from '@/hooks/useListPage';
 
 const CONFLICT_STATUS_TAG_COLOR: Record<string, 'orange' | 'green' | 'grey'> = {

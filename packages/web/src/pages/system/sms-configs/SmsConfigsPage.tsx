@@ -1,7 +1,7 @@
 import { FormPasswordInput } from '@/components/PasswordInput';
 import { Col, Form, Row, Tag, Toast } from '@douyinfe/semi-ui';
-import { SMS_PROVIDER_OPTIONS, smsConfigContract } from '@zenith/shared/messaging';
-import type { CreateSmsConfigInput, SmsConfig } from '@zenith/shared/messaging';
+import { SMS_PROVIDER_OPTIONS, smsConfigContract } from '@arcbase/shared/messaging';
+import type { CreateSmsConfigInput, SmsConfig } from '@arcbase/shared/messaging';
 import { usePermission } from '@/hooks/usePermission';
 import { useDictItems } from '@/hooks/useDictItems';
 import { useEditModal } from '@/hooks/useEditModal';

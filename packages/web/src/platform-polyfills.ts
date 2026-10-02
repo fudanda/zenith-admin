@@ -1,4 +1,4 @@
-import { uuidV4 } from '@zenith/shared/core';
+import { uuidV4 } from '@arcbase/shared/core';
 
 // HTTP intranet hosts need the same equivalent platform fallback as standalone.
 // Storage replacement is owned by the entrypoint / mounted admin lifetime.

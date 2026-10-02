@@ -18,7 +18,7 @@ import {
   useTerminalRecordingDetail,
   useTerminalRecordingList,
 } from '@/hooks/queries/terminal';
-import { terminalRecordingContract, type TerminalRecording, type TerminalRecordingDetail, type TerminalRecordingEvent } from '@zenith/shared/ops';
+import { terminalRecordingContract, type TerminalRecording, type TerminalRecordingDetail, type TerminalRecordingEvent } from '@arcbase/shared/ops';
 import { FilterSelect } from '@/components/search-filters';
 import { confirmDanger } from '@/utils/confirm';
 import { copyTextWithToast } from '@/utils/clipboard';

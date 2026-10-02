@@ -6,7 +6,7 @@
 # 见 docker-compose.yml。要手动执行：docker compose run --rm migrate
 #
 # 传入参数时直接执行该命令（compose 的 `command:` 覆盖，例如 migrate 服务的
-# `node dist/db/migrate.js`），否则启动服务进程；进程角色由 ZENITH_ROLES 决定。
+# `node dist/db/migrate.js`），否则启动服务进程；进程角色由 ARCBASE_ROLES 决定。
 # Using exec so Node.js receives OS signals (SIGTERM) for graceful shutdown.
 set -e
 
@@ -18,5 +18,5 @@ if [ "$#" -gt 0 ]; then
   exec "$@"
 fi
 
-echo "Starting server (ZENITH_ROLES=${ZENITH_ROLES:-<unset>})..."
+echo "Starting server (ARCBASE_ROLES=${ARCBASE_ROLES:-<unset>})..."
 exec node dist/index.js

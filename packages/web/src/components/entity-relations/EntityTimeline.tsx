@@ -1,6 +1,6 @@
 import { Button, Empty, Space, Spin, Timeline, Tooltip, Typography } from '@douyinfe/semi-ui';
 import { RefreshCw } from 'lucide-react';
-import { canonicalEntityRefSchema, entityTimelineContract, ENTITY_TIMELINE_EVENT_OPTIONS, type CanonicalEntityType } from '@zenith/shared/platform';
+import { canonicalEntityRefSchema, entityTimelineContract, ENTITY_TIMELINE_EVENT_OPTIONS, type CanonicalEntityType } from '@arcbase/shared/platform';
 import { useEntityTimeline, type EntityTimelineFilters } from '@/hooks/queries/entity-timeline';
 import { entityTypeLabel, timelineEventDescription, timelineEventLabel } from '@/utils/entity-relations';
 import DateTimeText from '@/components/DateTimeText';

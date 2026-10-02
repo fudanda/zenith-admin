@@ -8,7 +8,7 @@ import {
   type PaymentJournalLine,
   type PaymentLedgerAccount,
   type PaymentLedgerAccountCode,
-} from '@zenith/shared/payment';
+} from '@arcbase/shared/payment';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { mockDateTime } from '@/mocks/utils/date';

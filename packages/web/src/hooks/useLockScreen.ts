@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
-const LOCK_CREDENTIAL_KEY = 'zenith_lock_credential';
-const LOCK_STATE_KEY = 'zenith_is_locked';
+const LOCK_CREDENTIAL_KEY = 'arcbase_lock_credential';
+const LOCK_STATE_KEY = 'arcbase_is_locked';
 
 /** 锁屏相关 localStorage key：凭证跟随账号，账号切换/退出时必须一并清除 */
 export const LOCK_SCREEN_STORAGE_KEYS = [LOCK_CREDENTIAL_KEY, LOCK_STATE_KEY] as const;

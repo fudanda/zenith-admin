@@ -1,7 +1,7 @@
 import { CmsFollowButton, Layout } from './Layout';
 import type { CSSProperties } from 'react';
-import type { CmsContentAttachment, CmsTitleStyle } from '@zenith/shared/cms';
-import { CMS_HOME_SECTION_SOURCE_LABELS, cmsHomeSectionsSchema, cmsModelDisplayFor, validateCmsModelDisplay, type CmsHomeSection } from '@zenith/shared/cms';
+import type { CmsContentAttachment, CmsTitleStyle } from '@arcbase/shared/cms';
+import { CMS_HOME_SECTION_SOURCE_LABELS, cmsHomeSectionsSchema, cmsModelDisplayFor, validateCmsModelDisplay, type CmsHomeSection } from '@arcbase/shared/cms';
 import { ModelDisplayCard } from './ModelDisplayCard';
 import type {
   CmsBaseContext, CmsContentItem, CmsHomeContext, CmsListContext,
@@ -17,7 +17,7 @@ import { renderCmsWidgetHtml } from '../widgets';
 import { ArticleNav, Breadcrumbs, FrontForm, MediaBlock, ModelFieldTable, PageLinks, Pagination, RelatedArticles, PublishedDate, SinglePageArticle, TagLinks, externalLinkProps, SearchResultLink, SearchResultList } from '../_shared';
 import { defineHomeTemplate } from '../sdk';
 import type { CmsThemeContentCollection } from '../types';
-import { formatBytes } from '@zenith/shared/core';
+import { formatBytes } from '@arcbase/shared/core';
 
 const TYPE_BADGES: Record<string, string | null> = { article: null, album: '图集', media: '视频', link: '外链' };
 

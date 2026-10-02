@@ -21,10 +21,10 @@ lucide 图标全表（615 KB / 153 KB gz）在任何口径下都是运行时按�
 
 ## 构建编排
 
-`npm run build -w @zenith/web` = `tsc -b` + `scripts/build.mjs`：
+`npm run build -w @arcbase/web` = `tsc -b` + `scripts/build.mjs`：
 
 1. 入口清单唯一来源是 `packages/web/entries.json`（`vite.config.ts`、`scripts/build.mjs`、`scripts/bundle-analyze.mjs` 共同读取）。
-   各入口各自独立 `vite build`（环境变量 `ZENITH_WEB_ENTRY=<entry>`），JS chunk 写入同一 `dist/` 的各自 `assetsDir`
+   各入口各自独立 `vite build`（环境变量 `ARCBASE_WEB_ENTRY=<entry>`），JS chunk 写入同一 `dist/` 的各自 `assetsDir`
    （`assets/`、`assets-member/`、`assets-approval/`），清单中第一个入口负责清空目录；静态资源（字体 / wasm / 图片 / CSS）各入口共用 `assets/`
    （`output.assetFileNames`）——文件名含内容 hash，相同内容在各入口构建中得到同名文件，落到同一目录即只保留一份；
 2. `scripts/precompress.mjs` 用 worker 线程为 ≥ 1 KB 的文本资源生成 `.gz`（level 9）与 `.br`（quality 11），供 nginx `gzip_static` / `brotli_static` 直接下发。
@@ -36,7 +36,7 @@ lucide 图标全表（615 KB / 153 KB gz）在任何口径下都是运行时按�
 
 分入口构建的原因：rolldown 的 `$initial` 标签取「任一用户入口静态可达」的并集，多入口共建时后台关键路径会混入会员 / 审批入口的模块，
 并且每个共享模块的「入口集合」都掺进几十个懒加载页面，关键路径无法收敛为少数几个 chunk。各入口面向不同用户群，跨入口共享 chunk 的收益≈0。
-未设置 `ZENITH_WEB_ENTRY` 时仍是多入口共建（dev server 与直接 `vite build` 可用），但产物结构不满足预算。
+未设置 `ARCBASE_WEB_ENTRY` 时仍是多入口共建（dev server 与直接 `vite build` 可用），但产物结构不满足预算。
 
 分入口构建的代价：任何被多个入口触达的模块都会在各入口产物中各输出一份。因此**非后台入口不得触达后台页面注册表**
 （`utils/page-registry.ts` 的 `import.meta.glob('../pages/**/*Page.tsx')`）：glob 在构建期按模块展开，引用它的入口会把几百个后台页面 chunk
@@ -61,7 +61,7 @@ lucide 图标全表（615 KB / 153 KB gz）在任何口径下都是运行时按�
 | 页面层 | `vendor-approval-icons`（仅审批入口） | 不在入口静态闭包内的 lucide SVG 图标；优先级低于 `initial-vendor` | 首次使用相关页面或预热图标时 |
 | 特性层 | `entity-discovery` | 统一搜索面板、对象关联与时间线 UI、查询契约和实体元数据 | 打开统一搜索或相关业务页面；快捷键触发器与纯缓存失效 helper 留在组外 |
 | 壳层 | `vendor-common` | 被 ≥ 10 个模块共享的 node_modules | 登录后 |
-| 壳层 | `app-shared` | 被 ≥ 10 个模块共享的 `hooks/` `lib/` `utils/` `providers/` `config/` + `@zenith/shared` + analytics-sdk 源码 | 登录后 |
+| 壳层 | `app-shared` | 被 ≥ 10 个模块共享的 `hooks/` `lib/` `utils/` `providers/` `config/` + `@arcbase/shared` + analytics-sdk 源码 | 登录后 |
 | 页面层 | `vendor~A~B~…` | 其余第三方，按「消费页面集合」精确分组（`entriesAware`，不侧向合并） | 使用它的页面 |
 | 页面层 | 页面 chunk | 页面注册表的每个动态入口及其独占模块 | 路由命中 |
 

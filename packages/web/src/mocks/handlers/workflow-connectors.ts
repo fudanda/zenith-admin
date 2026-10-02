@@ -1,5 +1,5 @@
-import { workflowConnectorContract } from '@zenith/shared/workflow';
-import type { WorkflowConnector, WorkflowConnectorInvocation } from '@zenith/shared/workflow';
+import { workflowConnectorContract } from '@arcbase/shared/workflow';
+import type { WorkflowConnector, WorkflowConnectorInvocation } from '@arcbase/shared/workflow';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { notFound } from '@/mocks/utils/handlers';

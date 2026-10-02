@@ -11,7 +11,7 @@ import { ensureDatasetExists } from './report-dataset.service';
 import { chatOnce } from '../../lib/ai/mastra-chat';
 import { loadSchemaMeta } from '../../lib/report-schema-meta';
 import { isReadonlyReportSql } from '../../lib/report-sql-safety';
-import type { ReportField, ReportSqlDatasetContent } from '@zenith/shared/report';
+import type { ReportField, ReportSqlDatasetContent } from '@arcbase/shared/report';
 
 const MAX_SCHEMA_CHARS = 6000;
 

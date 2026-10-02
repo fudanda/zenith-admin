@@ -1,5 +1,5 @@
-import { NOTIFICATION_EVENTS, type NotificationDispatch, type NotificationEventKey, type NotificationOutbox } from '@zenith/shared/messaging';
-import type { CanonicalEntityRef } from '@zenith/shared/platform';
+import { NOTIFICATION_EVENTS, type NotificationDispatch, type NotificationEventKey, type NotificationOutbox } from '@arcbase/shared/messaging';
+import type { CanonicalEntityRef } from '@arcbase/shared/platform';
 import { mockDateTime } from '@/mocks/utils/date';
 import { mockOperationLogs } from './logs';
 import { currentMockSession } from '@/mocks/utils/auth';

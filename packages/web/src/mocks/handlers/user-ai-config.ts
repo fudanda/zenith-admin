@@ -1,6 +1,6 @@
-import { userAiConfigContract } from '@zenith/shared/ai';
-import type { UserAiConfig } from '@zenith/shared/ai';
-import { maskSecret, SECRET_PLACEHOLDER } from '@zenith/shared/core';
+import { userAiConfigContract } from '@arcbase/shared/ai';
+import type { UserAiConfig } from '@arcbase/shared/ai';
+import { maskSecret, SECRET_PLACEHOLDER } from '@arcbase/shared/core';
 import { mock } from '@/mocks/utils/contract';
 import { notFound } from '@/mocks/utils/handlers';
 import { mockDateTime } from '../utils/date';

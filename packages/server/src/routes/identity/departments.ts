@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { departmentContract } from '@zenith/shared/identity';
+import { departmentContract } from '@arcbase/shared/identity';
 import { defineContractRoute } from '../../lib/contract-route';
 import { validationHook, okBody, csvStreamBody } from '../../lib/openapi-schemas';
 import { streamToCsv } from '../../lib/excel-export';

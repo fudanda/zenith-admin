@@ -10,7 +10,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import type { Member } from '@zenith/shared/member';
+import type { Member } from '@arcbase/shared/member';
 
 const usePageTrackerMock = vi.fn();
 vi.mock('@/hooks/usePageTracker', () => ({

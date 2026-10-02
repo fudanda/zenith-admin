@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { listTableProps, ListSearchToolbar, useCrudOperationColumn } from '@/components/list-page';
 import { Form, Modal, Select, Spin, Tag, Toast, Banner, Tooltip, Input, Descriptions } from '@douyinfe/semi-ui';
-import { MP_BROADCAST_STATUS_OPTIONS, MP_BROADCAST_TYPE_LABELS, MP_BROADCAST_TYPE_OPTIONS } from '@zenith/shared/mp';
-import type { CreateMpBroadcastInput, MpBroadcast, MpBroadcastType, MpBroadcastTarget, MpBroadcastStatus } from '@zenith/shared/mp';
+import { MP_BROADCAST_STATUS_OPTIONS, MP_BROADCAST_TYPE_LABELS, MP_BROADCAST_TYPE_OPTIONS } from '@arcbase/shared/mp';
+import type { CreateMpBroadcastInput, MpBroadcast, MpBroadcastType, MpBroadcastTarget, MpBroadcastStatus } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
 import { formatDateTimeForApi } from '@/utils/date';

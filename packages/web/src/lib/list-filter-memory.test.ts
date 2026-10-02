@@ -41,7 +41,7 @@ describe('list filter memory', () => {
   });
 
   it('ignores corrupt snapshots', () => {
-    sessionStorage.setItem(`zenith:list-filters:${JSON.stringify(listKey)}`, '{not json');
+    sessionStorage.setItem(`arcbase:list-filters:${JSON.stringify(listKey)}`, '{not json');
     expect(readListFilterSnapshot(listKey)).toBeUndefined();
   });
 });

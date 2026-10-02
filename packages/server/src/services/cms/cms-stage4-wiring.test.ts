@@ -8,7 +8,7 @@ describe('CMS Stage4 task/export/ACL wiring', () => {
       readFile(new URL('../../lib/export-center/definitions/index.ts', import.meta.url), 'utf8'),
       readFile(new URL('../../routes/cms/front-public.ts', import.meta.url), 'utf8'),
     ]);
-    const { cmsInteractionContract } = await import('@zenith/shared/cms');
+    const { cmsInteractionContract } = await import('@arcbase/shared/cms');
     expect(tasks).toContain("hasPermission('cms:ad-event:cleanup')");
     expect(tasks).toContain("hasPermission('cms:interaction:batch'");
     expect(tasks).toContain('ctx.progress');

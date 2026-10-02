@@ -2,11 +2,11 @@
  * 我的字段模板 — localStorage 持久化的个人字段配置模板。
  * 在设计器右键「存为我的模板」保存，控件面板「我的模板」分组一键插入（插入时重新生成 key）。
  */
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 
-const STORAGE_KEY = 'zenith_form_field_templates';
+const STORAGE_KEY = 'arcbase_form_field_templates';
 /** 模板列表变更事件（同页面内各组件同步刷新） */
-export const FIELD_TEMPLATES_CHANGED_EVENT = 'zenith:field-templates-changed';
+export const FIELD_TEMPLATES_CHANGED_EVENT = 'arcbase:field-templates-changed';
 
 export interface FieldTemplateEntry {
   id: string;

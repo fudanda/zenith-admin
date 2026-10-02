@@ -22,7 +22,7 @@ func openDatabase(dsn string) (*sql.DB, string, error) {
 	}
 	path := strings.TrimPrefix(dsn, "sqlite:")
 	if path == "" || path == ":memory:" || strings.ContainsAny(path, "?\x00") || strings.HasPrefix(path, "file:") {
-		return nil, "", fmt.Errorf("SQLite requires a persistent file path: sqlite:./data/zenith.db (URI options are managed by the application)")
+		return nil, "", fmt.Errorf("SQLite requires a persistent file path: sqlite:./data/arcbase.db (URI options are managed by the application)")
 	}
 	absolute, err := filepath.Abs(filepath.FromSlash(path))
 	if err != nil {

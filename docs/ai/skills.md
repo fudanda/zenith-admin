@@ -1,6 +1,6 @@
-# Zenith Skill
+# ArcBase Skill
 
-Zenith Skill 位于 `.agents/skills/zenith/`，是本项目开发流程、代码模板与硬约束的权威入口。
+ArcBase Skill 位于 `.agents/skills/arcbase/`，是本项目开发流程、代码模板与硬约束的权威入口。
 
 ## 触发场景
 
@@ -19,7 +19,7 @@ Zenith Skill 位于 `.agents/skills/zenith/`，是本项目开发流程、代码
 
 | 文件 | 职责 | 读取时机 |
 | --- | --- | --- |
-| `SKILL.md` | 场景路由、Step 0-11 编排、完成标准 | 命中 Zenith 开发任务时 |
+| `SKILL.md` | 场景路由、Step 0-11 编排、完成标准 | 命中 ArcBase 开发任务时 |
 | `references/constraints.md` | 后端、菜单、Mock 与全局硬约束 | 改动对应层前后 |
 | `references/constraints-frontend.md` | 前端硬约束 | 改前端前后 |
 | `references/crud-intake.md` | CRUD Step 0 信息收集 | 从零开发 CRUD 时 |

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
-import { reportPrintContentSchema } from '@zenith/shared/report';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
+import { reportPrintContentSchema } from '@arcbase/shared/report';
 import { buildEntityPrintCatalog, buildEntityTemplateDraft, entityDatasetKeys, entityMainDatasetKey, findInvalidEntityDatasetRef } from './entity-print';
 import { printContentToUniver, univerToPrintContent } from './print-univer';
 

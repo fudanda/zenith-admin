@@ -1,5 +1,5 @@
-import { reportDeliveryRunContract } from '@zenith/shared/report';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { reportDeliveryRunContract } from '@arcbase/shared/report';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 import { requireRow } from '../../lib/db-assert';
 import { and, desc, eq, inArray, lte, sql } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
@@ -18,7 +18,7 @@ import { sendEmail } from '../messaging/email-send-logs.service';
 import { sendInApp } from '../messaging/in-app-messages.service';
 import { reportScopedWhere, reportTenantScope } from './report-access';
 import { resolveReportSecret } from './report-secrets';
-import type { ReportAlertRule, ReportDashboardSubscription, ReportDeliveryAttempt, ReportDeliveryRun, ReportDeliveryStatus, ReportDeliveryTriggerType, ReportNotifyChannel, ReportScheduleMisfirePolicy } from '@zenith/shared/report';
+import type { ReportAlertRule, ReportDashboardSubscription, ReportDeliveryAttempt, ReportDeliveryRun, ReportDeliveryStatus, ReportDeliveryTriggerType, ReportNotifyChannel, ReportScheduleMisfirePolicy } from '@arcbase/shared/report';
 import { buildWhere, dateRangeConditions, withPagination } from '../../lib/where-helpers';
 
 const emailSchema = z.email('邮箱格式不正确');

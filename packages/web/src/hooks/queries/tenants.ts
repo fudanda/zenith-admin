@@ -1,4 +1,4 @@
-import { authContract, tenantContract } from '@zenith/shared/identity';
+import { authContract, tenantContract } from '@arcbase/shared/identity';
 import { createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export const {

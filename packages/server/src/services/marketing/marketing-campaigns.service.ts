@@ -1,5 +1,5 @@
-import { marketingCampaignContract, marketingCampaignSchema, marketingPrizeSchema } from '@zenith/shared/marketing';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { marketingCampaignContract, marketingCampaignSchema, marketingPrizeSchema } from '@arcbase/shared/marketing';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * 营销活动（抽奖）服务。
  *
@@ -11,7 +11,7 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  */
 import { and, count, desc, eq, gte, inArray, sql, type SQL } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import type { CreateMarketingCampaignInput, SaveMarketingPrizeInput, UpdateMarketingCampaignInput, MarketingDrawResult } from '@zenith/shared/marketing';
+import type { CreateMarketingCampaignInput, SaveMarketingPrizeInput, UpdateMarketingCampaignInput, MarketingDrawResult } from '@arcbase/shared/marketing';
 import { db } from '../../db';
 import { marketingCampaigns, marketingParticipations, marketingPrizes, coupons, members, shortLinks, type MarketingCampaignRow, type MarketingPrizeRow, type MarketingParticipationRow } from '../../db/schema';
 import { formatDateTime, parseDateTimeInput, startOfToday } from '../../lib/datetime';

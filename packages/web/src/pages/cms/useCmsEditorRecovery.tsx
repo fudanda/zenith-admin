@@ -4,7 +4,7 @@ import { Button, Modal } from '@douyinfe/semi-ui';
 import { useDebouncer } from '@tanstack/react-pacer';
 import { useAuth } from '@/hooks/useAuth';
 import { ModalFooter } from '@/components/ModalFooter';
-import type { CmsAlbumImage, CmsContentAttachment } from '@zenith/shared/cms';
+import type { CmsAlbumImage, CmsContentAttachment } from '@arcbase/shared/cms';
 
 export interface CmsEditorDraft {
   values: Record<string, unknown>;

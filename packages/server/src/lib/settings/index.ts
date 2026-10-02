@@ -17,7 +17,7 @@ import {
   type SettingsModuleKey,
   type SettingsModuleMeta,
   type SettingsOf,
-} from '@zenith/shared/settings';
+} from '@arcbase/shared/settings';
 import { config } from '../../config';
 import { db } from '../../db';
 import { systemSettings, tenants } from '../../db/schema';

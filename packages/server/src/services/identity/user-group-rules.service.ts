@@ -1,4 +1,4 @@
-import { uniquePositiveInts } from '@zenith/shared/core';
+import { uniquePositiveInts } from '@arcbase/shared/core';
 import { requireRow } from '../../lib/db-assert';
 /**
  * 动态用户组规则引擎：把 memberRule 物化为 user_group_members 行。
@@ -11,7 +11,7 @@ import { requireRow } from '../../lib/db-assert';
  * - 写入后清理受影响用户的权限缓存（组可能绑定角色，进出即授/撤权）。
  */
 import { and, eq, inArray, type SQL } from 'drizzle-orm';
-import type { UserGroupMemberRule } from '@zenith/shared/identity';
+import type { UserGroupMemberRule } from '@arcbase/shared/identity';
 import { db } from '../../db';
 import { departments, userGroupMembers, userGroups, userPositions, users } from '../../db/schema';
 import { clearUserPermissionCache } from '../../lib/permissions';

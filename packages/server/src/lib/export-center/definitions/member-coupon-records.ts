@@ -6,7 +6,7 @@ import { batchIterable } from '../../excel-export';
 import { defineExport } from '../registry';
 import { RETENTION_7_DAYS } from '../presets';
 import type { ExportColumn } from '../types';
-import { MEMBER_COUPON_STATUS_LABELS } from '@zenith/shared/member';
+import { MEMBER_COUPON_STATUS_LABELS } from '@arcbase/shared/member';
 
 const STATUS_LABELS: Record<string, string> = MEMBER_COUPON_STATUS_LABELS;
 

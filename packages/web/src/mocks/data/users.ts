@@ -1,5 +1,5 @@
-import type { User, Role } from '@zenith/shared/identity';
-import { SEED_ROLES, SEED_POSITIONS } from '@zenith/shared/seed';
+import type { User, Role } from '@arcbase/shared/identity';
+import { SEED_ROLES, SEED_POSITIONS } from '@arcbase/shared/seed';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 // Demo 模式下的初始口令（明文仅用于演示环境）
@@ -17,7 +17,7 @@ export const mockUsers: MockUser[] = [
     id: 1,
     username: 'admin',
     nickname: '管理员',
-    email: 'admin@zenith.dev',
+    email: 'admin@arcbase.dev',
     password: DEMO_INITIAL_CREDENTIAL,
     avatar: undefined,
     departmentId: 1,
@@ -40,7 +40,7 @@ export const mockUsers: MockUser[] = [
     id,
     username,
     nickname,
-    email: `${username}@zenith.dev`,
+    email: `${username}@arcbase.dev`,
     password: DEMO_INITIAL_CREDENTIAL,
     avatar: undefined,
     departmentId: 1,

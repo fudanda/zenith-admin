@@ -8,8 +8,8 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
 import type { Context, MiddlewareHandler } from 'hono';
 import { HTTPException } from 'hono/http-exception';
-import { CMS_OPEN_SYNC_PAGE_SIZE_MAX, openCmsContract } from '@zenith/shared/cms';
-import { contractOperations } from '@zenith/shared/core';
+import { CMS_OPEN_SYNC_PAGE_SIZE_MAX, openCmsContract } from '@arcbase/shared/cms';
+import { contractOperations } from '@arcbase/shared/core';
 import { defineContractRoute } from '../../lib/contract-route';
 import { requireRow } from '../../lib/db-assert';
 import { ErrorResponse, jsonContent, okBody, validationHook } from '../../lib/openapi-schemas';

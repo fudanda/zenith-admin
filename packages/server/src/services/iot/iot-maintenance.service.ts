@@ -1,5 +1,5 @@
-import { iotMaintenanceWindowContract } from '@zenith/shared/iot';
-import type { QueryOutputOf } from '@zenith/shared/core';
+import { iotMaintenanceWindowContract } from '@arcbase/shared/iot';
+import type { QueryOutputOf } from '@arcbase/shared/core';
 /**
  * IoT 维护窗口：计划性维护期间的告警静默。
  *
@@ -9,7 +9,7 @@ import type { QueryOutputOf } from '@zenith/shared/core';
  */
 import { HTTPException } from 'hono/http-exception';
 import { and, desc, eq, gte, inArray, lte, type SQL } from 'drizzle-orm';
-import type { CreateIotMaintenanceWindowInput } from '@zenith/shared/iot';
+import type { CreateIotMaintenanceWindowInput } from '@arcbase/shared/iot';
 import { db } from '../../db';
 import {
   iotDeviceGroupMembers, iotDeviceGroups, iotDevices, iotMaintenanceWindows, iotProducts,

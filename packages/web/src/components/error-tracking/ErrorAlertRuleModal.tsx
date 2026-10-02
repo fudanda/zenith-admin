@@ -4,9 +4,9 @@
  */
 import { useEffect, useState } from 'react';
 import { Col, Form, Input, InputNumber, Row, Select, Switch, TagInput, Toast } from '@douyinfe/semi-ui';
-import type { ErrorAlertChannel, ErrorAlertCondition, ErrorAlertRule, ErrorLevel, ErrorType } from '@zenith/shared/analytics';
-import { ERROR_ALERT_CONDITION_OPTIONS, ERROR_LEVEL_OPTIONS } from '@zenith/shared/analytics';
-import { NOTIFY_CHANNEL_OPTIONS } from '@zenith/shared/messaging';
+import type { ErrorAlertChannel, ErrorAlertCondition, ErrorAlertRule, ErrorLevel, ErrorType } from '@arcbase/shared/analytics';
+import { ERROR_ALERT_CONDITION_OPTIONS, ERROR_LEVEL_OPTIONS } from '@arcbase/shared/analytics';
+import { NOTIFY_CHANNEL_OPTIONS } from '@arcbase/shared/messaging';
 import AppModal from '@/components/AppModal';
 import { toAlertChannels, toStringArray } from './issue-meta';
 

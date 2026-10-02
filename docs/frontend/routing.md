@@ -1,6 +1,6 @@
 # 前端路由与菜单
 
-本页介绍 Zenith Admin 前端路由注册、动态菜单、路由守卫和标签页机制。后台入口的路由集中装配在 `packages/web/src/App.tsx`。
+本页介绍 ArcBase 前端路由注册、动态菜单、路由守卫和标签页机制。后台入口的路由集中装配在 `packages/web/src/App.tsx`。
 
 ---
 
@@ -179,7 +179,7 @@ const { hasPermission, hasAnyPermission } = usePermission();
 - 排序规则为首页、固定标签、普通标签；支持拖拽排序，固定区与普通区不混排
 - 达到偏好 `tabsMaxCount` 时按 `tabEvictPolicy`（`fifo` / `lru`）淘汰可关闭标签，并显示一次提示
 - `openTabBehavior` 控制新标签追加到末尾或插入到当前标签后
-- 开启「保持标签页」时，标签状态持久化到 `zenith_tabs`
+- 开启「保持标签页」时，标签状态持久化到 `arcbase_tabs`
 - 页面缓存由偏好 `enablePageCache` 与菜单 `keepAlive` 白名单共同决定，`KeepAliveOutlet` 只缓存菜单声明允许缓存的路径
 - 路由切换动画（偏好 `routeAnimation`：无 / 淡入 / 上滑 / 左滑）基于 React 19.3 `<ViewTransition>`：`layouts/RouteViewTransition.tsx`
   把偏好映射为 enter / exit class（`AdminLayout.css` 的 `::view-transition-*(.route-vt-*)`），包裹 `KeepAliveOutlet` 与非缓存
@@ -227,4 +227,4 @@ users         wiki          workflow
 3. 让角色、用户、用户组或租户套餐获得对应权限；相关 mutation 需刷新当前用户访问范围
 4. 刷新页面，动态路由注册，侧边栏展示该菜单
 
-完整 CRUD 开发流程见 [`.agents/skills/zenith/SKILL.md`](https://github.com/iwangbowen/zenith-admin/blob/master/.agents/skills/zenith/SKILL.md)。
+完整 CRUD 开发流程见 [`.agents/skills/arcbase/SKILL.md`](https://github.com/iwangbowen/zenith-admin/blob/master/.agents/skills/zenith/SKILL.md)。

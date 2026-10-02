@@ -1,5 +1,5 @@
 {
-  "name": "@zenith/analytics-sdk",
+  "name": "@arcbase/analytics-sdk",
   "version": "2.58.0",
   "private": true,
   "type": "module",
@@ -16,7 +16,7 @@
     "./*": "./src/*.ts"
   },
   "dependencies": {
-    "@zenith/shared": "^2.0.0",
+    "@arcbase/shared": "^2.0.0",
     "rrweb": "^2.1.4",
     "web-vitals": "^6.2.1"
   }

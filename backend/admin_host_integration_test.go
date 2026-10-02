@@ -1,6 +1,6 @@
 //go:build integration
 
-package zenith
+package arcbase
 
 import (
 	"context"
@@ -14,13 +14,13 @@ import (
 
 // This consumes the built public package, not aliases into the Web source tree.
 func TestEmbeddedAdminHost(t *testing.T) {
-	node := os.Getenv("ZENITH_BROWSER_TEST_NODE")
+	node := os.Getenv("ARCBASE_BROWSER_TEST_NODE")
 	if node == "" {
-		t.Skip("set ZENITH_BROWSER_TEST_NODE to run the built admin host acceptance")
+		t.Skip("set ARCBASE_BROWSER_TEST_NODE to run the built admin host acceptance")
 	}
-	dsn := os.Getenv("ZENITH_TEST_DATABASE_URL")
+	dsn := os.Getenv("ARCBASE_TEST_DATABASE_URL")
 	if dsn == "" {
-		t.Fatal("ZENITH_TEST_DATABASE_URL is required")
+		t.Fatal("ARCBASE_TEST_DATABASE_URL is required")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
 	defer cancel()
@@ -55,7 +55,7 @@ func TestEmbeddedAdminHost(t *testing.T) {
 			t.Fatal(err)
 		}
 		cmd := exec.CommandContext(ctx, node, script)
-		cmd.Env = append(os.Environ(), "ZENITH_BROWSER_API_URL="+server.URL, "ZENITH_BROWSER_USERNAME=admin-host", "ZENITH_BROWSER_PASSWORD="+password, "ZENITH_BROWSER_STORAGE="+t.TempDir())
+		cmd.Env = append(os.Environ(), "ARCBASE_BROWSER_API_URL="+server.URL, "ARCBASE_BROWSER_USERNAME=admin-host", "ARCBASE_BROWSER_PASSWORD="+password, "ARCBASE_BROWSER_STORAGE="+t.TempDir())
 		output, err := cmd.CombinedOutput()
 		if err != nil {
 			t.Fatalf("built host acceptance %s: %v\n%s", path, err, output)

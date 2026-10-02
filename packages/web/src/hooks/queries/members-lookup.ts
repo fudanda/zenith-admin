@@ -1,4 +1,4 @@
-import { memberContract } from '@zenith/shared/member';
+import { memberContract } from '@arcbase/shared/member';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 
 export const memberLookupKeys = {

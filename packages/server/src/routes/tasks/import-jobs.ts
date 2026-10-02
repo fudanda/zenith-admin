@@ -3,7 +3,7 @@
  * 历史/进度/行级明细复用任务中心接口（taskType 'data-import'）。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { importJobContract } from '@zenith/shared/tasks';
+import { importJobContract } from '@arcbase/shared/tasks';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import { mapAsyncTask } from '../../lib/task-center/map';

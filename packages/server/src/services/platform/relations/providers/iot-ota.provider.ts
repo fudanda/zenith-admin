@@ -1,5 +1,5 @@
 import { and, desc, eq, exists, lt, sql } from 'drizzle-orm';
-import { IOT_OTA_DEVICE_STATUS_OPTIONS, IOT_OTA_TASK_STATUS_OPTIONS } from '@zenith/shared/iot';
+import { IOT_OTA_DEVICE_STATUS_OPTIONS, IOT_OTA_TASK_STATUS_OPTIONS } from '@arcbase/shared/iot';
 import { iotDevices, iotFirmwares, iotOtaTaskDevices, iotOtaTasks } from '../../../../db/schema';
 import { hasPermission } from '../../../../lib/context';
 import { exactTenantCondition, tenantCondition } from '../../../../lib/tenant';

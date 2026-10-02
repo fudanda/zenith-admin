@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Form, Toast, Spin, SideSheet } from '@douyinfe/semi-ui';
-import { DATA_SCOPES, type CreateRoleInput, type Role, type Department, roleContract } from '@zenith/shared/identity';
-import { enumValueOf } from '@zenith/shared/core';
+import { DATA_SCOPES, type CreateRoleInput, type Role, type Department, roleContract } from '@arcbase/shared/identity';
+import { enumValueOf } from '@arcbase/shared/core';
 import { UserTransferSelect } from '@/components/UserTransferSelect';
 import type { UserTransferUser } from '@/components/UserTransferSelect';
 import { UserPreviewCell } from '@/components/UserPreviewCell';

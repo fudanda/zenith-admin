@@ -1,0 +1,23 @@
+{
+  "name": "create-arcbase",
+  "version": "2.58.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "create-arcbase": "cli.mjs"
+  },
+  "files": [
+    "cli.mjs",
+    "src/project.mjs",
+    "src/module.mjs",
+    "templates",
+    ".runtime",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "test": "node --test src/*.test.mjs"
+  }
+}

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { CmsRelease, CmsReleaseDetail } from '@zenith/shared/cms';
+import type { CmsRelease, CmsReleaseDetail } from '@arcbase/shared/cms';
 import { cmsReleaseHandlers, resetMockCmsReleases } from './handlers/cms-releases';
 import { mockCmsContents, mockCmsContentVersions, mockCmsPages } from './data/cms';
 import { freezeMockCmsRevision, getMockCmsPublishedContent, getMockCmsWorkingContent, resetMockCmsRevisions, saveMockCmsWorkingContent } from './utils/cms-revisions';

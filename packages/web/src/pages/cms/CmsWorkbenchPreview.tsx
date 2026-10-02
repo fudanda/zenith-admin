@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Banner, Button, Checkbox, Collapsible, Input, Select, SideSheet, Space, Spin, Tag, Typography } from '@douyinfe/semi-ui';
-import { CMS_PREVIEW_MODE_LABELS, CMS_PREVIEW_MODES, type CmsWorkbenchPreview as PreviewResult } from '@zenith/shared/cms';
+import { CMS_PREVIEW_MODE_LABELS, CMS_PREVIEW_MODES, type CmsWorkbenchPreview as PreviewResult } from '@arcbase/shared/cms';
 import { useEventCallback } from '@/hooks/useEventCallback';
 import { useCmsWorkbenchPreview } from '@/hooks/queries/cms-workbench';
 import { usePermission } from '@/hooks/usePermission';

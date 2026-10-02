@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { apiCatalogContract, permissionMatrixContract, type ApiCatalog, type ApiCatalogItem } from '@zenith/shared/identity';
+import { apiCatalogContract, permissionMatrixContract, type ApiCatalog, type ApiCatalogItem } from '@arcbase/shared/identity';
 import { PreferencesContext } from '@/hooks/usePreferences';
 import { ApiRecorder, createRequestMock, createTestQueryClient } from '@/test-utils/query-harness';
 import { desktopToolbar } from '@/test-utils/toolbar';

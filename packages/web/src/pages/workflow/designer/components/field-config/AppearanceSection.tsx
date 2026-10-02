@@ -1,7 +1,7 @@
 // ─── 布局与外观设置（列宽/只读/隐藏/标签覆盖/分栏/面板/分组，拆分自 FieldConfigPanel.tsx）───
 import { Button, Input, InputNumber, Select, Switch, Typography } from '@douyinfe/semi-ui';
 import { Plus, Trash2 } from 'lucide-react';
-import type { WorkflowFormField } from '@zenith/shared/workflow';
+import type { WorkflowFormField } from '@arcbase/shared/workflow';
 import { COLUMN_SPAN_OPTIONS, LABEL_POSITION_OPTIONS, LABEL_ALIGN_OPTIONS } from '../../form-types';
 import type { FieldTypeFlags } from './field-type-flags';
 

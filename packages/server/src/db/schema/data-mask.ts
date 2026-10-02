@@ -1,6 +1,6 @@
 import { timestampColumns, idColumn, remarkColumn } from './common';
 import { pgTable, varchar, pgEnum, boolean, unique, jsonb } from 'drizzle-orm/pg-core';
-import { MASK_TYPES, type CustomMaskRule } from '@zenith/shared/core';
+import { MASK_TYPES, type CustomMaskRule } from '@arcbase/shared/core';
 import { auditColumns } from './core';
 
 export const maskTypeEnum = pgEnum('mask_type', MASK_TYPES);
@@ -8,7 +8,7 @@ export const maskTypeEnum = pgEnum('mask_type', MASK_TYPES);
 /**
  * 数据脱敏策略（覆盖记录）。
  *
- * 敏感字段本身由 `@zenith/shared` 契约实体的 `sensitive()` 声明，服务端在契约路由出口按声明打码；
+ * 敏感字段本身由 `@arcbase/shared` 契约实体的 `sensitive()` 声明，服务端在契约路由出口按声明打码；
  * 本表只保存管理员对某个字段「与契约默认不同」的策略：换脱敏类型 / 自定义规则 / 豁免权限 / 停用。
  * 没有记录的字段按契约默认类型脱敏，仅平台超管免脱敏。
  */

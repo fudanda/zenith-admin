@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Form, Input, Modal, Space, Tag, Toast, Banner, Typography, Empty, Select, Divider } from '@douyinfe/semi-ui';
 import { Plus, Trash2, FlaskConical } from 'lucide-react';
-import type { MpConditionalMenu, MpMenuButton, MpMenuMatchRule } from '@zenith/shared/mp';
+import type { MpConditionalMenu, MpMenuButton, MpMenuMatchRule } from '@arcbase/shared/mp';
 import { usePermission } from '@/hooks/usePermission';
 import { useEditModal } from '@/hooks/useEditModal';
 import { SearchToolbar } from '@/components/SearchToolbar';

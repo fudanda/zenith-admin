@@ -1,5 +1,5 @@
 import { HTTPException } from 'hono/http-exception';
-import type { CmsFormField } from '@zenith/shared/cms';
+import type { CmsFormField } from '@arcbase/shared/cms';
 import { compileCmsFormPattern } from './cms-form-pattern';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

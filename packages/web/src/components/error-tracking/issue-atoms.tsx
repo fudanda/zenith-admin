@@ -5,8 +5,8 @@
 import type { ReactNode } from 'react';
 import { Tag, Typography } from '@douyinfe/semi-ui';
 import { AlertCircle, AlertTriangle, Bug, Clock, FileCode, ListChecks, MessageSquare, Radio, ScrollText, ServerCrash, Skull, Zap } from 'lucide-react';
-import type { ErrorLevel, ErrorStatus, ErrorType } from '@zenith/shared/analytics';
-import { ERROR_LEVEL_LABELS, ERROR_STATUS_LABELS, ERROR_TYPE_LABELS } from '@zenith/shared/analytics';
+import type { ErrorLevel, ErrorStatus, ErrorType } from '@arcbase/shared/analytics';
+import { ERROR_LEVEL_LABELS, ERROR_STATUS_LABELS, ERROR_TYPE_LABELS } from '@arcbase/shared/analytics';
 import { TextBlock } from '@/components/TextBlock';
 import { ERROR_LEVEL_COLORS, ERROR_STATUS_COLORS, ERROR_TYPE_COLORS } from './issue-meta';
 

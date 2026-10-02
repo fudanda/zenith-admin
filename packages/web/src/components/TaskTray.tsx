@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Badge, Button, Empty, List, Popover, Tag, Toast, Typography } from '@douyinfe/semi-ui';
 import { ListChecks } from 'lucide-react';
-import type { AsyncTask, AsyncTaskStatus } from '@zenith/shared/tasks';
+import type { AsyncTask, AsyncTaskStatus } from '@arcbase/shared/tasks';
 import { useAsyncTaskAction } from '@/hooks/queries/async-tasks';
 import { useMyAsyncTasks } from '@/hooks/useAsyncTasks';
 import AsyncTaskProgress from '@/components/AsyncTaskProgress';

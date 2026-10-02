@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { reconcileEntries, type ReconciliationEntry } from '@zenith/shared/payment';
+import { reconcileEntries, type ReconciliationEntry } from '@arcbase/shared/payment';
 
 vi.mock('../../db', () => ({ db: {} }));
 vi.mock('../../lib/context', () => ({ currentUser: vi.fn() }));

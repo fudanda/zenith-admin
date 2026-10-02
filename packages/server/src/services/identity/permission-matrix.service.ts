@@ -1,12 +1,12 @@
 /**
  * 接口权限矩阵的数据面：只回答「主体持有哪些权限码」。
  *
- * 「接口需要什么权限」由契约 `access` 在前端直接派生（`@zenith/shared/permission-catalog`），
+ * 「接口需要什么权限」由契约 `access` 在前端直接派生（`@arcbase/shared/permission-catalog`），
  * 这里不复制那份知识，也不落任何新表；角色 / 用户的权限码口径与登录态一致：
  * 启用按钮菜单的 permission，经租户套餐功能集过滤（`lib/permissions.ts`）。
  */
 import { and, asc, eq } from 'drizzle-orm';
-import { SUPER_ADMIN_CODE, type RolePermissionSet, type UserPermissionSet } from '@zenith/shared/identity';
+import { SUPER_ADMIN_CODE, type RolePermissionSet, type UserPermissionSet } from '@arcbase/shared/identity';
 import { db } from '../../db';
 import { roles, users } from '../../db/schema';
 import { currentUser } from '../../lib/context';

@@ -1,6 +1,6 @@
-import { aiAgentContract } from '@zenith/shared/ai';
-import type { CreateAiAgentInput } from '@zenith/shared/ai';
-import { resourceKeyOf } from '@zenith/shared/core';
+import { aiAgentContract } from '@arcbase/shared/ai';
+import type { CreateAiAgentInput } from '@arcbase/shared/ai';
+import { resourceKeyOf } from '@arcbase/shared/core';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 /** 新增与编辑共用同一表单：必填字段由表单 rules 保证，服务端 schema 兜底校验 */

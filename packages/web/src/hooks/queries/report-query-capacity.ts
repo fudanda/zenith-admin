@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import { resourceKeyOf, type BodyOf, type QueryOf } from '@zenith/shared/core';
-import { reportQueryCapacityContract } from '@zenith/shared/report';
+import { resourceKeyOf, type BodyOf, type QueryOf } from '@arcbase/shared/core';
+import { reportQueryCapacityContract } from '@arcbase/shared/report';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type ReportQueryQuotaListParams = NonNullable<QueryOf<typeof reportQueryCapacityContract.quotas>>;

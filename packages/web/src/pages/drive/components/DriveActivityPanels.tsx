@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Empty, Input, List, Space, Timeline, Toast, Typography } from '@douyinfe/semi-ui';
 import { Pencil, Send, Trash2 } from 'lucide-react';
-import { DRIVE_ACTIVITY_ACTION_LABELS, type DriveNode, type DriveNodeComment } from '@zenith/shared/drive';
+import { DRIVE_ACTIVITY_ACTION_LABELS, type DriveNode, type DriveNodeComment } from '@arcbase/shared/drive';
 import { ListPagination } from '@/components/ListPagination';
 import { useCreateDriveNodeComment, useDeleteDriveNodeComment, useDriveNodeActivities, useDriveNodeComments } from '@/hooks/queries/drive';
 import { useAuth } from '@/hooks/useAuth';

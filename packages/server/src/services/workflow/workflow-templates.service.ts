@@ -5,7 +5,7 @@ import { HTTPException } from 'hono/http-exception';
 import { currentUser } from '../../lib/context';
 import { tenantCondition, getCreateTenantId } from '../../lib/tenant';
 import { rethrowPgUniqueViolation } from '../../lib/db-errors';
-import { workflowTemplateSchema, type WorkflowTemplate, type WorkflowFlowData, type WorkflowFormSchema, type CreateWorkflowTemplateInput, type UpdateWorkflowTemplateInput, type SaveAsTemplateInput } from '@zenith/shared/workflow';
+import { workflowTemplateSchema, type WorkflowTemplate, type WorkflowFlowData, type WorkflowFormSchema, type CreateWorkflowTemplateInput, type UpdateWorkflowTemplateInput, type SaveAsTemplateInput } from '@arcbase/shared/workflow';
 import { createDefinition } from './workflow-definitions.service';
 import { createWorkflowForm } from './workflow-forms.service';
 import { requireFirstRow, requireRow } from '../../lib/db-assert';

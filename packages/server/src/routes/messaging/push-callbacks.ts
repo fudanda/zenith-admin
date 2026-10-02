@@ -7,7 +7,7 @@
  * 真实对接时如启用极光回调验签，在此处补充 token / sign 校验。
  */
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { pushCallbackContract } from '@zenith/shared/messaging';
+import { pushCallbackContract } from '@arcbase/shared/messaging';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 import logger from '../../lib/logger';

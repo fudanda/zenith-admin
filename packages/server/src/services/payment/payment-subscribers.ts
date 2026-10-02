@@ -7,7 +7,7 @@ import { sendToUser } from '../../lib/ws-manager';
 import logger from '../../lib/logger';
 import { creditWalletOnRecharge, reverseWalletRechargeOnRefund, WALLET_RECHARGE_BIZ_TYPE } from '../member/member-wallet.service';
 import { extendVipOnRenewal } from '../member/member-renewal.service';
-import { MEMBER_RENEWAL_BIZ_TYPE } from '@zenith/shared/member';
+import { MEMBER_RENEWAL_BIZ_TYPE } from '@arcbase/shared/member';
 import { completeDisputeRefund, recordDisputeRefundFailure } from './payment-dispute.service';
 import { recordPaymentLinkRedemption } from './payment-link.service';
 import { updateCashierSessionFromPaymentEvent } from './payment-cashier-session.service';

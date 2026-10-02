@@ -8,8 +8,8 @@
  *
  * 本文件不依赖数据库，纯解析 + 校验，便于单测。
  */
-import { CMS_OPEN_CONTENT_FIELDS, CMS_OPEN_INCLUDES, CMS_OPEN_PAGE_SIZE_MAX, CMS_OPEN_SORT_FIELDS } from '@zenith/shared/cms';
-import type { CmsOpenInclude, CmsOpenSortField } from '@zenith/shared/cms';
+import { CMS_OPEN_CONTENT_FIELDS, CMS_OPEN_INCLUDES, CMS_OPEN_PAGE_SIZE_MAX, CMS_OPEN_SORT_FIELDS } from '@arcbase/shared/cms';
+import type { CmsOpenInclude, CmsOpenSortField } from '@arcbase/shared/cms';
 
 export class OpenQueryError extends Error {}
 

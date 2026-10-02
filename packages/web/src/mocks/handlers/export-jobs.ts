@@ -1,6 +1,6 @@
-import type { QueryOf } from '@zenith/shared/core';
-import { exportJobContract } from '@zenith/shared/tasks';
-import type { ExportEntityMeta, ExportJob, ExportJobDownload } from '@zenith/shared/tasks';
+import type { QueryOf } from '@arcbase/shared/core';
+import { exportJobContract } from '@arcbase/shared/tasks';
+import type { ExportEntityMeta, ExportJob, ExportJobDownload } from '@arcbase/shared/tasks';
 import { mock } from '@/mocks/utils/contract';
 import { requireItem } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

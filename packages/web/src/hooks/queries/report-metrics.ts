@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import type { QueryOf } from '@zenith/shared/core';
-import { reportMetricContract } from '@zenith/shared/report';
+import type { QueryOf } from '@arcbase/shared/core';
+import { reportMetricContract } from '@arcbase/shared/report';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 

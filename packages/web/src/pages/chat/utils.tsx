@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import type { ChatMessage, ChatAssetMeta, ChatMessageExtra } from '@zenith/shared/chat';
-import { escapeRegExp } from '@zenith/shared/core';
+import type { ChatMessage, ChatAssetMeta, ChatMessageExtra } from '@arcbase/shared/chat';
+import { escapeRegExp } from '@arcbase/shared/core';
 
 export const MESSAGE_TIME_GROUP_GAP_MS = 5 * 60 * 1000;
 

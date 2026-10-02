@@ -8,7 +8,7 @@ import { tenantScope } from '../../lib/tenant';
 import { ensureMpAccountExists } from './mp-account.service';
 import { getUserSummary, getUserCumulate, getUpstreamMsg, getArticleSummary, getUserShare, getInterfaceSummary, DATACUBE_MAX_SPAN_DAYS } from '../../lib/wechat';
 import { mapWechatError } from '../../lib/wechat-error';
-import type { MpStats, MpDatacube } from '@zenith/shared/mp';
+import type { MpStats, MpDatacube } from '@arcbase/shared/mp';
 
 /** 公众号数据统计（基于本地数据聚合，近 7 日趋势） */
 export async function getMpStats(accountId: number): Promise<MpStats> {

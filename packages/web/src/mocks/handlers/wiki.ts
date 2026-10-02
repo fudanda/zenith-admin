@@ -1,10 +1,10 @@
 import {
   wikiCommentContract, wikiDocContract, wikiGovernanceContract,
   wikiSpaceContract, wikiStatsContract, wikiTagContract, wikiTemplateContract,
-} from '@zenith/shared/wiki';
+} from '@arcbase/shared/wiki';
 import type {
   WikiComment, WikiDoc, WikiDocTag, WikiDocTreeNode, WikiReviewRecord, WikiSpace, WikiTag, WikiTemplate,
-} from '@zenith/shared/wiki';
+} from '@arcbase/shared/wiki';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, requireItem } from '@/mocks/utils/crud';
 import { badRequest, notFound } from '@/mocks/utils/handlers';

@@ -4,7 +4,7 @@ import { msgSecCheck } from '../../lib/wechat';
 import { mapWechatError } from '../../lib/wechat-error';
 import logger from '../../lib/logger';
 import type { MpAccountRow } from '../../db/schema';
-import type { CheckMpContentInput } from '@zenith/shared/mp';
+import type { CheckMpContentInput } from '@arcbase/shared/mp';
 
 /** 主动测试一段文本是否通过内容安全校验 */
 export async function checkMpContent(data: CheckMpContentInput): Promise<{ pass: boolean; suggest: string }> {

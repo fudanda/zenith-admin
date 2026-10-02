@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Form, SideSheet, Spin, Typography } from '@douyinfe/semi-ui';
 import {
   DRIVE_ROLE_OPTIONS, type CreateDriveSpaceInput, type DriveRole, type DriveSpace, type UpdateDriveSpaceInput,
-} from '@zenith/shared/drive';
+} from '@arcbase/shared/drive';
 import { ModalFooter } from '@/components/ModalFooter';
 
 import { useEditModal } from '@/hooks/useEditModal';

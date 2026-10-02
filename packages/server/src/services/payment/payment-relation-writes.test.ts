@@ -14,7 +14,7 @@ vi.mock('./payment-outbox.service', () => ({ recordEvent: async () => null, proc
 vi.mock('./payment.service', () => ({ refund: mocks.refund }));
 
 import { paymentDisputes, paymentDisputeReplies, paymentOrders, paymentRefunds, paymentRiskReviews } from '../../db/schema';
-import { parseDomainEventSummary, type DomainEventType } from '@zenith/shared/platform';
+import { parseDomainEventSummary, type DomainEventType } from '@arcbase/shared/platform';
 import { approveRiskReview } from './payment-risk.service';
 import { completeDisputeRefund, refundDispute, replyDispute, resolveDispute } from './payment-dispute.service';
 

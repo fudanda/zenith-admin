@@ -1,7 +1,7 @@
 /** 单图上传字段（受控）：已上传时展示预览缩略图 + 悬浮删除按钮，未上传时展示上传按钮。 */
 import { Button, Space, Toast, Upload } from '@douyinfe/semi-ui';
 import { ImagePlus, Trash2 } from 'lucide-react';
-import { fileContract } from '@zenith/shared/platform';
+import { fileContract } from '@arcbase/shared/platform';
 import { config } from '@/config';
 import { urlOf } from '@/lib/contract-query';
 import { request } from '@/utils/request';

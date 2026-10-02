@@ -1,4 +1,4 @@
-import { sessionContract, userContract } from '@zenith/shared/identity';
+import { sessionContract, userContract } from '@arcbase/shared/identity';
 import { apiQueryOptions, contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { invalidateCurrentUserAccess } from './menus';

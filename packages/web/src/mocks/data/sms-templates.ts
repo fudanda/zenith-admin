@@ -1,5 +1,5 @@
-import { SEED_SMS_TEMPLATES } from '@zenith/shared/seed';
-import type { SmsTemplate } from '@zenith/shared/messaging';
+import { SEED_SMS_TEMPLATES } from '@arcbase/shared/seed';
+import type { SmsTemplate } from '@arcbase/shared/messaging';
 import { nextIdFrom } from '@/mocks/utils/handlers';
 
 export const mockSmsTemplates: SmsTemplate[] = [...SEED_SMS_TEMPLATES];

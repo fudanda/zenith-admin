@@ -19,7 +19,7 @@ import * as z from 'zod';
 import {
   IOT_WS_FRAME_TYPES, iotTelemetryIngestSchema, iotCommandAckSchema, iotEventIngestSchema,
   iotGatewayBatchSchema, iotGatewayEventSchema, iotLogIngestSchema, iotOtaProgressSchema,
-} from '@zenith/shared/iot';
+} from '@arcbase/shared/iot';
 import type { IotDeviceRow } from '../../db/schema';
 import { authenticateDevice, markDeviceOnline, markDeviceOffline, touchDevice } from '../../services/iot/iot-access.service';
 import {

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import type { QueryOf } from '@zenith/shared/core';
-import { mpBroadcastContract, mpDraftContract, mpMaterialContract, mpTagContract, type MpDraft, type MpMaterial, type MpTag } from '@zenith/shared/mp';
+import type { QueryOf } from '@arcbase/shared/core';
+import { mpBroadcastContract, mpDraftContract, mpMaterialContract, mpTagContract, type MpDraft, type MpMaterial, type MpTag } from '@arcbase/shared/mp';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type MpBroadcastListParams = QueryOf<typeof mpBroadcastContract.list>;

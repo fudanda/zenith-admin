@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button, Input, Switch, Typography, Dropdown, TextArea } from '@douyinfe/semi-ui';
 import { Plus, Trash2, Ban, List, Image as ImageIcon } from 'lucide-react';
-import type { WorkflowFormField, WorkflowFormFieldOptionItem } from '@zenith/shared/workflow';
+import type { WorkflowFormField, WorkflowFormFieldOptionItem } from '@arcbase/shared/workflow';
 import { OPTION_COLOR_PRESETS } from '../../form-types';
 import { deriveOptionItems } from './helpers';
 

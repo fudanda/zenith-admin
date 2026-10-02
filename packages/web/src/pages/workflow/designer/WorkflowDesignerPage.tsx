@@ -6,8 +6,8 @@ import { useParams, useNavigate, useSearchParams, useLocation } from 'react-rout
 import { Button, Divider, Modal, RadioGroup, Radio, Toast, Tooltip, Typography } from '@douyinfe/semi-ui';
 import PageLoading from '@/components/PageLoading';
 import { ArrowLeft, Check, Download, Eye, History, Minus, Play, Plus, Redo2, RotateCcw, Save, Send, Stethoscope, TriangleAlert, Undo2, Upload } from 'lucide-react';
-import type { WorkflowDefinition, WorkflowDefinitionSnapshot, WorkflowFlowData, WorkflowFormField, WorkflowFormType, WorkflowCustomFormConfig } from '@zenith/shared/workflow';
-import { WORKFLOW_FORM_TYPES, WORKFLOW_FORM_TYPE_LABELS, generateWorkflowPrintContent, resolveApproverDedupMode, workflowPrintPageConfig } from '@zenith/shared/workflow';
+import type { WorkflowDefinition, WorkflowDefinitionSnapshot, WorkflowFlowData, WorkflowFormField, WorkflowFormType, WorkflowCustomFormConfig } from '@arcbase/shared/workflow';
+import { WORKFLOW_FORM_TYPES, WORKFLOW_FORM_TYPE_LABELS, generateWorkflowPrintContent, resolveApproverDedupMode, workflowPrintPageConfig } from '@arcbase/shared/workflow';
 import { useSaveReportPrintTemplate } from '@/hooks/queries/report-print';
 import { downloadBlob } from '@/utils/download';
 import { hasBusinessFormComponent } from '@/utils/business-form-registry';

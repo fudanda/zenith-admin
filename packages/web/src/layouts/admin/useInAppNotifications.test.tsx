@@ -7,7 +7,7 @@
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { act, renderHook, waitFor } from '@testing-library/react';
-import type { Announcement, InAppMessage } from '@zenith/shared/messaging';
+import type { Announcement, InAppMessage } from '@arcbase/shared/messaging';
 import {
   ApiRecorder,
   createRequestMock,

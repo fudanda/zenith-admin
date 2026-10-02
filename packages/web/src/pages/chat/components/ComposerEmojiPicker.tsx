@@ -1,5 +1,5 @@
 import { TabPane, Tabs } from '@douyinfe/semi-ui';
-import type { ChatCustomEmoji } from '@zenith/shared/chat';
+import type { ChatCustomEmoji } from '@arcbase/shared/chat';
 import { StickerPanel } from './StickerPanel';
 import { ThemedEmojiPicker } from './ThemedEmojiPicker';
 

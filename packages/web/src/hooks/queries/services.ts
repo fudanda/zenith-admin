@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-restricted-imports -- H5 保留：手写 useQuery / useMutation 的理由见本文件对应 hook 的注释；queryKey 仍由 contractKey 生成
 import { useQuery } from '@tanstack/react-query';
-import { systemdContract, type SystemdService } from '@zenith/shared/ops';
+import { systemdContract, type SystemdService } from '@arcbase/shared/ops';
 import { api, contractKey, urlOf, useApiMutation } from '@/lib/contract-query';
 import { hostQueryOf } from './ops-hosts';
 

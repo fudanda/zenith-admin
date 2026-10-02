@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { sshProfileContract } from '@zenith/shared/ops';
+import { sshProfileContract } from '@arcbase/shared/ops';
 import { currentUser } from '../../lib/context';
 import { validationHook } from '../../lib/openapi-schemas';
 import {

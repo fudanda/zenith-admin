@@ -6,11 +6,11 @@ import { defineExport } from '../registry';
 import { RETENTION_7_DAYS } from '../presets';
 import {
   COMMON_STATUS_LABELS,
-} from '@zenith/shared/core';
+} from '@arcbase/shared/core';
 import {
   SHORT_LINK_BIZ_TYPE_LABELS,
   SHORT_LINK_REDIRECT_TYPE_LABELS,
-} from '@zenith/shared/short-link';
+} from '@arcbase/shared/short-link';
 import { buildShortLinkWhere, buildShortUrl, type ShortLinkListFilter } from '../../../services/short-link/short-link.service';
 import type { ExportColumn } from '../types';
 

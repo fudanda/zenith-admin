@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { toColonPath } from '@zenith/shared/core';
+import { toColonPath } from '@arcbase/shared/core';
 import {
   aiArenaContract,
   aiAuditContract,
@@ -11,8 +11,8 @@ import {
   aiSettingsContract,
   arenaChatSchema,
   AI_USER_SETTINGS_DEFAULTS,
-} from '@zenith/shared/ai';
-import type { AiConversationShare, AiKbDocument, AiKnowledgeBase, AiUserSettings } from '@zenith/shared/ai';
+} from '@arcbase/shared/ai';
+import type { AiConversationShare, AiKbDocument, AiKnowledgeBase, AiUserSettings } from '@arcbase/shared/ai';
 import { mock } from '@/mocks/utils/contract';
 import { removeByIds, removeItem, requireItem } from '@/mocks/utils/crud';
 import { badRequest } from '@/mocks/utils/handlers';
@@ -35,7 +35,7 @@ const kbStore: AiKnowledgeBase[] = [
   {
     id: 1,
     name: '产品手册',
-    description: 'Zenith Admin 功能说明文档',
+    description: 'ArcBase 功能说明文档',
     userId: 1,
     embeddingModel: null,
     documentCount: 1,

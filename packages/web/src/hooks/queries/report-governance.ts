@@ -1,12 +1,12 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
 import {
   reportEnvironmentContract,
   reportGovernanceContract,
   type ReportPublishApproval,
   type ReportResourceTransfer,
   type ReportResourceType,
-} from '@zenith/shared/report';
+} from '@arcbase/shared/report';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { reportAssetKeys } from './report-assets';
 import { reportDashboardKeys } from './report-dashboards';

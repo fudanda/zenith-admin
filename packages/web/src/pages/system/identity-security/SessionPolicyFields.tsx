@@ -5,8 +5,8 @@ import {
   SESSION_CONCURRENCY_SCOPES,
   SESSION_EXCEED_ACTION_LABELS,
   SESSION_EXCEED_ACTIONS,
-} from '@zenith/shared/identity';
-import { formatSessionPolicyHint, type SessionConcurrencyPolicy } from '@zenith/shared/settings';
+} from '@arcbase/shared/identity';
+import { formatSessionPolicyHint, type SessionConcurrencyPolicy } from '@arcbase/shared/settings';
 
 type LimitMode = 'unlimited' | 'single' | 'limited';
 

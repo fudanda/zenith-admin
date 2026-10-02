@@ -1,4 +1,4 @@
-// Package dashboard contains the original Zenith Web production build.
+// Package dashboard contains the original ArcBase Web production build.
 package dashboard
 
 import (

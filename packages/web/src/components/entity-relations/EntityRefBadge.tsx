@@ -1,6 +1,6 @@
 import { Suspense, useContext, useState, type ReactNode } from 'react';
 import { Button, Typography } from '@douyinfe/semi-ui';
-import type { CanonicalEntityRef } from '@zenith/shared/platform';
+import type { CanonicalEntityRef } from '@arcbase/shared/platform';
 import { entityDetailRoute, entityTypeLabel } from '@/utils/entity-relations';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { beginEntityRelationNavigation, EntityNavigationContext, entityRelationSourceUrl } from './entity-navigation';

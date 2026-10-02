@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button, Card, Empty, Modal, Popover, Radio, RadioGroup, Spin, Tag, Toast, Tooltip } from '@douyinfe/semi-ui';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
-import type { CronJobStats, CronJobStatsPerJob, CronJobTopError, CronJobUpcomingRun } from '@zenith/shared/platform';
-import { CRON_HEALTH_RULES, SCHEDULER_WARNING_SEVERE_TYPES, cronSuccessRatePercent, schedulerWarningLabel } from '@zenith/shared/platform';
+import type { CronJobStats, CronJobStatsPerJob, CronJobTopError, CronJobUpcomingRun } from '@arcbase/shared/platform';
+import { CRON_HEALTH_RULES, SCHEDULER_WARNING_SEVERE_TYPES, cronSuccessRatePercent, schedulerWarningLabel } from '@arcbase/shared/platform';
 import dayjs from 'dayjs';
 import {
   CommonChart,

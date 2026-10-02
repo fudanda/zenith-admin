@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import { userAiConfigContract } from '@zenith/shared/ai';
-import { resourceKeyOf } from '@zenith/shared/core';
+import { userAiConfigContract } from '@arcbase/shared/ai';
+import { resourceKeyOf } from '@arcbase/shared/core';
 import { useSaveMutation, contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 import { LOOKUP_STALE_TIME } from '@/lib/query';
 import { aiProviderKeys } from './ai-providers';

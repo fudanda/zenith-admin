@@ -1,5 +1,5 @@
-import { openGatewayContract } from '@zenith/shared/open-platform';
-import type { OpenApiCallLog } from '@zenith/shared/open-platform';
+import { openGatewayContract } from '@arcbase/shared/open-platform';
+import type { OpenApiCallLog } from '@arcbase/shared/open-platform';
 import dayjs from 'dayjs';
 import { urlOf } from '@/lib/contract-query';
 
@@ -45,7 +45,7 @@ function gen(): OpenApiCallLog[] {
         success,
         durationMs: 20 + Math.floor(Math.random() * 180),
         ip: `203.0.113.${Math.floor(Math.random() * 254) + 1}`,
-        userAgent: 'zenith-sdk/1.0',
+        userAgent: 'arcbase-sdk/1.0',
         scope: ep.scope,
         authChannel: bearer ? 'bearer' : 'signature',
         userId: bearer ? 1 : null,

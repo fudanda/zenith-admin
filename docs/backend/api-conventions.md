@@ -47,7 +47,7 @@
 
 查询参数的 TypeScript 类型只从契约操作派生，不在 service 手写 interface、也不在契约文件逐个导出 `z.infer` 别名：
 
-- Server：`QueryOutputOf<typeof xxxContract.list>`（`@zenith/shared/core`）——解析后输出，`page` / `pageSize` 为必填 `number`，
+- Server：`QueryOutputOf<typeof xxxContract.list>`（`@arcbase/shared/core`）——解析后输出，`page` / `pageSize` 为必填 `number`，
   `queryEnum` / `entityStatusQuery` 的空串已归一为 `undefined`，与路由 `c.req.valid('query')` 同型，service 里因此不再写 `page = 1` 之类默认值。
 - Web：`QueryOf<typeof xxxContract.list>`——客户端视角，带默认值的字段可省略。
 - 筛选条件需与导出中心等不带分页的调用方共用时，定义一个 `Omit<QueryOutputOf<…>, 'page' | 'pageSize'>` 的筛选类型。
@@ -70,8 +70,8 @@
 
 | Token | 前端存储 Key | 说明 |
 | --- | --- | --- |
-| Access Token | `zenith_token` | 短期凭证，通过请求头传递 |
-| Refresh Token | `zenith_refresh_token` | 长期凭证，用于 `/api/auth/refresh` 换发 Access Token |
+| Access Token | `arcbase_token` | 短期凭证，通过请求头传递 |
+| Refresh Token | `arcbase_refresh_token` | 长期凭证，用于 `/api/auth/refresh` 换发 Access Token |
 
 需要认证的请求携带：
 
@@ -91,7 +91,7 @@ const user = currentUser();
 
 ## 参数校验与路由声明
 
-每个端点由 `@zenith/shared/{业务域}/contracts/` 中的契约操作定义：方法、路径、`params` / `query` / `headers` / `body`
+每个端点由 `@arcbase/shared/{业务域}/contracts/` 中的契约操作定义：方法、路径、`params` / `query` / `headers` / `body`
 schema 与响应 schema（`headers` 只声明业务请求头，如幂等键 `x-idempotency-key`；认证头由 security 表达）。
 标准操作（`list` / `detail` / `create` / `update` / `remove` / `removeBatch`）由 `mountCrud(router, contract, service)`
 （`routes/_crud.ts`）按契约派生路由：权限 / 审计取契约操作的 `access` / `audit`，更新 / 删除前的实体快照统一，`DELETE /batch` 先于 `/{id}`；
@@ -137,7 +137,7 @@ export const xxxContract = defineContract('/api/xxxs', {
 
 ```ts
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { xxxContract } from '@zenith/shared/platform';
+import { xxxContract } from '@arcbase/shared/platform';
 import { defineContractRoute } from '../../lib/contract-route';
 import { okBody, validationHook } from '../../lib/openapi-schemas';
 
@@ -167,7 +167,7 @@ export default xxxRouter;
   service 返回值与契约实体不一致时编译失败。
 - 路径参数用 `idParam`；自定义路径参数写 `z.object({ code: z.string().meta({ description, example }) })`；
   OpenAPI 元数据一律用 zod 原生 `.meta()`（组件名 `.meta({ id })`）。
-- 部分更新（`PUT` / `PATCH`）的请求体 schema 一律用 `partialForUpdate(createXxxSchema)`（`@zenith/shared/core`）派生，
+- 部分更新（`PUT` / `PATCH`）的请求体 schema 一律用 `partialForUpdate(createXxxSchema)`（`@arcbase/shared/core`）派生，
   它会剥离全部 `.default()` 再置为可选：省略的字段表示「保持不变」。禁止直接调用 `.partial()`（ESLint 封禁），
   契约测试会拒绝任何请求体属性携带 `default` 的 `PUT` / `PATCH` 操作；全量替换 / upsert 端点需在
   `src/app.contract.test.ts` 的整体替换例外清单登记理由。
@@ -266,7 +266,7 @@ export const { list: listXxxs, get: getXxx, ensure: ensureXxxExists, create: cre
 
 - `@hono/prometheus` HTTP RED 指标；
 - `prom-client` 默认进程指标；
-- `registerZenithMetrics()` 注册的 Zenith 业务 / 系统指标（CPU、内存、HTTP、WebSocket、DB、Redis 等）。
+- `registerArcBaseMetrics()` 注册的 ArcBase 业务 / 系统指标（CPU、内存、HTTP、WebSocket、DB、Redis 等）。
 
 ## OpenTelemetry Trace
 
@@ -275,7 +275,7 @@ export const { list: listXxxs, get: getXxx, ensure: ensureXxxExists, create: cre
 | 变量 | 默认值 | 说明 |
 | --- | --- | --- |
 | `OTEL_ENABLED` | `false` | 是否启用 Trace |
-| `OTEL_SERVICE_NAME` | `zenith-admin-server` | 服务名 |
+| `OTEL_SERVICE_NAME` | `arcbase-server` | 服务名 |
 | `OTEL_SERVICE_VERSION` | npm package version | 服务版本 |
 | `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` | 空 | OTLP traces 专用导出地址 |
 | `OTEL_EXPORTER_OTLP_ENDPOINT` | 空 | 通用 OTLP 导出地址 |
@@ -283,9 +283,9 @@ export const { list: listXxxs, get: getXxx, ensure: ensureXxxExists, create: cre
 
 ## 共享约定
 
-- 类型、Zod schema、枚举和常量按域放到 `@zenith/shared/{业务域}` 子路径。
-- 禁止从 `@zenith/shared` 根入口导入。
-- 种子数据统一从 `@zenith/shared/seed` 导入。
+- 类型、Zod schema、枚举和常量按域放到 `@arcbase/shared/{业务域}` 子路径。
+- 禁止从 `@arcbase/shared` 根入口导入。
+- 种子数据统一从 `@arcbase/shared/seed` 导入。
 
 ## Server-Timing 性能分析头
 

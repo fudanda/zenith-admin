@@ -1,7 +1,7 @@
 import { timestampColumns, idColumn, remarkColumn } from './common';
 import { pgTable, varchar, timestamp, pgEnum, integer, bigint, boolean, text, uniqueIndex, index, jsonb, smallint, real, date, uuid, primaryKey, customType, type AnyPgColumn } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
-import type { AnalyticsEnvironment, AnalyticsEventPropertyDef, AnalyticsExperimentVariant, AnalyticsSegmentRule, ReplayTrigger } from '@zenith/shared/analytics';
+import type { AnalyticsEnvironment, AnalyticsEventPropertyDef, AnalyticsExperimentVariant, AnalyticsSegmentRule, ReplayTrigger } from '@arcbase/shared/analytics';
 import { auditColumns, tenants, users, tenantIdColumn } from './core';
 import { members } from './member';
 
@@ -241,7 +241,7 @@ export type NewAnalyticsEventMeta = typeof analyticsEventMeta.$inferInsert;
 
 // ─── 前端错误监控（Issue 模型：error_groups + error_events）────────────────────
 /**
- * 错误类型：前端（SDK 上报）+ 服务端（进程内采集）共用一个枚举，取值以 `@zenith/shared/analytics` 的 `ERROR_TYPES` 为准。
+ * 错误类型：前端（SDK 上报）+ 服务端（进程内采集）共用一个枚举，取值以 `@arcbase/shared/analytics` 的 `ERROR_TYPES` 为准。
  * PG 枚举名沿用 frontend_error_type：新增取值只需 ADD VALUE；重命名类型 drizzle-kit 会生成 DROP + CREATE，不值得为名字手写迁移。
  */
 export const errorTypeEnum = pgEnum('frontend_error_type', [

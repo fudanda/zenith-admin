@@ -12,8 +12,8 @@ import { requireTenantScopeId, tenantCondition, exactTenantCondition } from '../
 import { postSystemJournal, postSystemJournalWithin } from './payment-journal.service';
 import { paymentEventBus } from '../../lib/payment-event-bus';
 import logger from '../../lib/logger';
-import { PAYMENT_METHOD_CHANNEL, paymentFeeRuleContract, paymentFeeRuleSchema } from '@zenith/shared/payment';
-import type { PaymentChannel, PaymentMethod } from '@zenith/shared/payment';
+import { PAYMENT_METHOD_CHANNEL, paymentFeeRuleContract, paymentFeeRuleSchema } from '@arcbase/shared/payment';
+import type { PaymentChannel, PaymentMethod } from '@arcbase/shared/payment';
 import { defineCrudService } from '../../lib/crud-service';
 import { entityMapper } from '../../lib/entity-map';
 

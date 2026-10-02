@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { AnyOperation, BodyOf, InputOf, QueryOf } from '@zenith/shared/core';
-import { channelContract, channelMessageContract } from '@zenith/shared/messaging';
+import type { AnyOperation, BodyOf, InputOf, QueryOf } from '@arcbase/shared/core';
+import { channelContract, channelMessageContract } from '@arcbase/shared/messaging';
 import { contractKey, createResourceQueries, useApiMutation, useApiQuery, useSaveMutation } from '@/lib/contract-query';
 
 export type ChannelListParams = NonNullable<QueryOf<typeof channelContract.list>>;

@@ -5,14 +5,14 @@ import {
   canOverridePreference, getPreferenceValue, isPreferenceApplicable, preferenceDefinitions,
   removePreferenceOverride, resolvePreferences, sanitizePreferenceOverrides, setPreferenceValue,
   type PreferenceOverrides, type PreferencePath,
-} from '@zenith/shared/preferences';
+} from '@arcbase/shared/preferences';
 import { applyWeekStart } from '@/lib/week-start';
 import { readPreferenceCache, writePreferenceCache } from '@/lib/preference-cache';
 import { settingsKeys, useMySettings } from './queries/settings';
 import { preferencesKey, usePersonalPreferences, useSavePersonalPreferences } from './queries/preferences';
 import { subscribeWsStatus, useWebSocket } from './useWebSocket';
 import { PreferencesContext, type PreferenceChangeResult } from './usePreferences';
-import { goAuthContract } from '@zenith/shared/identity';
+import { goAuthContract } from '@arcbase/shared/identity';
 import { contractKey, useApiQuery } from '@/lib/contract-query';
 import { IS_GO_FOUNDATION } from '@/lib/foundation-mode';
 import { useAdminOptions } from '@/admin/runtime';

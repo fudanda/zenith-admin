@@ -1,5 +1,5 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { memberTagContract } from '@zenith/shared/member';
+import { memberTagContract } from '@arcbase/shared/member';
 import { validationHook } from '../../lib/openapi-schemas';
 import {
   listMemberTags,

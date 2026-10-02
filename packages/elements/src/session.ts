@@ -1,6 +1,6 @@
-import { callRaw, ApiError, type Client, type ApiEnvelope } from '@zenith/client';
-import { goAuthContract, type GoSession } from '@zenith/shared/identity';
-import type { InputOf, OutputOf } from '@zenith/shared/core';
+import { callRaw, ApiError, type Client, type ApiEnvelope } from '@arcbase/client';
+import { goAuthContract, type GoSession } from '@arcbase/shared/identity';
+import type { InputOf, OutputOf } from '@arcbase/shared/core';
 
 export type LoginInput = InputOf<typeof goAuthContract.login>['body'];
 export type LoginResult = OutputOf<typeof goAuthContract.login>;
@@ -18,14 +18,14 @@ export interface SessionActions {
   refresh(): Promise<void>;
   updateUser(user: GoSession['user']): void;
 }
-export interface ZenithSessionAdapter extends SessionActions {
+export interface ArcBaseSessionAdapter extends SessionActions {
   getSnapshot(): SessionSnapshot;
   subscribe(listener: () => void): () => void;
 }
-export type ZenithSessionValue = SessionSnapshot & SessionActions;
+export type ArcBaseSessionValue = SessionSnapshot & SessionActions;
 
 /** In-memory Cookie session. The server remains the identity/permission authority. */
-export function createCookieSession(client: Client): ZenithSessionAdapter & { dispose(): void } {
+export function createCookieSession(client: Client): ArcBaseSessionAdapter & { dispose(): void } {
   let snapshot: SessionSnapshot = { status: 'checking', session: null, error: null, refreshing: false };
   const listeners = new Set<() => void>();
   const requests = new Set<AbortController>();

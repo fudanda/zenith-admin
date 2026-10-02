@@ -17,7 +17,7 @@ import { EMPTY_PLACEHOLDER, dateTimeColumn } from '@/utils/table-columns';
 import { copyTextWithToast } from '@/utils/clipboard';
 
 import { useUrlTabState } from '@/hooks/useUrlTabState';
-import { enumValueOf, formatBytes } from '@zenith/shared/core';
+import { enumValueOf, formatBytes } from '@arcbase/shared/core';
 import {
   MONITOR_HISTORY_RANGES,
   type MonitorDbInfo,
@@ -31,7 +31,7 @@ import {
   type MonitorTopProcesses,
   type MonitorWsConnection,
   type MonitorWsDisconnect,
-} from '@zenith/shared/platform';
+} from '@arcbase/shared/platform';
 const { Text } = Typography;
 
 type MonitorData = MonitorSnapshot;
@@ -72,7 +72,7 @@ function formatTimestamp(ms: number): string {
 }
 
 /** 监控页偏好（Tab / 刷新间隔 / 历史范围 / 统计口径）localStorage 持久化 */
-const MONITOR_PREFS_KEY = 'zenith_monitor_prefs';
+const MONITOR_PREFS_KEY = 'arcbase_monitor_prefs';
 interface MonitorPrefs {
   activeTab?: string;
   refreshInterval?: number;

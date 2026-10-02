@@ -1,6 +1,6 @@
 import { keepPreviousData, type QueryClient } from '@tanstack/react-query';
-import type { BodyOf, QueryOf } from '@zenith/shared/core';
-import { inAppMessageContract, inAppTemplateContract } from '@zenith/shared/messaging';
+import type { BodyOf, QueryOf } from '@arcbase/shared/core';
+import { inAppMessageContract, inAppTemplateContract } from '@arcbase/shared/messaging';
 import { contractKey, useApiMutation, useApiQuery } from '@/lib/contract-query';
 
 export type InAppMessageListParams = NonNullable<QueryOf<typeof inAppMessageContract.adminList>>;

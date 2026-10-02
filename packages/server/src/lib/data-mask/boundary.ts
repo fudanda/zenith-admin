@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
 import { HTTPException } from 'hono/http-exception';
-import { looksMasked, maskAtPath, sensitiveKeyOf, type AnyOperation, type SensitiveFieldRef } from '@zenith/shared/core';
+import { looksMasked, maskAtPath, sensitiveKeyOf, type AnyOperation, type SensitiveFieldRef } from '@arcbase/shared/core';
 import { getPolicyMap, resolveEffectivePolicy, resolveMaskDecisions, type FieldMaskDecision } from './policies';
 import { registerOperationSensitivity } from './registry';
 

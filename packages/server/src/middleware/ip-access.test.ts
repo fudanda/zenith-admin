@@ -12,7 +12,7 @@
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Hono } from 'hono';
-import type { IpAccessSettings } from '@zenith/shared/settings';
+import type { IpAccessSettings } from '@arcbase/shared/settings';
 
 vi.mock('../lib/settings', () => ({
   getSettings: vi.fn(),

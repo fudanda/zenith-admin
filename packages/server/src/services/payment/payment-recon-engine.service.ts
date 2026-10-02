@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { isDeepStrictEqual } from 'node:util';
 import { and, eq, gte, inArray, lt, or } from 'drizzle-orm';
 import { HTTPException } from 'hono/http-exception';
-import { PAYMENT_RECON_RULE_VERSION, reconcileEntries, type ReconciliationEntry } from '@zenith/shared/payment';
+import { PAYMENT_RECON_RULE_VERSION, reconcileEntries, type ReconciliationEntry } from '@arcbase/shared/payment';
 import { db, readSnapshot } from '../../db';
 import type { DbExecutor } from '../../db/types';
 import { paymentChannelAccounts, paymentStatementPeriods, paymentStatements, paymentStatementEntries, paymentReconRuns,
